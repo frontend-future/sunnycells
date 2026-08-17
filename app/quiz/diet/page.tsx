@@ -171,6 +171,12 @@ export default function QuizLandingPage() {
                   maxWidth: 180,
                   maxHeight: 56,
                   objectFit: "contain",
+                  /* grayscale() alone would do nothing visible: two of these are
+                     already black. The opacity is what makes them read grey. 0.55
+                     lands black at roughly --ink-60 on white, which is the lightest
+                     value the system will put legible content at. */
+                  filter: "grayscale(1)",
+                  opacity: 0.55,
                 }}
               />
             ))}

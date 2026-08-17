@@ -14,14 +14,9 @@ export function StickyCta({ children }: { children: ReactNode }) {
         marginTop: "auto",
         paddingTop: "var(--space-5)",
         paddingBottom: "var(--space-5)",
-        background: "var(--white)",
-        borderTop: "1px solid var(--border-hairline)",
-        /* Bleed to the edges so the bar reads as chrome, while the button keeps the
-           page gutter. */
-        marginLeft: "calc(var(--page-gutter-mobile) * -1)",
-        marginRight: "calc(var(--page-gutter-mobile) * -1)",
-        paddingLeft: "var(--page-gutter-mobile)",
-        paddingRight: "var(--page-gutter-mobile)",
+        /* No fill and no rule: the button floats on the page rather than sitting in a
+           bar of its own. Content passes behind it as you scroll. */
+        background: "transparent",
       }}
     >
       {children}
