@@ -31,7 +31,11 @@ for (const vp of VIEWPORTS) {
   for (const [url, sel, label] of TARGETS) {
     await page.goto(BASE + url, { waitUntil: "networkidle" });
     const box = await page.locator(sel).first().boundingBox();
-    const scrollH = await page.evaluate(() => document.documentElement.scrollHeight);
+    const { scrollH, overflowX } = await page.evaluate(() => ({
+      scrollH: document.documentElement.scrollHeight,
+      overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    }));
+    if (overflowX > 0) console.log(`  SPILL ${label.padEnd(14)} page scrolls ${overflowX}px sideways`);
     if (!box) { console.log(`  ?? ${label.padEnd(14)} ${url}  (not found)`); continue; }
     const bottom = Math.round(box.y + box.height);
     const over = bottom - vp.height;

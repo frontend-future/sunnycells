@@ -42,7 +42,7 @@ export function IconButton({
           ? "var(--action-disabled-bg)"
           : solid
             ? hover ? "var(--ink-80)" : "var(--ink)"
-            : hover ? "var(--ink-10)" : "transparent",
+            : hover ? "var(--sun-tint)" : "transparent",
         color: disabled ? "var(--action-disabled-fg)" : solid ? "var(--white)" : "var(--ink)",
         cursor: disabled ? "not-allowed" : "pointer",
         transition: "background var(--duration-fast) var(--ease-standard)",

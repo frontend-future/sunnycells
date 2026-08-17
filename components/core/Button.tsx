@@ -16,8 +16,10 @@ const FILLS = {
   zest: { bg: "var(--zest)", fg: "var(--ink)", press: "var(--zest-press)", border: "transparent" },
   sky: { bg: "var(--sky)", fg: "var(--ink)", press: "var(--sky-press)", border: "transparent" },
   sprout: { bg: "var(--sprout)", fg: "var(--ink)", press: "var(--sprout-press)", border: "transparent" },
-  outline: { bg: "transparent", fg: "var(--ink)", press: "var(--ink-10)", border: "var(--ink)" },
-  quiet: { bg: "transparent", fg: "var(--ink)", press: "var(--ink-10)", border: "transparent" },
+  /* Hover and press on the unfilled buttons land on --sun-tint rather than a neutral
+     grey, so every interactive surface in the system warms to the brand yellow. */
+  outline: { bg: "transparent", fg: "var(--ink)", press: "var(--sun-tint)", border: "var(--ink)" },
+  quiet: { bg: "transparent", fg: "var(--ink)", press: "var(--sun-tint)", border: "transparent" },
 } as const;
 
 export type ButtonVariant = keyof typeof FILLS;

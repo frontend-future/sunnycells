@@ -35,7 +35,7 @@ export function OptionButton({
         fontWeight: 600,
         lineHeight: 1.35,
         color: "var(--ink)",
-        background: selected ? "var(--sun-tint)" : hover ? "var(--ink-10)" : "var(--white)",
+        background: selected || hover ? "var(--sun-tint)" : "var(--white)",
         border: selected ? "2px solid var(--ink)" : "1px solid var(--border-hairline)",
         borderRadius: "var(--radius-md)",
         cursor: "pointer",

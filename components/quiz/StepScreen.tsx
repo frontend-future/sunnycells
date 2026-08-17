@@ -79,6 +79,7 @@ function FieldError({ children }: { children: string }) {
 /** Segmented unit switch. Two options only, so a pair of buttons beats a select:
     no menu to open, and both hit targets already clear 48px. */
 function UnitSwitch({ units, value, onChange }: { units: readonly string[]; value: string; onChange: (u: string) => void }) {
+  const [hover, setHover] = useState("");
   return (
     <div role="radiogroup" aria-label="Units" style={{ display: "flex", gap: "var(--space-3)" }}>
       {units.map((u) => {
@@ -90,6 +91,8 @@ function UnitSwitch({ units, value, onChange }: { units: readonly string[]; valu
             role="radio"
             aria-checked={on}
             onClick={() => onChange(u)}
+            onMouseEnter={() => setHover(u)}
+            onMouseLeave={() => setHover("")}
             style={{
               appearance: "none",
               minHeight: "var(--tap-min)",
@@ -98,7 +101,8 @@ function UnitSwitch({ units, value, onChange }: { units: readonly string[]; valu
               fontSize: "var(--size-body)",
               fontWeight: on ? 800 : 600,
               color: "var(--ink)",
-              background: on ? "var(--sun-tint)" : "var(--white)",
+              background: on || hover === u ? "var(--sun-tint)" : "var(--white)",
+              transition: "background var(--duration-fast) var(--ease-standard)",
               border: on ? "2px solid var(--ink)" : "1px solid var(--border-hairline)",
               borderRadius: "var(--radius-md)",
               cursor: "pointer",

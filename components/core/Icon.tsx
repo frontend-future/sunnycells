@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, Menu, Minus, Plus, Repeat,
-  Search, ShieldCheck, ShoppingBag, Star, Truck, User, X,
+  ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, Mars, Menu, Minus, Plus,
+  Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User, Venus, X,
 } from "lucide-react";
 import type { CSSProperties } from "react";
 
@@ -15,6 +15,7 @@ const ICONS = {
   check: Check,
   "chevron-down": ChevronDown,
   "chevron-right": ChevronRight,
+  mars: Mars,
   menu: Menu,
   minus: Minus,
   plus: Plus,
@@ -25,6 +26,7 @@ const ICONS = {
   star: Star,
   truck: Truck,
   user: User,
+  venus: Venus,
   x: X,
 } as const;
 

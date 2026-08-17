@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Banner } from "@/components/feedback/Banner";
-import { StarRating } from "@/components/commerce/StarRating";
+import { NavLink } from "@/components/navigation/NavLink";
 import { Wordmark } from "@/components/core/Wordmark";
+import { RatingPill } from "@/components/quiz/RatingPill";
 import { StartChoice } from "@/components/quiz/StartChoice";
 import { dietQuiz } from "@/lib/quiz/diet";
 
@@ -12,34 +12,71 @@ export const metadata: Metadata = {
     "Twenty questions, about two minutes. Get a read on your cortisol pattern and what to do about it.",
 };
 
+const FOOTER_LINKS = [
+  [
+    { label: "Privacy policy", href: "#" },
+    { label: "Terms and conditions", href: "#" },
+    { label: "Refund policy", href: "#" },
+  ],
+  [
+    { label: "Shipping policy", href: "#" },
+    { label: "Contact", href: "#" },
+    { label: "Support", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Science", href: "#" },
+  ],
+];
+
 export default function QuizLandingPage() {
   return (
     <>
-      <Banner tone="ink">Free shipping · Sixty-day returns</Banner>
-
-      <header
+      {/* Two standing terms, split bold and regular like the reference bar. Neither is
+          a countdown: the brand does not run them. */}
+      <div
         style={{
+          background: "var(--ink)",
+          color: "var(--white)",
           display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
           justifyContent: "center",
-          padding: "var(--space-4) var(--page-gutter-mobile)",
-          borderBottom: "1px solid var(--border-hairline)",
+          gap: "var(--space-3) var(--space-10)",
+          padding: "8px var(--page-gutter-mobile)",
+          lineHeight: 1.35,
+          fontSize: "var(--size-meta)",
+          letterSpacing: "var(--tracking-caps)",
+          textTransform: "uppercase",
+          textAlign: "center",
         }}
       >
-        <Wordmark size={24} />
-      </header>
+        <span>
+          <strong style={{ fontWeight: 800 }}>Free shipping</strong>{" "}
+          <span style={{ fontWeight: 500 }}>on all orders</span>
+        </span>
+        <span>
+          <strong style={{ fontWeight: 800 }}>60 day</strong>{" "}
+          <span style={{ fontWeight: 500 }}>money back guarantee</span>
+        </span>
+      </div>
 
-      <main style={{ width: "100%", maxWidth: 720, margin: "0 auto", padding: "0 var(--page-gutter-mobile) var(--space-16)" }}>
-        {/* --shell, not --sun: the pouch is already the brand yellow, so a sun block
-            behind it hides the product it is meant to present.
-            The height cap is what keeps the gender buttons above the fold on a 375px
-            screen. Uncapped it was a 280px image and the buttons sat 254px down-page. */}
+      {/* The flat tint block sits behind the top of the product and the cutout
+          overhangs it onto white. That overhang is the brand's merchandising move, and
+          it is also what the reference's peach gradient is doing, minus the gradient. */}
+      <div style={{ position: "relative", background: "var(--white)" }}>
+        <div
+          aria-hidden="true"
+          style={{ position: "absolute", inset: "0 0 34% 0", background: "var(--sun-tint)" }}
+        />
         <div
           style={{
-            background: "var(--shell)",
-            borderRadius: "0 0 var(--radius-xl) var(--radius-xl)",
-            paddingTop: "var(--space-4)",
+            position: "relative",
+            width: "100%",
+            maxWidth: "var(--page-max)",
+            margin: "0 auto",
+            padding: "var(--space-4) var(--page-gutter-mobile) 0",
           }}
         >
+          <Wordmark size={26} />
           <Image
             src="/product/metabolic-morning-blend.png"
             alt="SC-21 Metabolic Morning Blend, a yellow pouch beside a scoop of powder"
@@ -47,86 +84,138 @@ export default function QuizLandingPage() {
             height={1792}
             priority
             style={{
-              width: "100%",
-              height: "auto",
-              maxHeight: "min(21vh, 240px)",
-              objectFit: "contain",
               display: "block",
+              width: "100%",
+              maxWidth: 560,
+              height: "auto",
+              maxHeight: "min(21vh, 300px)",
+              objectFit: "contain",
+              margin: "0 auto",
             }}
           />
         </div>
+      </div>
 
+      <main style={{ width: "100%", maxWidth: 720, margin: "0 auto", padding: "0 var(--page-gutter-mobile)" }}>
         <div style={{ textAlign: "center", paddingTop: "var(--space-6)" }}>
-          <div
-            style={{
-              fontFamily: "var(--font-label)",
-              fontSize: "var(--size-meta)",
-              fontWeight: 600,
-              letterSpacing: "var(--tracking-mono)",
-              color: "var(--ink-60)",
-            }}
-          >
-            Twenty questions · About two minutes
-          </div>
           <h1
             style={{
-              margin: "var(--space-3) 0 0",
+              margin: 0,
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(var(--size-h3), 8vw, var(--size-display))",
-              fontWeight: 900,
+              fontSize: "clamp(var(--size-h4), 7.6vw, var(--size-h1))",
               letterSpacing: "var(--tracking-display)",
-              lineHeight: "var(--leading-tight)",
+              lineHeight: "var(--leading-snug)",
               textTransform: "uppercase",
+              textWrap: "balance",
             }}
           >
-            Cortisol first.
-            <br />
-            The scale second.
+            <span style={{ fontWeight: 700 }}>Lose the cortisol belly with </span>
+            <span style={{ fontWeight: 900 }}>Metabolic Morning Blend</span>
           </h1>
+
           <p
             style={{
-              maxWidth: 520,
+              maxWidth: 480,
               margin: "var(--space-4) auto 0",
               fontSize: "var(--size-body)",
               lineHeight: 1.45,
+              textWrap: "pretty",
             }}
           >
-            Cortisol that stays high changes where your body stores fat. See where yours sits.
+            Cortisol that stays high changes where you store fat and how you sleep.
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>
-            <StarRating value={4.7} count={12480} showValue />
+            <RatingPill value={4.7} count={12480} />
           </div>
 
           <StartChoice
             config={dietQuiz}
             field="gender"
-            options={[{ label: "Male" }, { label: "Female", variant: "accent" }]}
+            options={[
+              { label: "Male", icon: "mars" },
+              { label: "Female", icon: "venus", variant: "accent" },
+            ]}
           />
 
           <p style={{ marginTop: "var(--space-4)", marginBottom: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-            Your answers stay in this browser until you choose to send them.
+            Twenty questions, about two minutes. Your answers stay in this browser.
           </p>
         </div>
 
-        <section style={{ marginTop: "var(--space-16)", borderTop: "1px solid var(--border-hairline)", paddingTop: "var(--space-10)" }}>
-          <h2 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "var(--size-h3)", fontWeight: 800, letterSpacing: "var(--tracking-heading)" }}>
-            What the quiz is built on
+        <section style={{ padding: "var(--space-20) 0 var(--space-16)", textAlign: "center" }}>
+          <h2
+            style={{
+              margin: "0 0 var(--space-10)",
+              fontFamily: "var(--font-text)",
+              fontSize: "var(--size-body-lg)",
+              fontWeight: 600,
+              letterSpacing: 0,
+            }}
+          >
+            Benefits of our ingredients are researched by:
           </h2>
-          <p style={{ fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)", maxWidth: 620 }}>
-            The questions follow the symptom clusters used in published cortisol research:
-            central fat gain, disrupted sleep, cognitive fog, skin thinning, and appetite
-            change. It is a screening questionnaire, not a diagnosis. A blood or saliva
-            test is the only way to measure your cortisol, and a doctor is the only person
-            who can interpret it.
-          </p>
+          {/* NO PUBLICATION LOGOS WERE SUPPLIED, and the reference's belong to third
+              parties: reprinting them here would assert an endorsement of SUNNYCELLS
+              that does not exist. The slot is held open the same way ProductCard holds
+              one open for a missing cutout. */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+              gap: "var(--space-6)",
+              maxWidth: 560,
+              margin: "0 auto",
+            }}
+          >
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: 72,
+                  border: "1px dashed var(--border-hairline)",
+                  borderRadius: "var(--radius-md)",
+                  fontFamily: "var(--font-label)",
+                  fontSize: "var(--size-meta)",
+                  fontWeight: 600,
+                  letterSpacing: "var(--tracking-mono)",
+                  color: "var(--ink-60)",
+                }}
+              >
+                Publication logo
+              </div>
+            ))}
+          </div>
         </section>
       </main>
 
-      <footer style={{ background: "var(--shell)", borderTop: "1px solid var(--border-hairline)", padding: "var(--space-10) var(--page-gutter-mobile)" }}>
+      <footer style={{ borderTop: "1px solid var(--border-hairline)", padding: "var(--space-12) var(--page-gutter-mobile)" }}>
         <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
-          <Wordmark size={20} />
-          <p style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)", marginBottom: 0 }}>
+          <Wordmark size={22} tone="ink" style={{ opacity: 0.35 }} />
+          <p style={{ margin: "var(--space-6) 0 var(--space-6)", fontSize: "var(--size-meta)", color: "var(--ink-80)" }}>
+            Copyright © 2026 SUNNYCELLS. All rights reserved.
+          </p>
+          {FOOTER_LINKS.map((row, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "0 var(--space-6)",
+              }}
+            >
+              {row.map((l) => (
+                <NavLink key={l.label} href={l.href} size="sm" style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
+                  {l.label}
+                </NavLink>
+              ))}
+            </div>
+          ))}
+          <p style={{ margin: "var(--space-8) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.5 }}>
             These statements have not been evaluated by the Food and Drug Administration.
             This product is not intended to diagnose, treat, cure, or prevent any disease.
           </p>

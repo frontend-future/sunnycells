@@ -32,7 +32,7 @@ export function Tag({ children, selected = false, onClick, style, ...rest }: Tag
         fontSize: "var(--size-body)",
         fontWeight: 600,
         color: "var(--ink)",
-        background: selected ? "var(--sun-tint)" : hover && interactive ? "var(--ink-10)" : "var(--white)",
+        background: selected || (hover && interactive) ? "var(--sun-tint)" : "var(--white)",
         border: selected ? "2px solid var(--ink)" : "1px solid var(--border-hairline)",
         borderRadius: "var(--radius-pill)",
         cursor: interactive ? "pointer" : "default",

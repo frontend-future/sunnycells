@@ -33,7 +33,7 @@ export function RadioOption({
         gap: "var(--space-4)",
         alignItems: "flex-start",
         padding: "var(--space-5)",
-        background: selected ? "var(--sun-tint)" : hover ? "var(--shell)" : "var(--white)",
+        background: selected || hover ? "var(--sun-tint)" : "var(--white)",
         border: "2px solid " + (selected ? "var(--ink)" : "var(--border-hairline)"),
         borderRadius: "var(--radius-md)",
         cursor: "pointer",

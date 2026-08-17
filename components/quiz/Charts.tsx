@@ -7,11 +7,16 @@ import type { Projection, Row } from "@/lib/quiz/assessment";
  * uses. No chart library: two inline SVGs are smaller than the import would be.
  */
 
+/* Each row starts a beat after the one above it, so the eye reads down the list in
+   order instead of taking six bars at once. Calm and quick: no bounce, and the whole
+   sequence is done inside a second. */
+const ROW_STAGGER_MS = 110;
+
 /** Horizontal bars against a reference tick for the population average. */
 export function AssessmentChart({ rows }: { rows: Row[] }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
-      {rows.map((r) => (
+      {rows.map((r, i) => (
         <div key={r.label}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "var(--space-4)" }}>
             <span style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{r.label}</span>
@@ -28,6 +33,8 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
                 height: "100%",
                 background: "var(--ink)",
                 borderRadius: "var(--radius-xs)",
+                animation: "sc-reveal-x var(--duration-slow) var(--ease-standard) both",
+                animationDelay: `${i * ROW_STAGGER_MS}ms`,
               }}
             />
             {/* The average sits as a tick on the same track, so the comparison is a
@@ -43,6 +50,8 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
                 width: 2,
                 background: "var(--ink-60)",
                 boxShadow: "0 0 0 2px var(--white)",
+                animation: "sc-fade-in var(--duration-base) var(--ease-standard) both",
+                animationDelay: `${i * ROW_STAGGER_MS + 220}ms`,
               }}
             />
           </div>
