@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  ArrowRight, Check, ChevronDown, ChevronRight, Menu, Minus, Plus, Repeat,
+  ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, Menu, Minus, Plus, Repeat,
   Search, ShieldCheck, ShoppingBag, Star, Truck, User, X,
 } from "lucide-react";
 import type { CSSProperties } from "react";
@@ -10,6 +10,7 @@ import type { CSSProperties } from "react";
    The working set is deliberately closed. Adding an icon is a design decision,
    so it happens here, not at a call site. */
 const ICONS = {
+  "arrow-left": ArrowLeft,
   "arrow-right": ArrowRight,
   check: Check,
   "chevron-down": ChevronDown,
