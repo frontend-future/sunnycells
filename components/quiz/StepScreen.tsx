@@ -59,8 +59,25 @@ function Body({ step, answers, set, answer, go }: BodyProps) {
             {step.bullets.map((b) => (
               <li key={b} style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
                 {step.bulletIcon === "check" ? (
-                  <span aria-hidden="true" style={{ flex: "none", marginTop: 2, color: "var(--ink)" }}>
-                    <Icon name="check" size={24} strokeWidth={3} />
+                  /* Sun on an ink disc, not a bare sun tick. --sun on the --shell step
+                     background is 1.4:1, so a loose yellow stroke would barely be
+                     there. Against ink it is 12.6:1 and still unmistakably the brand. */
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      flex: "none",
+                      marginTop: 1,
+                      width: 26,
+                      height: 26,
+                      borderRadius: "50%",
+                      background: "var(--ink)",
+                      color: "var(--sun)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Icon name="check" size={16} strokeWidth={3.5} />
                   </span>
                 ) : (
                   <span aria-hidden="true" style={{ flex: "none", width: 8, height: 8, marginTop: 11, borderRadius: "50%", background: "var(--ink)" }} />
