@@ -12,8 +12,13 @@ export type Step =
       question: string;
       body: string;
       bullets?: string[];
+      /** Marker for each bullet. Defaults to a dot. Use "check" only where the list
+          is benefits: a tick beside a symptom reads as a good thing. */
+      bulletIcon?: "check";
       /** Optional line after the bullets, before the button. */
       footnote?: string;
+      /** Centres the question under the wordmark, for the brand-statement screen. */
+      brandHeading?: boolean;
       cta: string;
     }
   | { slug: string; kind: "height"; question: string }

@@ -1,7 +1,9 @@
 import type { CSSProperties, HTMLAttributes } from "react";
 
 export type WordmarkProps = HTMLAttributes<HTMLSpanElement> & {
-  size?: number;
+  /** A number is pixels. A string passes straight to font-size, so "1.35em" scales
+      the mark against whatever it sits inside. */
+  size?: number | string;
   tone?: "ink" | "inverse";
   style?: CSSProperties;
 };

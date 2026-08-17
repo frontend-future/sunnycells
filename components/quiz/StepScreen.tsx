@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/core/Button";
+import { Icon } from "@/components/core/Icon";
+import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
 import { nextHref, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
@@ -24,7 +26,11 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
 
   return (
     <QuizChrome step={index + 1} total={config.steps.length} backHref={prevHref(config, index)}>
-      <QuizQuestion>{step.question}</QuizQuestion>
+      {step.kind === "info" && step.brandHeading ? (
+        <BrandHeading>{step.question}</BrandHeading>
+      ) : (
+        <QuizQuestion>{step.question}</QuizQuestion>
+      )}
       <Body step={step} answers={answers} set={set} answer={answer} go={go} />
     </QuizChrome>
   );
@@ -52,7 +58,13 @@ function Body({ step, answers, set, answer, go }: BodyProps) {
           <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
             {step.bullets.map((b) => (
               <li key={b} style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
-                <span aria-hidden="true" style={{ flex: "none", width: 8, height: 8, marginTop: 11, borderRadius: "50%", background: "var(--ink)" }} />
+                {step.bulletIcon === "check" ? (
+                  <span aria-hidden="true" style={{ flex: "none", marginTop: 2, color: "var(--ink)" }}>
+                    <Icon name="check" size={24} strokeWidth={3} />
+                  </span>
+                ) : (
+                  <span aria-hidden="true" style={{ flex: "none", width: 8, height: 8, marginTop: 11, borderRadius: "50%", background: "var(--ink)" }} />
+                )}
                 {b}
               </li>
             ))}
@@ -75,6 +87,28 @@ function Body({ step, answers, set, answer, go }: BodyProps) {
   if (step.kind === "height") return <HeightBody answers={answers} set={set} go={go} />;
   if (step.kind === "number") return <NumberBody step={step} answers={answers} set={set} go={go} />;
   return <EmailBody step={step} set={set} go={go} />;
+}
+
+/** Wordmark on its own line, question centred under it. The whole thing is one h1,
+    so the accessible name still reads "Sunnycells is made for you". */
+function BrandHeading({ children }: { children: string }) {
+  return (
+    <h1
+      style={{
+        margin: "0 0 var(--space-6)",
+        textAlign: "center",
+        fontFamily: "var(--font-display)",
+        fontSize: "clamp(var(--size-h4), 7vw, var(--size-h2))",
+        fontWeight: 500,
+        letterSpacing: "var(--tracking-heading)",
+        lineHeight: "var(--leading-snug)",
+      }}
+    >
+      <Wordmark size="1.35em" style={{ display: "block", marginBottom: "0.15em" }} />
+      {children.replace(/\syou$/, " ")}
+      <span style={{ fontWeight: 900 }}>you</span>
+    </h1>
+  );
 }
 
 function FieldError({ children }: { children: string }) {
