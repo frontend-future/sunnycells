@@ -1,4 +1,4 @@
-import { HORIZON_DAYS, inUnit, levelWord, type Metabolism, type Projection, type Row } from "@/lib/quiz/assessment";
+import { HORIZON_DAYS, inUnit, levelWord, RATE_LABELS, type Metabolism, type Projection, type Row } from "@/lib/quiz/assessment";
 
 /**
  * Both charts are single series and every value is printed on the mark, so identity
@@ -279,32 +279,43 @@ export function ProjectionChart({
 /* Four bands running slow to fast, so the ramp is the severity scale reversed: the
    bad end is on the left here. Every band is named underneath and both markers carry
    a text label, so the colour is a reinforcement rather than the message. */
-const RATE_BANDS = [
-  { color: "var(--scale-high)", label: "Very slow" },
-  { color: "var(--zest)", label: "Slow" },
-  { color: "var(--scale-mid)", label: "Fast" },
-  { color: "var(--scale-low)", label: "Very fast" },
-];
+/* One continuous ramp across the whole track rather than four flat blocks. Each
+   segment paints the same gradient at four times its own width and slides it to its
+   own slice, so the colour runs unbroken through the gaps without anyone hand mixing
+   the in-between values. */
+const RATE_RAMP = "linear-gradient(90deg, var(--scale-high), var(--zest), var(--scale-mid), var(--scale-low))";
 
 const MARKER_AREA = 66;
 const LABEL_H = 22;
 const ARROW_H = 9;
 
+const BAR_MS = 520;
+const SLIDE_MS = 1100;
+const SLIDE_DELAY_MS = 700;
+
 /* The two labels sit on separate rows joined to the bar by a hairline. Side by side
    they collided the moment the markers were within about 40% of each other, which is
    most profiles, and shortening the copy only moves where it breaks. */
-function Marker({ at, label, row }: { at: number; label: string; row: 0 | 1 }) {
+function Marker({
+  at, label, row, animation,
+}: {
+  at: number;
+  label: string;
+  row: 0 | 1;
+  animation: string;
+}) {
   const stem = MARKER_AREA - LABEL_H * (row + 1) - ARROW_H;
   return (
     <div
       style={{
         position: "absolute",
         top: row * LABEL_H,
-        left: `clamp(0%, ${at}%, 100%)`,
+        left: `${at}%`,
         transform: "translateX(-50%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        animation,
       }}
     >
       <span
@@ -334,24 +345,57 @@ function Marker({ at, label, row }: { at: number; label: string; row: 0 | 1 }) {
 
 /** Where her metabolism sits now, and where the plan puts it. */
 export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: string }) {
+  /* The plan marker starts where she is now and travels, so the screen shows the move
+     rather than just its endpoint. The keyframes carry her own numbers, which is why
+     they are emitted here instead of living in globals.css. Under reduced motion the
+     global rule collapses the run to a single 1ms pass, which lands it on the final
+     frame rather than holding it at the start. */
+  const slide = `@keyframes sc-metab-slide {
+    0% { left: ${m.now}%; opacity: 0; }
+    18% { left: ${m.now}%; opacity: 1; }
+    100% { left: ${m.after}%; opacity: 1; }
+  }`;
+
   return (
     <div>
+      <style>{slide}</style>
+
       <div style={{ position: "relative", height: MARKER_AREA, marginBottom: "var(--space-2)" }}>
-        <Marker at={m.now} label="Right now" row={0} />
-        <Marker at={m.after} label={afterLabel} row={1} />
+        <Marker
+          at={m.now}
+          label="Right now"
+          row={0}
+          animation={`sc-fade-in var(--duration-base) var(--ease-standard) ${BAR_MS}ms both`}
+        />
+        <Marker
+          at={m.after}
+          label={afterLabel}
+          row={1}
+          animation={`sc-metab-slide ${SLIDE_MS}ms var(--ease-out) ${SLIDE_DELAY_MS}ms both`}
+        />
       </div>
 
-      <div style={{ display: "flex", gap: 3 }} role="img" aria-label={`Metabolism now: ${m.label}`}>
-        {RATE_BANDS.map((b, i) => (
+      <div
+        style={{
+          display: "flex",
+          gap: 3,
+          animation: `sc-reveal-x ${BAR_MS}ms var(--ease-standard) both`,
+        }}
+        role="img"
+        aria-label={`Metabolism now: ${RATE_LABELS[1]}. With the plan: ${RATE_LABELS[3]}`}
+      >
+        {RATE_LABELS.map((l, i) => (
           <span
-            key={b.label}
+            key={l}
             style={{
               flex: 1,
               height: 14,
-              background: b.color,
+              backgroundImage: RATE_RAMP,
+              backgroundSize: `${RATE_LABELS.length * 100}% 100%`,
+              backgroundPosition: `${(i / (RATE_LABELS.length - 1)) * 100}% 0`,
               borderRadius:
                 i === 0 ? "var(--radius-pill) 0 0 var(--radius-pill)"
-                : i === RATE_BANDS.length - 1 ? "0 var(--radius-pill) var(--radius-pill) 0"
+                : i === RATE_LABELS.length - 1 ? "0 var(--radius-pill) var(--radius-pill) 0"
                 : 2,
             }}
           />
@@ -359,9 +403,9 @@ export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: 
       </div>
 
       <div style={{ display: "flex", marginTop: "var(--space-2)" }}>
-        {RATE_BANDS.map((b) => (
-          <span key={b.label} style={{ flex: 1, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-            {b.label}
+        {RATE_LABELS.map((l) => (
+          <span key={l} style={{ flex: 1, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
+            {l}
           </span>
         ))}
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/core/Card";
-import { metabolism } from "@/lib/quiz/assessment";
+import { metabolism, rateLabel } from "@/lib/quiz/assessment";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { MetabolismGauge } from "./Charts";
@@ -35,7 +35,7 @@ export function MetabolismScreen() {
           {/* Highlighted rather than set in a status colour, the same emphasis the
               summary verdict uses. */}
           <span style={{ background: "var(--sun)", color: "var(--ink)", padding: "0 0.14em" }}>
-            {ready ? m.label : " "}
+            {ready ? rateLabel(m.now) : " "}
           </span>
         </div>
         <p

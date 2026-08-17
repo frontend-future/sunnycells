@@ -72,16 +72,27 @@ export function assessmentRows(a: Answers): Row[] {
   ];
 }
 
+/** The four bands of the metabolism track, slow to fast, each a quarter wide. */
+export const RATE_LABELS = ["Very slow", "Slow", "Fast", "Very fast"] as const;
+
+/** The band a position falls in, so a label can never disagree with its marker. */
+export function rateLabel(pct: number): (typeof RATE_LABELS)[number] {
+  return RATE_LABELS[Math.min(RATE_LABELS.length - 1, Math.floor((pct / 100) * RATE_LABELS.length))];
+}
+
 export type Metabolism = {
-  label: "Very slow" | "Slow";
-  /** Percentages across the four-band track, 0 very slow to 100 very fast. */
+  /** Percentages across the track, 0 very slow to 100 very fast. */
   now: number;
   after: number;
 };
 
-/* The same stress and sleep answers that drive the cortisol marker, read as a
-   metabolism rate. Bands are quarters: 0-25 very slow, 25-50 slow, 50-75 fast,
-   75-100 very fast. */
+/* Read from the same stress and sleep answers that drive the cortisol marker, so the
+   two screens cannot disagree. "Right now" stays inside the Slow band and moves within
+   it: heavier stress sits at the bottom of the band, lighter stress near the top. The
+   plan lands just inside Very fast. */
+const NOW_BAND: [number, number] = [27, 47];
+const AFTER = 79;
+
 export function metabolism(a: Answers): Metabolism {
   const stress = a["stress-level"];
   const sleep = a.sleep;
@@ -89,8 +100,8 @@ export function metabolism(a: Answers): Metabolism {
     (stress === "I am usually always stressed" ? 85 : stress === "Only at certain moments of the day" ? 55 : 25) +
     (sleep === "Less than 5 hours" ? 15 : sleep === "5 to 6 hours" ? 8 : 0);
 
-  const now = raw >= 85 ? 14 : raw >= 55 ? 33 : 40;
-  return { label: now < 25 ? "Very slow" : "Slow", now, after: now + 36 };
+  const t = Math.max(0, Math.min(1, raw / 100));
+  return { now: Math.round(NOW_BAND[1] - t * (NOW_BAND[1] - NOW_BAND[0])), after: AFTER };
 }
 
 /** The word for a score, so the level is never carried by colour alone. */

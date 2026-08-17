@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { assessmentRows, HIGH_FROM, levelWord, projection, type Answers } from "./assessment.ts";
+import { assessmentRows, HIGH_FROM, levelWord, metabolism, rateLabel, projection, type Answers } from "./assessment.ts";
 
 test("scores stay inside 0 to 100 for empty and extreme answers", () => {
   const cases: Answers[] = [
@@ -54,6 +54,21 @@ test("even the worst answers leave a couple at the head of yellow", () => {
   const high = rows.filter((r) => levelWord(r.you) === "High").length;
   assert.ok(high >= 3, `only ${high} markers reached red`);
   assert.ok(rows.length - high >= 1 && rows.length - high <= 2, `${rows.length - high} sat below red, want 1 or 2`);
+});
+
+test("the metabolism marker stays in Slow and the plan lands in Very fast", () => {
+  const cases: Answers[] = [
+    {},
+    { "stress-level": "I am usually always stressed", sleep: "Less than 5 hours" },
+    { "stress-level": "Only at certain moments of the day", sleep: "5 to 6 hours" },
+    { "stress-level": "I usually feel good", sleep: "More than 8 hours" },
+  ];
+  for (const a of cases) {
+    const m = metabolism(a);
+    assert.equal(rateLabel(m.now), "Slow", `now landed in ${rateLabel(m.now)} at ${m.now}`);
+    assert.equal(rateLabel(m.after), "Very fast", `after landed in ${rateLabel(m.after)} at ${m.after}`);
+    assert.ok(m.after > m.now, "the plan must move the marker to the right");
+  }
 });
 
 test("the projection starts at the current weight and ends at the target", () => {
