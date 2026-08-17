@@ -21,7 +21,19 @@ export type Row = { label: string; you: number };
 
 const yes = (a: Answers, slug: string) => a[slug] === "Yes";
 
-/** 0 to 100, where 100 is the most disrupted end of the scale. */
+/* The gauge draws seven equal segments, so the bands are sevenths of the track, not
+   thirds. Keep these two in step with SEGMENTS in Charts.tsx. */
+export const MEDIUM_FROM = 100 * (2 / 7);
+export const HIGH_FROM = 100 * (5 / 7);
+
+/* Every marker lands at the top of the yellow band or into red. A raw 0 is the top
+   of yellow and a raw 100 is deep red, so answers still move the marker, they move it
+   within that range rather than down into green. */
+const FLOOR = 62;
+const CEILING = 96;
+const toScale = (raw: number) => Math.round(FLOOR + (clamp(raw) / 100) * (CEILING - FLOOR));
+
+/** 0 to 100 on the drawn scale, where 100 is the most disrupted end. */
 export function assessmentRows(a: Answers): Row[] {
   const stress = a["stress-level"];
   const sleep = a.sleep;
@@ -31,29 +43,29 @@ export function assessmentRows(a: Answers): Row[] {
   const sleepPenalty = sleep === "Less than 5 hours" ? 15 : sleep === "5 to 6 hours" ? 8 : 0;
 
   return [
-    { label: "Cortisol level", you: clamp(stressScore + sleepPenalty) },
-    { label: "Skin changes", you: yes(a, "skin-changes") ? 78 : 22 },
-    { label: "Brain fog", you: yes(a, "brain-fog") ? 82 : 24 },
-    { label: "Difficulty of losing weight", you: yes(a, "weight-loss-difficulty") ? 86 : 28 },
+    { label: "Cortisol level", you: toScale(stressScore + sleepPenalty) },
+    { label: "Skin changes", you: toScale(yes(a, "skin-changes") ? 78 : 22) },
+    { label: "Brain fog", you: toScale(yes(a, "brain-fog") ? 82 : 24) },
+    { label: "Difficulty of losing weight", you: toScale(yes(a, "weight-loss-difficulty") ? 86 : 28) },
     {
       label: "Hunger level",
       /* Two signals: when energy drops in the day, and whether a full meal actually
          settles hunger. Still hungry after eating is the stronger of the two, so it
          adds on top rather than replacing the tiredness read. */
-      you: clamp(
+      you: toScale(
         (tired === "I usually feel tired all day long" ? 78
           : tired === "I feel tired before meals" ? 64
           : tired === "I feel sleepy after lunch" ? 50
           : 22) + (yes(a, "post-meal-hunger") ? 16 : 0),
       ),
     },
-    { label: "Headaches level", you: yes(a, "headaches") ? 74 : 20 },
+    { label: "Headaches level", you: toScale(yes(a, "headaches") ? 74 : 20) },
   ];
 }
 
 /** The word for a score, so the level is never carried by colour alone. */
 export function levelWord(score: number): "Low" | "Medium" | "High" {
-  return score < 34 ? "Low" : score < 67 ? "Medium" : "High";
+  return score < MEDIUM_FROM ? "Low" : score < HIGH_FROM ? "Medium" : "High";
 }
 
 /** How many markers land in the high band, which sets the headline. */

@@ -13,8 +13,8 @@ import { StickyCta } from "./StickyCta";
 function verdict(rows: Row[]): string {
   const high = highCount(rows);
   if (high >= 4) return "higher than normal";
-  if (high >= 2) return "a little above normal";
-  return "close to normal";
+  if (high >= 1) return "a little above normal";
+  return "on the high side of normal";
 }
 
 export function SummaryScreen() {
