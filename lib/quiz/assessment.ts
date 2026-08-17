@@ -26,12 +26,20 @@ const yes = (a: Answers, slug: string) => a[slug] === "Yes";
 export const MEDIUM_FROM = 100 * (2 / 7);
 export const HIGH_FROM = 100 * (5 / 7);
 
-/* Every marker lands at the top of the yellow band or into red. A raw 0 is the top
-   of yellow and a raw 100 is deep red, so answers still move the marker, they move it
-   within that range rather than down into green. */
-const FLOOR = 62;
-const CEILING = 96;
-const toScale = (raw: number) => Math.round(FLOOR + (clamp(raw) / 100) * (CEILING - FLOOR));
+/* Every marker lands at the top of the yellow band or into red: the floor is above
+   green, so no answer puts a marker there. Answers still move the marker, they move
+   it inside that range.
+
+   Each marker carries its own ceiling, set by how much the quiz actually knows about
+   it. Cortisol is a composite of stress and sleep, so it can run the whole way up.
+   Skin changes and headaches rest on one yes-or-no answer each and are non-specific
+   symptoms, so they top out at the head of yellow however she answers. That is also
+   why six identical red bars never appear: a profile that reads the same on every
+   line is telling you it did not measure anything. */
+const FLOOR = 66;
+
+const toScale = (raw: number, ceiling: number) =>
+  Math.round(FLOOR + (clamp(raw) / 100) * (ceiling - FLOOR));
 
 /** 0 to 100 on the drawn scale, where 100 is the most disrupted end. */
 export function assessmentRows(a: Answers): Row[] {
@@ -43,10 +51,10 @@ export function assessmentRows(a: Answers): Row[] {
   const sleepPenalty = sleep === "Less than 5 hours" ? 15 : sleep === "5 to 6 hours" ? 8 : 0;
 
   return [
-    { label: "Cortisol level", you: toScale(stressScore + sleepPenalty) },
-    { label: "Skin changes", you: toScale(yes(a, "skin-changes") ? 78 : 22) },
-    { label: "Brain fog", you: toScale(yes(a, "brain-fog") ? 82 : 24) },
-    { label: "Difficulty of losing weight", you: toScale(yes(a, "weight-loss-difficulty") ? 86 : 28) },
+    { label: "Cortisol level", you: toScale(stressScore + sleepPenalty, 96) },
+    { label: "Skin changes", you: toScale(yes(a, "skin-changes") ? 78 : 22, 70) },
+    { label: "Brain fog", you: toScale(yes(a, "brain-fog") ? 82 : 24, 92) },
+    { label: "Difficulty of losing weight", you: toScale(yes(a, "weight-loss-difficulty") ? 86 : 28, 94) },
     {
       label: "Hunger level",
       /* Two signals: when energy drops in the day, and whether a full meal actually
@@ -57,9 +65,10 @@ export function assessmentRows(a: Answers): Row[] {
           : tired === "I feel tired before meals" ? 64
           : tired === "I feel sleepy after lunch" ? 50
           : 22) + (yes(a, "post-meal-hunger") ? 16 : 0),
+        90,
       ),
     },
-    { label: "Headaches level", you: toScale(yes(a, "headaches") ? 74 : 20) },
+    { label: "Headaches level", you: toScale(yes(a, "headaches") ? 74 : 20, 69) },
   ];
 }
 

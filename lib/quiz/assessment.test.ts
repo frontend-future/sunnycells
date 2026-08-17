@@ -39,7 +39,7 @@ test("every marker lands at the top of yellow or into red, whatever the answers"
   }
 });
 
-test("the worst answers push every marker into red", () => {
+test("even the worst answers leave a couple at the head of yellow", () => {
   const allBad: Answers = {
     "stress-level": "I am usually always stressed",
     sleep: "Less than 5 hours",
@@ -50,9 +50,10 @@ test("the worst answers push every marker into red", () => {
     "post-meal-hunger": "Yes",
     headaches: "Yes",
   };
-  for (const row of assessmentRows(allBad)) {
-    assert.equal(levelWord(row.you), "High", `${row.label} only reached ${row.you}`);
-  }
+  const rows = assessmentRows(allBad);
+  const high = rows.filter((r) => levelWord(r.you) === "High").length;
+  assert.ok(high >= 3, `only ${high} markers reached red`);
+  assert.ok(rows.length - high >= 1 && rows.length - high <= 2, `${rows.length - high} sat below red, want 1 or 2`);
 });
 
 test("the projection starts at the current weight and ends at the target", () => {
