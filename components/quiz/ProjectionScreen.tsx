@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/core/Card";
-import { projection } from "@/lib/quiz/assessment";
+import { inUnit, projection } from "@/lib/quiz/assessment";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { ProjectionChart } from "./Charts";
@@ -24,7 +24,8 @@ export function ProjectionScreen() {
 
   /* Dates are read on the client only, behind `ready`. A statically rendered page
      would otherwise bake in the date it was built and go stale after a deploy. */
-  const twoWeekLoss = p ? p.start - p.points[2].lb : 0;
+  const twoWeekLoss = p ? inUnit(p.start - p.points[2].lb, p.unit) : 0;
+  const unit = p?.unit ?? "lb";
 
   return (
     <ResultsShell>
@@ -39,7 +40,7 @@ export function ProjectionScreen() {
         }}
       >
         {ready && p
-          ? `You can lose ${twoWeekLoss} lb by ${dayMonth(addDays(14))}`
+          ? `You can lose ${twoWeekLoss} ${unit} by ${dayMonth(addDays(14))}`
           : "Your weight timeline"}
       </h1>
 
@@ -77,12 +78,12 @@ export function ProjectionScreen() {
         {p ? (
           <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
             If you start drinking Metabolic Morning Blend, we estimate that you will be
-            able to lose {twoWeekLoss} lb within the first 2 weeks. We matched you against
+            able to lose {twoWeekLoss} {unit} within the first 2 weeks. We matched you against
             people with a similar profile{" "}
             <strong style={{ fontWeight: 800 }}>
               ({answers.gender === "Male" ? "male" : "female"}
-              {answers.age ? `, ${answers.age} years old` : ""}, {p.start} lb starting
-              weight).
+              {answers.age ? `, ${answers.age} years old` : ""}, {inUnit(p.start, p.unit)} {p.unit}{" "}
+              starting weight).
             </strong>
           </p>
         ) : null}

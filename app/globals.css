@@ -130,6 +130,12 @@ body {
   to { clip-path: inset(0 0 0 0); }
 }
 
+/* Draws an SVG path on by widening the clip that holds it. */
+@keyframes sc-grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 @keyframes sc-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }

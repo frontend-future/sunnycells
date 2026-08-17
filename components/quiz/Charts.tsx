@@ -1,4 +1,4 @@
-import { levelWord, type Projection, type Row } from "@/lib/quiz/assessment";
+import { inUnit, levelWord, type Projection, type Row } from "@/lib/quiz/assessment";
 
 /**
  * Both charts are single series and every value is printed on the mark, so identity
@@ -164,6 +164,9 @@ export function ProjectionChart({
   const x = (t: number) => padX + t * (W - padX * 2);
   const y = (lb: number) => padT + (1 - (lb - lo) / (hi - lo)) * (H - padT - padB);
 
+  const DRAW_MS = 1400;
+  const show = (lb: number) => `${inUnit(lb, p.unit)} ${p.unit}`;
+
   const plan = p.points.map((pt, i) => `${i ? "L" : "M"}${x(pt.week / p.weeks).toFixed(1)} ${y(pt.lb).toFixed(1)}`).join(" ");
   const area = `${plan} L${x(1).toFixed(1)} ${H - padB} L${x(0).toFixed(1)} ${H - padB} Z`;
 
@@ -179,21 +182,53 @@ export function ProjectionChart({
         viewBox={`0 0 ${W} ${H}`}
         width="100%"
         role="img"
-        aria-label={`Projected weight from ${p.start} pounds to ${p.target} pounds over ${p.weeks} weeks, against a dieting curve that regains most of what it loses`}
+        aria-label={`Projected weight from ${show(p.start)} to ${show(p.target)} over ${p.weeks} weeks, against a dieting curve that regains most of what it loses`}
         style={{ display: "block", overflow: "visible" }}
       >
+        <defs>
+          {/* Translucent fade rather than a flat block. The system bars gradients as
+              page backgrounds; this is a chart area fill, where the fade is what stops
+              the block competing with the line drawn on top of it. */}
+          <linearGradient id="sc-plan-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--series-plan)" stopOpacity={0.28} />
+            <stop offset="100%" stopColor="var(--series-plan)" stopOpacity={0.02} />
+          </linearGradient>
+          {/* The lines are drawn on by widening this clip, which works for the dashed
+              series too. Animating stroke-dashoffset would only march the dashes. */}
+          <clipPath id="sc-plan-reveal">
+            <rect
+              x={0}
+              y={0}
+              width={W}
+              height={H}
+              style={{
+                transformBox: "fill-box",
+                transformOrigin: "left center",
+                animation: `sc-grow-x ${DRAW_MS}ms var(--ease-standard) both`,
+              }}
+            />
+          </clipPath>
+        </defs>
+
         {[1 / 3, 2 / 3].map((t) => (
           <line key={t} x1={x(t)} y1={padT - 6} x2={x(t)} y2={H - padB} stroke="var(--ink-20)" strokeWidth={1} />
         ))}
         <line x1={x(0)} y1={H - padB} x2={x(1)} y2={H - padB} stroke="var(--ink-20)" strokeWidth={1} />
 
-        <path d={area} fill="var(--sprout-tint)" />
-        {/* Dashed, so the two series differ by more than hue. */}
-        <path d={diet} fill="none" stroke="var(--series-diet)" strokeWidth={2.5} strokeDasharray="7 5" strokeLinecap="round" />
-        <path d={plan} fill="none" stroke="var(--series-plan)" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+        <g clipPath="url(#sc-plan-reveal)">
+          <path d={area} fill="url(#sc-plan-fill)" />
+          {/* Dashed, so the two series differ by more than hue. */}
+          <path d={diet} fill="none" stroke="var(--series-diet)" strokeWidth={2.5} strokeDasharray="7 5" strokeLinecap="round" />
+          <path d={plan} fill="none" stroke="var(--series-plan)" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+        </g>
 
-        <Pill cx={Math.max(x(0) + 16, 34)} cy={y(p.start)} label={`${p.start} lb`} />
-        <Pill cx={Math.min(x(1) - 16, W - 34)} cy={y(p.target)} label={`${p.target} lb`} />
+        {/* Each endpoint appears as the line reaches it. */}
+        <g style={{ animation: `sc-fade-in var(--duration-base) var(--ease-standard) both` }}>
+          <Pill cx={Math.max(x(0) + 16, 34)} cy={y(p.start)} label={show(p.start)} />
+        </g>
+        <g style={{ animation: `sc-fade-in var(--duration-base) var(--ease-standard) ${DRAW_MS - 200}ms both` }}>
+          <Pill cx={Math.min(x(1) - 16, W - 34)} cy={y(p.target)} label={show(p.target)} />
+        </g>
       </svg>
 
       <div

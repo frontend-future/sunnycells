@@ -86,7 +86,19 @@ function clamp(n: number) {
   return Math.max(0, Math.min(100, Math.round(n)));
 }
 
-export type Projection = { weeks: number; points: { week: number; lb: number }[]; start: number; target: number };
+export type Projection = {
+  weeks: number;
+  points: { week: number; lb: number }[];
+  start: number;
+  target: number;
+  /** The unit she typed her weights in. The maths is always pounds; this is display. */
+  unit: "lb" | "kg";
+};
+
+/** Pounds back into whatever unit she entered, for display only. */
+export function inUnit(lb: number, unit: "lb" | "kg"): number {
+  return unit === "kg" ? Math.round(lb / LB_PER_KG) : Math.round(lb);
+}
 
 /**
  * A weight curve at a rate mainstream guidance calls sustainable: about 1% of body
@@ -108,7 +120,7 @@ export function projection(a: Answers): Projection | null {
     lb: Math.round(start - toLose * easeOut(week / weeks)),
   }));
 
-  return { weeks, points, start, target };
+  return { weeks, points, start, target, unit: a.weightUnit === "kg" ? "kg" : "lb" };
 }
 
 /* Loss is fastest early and flattens, which is what the research on adherence shows,
