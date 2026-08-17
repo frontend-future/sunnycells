@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/core/Card";
-import { inUnit, projection } from "@/lib/quiz/assessment";
+import { HORIZON_DAYS, inUnit, projection } from "@/lib/quiz/assessment";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { ProjectionChart } from "./Charts";
@@ -52,7 +52,7 @@ export function ProjectionScreen() {
           <ProjectionChart
             p={p}
             startLabel={monthYear(new Date())}
-            endLabel={monthYear(addDays(p.weeks * 7))}
+            endLabel={monthYear(addDays(HORIZON_DAYS))}
           />
         </Card>
       ) : (

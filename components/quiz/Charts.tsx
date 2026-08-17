@@ -1,4 +1,4 @@
-import { inUnit, levelWord, type Projection, type Row } from "@/lib/quiz/assessment";
+import { HORIZON_DAYS, inUnit, levelWord, type Projection, type Row } from "@/lib/quiz/assessment";
 
 /**
  * Both charts are single series and every value is printed on the mark, so identity
@@ -244,7 +244,7 @@ export function ProjectionChart({
           <div style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{startLabel}</div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Day {p.weeks * 7}+</div>
+          <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Day {HORIZON_DAYS}+</div>
           <div style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{endLabel}</div>
         </div>
       </div>

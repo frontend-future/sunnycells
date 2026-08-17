@@ -86,6 +86,11 @@ function clamp(n: number) {
   return Math.max(0, Math.min(100, Math.round(n)));
 }
 
+/* The chart's window, not the plan's length. The curve is drawn across these eight
+   weeks and the axis reads "Day 56+", where the plus carries the rest: a plan that
+   needs longer than eight weeks keeps going past the right edge. */
+export const HORIZON_DAYS = 56;
+
 export type Projection = {
   weeks: number;
   points: { week: number; lb: number }[];
