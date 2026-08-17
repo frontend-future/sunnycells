@@ -1,4 +1,4 @@
-import type { Projection, Row } from "@/lib/quiz/assessment";
+import { levelWord, type Projection, type Row } from "@/lib/quiz/assessment";
 
 /**
  * Both charts are single series and every value is printed on the mark, so identity
@@ -8,68 +8,98 @@ import type { Projection, Row } from "@/lib/quiz/assessment";
  */
 
 /* Each row starts a beat after the one above it, so the eye reads down the list in
-   order instead of taking six bars at once. Calm and quick: no bounce, and the whole
-   sequence is done inside a second. */
+   order instead of taking six gauges at once. Calm and quick: no bounce, and the
+   whole sequence is done inside a second. */
 const ROW_STAGGER_MS = 110;
 
-/** Horizontal bars against a reference tick for the population average. */
+/* Seven segments running low to high. Green and red are the system's status pair,
+   which is what a severity scale is; sun sits in the middle as the brand's own
+   caution value. The level is also written into each row's accessible name and
+   spelled out on the scale beneath, so colour never carries it alone. */
+const SEGMENTS = [
+  "var(--status-success)",
+  "var(--status-success)",
+  "var(--sun)",
+  "var(--sun)",
+  "var(--sun)",
+  "var(--status-error)",
+  "var(--status-error)",
+];
+
+/** Segmented low-to-high gauge with a marker at the score. */
 export function AssessmentChart({ rows }: { rows: Row[] }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
-      {rows.map((r, i) => (
-        <div key={r.label}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "var(--space-4)" }}>
-            <span style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{r.label}</span>
-            <span style={{ fontSize: "var(--size-body)", fontWeight: 800, fontVariantNumeric: "tabular-nums" }}>
-              {r.you}
-              <span style={{ color: "var(--ink-60)", fontWeight: 600 }}> / 100</span>
-            </span>
-          </div>
+      {rows.map((r, i) => {
+        const level = levelWord(r.you);
+        return (
+          <div key={r.label} role="group" aria-label={`${r.label}: ${level}`}>
+            <div style={{ fontSize: "var(--size-body)", fontWeight: 700, marginBottom: "var(--space-3)" }}>
+              {r.label}
+            </div>
 
-          <div style={{ position: "relative", height: 24, background: "var(--ink-10)", borderRadius: "var(--radius-xs)", marginTop: "var(--space-2)" }}>
-            {/* Sun fill inside a 2px ink outline. --sun on the --ink-10 track is two
-                light values against each other, so the outline is what gives the bar
-                its edge and carries the non-text contrast. Every value is printed
-                beside the bar too, so nothing here rests on colour. */}
+            <div style={{ position: "relative" }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: 4,
+                  animation: "sc-reveal-x var(--duration-slow) var(--ease-standard) both",
+                  animationDelay: `${i * ROW_STAGGER_MS}ms`,
+                }}
+              >
+                {SEGMENTS.map((c, n) => (
+                  <span
+                    key={n}
+                    style={{
+                      flex: 1,
+                      height: 12,
+                      background: c,
+                      borderRadius:
+                        n === 0 ? "var(--radius-pill) 0 0 var(--radius-pill)"
+                        : n === SEGMENTS.length - 1 ? "0 var(--radius-pill) var(--radius-pill) 0"
+                        : 2,
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Ink dot with a white ring, so it reads on any segment it lands on.
+                  Inset by 3% at each end so it never hangs off the track. */}
+              <span
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: `${3 + (r.you / 100) * 94}%`,
+                  width: 22,
+                  height: 22,
+                  marginTop: -11,
+                  marginLeft: -11,
+                  borderRadius: "50%",
+                  background: "var(--ink)",
+                  boxShadow: "0 0 0 3px var(--white)",
+                  animation: "sc-fade-in var(--duration-base) var(--ease-standard) both",
+                  animationDelay: `${i * ROW_STAGGER_MS + 240}ms`,
+                }}
+              />
+            </div>
+
             <div
               style={{
-                width: r.you + "%",
-                height: "100%",
-                boxSizing: "border-box",
-                background: "var(--sun)",
-                border: "2px solid var(--ink)",
-                borderRadius: "var(--radius-xs)",
-                animation: "sc-reveal-x var(--duration-slow) var(--ease-standard) both",
-                animationDelay: `${i * ROW_STAGGER_MS}ms`,
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "var(--space-2)",
+                fontSize: "var(--size-meta)",
+                color: "var(--ink-60)",
               }}
-            />
-            {/* The average sits as a tick on the same track, so the comparison is a
-                position, not a second colour competing with the bar. Black reads on
-                both the sun fill and the light track, so it needs no halo: the halo it
-                used to carry now reads as a gap splitting the bar in two. */}
-            <div
-              aria-hidden="true"
-              style={{
-                position: "absolute",
-                top: -5,
-                bottom: -5,
-                left: `calc(${r.average}% - 1px)`,
-                width: 2,
-                background: "var(--ink)",
-                animation: "sc-fade-in var(--duration-base) var(--ease-standard) both",
-                animationDelay: `${i * ROW_STAGGER_MS + 220}ms`,
-              }}
-            />
+            >
+              <span>Low</span>
+              <span>Medium</span>
+              <span>High</span>
+            </div>
           </div>
-
-          <div style={{ display: "flex", justifyContent: "space-between", gap: "var(--space-4)", marginTop: 6 }}>
-            <span style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{r.note}</span>
-            <span style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)", fontVariantNumeric: "tabular-nums" }}>
-              Average {r.average}
-            </span>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

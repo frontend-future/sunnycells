@@ -85,7 +85,7 @@ await page.waitForTimeout(400);
 await page.screenshot({ path: "shot-summary.png", fullPage: true });
 console.log("  summary h1:", (await page.locator("h1").innerText()).replace(/\n/g, " "));
 
-await step("summary", "/quiz/diet/results/projection", () => page.getByRole("button", { name: /See my timeline/ }).click());
+await step("summary", "/quiz/diet/results/projection", () => page.getByRole("button", { name: /Continue/ }).click());
 await page.waitForTimeout(300);
 await page.screenshot({ path: "shot-projection.png", fullPage: true });
 console.log("  projection h1:", (await page.locator("h1").innerText()).replace(/\n/g, " "));

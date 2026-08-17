@@ -17,7 +17,7 @@ export function poundsFrom(answers: Answers, key: string): number | null {
  * copy on the results pages says so, and this file should keep it true.
  */
 
-export type Row = { label: string; you: number; average: number; note: string };
+export type Row = { label: string; you: number };
 
 const yes = (a: Answers, slug: string) => a[slug] === "Yes";
 
@@ -31,32 +31,12 @@ export function assessmentRows(a: Answers): Row[] {
   const sleepPenalty = sleep === "Less than 5 hours" ? 15 : sleep === "5 to 6 hours" ? 8 : 0;
 
   return [
+    { label: "Cortisol level", you: clamp(stressScore + sleepPenalty) },
+    { label: "Skin changes", you: yes(a, "skin-changes") ? 78 : 22 },
+    { label: "Brain fog", you: yes(a, "brain-fog") ? 82 : 24 },
+    { label: "Difficulty of losing weight", you: yes(a, "weight-loss-difficulty") ? 86 : 28 },
     {
-      label: "Cortisol pattern",
-      you: clamp(stressScore + sleepPenalty),
-      average: 48,
-      note: "From your stress and sleep answers",
-    },
-    {
-      label: "Skin changes",
-      you: yes(a, "skin-changes") ? 78 : 22,
-      average: 35,
-      note: "Thinning, bruising, acne, facial hair",
-    },
-    {
-      label: "Brain fog",
-      you: yes(a, "brain-fog") ? 82 : 24,
-      average: 41,
-      note: "Focus and mental clarity",
-    },
-    {
-      label: "Difficulty losing weight",
-      you: yes(a, "weight-loss-difficulty") ? 86 : 28,
-      average: 52,
-      note: "Effort against result",
-    },
-    {
-      label: "Hunger and energy dips",
+      label: "Hungriness level",
       /* Two signals: when energy drops in the day, and whether a full meal actually
          settles hunger. Still hungry after eating is the stronger of the two, so it
          adds on top rather than replacing the tiredness read. */
@@ -66,16 +46,19 @@ export function assessmentRows(a: Answers): Row[] {
           : tired === "I feel sleepy after lunch" ? 50
           : 22) + (yes(a, "post-meal-hunger") ? 16 : 0),
       ),
-      average: 46,
-      note: "Energy dips and hunger after meals",
     },
-    {
-      label: "Headaches",
-      you: yes(a, "headaches") ? 74 : 20,
-      average: 33,
-      note: "Frequency you reported",
-    },
+    { label: "Headaches level", you: yes(a, "headaches") ? 74 : 20 },
   ];
+}
+
+/** The word for a score, so the level is never carried by colour alone. */
+export function levelWord(score: number): "Low" | "Medium" | "High" {
+  return score < 34 ? "Low" : score < 67 ? "Medium" : "High";
+}
+
+/** How many markers land in the high band, which sets the headline. */
+export function highCount(rows: Row[]): number {
+  return rows.filter((r) => levelWord(r.you) === "High").length;
 }
 
 function clamp(n: number) {
