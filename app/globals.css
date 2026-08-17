@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/* Design tokens. These files are the source of truth, ported verbatim from the
+   SUNNYCELLS design system brief. Do not hardcode a hex, size, or radius anywhere
+   else in the app. tokens/fonts.css is not ported: next/font loads Outfit and
+   Figtree in app/layout.tsx and exposes them as --font-outfit / --font-figtree. */
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/radius.css";
+@import "./tokens/elevation.css";
+@import "./tokens/motion.css";
+
+/* Tailwind utilities generated from the tokens above, so `bg-sun`, `text-ink-60`,
+   `rounded-card`, `text-h1`, `shadow-card` and friends resolve to the real system
+   values. Anything not exposed here is deliberate: it is not part of the system.
+
+   Several token names already sit in a Tailwind namespace (--font-*, --radius-*,
+   --shadow-*, --tracking-*, --leading-*, --ease-*), so those lines read as
+   self-referential. They are not: `inline` keeps the value out of :root, and the
+   token @imports above land later in the cascade than Tailwind's theme layer, so
+   the real value wins. Keep the token @imports below `@import "tailwindcss"`.
+   Reverse that order and every one of those tokens becomes a reference cycle and
+   silently resolves to nothing. */
+@theme inline {
+  --color-white: var(--white);
+  --color-ink: var(--ink);
+  --color-ink-80: var(--ink-80);
+  --color-ink-60: var(--ink-60);
+  --color-ink-40: var(--ink-40);
+  --color-ink-20: var(--ink-20);
+  --color-ink-10: var(--ink-10);
+  --color-shell: var(--shell);
+
+  --color-sun: var(--sun);
+  --color-sun-press: var(--sun-press);
+  --color-sun-tint: var(--sun-tint);
+  --color-zest: var(--zest);
+  --color-zest-press: var(--zest-press);
+  --color-zest-tint: var(--zest-tint);
+  --color-sky: var(--sky);
+  --color-sky-press: var(--sky-press);
+  --color-sky-tint: var(--sky-tint);
+  --color-sprout: var(--sprout);
+  --color-sprout-press: var(--sprout-press);
+  --color-sprout-tint: var(--sprout-tint);
+
+  --color-success: var(--status-success);
+  --color-success-tint: var(--status-success-tint);
+  --color-error: var(--status-error);
+  --color-error-tint: var(--status-error-tint);
+
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+  --font-label: var(--font-label);
+
+  --text-hero: var(--size-hero);
+  --text-display: var(--size-display);
+  --text-h1: var(--size-h1);
+  --text-h2: var(--size-h2);
+  --text-h3: var(--size-h3);
+  --text-h4: var(--size-h4);
+  --text-body-lg: var(--size-body-lg);
+  --text-body: var(--size-body);
+  --text-meta: var(--size-meta);
+
+  --tracking-display: var(--tracking-display);
+  --tracking-heading: var(--tracking-heading);
+  --tracking-caps: var(--tracking-caps);
+  --tracking-label: var(--tracking-mono);
+
+  --leading-tight: var(--leading-tight);
+  --leading-snug: var(--leading-snug);
+  --leading-heading: var(--leading-heading);
+  --leading-body: var(--leading-body);
+
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-button: var(--radius-button);
+  --radius-input: var(--radius-input);
+  --radius-card: var(--radius-card);
+  --radius-sheet: var(--radius-sheet);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-raised: var(--shadow-raised);
+  --shadow-sheet: var(--shadow-sheet);
+  --shadow-focus: var(--shadow-focus);
+
+  --ease-standard: var(--ease-standard);
+  --ease-out: var(--ease-out);
+
+  --container-page: var(--page-max);
+}
+
+/* Base. Body floor is 20px at weight 500; nothing in this system ships lighter
+   or smaller, because the reader is 35 to 55+ and often outdoors. */
+body {
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-text);
+  font-size: var(--size-body);
+  font-weight: var(--weight-text);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Focus survives on white and on a colour block alike: white gap, black ring. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-xs);
+}
+
+::selection { background: var(--sun); color: var(--ink); }
+
+/* Motion confirms an action, it never performs. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
