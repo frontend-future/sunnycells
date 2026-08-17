@@ -68,16 +68,16 @@ await step("q18 moon face", "/quiz/diet/sleep", () => page.getByRole("button", {
 await step("q19 sleep", "/quiz/diet/made-for-you", () => page.getByRole("button", { name: /5 to 6 hours/ }).click());
 await step("q20 made for you", "/quiz/diet/email", () => page.getByRole("button", { name: /^Continue/ }).click());
 
-await page.getByRole("button", { name: /Show my results/ }).click();
+await page.getByRole("button", { name: /Unlock my results/ }).click();
 await page.waitForTimeout(250);
 check("empty email is rejected", (await page.getByText(/We need an email address/).count()) === 1);
 check("stayed on email step", at() === "/quiz/diet/email");
 await page.getByLabel("Email").fill("nope");
-await page.getByRole("button", { name: /Show my results/ }).click();
+await page.getByRole("button", { name: /Unlock my results/ }).click();
 await page.waitForTimeout(250);
 check("malformed email is rejected", (await page.getByText(/missing an @/).count()) === 1);
 await page.getByLabel("Email").fill("dana@example.com");
-await step("q21 email", "/quiz/diet/results/analyzing", () => page.getByRole("button", { name: /Show my results/ }).click());
+await step("q21 email", "/quiz/diet/results/analyzing", () => page.getByRole("button", { name: /Unlock my results/ }).click());
 
 await page.waitForURL("**/results/summary", { timeout: 15000 });
 console.log("  ok  analyzing auto-advanced ->", at());

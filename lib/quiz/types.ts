@@ -48,6 +48,8 @@ export type Step =
       /** Reassurance under the field. Say what you will not do with the address. */
       privacy: string;
       cta: string;
+      /** Label on the badge under the button. Omit for no badge. */
+      badge?: string;
     };
 
 export type QuizConfig = {

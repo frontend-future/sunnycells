@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
-import { OfferFlag } from "@/components/core/OfferFlag";
+import { Badge } from "@/components/core/Badge";
 import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
@@ -341,30 +341,33 @@ function EmailBody({ step, set, go }: { step: Extract<Step, { kind: "email" }>; 
         <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.45 }}>{step.privacy}</span>
       </div>
       <StickyCta>
-        <Button size="lg" fullWidth type="submit">
+        <Button size="lg" fullWidth type="submit" variant="accent">
           {step.cta}
         </Button>
-        {/* The standing offer, pointed at the button. No countdown, because there
-            is not one: this is a permanent term, not a sale. */}
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-3)" }}>
-          <span style={{ position: "relative" }}>
-            <span
-              aria-hidden="true"
-              style={{
-                position: "absolute",
-                top: -6,
-                left: "50%",
-                marginLeft: -7,
-                width: 0,
-                height: 0,
-                borderLeft: "7px solid transparent",
-                borderRight: "7px solid transparent",
-                borderBottom: "7px solid var(--ink)",
-              }}
-            />
-            <OfferFlag size="sm" />
-          </span>
-        </div>
+        {/* Badge rather than OfferFlag: OfferFlag is reserved for the standing
+            50% first-order term and formats itself around that number. This one
+            names a sale, which is a different promise. */}
+        {step.badge ? (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-3)" }}>
+            <span style={{ position: "relative" }}>
+              <span
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  top: -6,
+                  left: "50%",
+                  marginLeft: -7,
+                  width: 0,
+                  height: 0,
+                  borderLeft: "7px solid transparent",
+                  borderRight: "7px solid transparent",
+                  borderBottom: "7px solid var(--ink)",
+                }}
+              />
+              <Badge tone="ink">{step.badge}</Badge>
+            </span>
+          </div>
+        ) : null}
       </StickyCta>
     </form>
   );

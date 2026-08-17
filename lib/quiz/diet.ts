@@ -173,7 +173,8 @@ export const dietQuiz: QuizConfig = {
     subhead: "and see how Metabolic Morning Blend can help you",
     placeholder: "Your email address",
     privacy: "We don't send spam or share email addresses. We respect your privacy.",
-    cta: "Show my results",
+    cta: "Unlock my results",
+    badge: "Sale up to 60% off",
   },
   ],
 };
