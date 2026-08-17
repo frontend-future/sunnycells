@@ -58,6 +58,11 @@ function Body({ step, answers, set, answer, go }: BodyProps) {
             ))}
           </ul>
         ) : null}
+        {step.footnote ? (
+          <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+            {step.footnote}
+          </p>
+        ) : null}
         <StickyCta>
           <Button size="lg" fullWidth iconRight="arrow-right" onClick={go}>
             {step.cta}

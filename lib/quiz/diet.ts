@@ -151,14 +151,15 @@ export const dietQuiz: QuizConfig = {
   {
     slug: "made-for-you",
     kind: "info",
-    question: "SUNNYCELLS is made for you",
-    body: "SC-21 Metabolic Morning Blend is one scoop in water, taken in the morning. It carries ashwagandha, rhodiola, and L-theanine at the doses used in published trials, plus inositol and phosphatidylserine. No stimulants, so it does not push cortisol further up to make you feel something.",
+    question: "Metabolic Morning Blend is made for you",
+    body: "Metabolic Morning Blend is a cortisol cocktail drink that could actually help you. It is made from natural products, is sugar free, and will become your favourite morning drink. It will:",
     bullets: [
-      "One scoop a day, thirty seconds, no pills to count",
-      "Doses printed on the front of the pack, not hidden in a blend",
-      "Free shipping, always, with no minimum to reach",
-      "Skip, change, or cancel from your account, with no call",
+      "Help you to lose weight",
+      "Help with your cortisol and stress levels",
+      "Improve your overall mood",
     ],
+    footnote:
+      "Continue to get your personal results and learn more about Metabolic Morning Blend.",
     cta: "Continue",
   },
   {

@@ -6,7 +6,16 @@
 
 export type Step =
   | { slug: string; kind: "single"; question: string; options: string[] }
-  | { slug: string; kind: "info"; question: string; body: string; bullets?: string[]; cta: string }
+  | {
+      slug: string;
+      kind: "info";
+      question: string;
+      body: string;
+      bullets?: string[];
+      /** Optional line after the bullets, before the button. */
+      footnote?: string;
+      cta: string;
+    }
   | { slug: string; kind: "height"; question: string }
   | {
       slug: string;
