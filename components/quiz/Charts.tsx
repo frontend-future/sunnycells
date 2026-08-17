@@ -125,6 +125,22 @@ function dietLoss(t: number): number {
   return DIET_ANCHORS[DIET_ANCHORS.length - 1][1];
 }
 
+/** Endpoint marker: a dot on the curve with its weight on a tab above it. Lives at
+    module scope, not inside the chart, so React does not treat it as a new component
+    type on every render. */
+function Pill({ cx, cy, label }: { cx: number; cy: number; label: string }) {
+  const w = label.length * 8 + 16;
+  return (
+    <g>
+      <rect x={cx - w / 2} y={cy - 28} width={w} height={22} rx={11} fill="var(--ink)" />
+      <text x={cx} y={cy - 12} fontSize={13} fontWeight={800} fill="var(--white)" textAnchor="middle">
+        {label}
+      </text>
+      <circle cx={cx} cy={cy} r={4} fill="var(--ink)" />
+    </g>
+  );
+}
+
 /** Projected weight over time, against what dieting alone tends to do. */
 export function ProjectionChart({
   p, startLabel, endLabel,
@@ -156,19 +172,6 @@ export function ProjectionChart({
     const t = i / SAMPLES;
     return `${i ? "L" : "M"}${x(t).toFixed(1)} ${y(p.start - toLose * dietLoss(t)).toFixed(1)}`;
   }).join(" ");
-
-  const Pill = ({ cx, cy, label }: { cx: number; cy: number; label: string }) => {
-    const w = label.length * 8 + 16;
-    return (
-      <g>
-        <rect x={cx - w / 2} y={cy - 28} width={w} height={22} rx={11} fill="var(--ink)" />
-        <text x={cx} y={cy - 12} fontSize={13} fontWeight={800} fill="var(--white)" textAnchor="middle">
-          {label}
-        </text>
-        <circle cx={cx} cy={cy} r={4} fill="var(--ink)" />
-      </g>
-    );
-  };
 
   return (
     <figure style={{ margin: 0 }}>
