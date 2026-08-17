@@ -90,7 +90,7 @@ export function ProjectionScreen() {
       </div>
 
       <StickyCta>
-        <NextButton href="/quiz/diet/results/science">Continue</NextButton>
+        <NextButton href="/quiz/diet/results/metabolism">Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

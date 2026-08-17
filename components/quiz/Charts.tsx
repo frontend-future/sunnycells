@@ -1,4 +1,4 @@
-import { HORIZON_DAYS, inUnit, levelWord, type Projection, type Row } from "@/lib/quiz/assessment";
+import { HORIZON_DAYS, inUnit, levelWord, type Metabolism, type Projection, type Row } from "@/lib/quiz/assessment";
 
 /**
  * Both charts are single series and every value is printed on the mark, so identity
@@ -272,5 +272,99 @@ export function ProjectionChart({
         ))}
       </figcaption>
     </figure>
+  );
+}
+
+
+/* Four bands running slow to fast, so the ramp is the severity scale reversed: the
+   bad end is on the left here. Every band is named underneath and both markers carry
+   a text label, so the colour is a reinforcement rather than the message. */
+const RATE_BANDS = [
+  { color: "var(--scale-high)", label: "Very slow" },
+  { color: "var(--zest)", label: "Slow" },
+  { color: "var(--scale-mid)", label: "Fast" },
+  { color: "var(--scale-low)", label: "Very fast" },
+];
+
+const MARKER_AREA = 66;
+const LABEL_H = 22;
+const ARROW_H = 9;
+
+/* The two labels sit on separate rows joined to the bar by a hairline. Side by side
+   they collided the moment the markers were within about 40% of each other, which is
+   most profiles, and shortening the copy only moves where it breaks. */
+function Marker({ at, label, row }: { at: number; label: string; row: 0 | 1 }) {
+  const stem = MARKER_AREA - LABEL_H * (row + 1) - ARROW_H;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: row * LABEL_H,
+        left: `clamp(0%, ${at}%, 100%)`,
+        transform: "translateX(-50%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <span
+        style={{
+          fontSize: "var(--size-meta)",
+          fontWeight: 700,
+          lineHeight: `${LABEL_H}px`,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {label}
+      </span>
+      <span aria-hidden="true" style={{ width: 1, height: stem, background: "var(--ink-20)" }} />
+      <span
+        aria-hidden="true"
+        style={{
+          width: 0,
+          height: 0,
+          borderLeft: "8px solid transparent",
+          borderRight: "8px solid transparent",
+          borderTop: `${ARROW_H}px solid var(--ink)`,
+        }}
+      />
+    </div>
+  );
+}
+
+/** Where her metabolism sits now, and where the plan puts it. */
+export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: string }) {
+  return (
+    <div>
+      <div style={{ position: "relative", height: MARKER_AREA, marginBottom: "var(--space-2)" }}>
+        <Marker at={m.now} label="Right now" row={0} />
+        <Marker at={m.after} label={afterLabel} row={1} />
+      </div>
+
+      <div style={{ display: "flex", gap: 3 }} role="img" aria-label={`Metabolism now: ${m.label}`}>
+        {RATE_BANDS.map((b, i) => (
+          <span
+            key={b.label}
+            style={{
+              flex: 1,
+              height: 14,
+              background: b.color,
+              borderRadius:
+                i === 0 ? "var(--radius-pill) 0 0 var(--radius-pill)"
+                : i === RATE_BANDS.length - 1 ? "0 var(--radius-pill) var(--radius-pill) 0"
+                : 2,
+            }}
+          />
+        ))}
+      </div>
+
+      <div style={{ display: "flex", marginTop: "var(--space-2)" }}>
+        {RATE_BANDS.map((b) => (
+          <span key={b.label} style={{ flex: 1, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
+            {b.label}
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }

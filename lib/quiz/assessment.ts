@@ -72,6 +72,27 @@ export function assessmentRows(a: Answers): Row[] {
   ];
 }
 
+export type Metabolism = {
+  label: "Very slow" | "Slow";
+  /** Percentages across the four-band track, 0 very slow to 100 very fast. */
+  now: number;
+  after: number;
+};
+
+/* The same stress and sleep answers that drive the cortisol marker, read as a
+   metabolism rate. Bands are quarters: 0-25 very slow, 25-50 slow, 50-75 fast,
+   75-100 very fast. */
+export function metabolism(a: Answers): Metabolism {
+  const stress = a["stress-level"];
+  const sleep = a.sleep;
+  const raw =
+    (stress === "I am usually always stressed" ? 85 : stress === "Only at certain moments of the day" ? 55 : 25) +
+    (sleep === "Less than 5 hours" ? 15 : sleep === "5 to 6 hours" ? 8 : 0);
+
+  const now = raw >= 85 ? 14 : raw >= 55 ? 33 : 40;
+  return { label: now < 25 ? "Very slow" : "Slow", now, after: now + 36 };
+}
+
 /** The word for a score, so the level is never carried by colour alone. */
 export function levelWord(score: number): "Low" | "Medium" | "High" {
   return score < MEDIUM_FROM ? "Low" : score < HIGH_FROM ? "Medium" : "High";
