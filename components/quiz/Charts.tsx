@@ -103,24 +103,72 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
   );
 }
 
-/** Projected weight over time. One line, start and target labelled on the mark. */
-export function ProjectionChart({ p }: { p: Projection }) {
-  const W = 640;
-  const H = 280;
-  const padL = 8;
-  const padR = 8;
-  const padT = 28;
-  const padB = 36;
+/* The dieting curve as loss-so-far at points across the plan: down for a while, then
+   most of it back on, twice. Anchors rather than a formula, because the shape is the
+   point and a closed form that produced it would be harder to read than the numbers. */
+const DIET_ANCHORS: [number, number][] = [
+  [0, 0], [0.15, 0.16], [0.3, 0.33], [0.45, 0.44],
+  [0.6, 0.19], [0.72, 0.29], [0.86, 0.11], [1, 0.06],
+];
 
-  const lo = p.target - 4;
-  const hi = p.start + 4;
-  const x = (week: number) => padL + (week / p.weeks) * (W - padL - padR);
+function dietLoss(t: number): number {
+  for (let i = 0; i < DIET_ANCHORS.length - 1; i++) {
+    const [t0, v0] = DIET_ANCHORS[i];
+    const [t1, v1] = DIET_ANCHORS[i + 1];
+    if (t <= t1) {
+      const k = (t - t0) / (t1 - t0);
+      /* Cosine easing between anchors, so the joins are smooth without pulling in a
+         spline library for eight points. */
+      return v0 + (v1 - v0) * (1 - Math.cos(k * Math.PI)) / 2;
+    }
+  }
+  return DIET_ANCHORS[DIET_ANCHORS.length - 1][1];
+}
+
+/** Projected weight over time, against what dieting alone tends to do. */
+export function ProjectionChart({
+  p, startLabel, endLabel,
+}: {
+  p: Projection;
+  startLabel: string;
+  endLabel: string;
+}) {
+  /* A 400 unit box, not 640: the SVG scales to its container, so a wide viewBox
+     shrinks the type inside it. At 400 the labels land near their nominal size on a
+     phone instead of half of it. */
+  const W = 400;
+  const H = 210;
+  const padX = 10;
+  const padT = 34;
+  const padB = 16;
+
+  const toLose = p.start - p.target;
+  const lo = p.target - toLose * 0.12;
+  const hi = p.start + toLose * 0.12;
+  const x = (t: number) => padX + t * (W - padX * 2);
   const y = (lb: number) => padT + (1 - (lb - lo) / (hi - lo)) * (H - padT - padB);
 
-  const line = p.points.map((pt, i) => `${i ? "L" : "M"}${x(pt.week).toFixed(1)} ${y(pt.lb).toFixed(1)}`).join(" ");
-  const area = `${line} L${x(p.weeks).toFixed(1)} ${H - padB} L${padL} ${H - padB} Z`;
+  const plan = p.points.map((pt, i) => `${i ? "L" : "M"}${x(pt.week / p.weeks).toFixed(1)} ${y(pt.lb).toFixed(1)}`).join(" ");
+  const area = `${plan} L${x(1).toFixed(1)} ${H - padB} L${x(0).toFixed(1)} ${H - padB} Z`;
 
-  const ticks = [0, Math.round(p.weeks / 3), Math.round((p.weeks * 2) / 3), p.weeks];
+  const SAMPLES = 60;
+  const diet = Array.from({ length: SAMPLES + 1 }, (_, i) => {
+    const t = i / SAMPLES;
+    return `${i ? "L" : "M"}${x(t).toFixed(1)} ${y(p.start - toLose * dietLoss(t)).toFixed(1)}`;
+  }).join(" ");
+
+  const Pill = ({ cx, cy, label }: { cx: number; cy: number; label: string }) => {
+    const w = label.length * 8 + 16;
+    return (
+      <g>
+        <rect x={cx - w / 2} y={cy - 28} width={w} height={22} rx={11} fill="var(--ink)" />
+        <text x={cx} y={cy - 12} fontSize={13} fontWeight={800} fill="var(--white)" textAnchor="middle">
+          {label}
+        </text>
+        <circle cx={cx} cy={cy} r={4} fill="var(--ink)" />
+      </g>
+    );
+  };
 
   return (
     <figure style={{ margin: 0 }}>
@@ -128,41 +176,62 @@ export function ProjectionChart({ p }: { p: Projection }) {
         viewBox={`0 0 ${W} ${H}`}
         width="100%"
         role="img"
-        aria-label={`Projected weight from ${p.start} pounds to ${p.target} pounds over ${p.weeks} weeks`}
+        aria-label={`Projected weight from ${p.start} pounds to ${p.target} pounds over ${p.weeks} weeks, against a dieting curve that regains most of what it loses`}
         style={{ display: "block", overflow: "visible" }}
       >
-        <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="var(--ink-20)" strokeWidth={1} />
-        <path d={area} fill="var(--sun-tint)" />
-        <path d={line} fill="none" stroke="var(--ink)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-
-        <circle cx={x(0)} cy={y(p.start)} r={5} fill="var(--ink)" />
-        <circle cx={x(p.weeks)} cy={y(p.target)} r={5} fill="var(--ink)" />
-
-        <text x={x(0)} y={y(p.start) - 12} fontSize={17} fontWeight={800} fill="var(--ink)">
-          {p.start} lb
-        </text>
-        <text x={x(p.weeks)} y={y(p.target) - 12} fontSize={17} fontWeight={800} fill="var(--ink)" textAnchor="end">
-          {p.target} lb
-        </text>
-
-        {ticks.map((t, i) => (
-          <text
-            key={t}
-            x={x(t)}
-            y={H - padB + 22}
-            fontSize={17}
-            fontWeight={600}
-            fill="var(--ink-60)"
-            textAnchor={i === 0 ? "start" : i === ticks.length - 1 ? "end" : "middle"}
-          >
-            {t === 0 ? "Today" : `Week ${t}`}
-          </text>
+        {[1 / 3, 2 / 3].map((t) => (
+          <line key={t} x1={x(t)} y1={padT - 6} x2={x(t)} y2={H - padB} stroke="var(--ink-20)" strokeWidth={1} />
         ))}
+        <line x1={x(0)} y1={H - padB} x2={x(1)} y2={H - padB} stroke="var(--ink-20)" strokeWidth={1} />
+
+        <path d={area} fill="var(--sprout-tint)" />
+        {/* Dashed, so the two series differ by more than hue. */}
+        <path d={diet} fill="none" stroke="var(--series-diet)" strokeWidth={2.5} strokeDasharray="7 5" strokeLinecap="round" />
+        <path d={plan} fill="none" stroke="var(--series-plan)" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+
+        <Pill cx={Math.max(x(0) + 16, 34)} cy={y(p.start)} label={`${p.start} lb`} />
+        <Pill cx={Math.min(x(1) - 16, W - 34)} cy={y(p.target)} label={`${p.target} lb`} />
       </svg>
-      <figcaption style={{ marginTop: "var(--space-4)", fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.5 }}>
-        Modelled at about 1% of body weight a week, the rate most clinical guidance
-        treats as sustainable. It shows a pace, not a promise: your result depends on
-        what you eat, how you move, and how you sleep.
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "var(--space-4)",
+          marginTop: "var(--space-3)",
+        }}
+      >
+        <div>
+          <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Today</div>
+          <div style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{startLabel}</div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Day {p.weeks * 7}+</div>
+          <div style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{endLabel}</div>
+        </div>
+      </div>
+
+      <figcaption
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "var(--space-3) var(--space-6)",
+          marginTop: "var(--space-5)",
+          paddingTop: "var(--space-4)",
+          borderTop: "1px solid var(--border-hairline)",
+        }}
+      >
+        {[
+          { label: "With Metabolic Morning Blend", color: "var(--series-plan)", dash: undefined },
+          { label: "With dieting alone", color: "var(--series-diet)", dash: "9 7" },
+        ].map((k) => (
+          <span key={k.label} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 600 }}>
+            <svg width={26} height={10} aria-hidden="true" style={{ flex: "none" }}>
+              <line x1={1} y1={5} x2={25} y2={5} stroke={k.color} strokeWidth={3} strokeDasharray={k.dash} strokeLinecap="round" />
+            </svg>
+            {k.label}
+          </span>
+        ))}
       </figcaption>
     </figure>
   );

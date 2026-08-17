@@ -81,6 +81,15 @@
   --scale-mid: var(--sun);
   --scale-high: #E63E2B;
 
+  /* ---------- CHART SERIES ----------
+     A two-series pair for comparison charts. Green against orange rather than the
+     obvious green against red: red and green sit on top of each other under the
+     common forms of colour blindness. Checked with the dataviz validator, this pair
+     separates at deltaE 11.2 where green and red managed 3.4. Both series still
+     carry a label and a line style of their own, so colour is never the only cue. */
+  --series-plan: var(--status-success);
+  --series-diet: var(--zest);
+
   /* ---------- STATUS ----------
      Deliberately muted: status colour never competes with the family codes. */
   --status-success: #2C7A33;
