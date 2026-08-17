@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
+import { OfferFlag } from "@/components/core/OfferFlag";
 import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
@@ -28,6 +29,8 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
     <QuizChrome step={index + 1} total={config.steps.length} backHref={prevHref(config, index)}>
       {step.kind === "info" && step.brandHeading ? (
         <BrandHeading>{step.question}</BrandHeading>
+      ) : step.kind === "email" ? (
+        <CentredHeading question={step.question} subhead={step.subhead} />
       ) : (
         <QuizQuestion>{step.question}</QuizQuestion>
       )}
@@ -124,6 +127,29 @@ function BrandHeading({ children }: { children: string }) {
       <Wordmark size="1.35em" style={{ display: "block", marginBottom: "0.15em" }} />
       {children.replace(/\syou$/, " ")}
       <span style={{ fontWeight: 900 }}>you</span>
+    </h1>
+  );
+}
+
+/** Question and its second line, centred. The subhead is set lighter and slightly
+    smaller so the pair reads as one heading rather than a heading and a paragraph. */
+function CentredHeading({ question, subhead }: { question: string; subhead: string }) {
+  return (
+    <h1
+      style={{
+        margin: "0 0 var(--space-6)",
+        textAlign: "center",
+        fontFamily: "var(--font-display)",
+        letterSpacing: "var(--tracking-heading)",
+        lineHeight: "var(--leading-snug)",
+      }}
+    >
+      <span style={{ display: "block", fontSize: "clamp(var(--size-h3), 8vw, var(--size-h1))", fontWeight: 900 }}>
+        {question}
+      </span>
+      <span style={{ display: "block", marginTop: "0.2em", fontSize: "clamp(var(--size-h4), 5.6vw, var(--size-h3))", fontWeight: 500 }}>
+        {subhead}
+      </span>
     </h1>
   );
 }
@@ -298,23 +324,47 @@ function EmailBody({ step, set, go }: { step: Extract<Step, { kind: "email" }>; 
   return (
     /* noValidate so our own copy is what she reads. The browser's native bubble on
        type="email" would otherwise block submit before the handler runs. */
-    <form noValidate onSubmit={(e) => { e.preventDefault(); submit(); }} style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
-      <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
-        {step.body}
-      </p>
+    <form noValidate onSubmit={(e) => { e.preventDefault(); submit(); }} style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-4)" }}>
       <Input
-        label="Email"
         type="email"
         autoComplete="email"
-        placeholder="you@example.com"
+        aria-label="Email address"
+        placeholder={step.placeholder}
         value={email}
         error={error || undefined}
         onChange={(e) => { setEmail(e.target.value); setError(""); }}
       />
+      <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start", color: "var(--ink-60)" }}>
+        <span style={{ flex: "none", marginTop: 2 }}>
+          <Icon name="shield-check" size={22} />
+        </span>
+        <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.45 }}>{step.privacy}</span>
+      </div>
       <StickyCta>
-        <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
+        <Button size="lg" fullWidth type="submit">
           {step.cta}
         </Button>
+        {/* The standing offer, pointed at the button. No countdown, because there
+            is not one: this is a permanent term, not a sale. */}
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-3)" }}>
+          <span style={{ position: "relative" }}>
+            <span
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                top: -6,
+                left: "50%",
+                marginLeft: -7,
+                width: 0,
+                height: 0,
+                borderLeft: "7px solid transparent",
+                borderRight: "7px solid transparent",
+                borderBottom: "7px solid var(--ink)",
+              }}
+            />
+            <OfferFlag size="sm" />
+          </span>
+        </div>
       </StickyCta>
     </form>
   );

@@ -116,6 +116,13 @@ body {
 
 ::selection { background: var(--sun); color: var(--ink); }
 
+/* The browser default placeholder grey lands near --ink-40, which the system does
+   not allow as text on a light surface. */
+::placeholder {
+  color: var(--ink-60);
+  opacity: 1;
+}
+
 /* Bars wipe in from the left rather than growing by width or scaleX, so a corner
    radius never distorts mid-animation and one keyframe serves every bar length. */
 @keyframes sc-reveal-x {

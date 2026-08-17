@@ -169,8 +169,10 @@ export const dietQuiz: QuizConfig = {
   {
     slug: "email",
     kind: "email",
-    question: "Where should we send your results?",
-    body: "Your answers stay attached to this address so you can come back to them. Order updates and your results, nothing else.",
+    question: "Enter your email",
+    subhead: "and see how Metabolic Morning Blend can help you",
+    placeholder: "Your email address",
+    privacy: "We don't send spam or share email addresses. We respect your privacy.",
     cta: "Show my results",
   },
   ],

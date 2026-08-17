@@ -38,7 +38,17 @@ export type Step =
       min: number;
       max: number;
     }
-  | { slug: string; kind: "email"; question: string; body: string; cta: string };
+  | {
+      slug: string;
+      kind: "email";
+      question: string;
+      /** Second line of the heading, set lighter under the question. */
+      subhead: string;
+      placeholder: string;
+      /** Reassurance under the field. Say what you will not do with the address. */
+      privacy: string;
+      cta: string;
+    };
 
 export type QuizConfig = {
   /** Namespaces stored answers, so two quizzes never read each other's. */
