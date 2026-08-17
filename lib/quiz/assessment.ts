@@ -57,13 +57,17 @@ export function assessmentRows(a: Answers): Row[] {
     },
     {
       label: "Hunger and energy dips",
-      you:
-        tired === "I usually feel tired all day long" ? 84
-        : tired === "I feel tired before meals" ? 70
-        : tired === "I feel sleepy after lunch" ? 55
-        : 26,
+      /* Two signals: when energy drops in the day, and whether a full meal actually
+         settles hunger. Still hungry after eating is the stronger of the two, so it
+         adds on top rather than replacing the tiredness read. */
+      you: clamp(
+        (tired === "I usually feel tired all day long" ? 78
+          : tired === "I feel tired before meals" ? 64
+          : tired === "I feel sleepy after lunch" ? 50
+          : 22) + (yes(a, "post-meal-hunger") ? 16 : 0),
+      ),
       average: 46,
-      note: "When your energy drops in the day",
+      note: "Energy dips and hunger after meals",
     },
     {
       label: "Headaches",

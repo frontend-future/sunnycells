@@ -5,7 +5,12 @@ import { assessmentRows, projection, type Answers } from "./assessment.ts";
 test("scores stay inside 0 to 100 for empty and extreme answers", () => {
   const cases: Answers[] = [
     {},
-    { "stress-level": "I am usually always stressed", sleep: "Less than 5 hours" },
+    {
+      "stress-level": "I am usually always stressed",
+      sleep: "Less than 5 hours",
+      "daytime-tiredness": "I usually feel tired all day long",
+      "post-meal-hunger": "Yes",
+    },
     { "stress-level": "I usually feel good", sleep: "More than 8 hours" },
   ];
   for (const a of cases) {

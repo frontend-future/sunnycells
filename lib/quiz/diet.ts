@@ -63,6 +63,12 @@ export const dietQuiz: QuizConfig = {
     options: ["I am usually always stressed", "Only at certain moments of the day", "I usually feel good"],
   },
   {
+    slug: "post-meal-hunger",
+    kind: "single",
+    question: "After eating a full meal, do you still feel unusually hungry?",
+    options: ["Yes", "No"],
+  },
+  {
     slug: "weight-loss-difficulty",
     kind: "single",
     question: "Despite your efforts, do you find it challenging to lose weight?",
