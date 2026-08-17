@@ -65,7 +65,7 @@ export function MetabolismScreen() {
       </div>
 
       <StickyCta>
-        <NextButton href="/quiz/diet/results/reviews">Continue</NextButton>
+        <NextButton href="/quiz/diet/results/benefits">Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

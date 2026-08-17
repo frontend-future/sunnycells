@@ -1,8 +1,9 @@
 "use client";
 
 import {
-  ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, Mars, Menu, Minus, Plus,
-  Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User, Venus, X,
+  ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, Dna, Droplet, Leaf,
+  Mars, Menu, Minus, Plus, Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User,
+  Venus, WheatOff, X, ZapOff,
 } from "lucide-react";
 import type { CSSProperties } from "react";
 
@@ -15,6 +16,9 @@ const ICONS = {
   check: Check,
   "chevron-down": ChevronDown,
   "chevron-right": ChevronRight,
+  dna: Dna,
+  droplet: Droplet,
+  leaf: Leaf,
   mars: Mars,
   menu: Menu,
   minus: Minus,
@@ -27,7 +31,9 @@ const ICONS = {
   truck: Truck,
   user: User,
   venus: Venus,
+  "wheat-off": WheatOff,
   x: X,
+  "zap-off": ZapOff,
 } as const;
 
 export type IconName = keyof typeof ICONS;
