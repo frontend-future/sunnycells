@@ -285,31 +285,20 @@ export function ProjectionChart({
    the in-between values. */
 const RATE_RAMP = "linear-gradient(90deg, var(--scale-high), var(--zest), var(--scale-mid), var(--scale-low))";
 
-const MARKER_AREA = 66;
-const LABEL_H = 22;
+const MARKER_AREA = 34;
 const ARROW_H = 9;
 
 const BAR_MS = 520;
 const SLIDE_MS = 1100;
 const SLIDE_DELAY_MS = 700;
 
-/* The two labels sit on separate rows joined to the bar by a hairline. Side by side
-   they collided the moment the markers were within about 40% of each other, which is
-   most profiles, and shortening the copy only moves where it breaks. */
-function Marker({
-  at, label, row, animation,
-}: {
-  at: number;
-  label: string;
-  row: 0 | 1;
-  animation: string;
-}) {
-  const stem = MARKER_AREA - LABEL_H * (row + 1) - ARROW_H;
+/** Label with the arrow tip directly under it, nothing joining them. */
+function Marker({ at, label, animation }: { at: number; label: string; animation: string }) {
   return (
     <div
       style={{
         position: "absolute",
-        top: row * LABEL_H,
+        bottom: 0,
         left: `${at}%`,
         transform: "translateX(-50%)",
         display: "flex",
@@ -318,20 +307,13 @@ function Marker({
         animation,
       }}
     >
-      <span
-        style={{
-          fontSize: "var(--size-meta)",
-          fontWeight: 700,
-          lineHeight: `${LABEL_H}px`,
-          whiteSpace: "nowrap",
-        }}
-      >
+      <span style={{ fontSize: "var(--size-meta)", fontWeight: 700, lineHeight: "20px", whiteSpace: "nowrap" }}>
         {label}
       </span>
-      <span aria-hidden="true" style={{ width: 1, height: stem, background: "var(--ink-20)" }} />
       <span
         aria-hidden="true"
         style={{
+          marginTop: 4,
           width: 0,
           height: 0,
           borderLeft: "8px solid transparent",
@@ -364,13 +346,11 @@ export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: 
         <Marker
           at={m.now}
           label="Right now"
-          row={0}
           animation={`sc-fade-in var(--duration-base) var(--ease-standard) ${BAR_MS}ms both`}
         />
         <Marker
           at={m.after}
           label={afterLabel}
-          row={1}
           animation={`sc-metab-slide ${SLIDE_MS}ms var(--ease-out) ${SLIDE_DELAY_MS}ms both`}
         />
       </div>
@@ -403,8 +383,20 @@ export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: 
       </div>
 
       <div style={{ display: "flex", marginTop: "var(--space-2)" }}>
-        {RATE_LABELS.map((l) => (
-          <span key={l} style={{ flex: 1, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
+        {RATE_LABELS.map((l, i) => (
+          <span
+            key={l}
+            style={{
+              flex: 1,
+              /* The end labels pull to the outside edges rather than centring in a
+                 quarter-width column, which is what made "Very slow" wrap on a 375px
+                 screen. The inner two stay centred under their bands. */
+              textAlign: i === 0 ? "left" : i === RATE_LABELS.length - 1 ? "right" : "center",
+              whiteSpace: "nowrap",
+              fontSize: "var(--size-meta)",
+              color: "var(--ink-60)",
+            }}
+          >
             {l}
           </span>
         ))}

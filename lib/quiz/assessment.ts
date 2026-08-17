@@ -90,7 +90,11 @@ export type Metabolism = {
    two screens cannot disagree. "Right now" stays inside the Slow band and moves within
    it: heavier stress sits at the bottom of the band, lighter stress near the top. The
    plan lands just inside Very fast. */
-const NOW_BAND: [number, number] = [27, 47];
+/* Kept to the lower half of the Slow band. The two marker labels sit on one row with
+   nothing joining them to their arrows, so they have to clear each other by position
+   alone. At 47 they overlapped by 10px on a 375px screen and at 40 they cleared by 4,
+   which still reads as one run of text. This keeps a 24px gap at the narrowest. */
+const NOW_BAND: [number, number] = [27, 34];
 const AFTER = 79;
 
 export function metabolism(a: Answers): Metabolism {
