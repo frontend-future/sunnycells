@@ -12,18 +12,17 @@ import { levelWord, type Projection, type Row } from "@/lib/quiz/assessment";
    whole sequence is done inside a second. */
 const ROW_STAGGER_MS = 110;
 
-/* Seven segments running low to high. Green and red are the system's status pair,
-   which is what a severity scale is; sun sits in the middle as the brand's own
-   caution value. The level is also written into each row's accessible name and
+/* Seven segments running low to high, drawn from the severity ramp rather than the
+   muted status pair. The level is also written into each row's accessible name and
    spelled out on the scale beneath, so colour never carries it alone. */
 const SEGMENTS = [
-  "var(--status-success)",
-  "var(--status-success)",
-  "var(--sun)",
-  "var(--sun)",
-  "var(--sun)",
-  "var(--status-error)",
-  "var(--status-error)",
+  "var(--scale-low)",
+  "var(--scale-low)",
+  "var(--scale-mid)",
+  "var(--scale-mid)",
+  "var(--scale-mid)",
+  "var(--scale-high)",
+  "var(--scale-high)",
 ];
 
 /** Segmented low-to-high gauge with a marker at the score. */
@@ -52,7 +51,7 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
                     key={n}
                     style={{
                       flex: 1,
-                      height: 12,
+                      height: 18,
                       background: c,
                       borderRadius:
                         n === 0 ? "var(--radius-pill) 0 0 var(--radius-pill)"
@@ -71,10 +70,10 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
                   position: "absolute",
                   top: "50%",
                   left: `${3 + (r.you / 100) * 94}%`,
-                  width: 22,
-                  height: 22,
-                  marginTop: -11,
-                  marginLeft: -11,
+                  width: 26,
+                  height: 26,
+                  marginTop: -13,
+                  marginLeft: -13,
                   borderRadius: "50%",
                   background: "var(--ink)",
                   boxShadow: "0 0 0 3px var(--white)",

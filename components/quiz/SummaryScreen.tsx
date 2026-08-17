@@ -56,24 +56,20 @@ export function SummaryScreen() {
 
       <div style={{ marginTop: "var(--space-10)", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          This is not a willpower problem. Most people carry at least one stress-driven
-          symptom, and the three things that move it are food, sleep, and what you take
-          alongside them.
+          It is not your fault. Most of the people suffer from at least one of stress
+          related problems. By combining nutrition and proper supplementation it is
+          really possible to fight it back.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          Based on your answers, you look like a good fit for{" "}
+          Based on your answers you seem like a perfect candidate who{" "}
           <strong style={{ fontWeight: 800 }}>
-            Metabolic Morning Blend, to bring stress down and take the weight with it.
+            could benefit from Metabolic Morning Blend program to release stress and lose
+            weight.
           </strong>
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>
-          {women ? "Women" : "Men"} who answered like you most often notice their sleep
-          settle first, inside the first two weeks.
-        </p>
-        <p style={{ margin: 0, fontSize: "var(--size-meta)", lineHeight: 1.55, color: "var(--ink-60)" }}>
-          This is a screening questionnaire built from self-reported symptoms, not a
-          measurement. Cortisol is measured in blood, saliva, or urine, and a doctor is
-          the only person who can read that result in context.
+          Similar {women ? "women" : "men"} to you saw their first results within first
+          week of using Metabolic Morning Blend.
         </p>
       </div>
 

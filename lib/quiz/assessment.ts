@@ -36,7 +36,7 @@ export function assessmentRows(a: Answers): Row[] {
     { label: "Brain fog", you: yes(a, "brain-fog") ? 82 : 24 },
     { label: "Difficulty of losing weight", you: yes(a, "weight-loss-difficulty") ? 86 : 28 },
     {
-      label: "Hungriness level",
+      label: "Hunger level",
       /* Two signals: when energy drops in the day, and whether a full meal actually
          settles hunger. Still hungry after eating is the stronger of the two, so it
          adds on top rather than replacing the tiredness read. */

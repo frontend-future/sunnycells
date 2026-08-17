@@ -72,6 +72,15 @@
   --family-hair: var(--sky);
   --family-wellness: var(--sprout);
 
+  /* ---------- SEVERITY SCALE ----------
+     A low-to-high ramp for gauges, kept separate from both the family codes and the
+     muted status pair. Status colours are deliberately quiet so they never compete
+     with a product block; a gauge is the one place the brand wants the opposite, so
+     these are saturated. Do not use them for anything but a scale. */
+  --scale-low: #43B14C;
+  --scale-mid: var(--sun);
+  --scale-high: #E63E2B;
+
   /* ---------- STATUS ----------
      Deliberately muted: status colour never competes with the family codes. */
   --status-success: #2C7A33;
