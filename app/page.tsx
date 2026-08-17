@@ -360,7 +360,7 @@ export default function SystemPage() {
         <div style={{ maxWidth: "var(--page-max)", margin: "0 auto", display: "flex", flexWrap: "wrap", gap: "var(--space-6)", alignItems: "center", justifyContent: "space-between" }}>
           <Wordmark size={22} />
           <span style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-            Free shipping, always. Skip or cancel anytime. Sixty-day returns.
+            Free shipping, always. Skip or cancel anytime. Thirty-day returns.
           </span>
         </div>
       </footer>

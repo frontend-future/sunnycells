@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { NavLink } from "@/components/navigation/NavLink";
+import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import { Wordmark } from "@/components/core/Wordmark";
 import { RatingPill } from "@/components/quiz/RatingPill";
 import { StartChoice } from "@/components/quiz/StartChoice";
@@ -30,34 +31,13 @@ const FOOTER_LINKS = [
 export default function QuizLandingPage() {
   return (
     <>
-      {/* Two standing terms, split bold and regular like the reference bar. Neither is
-          a countdown: the brand does not run them. */}
-      <div
-        style={{
-          background: "var(--ink)",
-          color: "var(--white)",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "var(--space-3) var(--space-10)",
-          padding: "8px var(--page-gutter-mobile)",
-          lineHeight: 1.35,
-          fontSize: "var(--size-meta)",
-          letterSpacing: "var(--tracking-caps)",
-          textTransform: "uppercase",
-          textAlign: "center",
-        }}
-      >
-        <span>
-          <strong style={{ fontWeight: 800 }}>Free shipping</strong>{" "}
-          <span style={{ fontWeight: 500 }}>on all orders</span>
-        </span>
-        <span>
-          <strong style={{ fontWeight: 800 }}>60 day</strong>{" "}
-          <span style={{ fontWeight: 500 }}>money back guarantee</span>
-        </span>
-      </div>
+      <AnnouncementMarquee
+        terms={[
+          { strong: "Free shipping", rest: "on all orders" },
+          { strong: "30 day", rest: "money back guarantee" },
+          { strong: "Skip or cancel", rest: "anytime" },
+        ]}
+      />
 
       {/* The flat tint block sits behind the top of the product and the cutout
           overhangs it onto white. That overhang is the brand's merchandising move, and

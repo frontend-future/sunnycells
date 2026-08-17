@@ -79,7 +79,7 @@ export function CheckoutScreen() {
           Then ${price} per month, and you can change it any time.
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", marginTop: "var(--space-4)" }}>
-          {([["truck", "Free shipping, always"], ["repeat", "Skip, change, or cancel anytime"], ["shield-check", "Sixty-day returns, opened or not"]] as const).map(
+          {([["truck", "Free shipping, always"], ["repeat", "Skip, change, or cancel anytime"], ["shield-check", "Thirty-day returns, opened or not"]] as const).map(
             ([icon, text]) => (
               <span key={text} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 600 }}>
                 <Icon name={icon} size={20} />

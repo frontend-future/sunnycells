@@ -45,7 +45,7 @@ export function SubscriptionBox({
   reassurances = [
     ["truck", "Free shipping, always"],
     ["repeat", "Skip, change, or cancel anytime"],
-    ["shield-check", "Sixty-day returns, opened or not"],
+    ["shield-check", "Thirty-day returns, opened or not"],
   ],
   style, ...rest
 }: SubscriptionBoxProps) {
