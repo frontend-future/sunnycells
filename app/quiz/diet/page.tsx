@@ -78,18 +78,19 @@ export default function QuizLandingPage() {
 
       <main style={{ width: "100%", maxWidth: 720, margin: "0 auto", padding: "0 var(--page-gutter-mobile)" }}>
         <div style={{ textAlign: "center", paddingTop: "var(--space-6)" }}>
+          {/* Sentence case, not the display caps the casing table calls for on a hero.
+              This one is set to match the sister brand's start page. */}
           <h1
             style={{
               margin: 0,
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(var(--size-h4), 7.6vw, var(--size-h1))",
-              letterSpacing: "var(--tracking-display)",
+              fontSize: "clamp(var(--size-h3), 8.2vw, var(--size-h1))",
+              letterSpacing: "var(--tracking-heading)",
               lineHeight: "var(--leading-snug)",
-              textTransform: "uppercase",
               textWrap: "balance",
             }}
           >
-            <span style={{ fontWeight: 700 }}>Lose the cortisol belly with </span>
+            <span style={{ fontWeight: 600 }}>Release stress &amp; lose weight with </span>
             <span style={{ fontWeight: 900 }}>Metabolic Morning Blend</span>
           </h1>
 
@@ -102,7 +103,8 @@ export default function QuizLandingPage() {
               textWrap: "pretty",
             }}
           >
-            Cortisol that stays high changes where you store fat and how you sleep.
+            Balancing your levels of cortisol can help with weight loss, better skin,
+            cortisol belly and more.
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>
