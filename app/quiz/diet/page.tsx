@@ -127,9 +127,6 @@ export default function QuizLandingPage() {
             ]}
           />
 
-          <p style={{ marginTop: "var(--space-4)", marginBottom: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-            Twenty questions, about two minutes. Your answers stay in this browser.
-          </p>
         </div>
 
         <section style={{ padding: "var(--space-20) 0 var(--space-16)", textAlign: "center" }}>

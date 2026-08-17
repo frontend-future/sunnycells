@@ -21,14 +21,14 @@ export const dietQuiz: QuizConfig = {
     slug: "how-cortisol-works",
     kind: "info",
     question: "How the stress hormone affects your body",
-    body: "Cortisol rises to get you through a demanding day and falls again when the day ends. When it stays high for months, it changes where your body stores fat, how deeply you sleep, and how hungry you feel. These are the patterns people report most often:",
+    body: "Cortisol also known as stress hormone plays a central role in nearly every long-term health problem. Here are some of the most common symptoms of increased cortisol:",
     bullets: [
-      "Weight that will not move, whatever you change",
-      "Tension you carry in your jaw, neck, and shoulders",
-      "A nervous system that feels stuck in the on position",
-      "Anxiety that arrives without a reason attached",
-      "Fat that settles around the middle and stays there",
-      "Energy that runs out well before the day does",
+      "Can't lose weight no matter what you do",
+      "Have tension and chronic pain",
+      "Feeling like your nervous system is dysregulated",
+      "Struggling with anxiety",
+      "Have cortisol belly that does not seem to go away",
+      "Feeling like you have no energy",
     ],
     cta: "Continue",
   },
@@ -47,7 +47,7 @@ export const dietQuiz: QuizConfig = {
   {
     slug: "brain-fog",
     kind: "single",
-    question: "Do you feel fatigued or have difficulty concentrating, often described as brain fog?",
+    question: "Do you feel fatigued or have difficulty concentrating, often described as “brain fog”?",
     options: ["Yes", "No"],
   },
   {
@@ -133,7 +133,7 @@ export const dietQuiz: QuizConfig = {
   {
     slug: "moon-face",
     kind: "single",
-    question: "Does your face appear rounder or puffier than usual, sometimes called moon face?",
+    question: "Does your face appear rounder or puffier than usual, sometimes called “moon face”?",
     options: ["Yes", "No"],
   },
   {
