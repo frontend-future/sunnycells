@@ -26,20 +26,27 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
             </span>
           </div>
 
-          <div style={{ position: "relative", height: 20, background: "var(--ink-10)", borderRadius: "var(--radius-xs)", marginTop: "var(--space-2)" }}>
+          <div style={{ position: "relative", height: 24, background: "var(--ink-10)", borderRadius: "var(--radius-xs)", marginTop: "var(--space-2)" }}>
+            {/* Sun fill inside a 2px ink outline. --sun on the --ink-10 track is two
+                light values against each other, so the outline is what gives the bar
+                its edge and carries the non-text contrast. Every value is printed
+                beside the bar too, so nothing here rests on colour. */}
             <div
               style={{
                 width: r.you + "%",
                 height: "100%",
-                background: "var(--ink)",
+                boxSizing: "border-box",
+                background: "var(--sun)",
+                border: "2px solid var(--ink)",
                 borderRadius: "var(--radius-xs)",
                 animation: "sc-reveal-x var(--duration-slow) var(--ease-standard) both",
                 animationDelay: `${i * ROW_STAGGER_MS}ms`,
               }}
             />
             {/* The average sits as a tick on the same track, so the comparison is a
-                position, not a second colour competing with the bar. The white halo is
-                what keeps it visible where it crosses the black fill. */}
+                position, not a second colour competing with the bar. Black reads on
+                both the sun fill and the light track, so it needs no halo: the halo it
+                used to carry now reads as a gap splitting the bar in two. */}
             <div
               aria-hidden="true"
               style={{
@@ -48,8 +55,7 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
                 bottom: -5,
                 left: `calc(${r.average}% - 1px)`,
                 width: 2,
-                background: "var(--ink-60)",
-                boxShadow: "0 0 0 2px var(--white)",
+                background: "var(--ink)",
                 animation: "sc-fade-in var(--duration-base) var(--ease-standard) both",
                 animationDelay: `${i * ROW_STAGGER_MS + 220}ms`,
               }}
