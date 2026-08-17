@@ -7,6 +7,7 @@ import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
 import { nextHref, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
+import { StickyCta } from "./StickyCta";
 import { QuizChrome, QuizQuestion } from "./QuizChrome";
 
 /** Renders any step of any quiz. Everything it needs comes from the config. */
@@ -57,11 +58,11 @@ function Body({ step, answers, set, answer, go }: BodyProps) {
             ))}
           </ul>
         ) : null}
-        <Footer>
+        <StickyCta>
           <Button size="lg" fullWidth iconRight="arrow-right" onClick={go}>
             {step.cta}
           </Button>
-        </Footer>
+        </StickyCta>
       </div>
     );
   }
@@ -69,10 +70,6 @@ function Body({ step, answers, set, answer, go }: BodyProps) {
   if (step.kind === "height") return <HeightBody answers={answers} set={set} go={go} />;
   if (step.kind === "number") return <NumberBody step={step} answers={answers} set={set} go={go} />;
   return <EmailBody step={step} set={set} go={go} />;
-}
-
-function Footer({ children }: { children: React.ReactNode }) {
-  return <div style={{ marginTop: "auto", paddingTop: "var(--space-8)" }}>{children}</div>;
 }
 
 function FieldError({ children }: { children: string }) {
@@ -158,11 +155,11 @@ function HeightBody({ answers, set, go }: { answers: Answers; set: Setter; go: (
         <Input label="Centimetres" type="number" inputMode="numeric" value={cm} onChange={(e) => setCm(e.target.value)} />
       )}
       {error ? <FieldError>{error}</FieldError> : null}
-      <Footer>
+      <StickyCta>
         <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
           Continue
         </Button>
-      </Footer>
+      </StickyCta>
     </form>
   );
 }
@@ -207,11 +204,11 @@ function NumberBody({
         ) : null}
       </div>
       {error ? <FieldError>{error}</FieldError> : null}
-      <Footer>
+      <StickyCta>
         <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
           Continue
         </Button>
-      </Footer>
+      </StickyCta>
     </form>
   );
 }
@@ -254,11 +251,11 @@ function EmailBody({ step, set, go }: { step: Extract<Step, { kind: "email" }>; 
         error={error || undefined}
         onChange={(e) => { setEmail(e.target.value); setError(""); }}
       />
-      <Footer>
+      <StickyCta>
         <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
           {step.cta}
         </Button>
-      </Footer>
+      </StickyCta>
     </form>
   );
 }

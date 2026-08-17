@@ -45,23 +45,19 @@ export function PlansScreen() {
           background: "var(--shell)",
           borderRadius: "var(--radius-card)",
           overflow: "hidden",
-          marginBottom: "var(--space-8)",
+          marginBottom: "var(--space-6)",
         }}
       >
+        {/* Capped: at full width this pushed the cadence options past the fold on a
+            375px screen, and the choice is the point of this page. */}
         <Image
           src="/product/metabolic-morning-blend.png"
           alt="SC-21 Metabolic Morning Blend, a yellow pouch beside a scoop of powder"
           width={2400}
           height={1792}
-          style={{ width: "100%", height: "auto", display: "block" }}
+          style={{ width: "100%", height: "auto", maxHeight: 120, objectFit: "contain", display: "block" }}
         />
       </div>
-
-      <p style={{ marginTop: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
-        One scoop in water each morning. Thirty servings a pouch, orange flavour, no
-        stimulants. Your answers pointed at sleep and afternoon energy first, which is
-        where most people notice the change before the scale moves.
-      </p>
 
       <SubscriptionBox
         plans={PLANS}
@@ -76,6 +72,20 @@ export function PlansScreen() {
           router.push("/quiz/diet/results/checkout");
         }}
       />
+
+      <p
+        style={{
+          marginTop: "var(--space-8)",
+          marginBottom: 0,
+          fontSize: "var(--size-meta)",
+          lineHeight: 1.55,
+          color: "var(--ink-60)",
+        }}
+      >
+        One scoop in water each morning. Thirty servings a pouch, orange flavour, no
+        stimulants. Your answers pointed at sleep and afternoon energy first, which is
+        where most people notice the change before the scale moves.
+      </p>
     </ResultsShell>
   );
 }

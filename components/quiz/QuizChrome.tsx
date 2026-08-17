@@ -86,7 +86,7 @@ export function QuizChrome({
           width: "100%",
           maxWidth: 720,
           margin: "0 auto",
-          padding: "var(--space-8) var(--page-gutter-mobile) var(--space-12)",
+          padding: "var(--space-6) var(--page-gutter-mobile) var(--space-6)",
           display: "flex",
           flexDirection: "column",
         }}
@@ -103,9 +103,9 @@ export function QuizQuestion({ children }: { children: ReactNode }) {
   return (
     <h1
       style={{
-        margin: "0 0 var(--space-8)",
+        margin: "0 0 var(--space-6)",
         fontFamily: "var(--font-display)",
-        fontSize: "clamp(var(--size-h3), 5vw, var(--size-h2))",
+        fontSize: "clamp(var(--size-h4), 5.5vw, var(--size-h2))",
         fontWeight: 800,
         letterSpacing: "var(--tracking-heading)",
         lineHeight: "var(--leading-heading)",

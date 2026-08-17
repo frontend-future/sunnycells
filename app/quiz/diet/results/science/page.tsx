@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Accordion } from "@/components/navigation/Accordion";
+import { StickyCta } from "@/components/quiz/StickyCta";
 import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell, ResultsHeading } from "@/components/quiz/ResultsShell";
 
@@ -77,9 +78,9 @@ export default function SciencePage() {
         </p>
       </div>
 
-      <div style={{ marginTop: "var(--space-10)" }}>
+      <StickyCta>
         <NextButton href="/quiz/diet/results/reviews">Read what people say</NextButton>
-      </div>
+      </StickyCta>
     </ResultsShell>
   );
 }

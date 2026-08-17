@@ -4,6 +4,7 @@ import { projection } from "@/lib/quiz/assessment";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { ProjectionChart } from "./Charts";
+import { StickyCta } from "./StickyCta";
 import { NextButton } from "./NextButton";
 import { ResultsShell, ResultsHeading } from "./ResultsShell";
 
@@ -52,9 +53,9 @@ export function ProjectionScreen() {
         </p>
       </div>
 
-      <div style={{ marginTop: "var(--space-10)" }}>
+      <StickyCta>
         <NextButton href="/quiz/diet/results/science">What is in the blend</NextButton>
-      </div>
+      </StickyCta>
     </ResultsShell>
   );
 }

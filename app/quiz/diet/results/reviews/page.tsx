@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Card } from "@/components/core/Card";
 import { StarRating } from "@/components/commerce/StarRating";
+import { StickyCta } from "@/components/quiz/StickyCta";
 import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell, ResultsHeading } from "@/components/quiz/ResultsShell";
 
@@ -69,9 +70,9 @@ export default function ReviewsPage() {
         in most markets.
       </p>
 
-      <div style={{ marginTop: "var(--space-10)" }}>
+      <StickyCta>
         <NextButton href="/quiz/diet/results/plans">See my plan</NextButton>
-      </div>
+      </StickyCta>
     </ResultsShell>
   );
 }

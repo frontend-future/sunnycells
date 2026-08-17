@@ -28,7 +28,7 @@ export function StartChoice({
         gridTemplateColumns: `repeat(${options.length}, 1fr)`,
         gap: "var(--space-4)",
         maxWidth: 460,
-        margin: "var(--space-8) auto 0",
+        margin: "var(--space-6) auto 0",
       }}
     >
       {options.map((o) => (

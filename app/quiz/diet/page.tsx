@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function QuizLandingPage() {
   return (
     <>
-      <Banner tone="ink">Free shipping, always · Sixty-day returns</Banner>
+      <Banner tone="ink">Free shipping · Sixty-day returns</Banner>
 
       <header
         style={{
@@ -30,19 +30,33 @@ export default function QuizLandingPage() {
 
       <main style={{ width: "100%", maxWidth: 720, margin: "0 auto", padding: "0 var(--page-gutter-mobile) var(--space-16)" }}>
         {/* --shell, not --sun: the pouch is already the brand yellow, so a sun block
-            behind it hides the product it is meant to present. */}
-        <div style={{ background: "var(--shell)", borderRadius: "0 0 var(--radius-xl) var(--radius-xl)", paddingTop: "var(--space-6)" }}>
+            behind it hides the product it is meant to present.
+            The height cap is what keeps the gender buttons above the fold on a 375px
+            screen. Uncapped it was a 280px image and the buttons sat 254px down-page. */}
+        <div
+          style={{
+            background: "var(--shell)",
+            borderRadius: "0 0 var(--radius-xl) var(--radius-xl)",
+            paddingTop: "var(--space-4)",
+          }}
+        >
           <Image
             src="/product/metabolic-morning-blend.png"
             alt="SC-21 Metabolic Morning Blend, a yellow pouch beside a scoop of powder"
             width={2400}
             height={1792}
             priority
-            style={{ width: "100%", height: "auto", display: "block" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              maxHeight: "min(21vh, 240px)",
+              objectFit: "contain",
+              display: "block",
+            }}
           />
         </div>
 
-        <div style={{ textAlign: "center", paddingTop: "var(--space-10)" }}>
+        <div style={{ textAlign: "center", paddingTop: "var(--space-6)" }}>
           <div
             style={{
               fontFamily: "var(--font-label)",
@@ -56,9 +70,9 @@ export default function QuizLandingPage() {
           </div>
           <h1
             style={{
-              margin: "var(--space-4) 0 0",
+              margin: "var(--space-3) 0 0",
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(var(--size-h1-m), 8vw, var(--size-display))",
+              fontSize: "clamp(var(--size-h3), 8vw, var(--size-display))",
               fontWeight: 900,
               letterSpacing: "var(--tracking-display)",
               lineHeight: "var(--leading-tight)",
@@ -72,16 +86,15 @@ export default function QuizLandingPage() {
           <p
             style={{
               maxWidth: 520,
-              margin: "var(--space-6) auto 0",
-              fontSize: "var(--size-body-lg)",
-              lineHeight: "var(--leading-body)",
+              margin: "var(--space-4) auto 0",
+              fontSize: "var(--size-body)",
+              lineHeight: 1.45,
             }}
           >
-            Cortisol that stays high for months changes where your body stores fat and how
-            hungry you feel. Answer twenty questions and see where yours sits.
+            Cortisol that stays high changes where your body stores fat. See where yours sits.
           </p>
 
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-6)" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>
             <StarRating value={4.7} count={12480} showValue />
           </div>
 
@@ -91,7 +104,7 @@ export default function QuizLandingPage() {
             options={[{ label: "Male" }, { label: "Female", variant: "accent" }]}
           />
 
-          <p style={{ marginTop: "var(--space-6)", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
+          <p style={{ marginTop: "var(--space-4)", marginBottom: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
             Your answers stay in this browser until you choose to send them.
           </p>
         </div>

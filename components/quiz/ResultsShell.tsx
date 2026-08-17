@@ -22,7 +22,7 @@ export function ResultsShell({ children }: { children: ReactNode }) {
           width: "100%",
           maxWidth: 720,
           margin: "0 auto",
-          padding: "var(--space-10) var(--page-gutter-mobile) var(--space-16)",
+          padding: "var(--space-8) var(--page-gutter-mobile) var(--space-6)",
           display: "flex",
           flexDirection: "column",
         }}

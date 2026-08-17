@@ -10,6 +10,7 @@ import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { firstOrderPrice } from "@/lib/price";
 import { ResultsShell, ResultsHeading } from "./ResultsShell";
+import { StickyCta } from "./StickyCta";
 
 const CADENCE: Record<string, string> = {
   m1: "Every month",
@@ -89,7 +90,12 @@ export function CheckoutScreen() {
         </div>
       </div>
 
+      {/* The submit button lives outside the form and reaches it with form="...".
+          A sticky bar can only pin within its containing block, and this form starts
+          625px down the page, so a bar inside it could not reach the viewport bottom
+          until the user had already scrolled. */}
       <form
+        id="shipping"
         onSubmit={(e) => { e.preventDefault(); submit(); }}
         style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}
       >
@@ -129,9 +135,6 @@ export function CheckoutScreen() {
           options={["United States", "Canada", "United Kingdom", "Australia"]}
         />
 
-        <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
-          Continue to payment
-        </Button>
       </form>
 
       {submitted ? (
@@ -152,6 +155,12 @@ export function CheckoutScreen() {
           </p>
         </div>
       ) : null}
+
+      <StickyCta>
+        <Button size="lg" fullWidth type="submit" form="shipping" iconRight="arrow-right">
+          Continue to payment
+        </Button>
+      </StickyCta>
     </ResultsShell>
   );
 }

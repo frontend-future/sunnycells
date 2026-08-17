@@ -4,7 +4,7 @@ const BASE = "http://localhost:3100";
 const errors = [];
 let fails = 0;
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 430, height: 932 } });
+const page = await browser.newPage({ viewport: { width: 375, height: 667 } });
 page.on("console", (m) => { if (m.type() === "error") errors.push(`console: ${m.text()}`); });
 page.on("pageerror", (e) => errors.push(`pageerror: ${e.message}`));
 
