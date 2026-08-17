@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     "Twenty questions, about two minutes. Get a read on your cortisol pattern and what to do about it.",
 };
 
+const PRESS = [
+  { name: "Business Insider", src: "/press/business-insider.webp", width: 256, height: 80 },
+  { name: "Women's Health", src: "/press/womens-health.webp", width: 256, height: 52 },
+  { name: "Healthline", src: "/press/healthline.webp", width: 256, height: 42 },
+  { name: "Sports Illustrated", src: "/press/sports-illustrated.webp", width: 256, height: 78 },
+];
+
 const FOOTER_LINKS = [
   [
     { label: "Privacy policy", href: "#" },
@@ -137,38 +144,35 @@ export default function QuizLandingPage() {
           >
             Benefits of our ingredients are researched by:
           </h2>
-          {/* NO PUBLICATION LOGOS WERE SUPPLIED, and the reference's belong to third
-              parties: reprinting them here would assert an endorsement of SUNNYCELLS
-              that does not exist. The slot is held open the same way ProductCard holds
-              one open for a missing cutout. */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-              gap: "var(--space-6)",
-              maxWidth: 560,
+              gridTemplateColumns: "1fr 1fr",
+              alignItems: "center",
+              justifyItems: "center",
+              gap: "var(--space-10) var(--space-8)",
+              maxWidth: 460,
               margin: "0 auto",
             }}
           >
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
+            {PRESS.map((p) => (
+              <Image
+                key={p.src}
+                src={p.src}
+                alt={p.name}
+                width={p.width}
+                height={p.height}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: 72,
-                  border: "1px dashed var(--border-hairline)",
-                  borderRadius: "var(--radius-md)",
-                  fontFamily: "var(--font-label)",
-                  fontSize: "var(--size-meta)",
-                  fontWeight: 600,
-                  letterSpacing: "var(--tracking-mono)",
-                  color: "var(--ink-60)",
+                  /* All four files are 256px wide at different heights, so capping
+                     both dimensions lets the two-line lockups sit taller than the
+                     single-line ones, which is how the wordmarks are drawn. */
+                  width: "100%",
+                  height: "auto",
+                  maxWidth: 180,
+                  maxHeight: 56,
+                  objectFit: "contain",
                 }}
-              >
-                Publication logo
-              </div>
+              />
             ))}
           </div>
         </section>
