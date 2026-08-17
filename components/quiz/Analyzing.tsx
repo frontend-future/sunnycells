@@ -6,13 +6,17 @@ import { Icon } from "@/components/core/Icon";
 import { ResultsShell, ResultsHeading } from "./ResultsShell";
 
 const LINES = [
-  "Reading your stress and sleep answers",
-  "Placing your symptoms against the reference set",
-  "Working out your weight timeline",
-  "Building your summary",
+  "Evaluating your answers…",
+  "Analyzing your results…",
+  "Comparing with others…",
+  "Building your summary…",
 ];
 
 const STEP_MS = 900;
+const HOLD_MS = 500;
+/* The bar fills across the whole run in one linear sweep, so it never jumps a
+   quarter at a time. The ticks land on top of it, they do not drive it. */
+const TOTAL_MS = LINES.length * STEP_MS + HOLD_MS;
 
 export function Analyzing() {
   const router = useRouter();
@@ -20,38 +24,49 @@ export function Analyzing() {
 
   useEffect(() => {
     if (done >= LINES.length) {
-      const t = setTimeout(() => router.replace("/quiz/diet/results/summary"), 500);
+      const t = setTimeout(() => router.replace("/quiz/diet/results/summary"), HOLD_MS);
       return () => clearTimeout(t);
     }
     const t = setTimeout(() => setDone((d) => d + 1), STEP_MS);
     return () => clearTimeout(t);
   }, [done, router]);
 
-  const pct = Math.round((done / LINES.length) * 100);
-
   return (
     <ResultsShell>
-      <ResultsHeading eyebrow="One moment">Reading your answers</ResultsHeading>
+      <ResultsHeading>{LINES[0]}</ResultsHeading>
 
       <div
         role="progressbar"
-        aria-valuenow={pct}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label="Progress"
-        style={{ height: 4, background: "var(--ink-10)", marginBottom: "var(--space-8)" }}
+        aria-valuetext="Working"
+        aria-label="Reading your answers"
+        style={{
+          height: 16,
+          background: "var(--ink-10)",
+          borderRadius: "var(--radius-pill)",
+          overflow: "hidden",
+          marginBottom: "var(--space-8)",
+        }}
       >
+        {/* Sun inside an ink outline, the same treatment the assessment bars use, so
+            the fill has an edge against a track this light. Revealed with clip-path
+            rather than an animated width, which keeps the pill ends from distorting. */}
         <div
           style={{
+            width: "100%",
             height: "100%",
-            width: pct + "%",
-            background: "var(--ink)",
-            transition: "width var(--duration-slow) var(--ease-standard)",
+            boxSizing: "border-box",
+            background: "var(--sun)",
+            border: "2px solid var(--ink)",
+            borderRadius: "var(--radius-pill)",
+            animation: `sc-reveal-x ${TOTAL_MS}ms linear forwards`,
           }}
         />
       </div>
 
-      <ul aria-live="polite" style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <ul
+        aria-live="polite"
+        style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}
+      >
         {LINES.map((l, i) => {
           const complete = i < done;
           return (
@@ -63,26 +78,15 @@ export function Analyzing() {
                 gap: "var(--space-4)",
                 fontSize: "var(--size-body)",
                 fontWeight: complete ? 700 : 500,
-                color: complete ? "var(--ink)" : "var(--ink-60)",
-                transition: "color var(--duration-base) var(--ease-standard)",
+                color: "var(--ink)",
+                /* Pending rows fade rather than switching to a lighter ink, so no
+                   line ever sits at a value the system bars for text. */
+                opacity: complete ? 1 : 0.35,
+                transition: "opacity var(--duration-base) var(--ease-standard)",
               }}
             >
-              <span
-                aria-hidden="true"
-                style={{
-                  width: 28,
-                  height: 28,
-                  flex: "none",
-                  borderRadius: "var(--radius-xs)",
-                  border: "2px solid " + (complete ? "var(--ink)" : "var(--border-input)"),
-                  background: complete ? "var(--ink)" : "var(--white)",
-                  color: "var(--white)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {complete ? <Icon name="check" size={18} strokeWidth={3} /> : null}
+              <span aria-hidden="true" style={{ flex: "none", display: "flex" }}>
+                <Icon name="check" size={26} strokeWidth={3} />
               </span>
               {l}
             </li>
