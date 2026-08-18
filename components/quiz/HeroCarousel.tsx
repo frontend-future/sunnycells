@@ -28,7 +28,14 @@ function Pouch({ height = 220 }: { height?: number }) {
   );
 }
 
-function Slide({ children, tone = "tint" }: { children: React.ReactNode; tone?: "tint" | "white" }) {
+function Slide({
+  children, tone = "tint", flush = false,
+}: {
+  children: React.ReactNode;
+  tone?: "tint" | "white";
+  /** Runs content to the slide edges, for the photo collage. */
+  flush?: boolean;
+}) {
   return (
     <div
       style={{
@@ -36,7 +43,7 @@ function Slide({ children, tone = "tint" }: { children: React.ReactNode; tone?: 
         scrollSnapAlign: "start",
         background: tone === "tint" ? "var(--sun-tint)" : "var(--white)",
         borderRadius: "var(--radius-card)",
-        padding: "var(--space-5)",
+        padding: flush ? "var(--space-2)" : "var(--space-5)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -270,14 +277,31 @@ export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
         </Slide>
 
         {/* 6. Customers */}
-        <Slide>
-          <SlideTitle>People drinking it</SlideTitle>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-3)" }}>
+        <Slide flush>
+          {/* Photos butt up to each other and to the slide edge, with the tall one
+              spanning both rows, rather than sitting in cards inside a padded slide. */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1.35fr 1fr",
+              gridTemplateRows: "1fr 1fr",
+              gap: "var(--space-2)",
+              /* The whole collage is sized by ratio rather than by a fixed height, so
+                 the tall cell lands on the photos' own 0.72 and cover has almost
+                 nothing to trim. Setting a height instead let the slide stretch the
+                 cell and crop either the face or the pouch out, depending which way
+                 the bias went. */
+              width: "100%",
+              aspectRatio: "1.26",
+            }}
+          >
             <Image
               src={`/photos/story-${photoSet}.jpg`}
               alt=""
               width={1080}
               height={1480}
+              /* Biased right: these are portrait shots with the pouch held out to one
+                 side, and a centred crop in a tall cell cuts the product off. */
               style={{ gridRow: "span 2", width: "100%", height: "100%", objectFit: "cover", borderRadius: "var(--radius-md)" }}
             />
             <Image
@@ -285,10 +309,26 @@ export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
               alt=""
               width={1080}
               height={1480}
-              style={{ width: "100%", height: 120, objectFit: "cover", borderRadius: "var(--radius-md)" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 32%", borderRadius: "var(--radius-md)" }}
             />
-            <div style={{ background: "var(--white)", borderRadius: "var(--radius-md)", display: "flex", alignItems: "center", justifyContent: "center", padding: "var(--space-3)" }}>
-              <Pouch height={110} />
+            <div
+              style={{
+                background: "var(--white)",
+                borderRadius: "var(--radius-md)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "var(--space-3)",
+                minHeight: 0,
+              }}
+            >
+              <Image
+                src={POUCH}
+                alt=""
+                width={2400}
+                height={1792}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
             </div>
           </div>
         </Slide>

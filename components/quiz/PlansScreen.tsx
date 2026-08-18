@@ -182,7 +182,11 @@ export function PlansScreen() {
             maxWidth: 960,
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            /* 440, not 300: at 300 the hero split into two columns while each was only
+               ~314px, narrower than the heading needs, which broke it onto two lines.
+               min(440px, 100%) is what keeps that floor from forcing a 440px column on
+               a 360px phone and pushing the page sideways. */
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(440px, 100%), 1fr))",
             gap: "var(--space-8)",
             alignItems: "center",
           }}
@@ -192,7 +196,9 @@ export function PlansScreen() {
               style={{
                 margin: 0,
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(var(--size-h3), 6.4vw, var(--size-h1))",
+                /* Sized to keep this on one line at every width. At the old cap it
+                   broke after "natural" on desktop. */
+                fontSize: "clamp(var(--size-h4), 5.4vw, var(--size-h2))",
                 fontWeight: 900,
                 letterSpacing: "var(--tracking-heading)",
                 lineHeight: "var(--leading-snug)",
