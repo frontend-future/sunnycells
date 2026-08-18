@@ -9,11 +9,17 @@ import { ResultsShell } from "./ResultsShell";
 import { StickyCta } from "./StickyCta";
 
 /**
- * PLACEHOLDER STORY. Nobody named here is a real customer and no result here has been
- * measured. Publishing a testimonial that was written rather than collected is illegal
- * in the US under the FTC rule on consumer reviews and testimonials, and in most other
- * markets besides. Swap in a real, documented customer with their written permission
- * before this page goes live, and keep the substantiation on file.
+ * PLACEHOLDER STORY, AND THE PHOTOGRAPHS ARE GENERATED.
+ *
+ * Nobody named here is a real customer, neither face belongs to a real person, and no
+ * result here has been measured. Publishing a testimonial that was written rather than
+ * collected is illegal in the US under the FTC rule on consumer reviews and
+ * testimonials, which names AI-generated endorsers specifically and carries civil
+ * penalties per violation. Most other markets take the same view.
+ *
+ * Before this page goes live: replace the names, the photographs, the quote, and the
+ * three points with a real customer who has given written permission, and keep the
+ * substantiation for the weight figure on file.
  */
 const STORIES = {
   female: {
@@ -65,10 +71,10 @@ export function StoryScreen() {
       </h1>
 
       <Image
-        src={`/illustrations/story-${s.set}.png`}
-        alt={`Line drawing of ${s.name} holding a pouch of Metabolic Morning Blend`}
-        width={900}
-        height={675}
+        src={`/photos/story-${s.set}.jpg`}
+        alt={`${s.name} holding a pouch of Metabolic Morning Blend`}
+        width={1200}
+        height={900}
         style={{
           width: "100%",
           height: "auto",
