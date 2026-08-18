@@ -164,7 +164,6 @@ export function PlansScreen() {
         <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-3)" }}>
           Limited time offer <Badge tone="ink">50% off</Badge> <OfferCountdown />
         </span>
-        <span style={{ fontWeight: 500 }}>30 day money back guarantee</span>
       </div>
 
       <AnnouncementMarquee
