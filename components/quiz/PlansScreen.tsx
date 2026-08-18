@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import Image from "next/image";
 import { Accordion } from "@/components/navigation/Accordion";
 import { Badge } from "@/components/core/Badge";
@@ -456,35 +457,109 @@ export function PlansScreen() {
 
       {/* Comparison */}
       <Section tone="shell">
-        <div style={{ maxWidth: 760, margin: "0 auto", background: "var(--white)", border: "1px solid var(--border-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-6)" }}>
-          <h2 style={{ margin: "0 0 var(--space-2)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
-            Metabolic Morning Blend
-          </h2>
-          <p style={{ margin: "0 0 var(--space-6)", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-            Compared to other cortisol lowering drinks
-          </p>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--size-meta)" }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: "left" }} />
-                <th style={{ width: 72, padding: "0 0 var(--space-3)", fontWeight: 800 }}>Ours</th>
-                <th style={{ width: 72, padding: "0 0 var(--space-3)", fontWeight: 600, color: "var(--ink-60)" }}>Others</th>
-              </tr>
-            </thead>
-            <tbody>
-              {COMPARISON.map((row) => (
-                <tr key={row} style={{ borderTop: "1px solid var(--border-hairline)" }}>
-                  <td style={{ padding: "var(--space-3) var(--space-3) var(--space-3) 0", lineHeight: 1.4 }}>{row}</td>
-                  <td style={{ textAlign: "center", color: "var(--status-success)" }}>
-                    <Icon name="check" size={20} strokeWidth={3} title="Yes" />
-                  </td>
-                  <td style={{ textAlign: "center", color: "var(--ink-40)" }}>
-                    <Icon name="x" size={20} strokeWidth={3} title="No" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div
+          style={{
+            maxWidth: 860,
+            margin: "0 auto",
+            background: "var(--white)",
+            border: "1px solid var(--border-hairline)",
+            borderRadius: "var(--radius-xl)",
+            padding: "var(--space-8) var(--space-5) var(--space-6)",
+          }}
+        >
+          <div
+            style={{
+              display: "grid",
+              /* The two verdict columns shrink with the viewport so the row labels keep
+                 their measure on a phone. */
+              gridTemplateColumns: "minmax(0, 1fr) clamp(56px, 15vw, 110px) clamp(56px, 15vw, 110px)",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ paddingRight: "var(--space-4)", paddingBottom: "var(--space-5)" }}>
+              <h2
+                style={{
+                  margin: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(var(--size-h4), 5.2vw, var(--size-h2))",
+                  fontWeight: 900,
+                  letterSpacing: "var(--tracking-heading)",
+                  lineHeight: "var(--leading-snug)",
+                }}
+              >
+                Metabolic Morning Blend
+              </h2>
+              <p style={{ margin: "var(--space-2) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.4 }}>
+                Compared to other cortisol lowering drinks
+              </p>
+            </div>
+
+            {/* Our column is a raised band running the height of the table, which is
+                what separates the two verdicts without needing a second colour. */}
+            <div
+              style={{
+                background: "var(--sun-tint)",
+                borderRadius: "var(--radius-lg) var(--radius-lg) 0 0",
+                padding: "var(--space-4) var(--space-2) var(--space-3)",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src="/product/metabolic-morning-blend.png"
+                alt="Metabolic Morning Blend"
+                width={2400}
+                height={1792}
+                style={{ width: "100%", height: "auto", maxHeight: 88, objectFit: "contain" }}
+              />
+            </div>
+
+            <div style={{ padding: "var(--space-4) var(--space-2) var(--space-3)", display: "flex", justifyContent: "center" }}>
+              <Image
+                src="/product/generic-tub.png"
+                alt="An unbranded competitor tub"
+                width={320}
+                height={320}
+                style={{ width: "100%", height: "auto", maxHeight: 88, objectFit: "contain", opacity: 0.65 }}
+              />
+            </div>
+
+            {COMPARISON.map((row, i) => {
+              const last = i === COMPARISON.length - 1;
+              return (
+                <Fragment key={row}>
+                  <div
+                    style={{
+                      paddingRight: "var(--space-4)",
+                      paddingTop: "var(--space-4)",
+                      paddingBottom: "var(--space-4)",
+                      borderTop: "1px solid var(--border-hairline)",
+                      fontSize: "var(--size-meta)",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {row}
+                  </div>
+                  <div
+                    style={{
+                      background: "var(--sun-tint)",
+                      borderRadius: last ? "0 0 var(--radius-lg) var(--radius-lg)" : undefined,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignSelf: "stretch",
+                      alignItems: "center",
+                      color: "var(--status-success)",
+                    }}
+                  >
+                    <Icon name="check" size={22} strokeWidth={3} title="Yes" />
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", alignSelf: "stretch", color: "var(--ink-40)" }}>
+                    <Icon name="x" size={20} strokeWidth={2.5} title="No" />
+                  </div>
+                </Fragment>
+              );
+            })}
+          </div>
         </div>
       </Section>
 
