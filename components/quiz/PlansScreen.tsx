@@ -18,6 +18,7 @@ import { AnnouncementMarquee } from "./AnnouncementMarquee";
 import { HeroCarousel } from "./HeroCarousel";
 import { OfferCountdown } from "./OfferCountdown";
 import { CardBrandMark } from "./CardBrandMark";
+import { UsaFlag } from "./UsaFlag";
 import { PlanCards } from "./PlanCards";
 
 const PRESS = [
@@ -44,7 +45,7 @@ const HERO_POINTS = ["Helps with weight loss", "Lowers cortisol levels", "Reliev
 
 const TRUST = [
   { icon: "truck", label: "Free shipping" },
-  { icon: "flag", label: "SUNNYCELLS is made in the USA" },
+  { icon: "flag", label: "SUNNYCELLS is made in the USA", flag: true },
   { icon: "book-open", label: "Scientifically proven" },
 ] as const;
 
@@ -210,9 +211,10 @@ export function PlansScreen() {
                 </li>
               ))}
             </ul>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--space-4)" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-4)" }}>
               <Button
                 size="lg"
+                fullWidth
                 onClick={() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Get it now
@@ -329,7 +331,7 @@ export function PlansScreen() {
                   color: "var(--ink)",
                 }}
               >
-                <Icon name={t.icon} size={24} />
+                {"flag" in t ? <UsaFlag size={26} /> : <Icon name={t.icon} size={24} />}
               </span>
               <span style={{ display: "block", marginTop: "var(--space-3)", fontSize: "var(--size-meta)", lineHeight: 1.3 }}>
                 <BrandText>{t.label}</BrandText>
@@ -357,45 +359,77 @@ export function PlansScreen() {
       </Section>
 
       {/* Quick benefits */}
-      <Section title="Benefits">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "var(--space-4)" }}>
-          {QUICK_BENEFITS.map((b) => (
+      <Section>
+        <div
+          style={{
+            background: "var(--surface-sunk)",
+            border: "1px solid var(--border-hairline)",
+            borderRadius: "var(--radius-xl)",
+            padding: "var(--space-8) var(--space-6)",
+          }}
+        >
+          <h2
+            style={{
+              margin: "0 0 var(--space-6)",
+              textAlign: "center",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(var(--size-h4), 5.4vw, var(--size-h2))",
+              fontWeight: 900,
+              letterSpacing: "var(--tracking-heading)",
+            }}
+          >
+            Benefits
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "var(--space-5)" }}>
+            {/* 190px, not 210: at 210 the fourth item dropped to a second row on a
+                1000px viewport, three across and one alone. */}
+            {QUICK_BENEFITS.map((b) => (
+              <div key={b.strong} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}>
+                <Tick />
+                <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.45 }}>
+                  {b.lead}
+                  <strong style={{ fontWeight: 800 }}>{b.strong}</strong>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pillars sit inside the same section, so the two blocks read as one band
+           rather than being pushed apart by two lots of section padding. */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "var(--space-5)", marginTop: "var(--space-5)" }}>
+          {PILLARS.map((p) => (
             <div
-              key={b}
+              key={p.slug}
               style={{
                 display: "flex",
-                gap: "var(--space-3)",
-                alignItems: "flex-start",
-                padding: "var(--space-5)",
-                background: "var(--sun-tint)",
-                borderRadius: "var(--radius-card)",
-                fontSize: "var(--size-body)",
-                lineHeight: 1.4,
+                flexDirection: "column",
+                background: "var(--surface-sunk)",
+                border: "1px solid var(--border-hairline)",
+                borderRadius: "var(--radius-xl)",
+                padding: "var(--space-6)",
               }}
             >
-              <Tick />
-              {b}
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Pillars */}
-      <Section tone="shell">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "var(--space-6)" }}>
-          {PILLARS.map((p) => (
-            <div key={p.slug} style={{ textAlign: "center" }}>
               <Image
                 src={`/illustrations/${p.slug}-${set}.png`}
                 alt=""
                 width={320}
                 height={320}
-                style={{ width: 120, height: 120, margin: "0 auto" }}
+                style={{ width: 130, height: 130, margin: "0 auto var(--space-6)" }}
               />
-              <h3 style={{ margin: "var(--space-3) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800, lineHeight: 1.25 }}>
+              <h3
+                style={{
+                  margin: "0 0 var(--space-3)",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "var(--size-h4)",
+                  fontWeight: 900,
+                  letterSpacing: "var(--tracking-heading)",
+                  lineHeight: 1.2,
+                }}
+              >
                 {p.title}
               </h3>
-              <p style={{ margin: 0, fontSize: "var(--size-body)", color: "var(--ink-80)", lineHeight: "var(--leading-body)" }}>
+              <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.55 }}>
                 {p.body}
               </p>
             </div>

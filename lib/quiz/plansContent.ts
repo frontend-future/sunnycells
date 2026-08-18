@@ -1,10 +1,11 @@
 /** Everything the plans page says, kept out of the component. */
 
+/** Split so the timeframe can carry the weight, which is where the eye lands. */
 export const QUICK_BENEFITS = [
-  "Reduces bloating and fluid retention in 1 to 5 days",
-  "Eases hot flashes in as little as 4 to 7 days",
-  "Induces deep, uninterrupted sleep in 8 days",
-  "Starts shifting your weight in 8 to 21 days",
+  { lead: "Reduces bloating and fluid retention in ", strong: "1 to 5 days" },
+  { lead: "Eases hot flashes in as little as ", strong: "4 to 7 days" },
+  { lead: "Induces deep, uninterrupted sleep in ", strong: "8 days" },
+  { lead: "Starts shifting your weight in ", strong: "8 to 21 days" },
 ];
 
 export const PILLARS = [
