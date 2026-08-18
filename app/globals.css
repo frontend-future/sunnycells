@@ -141,6 +141,45 @@ body {
   to { opacity: 1; }
 }
 
+/* Checkout: one column on a phone with a collapsible summary above the form, two
+   columns from 900px with the summary parked in a sticky right rail and always open.
+   This lives here rather than inline because it needs a media query. */
+.sc-checkout {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* The heading is a button on a phone, where it opens the panel, and a plain heading
+   from 900px, where the panel is always open. Two elements rather than one, so the
+   desktop version is not a button that does nothing. */
+.sc-summary-heading {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .sc-checkout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+    gap: var(--space-12);
+  }
+  .sc-checkout-summary {
+    position: sticky;
+    top: var(--space-6);
+    order: 2;
+  }
+  /* These two beat an inline style on purpose: the panel's open state is React
+     state on a phone, and from 900px the summary is a rail that is always open. */
+  .sc-summary-toggle {
+    display: none !important;
+  }
+  .sc-summary-heading {
+    display: block !important;
+  }
+  .sc-summary-body {
+    display: block !important;
+  }
+}
+
 /* Announcement marquee. The track holds the same group twice, so translating it by
    half its width lands exactly where it started and the loop is seamless. The second
    group is aria-hidden: a screen reader should hear the terms once, not forever. */

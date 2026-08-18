@@ -1,7 +1,8 @@
 "use client";
 
 import {
-  ArrowLeft, ArrowRight, Check, ChevronDown, ChevronLeft, ChevronRight, Dna, Droplet, Leaf,
+  ArrowLeft, ArrowRight, BookOpen, Check, ChevronDown, ChevronLeft, ChevronRight, Dna, Droplet,
+  FileText, Leaf,
   Mars, Menu, Minus, Plus, Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User,
   Venus, WheatOff, X, ZapOff,
 } from "lucide-react";
@@ -13,12 +14,14 @@ import type { CSSProperties } from "react";
 const ICONS = {
   "arrow-left": ArrowLeft,
   "arrow-right": ArrowRight,
+  "book-open": BookOpen,
   check: Check,
   "chevron-down": ChevronDown,
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
   dna: Dna,
   droplet: Droplet,
+  "file-text": FileText,
   leaf: Leaf,
   mars: Mars,
   menu: Menu,

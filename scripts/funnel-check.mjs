@@ -100,16 +100,22 @@ await page.screenshot({ path: "shot-plans.png", fullPage: true });
 await step("plans", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Order now/ }).nth(1).click());
 await page.waitForTimeout(300);
 const summaryText = await page.locator("body").innerText();
-check("checkout shows $27 today (50% of the $54 plan, rounded down)", summaryText.includes("$27"));
-check("checkout shows the ongoing price", /Then \$54 per month/.test(summaryText));
-check("checkout shows the chosen plan", summaryText.includes("3 month supply"));
-
-await page.getByRole("button", { name: /Continue to payment/ }).click();
+check("checkout charges the 3 month plan in full", summaryText.includes("$162"));
+check("checkout strikes the list total", summaryText.includes("$417"));
+check("summary is collapsed on a phone", !/3 pouches\. Ships every 3 months\./.test(summaryText));
+await page.getByRole("button", { name: /Order summary/ }).click();
 await page.waitForTimeout(250);
-check("4 shipping errors on empty submit", (await page.getByText(/We need a/).count()) === 4);
-for (const [l, v] of [["Full name", "Dana Reyes"], ["Address", "18 Alder Road"], ["City", "Portland"], ["Postcode", "97205"]])
+const openText = await page.locator("body").innerText();
+check("opening the summary reveals the line items", /3 pouches\. Ships every 3 months\./.test(openText));
+check("bonuses read as free", (openText.match(/Free/g) || []).length >= 3);
+
+await page.getByRole("button", { name: "Continue", exact: true }).click();
+await page.waitForTimeout(250);
+check("empty submit reports every missing field", (await page.getByText(/We need a|Choose a state/).count()) === 7);
+for (const [l, v] of [["First name", "Dana"], ["Last name", "Reyes"], ["Address line 1", "18 Alder Road"], ["Town or city", "Portland"], ["Zip code", "97205"], ["Email", "dana@example.com"]])
   await page.getByLabel(l, { exact: true }).fill(v);
-await page.getByRole("button", { name: /Continue to payment/ }).click();
+await page.getByLabel("State", { exact: true }).selectOption("Oregon");
+await page.getByRole("button", { name: "Continue", exact: true }).click();
 await page.waitForTimeout(300);
 check("valid shipping reaches the payment handoff", (await page.getByText(/Payment is not wired up yet/).count()) === 1);
 await page.screenshot({ path: "shot-checkout.png", fullPage: true });
