@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Accordion } from "@/components/navigation/Accordion";
 import { Badge } from "@/components/core/Badge";
+import { BrandText } from "@/components/core/BrandText";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { StarRating } from "@/components/commerce/StarRating";
@@ -167,7 +168,7 @@ export function PlansScreen() {
               Complete natural formula
             </h1>
             <p style={{ margin: "var(--space-4) 0 var(--space-6)", fontSize: "var(--size-body-lg)", lineHeight: 1.35 }}>
-              SUNNYCELLS is here to release your stress and help you to lose weight.
+              <BrandText>SUNNYCELLS is here to release your stress and help you to lose weight.</BrandText>
             </p>
             <ul style={{ margin: "0 0 var(--space-6)", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
               {HERO_POINTS.map((h) => (
@@ -353,7 +354,7 @@ export function PlansScreen() {
       <Section title="How does it work?">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: 720, margin: "0 auto" }}>
           {[
-            { img: "step-scoop", title: "Add 1 scoop of SUNNYCELLS", body: "Mix a scoop into water or your favorite juice. Drink it in the morning." },
+            { img: "step-scoop", title: "Add 1 scoop", body: "Mix a scoop into water or your favorite juice. Drink it in the morning." },
             { img: "step-drink", title: "Feel calmer and healthier", body: "Notice your cortisol blend take effect within 48 hours. Release stress and boost your metabolism." },
           ].map((s) => (
             <div key={s.img} style={{ textAlign: "center" }}>

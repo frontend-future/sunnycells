@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
+import { BrandText } from "@/components/core/BrandText";
 import { Icon } from "@/components/core/Icon";
 import { IconButton } from "@/components/core/IconButton";
 import {
@@ -131,10 +132,24 @@ export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
           </div>
           {SLIDE_STATS.map((s) => (
             <div key={s.figure} style={{ display: "flex", gap: "var(--space-4)", alignItems: "baseline", marginBottom: "var(--space-4)" }}>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", flex: "none" }}>
+              {/* Fixed width, not intrinsic: 79%, 78% and 91% are different widths, so
+                  a shrink-to-fit column started each line of body copy somewhere new. */}
+              <span
+                style={{
+                  flex: "none",
+                  width: 96,
+                  textAlign: "right",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 900,
+                  fontSize: 38,
+                  letterSpacing: "var(--tracking-display)",
+                }}
+              >
                 {s.figure}
               </span>
-              <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.35 }}>{s.body}</span>
+              <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.35 }}>
+                <BrandText>{s.body}</BrandText>
+              </span>
             </div>
           ))}
           <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{SLIDE_STATS_NOTE}</p>
