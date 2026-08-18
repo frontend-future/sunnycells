@@ -19,8 +19,7 @@ const TARGETS = [
   ["/quiz/diet/made-for-you", "button:has-text('Continue')", "info CTA"],
   ["/quiz/diet/email", "button:has-text('Unlock my results')", "email CTA"],
   ["/quiz/diet/results/summary", "button:has-text('Continue')", "summary CTA"],
-  ["/quiz/diet/results/plans", "text=Every month", "plans 1st option"],
-  ["/quiz/diet/results/plans", "button:has-text('Start my routine')", "plans CTA"],
+  ["/quiz/diet/results/plans", "button:has-text('Get it now')", "plans hero CTA"],
   ["/quiz/diet/results/checkout", "button:has-text('Continue to payment')", "checkout CTA"],
 ];
 

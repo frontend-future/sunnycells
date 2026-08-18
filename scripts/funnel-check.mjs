@@ -97,12 +97,12 @@ await step("story", "/quiz/diet/results/plans", () => page.getByRole("button", {
 await page.waitForTimeout(400);
 await page.screenshot({ path: "shot-plans.png", fullPage: true });
 
-await step("plans", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Start my routine/ }).click());
+await step("plans", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Order now/ }).nth(1).click());
 await page.waitForTimeout(300);
 const summaryText = await page.locator("body").innerText();
-check("checkout shows $17 today (50% of $35, rounded down)", summaryText.includes("$17"));
-check("checkout shows the ongoing price", /Then \$35 per month/.test(summaryText));
-check("checkout shows the chosen cadence", summaryText.includes("Every two months"));
+check("checkout shows $27 today (50% of the $54 plan, rounded down)", summaryText.includes("$27"));
+check("checkout shows the ongoing price", /Then \$54 per month/.test(summaryText));
+check("checkout shows the chosen plan", summaryText.includes("3 month supply"));
 
 await page.getByRole("button", { name: /Continue to payment/ }).click();
 await page.waitForTimeout(250);

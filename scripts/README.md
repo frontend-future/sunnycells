@@ -13,7 +13,9 @@ install them in a scratch directory and run from there, or `npm i -D playwright`
 if these become part of the build.
 
 `fold-check` prints how far each primary action sits from the bottom of the
-viewport. Everything should read `ok`. The one known exception is the plans page
-buy button: it sits after three priced cadence cards, so choosing a plan means
-scrolling. The check that matters there is `plans 1st option`, which must stay
-above the fold so the choice is visible without scrolling.
+viewport. Everything should read `ok`.
+
+The plans page is the exception to the rule, deliberately: it is a long-scroll
+sales page, so what is checked there is its hero button, which scrolls down to the
+plan cards. The Order now buttons themselves sit thousands of pixels down and are
+not expected above the fold.

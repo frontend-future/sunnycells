@@ -9,14 +9,9 @@ import { Select } from "@/components/forms/Select";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { firstOrderPrice } from "@/lib/price";
+import { planById } from "@/lib/quiz/plans";
 import { ResultsShell, ResultsHeading } from "./ResultsShell";
 import { StickyCta } from "./StickyCta";
-
-const CADENCE: Record<string, string> = {
-  m1: "Every month",
-  m2: "Every two months",
-  m3: "Every three months",
-};
 
 const REQUIRED = [
   { key: "name", label: "Full name", autoComplete: "name", missing: "We need a name to put on the parcel." },
@@ -31,9 +26,11 @@ export function CheckoutScreen() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const price = Number(answers.planPrice) || 39;
-  const first = Number(answers.planFirstPrice) || firstOrderPrice(price);
-  const cadence = CADENCE[answers.plan] ?? CADENCE.m2;
+  /* Reads the plan she picked, falling back to the middle one so a deep link to
+     checkout still shows a coherent order rather than an empty summary. */
+  const plan = planById(answers.plan);
+  const price = Number(answers.planPrice) || plan.price;
+  const first = firstOrderPrice(price);
 
   const set = (key: string, value: string) => {
     setFields((f) => ({ ...f, [key]: value }));
@@ -63,9 +60,9 @@ export function CheckoutScreen() {
         <OfferFlag />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "var(--space-4)", marginTop: "var(--space-4)" }}>
           <div>
-            <div style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>SC-21 Metabolic Morning Blend</div>
+            <div style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>Metabolic Morning Blend</div>
             <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-              {ready ? cadence : " "} · 30 servings a pouch
+              {ready ? plan.label : " "} · 30 servings a pouch
             </div>
           </div>
           <div style={{ textAlign: "right", flex: "none" }}>
