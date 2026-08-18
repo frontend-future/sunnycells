@@ -26,6 +26,19 @@ const PRESS = [
   { name: "Sports Illustrated", src: "/press/sports-illustrated.webp", width: 256, height: 78 },
 ];
 
+const TESTING = [
+  {
+    badge: "/badges/third-party-tested.webp",
+    title: "3rd party tested",
+    body: "SUNNYCELLS is tested at an independent scientific laboratory to guarantee quality and efficacy.",
+  },
+  {
+    badge: "/badges/heavy-metal-tested.webp",
+    title: "Heavy metal tested",
+    body: "Know with absolute confidence all ingredients have been examined for heavy metals using world class testing methods.",
+  },
+];
+
 const HERO_POINTS = ["Helps with weight loss", "Lowers cortisol levels", "Relieves mood swings"];
 
 const TRUST = [
@@ -473,7 +486,10 @@ export function PlansScreen() {
               /* The two verdict columns shrink with the viewport so the row labels keep
                  their measure on a phone. */
               gridTemplateColumns: "minmax(0, 1fr) clamp(56px, 15vw, 110px) clamp(56px, 15vw, 110px)",
-              alignItems: "center",
+              /* Stretch, not centre: centred items shrink to their content, which left
+                 the tint band with a white gap between the product cell and the first
+                 row. Each cell centres its own content instead. */
+              alignItems: "stretch",
             }}
           >
             <div style={{ paddingRight: "var(--space-4)", paddingBottom: "var(--space-5)" }}>
@@ -502,6 +518,7 @@ export function PlansScreen() {
                 borderRadius: "var(--radius-lg) var(--radius-lg) 0 0",
                 padding: "var(--space-4) var(--space-2) var(--space-3)",
                 display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
               }}
             >
@@ -514,7 +531,7 @@ export function PlansScreen() {
               />
             </div>
 
-            <div style={{ padding: "var(--space-4) var(--space-2) var(--space-3)", display: "flex", justifyContent: "center" }}>
+            <div style={{ padding: "var(--space-4) var(--space-2) var(--space-3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Image
                 src="/product/generic-tub.png"
                 alt="An unbranded competitor tub"
@@ -565,29 +582,20 @@ export function PlansScreen() {
 
       {/* Testing */}
       <Section title="Pioneering world leading quality standards and testing">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "var(--space-8)", maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
-          {[
-            { t: "Third party tested", b: "Tested at an independent laboratory to confirm quality and potency." },
-            { t: "Heavy metal tested", b: "Every batch is screened for heavy metals against world class testing methods." },
-          ].map((s) => (
-            <div key={s.t}>
-              <span
-                aria-hidden="true"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 84,
-                  height: 84,
-                  borderRadius: "50%",
-                  background: "var(--sun)",
-                  color: "var(--ink)",
-                }}
-              >
-                <Icon name="shield-check" size={38} />
-              </span>
-              <h3 style={{ margin: "var(--space-3) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800 }}>{s.t}</h3>
-              <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.5 }}>{s.b}</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+          {TESTING.map((t) => (
+            <div key={t.title}>
+              <Image
+                src={t.badge}
+                alt=""
+                width={256}
+                height={255}
+                style={{ width: 104, height: "auto", margin: "0 auto", display: "block" }}
+              />
+              <h3 style={{ margin: "var(--space-4) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800 }}>{t.title}</h3>
+              <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.5 }}>
+                <BrandText>{t.body}</BrandText>
+              </p>
             </div>
           ))}
         </div>
