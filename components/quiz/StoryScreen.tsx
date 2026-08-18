@@ -74,7 +74,7 @@ export function StoryScreen() {
         src={`/photos/story-${s.set}.jpg`}
         alt={`${s.name} holding a pouch of Metabolic Morning Blend`}
         width={1200}
-        height={900}
+        height={876}
         style={{
           width: "100%",
           height: "auto",
