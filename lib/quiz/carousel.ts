@@ -11,13 +11,18 @@ export const SLIDE_BENEFITS = [
 
 /* PLACEHOLDER SURVEY FIGURES. No survey has been run. Percentages in claims are
    integers in this system, which is why the reference's 78.2% is not reproduced.
-   Replace with real numbers and a real respondent count, or delete the slide. */
+   Replace with real numbers and a real respondent count, or delete the slide.
+
+   Copy is kept short on purpose: each line has to sit on two lines beside a very
+   large figure, and anything longer runs to three and breaks the rhythm. */
 export const SLIDE_STATS = [
-  { figure: "79%", body: "of SUNNYCELLS customers recommend it to someone else" },
-  { figure: "78%", body: "said their mood improved" },
-  { figure: "91%", body: "reported losing weight" },
+  { figure: "79%", body: "of SUNNYCELLS users recommend it to others*" },
+  { figure: "78%", body: "of users said to have a better mood*" },
+  { figure: "91%", body: "of users experienced weight loss*" },
 ];
-export const SLIDE_STATS_NOTE = "Based on a customer survey of 6,314 respondents.";
+/* Short enough to sit on one line beside the block above it. --size-meta is the
+   system floor, so the fix is fewer words rather than smaller type. */
+export const SLIDE_STATS_NOTE = "*Based on a survey of 6,314 customers";
 
 export const SLIDE_ATTRIBUTES = [
   { icon: "droplet", label: "Zero sugar" },

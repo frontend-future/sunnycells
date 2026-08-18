@@ -132,38 +132,51 @@ export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
 
         {/* 2. Survey figures */}
         <Slide>
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "var(--space-5)" }}>
-            {[0, 1, 2, 3, 4].map((i) => (
-              <Icon key={i} name="star" size={18} fill="currentColor" />
-            ))}
-          </div>
-          {/* The rows sit in a block that is only as wide as its widest row and is
-              centred as a group, so the figures line up on one right edge and the copy
-              on one left edge instead of the whole set hugging the slide. */}
+          {/* One centred block: a fixed figure column so the percentages share a right
+              edge, a fixed text column so every line shares a left edge, and the pair
+              centred in the slide. The figure is the loud part, the copy stays at label
+              size beside it. */}
           <div style={{ width: "fit-content", maxWidth: "100%", margin: "0 auto" }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: 3, marginBottom: "var(--space-6)" }}>
+              {[0, 1, 2, 3, 4].map((i) => (
+                <Icon key={i} name="star" size={14} fill="currentColor" />
+              ))}
+            </div>
+
             {SLIDE_STATS.map((s) => (
-              <div key={s.figure} style={{ display: "flex", gap: "var(--space-4)", alignItems: "baseline", marginBottom: "var(--space-4)" }}>
+              <div
+                key={s.figure}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "var(--space-4)",
+                  marginBottom: "var(--space-6)",
+                }}
+              >
                 <span
                   style={{
                     flex: "none",
-                    width: 96,
+                    width: 118,
                     textAlign: "right",
                     fontFamily: "var(--font-display)",
                     fontWeight: 900,
-                    fontSize: 38,
+                    fontSize: 46,
+                    lineHeight: 1,
                     letterSpacing: "var(--tracking-display)",
                   }}
                 >
                   {s.figure}
                 </span>
-                <span style={{ maxWidth: 210, fontSize: "var(--size-meta)", lineHeight: 1.35 }}>
+                <span style={{ width: 190, fontSize: "var(--size-meta)", lineHeight: 1.35 }}>
                   <BrandText>{s.body}</BrandText>
                 </span>
               </div>
             ))}
-          </div>
 
-          <p style={{ margin: 0, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{SLIDE_STATS_NOTE}</p>
+            <p style={{ margin: 0, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
+              {SLIDE_STATS_NOTE}
+            </p>
+          </div>
         </Slide>
 
         {/* 3. Attributes */}
