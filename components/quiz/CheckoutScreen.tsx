@@ -31,6 +31,12 @@ const FIELDS = [...TOP_FIELDS, ...PLACE_FIELDS];
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+/* Counts digits rather than matching a shape. Numbers arrive with brackets, dashes,
+   spaces and a country code, and a regex that insists on one format rejects people who
+   typed a perfectly good number. Ten digits is a US number; the +1 the field starts
+   with is one, so an untouched field does not pass. */
+const digits = (v: string) => (v.match(/\d/g) ?? []).length;
+
 const money = (n: number) => `$${n}`;
 
 const BONUS_ICON: Record<string, IconName> = Object.fromEntries(
@@ -58,6 +64,7 @@ export function CheckoutScreen() {
     const email = (f.email ?? answers.email ?? "").trim();
     if (!email) next.email = "We need an email address to send your receipt.";
     else if (!EMAIL.test(email)) next.email = "That address is missing an @ or a domain.";
+    if (digits(f.phone ?? "") < 10) next.phone = "We need a phone number the carrier can call on the day.";
     setErrors(next);
     if (Object.keys(next).length === 0) setSubmitted(true);
   };
@@ -324,10 +331,11 @@ export function CheckoutScreen() {
             <div style={{ gridColumn: "span 2" }}>
               <Input
                 label="Phone"
-                hint="Optional. For delivery updates only."
+                hint="For delivery updates and nothing else."
                 type="tel"
                 autoComplete="tel"
                 value={f.phone || ""}
+                error={errors.phone || undefined}
                 onChange={(e) => set("phone", e.target.value)}
               />
             </div>

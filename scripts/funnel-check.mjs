@@ -111,10 +111,15 @@ check("bonuses read as free", (openText.match(/Free/g) || []).length >= 3);
 
 await page.getByRole("button", { name: "Continue", exact: true }).click();
 await page.waitForTimeout(250);
-check("empty submit reports every missing field", (await page.getByText(/We need a|Choose a state/).count()) === 7);
+check("empty submit reports every missing field", (await page.getByText(/We need a|Choose a state/).count()) === 8);
 for (const [l, v] of [["First name", "Dana"], ["Last name", "Reyes"], ["Address line 1", "18 Alder Road"], ["Town or city", "Portland"], ["Zip code", "97205"], ["Email", "dana@example.com"]])
   await page.getByLabel(l, { exact: true }).fill(v);
 await page.getByLabel("State", { exact: true }).selectOption("Oregon");
+await page.getByLabel("Phone", { exact: true }).fill("+1");
+await page.getByRole("button", { name: "Continue", exact: true }).click();
+await page.waitForTimeout(200);
+check("an untouched +1 is not accepted as a phone number", (await page.getByText(/phone number the carrier/).count()) === 1);
+await page.getByLabel("Phone", { exact: true }).fill("+1 503 555 0142");
 await page.getByRole("button", { name: "Continue", exact: true }).click();
 await page.waitForTimeout(300);
 check("valid shipping reaches the payment handoff", (await page.getByText(/Payment is not wired up yet/).count()) === 1);
