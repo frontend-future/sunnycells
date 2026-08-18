@@ -50,8 +50,9 @@ export function CardBrandMark({ brand, height = 20 }: { brand: CardBrand; height
     return (
       <svg {...common} aria-label="Discover">
         <rect width="38" height="24" rx="3" fill="#F4F4F2" />
-        <path d="M20 24h15a3 3 0 0 0 3-3v-6c-6 4-12 7-18 9Z" fill="#F27712" />
-        <text x="17" y="14.5" textAnchor="middle" fill="#231F20" fontSize="6.4" fontWeight="700" fontFamily="system-ui, sans-serif">
+        <path d="M22 24h13a3 3 0 0 0 3-3v-5c-5 3.4-10.5 6.1-16 8Z" fill="#F27712" />
+        {/* 5.4px, centred on the box: at 6.4 the D fell outside the 38 unit viewBox. */}
+        <text x="19" y="12.8" textAnchor="middle" fill="#231F20" fontSize="5.4" fontWeight="700" fontFamily="system-ui, sans-serif">
           DISCOVER
         </text>
       </svg>

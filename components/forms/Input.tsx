@@ -1,14 +1,15 @@
 "use client";
 
 import { useId, useState } from "react";
-import type { CSSProperties, InputHTMLAttributes } from "react";
+import type { CSSProperties, InputHTMLAttributes, ReactNode } from "react";
 
 export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
   label?: string;
   hint?: string;
   /** States what is needed, never "Invalid input". */
   error?: string;
-  suffix?: string;
+  /** Sits at the right edge of the field, vertically centred. Text or a mark. */
+  suffix?: ReactNode;
   style?: CSSProperties;
   containerStyle?: CSSProperties;
 };

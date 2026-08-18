@@ -145,25 +145,19 @@ export function CardForm() {
           onChange={(e) => { setName(e.target.value); setErrors((x) => ({ ...x, name: "" })); }}
         />
 
-        <div style={{ position: "relative" }}>
-          <Input
-            label="Card number"
-            inputMode="numeric"
-            autoComplete="cc-number"
-            placeholder="1234 1234 1234 1234"
-            value={number}
-            error={errors.number || undefined}
-            onChange={(e) => { setNumber(formatCardNumber(e.target.value)); setErrors((x) => ({ ...x, number: "" })); }}
-            style={{ paddingRight: 62 }}
-          />
-          {/* Sits over the field's right edge and appears the moment the leading
-              digits identify a network. */}
-          {brand ? (
-            <span style={{ position: "absolute", right: 14, top: 46, pointerEvents: "none", display: "flex" }}>
-              <CardBrandMark brand={brand} />
-            </span>
-          ) : null}
-        </div>
+        {/* Handed to the Input's own suffix slot rather than positioned over the
+            field: that slot is already pinned to the right edge and centred against
+            the input, so it cannot drift when the label or error text changes height. */}
+        <Input
+          label="Card number"
+          inputMode="numeric"
+          autoComplete="cc-number"
+          placeholder="1234 1234 1234 1234"
+          suffix={brand ? <CardBrandMark brand={brand} height={28} /> : undefined}
+          value={number}
+          error={errors.number || undefined}
+          onChange={(e) => { setNumber(formatCardNumber(e.target.value)); setErrors((x) => ({ ...x, number: "" })); }}
+        />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
           <Input
