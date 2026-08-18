@@ -92,7 +92,8 @@ console.log("  projection h1:", (await page.locator("h1").innerText()).replace(/
 
 await step("projection", "/quiz/diet/results/metabolism", () => page.getByRole("button", { name: /Continue/ }).click());
 await step("metabolism", "/quiz/diet/results/benefits", () => page.getByRole("button", { name: /Continue/ }).click());
-await step("benefits", "/quiz/diet/results/plans", () => page.getByRole("button", { name: /Continue/ }).click());
+await step("benefits", "/quiz/diet/results/story", () => page.getByRole("button", { name: /Continue/ }).click());
+await step("story", "/quiz/diet/results/plans", () => page.getByRole("button", { name: /Continue/ }).click());
 await page.waitForTimeout(400);
 await page.screenshot({ path: "shot-plans.png", fullPage: true });
 

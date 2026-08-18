@@ -141,7 +141,7 @@ export function BenefitsScreen() {
       </ul>
 
       <StickyCta>
-        <NextButton href="/quiz/diet/results/plans">Continue</NextButton>
+        <NextButton href="/quiz/diet/results/story">Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );
