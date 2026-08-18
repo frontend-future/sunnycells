@@ -136,6 +136,10 @@ body {
   to { transform: scaleX(1); }
 }
 
+@keyframes sc-spin {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes sc-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }

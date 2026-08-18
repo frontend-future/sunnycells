@@ -122,7 +122,8 @@ check("an untouched +1 is not accepted as a phone number", (await page.getByText
 await page.getByLabel("Phone", { exact: true }).fill("+1 503 555 0142");
 await page.getByRole("button", { name: "Continue", exact: true }).click();
 await page.waitForTimeout(300);
-check("valid shipping reaches the payment handoff", (await page.getByText(/Payment is not wired up yet/).count()) === 1);
+check("valid shipping opens the payment step", (await page.getByRole("heading", { name: "Payment" }).count()) === 1);
+check("shipping details collapse behind a disclosure", (await page.locator("form[hidden]").count()) === 1);
 await page.screenshot({ path: "shot-checkout.png", fullPage: true });
 
 await page.goto(`${BASE}/quiz/diet/sleep`, { waitUntil: "networkidle" });

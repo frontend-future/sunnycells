@@ -11,6 +11,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { BONUSES, buildOrder, US_STATES } from "@/lib/quiz/order";
+import { CardForm } from "./CardForm";
 
 const STEPS = ["Information", "Payments", "Receipt"];
 
@@ -49,7 +50,8 @@ export function CheckoutScreen() {
 
   const [f, setF] = useState<Record<string, string>>({ phone: "+1" });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitted, setSubmitted] = useState(false);
+  /* "information" collects shipping, "payment" collapses it and takes the card. */
+  const [phase, setPhase] = useState<"information" | "payment">("information");
   const [openSummary, setOpenSummary] = useState(false);
 
   const set = (k: string, v: string) => {
@@ -66,7 +68,7 @@ export function CheckoutScreen() {
     else if (!EMAIL.test(email)) next.email = "That address is missing an @ or a domain.";
     if (digits(f.phone ?? "") < 10) next.phone = "We need a phone number the carrier can call on the day.";
     setErrors(next);
-    if (Object.keys(next).length === 0) setSubmitted(true);
+    if (Object.keys(next).length === 0) setPhase("payment");
   };
 
   return (
@@ -243,28 +245,60 @@ export function CheckoutScreen() {
           </Link>
 
           <ol style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--space-2)", margin: "var(--space-2) 0 var(--space-5)", padding: 0, listStyle: "none" }}>
-            {STEPS.map((s, i) => (
-              <li key={s} style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-                {i > 0 ? (
-                  <span aria-hidden="true" style={{ display: "flex", color: "var(--ink-40)" }}>
-                    <Icon name="chevron-right" size={16} />
+            {STEPS.map((s, i) => {
+              const active = i === (phase === "payment" ? 1 : 0);
+              return (
+                <li key={s} style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+                  {i > 0 ? (
+                    <span aria-hidden="true" style={{ display: "flex", color: "var(--ink-40)" }}>
+                      <Icon name="chevron-right" size={16} />
+                    </span>
+                  ) : null}
+                  <span
+                    aria-current={active ? "step" : undefined}
+                    style={{ fontSize: "var(--size-meta)", fontWeight: active ? 800 : 600, color: active ? "var(--ink)" : "var(--ink-60)" }}
+                  >
+                    {s}
                   </span>
-                ) : null}
-                <span
-                  aria-current={i === 0 ? "step" : undefined}
-                  style={{ fontSize: "var(--size-meta)", fontWeight: i === 0 ? 800 : 600, color: i === 0 ? "var(--ink)" : "var(--ink-60)" }}
-                >
-                  {s}
-                </span>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ol>
 
-          <h1 style={{ margin: "0 0 var(--space-6)", fontFamily: "var(--font-display)", fontSize: "var(--size-h3)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
-            Shipping details
-          </h1>
+          {phase === "payment" ? (
+            <button
+              type="button"
+              onClick={() => setPhase("information")}
+              aria-expanded={false}
+              style={{
+                appearance: "none",
+                background: "transparent",
+                border: 0,
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "var(--space-4)",
+                padding: "0 0 var(--space-5)",
+                minHeight: "var(--tap-min)",
+                cursor: "pointer",
+                textAlign: "left",
+              }}
+            >
+              <span style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h3)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
+                Shipping details
+              </span>
+              <span aria-hidden="true" style={{ display: "flex", flex: "none" }}>
+                <Icon name="chevron-down" size={26} />
+              </span>
+            </button>
+          ) : (
+            <h1 style={{ margin: "0 0 var(--space-6)", fontFamily: "var(--font-display)", fontSize: "var(--size-h3)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
+              Shipping details
+            </h1>
+          )}
 
-          <form noValidate onSubmit={(e) => { e.preventDefault(); submit(); }} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+          <form noValidate hidden={phase === "payment"} onSubmit={(e) => { e.preventDefault(); submit(); }} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
             {TOP_FIELDS.map((x) => (
               <div key={x.key} style={{ gridColumn: x.half ? "span 1" : "span 2" }}>
                 <Input
@@ -347,16 +381,16 @@ export function CheckoutScreen() {
             </div>
           </form>
 
-          {submitted ? (
-            <div style={{ marginTop: "var(--space-6)", padding: "var(--space-5)", border: "2px solid var(--ink)", borderRadius: "var(--radius-card)" }}>
-              <div style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>Payment is not wired up yet</div>
-              <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--size-meta)", lineHeight: 1.55, color: "var(--ink-80)" }}>
-                The shipping details validated and this is where the payment provider takes
-                over. Card fields are deliberately not built here: a real subscription
-                charge belongs in a hosted checkout that handles PCI scope, 3D Secure, and
-                the recurring billing schedule. Wire that up, then point this button at it.
+          {phase === "payment" ? (
+            <section>
+              <h2 style={{ margin: "0 0 var(--space-2)", fontFamily: "var(--font-display)", fontSize: "var(--size-h3)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
+                Payment
+              </h2>
+              <p style={{ margin: "0 0 var(--space-5)", fontSize: "var(--size-body)", color: "var(--ink-60)" }}>
+                All transactions are secure and encrypted.
               </p>
-            </div>
+              <CardForm total={order.total} />
+            </section>
           ) : null}
         </main>
       </div>

@@ -6,6 +6,7 @@ Neither runs in CI yet. Start a production server first, then run them against i
 npm run build && npx next start -p 3100
 node scripts/funnel-check.mjs   # drives the whole diet funnel, 39 assertions
 node scripts/fold-check.mjs     # measures every CTA against three phone viewports
+node scripts/payment-check.mjs  # the payment step: brand detection, spinner, failure
 ```
 
 They need `playwright` and a Chromium build, which are not project dependencies:
