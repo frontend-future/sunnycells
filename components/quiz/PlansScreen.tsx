@@ -34,8 +34,10 @@ const TRUST = [
 ] as const;
 
 function Section({
-  title, sub, children, tone = "white", id,
+  eyebrow, title, sub, children, tone = "white", id,
 }: {
+  /** Small line above the heading. Sentence case in the label face, per the system. */
+  eyebrow?: string;
   title?: string;
   sub?: string;
   children: React.ReactNode;
@@ -51,6 +53,21 @@ function Section({
       }}
     >
       <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        {eyebrow ? (
+          <div
+            style={{
+              marginBottom: "var(--space-2)",
+              textAlign: "center",
+              fontFamily: "var(--font-label)",
+              fontSize: "var(--size-meta)",
+              fontWeight: 600,
+              letterSpacing: "var(--tracking-mono)",
+              color: "var(--ink-60)",
+            }}
+          >
+            {eyebrow}
+          </div>
+        ) : null}
         {title ? (
           <h2
             style={{
@@ -334,7 +351,7 @@ export function PlansScreen() {
       </Section>
 
       {/* Press */}
-      <Section title="Featured in">
+      <Section eyebrow="Research backed ingredients" title="Featured in">
         <div
           style={{
             display: "grid",
