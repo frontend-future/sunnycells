@@ -446,7 +446,7 @@ export function PlansScreen() {
       </Section>
 
       {/* Ingredients */}
-      <Section title="The science behind the core ingredients" tone="shell">
+      <Section title="The science behind the core ingredients of Metabolic Morning Blend" tone="shell">
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <Accordion items={INGREDIENTS} />
         </div>
