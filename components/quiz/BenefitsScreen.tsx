@@ -69,32 +69,39 @@ export function BenefitsScreen() {
 
       <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
         {BENEFITS.map((b, i) => (
-          /* The illustration floats rather than taking a flex column. Beside a fixed
-             column the body had about 230px to work with on a 375px screen, which ran
-             every paragraph to twelve short lines. Floated, the text wraps past the
-             image and then reclaims the full width. overflow contains the float. */
-          <li key={b.slug} style={{ overflow: "hidden" }}>
+          /* Two columns, not a float: the text keeps its own measure and every line
+             starts on the same left edge, which is how the reference sets it. The
+             illustration scales with the viewport so the text column does not get
+             squeezed on a small screen. */
+          <li key={b.slug} style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start" }}>
             <Image
               src={`/illustrations/${b.slug}-${set}.png`}
               alt={b.alt}
               width={320}
               height={320}
-              style={{ float: "left", width: 84, height: 84, margin: "-6px var(--space-4) var(--space-2) 0" }}
-            />
-            <h2
               style={{
-                margin: "0 0 var(--space-2)",
-                fontFamily: "var(--font-text)",
-                fontSize: "var(--size-body-lg)",
-                fontWeight: 800,
-                lineHeight: 1.25,
+                flex: "none",
+                width: "clamp(64px, 20vw, 100px)",
+                height: "clamp(64px, 20vw, 100px)",
+                marginTop: -6,
               }}
-            >
-              {i + 1}. {b.title}
-            </h2>
-            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
-              {b.body}
-            </p>
+            />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h2
+                style={{
+                  margin: "0 0 var(--space-2)",
+                  fontFamily: "var(--font-text)",
+                  fontSize: "var(--size-body-lg)",
+                  fontWeight: 800,
+                  lineHeight: 1.25,
+                }}
+              >
+                {i + 1}. {b.title}
+              </h2>
+              <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
+                {b.body}
+              </p>
+            </div>
           </li>
         ))}
       </ol>
