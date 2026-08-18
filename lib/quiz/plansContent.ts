@@ -2,7 +2,7 @@
 
 export const QUICK_BENEFITS = [
   "Reduces bloating and fluid retention in 1 to 5 days",
-  "Eases hot flushes in as little as 4 to 7 days",
+  "Eases hot flashes in as little as 4 to 7 days",
   "Induces deep, uninterrupted sleep in 8 days",
   "Starts shifting your weight in 8 to 21 days",
 ];
@@ -16,7 +16,7 @@ export const PILLARS = [
   {
     slug: "weight-loss",
     title: "Promotes weight management",
-    body: "Contains blend of plant extracts shown to support cortisol, progesterone and oestrogen levels to assist weight management and curb cravings.",
+    body: "Contains blend of plant extracts shown to support cortisol, progesterone and estrogen levels to assist weight management and curb cravings.",
   },
   {
     slug: "better-sleep",
@@ -47,7 +47,7 @@ export const REVIEWS = [
   {
     name: "Janet Y.",
     photo: "/photos/avatar-3.jpg",
-    body: "Calm, and I'll be down. I was sceptical about anything that promises to fix stress. Two months in, the afternoon crash is gone and I am nine pounds down without trying anything drastic.",
+    body: "Calm, and I'll be down. I was skeptical about anything that promises to fix stress. Two months in, the afternoon crash is gone and I am nine pounds down without trying anything drastic.",
   },
 ];
 
@@ -69,7 +69,7 @@ export const COMPARISON = [
   "Helps address symptoms of menopause and PCOS",
   "Plant-based formula",
   "Free from GMO, corn and gluten. Vegetarian friendly.",
-  "Amazing orange taste",
+  "Amazing orange flavor",
   "Amazing taste with 0 sugar",
   "Puts your cortisol levels into place",
   "Made in the USA",

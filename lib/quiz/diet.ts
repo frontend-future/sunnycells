@@ -156,7 +156,7 @@ export const dietQuiz: QuizConfig = {
     question: "is made for you",
     brandHeading: true,
     bulletIcon: "check",
-    body: "Metabolic Morning Blend is a cortisol cocktail drink that could actually help you. It is made from natural products, is sugar free, and will become your favourite morning drink. It will:",
+    body: "Metabolic Morning Blend is a cortisol cocktail drink that could actually help you. It is made from natural products, is sugar free, and will become your favorite morning drink. It will:",
     bullets: [
       "Help you to lose weight",
       "Help with your cortisol and stress levels",

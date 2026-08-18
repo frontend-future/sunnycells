@@ -108,7 +108,7 @@ export default function SystemPage() {
       >
         <Wordmark size={26} />
         <nav style={{ display: "flex", gap: "var(--space-6)", marginLeft: "auto" }}>
-          <NavLink href="#colour">Colour</NavLink>
+          <NavLink href="#color">Color</NavLink>
           <NavLink href="#type">Type</NavLink>
           <NavLink href="#components">Components</NavLink>
         </nav>
@@ -141,13 +141,13 @@ export default function SystemPage() {
             Cells are the story.
           </h1>
           <p style={{ maxWidth: 620, marginTop: "var(--space-6)", fontSize: "var(--size-body-lg)" }}>
-            Black type on white paper, big and bold, punctuated by flat blocks of sunny colour. Every
+            Black type on white paper, big and bold, punctuated by flat blocks of sunny color. Every
             size assumes a reader who is 35 to 55 and up, on a phone, in daylight.
           </p>
         </div>
 
-        <Section id="colour" title="Colour" note="Black ink on white paper is about 90% of every screen. Colour is an event. All four accents carry black text only, and a maximum of two background colours share a screen.">
-          <Label>Base. Warm neutrals, never blue grey.</Label>
+        <Section id="color" title="Color" note="Black ink on white paper is about 90% of every screen. Color is an event. All four accents carry black text only, and a maximum of two background colors share a screen.">
+          <Label>Base. Warm neutrals, never blue gray.</Label>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "var(--space-4)" }}>
             {BASE.map(([name, hex]) => (
               <div key={name}>
@@ -179,7 +179,7 @@ export default function SystemPage() {
           </div>
 
           <p style={{ marginTop: "var(--space-6)", fontSize: "var(--size-meta)", color: "var(--ink-60)", maxWidth: 620 }}>
-            <strong style={{ color: "var(--ink)" }}>--ink-40 is not a text colour.</strong> At 2.8:1 on
+            <strong style={{ color: "var(--ink)" }}>--ink-40 is not a text color.</strong> At 2.8:1 on
             white it fails AA at every size. It is for hairline furniture, disabled glyphs, and icons on
             a dark fill. The lightest text on white is --ink-60.
           </p>

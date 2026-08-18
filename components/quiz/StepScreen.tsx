@@ -238,7 +238,7 @@ function HeightBody({ answers, set, go }: { answers: Answers; set: Setter; go: (
           <Input label="Inches" type="number" inputMode="numeric" value={inches} onChange={(e) => setInches(e.target.value)} />
         </div>
       ) : (
-        <Input label="Centimetres" type="number" inputMode="numeric" value={cm} onChange={(e) => setCm(e.target.value)} />
+        <Input label="Centimeters" type="number" inputMode="numeric" value={cm} onChange={(e) => setCm(e.target.value)} />
       )}
       {error ? <FieldError>{error}</FieldError> : null}
       <StickyCta>

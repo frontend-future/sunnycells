@@ -13,6 +13,7 @@ import {
   COMPARISON, FAQS, HEADLINE_REVIEW, INGREDIENTS, PILLARS, QUICK_BENEFITS, REVIEWS,
 } from "@/lib/quiz/plansContent";
 import { AnnouncementMarquee } from "./AnnouncementMarquee";
+import { HeroCarousel } from "./HeroCarousel";
 import { OfferCountdown } from "./OfferCountdown";
 import { PlanCards } from "./PlanCards";
 
@@ -188,19 +189,7 @@ export function PlansScreen() {
             </p>
           </div>
 
-          <div style={{ background: "var(--sun-tint)", borderRadius: "var(--radius-card)", padding: "var(--space-5)" }}>
-            <div style={{ fontSize: "var(--size-meta)", fontWeight: 700, marginBottom: "var(--space-3)" }}>
-              Benefits of the ingredients in Metabolic Morning Blend
-            </div>
-            <Image
-              src="/product/metabolic-morning-blend.png"
-              alt="Metabolic Morning Blend, a yellow pouch beside a scoop of powder"
-              width={2400}
-              height={1792}
-              priority
-              style={{ width: "100%", height: "auto", maxHeight: 260, objectFit: "contain" }}
-            />
-          </div>
+          <HeroCarousel photoSet={set} />
         </div>
       </section>
 
@@ -364,7 +353,7 @@ export function PlansScreen() {
       <Section title="How does it work?">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: 720, margin: "0 auto" }}>
           {[
-            { img: "step-scoop", title: "Add 1 scoop of SUNNYCELLS", body: "Mix a scoop into water or your favourite juice. Drink it in the morning." },
+            { img: "step-scoop", title: "Add 1 scoop of SUNNYCELLS", body: "Mix a scoop into water or your favorite juice. Drink it in the morning." },
             { img: "step-drink", title: "Feel calmer and healthier", body: "Notice your cortisol blend take effect within 48 hours. Release stress and boost your metabolism." },
           ].map((s) => (
             <div key={s.img} style={{ textAlign: "center" }}>
