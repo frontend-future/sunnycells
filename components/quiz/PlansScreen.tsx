@@ -227,7 +227,7 @@ export function PlansScreen() {
       </section>
 
       {/* Plans */}
-      <Section id="plans" title="Let cortisol do the work" sub="Subscriptions only. Choose how long a supply arrives each time, cancel whenever you like." tone="shell">
+      <Section id="plans" title="Let the Blend do the work" tone="shell">
         {/* Sits above the cards, where it is an argument for the longer supply rather
             than a line of small print underneath one. */}
         <div
