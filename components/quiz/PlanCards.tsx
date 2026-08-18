@@ -54,7 +54,10 @@ export function PlanCards() {
               </div>
             ) : null}
 
-            <div style={{ fontSize: "var(--size-body)", fontWeight: 800, textAlign: "center" }}>{p.label}</div>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>{p.label}</div>
+              <div style={{ marginTop: 2, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{p.sub}</div>
+            </div>
 
             <Image
               src="/product/metabolic-morning-blend.png"

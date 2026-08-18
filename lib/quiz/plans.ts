@@ -11,6 +11,8 @@ export type Plan = {
   id: string;
   months: number;
   label: string;
+  /** One line under the label saying who the length suits. */
+  sub: string;
   /** Charged per month. */
   price: number;
   /** The one-month price, struck through. */
@@ -25,6 +27,7 @@ export const PLANS: Plan[] = [
     id: "m1",
     months: 1,
     label: "1 month supply",
+    sub: "Ideal solution for trying out",
     price: 79,
     compareAt: 119,
     bullets: ["30 servings", "$3 a day", "1 pouch delivered"],
@@ -33,6 +36,7 @@ export const PLANS: Plan[] = [
     id: "m3",
     months: 3,
     label: "3 month supply",
+    sub: "Great for building new habits",
     price: 54,
     compareAt: 119,
     flag: "Most chosen",
@@ -43,6 +47,7 @@ export const PLANS: Plan[] = [
     id: "m6",
     months: 6,
     label: "6 month supply",
+    sub: "For achieving sustainable results",
     price: 39,
     compareAt: 119,
     flag: "Best value",

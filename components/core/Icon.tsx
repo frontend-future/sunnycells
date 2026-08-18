@@ -3,7 +3,7 @@
 import {
   ArrowLeft, ArrowRight, BookOpen, Check, ChevronDown, ChevronLeft, ChevronRight, Dna, Droplet,
   FileText, Leaf,
-  Mars, Menu, Minus, Plus, Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User,
+  Mars, Menu, Minus, Percent, Plus, Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User,
   Venus, WheatOff, X, ZapOff,
 } from "lucide-react";
 import type { CSSProperties } from "react";
@@ -26,6 +26,7 @@ const ICONS = {
   mars: Mars,
   menu: Menu,
   minus: Minus,
+  percent: Percent,
   plus: Plus,
   repeat: Repeat,
   search: Search,

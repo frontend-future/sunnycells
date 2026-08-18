@@ -138,10 +138,6 @@ export function PlansScreen() {
         ]}
       />
 
-      <header style={{ padding: "var(--space-5) var(--page-gutter-mobile) 0", maxWidth: 960, margin: "0 auto" }}>
-        <Wordmark size={26} />
-      </header>
-
       {/* Hero */}
       <section style={{ padding: "var(--space-8) var(--page-gutter-mobile) var(--space-12)" }}>
         <div
@@ -178,16 +174,52 @@ export function PlansScreen() {
                 </li>
               ))}
             </ul>
-            <Button
-              size="lg"
-              iconRight="arrow-right"
-              onClick={() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Get it now
-            </Button>
-            <p style={{ margin: "var(--space-4) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-              Order now and it ships free.
-            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--space-4)" }}>
+              <Button
+                size="lg"
+                onClick={() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Get it now
+              </Button>
+
+              {/* The shipping line as a badge rather than a note under the button, so it
+                  reads as a term of the offer instead of small print. */}
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "var(--space-3)",
+                  minHeight: "var(--control-h-lg)",
+                  padding: "var(--space-2) var(--space-5) var(--space-2) var(--space-2)",
+                  background: "var(--white)",
+                  border: "1px solid var(--border-hairline)",
+                  borderRadius: "var(--radius-pill)",
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  style={{
+                    flex: "none",
+                    width: 44,
+                    height: 44,
+                    borderRadius: "50%",
+                    background: "var(--sun)",
+                    color: "var(--ink)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Icon name="percent" size={22} strokeWidth={2.5} />
+                </span>
+                <span style={{ lineHeight: 1.25 }}>
+                  <span style={{ display: "block", fontSize: "var(--size-body)", fontWeight: 800 }}>Order now</span>
+                  <span style={{ display: "block", fontSize: "var(--size-meta)" }}>
+                    and get it shipped for <strong style={{ fontWeight: 800 }}>free</strong>
+                  </span>
+                </span>
+              </span>
+            </div>
           </div>
 
           <HeroCarousel photoSet={set} />
@@ -196,6 +228,45 @@ export function PlansScreen() {
 
       {/* Plans */}
       <Section id="plans" title="Let cortisol do the work" sub="Subscriptions only. Choose how long a supply arrives each time, cancel whenever you like." tone="shell">
+        {/* Sits above the cards, where it is an argument for the longer supply rather
+            than a line of small print underneath one. */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "var(--space-4)",
+            maxWidth: 620,
+            margin: "0 auto var(--space-8)",
+          }}
+        >
+          <span
+            aria-hidden="true"
+            style={{
+              flex: "none",
+              width: 48,
+              height: 48,
+              borderRadius: "50%",
+              background: "var(--sun)",
+              color: "var(--ink)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontFamily: "var(--font-display)",
+              fontWeight: 900,
+              fontSize: "var(--size-body)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            2x
+          </span>
+          <span style={{ fontSize: "var(--size-body)", lineHeight: 1.35, textAlign: "left" }}>
+            <BrandText>
+              People using SUNNYCELLS for 3 months lose twice as much weight as for 1 month
+            </BrandText>
+          </span>
+        </div>
+
         <PlanCards />
         <div
           style={{
