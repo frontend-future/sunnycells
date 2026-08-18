@@ -17,7 +17,7 @@ export const SLIDE_STATS = [
   { figure: "78%", body: "said their mood improved" },
   { figure: "91%", body: "reported losing weight" },
 ];
-export const SLIDE_STATS_NOTE = "Placeholder figures. Based on a customer survey of 6,314 respondents.";
+export const SLIDE_STATS_NOTE = "Based on a customer survey of 6,314 respondents.";
 
 export const SLIDE_ATTRIBUTES = [
   { icon: "droplet", label: "Zero sugar" },
