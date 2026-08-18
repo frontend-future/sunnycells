@@ -602,7 +602,7 @@ export function PlansScreen() {
       </Section>
 
       {/* FAQ */}
-      <Section title="Frequently asked questions" tone="shell">
+      <Section title="Frequently asked questions by our customers" tone="shell">
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <Accordion items={FAQS} />
         </div>
