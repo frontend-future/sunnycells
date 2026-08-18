@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { Icon } from "@/components/core/Icon";
 
@@ -16,6 +16,10 @@ export type AccordionProps = HTMLAttributes<HTMLDivElement> & {
    animates to its natural height without any measurement or fixed max-height. */
 export function Accordion({ items, defaultOpen = -1, style, ...rest }: AccordionProps) {
   const [open, setOpen] = useState(defaultOpen);
+  /* Panel ids are namespaced per instance. Two accordions on one page were both
+     emitting sc-acc-0 upward, so the second one's aria-controls pointed at the first
+     one's panels and a screen reader following them landed in the wrong section. */
+  const uid = useId();
   const [instant, setInstant] = useState(false);
 
   useEffect(() => {
@@ -32,7 +36,7 @@ export function Accordion({ items, defaultOpen = -1, style, ...rest }: Accordion
     <div {...rest} style={{ borderTop: "1px solid var(--border-hairline)", ...style }}>
       {items.map((it, i) => {
         const on = open === i;
-        const panelId = "sc-acc-" + i;
+        const panelId = `sc-acc-${uid}-${i}`;
         return (
           <div key={it.title} style={{ borderBottom: "1px solid var(--border-hairline)" }}>
             <button

@@ -52,15 +52,73 @@ export const REVIEWS = [
   },
 ];
 
-export const INGREDIENTS = [
-  { title: "L-Theanine", body: "The amino acid in green tea. It takes the edge off without sedating, which is why there is no caffeine alongside it here." },
-  { title: "Rhodiola rosea", body: "Studied for fatigue rather than sleep. This is the ingredient aimed at the flat, wrung-out feeling." },
-  { title: "Myo-Inositol", body: "Most studied in women with PCOS, where it acts on insulin signalling. Appetite and blood sugar move together." },
-  { title: "D-Chiro Inositol", body: "Works alongside myo-inositol in the ratio the research uses, rather than on its own." },
-  { title: "Ashwagandha", body: "The KSM-66 extract used in most of the cortisol trials, at the dose those trials used." },
-  { title: "Turmeric", body: "Organic turmeric root, paired with black pepper so it is actually absorbed." },
-  { title: "Phosphatidylserine", body: "From sunflower rather than soy. Trialled for the cortisol response to exercise and mental strain." },
-  { title: "Black pepper extract", body: "Here for one job: it raises how much of the turmeric your body takes up." },
+/* PLACEHOLDER SCIENCE. Each claim below needs a citation and a regulatory pass before
+   it goes live: as written they are structure and function claims about a supplement. */
+export const INGREDIENTS: { slug: string; title: string; points: [string, string][] }[] = [
+  {
+    slug: "l-theanine",
+    title: "L-Theanine",
+    points: [
+      ["Reduces stress-induced cortisol", "The amino acid in green tea. It raises GABA, serotonin and dopamine, which is the route by which it brings cortisol down under stress."],
+      ["Takes the edge off without sedating", "It calms without making you drowsy, which is why there is no caffeine in the blend to work against it."],
+    ],
+  },
+  {
+    slug: "rhodiola-rosea",
+    title: "Rhodiola rosea",
+    points: [
+      ["Aimed at fatigue, not sleep", "Studied for the flat, wrung-out feeling that follows long stress rather than for sedation."],
+      ["Supports mental stamina", "Trialled for concentration and endurance in people working under sustained pressure."],
+    ],
+  },
+  {
+    slug: "myo-inositol",
+    title: "Myo-Inositol",
+    points: [
+      ["Acts on insulin signalling", "Most studied in women with PCOS, where it improves how cells respond to insulin."],
+      ["Steadies appetite", "Appetite and blood sugar move together, which is why this sits alongside the cortisol ingredients."],
+    ],
+  },
+  {
+    slug: "d-chiro-inositol",
+    title: "D-Chiro Inositol",
+    points: [
+      ["Works in a ratio, not alone", "Paired with myo-inositol at the 40 to 1 ratio the research uses rather than dosed on its own."],
+      ["Supports hormonal balance", "Studied alongside myo-inositol for ovarian function and cycle regularity."],
+    ],
+  },
+  {
+    slug: "ashwagandha",
+    title: "Ashwagandha",
+    points: [
+      ["The extract the trials used", "KSM-66, the root extract most of the cortisol research was run on, at the dose those studies used."],
+      ["Lowers serum cortisol", "In an eight week study of adults under chronic stress, the group taking it showed lower serum cortisol than placebo."],
+    ],
+  },
+  {
+    slug: "turmeric",
+    title: "Turmeric",
+    points: [
+      ["Organic turmeric root", "Whole root rather than an isolated curcuminoid, which is the form most of the food research uses."],
+      ["Paired so it is absorbed", "On its own turmeric mostly passes through you. The black pepper in the blend is what changes that."],
+    ],
+  },
+  {
+    slug: "phosphatidylserine",
+    title: "Phosphatidylserine",
+    points: [
+      ["From sunflower, not soy", "SunPS sunflower seed extract, standardised to 20% phosphatidylserine."],
+      ["Blunts the cortisol spike", "Trialled for the cortisol response to hard exercise and sustained mental strain."],
+    ],
+  },
+  {
+    slug: "black-pepper",
+    title: "Black pepper extract",
+    points: [
+      ["Here for one job", "Piperine raises how much of the turmeric alongside it your body actually takes up."],
+      ["A small dose does it", "It works at milligrams, which is why it sits at the end of the panel rather than the top."],
+    ],
+  },
 ];
 
 export const COMPARISON = [

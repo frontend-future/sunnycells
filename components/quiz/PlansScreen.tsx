@@ -520,8 +520,44 @@ export function PlansScreen() {
 
       {/* Ingredients */}
       <Section title="The science behind the core ingredients of Metabolic Morning Blend" tone="shell">
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          <Accordion items={INGREDIENTS} />
+        {/* 660, not 760: Accordion holds its body to a 620px reading measure, so a
+            wider container left the photo floating short of the panel edge. */}
+        <div style={{ maxWidth: 660, margin: "0 auto" }}>
+          <Accordion
+            items={INGREDIENTS.map((ing) => ({
+              title: ing.title,
+              body: (
+                <div>
+                  <Image
+                    src={`/ingredients/${ing.slug}.jpg`}
+                    alt=""
+                    width={800}
+                    height={450}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      display: "block",
+                      borderRadius: "var(--radius-md)",
+                      marginBottom: "var(--space-5)",
+                    }}
+                  />
+                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+                    {ing.points.map(([lead, body]) => (
+                      <div key={lead} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}>
+                        <Tick />
+                        <span>
+                          <span style={{ display: "block", fontSize: "var(--size-meta)", fontWeight: 800 }}>{lead}</span>
+                          <span style={{ display: "block", marginTop: 2, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.5 }}>
+                            {body}
+                          </span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ),
+            }))}
+          />
         </div>
       </Section>
 
