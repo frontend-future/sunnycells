@@ -94,8 +94,8 @@ export function CardForm() {
         </h3>
         <p style={{ margin: "0 auto", maxWidth: 420, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
           We could not complete your order because this size sold out while you were
-          checking out. Your card has not been charged. Leave your email and we will tell
-          you the day it is back.
+          checking out. Your card has not been charged. We will email you the day it is
+          back.
         </p>
         <div style={{ marginTop: "var(--space-5)" }}>
           <Button variant="outline" onClick={() => setPhase("idle")}>
@@ -189,11 +189,7 @@ export function CardForm() {
             <Spinner />
             Contacting your bank
           </div>
-        ) : (
-          <p style={{ margin: 0, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-            Skip or cancel anytime. 30 day money back guarantee.
-          </p>
-        )}
+        ) : null}
       </form>
     </div>
   );
