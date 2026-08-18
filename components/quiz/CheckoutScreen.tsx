@@ -362,7 +362,6 @@ export function CheckoutScreen() {
             <div style={{ gridColumn: "span 2" }}>
               <Input
                 label="Phone"
-                hint="For delivery updates and nothing else."
                 type="tel"
                 autoComplete="tel"
                 value={f.phone || ""}
