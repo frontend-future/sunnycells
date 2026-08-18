@@ -156,6 +156,13 @@ body {
   display: none;
 }
 
+/* The total sits in the header on a phone, where the rest of the summary collapses
+   under it and the amount charged must never be the hidden part. On desktop nothing
+   collapses, so it moves to the foot of the list where a total belongs. */
+.sc-total-bottom {
+  display: none;
+}
+
 @media (min-width: 900px) {
   .sc-checkout {
     grid-template-columns: minmax(0, 1fr) 360px;
@@ -174,6 +181,12 @@ body {
   }
   .sc-summary-heading {
     display: block !important;
+  }
+  .sc-total-top {
+    display: none !important;
+  }
+  .sc-total-bottom {
+    display: flex !important;
   }
   .sc-summary-body {
     display: block !important;

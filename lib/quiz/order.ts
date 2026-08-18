@@ -6,12 +6,12 @@ import type { Answers } from "./assessment.ts";
 
 /** Bonuses that come with any plan. Integer prices, like everything else. */
 export const BONUSES = [
-  { id: "guidebook", icon: "book-open", name: "Cortisol Blueprint guidebook", was: 27 },
-  { id: "recipes", icon: "file-text", name: "Breakfast recipes to lower cortisol", was: 19 },
-  { id: "shipping", icon: "truck", name: "Free shipping", was: 14 },
+  { id: "guidebook", image: "/bonuses/guidebook.png", icon: "book-open", name: "Cortisol Blueprint guidebook", was: 27 },
+  { id: "recipes", image: "/bonuses/recipes.png", icon: "file-text", name: "Breakfast recipes to lower cortisol", was: 19 },
+  { id: "shipping", image: null, icon: "truck", name: "Free shipping", was: 14 },
 ] as const;
 
-export type OrderLine = { id: string; name: string; note: string; was: number; now: number | null };
+export type OrderLine = { id: string; name: string; note: string; was: number; now: number | null; image: string | null };
 
 export type Order = {
   months: number;
@@ -20,6 +20,8 @@ export type Order = {
   listTotal: number;
   bonusTotal: number;
   discount: number;
+  /** The plan discount as a whole percentage, for the summary label. */
+  discountPct: number;
   total: number;
   strikeTotal: number;
 };
@@ -44,8 +46,9 @@ export function buildOrder(answers: Answers): Order {
       note: `${months} ${months === 1 ? "pouch" : "pouches"}. Ships every ${months} ${months === 1 ? "month" : "months"}.`,
       was: list,
       now,
+      image: "/product/metabolic-morning-blend.png",
     },
-    ...BONUSES.map((b) => ({ id: b.id, name: b.name, note: "Limited time offer", was: b.was, now: null })),
+    ...BONUSES.map((b) => ({ id: b.id, name: b.name, note: "Limited time offer", was: b.was, now: null, image: b.image })),
   ];
 
   return {
@@ -54,6 +57,7 @@ export function buildOrder(answers: Answers): Order {
     listTotal: list,
     bonusTotal,
     discount: list - now,
+    discountPct: Math.round(((list - now) / list) * 100),
     total: now,
     strikeTotal: list + bonusTotal,
   };

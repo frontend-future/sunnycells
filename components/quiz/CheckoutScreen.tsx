@@ -126,6 +126,7 @@ export function CheckoutScreen() {
           </button>
 
           <div
+            className="sc-total-top"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -165,8 +166,8 @@ export function CheckoutScreen() {
                       overflow: "hidden",
                     }}
                   >
-                    {l.id === "product" ? (
-                      <Image src="/product/metabolic-morning-blend.png" alt="" width={2400} height={1792} style={{ width: "100%", height: "auto", objectFit: "contain" }} />
+                    {l.image ? (
+                      <Image src={l.image} alt="" width={240} height={240} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
                     ) : (
                       <Icon name={BONUS_ICON[l.id]} size={24} />
                     )}
@@ -191,7 +192,7 @@ export function CheckoutScreen() {
 
             <div style={{ marginTop: "var(--space-5)", paddingTop: "var(--space-4)", borderTop: "1px solid var(--border-hairline)", display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
               {[
-                ["Plan discount", order.discount],
+                [`Discount -${order.discountPct}%`, order.discount],
                 ["Limited time offers", order.bonusTotal],
               ].map(([label, amount]) => (
                 <div key={String(label)} style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--size-meta)" }}>
@@ -199,6 +200,28 @@ export function CheckoutScreen() {
                   <span style={{ fontWeight: 700, color: "var(--status-success)" }}>-{money(Number(amount))}</span>
                 </div>
               ))}
+            </div>
+
+            <div
+              className="sc-total-bottom"
+              style={{
+                justifyContent: "space-between",
+                alignItems: "baseline",
+                gap: "var(--space-4)",
+                marginTop: "var(--space-5)",
+                paddingTop: "var(--space-4)",
+                borderTop: "1px solid var(--border-hairline)",
+              }}
+            >
+              <span style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>Total</span>
+              <span style={{ textAlign: "right" }}>
+                <span style={{ display: "block", fontSize: "var(--size-meta)", color: "var(--ink-60)", textDecoration: "line-through" }}>
+                  {money(order.strikeTotal)}
+                </span>
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "var(--size-h4)", letterSpacing: "-0.02em" }}>
+                  {ready ? money(order.total) : "\u00a0"}
+                </span>
+              </span>
             </div>
           </div>
         </aside>
