@@ -11,6 +11,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { BONUSES, buildOrder, US_STATES } from "@/lib/quiz/order";
+import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { CardForm } from "./CardForm";
 
 const STEPS = ["Information", "Payments", "Receipt"];
@@ -32,11 +33,7 @@ const FIELDS = [...TOP_FIELDS, ...PLACE_FIELDS];
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/* Counts digits rather than matching a shape. Numbers arrive with brackets, dashes,
-   spaces and a country code, and a regex that insists on one format rejects people who
-   typed a perfectly good number. Ten digits is a US number; the +1 the field starts
-   with is one, so an untouched field does not pass. */
-const digits = (v: string) => (v.match(/\d/g) ?? []).length;
+
 
 const money = (n: number) => `$${n}`;
 
@@ -66,7 +63,7 @@ export function CheckoutScreen() {
     const email = (f.email ?? answers.email ?? "").trim();
     if (!email) next.email = "We need an email address to send your receipt.";
     else if (!EMAIL.test(email)) next.email = "That address is missing an @ or a domain.";
-    if (digits(f.phone ?? "") < 10) next.phone = "We need a phone number the carrier can call on the day.";
+    if (!phoneOk(f.phone ?? "")) next.phone = "We need a full 10 digit phone number the carrier can call.";
     setErrors(next);
     if (Object.keys(next).length === 0) setPhase("payment");
   };
@@ -370,7 +367,7 @@ export function CheckoutScreen() {
                 autoComplete="tel"
                 value={f.phone || ""}
                 error={errors.phone || undefined}
-                onChange={(e) => set("phone", e.target.value)}
+                onChange={(e) => set("phone", formatPhone(e.target.value))}
               />
             </div>
 
@@ -389,7 +386,7 @@ export function CheckoutScreen() {
               <p style={{ margin: "0 0 var(--space-5)", fontSize: "var(--size-body)", color: "var(--ink-60)" }}>
                 All transactions are secure and encrypted.
               </p>
-              <CardForm total={order.total} />
+              <CardForm />
             </section>
           ) : null}
         </main>

@@ -4,9 +4,8 @@ import { useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { Input } from "@/components/forms/Input";
-import {
-  BRAND_LABEL, brandOf, cvcOk, expiryOk, formatCardNumber, formatExpiry, luhnOk,
-} from "@/lib/quiz/card";
+import { brandOf, cvcOk, expiryOk, formatCardNumber, formatExpiry, luhnOk } from "@/lib/quiz/card";
+import { CardBrandMark } from "./CardBrandMark";
 
 /**
  * PROTOTYPE CARD FIELDS. THESE MUST NOT SHIP COLLECTING A REAL CARD.
@@ -39,7 +38,7 @@ function Spinner() {
   );
 }
 
-export function CardForm({ total }: { total: number }) {
+export function CardForm() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -146,18 +145,25 @@ export function CardForm({ total }: { total: number }) {
           onChange={(e) => { setName(e.target.value); setErrors((x) => ({ ...x, name: "" })); }}
         />
 
-        <Input
-          label="Card number"
-          inputMode="numeric"
-          autoComplete="cc-number"
-          placeholder="1234 1234 1234 1234"
-          /* The brand appears as a word rather than a network logo. Those marks are
-             other companies' trademarks and we do not have licensed files for them. */
-          suffix={brand ? BRAND_LABEL[brand] : undefined}
-          value={number}
-          error={errors.number || undefined}
-          onChange={(e) => { setNumber(formatCardNumber(e.target.value)); setErrors((x) => ({ ...x, number: "" })); }}
-        />
+        <div style={{ position: "relative" }}>
+          <Input
+            label="Card number"
+            inputMode="numeric"
+            autoComplete="cc-number"
+            placeholder="1234 1234 1234 1234"
+            value={number}
+            error={errors.number || undefined}
+            onChange={(e) => { setNumber(formatCardNumber(e.target.value)); setErrors((x) => ({ ...x, number: "" })); }}
+            style={{ paddingRight: 62 }}
+          />
+          {/* Sits over the field's right edge and appears the moment the leading
+              digits identify a network. */}
+          {brand ? (
+            <span style={{ position: "absolute", right: 14, top: 46, pointerEvents: "none", display: "flex" }}>
+              <CardBrandMark brand={brand} />
+            </span>
+          ) : null}
+        </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
           <Input
@@ -181,7 +187,7 @@ export function CardForm({ total }: { total: number }) {
         </div>
 
         <Button size="lg" fullWidth variant="accent" type="submit" disabled={working} iconLeft={working ? undefined : "shield-check"}>
-          {working ? "Working" : `Pay $${total}`}
+          {working ? "Working" : "Submit secure payment"}
         </Button>
 
         {working ? (
