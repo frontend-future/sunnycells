@@ -28,7 +28,15 @@ export const SLIDE_ATTRIBUTES = [
   { icon: "check", label: "Third party tested" },
 ] as const;
 
-export const SLIDE_SEALS = ["Lab tested", "GMP certified", "Money back", "Made in the USA"];
+/* The four seals on the serving slide. Two came with the brief, two were generated to
+   match them. There is no GMP seal: the wording would not render legibly at this size
+   and it is a certification claim worth making only once it is actually held. */
+export const SLIDE_SEALS = [
+  { src: "/badges/third-party-tested.webp", label: "Third party tested" },
+  { src: "/badges/heavy-metal-tested.webp", label: "Heavy metal tested" },
+  { src: "/badges/money-back.png", label: "Money back guarantee" },
+  { src: "/badges/made-in-usa.png", label: "Made in the USA" },
+];
 
 /* PLACEHOLDER PANEL, not a real specification. Amounts and daily values need a
    formulator and a regulatory review before this can be printed anywhere. */

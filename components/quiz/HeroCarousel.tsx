@@ -130,29 +130,33 @@ export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
               <Icon key={i} name="star" size={18} fill="currentColor" />
             ))}
           </div>
-          {SLIDE_STATS.map((s) => (
-            <div key={s.figure} style={{ display: "flex", gap: "var(--space-4)", alignItems: "baseline", marginBottom: "var(--space-4)" }}>
-              {/* Fixed width, not intrinsic: 79%, 78% and 91% are different widths, so
-                  a shrink-to-fit column started each line of body copy somewhere new. */}
-              <span
-                style={{
-                  flex: "none",
-                  width: 96,
-                  textAlign: "right",
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 900,
-                  fontSize: 38,
-                  letterSpacing: "var(--tracking-display)",
-                }}
-              >
-                {s.figure}
-              </span>
-              <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.35 }}>
-                <BrandText>{s.body}</BrandText>
-              </span>
-            </div>
-          ))}
-          <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{SLIDE_STATS_NOTE}</p>
+          {/* The rows sit in a block that is only as wide as its widest row and is
+              centred as a group, so the figures line up on one right edge and the copy
+              on one left edge instead of the whole set hugging the slide. */}
+          <div style={{ width: "fit-content", maxWidth: "100%", margin: "0 auto" }}>
+            {SLIDE_STATS.map((s) => (
+              <div key={s.figure} style={{ display: "flex", gap: "var(--space-4)", alignItems: "baseline", marginBottom: "var(--space-4)" }}>
+                <span
+                  style={{
+                    flex: "none",
+                    width: 96,
+                    textAlign: "right",
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 900,
+                    fontSize: 38,
+                    letterSpacing: "var(--tracking-display)",
+                  }}
+                >
+                  {s.figure}
+                </span>
+                <span style={{ maxWidth: 210, fontSize: "var(--size-meta)", lineHeight: 1.35 }}>
+                  <BrandText>{s.body}</BrandText>
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p style={{ margin: 0, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{SLIDE_STATS_NOTE}</p>
         </Slide>
 
         {/* 3. Attributes */}
@@ -184,18 +188,46 @@ export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
         {/* 4. Serving */}
         <Slide>
           <SlideTitle>Take 1 scoop</SlideTitle>
-          <p style={{ margin: "0 0 var(--space-4)", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
+          <p style={{ margin: "0 0 var(--space-5)", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
             Daily in the morning. Mix with water or your favorite juice.
           </p>
-          <div style={{ display: "flex", gap: "var(--space-6)", borderTop: "1px solid var(--ink-20)", paddingTop: "var(--space-3)", marginBottom: "var(--space-4)" }}>
-            <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "var(--size-h4)" }}>30 servings</span>
-            <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "var(--size-h4)" }}>5.91 g each</span>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)" }}>
-            {SLIDE_SEALS.map((s) => (
-              <span key={s} style={{ background: "var(--white)", borderRadius: "var(--radius-pill)", padding: "6px 14px", fontSize: "var(--size-meta)", fontWeight: 700 }}>
-                {s}
+          {/* Stacked with a rule above each, rather than side by side: the two figures
+              are separate facts and the reference sets them as separate lines. */}
+          {[["30", "servings"], ["5.91 g", "per serving"]].map(([figure, unit]) => (
+            <div
+              key={unit}
+              style={{
+                borderTop: "1px solid var(--ink-20)",
+                paddingTop: "var(--space-3)",
+                marginBottom: "var(--space-3)",
+                display: "flex",
+                alignItems: "baseline",
+                gap: "var(--space-2)",
+              }}
+            >
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "var(--size-h4)", letterSpacing: "var(--tracking-heading)" }}>
+                {figure}
               </span>
+              <span style={{ fontSize: "var(--size-body)", fontWeight: 600 }}>{unit}</span>
+            </div>
+          ))}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "var(--space-3)",
+              marginTop: "var(--space-5)",
+            }}
+          >
+            {SLIDE_SEALS.map((seal) => (
+              <Image
+                key={seal.src}
+                src={seal.src}
+                alt={seal.label}
+                width={240}
+                height={240}
+                style={{ width: "100%", height: "auto", maxWidth: 64, margin: "0 auto" }}
+              />
             ))}
           </div>
         </Slide>
