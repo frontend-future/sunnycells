@@ -2,7 +2,7 @@
 
 import {
   ArrowLeft, ArrowRight, BookOpen, Check, ChevronDown, ChevronLeft, ChevronRight, Dna, Droplet,
-  FileText, Leaf,
+  FileText, Flag, Leaf,
   Mars, Menu, Minus, Percent, Plus, Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User,
   Venus, WheatOff, X, ZapOff,
 } from "lucide-react";
@@ -22,6 +22,7 @@ const ICONS = {
   dna: Dna,
   droplet: Droplet,
   "file-text": FileText,
+  flag: Flag,
   leaf: Leaf,
   mars: Mars,
   menu: Menu,

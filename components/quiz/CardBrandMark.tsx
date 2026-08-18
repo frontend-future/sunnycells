@@ -12,11 +12,14 @@ export function CardBrandMark({ brand, height = 20 }: { brand: CardBrand; height
   if (!brand) return null;
   const w = Math.round(height * 1.58);
   const common = { width: w, height, viewBox: "0 0 38 24", role: "img" as const };
+  /* The pale marks need an outline or they vanish on anything that is not pure white:
+     on the --shell sections their own fill is within a shade of the background. */
+  const pale = { fill: "#FFFFFF", stroke: "#DCDCD6", strokeWidth: 1 };
 
   if (brand === "mastercard") {
     return (
       <svg {...common} aria-label="Mastercard">
-        <rect width="38" height="24" rx="3" fill="#F4F4F2" />
+        <rect x="0.5" y="0.5" width="37" height="23" rx="3" {...pale} />
         <circle cx="15" cy="12" r="7" fill="#EB001B" />
         <circle cx="23" cy="12" r="7" fill="#F79E1B" />
         <path d="M19 6.6a7 7 0 0 0 0 10.8 7 7 0 0 0 0-10.8Z" fill="#FF5F00" />
@@ -49,7 +52,7 @@ export function CardBrandMark({ brand, height = 20 }: { brand: CardBrand; height
   if (brand === "discover") {
     return (
       <svg {...common} aria-label="Discover">
-        <rect width="38" height="24" rx="3" fill="#F4F4F2" />
+        <rect x="0.5" y="0.5" width="37" height="23" rx="3" {...pale} />
         <path d="M22 24h13a3 3 0 0 0 3-3v-5c-5 3.4-10.5 6.1-16 8Z" fill="#F27712" />
         {/* 5.4px, centred on the box: at 6.4 the D fell outside the 38 unit viewBox. */}
         <text x="19" y="12.8" textAnchor="middle" fill="#231F20" fontSize="5.4" fontWeight="700" fontFamily="system-ui, sans-serif">
@@ -61,7 +64,7 @@ export function CardBrandMark({ brand, height = 20 }: { brand: CardBrand; height
 
   return (
     <svg {...common} aria-label={brand === "diners" ? "Diners Club" : "JCB"}>
-      <rect width="38" height="24" rx="3" fill="#F4F4F2" />
+      <rect x="0.5" y="0.5" width="37" height="23" rx="3" {...pale} />
       <text x="19" y="15" textAnchor="middle" fill="#231F20" fontSize="6.4" fontWeight="700" fontFamily="system-ui, sans-serif">
         {brand === "diners" ? "DINERS" : "JCB"}
       </text>

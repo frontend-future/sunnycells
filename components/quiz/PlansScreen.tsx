@@ -17,6 +17,7 @@ import {
 import { AnnouncementMarquee } from "./AnnouncementMarquee";
 import { HeroCarousel } from "./HeroCarousel";
 import { OfferCountdown } from "./OfferCountdown";
+import { CardBrandMark } from "./CardBrandMark";
 import { PlanCards } from "./PlanCards";
 
 const PRESS = [
@@ -43,9 +44,14 @@ const HERO_POINTS = ["Helps with weight loss", "Lowers cortisol levels", "Reliev
 
 const TRUST = [
   { icon: "truck", label: "Free shipping" },
-  { icon: "shield-check", label: "Made in the USA" },
-  { icon: "check", label: "Third party tested" },
+  { icon: "flag", label: "SUNNYCELLS is made in the USA" },
+  { icon: "book-open", label: "Scientifically proven" },
 ] as const;
+
+/* Card networks we accept. Rendered from the same marks the checkout field uses, so
+   there is one place to drop the official artwork into. No PayPal: we do not take it.
+   No processor badge either, since none is wired up yet. */
+const PAYMENT_BRANDS = ["visa", "mastercard", "amex", "discover"] as const;
 
 function Section({
   eyebrow, title, sub, children, tone = "white", id,
@@ -304,15 +310,49 @@ export function PlansScreen() {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
-            gap: "var(--space-6)",
-            marginTop: "var(--space-8)",
+            gap: "var(--space-6) var(--space-8)",
+            marginTop: "var(--space-10)",
           }}
         >
           {TRUST.map((t) => (
-            <span key={t.label} style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", fontSize: "var(--size-meta)", fontWeight: 600 }}>
-              <Icon name={t.icon} size={20} />
-              {t.label}
-            </span>
+            <div key={t.label} style={{ width: 140, textAlign: "center" }}>
+              <span
+                aria-hidden="true"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 56,
+                  height: 56,
+                  borderRadius: "50%",
+                  border: "1px solid var(--border-hairline)",
+                  background: "var(--white)",
+                  color: "var(--ink)",
+                }}
+              >
+                <Icon name={t.icon} size={24} />
+              </span>
+              <span style={{ display: "block", marginTop: "var(--space-3)", fontSize: "var(--size-meta)", lineHeight: 1.3 }}>
+                <BrandText>{t.label}</BrandText>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "var(--space-3)",
+            marginTop: "var(--space-8)",
+            paddingTop: "var(--space-6)",
+            borderTop: "1px solid var(--border-hairline)",
+          }}
+        >
+          {PAYMENT_BRANDS.map((brand) => (
+            <CardBrandMark key={brand} brand={brand} height={30} />
           ))}
         </div>
       </Section>
