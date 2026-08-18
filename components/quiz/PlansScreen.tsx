@@ -55,8 +55,10 @@ const TRUST = [
 const PAYMENT_BRANDS = ["visa", "mastercard", "amex", "discover"] as const;
 
 function Section({
-  eyebrow, title, sub, children, tone = "white", id,
+  eyebrow, title, sub, children, tone = "white", id, wide = false,
 }: {
+  /** Raises the container so four cards fit a row instead of three. */
+  wide?: boolean;
   /** Small line above the heading. Sentence case in the label face, per the system. */
   eyebrow?: string;
   title?: string;
@@ -73,7 +75,7 @@ function Section({
         padding: "var(--space-16) var(--page-gutter-mobile)",
       }}
     >
-      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+      <div style={{ maxWidth: wide ? 1180 : 960, margin: "0 auto" }}>
         {eyebrow ? (
           <div
             style={{
@@ -266,7 +268,7 @@ export function PlansScreen() {
             </div>
           </div>
 
-          <HeroCarousel photoSet={set} />
+          <HeroCarousel />
         </div>
       </section>
 
@@ -496,27 +498,65 @@ export function PlansScreen() {
       </Section>
 
       {/* Reviews */}
-      <Section title="Thousands of happy clients" sub="This could be you. Read what customers around the world say.">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "var(--space-5)" }}>
+      <Section wide title="Thousands of happy clients" sub="Read what customers around the world say.">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(250px, 100%), 1fr))", gap: "var(--space-5)" }}>
           {REVIEWS.map((r) => (
             <div
               key={r.name}
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "var(--space-3)",
+                gap: "var(--space-4)",
                 padding: "var(--space-5)",
+                background: "var(--surface-sunk)",
                 border: "1px solid var(--border-hairline)",
-                borderRadius: "var(--radius-card)",
+                borderRadius: "var(--radius-xl)",
               }}
             >
-              <StarRating value={5} size={16} />
-              <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
-                <Image src={r.photo} alt="" width={200} height={200} style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }} />
-                <span>
-                  <span style={{ display: "block", fontSize: "var(--size-meta)", fontWeight: 700 }}>{r.name}</span>
-                  <span style={{ fontSize: "var(--size-meta)", color: "var(--status-success)", fontWeight: 600 }}>Verified buyer</span>
-                </span>
+              {/* Headline block on the left, photo on the right, body full width
+                  beneath. Keeps the cards even when a headline runs to three lines. */}
+              <div style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start" }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <StarRating value={5} size={16} />
+                  <h3
+                    style={{
+                      margin: "var(--space-3) 0 var(--space-3)",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "var(--size-body-lg)",
+                      fontWeight: 900,
+                      letterSpacing: "var(--tracking-heading)",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {r.title}
+                  </h3>
+                  <div style={{ fontSize: "var(--size-meta)", fontWeight: 700 }}>{r.name}</div>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      marginTop: "var(--space-2)",
+                      padding: "3px 10px 3px 6px",
+                      background: "var(--status-success-tint)",
+                      color: "var(--status-success)",
+                      borderRadius: "var(--radius-pill)",
+                      fontSize: "var(--size-meta)",
+                      fontWeight: 700,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <Icon name="check" size={14} strokeWidth={3} />
+                    Verified buyer
+                  </span>
+                </div>
+                <Image
+                  src={r.photo}
+                  alt=""
+                  width={600}
+                  height={600}
+                  style={{ flex: "none", width: 88, height: 88, objectFit: "cover", borderRadius: "var(--radius-md)" }}
+                />
               </div>
               <p style={{ margin: 0, fontSize: "var(--size-meta)", lineHeight: 1.55, color: "var(--ink-80)" }}>{r.body}</p>
             </div>

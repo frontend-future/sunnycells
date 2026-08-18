@@ -74,7 +74,7 @@ function SlideTitle({ children }: { children: React.ReactNode }) {
 
 const SLIDE_COUNT = 6;
 
-export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
+export function HeroCarousel() {
   const track = useRef<HTMLDivElement>(null);
   const [at, setAt] = useState(0);
 
@@ -308,20 +308,22 @@ export function HeroCarousel({ photoSet }: { photoSet: "female" | "male" }) {
               aspectRatio: "1.26",
             }}
           >
+            {/* Fixed rather than gendered: this panel is showing a range of people
+                using it, so a mix says more than a match to whoever is reading. */}
             <Image
-              src={`/photos/story-${photoSet}.jpg`}
+              src="/photos/social-1.jpg"
               alt=""
               width={1080}
-              height={1480}
+              height={1440}
               /* Biased right: these are portrait shots with the pouch held out to one
                  side, and a centred crop in a tall cell cuts the product off. */
               style={{ gridRow: "span 2", width: "100%", height: "100%", objectFit: "cover", borderRadius: "var(--radius-md)" }}
             />
             <Image
-              src={`/photos/story-${photoSet === "female" ? "male" : "female"}.jpg`}
+              src="/photos/social-2.jpg"
               alt=""
               width={1080}
-              height={1480}
+              height={1440}
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 32%", borderRadius: "var(--radius-md)" }}
             />
             <div

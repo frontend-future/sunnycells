@@ -36,19 +36,28 @@ export const HEADLINE_REVIEW = {
 
 export const REVIEWS = [
   {
-    name: "Cora S.",
-    photo: "/photos/avatar-1.jpg",
-    body: "Transformative for my stress and stubborn belly fat. Three months in and I have not felt this steady in years. The taste is mild and it mixes clean, which matters when you are drinking it every morning.",
+    name: "Marcus O.",
+    photo: "/photos/review-1.jpg",
+    title: "Two months in, sixteen pounds down",
+    body: "I was skeptical about anything that promises to fix stress. What changed first was not the scale, it was sleeping through instead of waking at three. The weight followed once I was not exhausted and reaching for sugar every afternoon.",
   },
   {
-    name: "Mark R.",
-    photo: "/photos/avatar-2.jpg",
-    body: "A miracle drink for stress and weight. What I noticed first was sleeping through the night. The weight followed once I was not exhausted and reaching for sugar at four in the afternoon.",
+    name: "Dan W.",
+    photo: "/photos/review-2.jpg",
+    title: "The afternoon crash is gone",
+    body: "A month in and the three o'clock write-off has stopped. It mixes clean and tastes like a mild orange squash, which matters when you are drinking it every morning. I am not white-knuckling my evenings any more.",
   },
   {
-    name: "Janet Y.",
-    photo: "/photos/avatar-3.jpg",
-    body: "Calm, and I'll be down. I was skeptical about anything that promises to fix stress. Two months in, the afternoon crash is gone and I am nine pounds down without trying anything drastic.",
+    name: "Priya N.",
+    photo: "/photos/review-3.jpg",
+    title: "Calmer, and nine pounds lighter",
+    body: "I have taken enough powders to be suspicious of all of them. This one prints the milligrams on the front, which is the only reason I tried it. Two months on and I feel steadier than I have in years.",
+  },
+  {
+    name: "Ellie B.",
+    photo: "/photos/review-4.jpg",
+    title: "It fits a morning that is already busy",
+    body: "One scoop, thirty seconds, no pills to count. I tested cancelling in the first month on purpose and it took two clicks. I resubscribed the week after, which says more than the copy does.",
   },
 ];
 
