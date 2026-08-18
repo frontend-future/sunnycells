@@ -76,9 +76,15 @@ export function StoryScreen() {
         width={1080}
         height={1480}
         style={{
-          width: "100%",
+          /* Capped by height and centred. At full width a 3:4 portrait ran about
+             480px tall on a phone and pushed the quote and the three points off the
+             screen entirely. */
+          width: "auto",
+          maxWidth: "100%",
+          maxHeight: 340,
           height: "auto",
           display: "block",
+          margin: "0 auto",
           background: "var(--shell)",
           borderRadius: "var(--radius-card)",
         }}

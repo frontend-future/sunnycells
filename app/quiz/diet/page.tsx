@@ -147,8 +147,8 @@ export default function QuizLandingPage() {
               gridTemplateColumns: "1fr 1fr",
               alignItems: "center",
               justifyItems: "center",
-              gap: "var(--space-8) var(--space-6)",
-              maxWidth: 380,
+              gap: "var(--space-10) var(--space-8)",
+              maxWidth: 460,
               margin: "0 auto",
             }}
           >
@@ -165,8 +165,8 @@ export default function QuizLandingPage() {
                      single-line ones, which is how the wordmarks are drawn. */
                   width: "100%",
                   height: "auto",
-                  maxWidth: 136,
-                  maxHeight: 42,
+                  maxWidth: 180,
+                  maxHeight: 56,
                   objectFit: "contain",
                   /* grayscale() alone would do nothing visible: two of these are
                      already black. The opacity is what makes them read grey. 0.55
