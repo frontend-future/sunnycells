@@ -93,6 +93,15 @@ export function PlanCards({
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "var(--space-3)", flexWrap: "wrap" }}>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", lineHeight: 1 }}>
                 ${p.price}
+                {/* Tight against the figure it qualifies. Trailing the struck total
+                    instead made it read as the unit for that number, which is the
+                    supply total and not a per pouch price. Only on the multi pouch
+                    cards: one pouch has no per pouch price distinct from its price. */}
+                {p.months > 1 && (
+                  <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)", letterSpacing: 0 }}>
+                    /pouch
+                  </span>
+                )}
               </span>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
                 {/* Multi pouch cards strike the total for the supply, $69 and $126.
@@ -100,13 +109,6 @@ export function PlanCards({
                     keeps the list price. */}
                 ${p.months > 1 ? p.price * p.months : p.compareAt}
               </span>
-              {/* Only where more than one pouch arrives. On the single pouch card the
-                  price is plainly the whole thing, and a unit there reads as though
-                  there were more to buy. "pouch" is the word the bullets and the ads
-                  already use for the pack. */}
-              {p.months > 1 && (
-                <span style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)" }}>per pouch</span>
-              )}
             </div>
             {/* The standing first-order term, stated on the card rather than left to
                 be inferred from the struck price. */}
