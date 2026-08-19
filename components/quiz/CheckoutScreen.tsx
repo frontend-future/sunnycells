@@ -234,7 +234,7 @@ export function CheckoutScreen() {
 
         <main style={{ paddingTop: "var(--space-6)" }}>
           <Link
-            href="/quiz/diet/results/plans"
+            href="/quiz/diet/results/cart"
             style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2)", minHeight: "var(--tap-min)", color: "var(--ink)", fontSize: "var(--size-body)", fontWeight: 600, textDecoration: "none" }}
           >
             <Icon name="chevron-left" size={22} />
@@ -372,7 +372,7 @@ export function CheckoutScreen() {
 
             <div style={{ gridColumn: "span 2", marginTop: "var(--space-2)" }}>
               <Button size="lg" fullWidth variant="accent" type="submit">
-                Continue
+                Continue to payment
               </Button>
             </div>
           </form>

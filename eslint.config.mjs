@@ -12,6 +12,14 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Static design-system specimens are reference artifacts, not application code.
+    "guidelines/**",
+    "ui_kits/**",
+    "components/**/*.jsx",
+    "components/**/*.d.ts",
+    "components/**/*.prompt.md",
+    "components/**/*.card.html",
+    "components/_card.js",
   ]),
 ]);
 

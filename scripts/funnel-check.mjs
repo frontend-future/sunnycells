@@ -97,7 +97,13 @@ await step("story", "/quiz/diet/results/plans", () => page.getByRole("button", {
 await page.waitForTimeout(400);
 await page.screenshot({ path: "shot-plans.png", fullPage: true });
 
-await step("plans", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Order now/ }).nth(1).click());
+await step("plans", "/quiz/diet/results/cart", () => page.getByRole("button", { name: /Add to cart/ }).nth(1).click());
+await page.waitForTimeout(250);
+const cartText = await page.locator("body").innerText();
+check("cart carries the selected 3 month supply", cartText.includes("3-month supply"));
+check("cart shows the amount due today", cartText.includes("$162"));
+check("cart includes the three free extras", (cartText.match(/Free/g) || []).length >= 3);
+await step("cart", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Continue to checkout/ }).click());
 await page.waitForTimeout(300);
 const summaryText = await page.locator("body").innerText();
 check("checkout charges the 3 month plan in full", summaryText.includes("$162"));
@@ -109,18 +115,18 @@ const openText = await page.locator("body").innerText();
 check("opening the summary reveals the line items", /3 pouches\. Ships every 3 months\./.test(openText));
 check("bonuses read as free", (openText.match(/Free/g) || []).length >= 3);
 
-await page.getByRole("button", { name: "Continue", exact: true }).click();
+await page.getByRole("button", { name: "Continue to payment", exact: true }).click();
 await page.waitForTimeout(250);
 check("empty submit reports every missing field", (await page.getByText(/We need a|Choose a state/).count()) === 8);
 for (const [l, v] of [["First name", "Dana"], ["Last name", "Reyes"], ["Address line 1", "18 Alder Road"], ["Town or city", "Portland"], ["Zip code", "97205"], ["Email", "dana@example.com"]])
   await page.getByLabel(l, { exact: true }).fill(v);
 await page.getByLabel("State", { exact: true }).selectOption("Oregon");
 await page.getByLabel("Phone", { exact: true }).fill("+1");
-await page.getByRole("button", { name: "Continue", exact: true }).click();
+await page.getByRole("button", { name: "Continue to payment", exact: true }).click();
 await page.waitForTimeout(200);
 check("an untouched +1 is not accepted as a phone number", (await page.getByText(/phone number the carrier/).count()) === 1);
 await page.getByLabel("Phone", { exact: true }).fill("+1 503 555 0142");
-await page.getByRole("button", { name: "Continue", exact: true }).click();
+await page.getByRole("button", { name: "Continue to payment", exact: true }).click();
 await page.waitForTimeout(300);
 check("valid shipping opens the payment step", (await page.getByRole("heading", { name: "Payment" }).count()) === 1);
 check("shipping details collapse behind a disclosure", (await page.locator("form[hidden]").count()) === 1);
@@ -128,10 +134,11 @@ await page.screenshot({ path: "shot-checkout.png", fullPage: true });
 
 await page.goto(`${BASE}/quiz/diet/sleep`, { waitUntil: "networkidle" });
 check("deep link to a step works", (await page.locator("h1").innerText()).includes("How much do you usually sleep"));
+const errorsBeforeExpected404 = [...errors];
 const back = await page.goto(`${BASE}/quiz/diet/not-a-step`);
 check("unknown slug 404s", back.status() === 404);
 
 console.log("\nfailures:", fails);
-console.log("page errors:", errors.length ? errors : "none");
+console.log("page errors:", errorsBeforeExpected404.length ? errorsBeforeExpected404 : "none");
 await browser.close();
-process.exit(fails || errors.length ? 1 : 0);
+process.exit(fails || errorsBeforeExpected404.length ? 1 : 0);

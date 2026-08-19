@@ -167,7 +167,46 @@ body {
   display: none;
 }
 
+/* Cart: the chosen product and included bonuses stay readable as one flow on a
+   phone. The price summary becomes a sticky rail only when both columns have room. */
+.sc-cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.sc-cart-layout > * {
+  min-width: 0;
+}
+
+.sc-cart-product {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  min-width: 0;
+}
+
+@media (max-width: 599px) {
+  .sc-cart-product {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sc-cart-cta {
+    padding-inline: var(--space-4) !important;
+    font-size: 16px !important;
+    letter-spacing: 0.04em !important;
+  }
+}
+
 @media (min-width: 900px) {
+  .sc-cart-layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+    gap: var(--space-10);
+  }
+  .sc-cart-summary {
+    position: sticky;
+    top: var(--space-6);
+  }
   .sc-checkout {
     grid-template-columns: minmax(0, 1fr) 360px;
     align-items: start;

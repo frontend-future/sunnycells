@@ -678,7 +678,7 @@ export function PlansScreen() {
               }}
             >
               <Image
-                src="/product/metabolic-morning-blend.png"
+                src="/product/metabolic-morning-blend.webp"
                 alt="Metabolic Morning Blend"
                 width={2400}
                 height={1792}

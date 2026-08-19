@@ -14,7 +14,7 @@ import {
    text cannot be edited, translated, selected, read by a screen reader, or kept
    legible when the slide is resized. */
 
-const POUCH = "/product/metabolic-morning-blend.png";
+const POUCH = "/product/metabolic-morning-blend.webp";
 
 function Pouch({ height = 220 }: { height?: number }) {
   return (

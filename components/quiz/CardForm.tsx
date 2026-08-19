@@ -139,7 +139,7 @@ export function CardForm() {
         <Input
           label="Name on card"
           autoComplete="cc-name"
-          placeholder="Jane Doe"
+          placeholder="Dana Reyes"
           value={name}
           error={errors.name || undefined}
           onChange={(e) => { setName(e.target.value); setErrors((x) => ({ ...x, name: "" })); }}

@@ -9,8 +9,10 @@ await h.scrollIntoViewIfNeeded();
 await p.waitForTimeout(600);
 
 // every panel, paired with the image inside it
-const rows = await p.evaluate(() =>
-  [...document.querySelectorAll('[aria-controls]')].map((btn) => {
+const rows = await p.evaluate(() => {
+  const heading = [...document.querySelectorAll("h2")].find((node) => node.textContent.includes("The science behind"));
+  const section = heading?.closest("section");
+  return [...(section?.querySelectorAll('[aria-controls]') ?? [])].map((btn) => {
     const region = document.getElementById(btn.getAttribute("aria-controls"));
     const img = region.querySelector("img");
     const ticks = region.querySelectorAll("svg").length;
@@ -20,8 +22,8 @@ const rows = await p.evaluate(() =>
       loaded: !!img && img.naturalWidth > 0,
       ticks,
     };
-  }),
-);
+  });
+});
 for (const r of rows) console.log(`${r.title.padEnd(20)} ${String(r.file).padEnd(20)} loaded=${r.loaded} ticks=${r.ticks}`);
 console.log("all distinct images:", new Set(rows.map((r) => r.file)).size === rows.length);
 console.log("every panel has 2 ticks:", rows.every((r) => r.ticks === 2));

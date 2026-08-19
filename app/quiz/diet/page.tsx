@@ -65,7 +65,7 @@ export default function QuizLandingPage() {
         >
           <Wordmark size={26} />
           <Image
-            src="/product/metabolic-morning-blend.png"
+            src="/product/metabolic-morning-blend.webp"
             alt="SC-21 Metabolic Morning Blend, a yellow pouch beside a scoop of powder"
             width={2400}
             height={1792}

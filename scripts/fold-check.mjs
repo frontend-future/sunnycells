@@ -20,6 +20,7 @@ const TARGETS = [
   ["/quiz/diet/email", "button:has-text('Unlock my results')", "email CTA"],
   ["/quiz/diet/results/summary", "button:has-text('Continue')", "summary CTA"],
   ["/quiz/diet/results/plans", "button:has-text('Get it now')", "plans hero CTA"],
+  ["/quiz/diet/results/cart", "button:has-text('Continue to checkout')", "cart CTA"],
   ["/quiz/diet/results/checkout", "button:has-text('Continue to payment')", "checkout CTA"],
 ];
 
@@ -34,7 +35,24 @@ for (const vp of VIEWPORTS) {
       scrollH: document.documentElement.scrollHeight,
       overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     }));
-    if (overflowX > 0) console.log(`  SPILL ${label.padEnd(14)} page scrolls ${overflowX}px sideways`);
+    if (overflowX > 0) {
+      const offenders = await page.evaluate(() =>
+        [...document.querySelectorAll("body *")]
+          .map((element) => {
+            const rect = element.getBoundingClientRect();
+            return {
+              element: element.tagName.toLowerCase(),
+              className: typeof element.className === "string" ? element.className : "",
+              left: Math.round(rect.left),
+              right: Math.round(rect.right),
+              width: Math.round(rect.width),
+            };
+          })
+          .filter(({ left, right }) => left < 0 || right > document.documentElement.clientWidth)
+          .slice(0, 4),
+      );
+      console.log(`  SPILL ${label.padEnd(14)} page scrolls ${overflowX}px sideways`, offenders);
+    }
     if (!box) { console.log(`  ?? ${label.padEnd(14)} ${url}  (not found)`); continue; }
     const bottom = Math.round(box.y + box.height);
     const over = bottom - vp.height;

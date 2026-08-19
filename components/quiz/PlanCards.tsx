@@ -17,7 +17,7 @@ export function PlanCards() {
     writeAnswer(dietQuiz.id, "plan", p.id);
     writeAnswer(dietQuiz.id, "planPrice", String(p.price));
     writeAnswer(dietQuiz.id, "planMonths", String(p.months));
-    router.push("/quiz/diet/results/checkout");
+    router.push("/quiz/diet/results/cart");
   };
 
   return (
@@ -94,7 +94,7 @@ export function PlanCards() {
 
             <div style={{ marginTop: "auto", paddingTop: "var(--space-3)" }}>
               <Button fullWidth variant={p.best ? "primary" : "outline"} onClick={() => choose(p)}>
-                Order now
+                Add to cart
               </Button>
               <div style={{ marginTop: "var(--space-3)", textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
                 Cancel anytime. Free shipping.

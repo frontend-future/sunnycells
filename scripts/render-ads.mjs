@@ -84,7 +84,7 @@ const page = (c) => `
          said this, so it is not set in quote marks as though somebody had. -->
     <div class="line"><span>${c.line}</span></div>
     <div class="row">
-      <div class="pack"><img src="../public/product/metabolic-morning-blend.png"></div>
+      <div class="pack"><img src="../public/product/metabolic-morning-blend.webp"></div>
       <ul>${c.points.map((p) => `
         <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
           stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>${p}</span></li>`).join("")}
