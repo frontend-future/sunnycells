@@ -3,10 +3,10 @@ import { CampaignLink } from "./CampaignLink";
 import styles from "./hormone-harmony.module.css";
 
 const standards = [
-  ["Clear formula", "Eight label-listed ingredients, all printed on the pouch."],
-  ["Independent testing", "Third-party and heavy-metal testing are part of the product standard."],
-  ["Simple format", "Thirty measured servings in every pouch."],
-  ["Lower-risk first order", "Free shipping, 60-day returns, and the flexibility to skip or cancel."],
+  ["Paired inositols", "Myo-inositol and D-chiro inositol appear together in the formula."],
+  ["Calm-format ingredients", "KSM-66 Ashwagandha and L-Theanine are included without caffeine."],
+  ["Botanical roots", "Rhodiola, organic turmeric, and black pepper complete the botanical side of the blend."],
+  ["Sunflower source", "SunPS sunflower seed extract supplies the label-listed phosphatidylserine."],
 ] as const;
 
 export function SunnycellsStandard() {
@@ -22,14 +22,14 @@ export function SunnycellsStandard() {
         />
       </div>
       <div className={styles.standardCopy}>
-        <h2 id="standard-title">NO MYSTERY FORMULA. NO BORROWED RESULTS.</h2>
-        <p>Everything inside Metabolic Morning Blend is printed on the pouch. We would rather show you what you are buying than bury the decision under dramatic promises.</p>
+        <h2 id="standard-title">WHAT IS INSIDE METABOLIC MORNING BLEND?</h2>
+        <p>Nothing hidden behind a proprietary blend. Eight ingredients are printed on the pouch, with thirty measured servings in every package.</p>
         <div className={styles.standardList}>
           {standards.map(([title, copy]) => (
             <article key={title}><h3>{title}</h3><p>{copy}</p></article>
           ))}
         </div>
-        <strong className={styles.standardClosing}>Wellness without being talked down to.</strong>
+        <strong className={styles.standardClosing}>A clear label for a clear morning decision.</strong>
         <CampaignLink>SEE YOUR OPTIONS</CampaignLink>
       </div>
     </section>

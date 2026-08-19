@@ -18,6 +18,13 @@ const heroBenefits = [
   "One pouch lasts 30 mornings",
 ] as const;
 
+const productFacts = [
+  ["8", "label-listed ingredients"],
+  ["30", "servings per pouch"],
+  ["0", "sugar, calories, or stimulants"],
+  ["1", "scoop each morning"],
+] as const;
+
 const lowestPlan = PLANS.reduce((lowest, plan) => plan.price < lowest.price ? plan : lowest);
 const lowestFirstPrice = firstOrderPrice(lowestPlan.price);
 
@@ -50,6 +57,10 @@ export function HormoneHarmonyPage() {
           </div>
           <p className={styles.heroArtNote}><strong>Orange flavor</strong><span>30 servings per pouch</span></p>
         </div>
+      </section>
+
+      <section className={styles.factBand} aria-label="Metabolic Morning Blend facts">
+        {productFacts.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}
       </section>
 
       <CampaignStory />

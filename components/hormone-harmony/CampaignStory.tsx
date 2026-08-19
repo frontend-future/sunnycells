@@ -49,16 +49,20 @@ export function CampaignStory() {
           <p className={styles.kicker}>When the routine becomes the problem</p>
           <h2 id="problem-title">MORNINGS DO NOT NEED ANOTHER COMPLICATED WELLNESS PLAN.</h2>
           <p>Breakfast is late. Coffee goes cold. A calendar alert appears before you have had a quiet minute.</p>
+          <div className={styles.problemVisual}>
+            <Image src="/illustrations/reduced-stress-female.png" alt="Illustration of a woman moving through her day" width={620} height={620} sizes="(max-width: 767px) 82vw, 420px" />
+          </div>
           <p>That is exactly when a shelf of capsules, powders, and separate instructions stops being realistic.</p>
+          <p>One bottle lives beside the coffee. Another needs food. A third is meant for later, which means it is often forgotten.</p>
           <div className={styles.problemList}>
             <p><Icon name="x" size={22} />Too many bottles to remember</p>
             <p><Icon name="x" size={22} />Another stimulant when coffee is already enough</p>
             <p><Icon name="x" size={22} />A routine with no clear serving rhythm</p>
           </div>
+          <p>Adding more instructions does not make a morning more consistent. It gives the routine more places to fall apart.</p>
           <p className={styles.problemEmphasis}>The useful habit is the one that still fits on a busy Tuesday.</p>
-        </div>
-        <div className={styles.problemVisual}>
-          <Image src="/photos/story-female.jpg" alt="Woman moving through a busy morning at home" fill sizes="(max-width: 900px) 100vw, 48vw" />
+          <CampaignLink>TRY METABOLIC MORNING BLEND</CampaignLink>
+          <p className={styles.linkReassurance}>50% off the first order. 60-day returns.</p>
         </div>
       </section>
 

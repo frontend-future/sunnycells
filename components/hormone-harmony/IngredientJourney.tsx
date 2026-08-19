@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Icon } from "@/components/core/Icon";
 import { CampaignLink } from "./CampaignLink";
 import styles from "./hormone-harmony.module.css";
 
@@ -61,9 +62,12 @@ export function IngredientJourney() {
 
       <section id="routine" className={styles.progression} aria-labelledby="routine-title">
         <div className={styles.progressionHead}>
-          <span>What happens when you start</span>
-          <h2 id="routine-title">A FOUR-PART RHYTHM FOR YOUR FIRST POUCH.</h2>
-          <p>This is a habit progression, not a promise of physiological results.</p>
+          <div>
+            <span>What happens when you start</span>
+            <h2 id="routine-title">A FOUR-PART RHYTHM FOR YOUR FIRST POUCH.</h2>
+            <p>This is a habit progression, not a promise of physiological results.</p>
+          </div>
+          <div className={styles.progressionPhoto}><Image src="/photos/social-1.jpg" alt="Woman holding her morning drink" fill sizes="(max-width: 767px) 86vw, 360px" /></div>
         </div>
         <div className={styles.progressionSteps}>
           {stages.map(([title, copy], index) => (
@@ -79,26 +83,17 @@ export function IngredientJourney() {
       </section>
 
       <section className={`${styles.section} ${styles.lifestyle}`} aria-labelledby="lifestyle-title">
-        <div className={styles.lifestyleIntro}>
-          <h2 id="lifestyle-title">DESIGNED FOR REAL MORNINGS.</h2>
-          <p>At home, at a desk, after a workout, or already on the move, the format stays compact and predictable.</p>
+        <div className={styles.lifestyleCopy}>
+          <p className={styles.kicker}>For different ages, schedules, and mornings</p>
+          <h2 id="lifestyle-title">THE ROUTINE DOES NOT ASK THE REST OF YOUR DAY TO CHANGE.</h2>
+          <div className={styles.lifestyleBenefits}>
+            <article><Icon name="check" size={22} /><div><h3>Keep breakfast familiar</h3><p>Mix one scoop into water or juice while the rest of breakfast stays the same.</p></div></article>
+            <article><Icon name="check" size={22} /><div><h3>Leave caffeine where you want it</h3><p>The blend is stimulant free, so it does not add another source of caffeine.</p></div></article>
+            <article><Icon name="check" size={22} /><div><h3>See the monthly rhythm</h3><p>Thirty servings make each pouch a clear one-month supply at one scoop a day.</p></div></article>
+            <article><Icon name="check" size={22} /><div><h3>Take control of deliveries</h3><p>Every plan includes free shipping and the option to skip or cancel.</p></div></article>
+          </div>
         </div>
-        <div className={styles.lifestylePrimary}>
-          <Image src="/photos/hormone-morning-routine-v2.webp" alt="Woman enjoying a simple morning routine at home" fill sizes="(max-width: 767px) 100vw, 56vw" />
-          <div><span>At home</span><h3>Mix it while breakfast is happening.</h3></div>
-        </div>
-        <div className={styles.lifestyleSecondary}>
-          <Image src="/photos/social-2.jpg" alt="A portable SUNNYCELLS morning routine" fill sizes="(max-width: 767px) 100vw, 34vw" />
-          <div><span>On the move</span><h3>Keep the pouch where the routine happens.</h3></div>
-        </div>
-        <div className={styles.lifestyleThird}>
-          <Image src="/photos/social-3.jpg" alt="Metabolic Morning Blend beside a workday setup" fill sizes="(max-width: 767px) 100vw, 34vw" />
-          <div><span>Before the first call</span><h3>Keep the ritual small enough for busy days.</h3></div>
-        </div>
-        <div className={styles.lifestyleFourth}>
-          <Image src="/photos/hormone-morning-fal.webp" alt="A stimulant-free orange morning drink after movement" fill sizes="(max-width: 767px) 100vw, 34vw" />
-          <div><span>After movement</span><h3>A stimulant-free option when you already have enough caffeine.</h3></div>
-        </div>
+        <div className={styles.lifestyleVisual}><Image src="/photos/hormone-morning-routine-v2.webp" alt="Woman enjoying a simple morning routine at home" fill sizes="(max-width: 900px) 100vw, 46vw" /></div>
       </section>
 
       <section className={styles.everydayOutcomes} aria-labelledby="everyday-title">
@@ -126,6 +121,8 @@ export function IngredientJourney() {
           <p>Manufactured in the USA in a facility that follows current Good Manufacturing Practice, with third-party and heavy-metal testing represented by the supplied SUNNYCELLS assets.</p>
         </div>
         <div className={styles.qualityMarks}>
+          <figure><div className={styles.qualityIconCircle}><Icon name="leaf" size={38} /></div><figcaption>Plant-based formula</figcaption></figure>
+          <figure><div className={styles.qualityIconCircle}><Icon name="zap-off" size={38} /></div><figcaption>No caffeine or stimulants</figcaption></figure>
           <figure><Image src="/badges/made-in-usa.png" alt="Made in the USA" width={260} height={260} /><figcaption>Made in the USA</figcaption></figure>
           <figure><Image src="/badges/third-party-tested.webp" alt="Third-party tested" width={260} height={260} /><figcaption>Third-party tested</figcaption></figure>
           <figure><Image src="/badges/heavy-metal-tested.webp" alt="Heavy-metal tested" width={260} height={260} /><figcaption>Heavy-metal tested</figcaption></figure>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Icon } from "@/components/core/Icon";
 import { Accordion } from "@/components/navigation/Accordion";
 import { CampaignLink } from "./CampaignLink";
 import { SunnycellsStandard } from "./SunnycellsStandard";
@@ -26,15 +27,18 @@ export function CampaignFaq() {
   return (
     <>
       <section id="guarantee" className={`${styles.section} ${styles.guarantee}`} aria-labelledby="guarantee-title">
-        <div className={styles.guaranteeSeal}>
-          <Image src="/badges/money-back.png" alt="60-day returns" width={300} height={300} sizes="220px" />
-        </div>
-        <div>
+        <div className={styles.guaranteeIntro}>
+          <div className={styles.guaranteeSeal}><Image src="/badges/money-back.png" alt="60-day returns" width={300} height={300} sizes="180px" /></div>
           <p className={styles.kicker}>Give it a morning. Or sixty.</p>
           <h2 id="guarantee-title">YOUR FIRST 60 DAYS ARE COVERED.</h2>
           <p>Try Metabolic Morning Blend as part of your morning routine. If it is not for you, your purchase is protected by SUNNYCELLS 60-day returns.</p>
-          <CampaignLink>START YOUR ROUTINE</CampaignLink>
         </div>
+        <div className={styles.guaranteeCards}>
+          <article><Icon name="truck" size={38} /><h3>Free shipping</h3><p>Every available subscription plan ships free.</p></article>
+          <article><Icon name="shield-check" size={38} /><h3>60-day returns</h3><p>Your purchase is protected by the stated SUNNYCELLS return policy.</p></article>
+          <article><Icon name="repeat" size={38} /><h3>Flexible deliveries</h3><p>Skip or cancel according to the subscription terms.</p></article>
+        </div>
+        <CampaignLink>START YOUR ROUTINE</CampaignLink>
       </section>
 
       <section className={styles.verificationSection} aria-labelledby="verification-title">
@@ -54,11 +58,16 @@ export function CampaignFaq() {
       <SunnycellsStandard />
 
       <section className={`${styles.section} ${styles.mission}`} aria-labelledby="mission-title">
-        <div>
+        <div className={styles.missionHeading}>
           <span>SUNNYCELLS</span>
           <h2 id="mission-title">WHY SUNNYCELLS KEEPS THINGS CLEAR.</h2>
         </div>
-        <p>The supplement aisle does not need more mystery. SUNNYCELLS focuses on clear formulas, useful formats, and enough information for customers to make their own decisions.</p>
+        <div className={styles.missionGrid}>
+          <article><div><Image src="/photos/social-1.jpg" alt="A clear morning routine" fill sizes="(max-width: 767px) 90vw, 32vw" /></div><h3>Clear labels</h3><p>Ingredients and serving counts are shown without hiding them behind a proprietary blend.</p></article>
+          <article><div><Image src="/photos/hormone-ingredients-fal.webp" alt="Metabolic Morning Blend ingredients" fill sizes="(max-width: 767px) 90vw, 32vw" /></div><h3>Responsible claims</h3><p>The product is described through supplied facts rather than borrowed outcomes.</p></article>
+          <article><div><Image src="/photos/social-2.jpg" alt="SUNNYCELLS pouch in a daily setting" fill sizes="(max-width: 767px) 90vw, 32vw" /></div><h3>Useful formats</h3><p>One measured scoop and thirty servings give the routine a visible rhythm.</p></article>
+          <article><div><Image src="/photos/social-3.jpg" alt="SUNNYCELLS morning setup" fill sizes="(max-width: 767px) 90vw, 32vw" /></div><h3>Straight terms</h3><p>First-order price, renewal price, returns, and delivery controls are shown before checkout.</p></article>
+        </div>
       </section>
 
       <section id="faq" className={`${styles.section} ${styles.faq}`} aria-labelledby="faq-title">
