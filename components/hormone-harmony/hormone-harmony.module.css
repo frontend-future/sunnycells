@@ -243,10 +243,18 @@
   font-size: var(--size-body-lg);
 }
 
+.heroBenefitIntro {
+  max-width: 34rem;
+  margin-top: var(--space-8) !important;
+  font-size: 18px;
+  font-weight: var(--weight-bold);
+}
+
 .heroBenefits {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
-  margin-top: var(--space-8) !important;
+  margin-top: var(--space-4) !important;
   padding: 0;
   list-style: none;
 }
@@ -467,6 +475,7 @@
 .ingredient > span { display: block; margin-top: var(--space-5); color: var(--hh-muted); font-size: 15px; font-weight: var(--weight-bold); }
 .ingredient h3 { margin-top: var(--space-2); }
 .ingredient p { max-width: 32rem; margin-top: var(--space-3) !important; color: var(--hh-muted); font-size: 17px; }
+.ingredientCta { display: grid; justify-items: center; width: min(calc(100% - (var(--page-gutter) * 2)), 760px); margin: var(--space-16) auto 0; text-align: center; }
 
 .progression {
   width: min(calc(100% - (var(--page-gutter) * 2)), 920px);
@@ -582,12 +591,15 @@
 .centeredHeading { max-width: 920px; margin-inline: auto; }
 .centeredHeading h2 { max-width: 18ch; margin-inline: auto; }
 .centeredHeading > p:last-child { max-width: 720px; margin: var(--space-6) auto 0 !important; color: var(--hh-muted); font-size: 20px; }
-.reasonGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: var(--space-16); border-block: 2px solid var(--ink); text-align: left; }
-.reasonGrid article { min-height: 360px; padding: var(--space-8); }
+.reasonGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-16); text-align: left; }
+.reasonGrid article { min-width: 0; overflow: hidden; border: 1px solid var(--hh-line); background: var(--shell); }
 .reasonGrid article + article { border-left: 1px solid var(--hh-line); }
-.reasonGrid span { font-size: 16px; font-weight: var(--weight-bold); }
-.reasonGrid h3 { margin-top: var(--space-12); }
-.reasonGrid p { margin-top: var(--space-5) !important; color: var(--hh-muted); font-size: 20px; }
+.reasonImage { position: relative; min-height: 260px; overflow: hidden; background: var(--sun-tint); }
+.reasonImage img { object-fit: cover; }
+.reasonGrid span, .reasonGrid h3, .reasonGrid p { margin-inline: var(--space-6); }
+.reasonGrid span { display: block; margin-top: var(--space-6); font-size: 16px; font-weight: var(--weight-bold); }
+.reasonGrid h3 { margin-top: var(--space-4); }
+.reasonGrid p { margin-top: var(--space-4) !important; margin-bottom: var(--space-8) !important; color: var(--hh-muted); font-size: 20px; }
 .reasonSection .primaryLink { margin-top: var(--space-10); }
 .linkReassurance { margin-top: var(--space-4) !important; color: var(--hh-muted); font-size: 20px !important; font-weight: var(--weight-bold); text-align: center; }
 
@@ -667,6 +679,15 @@
 .packageCard > small { margin-top: var(--space-4); color: var(--hh-muted); font-size: 15px; font-weight: var(--weight-bold); text-align: center; }
 .paymentConfidence { display: flex; width: min(calc(100% - (var(--page-gutter) * 2)), 960px); flex-wrap: wrap; justify-content: center; gap: var(--space-8); margin: var(--space-10) auto 0; }
 .paymentConfidence span { display: inline-flex; align-items: center; gap: var(--space-3); font-size: 18px; font-weight: var(--weight-bold); }
+.paymentTrust { display: grid; width: min(calc(100% - (var(--page-gutter) * 2)), 1120px); grid-template-columns: minmax(300px, 0.72fr) 1.28fr; gap: var(--space-10); margin: var(--space-16) auto 0; padding: var(--space-10); border: 2px solid var(--ink); background: var(--white); }
+.paymentTrustHeading { display: flex; align-items: flex-start; gap: var(--space-5); }
+.paymentTrustHeading > svg { flex: 0 0 auto; padding: 7px; border-radius: 50%; background: var(--sun); }
+.paymentTrustHeading h3 { max-width: 16ch; font-size: clamp(28px, 3vw, 42px); }
+.paymentTrustGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--hh-line); }
+.paymentTrustGrid article { min-width: 0; padding: var(--space-6); border-bottom: 1px solid var(--hh-line); }
+.paymentTrustGrid article + article { border-left: 1px solid var(--hh-line); }
+.paymentTrustGrid strong { font-size: 18px; }
+.paymentTrustGrid p { margin-top: var(--space-3) !important; color: var(--hh-muted); font-size: 20px; }
 
 .verificationSection { padding: clamp(var(--space-16), 9vw, var(--space-28)) max(var(--page-gutter), calc((100vw - 1040px) / 2)); background: var(--sun-tint); color: var(--ink); }
 .verificationHeading { max-width: 820px; margin-inline: auto; text-align: center; }
@@ -738,8 +759,7 @@
   .hero { grid-template-columns: minmax(0, 0.9fr) minmax(460px, 1.1fr); }
   .standard { grid-template-columns: minmax(360px, 0.8fr) minmax(460px, 1.2fr); }
   .reasonGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .reasonGrid article:nth-child(3) { border-left: 0; }
-  .reasonGrid article:nth-child(n + 3) { border-top: 1px solid var(--hh-line); }
+  .reasonGrid article:nth-child(3) { border-left: 1px solid var(--hh-line); }
   .packageCard { padding: var(--space-6); }
   .packageCard > img { height: 220px; }
   .ingredientTrack { width: min(calc(100% - (var(--page-gutter-mobile) * 2)), 1040px); grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -768,6 +788,7 @@
   .packageFeatured { transform: none; }
   .packageCard > p { min-height: 0; }
   .packageCard > img { height: 320px; }
+  .paymentTrust { grid-template-columns: minmax(0, 1fr); }
   .verificationGrid { grid-template-columns: minmax(0, 1fr); }
   .storyImage { min-height: 650px; }
   .storyCopy { max-width: 700px; }
@@ -805,7 +826,8 @@
   .heroArt { grid-area: art; min-height: 455px; }
   .hero h1 { max-width: 9ch; font-size: clamp(43px, 11.5vw, 58px); }
   .heroBody { margin-top: var(--space-4) !important; font-size: var(--size-body); }
-  .heroBenefits { margin-top: 0 !important; }
+  .heroBenefitIntro { margin-top: 0 !important; }
+  .heroBenefits { grid-template-columns: minmax(0, 1fr); margin-top: var(--space-4) !important; }
   .heroAction { align-items: stretch; flex-direction: column; gap: var(--space-3); margin-top: var(--space-5); }
   .heroAction p { max-width: none; }
   .primaryLink { width: 100%; padding-inline: var(--space-5); font-size: 16px; text-align: center; white-space: normal; }
@@ -827,8 +849,8 @@
   .mediaMarks figure { min-height: 78px; padding: var(--space-3); }
   .mediaMarks img { height: 42px; }
   .reasonGrid { grid-template-columns: minmax(0, 1fr); margin-top: var(--space-10); }
-  .reasonGrid article { min-height: 0; padding: var(--space-8) 0; border-left: 0 !important; }
-  .reasonGrid article + article { border-top: 1px solid var(--hh-line); }
+  .reasonGrid article { min-height: 0; border-left: 1px solid var(--hh-line) !important; }
+  .reasonImage { min-height: 320px; }
   .problemVisual { min-height: 0; }
   .solutionVisual { min-height: 480px; }
   .problemCopy { padding: 0; }
@@ -858,6 +880,7 @@
   .ingredientProduct { right: -7%; width: 62%; }
   .ingredientTrack { grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
   .ingredient { grid-template-rows: auto auto auto auto; }
+  .ingredientCta { width: calc(100% - (var(--page-gutter-mobile) * 2)); margin-top: var(--space-12); }
   .progression { width: calc(100% - (var(--page-gutter-mobile) * 2)); padding: var(--space-16) 0; }
   .progressionHead { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
   .progressionHead p { grid-column: auto; }
@@ -881,6 +904,9 @@
   .packageCard { padding: var(--space-5); }
   .packageCard > img { height: 260px; }
   .paymentConfidence { width: calc(100% - (var(--page-gutter-mobile) * 2)); align-items: flex-start; flex-direction: column; gap: var(--space-4); }
+  .paymentTrust { width: calc(100% - (var(--page-gutter-mobile) * 2)); gap: var(--space-8); margin-top: var(--space-12); padding: var(--space-6); }
+  .paymentTrustGrid { grid-template-columns: minmax(0, 1fr); }
+  .paymentTrustGrid article + article { border-left: 0; }
   .verificationSection { padding: var(--space-16) var(--page-gutter-mobile); }
   .verificationGrid { grid-template-columns: minmax(0, 1fr); margin-top: var(--space-10); }
   .verificationGrid article { min-height: 0; padding: var(--space-8) 0; border-left: 0 !important; border-top: 1px solid var(--ink-60); }

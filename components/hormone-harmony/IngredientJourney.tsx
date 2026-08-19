@@ -58,6 +58,10 @@ export function IngredientJourney() {
             </article>
           ))}
         </div>
+        <div className={styles.ingredientCta}>
+          <CampaignLink>CHOOSE YOUR MORNING SUPPLY</CampaignLink>
+          <p className={styles.linkReassurance}>50% off the first order. Free shipping and 60-day returns.</p>
+        </div>
       </section>
 
       <section id="routine" className={styles.progression} aria-labelledby="routine-title">

@@ -11,10 +11,10 @@ const pressMarks = [
 ] as const;
 
 const reasons = [
-  ["Eight label-listed ingredients", "Paired inositols, KSM-66 Ashwagandha, L-Theanine, Rhodiola, sunflower phosphatidylserine, turmeric, and black pepper."],
-  ["A stimulant-free start", "No caffeine is added, so the blend does not become another source of morning stimulation."],
-  ["One measured serving", "One scoop in water or juice gives the routine a clear beginning and end."],
-  ["Thirty mornings per pouch", "The serving count and subscription cadence are visible before checkout."],
+  ["/photos/review-1.jpg", "A drink, not another capsule", "One scoop mixes into water or juice, so the whole serving can sit beside breakfast."],
+  ["/photos/review-2.jpg", "The pouch shows its work", "Eight ingredients are named on the label, including paired inositols and four botanical ingredients."],
+  ["/photos/review-3.jpg", "No extra stimulant", "The orange-flavored blend contains no caffeine or other stimulants, with zero sugar and calories."],
+  ["/photos/review-4.jpg", "A visible monthly rhythm", "Thirty servings make one pouch a clear one-month supply at one measured scoop per morning."],
 ] as const;
 
 export function CampaignStory() {
@@ -31,13 +31,16 @@ export function CampaignStory() {
 
       <section id="why-it-fits" className={`${styles.section} ${styles.reasonSection}`} aria-labelledby="reason-title">
         <div className={styles.centeredHeading}>
-          <p className={styles.kicker}>Why women make room for it</p>
+          <p className={styles.kicker}>Four reasons the format fits</p>
           <h2 id="reason-title">A MORNING FORMULA WITH A SHORTER TO-DO LIST.</h2>
           <p>Metabolic Morning Blend combines a clear label, a measured serving, and a format that fits beside breakfast instead of taking it over.</p>
         </div>
         <div className={styles.reasonGrid}>
-          {reasons.map(([title, copy], index) => (
-            <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>
+          {reasons.map(([image, title, copy], index) => (
+            <article key={title}>
+              <div className={styles.reasonImage}><Image src={image} alt="Metabolic Morning Blend shown as part of a morning routine" fill sizes="(max-width: 767px) 90vw, (max-width: 1120px) 42vw, 21vw" /></div>
+              <span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p>
+            </article>
           ))}
         </div>
         <CampaignLink>TRY METABOLIC MORNING BLEND</CampaignLink>
@@ -54,12 +57,14 @@ export function CampaignStory() {
           </div>
           <p>That is exactly when a shelf of capsules, powders, and separate instructions stops being realistic.</p>
           <p>One bottle lives beside the coffee. Another needs food. A third is meant for later, which means it is often forgotten.</p>
+          <p>A complicated routine can look impressive on a quiet Sunday and still disappear when the alarm is late, the kitchen is busy, or the first meeting moves forward.</p>
           <div className={styles.problemList}>
             <p><Icon name="x" size={22} />Too many bottles to remember</p>
             <p><Icon name="x" size={22} />Another stimulant when coffee is already enough</p>
             <p><Icon name="x" size={22} />A routine with no clear serving rhythm</p>
           </div>
           <p>Adding more instructions does not make a morning more consistent. It gives the routine more places to fall apart.</p>
+          <p>That is why the serving format matters. A single measured scoop creates one cue, one action, and one clear finish before the day asks for your attention.</p>
           <p className={styles.problemEmphasis}>The useful habit is the one that still fits on a busy Tuesday.</p>
           <CampaignLink>TRY METABOLIC MORNING BLEND</CampaignLink>
           <p className={styles.linkReassurance}>50% off the first order. 60-day returns.</p>

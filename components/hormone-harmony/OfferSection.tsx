@@ -72,6 +72,20 @@ export function OfferSection() {
         <span><Icon name="truck" size={22} />Free shipping</span>
         <span><Icon name="repeat" size={22} />Skip or cancel anytime</span>
       </div>
+      <div className={styles.paymentTrust} aria-label="Checkout and subscription details">
+        <div className={styles.paymentTrustHeading}>
+          <Icon name="shield-check" size={38} />
+          <div>
+            <p className={styles.kicker}>Clear before payment</p>
+            <h3>REVIEW EVERY DETAIL BEFORE YOU PLACE THE ORDER.</h3>
+          </div>
+        </div>
+        <div className={styles.paymentTrustGrid}>
+          <article><strong>Today&apos;s total</strong><p>Your selected supply and first-order price appear in the cart before checkout.</p></article>
+          <article><strong>Renewal price</strong><p>The ongoing monthly price and delivery cadence remain visible before payment.</p></article>
+          <article><strong>Delivery control</strong><p>Free shipping is included, and subscription deliveries can be skipped or canceled.</p></article>
+        </div>
+      </div>
     </section>
   );
 }

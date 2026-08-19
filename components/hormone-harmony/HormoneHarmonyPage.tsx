@@ -13,9 +13,12 @@ import { OfferSection } from "./OfferSection";
 import styles from "./hormone-harmony.module.css";
 
 const heroBenefits = [
-  "Stimulant-free orange blend",
-  "Plant-based formula",
-  "One pouch lasts 30 mornings",
+  "Paired myo-inositol and D-chiro inositol",
+  "KSM-66 Ashwagandha root extract",
+  "L-Theanine without added caffeine",
+  "Rhodiola, turmeric, and black pepper",
+  "Thirty measured morning servings",
+  "Zero sugar, calories, or stimulants",
 ] as const;
 
 const productFacts = [
@@ -37,10 +40,11 @@ export function HormoneHarmonyPage() {
         <div className={styles.heroCopy}>
           <div className={styles.heroLead}>
             <p className={styles.kicker}>Daily metabolic wellness</p>
-            <h1 id="hero-title">A MORNING BLEND BUILT FOR THE ROUTINE YOU CAN KEEP.</h1>
-            <p className={styles.heroBody}>Try one orange-flavored scoop with eight label-listed ingredients, including paired inositols, KSM-66 Ashwagandha, L-Theanine, and Rhodiola. No sugar, calories, caffeine, or other stimulants.</p>
+            <h1 id="hero-title">DISCOVER A SIMPLER WAY TO BUILD YOUR MORNING ROUTINE.</h1>
+            <p className={styles.heroBody}>Metabolic Morning Blend puts eight label-listed ingredients into one orange-flavored scoop. It is made for women who want a clear, repeatable daily metabolic wellness routine without adding sugar, calories, caffeine, or other stimulants.</p>
           </div>
           <div className={styles.heroDetails}>
+            <p className={styles.heroBenefitIntro}>With ingredients selected for one practical morning blend:</p>
             <ul className={styles.heroBenefits}>
               {heroBenefits.map((benefit) => <li key={benefit}><Icon name="check" size={20} />{benefit}</li>)}
             </ul>
