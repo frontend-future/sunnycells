@@ -9,7 +9,9 @@
       "Made for weight that sits around the middle and the face and will not shift.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "told-my-body-to-store-it",
@@ -21,7 +23,9 @@
       "Inositol and chromium for the appetite and blood sugar side of it.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "same-diet-same-training",
@@ -33,7 +37,9 @@
       "No stimulants, so nothing in it pushes your cortisol back up.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "everything-on-my-middle",
@@ -45,7 +51,9 @@
       "Plant based, no sugar, no gluten, no GMO.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "i-thought-it-was-age",
@@ -57,7 +65,9 @@
       "Doses on the front of the pack, not hidden inside a blend.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "pair-face-puffiness",
@@ -70,7 +80,9 @@
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-belly-bloat",
@@ -83,7 +95,9 @@
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-jeans",
@@ -96,7 +110,9 @@
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-middle",
@@ -109,7 +125,9 @@
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-face-neck",
@@ -122,7 +140,9 @@
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
     ],
-    "layout": "photo"
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "stats-flat-belly",
@@ -146,7 +166,9 @@
         "text": "<b>100%</b> said they felt like themselves again"
       }
     ],
-    "fine": "Placeholder survey figures. Results vary from person to person."
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
   },
   {
     "id": "stats-scale-moves",
@@ -170,7 +192,9 @@
         "text": "<b>90%</b> said their energy came back"
       }
     ],
-    "fine": "Placeholder survey figures. Results vary from person to person."
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
   },
   {
     "id": "stats-not-a-drug",
@@ -194,7 +218,9 @@
         "text": "<b>81%</b> said the cravings stopped"
       }
     ],
-    "fine": "Placeholder survey figures. Results vary from person to person."
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
   },
   {
     "id": "stats-not-everyone",
@@ -218,7 +244,9 @@
         "text": "<b>87%</b> reordered after the first month"
       }
     ],
-    "fine": "Placeholder survey figures. Results vary from person to person."
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
   },
   {
     "id": "stats-whole-problem",
@@ -242,7 +270,9 @@
         "text": "<b>83%</b> said the afternoon crash stopped"
       }
     ],
-    "fine": "Placeholder survey figures. Results vary from person to person."
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
   },
   {
     "id": "timeline-detox",
@@ -284,7 +314,9 @@
       "l-theanine",
       "rhodiola-rosea"
     ],
-    "fine": "Placeholder timeline. Results vary from person to person."
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
   },
   {
     "id": "timeline-reset",
@@ -326,7 +358,9 @@
       "l-theanine",
       "rhodiola-rosea"
     ],
-    "fine": "Placeholder timeline. Results vary from person to person."
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
   },
   {
     "id": "timeline-28-day",
@@ -368,7 +402,9 @@
       "l-theanine",
       "rhodiola-rosea"
     ],
-    "fine": "Placeholder timeline. Results vary from person to person."
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
   },
   {
     "id": "timeline-one-scoop",
@@ -410,7 +446,9 @@
       "l-theanine",
       "rhodiola-rosea"
     ],
-    "fine": "Placeholder timeline. Results vary from person to person."
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
   },
   {
     "id": "timeline-on-the-blend",
@@ -452,7 +490,9 @@
       "l-theanine",
       "rhodiola-rosea"
     ],
-    "fine": "Placeholder timeline. Results vary from person to person."
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
   },
   {
     "id": "deal-stubborn-belly",
@@ -467,7 +507,9 @@
       "Free shipping, always",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person."
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
   },
   {
     "id": "deal-will-not-shift",
@@ -482,7 +524,9 @@
       "Free shipping, always",
       "Cancel in two clicks"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person."
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
   },
   {
     "id": "deal-where-cortisol-puts-it",
@@ -497,7 +541,9 @@
       "Free shipping, always",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person."
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
   },
   {
     "id": "deal-start-with-the-hormone",
@@ -512,7 +558,9 @@
       "No stimulants, no sugar",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person."
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
   },
   {
     "id": "deal-not-your-willpower",
@@ -527,6 +575,8 @@
       "Free shipping, always",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person."
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
   }
 ]

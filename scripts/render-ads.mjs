@@ -7,12 +7,16 @@
  * JSON entry rather than a code change. Colours come from app/tokens/colors.css, so a
  * token change carries into the ads.
  *
- * Three layouts, chosen by the entry's `layout`:
+ * Output is grouped by ad set: ads/out/adset-1-problem/ and so on. A set is one
+ * layout across five angles, so a format that wins is legible in the reporting.
+ *
+ * Four layouts, chosen by the entry's `layout`:
  *   photo     1080x1920  a shot with the headline over it, then pack and points.
  *                        An `after` key turns it into a labelled before and after
  *                        pair; null leaves the after panel as a marked slot.
  *   stats     1080x1920  a flat colour field, headline, pack, then figures.
  *   timeline  1080x1080  a day by day routine beside the pack, with ingredients.
+   deal      1080x1920  headline bar, panels, struck price against the offer price.
  */
 import { chromium } from "playwright";
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
@@ -274,9 +278,19 @@ for (const c of creatives) {
   writeFileSync(scratch, PAGES[layout](c));
   await tab.goto(pathToFileURL(scratch).href, { waitUntil: "networkidle" });
   await tab.evaluate(() => document.fonts.ready);
-  const file = join(OUT, `${c.id}.png`);
+  const dir = join(OUT, `adset-${c.set}-${c.setName}`);
+  mkdirSync(dir, { recursive: true });
+  const file = join(dir, `${c.id}.png`);
   await tab.screenshot({ path: file });
-  console.log("wrote", file);
+  console.log(`set ${c.set}  ${c.setName.padEnd(15)} ${c.id}`);
 }
 rmSync(scratch, { force: true });
 await browser.close();
+
+const bySet = new Map();
+for (const c of creatives) bySet.set(c.set, (bySet.get(c.set) ?? 0) + 1);
+console.log("");
+for (const [n, count] of [...bySet].sort((a, b) => a[0] - b[0])) {
+  const name = creatives.find((c) => c.set === n).setName;
+  console.log(`adset-${n}-${name}: ${count} creatives`);
+}
