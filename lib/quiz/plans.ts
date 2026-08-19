@@ -13,6 +13,8 @@ export type Plan = {
   label: string;
   /** One line under the label saying who the length suits. */
   sub: string;
+  /** Shows the number of pouches the delivery actually contains. */
+  image: string;
   /** Charged per month. */
   price: number;
   /** The one-month price, struck through. */
@@ -28,6 +30,7 @@ export const PLANS: Plan[] = [
     months: 1,
     label: "1 month supply",
     sub: "Ideal solution for trying out",
+    image: "/product/metabolic-morning-blend.png",
     price: 79,
     compareAt: 119,
     bullets: ["30 servings", "$3 a day", "1 pouch delivered"],
@@ -37,6 +40,7 @@ export const PLANS: Plan[] = [
     months: 3,
     label: "3 month supply",
     sub: "Great for building new habits",
+    image: "/product/pouch-3.png",
     price: 54,
     compareAt: 119,
     flag: "Most chosen",
@@ -48,6 +52,7 @@ export const PLANS: Plan[] = [
     months: 6,
     label: "6 month supply",
     sub: "For achieving sustainable results",
+    image: "/product/pouch-6.png",
     price: 39,
     compareAt: 119,
     flag: "Best value",

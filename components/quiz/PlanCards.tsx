@@ -59,11 +59,13 @@ export function PlanCards() {
               <div style={{ marginTop: 2, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{p.sub}</div>
             </div>
 
+            {/* The pouch count matches what actually arrives, so a three month supply
+                does not look like one bag. One scoop in every shot regardless. */}
             <Image
-              src="/product/metabolic-morning-blend.png"
-              alt=""
-              width={2400}
-              height={1792}
+              src={p.image}
+              alt={`${p.months} ${p.months === 1 ? "pouch" : "pouches"} of Metabolic Morning Blend`}
+              width={1200}
+              height={900}
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
             />
 
