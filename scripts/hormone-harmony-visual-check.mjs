@@ -119,6 +119,7 @@ for (const viewport of [
   if (viewport.name === "mobile" || viewport.name === "desktop") {
     await page.locator("#top").screenshot({ path: `${output}/hero-${viewport.name}.png` });
     await page.locator('section[aria-label="Metabolic Morning Blend ingredients"]').screenshot({ path: `${output}/ingredients-${viewport.name}.png` });
+    await page.locator('img[alt="Woman enjoying a simple morning routine at home"]').locator("..").screenshot({ path: `${output}/lifestyle-${viewport.name}.png` });
   }
   await page.screenshot({ path: `${output}/hormone-harmony-${viewport.name}.png`, fullPage: true });
   check(consoleErrors.length === 0, `${viewport.name} has no console errors`);

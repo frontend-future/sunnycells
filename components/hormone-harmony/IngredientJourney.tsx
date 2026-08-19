@@ -75,7 +75,7 @@ export function IngredientJourney() {
           <p>At home, at a desk, or already on the move, the format stays compact and predictable.</p>
         </div>
         <div className={styles.lifestylePrimary}>
-          <Image src="/photos/hormone-morning-fal.webp" alt="Woman enjoying a simple morning routine at home" fill sizes="(max-width: 767px) 100vw, 56vw" />
+          <Image src="/photos/hormone-morning-routine-v2.webp" alt="Woman enjoying a simple morning routine at home" fill sizes="(max-width: 767px) 100vw, 56vw" />
           <div><span>At home</span><h3>Mix it while breakfast is happening.</h3></div>
         </div>
         <div className={styles.lifestyleSecondary}>

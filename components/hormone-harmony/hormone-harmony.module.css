@@ -497,6 +497,7 @@
 .lifestylePrimary { grid-area: primary; }
 .lifestyleSecondary { grid-area: secondary; }
 .lifestylePrimary img, .lifestyleSecondary img { object-fit: cover; }
+.lifestylePrimary img { object-position: 42% center; }
 .lifestylePrimary > div, .lifestyleSecondary > div { position: absolute; right: 0; bottom: 0; left: 0; padding: var(--space-6); background: color-mix(in srgb, var(--white) 92%, transparent); }
 .lifestylePrimary span, .lifestyleSecondary span { font-size: 14px; font-weight: var(--weight-bold); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
 .lifestylePrimary h3, .lifestyleSecondary h3 { max-width: 16ch; margin-top: var(--space-2); }
@@ -704,6 +705,7 @@
   .lifestyle { display: flex; flex-direction: column; }
   .lifestyleIntro { padding: 0 0 var(--space-5); }
   .lifestylePrimary { min-height: 540px; }
+  .lifestylePrimary img { object-position: 35% center; }
   .lifestyleSecondary { min-height: 420px; }
   .lifestyleText { padding: var(--space-6); }
   .quality { gap: var(--space-10); }
