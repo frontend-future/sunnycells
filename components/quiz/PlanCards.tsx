@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/core/Button";
 import { Badge } from "@/components/core/Badge";
-import { PLANS, type Plan } from "@/lib/quiz/plans";
+import { PLANS, planBullets, type Plan } from "@/lib/quiz/plans";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { writeAnswer } from "@/lib/quiz/store";
 
@@ -85,7 +85,7 @@ export function PlanCards() {
             </div>
 
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 4 }}>
-              {p.bullets.map((b) => (
+              {planBullets(p).map((b) => (
                 <li key={b} style={{ fontSize: "var(--size-meta)", color: "var(--ink-80)", textAlign: "center" }}>
                   {b}
                 </li>

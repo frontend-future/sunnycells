@@ -21,8 +21,40 @@ export type Plan = {
   compareAt: number;
   flag?: string;
   best?: boolean;
-  bullets: string[];
 };
+
+/** One pouch is a month at one scoop a day. */
+export const SERVINGS_PER_POUCH = 30;
+
+/**
+ * The per-day line, worked out from the price rather than written beside it, so it
+ * cannot quietly stop being true when a price changes.
+ *
+ * Always a whole dollar: the system does not print decimals, which is also why the
+ * six month plan reads "just over" rather than "$1.30". Under a third of a dollar
+ * past the mark rounds down and says "just over", otherwise it rounds up and says
+ * "less than". Either way the number in front of the customer is the honest side of
+ * the real figure.
+ */
+export function perDayLabel(price: number): string {
+  const perDay = price / SERVINGS_PER_POUCH;
+  const floor = Math.floor(perDay);
+  /* A price that divides exactly, $30 a month being $1 a day, is neither just over
+     nor less than. Saying either would be a false claim about a price. */
+  if (Number.isInteger(perDay)) return `$${perDay} / day`;
+  return perDay - floor <= 0.35 && floor >= 1
+    ? `Just over $${floor} / day`
+    : `Less than $${Math.ceil(perDay)} / day`;
+}
+
+export function planBullets(plan: Plan): string[] {
+  const pouches = plan.months;
+  return [
+    `${plan.months * SERVINGS_PER_POUCH} servings`,
+    perDayLabel(plan.price),
+    `${pouches} ${pouches === 1 ? "pouch" : "pouches"} delivered`,
+  ];
+}
 
 export const PLANS: Plan[] = [
   {
@@ -33,7 +65,6 @@ export const PLANS: Plan[] = [
     image: "/product/metabolic-morning-blend.png",
     price: 79,
     compareAt: 119,
-    bullets: ["30 servings", "$3 a day", "1 pouch delivered"],
   },
   {
     id: "m3",
@@ -45,7 +76,6 @@ export const PLANS: Plan[] = [
     compareAt: 119,
     flag: "Most chosen",
     best: true,
-    bullets: ["90 servings", "$2 a day", "3 pouches delivered"],
   },
   {
     id: "m6",
@@ -56,7 +86,6 @@ export const PLANS: Plan[] = [
     price: 39,
     compareAt: 119,
     flag: "Best value",
-    bullets: ["180 servings", "$1 a day", "6 pouches delivered"],
   },
 ];
 
