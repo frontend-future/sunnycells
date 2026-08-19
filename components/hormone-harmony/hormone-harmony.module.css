@@ -344,11 +344,7 @@
   inset: 0;
 }
 
-.heroScene img { object-fit: cover; object-position: 52% center; }
-
-@media (min-width: 901px) {
-  .heroScene img { transform: scale(0.93); }
-}
+.heroScene img { object-fit: cover; object-position: 50% center; }
 
 .heroArtNote {
   position: absolute;
