@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CartScreen } from "@/components/quiz/CartScreen";
+import { HormoneCartPage } from "@/components/hormone-harmony/HormoneCartPage";
 
 export const metadata: Metadata = {
   title: "Your cart | SUNNYCELLS",
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function HormoneHarmonyCartPage() {
-  return (
-    <CartScreen
-      plansHref="/hormone-harmony#plans"
-      checkoutHref="/hormone-harmony/checkout"
-      optimizedImages
-    />
-  );
+  return <HormoneCartPage />;
 }

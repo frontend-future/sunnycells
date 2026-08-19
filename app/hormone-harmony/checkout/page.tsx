@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckoutScreen } from "@/components/quiz/CheckoutScreen";
+import { HormoneCheckoutPage } from "@/components/hormone-harmony/HormoneCheckoutPage";
 
 export const metadata: Metadata = {
   title: "Shipping details | SUNNYCELLS",
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function HormoneHarmonyCheckoutPage() {
-  return (
-    <CheckoutScreen
-      backHref="/hormone-harmony/cart"
-      continueLabel="Continue to payment"
-      optimizedImages
-    />
-  );
+  return <HormoneCheckoutPage />;
 }

@@ -114,11 +114,11 @@ await commerce.goto(`${base}/hormone-harmony`, { waitUntil: "networkidle" });
 await commerce.locator('label').filter({ hasText: "6 month supply" }).click();
 await commerce.getByRole("button", { name: "Add 6 month supply to cart" }).click();
 await commerce.waitForURL("**/hormone-harmony/cart");
-check(await commerce.getByRole("heading", { name: "Review your order" }).isVisible(), "plan selection reaches the campaign cart");
+check(await commerce.getByRole("heading", { name: "Your mornings are almost sorted." }).isVisible(), "plan selection reaches the campaign cart");
 check(await commerce.getByText("6 pouches. Ships every 6 months.").isVisible(), "selected six-month supply persists in cart");
-await commerce.getByRole("button", { name: "Continue to checkout" }).click();
+await commerce.getByRole("button", { name: "Continue to shipping" }).click();
 await commerce.waitForURL("**/hormone-harmony/checkout");
-check(await commerce.getByRole("heading", { name: "Shipping details" }).isVisible(), "campaign cart reaches checkout");
+check(await commerce.getByRole("heading", { name: "Where should we send it?" }).isVisible(), "campaign cart reaches checkout");
 await commerce.close();
 
 for (const viewport of [
