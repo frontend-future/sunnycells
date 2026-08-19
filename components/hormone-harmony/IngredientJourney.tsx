@@ -14,10 +14,10 @@ const ingredients = [
 ] as const;
 
 const stages = [
-  ["Start", "Choose an existing morning cue and place the pouch where you will see it."],
-  ["Build the ritual", "Mix one scoop with water or juice while the rest of the morning is already happening."],
-  ["Find your rhythm", "Keep the format consistent and adjust the moment to suit your schedule."],
-  ["Make it your morning", "Let the ritual feel ordinary. That is what makes it easier to repeat."],
+  ["You make space for it", "Put the pouch beside something you already reach for: coffee, a water glass, a blender, or breakfast."],
+  ["It stops feeling like another task", "One scoop becomes part of something you are already doing."],
+  ["The routine becomes predictable", "Thirty servings make it easy to see where you are in your monthly supply."],
+  ["It becomes your normal", "The useful wellness habit is often the one that takes the least negotiation with yourself."],
 ] as const;
 
 export function IngredientJourney() {
@@ -32,9 +32,9 @@ export function IngredientJourney() {
         </div>
         <div className={styles.ingredientLeadCopy}>
           <p className={styles.kicker}>Inside every scoop</p>
-          <h2 id="ingredients-title">Eight ingredients, brought into one morning.</h2>
-          <p>The formula combines paired inositols, amino acids, standardized sunflower extract, and botanical roots. Each item below comes directly from the product label.</p>
-          <CampaignLink>Choose your supply</CampaignLink>
+          <h2 id="ingredients-title">EIGHT INGREDIENTS. CHOSEN FOR A REASON.</h2>
+          <p>The formula combines paired inositols, an amino acid, standardized sunflower extract, and botanical roots in one practical morning ritual. Each item below comes directly from the product label.</p>
+          <CampaignLink>START YOUR SUPPLY</CampaignLink>
         </div>
       </section>
 
@@ -54,8 +54,8 @@ export function IngredientJourney() {
       <section id="routine" className={styles.progression} aria-labelledby="routine-title">
         <div className={styles.progressionHead}>
           <span>One month. Your pace.</span>
-          <h2 id="routine-title">What happens when a ritual stays simple?</h2>
-          <p>There is no guaranteed timeline here. The progression is about making a small daily habit easier to keep.</p>
+          <h2 id="routine-title">WHAT HAPPENS WHEN THE RITUAL FINALLY FITS YOUR MORNING?</h2>
+          <p>This is a habit progression, not a promise of physiological results.</p>
         </div>
         <div className={styles.progressionSteps}>
           {stages.map(([title, copy], index) => (
@@ -66,13 +66,14 @@ export function IngredientJourney() {
             </article>
           ))}
         </div>
-        <CampaignLink>Start your supply</CampaignLink>
+        <p className={styles.progressionDisclaimer}>Individual experiences vary. Supplements work best as part of an overall healthy lifestyle.</p>
+        <CampaignLink>MAKE IT YOUR MORNING</CampaignLink>
       </section>
 
       <section className={`${styles.section} ${styles.lifestyle}`} aria-labelledby="lifestyle-title">
         <div className={styles.lifestyleIntro}>
-          <h2 id="lifestyle-title">One blend. Several kinds of morning.</h2>
-          <p>At home, at a desk, or already on the move, the format stays compact and predictable.</p>
+          <h2 id="lifestyle-title">DESIGNED FOR REAL MORNINGS.</h2>
+          <p>At home, at a desk, after a workout, or already on the move, the format stays compact and predictable.</p>
         </div>
         <div className={styles.lifestylePrimary}>
           <Image src="/photos/hormone-morning-routine-v2.webp" alt="Woman enjoying a simple morning routine at home" fill sizes="(max-width: 767px) 100vw, 56vw" />
@@ -82,15 +83,19 @@ export function IngredientJourney() {
           <Image src="/photos/social-2.jpg" alt="A portable SUNNYCELLS morning routine" fill sizes="(max-width: 767px) 100vw, 34vw" />
           <div><span>On the move</span><h3>Keep the pouch where the routine happens.</h3></div>
         </div>
-        <div className={styles.lifestyleText}>
-          <strong>Orange flavor. No sugar. No calories.</strong>
-          <p>A measured scoop and a glass are all the setup it needs.</p>
+        <div className={styles.lifestyleThird}>
+          <Image src="/photos/social-3.jpg" alt="Metabolic Morning Blend beside a workday setup" fill sizes="(max-width: 767px) 100vw, 34vw" />
+          <div><span>Before the first call</span><h3>Keep the ritual small enough for busy days.</h3></div>
+        </div>
+        <div className={styles.lifestyleFourth}>
+          <Image src="/photos/hormone-morning-fal.webp" alt="A stimulant-free orange morning drink after movement" fill sizes="(max-width: 767px) 100vw, 34vw" />
+          <div><span>After movement</span><h3>A stimulant-free option when you already have enough caffeine.</h3></div>
         </div>
       </section>
 
       <section className={`${styles.section} ${styles.quality}`} aria-labelledby="quality-title">
         <div className={styles.qualityIntro}>
-          <h2 id="quality-title">Made carefully. Checked independently.</h2>
+          <h2 id="quality-title">WHAT GOES INTO YOUR MORNING MATTERS.</h2>
           <p>Manufactured in the USA in a facility that follows current Good Manufacturing Practice, with third-party and heavy-metal testing represented by the supplied SUNNYCELLS assets.</p>
         </div>
         <div className={styles.qualityMarks}>

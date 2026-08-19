@@ -12,32 +12,39 @@ export function CampaignStory() {
           <p>Real life first.<br />The ritual follows.</p>
         </div>
         <div className={styles.storyCopy}>
-          <h2 id="story-title">Wellness gets harder when the routine gets bigger.</h2>
-          <p>Extra steps sound manageable until the day starts moving. The useful routine is the one that can survive breakfast, work, family, travel, and the mornings that go sideways.</p>
-          <p><strong>Metabolic Morning Blend keeps its place small:</strong> one scoop, one drink, once each morning.</p>
+          <p className={styles.kicker}>Some mornings start before you do</p>
+          <h2 id="story-title">WHEN YOUR ROUTINE FEELS LIKE ANOTHER JOB, SOMETHING HAS TO CHANGE.</h2>
+          <p>Coffee. Breakfast. Work. Family. Another bottle. Another capsule. Another thing you were supposed to remember.</p>
+          <p>Wellness routines tend to grow until they become the first thing we stop doing.</p>
+          <p><strong>The better routine is the one you can repeat:</strong> one scoop, one drink, once each morning.</p>
+          <CampaignLink>SEE THE FORMULA</CampaignLink>
         </div>
       </section>
 
-      <section className={styles.editorialBand} aria-labelledby="cue-title">
-        <div className={styles.editorialNumber}>01</div>
-        <div>
-          <h2 id="cue-title">Start with a cue you already trust.</h2>
-          <p>Morning light. The kettle. Breakfast. Your first glass of water. Pairing a new habit with an existing one gives it somewhere practical to live.</p>
+      <section className={`${styles.section} ${styles.outcomes}`} aria-labelledby="outcomes-title">
+        <div className={styles.outcomesHeading}>
+          <h2 id="outcomes-title">ONE MORNING HABIT. MORE ROOM FOR EVERYTHING ELSE.</h2>
+          <p>A practical format for mornings that already have enough going on.</p>
         </div>
-        <p className={styles.editorialAside}>Not a perfect routine.<br /><strong>A repeatable one.</strong></p>
+        <div className={styles.outcomeGrid}>
+          <article><span>Calmer format</span><h3>Start without another stimulant.</h3><p>KSM-66 Ashwagandha and L-Theanine sit inside a caffeine-free morning blend.</p></article>
+          <article><span>Steadier routine</span><h3>Give the habit somewhere predictable to live.</h3><p>One measured scoop. One drink. Once each morning.</p></article>
+          <article><span>Metabolic wellness</span><h3>Bring paired inositols into one daily formula.</h3><p>Myo-inositol and D-chiro inositol are included with six other label-listed ingredients.</p></article>
+          <article><span>Less clutter</span><h3>Eight ingredients. One pouch.</h3><p>A compact alternative to turning breakfast into a row of bottles.</p></article>
+        </div>
       </section>
 
       <section className={`${styles.section} ${styles.reveal}`} aria-labelledby="reveal-title">
         <div className={styles.revealCopy}>
           <p className={styles.kicker}>Meet the blend</p>
-          <h2 id="reveal-title">A bright start, without another stimulant.</h2>
-          <p>Metabolic Morning Blend brings eight label-listed ingredients into a light orange drink with no sugar and no calories. It is designed to sit beside coffee, breakfast, or a shake, not compete with them.</p>
-          <ul>
-            <li><Icon name="zap-off" size={22} />No caffeine or stimulants</li>
-            <li><Icon name="leaf" size={22} />Plant-based ingredients</li>
-            <li><Icon name="droplet" size={22} />Mix with water or juice</li>
-          </ul>
-          <CampaignLink>See supply options</CampaignLink>
+          <h2 id="reveal-title">THE MORNING BLEND BUILT TO KEEP THINGS SMALL.</h2>
+          <p>Metabolic Morning Blend brings eight label-listed ingredients into one bright orange drink. No caffeine. No sugar. No calories. No complicated schedule.</p>
+          <div className={styles.ritualSteps}>
+            <div><Icon name="leaf" size={24} /><strong>SCOOP</strong><span>One measured serving.</span></div>
+            <div><Icon name="droplet" size={24} /><strong>MIX</strong><span>Water or juice.</span></div>
+            <div><Icon name="arrow-right" size={24} /><strong>GO</strong><span>Get on with your morning.</span></div>
+          </div>
+          <CampaignLink>CHOOSE YOUR SUPPLY</CampaignLink>
         </div>
         <div className={styles.revealVisual}>
           <Image className={styles.revealDrink} src="/illustrations/step-drink.png" alt="Prepared orange Metabolic Morning Blend in a glass" width={720} height={720} sizes="(max-width: 767px) 66vw, 28vw" />
@@ -46,27 +53,23 @@ export function CampaignStory() {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.benefitStory}`} aria-labelledby="benefits-title">
-        <div className={styles.benefitHeading}>
-          <h2 id="benefits-title">Built around the day you actually have.</h2>
-          <p>The value is a formula and format made easier to repeat. No overnight promises required.</p>
-        </div>
-        <div className={styles.benefitRows}>
-          <article>
-            <span>Morning 01</span>
-            <h3>Keep the coffee.</h3>
-            <p>The blend is stimulant-free, so it can fit next to the drink you already enjoy.</p>
-          </article>
-          <article>
-            <span>Morning 02</span>
-            <h3>Skip the cabinet full of bottles.</h3>
-            <p>Eight label-listed ingredients arrive together in one measured scoop.</p>
-          </article>
-          <article>
-            <span>Morning 03</span>
-            <h3>Know when to reorder.</h3>
-            <p>Thirty servings make one pouch a clear one-month rhythm.</p>
-          </article>
+      <section className={styles.longStory} aria-labelledby="long-story-title">
+        <div className={styles.longStoryInner}>
+          <h2 id="long-story-title">THE PROBLEM WITH MOST WELLNESS ROUTINES IS NOT MOTIVATION.</h2>
+          <p className={styles.storyStatement}>They are too hard to keep doing.</p>
+          <div className={styles.storyColumns}>
+            <div>
+              <p>The morning starts normally enough.</p>
+              <p>You reach for your phone. Someone needs something. Coffee gets cold. Breakfast becomes whatever is fastest.</p>
+            </div>
+            <div>
+              <p>The elaborate routine from last night stops looking realistic.</p>
+              <p><strong>That is why we made the format smaller.</strong> No row of bottles. No new stimulant. No complicated schedule.</p>
+            </div>
+          </div>
+          <p className={styles.ritualStatement}>ONE SCOOP. ONE DRINK. ONCE A DAY.</p>
+          <p className={styles.repeatableLine}>Real life first. The ritual follows.</p>
+          <CampaignLink>START YOUR SUPPLY</CampaignLink>
         </div>
       </section>
     </>
