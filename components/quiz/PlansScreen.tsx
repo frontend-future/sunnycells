@@ -173,7 +173,7 @@ export function PlansScreen({
         }}
       >
         <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-3)" }}>
-          Limited time offer <Badge tone="ink">50% off</Badge> <OfferCountdown />
+          Limited time offer <Badge tone="ink">up to 70% off</Badge> <OfferCountdown />
         </span>
       </div>
 

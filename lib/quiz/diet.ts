@@ -174,7 +174,7 @@ export const dietQuiz: QuizConfig = {
     placeholder: "Your email address",
     privacy: "We don't send spam or share email addresses. We respect your privacy.",
     cta: "Unlock my results",
-    badge: "Sale up to 60% off",
+    badge: "Sale up to 70% off",
   },
   ],
 };

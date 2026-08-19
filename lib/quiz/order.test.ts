@@ -18,7 +18,7 @@ test("the order summary adds up for every plan", () => {
 test("bonuses are free and the product line carries the charge", () => {
   const o = buildOrder({ plan: "m3" });
   const product = o.lines.find((l) => l.id === "product");
-  assert.equal(product?.now, 54 * 3);
+  assert.equal(product?.now, 20 * 3);
   for (const b of BONUSES) {
     assert.equal(o.lines.find((l) => l.id === b.id)?.now, null, `${b.id} is not free`);
   }

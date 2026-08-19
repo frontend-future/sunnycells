@@ -8,7 +8,7 @@ import { Badge } from "@/components/core/Badge";
 import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
-import { nextHref, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
+import { buildAnswersPayload, nextHref, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
 import { QuizChrome, QuizQuestion } from "./QuizChrome";
@@ -34,15 +34,22 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
       ) : (
         <QuizQuestion>{step.question}</QuizQuestion>
       )}
-      <Body step={step} answers={answers} set={set} answer={answer} go={go} />
+      <Body step={step} config={config} answers={answers} set={set} answer={answer} go={go} />
     </QuizChrome>
   );
 }
 
 type Setter = (field: string, value: string) => void;
-type BodyProps = { step: Step; answers: Answers; set: Setter; answer: (value: string) => void; go: () => void };
+type BodyProps = {
+  step: Step;
+  config: QuizConfig;
+  answers: Answers;
+  set: Setter;
+  answer: (value: string) => void;
+  go: () => void;
+};
 
-function Body({ step, answers, set, answer, go }: BodyProps) {
+function Body({ step, config, answers, set, answer, go }: BodyProps) {
   if (step.kind === "single") {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
@@ -106,7 +113,7 @@ function Body({ step, answers, set, answer, go }: BodyProps) {
 
   if (step.kind === "height") return <HeightBody answers={answers} set={set} go={go} />;
   if (step.kind === "number") return <NumberBody step={step} answers={answers} set={set} go={go} />;
-  return <EmailBody step={step} set={set} go={go} />;
+  return <EmailBody step={step} config={config} answers={answers} set={set} go={go} />;
 }
 
 /** Wordmark on its own line, question centred under it. The whole thing is one h1,
@@ -303,7 +310,36 @@ function NumberBody({
    rejects real addresses, and the only real check is whether the mail arrives. */
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-function EmailBody({ step, set, go }: { step: Extract<Step, { kind: "email" }>; set: Setter; go: () => void }) {
+/**
+ * Tells the team a lead came in, then gets out of the way. Never awaited and never
+ * allowed to throw: if Resend or Slack is down or unconfigured, she still gets her
+ * results. The failure lands in the console, not in her way.
+ */
+function notifyLead(config: QuizConfig, answers: Answers, email: string) {
+  fetch("/api/notify-quiz-lead", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      quizId: config.id,
+      email,
+      answers: buildAnswersPayload(config, answers),
+    }),
+  })
+    .then((res) => {
+      if (!res.ok) console.error("[quiz] notify-quiz-lead returned", res.status);
+    })
+    .catch((err) => console.error("[quiz] notify-quiz-lead failed", err));
+}
+
+function EmailBody({
+  step, config, answers, set, go,
+}: {
+  step: Extract<Step, { kind: "email" }>;
+  config: QuizConfig;
+  answers: Answers;
+  set: Setter;
+  go: () => void;
+}) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
@@ -318,6 +354,7 @@ function EmailBody({ step, set, go }: { step: Extract<Step, { kind: "email" }>; 
       return;
     }
     set("email", trimmed);
+    notifyLead(config, { ...answers, email: trimmed }, trimmed);
     go();
   };
 

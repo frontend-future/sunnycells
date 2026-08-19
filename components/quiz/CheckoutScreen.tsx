@@ -11,6 +11,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { BONUSES, buildOrder, US_STATES } from "@/lib/quiz/order";
+import { planById } from "@/lib/quiz/plans";
 import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { CardForm } from "./CardForm";
 
@@ -52,6 +53,7 @@ export function CheckoutScreen({
 }) {
   const { answers, ready } = useAnswers(dietQuiz.id);
   const order = buildOrder(answers);
+  const plan = planById(answers.plan);
 
   const [f, setF] = useState<Record<string, string>>({ phone: "+1" });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -64,6 +66,26 @@ export function CheckoutScreen({
     setErrors((e) => ({ ...e, [k]: "" }));
   };
 
+  /**
+   * Tells the team someone reached payment, then gets out of the way. Never awaited,
+   * never allowed to throw.
+   *
+   * Only ever handed shipping and contact fields. The card number, expiry and CVC
+   * live inside CardForm and are never lifted into this component, so there is no
+   * payment data here to leak into a payload.
+   */
+  const notifyAttempt = (shipping: Record<string, string>) => {
+    fetch("/api/notify-purchase", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ shipping, plan: plan.label, total: order.total }),
+    })
+      .then((res) => {
+        if (!res.ok) console.error("[checkout] notify-purchase returned", res.status);
+      })
+      .catch((err) => console.error("[checkout] notify-purchase failed", err));
+  };
+
   const submit = () => {
     const next: Record<string, string> = {};
     for (const x of FIELDS) if (!f[x.key]?.trim()) next[x.key] = x.missing;
@@ -73,7 +95,20 @@ export function CheckoutScreen({
     else if (!EMAIL.test(email)) next.email = "That address is missing an @ or a domain.";
     if (!phoneOk(f.phone ?? "")) next.phone = "We need a full 10 digit phone number the carrier can call.";
     setErrors(next);
-    if (Object.keys(next).length === 0) setPhase("payment");
+    if (Object.keys(next).length) return;
+
+    notifyAttempt({
+      email: (f.email ?? answers.email ?? "").trim(),
+      firstName: f.firstName ?? "",
+      lastName: f.lastName ?? "",
+      line1: f.line1 ?? "",
+      line2: f.line2 ?? "",
+      city: f.city ?? "",
+      state: f.state ?? "",
+      zip: f.zip ?? "",
+      phone: f.phone ?? "",
+    });
+    setPhase("payment");
   };
 
   return (

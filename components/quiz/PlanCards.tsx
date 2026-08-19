@@ -77,16 +77,18 @@ export function PlanCards({
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
             />
 
-            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "var(--space-3)" }}>
+            {/* Price, the struck list price, and the unit all on one line, so the
+                comparison reads in a single glance rather than over two rows. */}
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "var(--space-3)", flexWrap: "wrap" }}>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", lineHeight: 1 }}>
                 ${p.price}
               </span>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
+                ${p.compareAt}
+              </span>
               <span style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)" }}>per month</span>
             </div>
-            <div style={{ textAlign: "center", marginTop: -10 }}>
-              <span style={{ fontSize: "var(--size-meta)", fontWeight: 700, color: "var(--ink-60)", textDecoration: "line-through" }}>
-                ${p.compareAt}
-              </span>{" "}
+            <div style={{ textAlign: "center", marginTop: -6 }}>
               <span style={{ fontSize: "var(--size-meta)", fontWeight: 800, color: "var(--status-success)" }}>
                 Save ${p.compareAt - p.price} a month
               </span>

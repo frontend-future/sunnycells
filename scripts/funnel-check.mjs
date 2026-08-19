@@ -1,4 +1,9 @@
 import { chromium } from "playwright";
+import { readFileSync } from "node:fs";
+
+/* Read the kinds out of the config rather than hardcoding a count, so adding a
+   question to the quiz fails this check until the alert carries it too. */
+const dietSteps = [...readFileSync("lib/quiz/diet.ts", "utf8").matchAll(/kind: "(\w+)"/g)].map((m) => m[1]);
 
 const BASE = "http://localhost:3100";
 const errors = [];
@@ -9,6 +14,13 @@ page.on("console", (m) => { if (m.type() === "error") errors.push(`console: ${m.
 page.on("pageerror", (e) => errors.push(`pageerror: ${e.message}`));
 
 const at = () => new URL(page.url()).pathname;
+
+/* The lead alert is fire-and-forget, so nothing on screen proves it carried the
+   whole quiz. Grab the body off the wire instead. */
+let leadPayload = null;
+page.on("request", (r) => {
+  if (r.url().endsWith("/api/notify-quiz-lead")) leadPayload = JSON.parse(r.postData() ?? "null");
+});
 
 /** Click, then wait for the URL we expect. A wrong slug fails here, not three steps later. */
 async function step(label, expected, fn) {
@@ -79,6 +91,13 @@ check("malformed email is rejected", (await page.getByText(/missing an @/).count
 await page.getByLabel("Email").fill("dana@example.com");
 await step("q21 email", "/quiz/diet/results/analyzing", () => page.getByRole("button", { name: /Unlock my results/ }).click());
 
+/* Every step that takes an answer has to reach the alert: 14 single-choice, 3 number,
+   1 height, plus gender. The two info steps and the email step answer nothing. */
+const answered = dietSteps.filter((k) => k === "single" || k === "number" || k === "height").length + 1;
+const got = Object.keys(leadPayload?.answers ?? {}).length;
+check(`lead alert carries every answer (${got} of ${answered})`, got === answered);
+check("lead alert carries the email", leadPayload?.email === "dana@example.com");
+
 await page.waitForURL("**/results/summary", { timeout: 15000 });
 console.log("  ok  analyzing auto-advanced ->", at());
 await page.waitForTimeout(400);
@@ -100,8 +119,8 @@ await page.screenshot({ path: "shot-plans.png", fullPage: true });
 await step("plans", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Order now/ }).nth(1).click());
 await page.waitForTimeout(300);
 const summaryText = await page.locator("body").innerText();
-check("checkout charges the 3 month plan in full", summaryText.includes("$162"));
-check("checkout strikes the list total", summaryText.includes("$417"));
+check("checkout charges the 3 month plan in full", summaryText.includes("$60"));
+check("checkout strikes the list total", summaryText.includes("$210"));
 check("summary is collapsed on a phone", !/3 pouches\. Ships every 3 months\./.test(summaryText));
 await page.getByRole("button", { name: /Order summary/ }).click();
 await page.waitForTimeout(250);

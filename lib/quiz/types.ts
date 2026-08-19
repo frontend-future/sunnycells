@@ -75,3 +75,33 @@ export function prevHref(config: QuizConfig, index: number): string {
   const prev = config.steps[index - 1];
   return prev ? `${config.basePath}/${prev.slug}` : config.basePath;
 }
+
+/**
+ * Turns stored answers into a readable question-to-answer map for the lead
+ * notification. Reads each step rather than dumping the raw store, so the alert says
+ * "How much do you usually sleep?" instead of "sleep", and unit-bearing answers come
+ * through with their unit attached.
+ */
+export function buildAnswersPayload(
+  config: QuizConfig,
+  answers: Record<string, string>,
+): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (answers.gender) out["Gender"] = answers.gender;
+
+  for (const step of config.steps) {
+    if (step.kind === "single") {
+      if (answers[step.slug]) out[step.question] = answers[step.slug];
+    } else if (step.kind === "number") {
+      const value = answers[step.key];
+      if (value) out[step.question] = `${value} ${answers[step.key + "Unit"] ?? ""}`.trim();
+    } else if (step.kind === "height") {
+      if (answers.heightUnit === "cm") {
+        if (answers.heightCm) out[step.question] = `${answers.heightCm} cm`;
+      } else if (answers.heightFeet) {
+        out[step.question] = `${answers.heightFeet} ft ${answers.heightInches ?? 0} in`;
+      }
+    }
+  }
+  return out;
+}

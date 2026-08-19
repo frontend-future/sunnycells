@@ -33,7 +33,7 @@ test("a price that divides exactly is stated exactly, not as an approximation", 
 
 test("bullets count servings and pouches from the plan itself", () => {
   const [one, three, six] = PLANS.map(planBullets);
-  assert.deepEqual(one, ["30 servings", "Less than $3 / day", "1 pouch delivered"]);
-  assert.deepEqual(three, ["90 servings", "Less than $2 / day", "3 pouches delivered"]);
-  assert.deepEqual(six, ["180 servings", "Just over $1 / day", "6 pouches delivered"]);
+  assert.deepEqual(one, ["30 servings", "Less than $1 / day", "1 pouch delivered"]);
+  assert.deepEqual(three, ["90 servings", "Less than $1 / day", "3 pouches delivered"]);
+  assert.deepEqual(six, ["180 servings", "Less than $1 / day", "6 pouches delivered"]);
 });
