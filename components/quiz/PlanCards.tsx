@@ -104,10 +104,10 @@ export function PlanCards({
                 )}
               </span>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
-                {/* Multi pouch cards strike the total for the supply, $69 and $126.
-                    The single pouch card has no total distinct from its price, so it
-                    keeps the list price. */}
-                ${p.months > 1 ? p.price * p.months : p.compareAt}
+                {/* The list price for everything in the box: $50 a pouch times the
+                    pouches that arrive. One rule across all three cards, and the one
+                    month card lands on $50 by the same arithmetic. */}
+                ${p.compareAt * p.months}
               </span>
             </div>
             {/* The standing first-order term, stated on the card rather than left to
