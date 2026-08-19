@@ -74,13 +74,16 @@
 }
 
 .headerInner {
-  display: flex;
-  width: min(calc(100% - (var(--page-gutter) * 2)), var(--page-max));
+  display: grid;
+  width: min(calc(100% - (var(--page-gutter-mobile) * 2)), 1520px);
   min-height: 74px;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  gap: clamp(var(--space-6), 3vw, var(--space-12));
+  gap: var(--space-6);
   margin-inline: auto;
 }
+
+.brandLink { grid-column: 2; grid-row: 1; justify-self: center; }
 
 .brandLink,
 .desktopNav a,
@@ -91,8 +94,11 @@
 
 .desktopNav {
   display: flex;
+  grid-column: 1;
+  grid-row: 1;
   align-items: center;
   gap: clamp(var(--space-4), 2vw, var(--space-8));
+  justify-self: start;
 }
 
 .desktopNav a,
@@ -123,9 +129,11 @@
 
 .headerActions {
   display: flex;
+  grid-column: 3;
+  grid-row: 1;
   align-items: center;
   gap: var(--space-5);
-  margin-left: auto;
+  justify-self: end;
 }
 
 .cartLink {
@@ -209,6 +217,7 @@
 }
 
 .hero {
+  width: min(calc(100% - (var(--page-gutter-mobile) * 2)), 1520px);
   display: grid;
   min-height: 920px;
   grid-template-columns: minmax(0, 0.9fr) minmax(560px, 1.1fr);
@@ -961,6 +970,7 @@
 }
 
 @media (max-width: 390px) {
+  .siteHeader .cartLink { display: none; }
   .hero h1 { font-size: 35px; }
   .heroArt { min-height: 420px; }
   .factBand span { font-size: 14px; }

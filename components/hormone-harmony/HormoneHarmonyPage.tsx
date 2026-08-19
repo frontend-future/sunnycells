@@ -59,7 +59,7 @@ export function HormoneHarmonyPage() {
 
         <div className={styles.heroArt} aria-label="Metabolic Morning Blend product display">
           <div className={styles.heroScene}>
-            <Image src="/photos/hormone-hero-woman-v2.webp" alt="Woman holding the SUNNYCELLS orange flavor pouch beside an orange morning drink" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
+            <Image src="/photos/hormone-hero-woman-v2.webp" alt="Woman holding the SUNNYCELLS orange flavor pouch beside an orange morning drink" fill priority unoptimized sizes="(max-width: 900px) 800px, 1400px" />
           </div>
           <p className={styles.heroArtNote}><strong>Orange flavor</strong><span>30 servings per pouch</span></p>
         </div>
