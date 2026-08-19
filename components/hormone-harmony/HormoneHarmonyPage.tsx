@@ -10,15 +10,7 @@ import { CampaignStory } from "./CampaignStory";
 import { IngredientJourney } from "./IngredientJourney";
 import { MobilePurchaseBar } from "./MobilePurchaseBar";
 import { OfferSection } from "./OfferSection";
-import { SunnycellsStandard } from "./SunnycellsStandard";
 import styles from "./hormone-harmony.module.css";
-
-const productFacts = [
-  { value: "8", label: "label-listed active ingredients" },
-  { value: "30", label: "servings in every pouch" },
-  { value: "0", label: "sugar, calories, or stimulants" },
-  { value: "1", label: "easy scoop each morning" },
-] as const;
 
 const heroBenefits = [
   "Stimulant-free orange blend",
@@ -38,8 +30,8 @@ export function HormoneHarmonyPage() {
         <div className={styles.heroCopy}>
           <div className={styles.heroLead}>
             <p className={styles.kicker}>Daily metabolic wellness</p>
-            <h1 id="hero-title">FEEL MORE LIKE YOURSELF BEFORE THE DAY GETS GOING.</h1>
-            <p className={styles.heroBody}>Eight label-listed ingredients, including paired inositols, KSM-66 Ashwagandha, L-Theanine, and Rhodiola. One orange scoop. No stimulants.</p>
+            <h1 id="hero-title">A MORNING BLEND BUILT FOR THE ROUTINE YOU CAN KEEP.</h1>
+            <p className={styles.heroBody}>Try one orange-flavored scoop with eight label-listed ingredients, including paired inositols, KSM-66 Ashwagandha, L-Theanine, and Rhodiola. No sugar, calories, caffeine, or other stimulants.</p>
           </div>
           <div className={styles.heroDetails}>
             <ul className={styles.heroBenefits}>
@@ -60,19 +52,8 @@ export function HormoneHarmonyPage() {
         </div>
       </section>
 
-      <section className={styles.factBand} aria-label="Verified product facts">
-        {productFacts.map((fact) => (
-          <div key={fact.label}><strong>{fact.value}</strong><span>{fact.label}</span></div>
-        ))}
-      </section>
-
-      <section className={styles.confidenceStrip} aria-label="SUNNYCELLS product confidence">
-        <p>Made in the USA</p><p>Third-party tested</p><p>Heavy-metal tested</p><p>Free shipping</p>
-      </section>
-
       <CampaignStory />
       <IngredientJourney />
-      <SunnycellsStandard />
       <OfferSection />
       <CampaignFaq />
 

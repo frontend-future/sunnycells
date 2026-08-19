@@ -14,10 +14,18 @@ const ingredients = [
 ] as const;
 
 const stages = [
-  ["You make space for it", "Put the pouch beside something you already reach for: coffee, a water glass, a blender, or breakfast."],
-  ["It stops feeling like another task", "One scoop becomes part of something you are already doing."],
-  ["The routine becomes predictable", "Thirty servings make it easy to see where you are in your monthly supply."],
-  ["It becomes your normal", "The useful wellness habit is often the one that takes the least negotiation with yourself."],
+  ["First", "Put the pouch beside something you already reach for: coffee, a water glass, a blender, or breakfast."],
+  ["Then", "One measured scoop starts to sit inside something you were already doing."],
+  ["Next", "Thirty servings make the monthly rhythm visible, without counting several bottles."],
+  ["Finally", "The routine becomes familiar enough that it takes less negotiation on a busy morning."],
+] as const;
+
+const everydayOutcomes = [
+  ["A calmer format", "A stimulant-free drink for mornings when another source of caffeine does not make sense."],
+  ["A clearer label", "Eight ingredients are named directly, with no mystery blend language."],
+  ["Less counter clutter", "One pouch replaces the need to organize the same formula across several containers."],
+  ["A predictable supply", "Each pouch contains thirty measured servings, and each plan shows its renewal cadence."],
+  ["A flexible subscription", "Shipping is free, and deliveries can be skipped or canceled according to the subscription terms."],
 ] as const;
 
 export function IngredientJourney() {
@@ -53,8 +61,8 @@ export function IngredientJourney() {
 
       <section id="routine" className={styles.progression} aria-labelledby="routine-title">
         <div className={styles.progressionHead}>
-          <span>One month. Your pace.</span>
-          <h2 id="routine-title">WHAT HAPPENS WHEN THE RITUAL FINALLY FITS YOUR MORNING?</h2>
+          <span>What happens when you start</span>
+          <h2 id="routine-title">A FOUR-PART RHYTHM FOR YOUR FIRST POUCH.</h2>
           <p>This is a habit progression, not a promise of physiological results.</p>
         </div>
         <div className={styles.progressionSteps}>
@@ -91,6 +99,25 @@ export function IngredientJourney() {
           <Image src="/photos/hormone-morning-fal.webp" alt="A stimulant-free orange morning drink after movement" fill sizes="(max-width: 767px) 100vw, 34vw" />
           <div><span>After movement</span><h3>A stimulant-free option when you already have enough caffeine.</h3></div>
         </div>
+      </section>
+
+      <section className={styles.everydayOutcomes} aria-labelledby="everyday-title">
+        <div className={styles.everydayHeading}>
+          <p className={styles.kicker}>Made for different kinds of mornings</p>
+          <h2 id="everyday-title">THE FORMAT STAYS THE SAME, EVEN WHEN THE DAY DOES NOT.</h2>
+          <p>Metabolic Morning Blend is built around a repeatable serving and transparent purchase terms rather than dramatic promises.</p>
+        </div>
+        <div className={styles.everydayGrid}>
+          {everydayOutcomes.map(([title, copy], index) => (
+            <article key={title}>
+              <span>0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+        <CampaignLink>TRY METABOLIC MORNING BLEND</CampaignLink>
+        <p className={styles.linkReassurance}>50% off your first order. 60-day returns.</p>
       </section>
 
       <section className={`${styles.section} ${styles.quality}`} aria-labelledby="quality-title">
