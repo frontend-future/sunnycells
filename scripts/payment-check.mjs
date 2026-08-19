@@ -10,7 +10,7 @@ for (const [l, v] of [["First name", "Dana"], ["Last name", "Reyes"], ["Address 
   await p.getByLabel(l, { exact: true }).fill(v);
 await p.getByLabel("State", { exact: true }).selectOption("Oregon");
 say("phone auto formats as typed", (await p.getByLabel("Phone", { exact: true }).inputValue()) === "+1 (503) 555-0142");
-await p.getByRole("button", { name: "Continue to payment", exact: true }).click();
+await p.getByRole("button", { name: "Continue", exact: true }).click();
 await p.waitForTimeout(300);
 
 say("shipping form collapses", await p.locator("form[hidden]").count() === 1);

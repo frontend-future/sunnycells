@@ -140,7 +140,15 @@ function Tick() {
   );
 }
 
-export function PlansScreen({ cartHref = "/quiz/diet/results/cart" }: { cartHref?: string }) {
+export function PlansScreen({
+  destinationHref = "/quiz/diet/results/checkout",
+  planCtaLabel = "Order now",
+  optimizedImages = false,
+}: {
+  destinationHref?: string;
+  planCtaLabel?: string;
+  optimizedImages?: boolean;
+}) {
   const { answers } = useAnswers(dietQuiz.id);
   const set = answers.gender === "Male" ? "male" : "female";
 
@@ -268,7 +276,7 @@ export function PlansScreen({ cartHref = "/quiz/diet/results/cart" }: { cartHref
             </div>
           </div>
 
-          <HeroCarousel />
+          <HeroCarousel pouchSrc={optimizedImages ? "/product/metabolic-morning-blend.webp" : undefined} />
         </div>
       </section>
 
@@ -313,7 +321,11 @@ export function PlansScreen({ cartHref = "/quiz/diet/results/cart" }: { cartHref
           </span>
         </div>
 
-        <PlanCards cartHref={cartHref} />
+        <PlanCards
+          destinationHref={destinationHref}
+          ctaLabel={planCtaLabel}
+          optimizedImages={optimizedImages}
+        />
         <div
           style={{
             display: "flex",
@@ -678,7 +690,7 @@ export function PlansScreen({ cartHref = "/quiz/diet/results/cart" }: { cartHref
               }}
             >
               <Image
-                src="/product/metabolic-morning-blend.webp"
+                src={optimizedImages ? "/product/metabolic-morning-blend.webp" : "/product/metabolic-morning-blend.png"}
                 alt="Metabolic Morning Blend"
                 width={2400}
                 height={1792}

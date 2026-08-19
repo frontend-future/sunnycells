@@ -14,12 +14,12 @@ import {
    text cannot be edited, translated, selected, read by a screen reader, or kept
    legible when the slide is resized. */
 
-const POUCH = "/product/metabolic-morning-blend.webp";
+const DEFAULT_POUCH = "/product/metabolic-morning-blend.png";
 
-function Pouch({ height = 220 }: { height?: number }) {
+function Pouch({ height = 220, src = DEFAULT_POUCH }: { height?: number; src?: string }) {
   return (
     <Image
-      src={POUCH}
+      src={src}
       alt=""
       width={2400}
       height={1792}
@@ -74,7 +74,7 @@ function SlideTitle({ children }: { children: React.ReactNode }) {
 
 const SLIDE_COUNT = 6;
 
-export function HeroCarousel() {
+export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }) {
   const track = useRef<HTMLDivElement>(null);
   const [at, setAt] = useState(0);
 
@@ -127,7 +127,7 @@ export function HeroCarousel() {
               </span>
             ))}
           </div>
-          <Pouch height={150} />
+          <Pouch height={150} src={pouchSrc} />
         </Slide>
 
         {/* 2. Survey figures */}
@@ -202,7 +202,7 @@ export function HeroCarousel() {
               </div>
             ))}
           </div>
-          <Pouch height={120} />
+          <Pouch height={120} src={pouchSrc} />
         </Slide>
 
         {/* 4. Serving */}
@@ -338,7 +338,7 @@ export function HeroCarousel() {
               }}
             >
               <Image
-                src={POUCH}
+                src={pouchSrc}
                 alt=""
                 width={2400}
                 height={1792}

@@ -20,9 +20,11 @@ const BONUS_ICON: Record<string, IconName> = Object.fromEntries(
 export function CartScreen({
   plansHref = "/quiz/diet/results/plans#plans",
   checkoutHref = "/quiz/diet/results/checkout",
+  optimizedImages = false,
 }: {
   plansHref?: string;
   checkoutHref?: string;
+  optimizedImages?: boolean;
 }) {
   const router = useRouter();
   const { answers, ready } = useAnswers(dietQuiz.id);
@@ -128,7 +130,7 @@ export function CartScreen({
                 }}
               >
                 <Image
-                  src={plan.image}
+                  src={optimizedImages ? plan.image.replace(/\.png$/, ".webp") : plan.image}
                   alt={`${plan.months} ${plan.months === 1 ? "pouch" : "pouches"} of Metabolic Morning Blend`}
                   width={1200}
                   height={900}

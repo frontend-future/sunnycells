@@ -41,7 +41,15 @@ const BONUS_ICON: Record<string, IconName> = Object.fromEntries(
   BONUSES.map((b) => [b.id, b.icon as IconName]),
 );
 
-export function CheckoutScreen({ cartHref = "/quiz/diet/results/cart" }: { cartHref?: string }) {
+export function CheckoutScreen({
+  backHref = "/quiz/diet/results/plans",
+  continueLabel = "Continue",
+  optimizedImages = false,
+}: {
+  backHref?: string;
+  continueLabel?: string;
+  optimizedImages?: boolean;
+}) {
   const { answers, ready } = useAnswers(dietQuiz.id);
   const order = buildOrder(answers);
 
@@ -173,7 +181,13 @@ export function CheckoutScreen({ cartHref = "/quiz/diet/results/cart" }: { cartH
                     }}
                   >
                     {l.image ? (
-                      <Image src={l.image} alt="" width={240} height={240} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                      <Image
+                        src={optimizedImages && l.id === "product" ? l.image.replace(/\.png$/, ".webp") : l.image}
+                        alt=""
+                        width={240}
+                        height={240}
+                        style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                      />
                     ) : (
                       <Icon name={BONUS_ICON[l.id]} size={24} />
                     )}
@@ -234,7 +248,7 @@ export function CheckoutScreen({ cartHref = "/quiz/diet/results/cart" }: { cartH
 
         <main style={{ paddingTop: "var(--space-6)" }}>
           <Link
-            href={cartHref}
+            href={backHref}
             style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2)", minHeight: "var(--tap-min)", color: "var(--ink)", fontSize: "var(--size-body)", fontWeight: 600, textDecoration: "none" }}
           >
             <Icon name="chevron-left" size={22} />
@@ -372,7 +386,7 @@ export function CheckoutScreen({ cartHref = "/quiz/diet/results/cart" }: { cartH
 
             <div style={{ gridColumn: "span 2", marginTop: "var(--space-2)" }}>
               <Button size="lg" fullWidth variant="accent" type="submit">
-                Continue to payment
+                {continueLabel}
               </Button>
             </div>
           </form>

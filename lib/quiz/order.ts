@@ -46,7 +46,7 @@ export function buildOrder(answers: Answers): Order {
       note: `${months} ${months === 1 ? "pouch" : "pouches"}. Ships every ${months} ${months === 1 ? "month" : "months"}.`,
       was: list,
       now,
-      image: "/product/metabolic-morning-blend.webp",
+      image: "/product/metabolic-morning-blend.png",
     },
     ...BONUSES.map((b) => ({ id: b.id, name: b.name, note: "Limited time offer", was: b.was, now: null, image: b.image })),
   ];

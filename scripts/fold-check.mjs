@@ -21,7 +21,7 @@ const TARGETS = [
   ["/quiz/diet/results/summary", "button:has-text('Continue')", "summary CTA"],
   ["/quiz/diet/results/plans", "button:has-text('Get it now')", "plans hero CTA"],
   ["/quiz/diet/results/cart", "button:has-text('Continue to checkout')", "cart CTA"],
-  ["/quiz/diet/results/checkout", "button:has-text('Continue to payment')", "checkout CTA"],
+  ["/quiz/diet/results/checkout", "button:has-text('Continue')", "checkout CTA"],
 ];
 
 const browser = await chromium.launch();

@@ -9,7 +9,15 @@ import { PLANS, planBullets, type Plan } from "@/lib/quiz/plans";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { writeAnswer } from "@/lib/quiz/store";
 
-export function PlanCards({ cartHref = "/quiz/diet/results/cart" }: { cartHref?: string }) {
+export function PlanCards({
+  destinationHref = "/quiz/diet/results/checkout",
+  ctaLabel = "Order now",
+  optimizedImages = false,
+}: {
+  destinationHref?: string;
+  ctaLabel?: string;
+  optimizedImages?: boolean;
+}) {
   const router = useRouter();
   const [hover, setHover] = useState("");
 
@@ -17,7 +25,7 @@ export function PlanCards({ cartHref = "/quiz/diet/results/cart" }: { cartHref?:
     writeAnswer(dietQuiz.id, "plan", p.id);
     writeAnswer(dietQuiz.id, "planPrice", String(p.price));
     writeAnswer(dietQuiz.id, "planMonths", String(p.months));
-    router.push(cartHref);
+    router.push(destinationHref);
   };
 
   return (
@@ -62,7 +70,7 @@ export function PlanCards({ cartHref = "/quiz/diet/results/cart" }: { cartHref?:
             {/* The pouch count matches what actually arrives, so a three month supply
                 does not look like one bag. One scoop in every shot regardless. */}
             <Image
-              src={p.image}
+              src={optimizedImages ? p.image.replace(/\.png$/, ".webp") : p.image}
               alt={`${p.months} ${p.months === 1 ? "pouch" : "pouches"} of Metabolic Morning Blend`}
               width={1200}
               height={900}
@@ -94,7 +102,7 @@ export function PlanCards({ cartHref = "/quiz/diet/results/cart" }: { cartHref?:
 
             <div style={{ marginTop: "auto", paddingTop: "var(--space-3)" }}>
               <Button fullWidth variant={p.best ? "primary" : "outline"} onClick={() => choose(p)}>
-                Add to cart
+                {ctaLabel}
               </Button>
               <div style={{ marginTop: "var(--space-3)", textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
                 Cancel anytime. Free shipping.

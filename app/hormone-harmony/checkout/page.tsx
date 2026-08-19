@@ -7,5 +7,11 @@ export const metadata: Metadata = {
 };
 
 export default function HormoneHarmonyCheckoutPage() {
-  return <CheckoutScreen cartHref="/hormone-harmony/cart" />;
+  return (
+    <CheckoutScreen
+      backHref="/hormone-harmony/cart"
+      continueLabel="Continue to payment"
+      optimizedImages
+    />
+  );
 }

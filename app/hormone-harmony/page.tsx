@@ -9,5 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default function HormoneHarmonyPage() {
-  return <PlansScreen cartHref="/hormone-harmony/cart" />;
+  return (
+    <PlansScreen
+      destinationHref="/hormone-harmony/cart"
+      planCtaLabel="Add to cart"
+      optimizedImages
+    />
+  );
 }

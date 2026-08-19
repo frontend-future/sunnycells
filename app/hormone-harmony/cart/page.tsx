@@ -11,6 +11,7 @@ export default function HormoneHarmonyCartPage() {
     <CartScreen
       plansHref="/hormone-harmony#plans"
       checkoutHref="/hormone-harmony/checkout"
+      optimizedImages
     />
   );
 }
