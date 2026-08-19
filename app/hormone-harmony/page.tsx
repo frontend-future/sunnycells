@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PlansScreen } from "@/components/quiz/PlansScreen";
+import { HormoneHarmonyPage } from "@/components/hormone-harmony/HormoneHarmonyPage";
 
 export const metadata: Metadata = {
   title: "Metabolic Morning Blend | SUNNYCELLS",
@@ -8,12 +8,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://sunnycells.com/hormone-harmony" },
 };
 
-export default function HormoneHarmonyPage() {
-  return (
-    <PlansScreen
-      destinationHref="/hormone-harmony/cart"
-      planCtaLabel="Add to cart"
-      optimizedImages
-    />
-  );
+export default function HormoneHarmonyRoute() {
+  return <HormoneHarmonyPage />;
 }
