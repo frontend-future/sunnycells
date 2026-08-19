@@ -348,7 +348,7 @@
 
 @media (min-width: 901px) {
   .heroScene { background: var(--sun-tint); }
-  .heroScene img { transform: scale(0.88); }
+  .heroScene img { transform: scale(0.78); }
 }
 
 .heroArtNote {
