@@ -8,7 +8,10 @@
       "Ashwagandha, rhodiola and L-theanine at the doses used in the cortisol trials.",
       "Made for weight that sits around the middle and the face and will not shift.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "told-my-body-to-store-it",
@@ -19,7 +22,10 @@
       "Eight ingredients with the milligrams printed on the front of the pack.",
       "Inositol and chromium for the appetite and blood sugar side of it.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "same-diet-same-training",
@@ -30,7 +36,10 @@
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "No stimulants, so nothing in it pushes your cortisol back up.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "everything-on-my-middle",
@@ -41,7 +50,10 @@
       "Built for that pattern rather than for cutting calories harder.",
       "Plant based, no sugar, no gluten, no GMO.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "i-thought-it-was-age",
@@ -52,7 +64,10 @@
       "One scoop in water each morning. That is the whole routine.",
       "Doses on the front of the pack, not hidden inside a blend.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 1,
+    "setName": "problem"
   },
   {
     "id": "pair-face-puffiness",
@@ -64,7 +79,10 @@
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-belly-bloat",
@@ -76,7 +94,10 @@
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-jeans",
@@ -88,7 +109,10 @@
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-middle",
@@ -100,7 +124,10 @@
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
   },
   {
     "id": "pair-face-neck",
@@ -112,6 +139,444 @@
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
-    ]
+    ],
+    "layout": "photo",
+    "set": 2,
+    "setName": "transformation"
+  },
+  {
+    "id": "stats-flat-belly",
+    "layout": "stats",
+    "headline": "We can&rsquo;t say this is your <em>shortcut to a flat belly</em>&hellip; but we can say:",
+    "stats": [
+      {
+        "icon": "down",
+        "text": "<b>88%</b> said they lost weight"
+      },
+      {
+        "icon": "ban",
+        "text": "<b>92%</b> felt their bloating go"
+      },
+      {
+        "icon": "star",
+        "text": "<b>79%</b> saw their waistband loosen"
+      },
+      {
+        "icon": "spark",
+        "text": "<b>100%</b> said they felt like themselves again"
+      }
+    ],
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
+  },
+  {
+    "id": "stats-scale-moves",
+    "layout": "stats",
+    "headline": "We can&rsquo;t promise <em>the scale will move</em>&hellip; but we can say:",
+    "stats": [
+      {
+        "icon": "down",
+        "text": "<b>88%</b> said they lost weight"
+      },
+      {
+        "icon": "star",
+        "text": "<b>84%</b> said their clothes fitted better"
+      },
+      {
+        "icon": "ban",
+        "text": "<b>92%</b> felt their bloating go"
+      },
+      {
+        "icon": "spark",
+        "text": "<b>90%</b> said their energy came back"
+      }
+    ],
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
+  },
+  {
+    "id": "stats-not-a-drug",
+    "layout": "stats",
+    "headline": "We can&rsquo;t call this <em>a weight loss drug</em>&hellip; but we can say:",
+    "stats": [
+      {
+        "icon": "down",
+        "text": "<b>88%</b> said they lost weight"
+      },
+      {
+        "icon": "star",
+        "text": "<b>76%</b> said the weight came off their middle"
+      },
+      {
+        "icon": "ban",
+        "text": "<b>92%</b> felt their bloating go"
+      },
+      {
+        "icon": "spark",
+        "text": "<b>81%</b> said the cravings stopped"
+      }
+    ],
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
+  },
+  {
+    "id": "stats-not-everyone",
+    "layout": "stats",
+    "headline": "We can&rsquo;t say it works <em>for everyone</em>&hellip; but we can say:",
+    "stats": [
+      {
+        "icon": "star",
+        "text": "<b>94%</b> would recommend it to a friend"
+      },
+      {
+        "icon": "down",
+        "text": "<b>88%</b> said they lost weight"
+      },
+      {
+        "icon": "ban",
+        "text": "<b>92%</b> felt their bloating go"
+      },
+      {
+        "icon": "spark",
+        "text": "<b>87%</b> reordered after the first month"
+      }
+    ],
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
+  },
+  {
+    "id": "stats-whole-problem",
+    "layout": "stats",
+    "headline": "We can&rsquo;t say cortisol is <em>your whole problem</em>&hellip; but we can say:",
+    "stats": [
+      {
+        "icon": "down",
+        "text": "<b>88%</b> said they lost weight"
+      },
+      {
+        "icon": "ban",
+        "text": "<b>92%</b> felt their bloating go"
+      },
+      {
+        "icon": "star",
+        "text": "<b>79%</b> saw their waistband loosen"
+      },
+      {
+        "icon": "spark",
+        "text": "<b>83%</b> said the afternoon crash stopped"
+      }
+    ],
+    "fine": "Placeholder survey figures. Results vary from person to person.",
+    "set": 3,
+    "setName": "proof"
+  },
+  {
+    "id": "timeline-detox",
+    "layout": "timeline",
+    "title": "Cortisol detox",
+    "strap": "28 day routine for <b>weight loss</b>",
+    "flash": "Up to 60% off",
+    "flashSub": "and free shipping",
+    "days": [
+      {
+        "day": "Day 1",
+        "text": "Stress is released"
+      },
+      {
+        "day": "Day 4",
+        "text": "Bloating is gone"
+      },
+      {
+        "day": "Day 7",
+        "text": "Sleep is restored"
+      },
+      {
+        "day": "Day 12",
+        "text": "Waistband is looser"
+      },
+      {
+        "day": "Day 21",
+        "text": "Cravings are gone"
+      },
+      {
+        "day": "Day 28",
+        "text": "The middle is shifting"
+      }
+    ],
+    "roots": [
+      "ashwagandha",
+      "turmeric",
+      "black-pepper",
+      "l-theanine",
+      "rhodiola-rosea"
+    ],
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
+  },
+  {
+    "id": "timeline-reset",
+    "layout": "timeline",
+    "title": "Cortisol reset",
+    "strap": "28 days for <b>the belly</b>",
+    "flash": "Up to 60% off",
+    "flashSub": "and free shipping",
+    "days": [
+      {
+        "day": "Day 1",
+        "text": "The edge comes off"
+      },
+      {
+        "day": "Day 4",
+        "text": "Bloating is gone"
+      },
+      {
+        "day": "Day 7",
+        "text": "Sleep is restored"
+      },
+      {
+        "day": "Day 12",
+        "text": "Clothes fit better"
+      },
+      {
+        "day": "Day 21",
+        "text": "Cravings are gone"
+      },
+      {
+        "day": "Day 28",
+        "text": "The middle is shifting"
+      }
+    ],
+    "roots": [
+      "ashwagandha",
+      "turmeric",
+      "black-pepper",
+      "l-theanine",
+      "rhodiola-rosea"
+    ],
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
+  },
+  {
+    "id": "timeline-28-day",
+    "layout": "timeline",
+    "title": "The 28 day blend",
+    "strap": "Week by week, <b>what to expect</b>",
+    "flash": "Up to 60% off",
+    "flashSub": "and free shipping",
+    "days": [
+      {
+        "day": "Day 1",
+        "text": "Stress is released"
+      },
+      {
+        "day": "Day 4",
+        "text": "Bloating is gone"
+      },
+      {
+        "day": "Day 7",
+        "text": "Afternoon crash stops"
+      },
+      {
+        "day": "Day 12",
+        "text": "Waistband is looser"
+      },
+      {
+        "day": "Day 21",
+        "text": "Cravings are gone"
+      },
+      {
+        "day": "Day 28",
+        "text": "The middle is shifting"
+      }
+    ],
+    "roots": [
+      "ashwagandha",
+      "turmeric",
+      "black-pepper",
+      "l-theanine",
+      "rhodiola-rosea"
+    ],
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
+  },
+  {
+    "id": "timeline-one-scoop",
+    "layout": "timeline",
+    "title": "28 days, one scoop",
+    "strap": "A morning routine for <b>weight loss</b>",
+    "flash": "Up to 60% off",
+    "flashSub": "and free shipping",
+    "days": [
+      {
+        "day": "Day 1",
+        "text": "Stress is released"
+      },
+      {
+        "day": "Day 4",
+        "text": "Bloating is gone"
+      },
+      {
+        "day": "Day 7",
+        "text": "Sleep is restored"
+      },
+      {
+        "day": "Day 12",
+        "text": "Skin settles"
+      },
+      {
+        "day": "Day 21",
+        "text": "Cravings are gone"
+      },
+      {
+        "day": "Day 28",
+        "text": "The middle is shifting"
+      }
+    ],
+    "roots": [
+      "ashwagandha",
+      "turmeric",
+      "black-pepper",
+      "l-theanine",
+      "rhodiola-rosea"
+    ],
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
+  },
+  {
+    "id": "timeline-on-the-blend",
+    "layout": "timeline",
+    "title": "28 days on the blend",
+    "strap": "What changes, and <b>when</b>",
+    "flash": "Up to 60% off",
+    "flashSub": "and free shipping",
+    "days": [
+      {
+        "day": "Day 1",
+        "text": "Stress is released"
+      },
+      {
+        "day": "Day 4",
+        "text": "Bloating is gone"
+      },
+      {
+        "day": "Day 7",
+        "text": "Sleep is restored"
+      },
+      {
+        "day": "Day 12",
+        "text": "Waistband is looser"
+      },
+      {
+        "day": "Day 21",
+        "text": "Snacking drops off"
+      },
+      {
+        "day": "Day 28",
+        "text": "The middle is shifting"
+      }
+    ],
+    "roots": [
+      "ashwagandha",
+      "turmeric",
+      "black-pepper",
+      "l-theanine",
+      "rhodiola-rosea"
+    ],
+    "fine": "Placeholder timeline. Results vary from person to person.",
+    "set": 4,
+    "setName": "routine"
+  },
+  {
+    "id": "deal-stubborn-belly",
+    "layout": "deal",
+    "headline": "Cortisol detox",
+    "photo": "photos/before-2.jpg",
+    "after": null,
+    "was": 119,
+    "now": 39,
+    "extras": [
+      "Free scoop in every pouch",
+      "Free shipping, always",
+      "30 day money back"
+    ],
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
+  },
+  {
+    "id": "deal-will-not-shift",
+    "layout": "deal",
+    "headline": "The cortisol reset",
+    "photo": "photos/before-3.jpg",
+    "after": null,
+    "was": 119,
+    "now": 54,
+    "extras": [
+      "Free scoop in every pouch",
+      "Free shipping, always",
+      "Cancel in two clicks"
+    ],
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
+  },
+  {
+    "id": "deal-where-cortisol-puts-it",
+    "layout": "deal",
+    "headline": "28 day cortisol challenge",
+    "photo": "photos/before-4.jpg",
+    "after": null,
+    "was": 119,
+    "now": 39,
+    "extras": [
+      "Doses printed on the pack",
+      "Free shipping, always",
+      "30 day money back"
+    ],
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
+  },
+  {
+    "id": "deal-start-with-the-hormone",
+    "layout": "deal",
+    "headline": "The cortisol routine",
+    "photo": "photos/before-1.jpg",
+    "after": null,
+    "was": 119,
+    "now": 54,
+    "extras": [
+      "Free scoop in every pouch",
+      "No stimulants, no sugar",
+      "30 day money back"
+    ],
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
+  },
+  {
+    "id": "deal-not-your-willpower",
+    "layout": "deal",
+    "headline": "The cortisol belly plan",
+    "photo": "photos/before-5.jpg",
+    "after": null,
+    "was": 119,
+    "now": 39,
+    "extras": [
+      "Free scoop in every pouch",
+      "Free shipping, always",
+      "30 day money back"
+    ],
+    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "set": 5,
+    "setName": "offer"
   }
 ]
