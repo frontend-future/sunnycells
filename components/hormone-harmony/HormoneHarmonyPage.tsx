@@ -13,12 +13,16 @@ import { OfferSection } from "./OfferSection";
 import styles from "./hormone-harmony.module.css";
 
 const heroBenefits = [
-  "Paired myo-inositol and D-chiro inositol",
-  "KSM-66 Ashwagandha root extract",
-  "L-Theanine without added caffeine",
-  "Rhodiola, turmeric, and black pepper",
-  "Thirty measured morning servings",
-  "Zero sugar, calories, or stimulants",
+  "Relieve symptoms of Menopause",
+  "Reduce Mood Swings associated with Menopause",
+  "Relieve bloating, flatulence and symptoms of indigestion",
+  "Support healthy metabolism & assist carbohydrate processing",
+  "Helps maintain healthy energy levels",
+  "Supports mental clarity and calm mood during menopause",
+  "Helps relieve mild menstrual discomfort and supports cycle regularity",
+  "Gluten & Dairy free",
+  "Helps support healthy hormonal balance",
+  "Global bestseller – sold out 7 times already",
 ] as const;
 
 const productFacts = [
@@ -39,17 +43,15 @@ export function HormoneHarmonyPage() {
       <section id="top" className={styles.hero} aria-labelledby="hero-title">
         <div className={styles.heroCopy}>
           <div className={styles.heroLead}>
-            <p className={styles.kicker}>Daily metabolic wellness</p>
-            <h1 id="hero-title">DISCOVER A SIMPLER WAY TO BUILD YOUR MORNING ROUTINE.</h1>
-            <p className={styles.heroBody}>Metabolic Morning Blend puts eight label-listed ingredients into one orange-flavored scoop. It is made for women who want a clear, repeatable daily metabolic wellness routine without adding sugar, calories, caffeine, or other stimulants.</p>
+            <h1 id="hero-title">Discover why 3.3 Million Women choose Hormone Harmony: Natural herbal support for mood balance, menopause & premenstrual symptoms relief</h1>
           </div>
           <div className={styles.heroDetails}>
-            <p className={styles.heroBenefitIntro}>With ingredients selected for one practical morning blend:</p>
+            <p className={styles.heroBenefitIntro}>With ingredients traditionally used<br />in western herbal medicine to:</p>
             <ul className={styles.heroBenefits}>
               {heroBenefits.map((benefit) => <li key={benefit}><Icon name="check" size={20} />{benefit}</li>)}
             </ul>
             <div className={styles.heroAction}>
-              <CampaignLink>START YOUR MORNING ROUTINE</CampaignLink>
+              <CampaignLink>CHOOSE YOUR PACKAGE</CampaignLink>
               <p>50% off your first order. From ${lowestFirstPrice} first month, then ${lowestPlan.price} per month. Free shipping, 60-day returns, skip or cancel anytime.</p>
             </div>
           </div>

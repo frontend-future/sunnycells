@@ -210,16 +210,16 @@
 
 .hero {
   display: grid;
-  min-height: calc(100svh - 108px);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: center;
+  min-height: 920px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(560px, 1.1fr);
+  align-items: stretch;
   gap: 0;
   margin-top: var(--space-8);
   margin-bottom: var(--space-10);
   background: var(--sun-tint);
 }
 
-.heroCopy { grid-column: 2; grid-row: 1; max-width: 700px; padding: clamp(var(--space-10), 5vw, var(--space-20)); }
+.heroCopy { display: flex; grid-column: 2; grid-row: 1; width: 100%; max-width: 760px; flex-direction: column; justify-content: center; padding: clamp(var(--space-10), 4.4vw, var(--space-16)); }
 
 .kicker {
   margin-bottom: var(--space-4) !important;
@@ -230,10 +230,10 @@
 }
 
 .hero h1 {
-  max-width: 12ch;
-  font-size: clamp(54px, 5.7vw, 82px);
+  max-width: 640px;
+  font-size: clamp(40px, 4vw, 58px);
   font-weight: var(--weight-max);
-  line-height: 0.9;
+  line-height: 0.98;
 }
 
 .heroBody {
@@ -245,16 +245,17 @@
 
 .heroBenefitIntro {
   max-width: 34rem;
-  margin-top: var(--space-8) !important;
-  font-size: 18px;
+  margin-top: var(--space-6) !important;
+  font-size: 20px;
   font-weight: var(--weight-bold);
+  line-height: 1.35;
 }
 
 .heroBenefits {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
-  margin-top: var(--space-4) !important;
+  gap: var(--space-3) var(--space-6);
+  margin-top: var(--space-5) !important;
   padding: 0;
   list-style: none;
 }
@@ -262,30 +263,36 @@
 .heroBenefits li,
 .revealCopy li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-3);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: var(--weight-bold);
+  line-height: 1.35;
 }
 
 .heroBenefits svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
   padding: 3px;
   border-radius: var(--radius-pill);
   background: var(--sun);
 }
 
 .heroAction {
-  display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  margin-top: var(--space-8);
+  display: grid;
+  width: min(100%, 580px);
+  gap: var(--space-3);
+  margin-top: var(--space-6);
 }
 
+.heroAction .primaryLink { width: 100%; }
+
 .heroAction p {
-  max-width: 15rem;
+  max-width: none;
   color: var(--hh-muted);
   font-size: 15px;
   line-height: 1.35;
+  text-align: center;
 }
 
 .primaryLink {
@@ -314,7 +321,7 @@
   grid-column: 1;
   grid-row: 1;
   position: relative;
-  min-height: min(760px, calc(100svh - 132px));
+  min-height: 920px;
   overflow: hidden;
   border-radius: var(--radius-sheet);
   background: var(--shell);
@@ -326,7 +333,7 @@
   inset: 0;
 }
 
-.heroScene img { object-fit: cover; object-position: 47% center; }
+.heroScene img { object-fit: cover; object-position: 52% center; }
 
 .heroArtNote {
   position: absolute;
@@ -824,7 +831,7 @@
   .heroLead { min-width: 0; grid-area: lead; }
   .heroDetails { min-width: 0; grid-area: details; }
   .heroArt { grid-area: art; min-height: 455px; }
-  .hero h1 { max-width: 9ch; font-size: clamp(43px, 11.5vw, 58px); }
+  .hero h1 { max-width: none; font-size: clamp(34px, 9.5vw, 46px); line-height: 1; }
   .heroBody { margin-top: var(--space-4) !important; font-size: var(--size-body); }
   .heroBenefitIntro { margin-top: 0 !important; }
   .heroBenefits { grid-template-columns: minmax(0, 1fr); margin-top: var(--space-4) !important; }
@@ -954,7 +961,7 @@
 }
 
 @media (max-width: 390px) {
-  .hero h1 { font-size: 44px; }
+  .hero h1 { font-size: 35px; }
   .heroArt { min-height: 420px; }
   .factBand span { font-size: 14px; }
   .storyImage { min-height: 450px; }
