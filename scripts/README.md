@@ -9,9 +9,13 @@ node scripts/fold-check.mjs     # measures every CTA against three phone viewpor
 node scripts/payment-check.mjs  # the payment step: brand detection, spinner, failure
 ```
 
-They need `playwright` and a Chromium build, which are not project dependencies:
-install them in a scratch directory and run from there, or `npm i -D playwright`
-if these become part of the build.
+`playwright` is a devDependency, so `npm install` covers it. The browser binary is
+separate: run `npx playwright install chromium` once.
+
+`node scripts/render-ads.mjs [outDir]` renders the ad creatives in `ads/` to
+1080x1920 PNGs. Copy lives in `ads/creatives.json` and photos in `ads/photos`, so a
+new variation is a JSON entry and an image rather than a code change. Colours and
+type come from the design tokens, so a token change carries into the ads.
 
 `fold-check` prints how far each primary action sits from the bottom of the
 viewport. Everything should read `ok`.

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "cortisol-storing-fat",
+    "photo": "photos/ad-1.jpg",
+    "headline": "No one told me cortisol was deciding where my body stored fat.",
+    "quote": "I found the blend that finally moved it.",
+    "points": [
+      "Ashwagandha, rhodiola and L-theanine at the doses used in published trials.",
+      "30 day money back guarantee, so there is no risk.",
+      "No stimulants and no sugar. One scoop, sixty seconds."
+    ]
+  },
+  {
+    "id": "doing-everything-right",
+    "photo": "photos/ad-2.jpg",
+    "headline": "I was doing everything right. My cortisol was not.",
+    "quote": "One scoop in the morning was the piece I was missing.",
+    "points": [
+      "Eight ingredients with the milligrams printed on the front of the pack.",
+      "30 day money back guarantee, so there is no risk.",
+      "Skip, change or cancel from your account, with no call."
+    ]
+  },
+  {
+    "id": "sleep-was-the-reason",
+    "photo": "photos/ad-3.jpg",
+    "headline": "The scale would not move. My sleep was the reason.",
+    "quote": "I sleep through now, and the rest followed.",
+    "points": [
+      "L-theanine and magnesium, the two the sleep research actually uses.",
+      "No caffeine, so it does not push cortisol back up.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "not-a-willpower-problem",
+    "photo": "photos/ad-4.jpg",
+    "headline": "I stopped blaming my willpower and looked at my cortisol.",
+    "quote": "It was never a discipline problem.",
+    "points": [
+      "Made for the pattern: broken sleep, afternoon crashes, weight round the middle.",
+      "Plant based, no GMO, no gluten, no sugar.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "sixty-one-and-stuck",
+    "photo": "photos/ad-5.jpg",
+    "headline": "Sixty one, exhausted, and stuck. It was not my diet.",
+    "quote": "Three weeks in and the afternoon crash is gone.",
+    "points": [
+      "KSM-66 ashwagandha at the dose the cortisol trials used.",
+      "One scoop in water each morning. That is the whole routine.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  }
+]
