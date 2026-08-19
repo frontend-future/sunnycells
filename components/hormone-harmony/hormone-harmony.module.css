@@ -84,7 +84,6 @@
 
 .brandLink,
 .desktopNav a,
-.quizLink,
 .cartLink {
   color: var(--ink);
   text-decoration: none;
@@ -97,7 +96,6 @@
 }
 
 .desktopNav a,
-.quizLink,
 .cartLink {
   font-size: 15px;
   font-weight: var(--weight-bold);
@@ -129,8 +127,6 @@
   gap: var(--space-5);
   margin-left: auto;
 }
-
-.quizLink { border-bottom: 2px solid var(--ink); }
 
 .cartLink {
   display: inline-flex;
@@ -329,10 +325,11 @@
 
 .heroProduct {
   position: absolute;
-  right: 9%;
+  right: auto;
   bottom: -4%;
+  left: -7%;
   z-index: 2;
-  width: 79%;
+  width: 72%;
   height: auto;
   filter: drop-shadow(0 28px 24px color-mix(in srgb, var(--ink) 25%, transparent));
 }
@@ -480,8 +477,8 @@
 .ingredientLeadCopy .primaryLink { margin-top: var(--space-8); }
 
 .ingredients { width: 100%; padding-bottom: clamp(var(--section-gap-mobile), 8.5vw, var(--section-gap)); }
-.ingredientTrack { display: grid; grid-auto-columns: minmax(310px, 31vw); grid-auto-flow: column; gap: var(--space-6); padding-inline: max(var(--page-gutter), calc((100vw - var(--page-max)) / 2)); padding-bottom: var(--space-6); overflow-x: auto; overscroll-behavior-inline: contain; scroll-padding-inline: var(--page-gutter); scroll-snap-type: inline mandatory; scrollbar-color: var(--sun) var(--shell); }
-.ingredient { scroll-snap-align: start; }
+.ingredientTrack { display: grid; width: min(calc(100% - (var(--page-gutter) * 2)), var(--page-max)); grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(var(--space-8), 3vw, var(--space-12)) clamp(var(--space-5), 2vw, var(--space-8)); margin-inline: auto; }
+.ingredient { display: grid; grid-template-rows: auto auto minmax(2.5em, auto) auto; align-content: start; }
 .ingredientImage { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-image); background: var(--shell); }
 .ingredientImage img { object-fit: cover; transition: transform var(--duration-base) var(--ease-out); }
 .ingredient:hover .ingredientImage img { transform: scale(1.025); }
@@ -625,9 +622,9 @@
 
 @media (max-width: 1120px) {
   .desktopNav { gap: var(--space-4); }
-  .quizLink { display: none; }
   .hero { grid-template-columns: minmax(0, 0.9fr) minmax(460px, 1.1fr); }
   .benefitRows article { grid-template-columns: 90px 0.85fr 1fr; }
+  .ingredientTrack { width: min(calc(100% - (var(--page-gutter-mobile) * 2)), var(--page-max)); grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .offer { grid-template-columns: minmax(350px, 0.76fr) minmax(480px, 1.24fr); padding-inline: var(--space-8); }
 }
 
@@ -681,7 +678,7 @@
   .heroAction p { max-width: none; }
   .primaryLink { width: 100%; }
   .heroScene { inset: 0 0 0 31%; }
-  .heroProduct { right: 1%; bottom: -3%; width: 98%; }
+  .heroProduct { right: auto; bottom: -3%; left: -10%; width: 86%; }
   .heroArtNote { top: var(--space-5); left: var(--space-5); }
   .factBand { grid-template-columns: repeat(2, 1fr); }
   .factBand div { min-height: 120px; padding: var(--space-5) var(--page-gutter-mobile); }
@@ -711,7 +708,8 @@
   .ingredientCollage { min-height: 470px; }
   .ingredientHeroImage { inset: 0 10% 8% 0; }
   .ingredientProduct { right: -7%; width: 62%; }
-  .ingredientTrack { grid-auto-columns: 82vw; padding-inline: var(--page-gutter-mobile); scroll-padding-inline: var(--page-gutter-mobile); }
+  .ingredientTrack { grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
+  .ingredient { grid-template-rows: auto auto auto auto; }
   .progression { padding: var(--space-16) var(--page-gutter-mobile); }
   .progressionHead { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
   .progressionHead p { grid-column: auto; }

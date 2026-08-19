@@ -46,7 +46,6 @@ export function CampaignHeader() {
             {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
           </nav>
           <div className={styles.headerActions}>
-            <Link className={styles.quizLink} href="/quiz/diet">Take the quiz</Link>
             <Link className={styles.cartLink} href="/hormone-harmony/cart" aria-label="View cart">
               <Icon name="shopping-bag" size={22} />
               <span>Cart</span>
@@ -75,11 +74,8 @@ export function CampaignHeader() {
               <span>0{index + 1}</span>{link.label}<Icon name="arrow-right" size={22} />
             </a>
           ))}
-          <Link href="/quiz/diet" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
-            <span>06</span>Take the diet quiz<Icon name="arrow-right" size={22} />
-          </Link>
           <Link href="/hormone-harmony/cart" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
-            <span>07</span>View cart<Icon name="shopping-bag" size={22} />
+            <span>06</span>View cart<Icon name="shopping-bag" size={22} />
           </Link>
         </nav>
         <p>Stimulant-free. 30 servings. Orange flavor.</p>

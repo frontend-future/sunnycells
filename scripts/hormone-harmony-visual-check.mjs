@@ -62,6 +62,16 @@ for (const viewport of [
   check(await page.getByRole("link", { name: "Shop the blend" }).first().isVisible(), `${viewport.name} primary CTA is visible`);
   check(await page.locator('img[alt*="orange flavor pouch"]').evaluate((image) => image.complete && image.naturalWidth > 0), `${viewport.name} hero product image loads`);
   check(await page.locator('article').filter({ hasText: "KSM-66 Ashwagandha" }).count() === 1, `${viewport.name} ingredient content renders`);
+  const ingredientLayout = await page.locator('article').filter({ hasText: "KSM-66 Ashwagandha" }).evaluate((ingredient) => {
+    const track = ingredient.parentElement;
+    return {
+      count: track?.children.length ?? 0,
+      columns: track ? getComputedStyle(track).gridTemplateColumns.split(" ").length : 0,
+    };
+  });
+  const expectedIngredientColumns = viewport.width <= 767 ? 1 : viewport.width <= 1120 ? 2 : 4;
+  check(ingredientLayout.count === 8, `${viewport.name} renders all eight ingredients`);
+  check(ingredientLayout.columns === expectedIngredientColumns, `${viewport.name} ingredient grid uses ${expectedIngredientColumns} column${expectedIngredientColumns === 1 ? "" : "s"}`);
 
   const dimensions = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,
@@ -73,12 +83,14 @@ for (const viewport of [
     const menuButton = page.getByRole("button", { name: "Open menu" });
     check(await menuButton.isVisible(), `${viewport.name} mobile menu button is visible`);
     await menuButton.click();
-    check(await page.locator("#hormone-mobile-menu").getByRole("link", { name: /Take the diet quiz/ }).isVisible(), `${viewport.name} mobile menu opens with real navigation`);
+    check(await page.locator("#hormone-mobile-menu").getByRole("link", { name: /View cart/ }).isVisible(), `${viewport.name} mobile menu opens with real navigation`);
+    check(!(await page.locator("#hormone-mobile-menu").getByRole("link", { name: /quiz/i }).count()), `${viewport.name} mobile menu omits the quiz link`);
     check(await page.evaluate(() => document.body.style.overflow === "hidden"), `${viewport.name} mobile menu locks body scroll`);
     await page.keyboard.press("Escape");
     check(await page.getByRole("button", { name: "Open menu" }).isVisible(), `${viewport.name} mobile menu closes with Escape`);
   } else {
     check(await page.getByRole("navigation", { name: "Hormone Harmony navigation" }).isVisible(), `${viewport.name} desktop navigation is visible`);
+    check(!(await page.locator("header").getByRole("link", { name: /quiz/i }).count()), `${viewport.name} desktop header omits the quiz link`);
   }
 
   if (viewport.width < 768) {
@@ -104,6 +116,10 @@ for (const viewport of [
   );
   check(failedImages.length === 0, `${viewport.name} loads every image${failedImages.length ? ` (${failedImages.join(", ")})` : ""}`);
   check(await page.getByRole("link", { name: "View cart" }).last().getAttribute("href") === "/hormone-harmony/cart", `${viewport.name} footer cart link is live`);
+  if (viewport.name === "mobile" || viewport.name === "desktop") {
+    await page.locator("#top").screenshot({ path: `${output}/hero-${viewport.name}.png` });
+    await page.locator('section[aria-label="Metabolic Morning Blend ingredients"]').screenshot({ path: `${output}/ingredients-${viewport.name}.png` });
+  }
   await page.screenshot({ path: `${output}/hormone-harmony-${viewport.name}.png`, fullPage: true });
   check(consoleErrors.length === 0, `${viewport.name} has no console errors`);
   await page.close();

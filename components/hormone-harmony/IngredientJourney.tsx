@@ -42,7 +42,7 @@ export function IngredientJourney() {
         <div className={styles.ingredientTrack}>
           {ingredients.map((ingredient, index) => (
             <article className={styles.ingredient} key={ingredient.name}>
-              <div className={styles.ingredientImage}><Image src={ingredient.image} alt={`${ingredient.name} ingredient`} fill sizes="(max-width: 767px) 78vw, 29vw" /></div>
+              <div className={styles.ingredientImage}><Image src={ingredient.image} alt={`${ingredient.name} ingredient`} fill sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1120px) 45vw, 22vw" /></div>
               <span>0{index + 1}</span>
               <h3>{ingredient.name}</h3>
               <p>{ingredient.detail}</p>
