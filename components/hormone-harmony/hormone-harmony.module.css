@@ -241,8 +241,10 @@
 .hero h1 {
   max-width: 640px;
   font-size: clamp(40px, 4vw, 58px);
-  font-weight: var(--weight-max);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.045em;
   line-height: 0.98;
+  text-wrap: balance;
 }
 
 .heroBody {
@@ -343,6 +345,11 @@
 }
 
 .heroScene img { object-fit: cover; object-position: 52% center; }
+
+@media (min-width: 901px) {
+  .heroScene { background: var(--sun-tint); }
+  .heroScene img { transform: scale(0.88); }
+}
 
 .heroArtNote {
   position: absolute;

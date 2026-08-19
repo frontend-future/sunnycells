@@ -43,7 +43,7 @@ export function HormoneHarmonyPage() {
       <section id="top" className={styles.hero} aria-labelledby="hero-title">
         <div className={styles.heroCopy}>
           <div className={styles.heroLead}>
-            <h1 id="hero-title">Discover why 3.3 Million Women choose Hormone Harmony: Natural herbal support for mood balance, menopause & premenstrual symptoms relief</h1>
+            <h1 id="hero-title">Discover Why 3.3 Million Women Choose Hormone Harmony: Natural Herbal Support for Mood Balance, Menopause &amp; Premenstrual Symptoms Relief</h1>
           </div>
           <div className={styles.heroDetails}>
             <p className={styles.heroBenefitIntro}>With ingredients traditionally used<br />in western herbal medicine to:</p>
