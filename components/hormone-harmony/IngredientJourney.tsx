@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CampaignLink } from "./CampaignLink";
 import styles from "./hormone-harmony.module.css";
 
 const ingredients = [
@@ -12,48 +13,85 @@ const ingredients = [
   { name: "Black Pepper Extract", detail: "The final botanical in the label-listed ingredient blend.", image: "/ingredients/black-pepper.jpg" },
 ] as const;
 
+const stages = [
+  ["Start", "Choose an existing morning cue and place the pouch where you will see it."],
+  ["Build the ritual", "Mix one scoop with water or juice while the rest of the morning is already happening."],
+  ["Find your rhythm", "Keep the format consistent and adjust the moment to suit your schedule."],
+  ["Make it your morning", "Let the ritual feel ordinary. That is what makes it easier to repeat."],
+] as const;
+
 export function IngredientJourney() {
   return (
     <>
-      <section className={`${styles.section} ${styles.ingredients}`} aria-labelledby="ingredients-title">
-        <div className={styles.narrowHeading}>
-          <p className={styles.kicker}>Inside every scoop</p><h2 id="ingredients-title">Eight ingredients. One morning blend.</h2>
-          <p>Explore the complete label-listed blend. Swipe on touch screens to see each ingredient.</p>
+      <section id="ingredients" className={`${styles.section} ${styles.ingredientLead}`} aria-labelledby="ingredients-title">
+        <div className={styles.ingredientCollage}>
+          <div className={styles.ingredientHeroImage}>
+            <Image src="/photos/hormone-ingredients-fal.webp" alt="Editorial arrangement inspired by the blend's botanical ingredients and orange flavor" fill sizes="(max-width: 900px) 100vw, 52vw" />
+          </div>
+          <Image className={styles.ingredientProduct} src="/product/metabolic-morning-blend.webp" alt="Metabolic Morning Blend pouch in front of botanical ingredients" width={760} height={760} sizes="(max-width: 767px) 58vw, 27vw" />
         </div>
+        <div className={styles.ingredientLeadCopy}>
+          <p className={styles.kicker}>Inside every scoop</p>
+          <h2 id="ingredients-title">Eight ingredients, brought into one morning.</h2>
+          <p>The formula combines paired inositols, amino acids, standardized sunflower extract, and botanical roots. Each item below comes directly from the product label.</p>
+          <CampaignLink>Choose your supply</CampaignLink>
+        </div>
+      </section>
+
+      <section className={styles.ingredients} aria-label="Metabolic Morning Blend ingredients">
         <div className={styles.ingredientTrack}>
-          {ingredients.map((ingredient) => (
+          {ingredients.map((ingredient, index) => (
             <article className={styles.ingredient} key={ingredient.name}>
-              <div className={styles.ingredientImage}><Image src={ingredient.image} alt={`${ingredient.name} ingredient`} fill sizes="(max-width: 767px) 78vw, 30vw" /></div>
-              <h3>{ingredient.name}</h3><p>{ingredient.detail}</p>
+              <div className={styles.ingredientImage}><Image src={ingredient.image} alt={`${ingredient.name} ingredient`} fill sizes="(max-width: 767px) 78vw, 29vw" /></div>
+              <span>0{index + 1}</span>
+              <h3>{ingredient.name}</h3>
+              <p>{ingredient.detail}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.routine}`} aria-labelledby="routine-title">
-        <div className={styles.narrowHeading}><p className={styles.kicker}>Make it automatic</p><h2 id="routine-title">A routine that stays small.</h2></div>
-        <div className={styles.routineFlow}>
-          <article><strong>Mix</strong><p>Add one scoop to about 250 ml of water or juice.</p></article>
-          <article><strong>Stir</strong><p>Ten seconds is enough to make the light orange drink.</p></article>
-          <article><strong>Pair</strong><p>Have it beside breakfast, coffee, or your existing shake.</p></article>
-          <article><strong>Repeat</strong><p>Use it each morning. One pouch covers 30 days.</p></article>
+      <section id="routine" className={styles.progression} aria-labelledby="routine-title">
+        <div className={styles.progressionHead}>
+          <span>One month. Your pace.</span>
+          <h2 id="routine-title">What happens when a ritual stays simple?</h2>
+          <p>There is no guaranteed timeline here. The progression is about making a small daily habit easier to keep.</p>
         </div>
+        <div className={styles.progressionSteps}>
+          {stages.map(([title, copy], index) => (
+            <article key={title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+        <CampaignLink>Start your supply</CampaignLink>
       </section>
 
-      <section className={`${styles.section} ${styles.realMornings}`} aria-labelledby="real-title">
-        <div className={styles.realCopy}>
-          <p className={styles.kicker}>Made for real mornings</p><h2 id="real-title">No perfect routine required.</h2>
-          <p>A kitchen counter, a patio, or the cup holder. Consistency can start wherever your day does.</p>
+      <section className={`${styles.section} ${styles.lifestyle}`} aria-labelledby="lifestyle-title">
+        <div className={styles.lifestyleIntro}>
+          <h2 id="lifestyle-title">One blend. Several kinds of morning.</h2>
+          <p>At home, at a desk, or already on the move, the format stays compact and predictable.</p>
         </div>
-        <div className={styles.photoOne}><Image src="/photos/story-female.jpg" alt="Woman holding a SUNNYCELLS pouch on her patio" fill sizes="(max-width: 767px) 100vw, 38vw" /></div>
-        <div className={styles.photoTwo}><Image src="/photos/social-2.jpg" alt="Customer holding a SUNNYCELLS pouch during her morning" fill sizes="(max-width: 767px) 100vw, 28vw" /></div>
-        <div className={styles.photoThree}><Image src="/photos/social-3.jpg" alt="Customer with a SUNNYCELLS pouch while out for the day" fill sizes="(max-width: 767px) 100vw, 26vw" /></div>
+        <div className={styles.lifestylePrimary}>
+          <Image src="/photos/hormone-morning-fal.webp" alt="Woman enjoying a simple morning routine at home" fill sizes="(max-width: 767px) 100vw, 56vw" />
+          <div><span>At home</span><h3>Mix it while breakfast is happening.</h3></div>
+        </div>
+        <div className={styles.lifestyleSecondary}>
+          <Image src="/photos/social-2.jpg" alt="A portable SUNNYCELLS morning routine" fill sizes="(max-width: 767px) 100vw, 34vw" />
+          <div><span>On the move</span><h3>Keep the pouch where the routine happens.</h3></div>
+        </div>
+        <div className={styles.lifestyleText}>
+          <strong>Orange flavor. No sugar. No calories.</strong>
+          <p>A measured scoop and a glass are all the setup it needs.</p>
+        </div>
       </section>
 
       <section className={`${styles.section} ${styles.quality}`} aria-labelledby="quality-title">
         <div className={styles.qualityIntro}>
-          <p className={styles.kicker}>Quality you can see</p><h2 id="quality-title">Made carefully. Checked independently.</h2>
-          <p>Manufactured in the USA in a facility that follows current Good Manufacturing Practice.</p>
+          <h2 id="quality-title">Made carefully. Checked independently.</h2>
+          <p>Manufactured in the USA in a facility that follows current Good Manufacturing Practice, with third-party and heavy-metal testing represented by the supplied SUNNYCELLS assets.</p>
         </div>
         <div className={styles.qualityMarks}>
           <figure><Image src="/badges/made-in-usa.png" alt="Made in the USA" width={260} height={260} /><figcaption>Made in the USA</figcaption></figure>

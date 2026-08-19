@@ -1,60 +1,72 @@
 import Image from "next/image";
+import { Icon } from "@/components/core/Icon";
 import { CampaignLink } from "./CampaignLink";
 import styles from "./hormone-harmony.module.css";
 
 export function CampaignStory() {
   return (
     <>
-      <section className={`${styles.section} ${styles.story}`} aria-labelledby="story-title">
+      <section id="why-it-fits" className={`${styles.section} ${styles.story}`} aria-labelledby="story-title">
         <div className={styles.storyImage}>
-          <Image src="/photos/social-1.jpg" alt="Woman holding Metabolic Morning Blend in her kitchen" fill sizes="(max-width: 767px) 100vw, 48vw" />
+          <Image src="/photos/social-1.jpg" alt="Woman making space for a simple morning wellness ritual" fill sizes="(max-width: 900px) 100vw, 50vw" />
+          <p>Real life first.<br />The ritual follows.</p>
         </div>
         <div className={styles.storyCopy}>
-          <p className={styles.kicker}>A better place to begin</p>
-          <h2 id="story-title">Your morning should work with you.</h2>
-          <p>Most routines ask for more time, more tracking, and another thing to remember. This one starts with a scoop and a glass.</p>
-          <p>Metabolic Morning Blend is designed to fit beside the breakfast, coffee, or school run already in your day.</p>
+          <h2 id="story-title">Wellness gets harder when the routine gets bigger.</h2>
+          <p>Extra steps sound manageable until the day starts moving. The useful routine is the one that can survive breakfast, work, family, travel, and the mornings that go sideways.</p>
+          <p><strong>Metabolic Morning Blend keeps its place small:</strong> one scoop, one drink, once each morning.</p>
         </div>
+      </section>
+
+      <section className={styles.editorialBand} aria-labelledby="cue-title">
+        <div className={styles.editorialNumber}>01</div>
+        <div>
+          <h2 id="cue-title">Start with a cue you already trust.</h2>
+          <p>Morning light. The kettle. Breakfast. Your first glass of water. Pairing a new habit with an existing one gives it somewhere practical to live.</p>
+        </div>
+        <p className={styles.editorialAside}>Not a perfect routine.<br /><strong>A repeatable one.</strong></p>
       </section>
 
       <section className={`${styles.section} ${styles.reveal}`} aria-labelledby="reveal-title">
         <div className={styles.revealCopy}>
-          <p className={styles.kicker}>The simple part</p>
-          <h2 id="reveal-title">One scoop. Ten seconds. Done.</h2>
-          <p>Mix it with water or juice in the morning. The orange flavor has no sugar, no calories, and no stimulants.</p>
+          <p className={styles.kicker}>Meet the blend</p>
+          <h2 id="reveal-title">A bright start, without another stimulant.</h2>
+          <p>Metabolic Morning Blend brings eight label-listed ingredients into a light orange drink with no sugar and no calories. It is designed to sit beside coffee, breakfast, or a shake, not compete with them.</p>
+          <ul>
+            <li><Icon name="zap-off" size={22} />No caffeine or stimulants</li>
+            <li><Icon name="leaf" size={22} />Plant-based ingredients</li>
+            <li><Icon name="droplet" size={22} />Mix with water or juice</li>
+          </ul>
           <CampaignLink>See supply options</CampaignLink>
         </div>
         <div className={styles.revealVisual}>
-          <Image src="/illustrations/step-drink.png" alt="Glass of prepared orange Metabolic Morning Blend" width={720} height={720} sizes="(max-width: 767px) 70vw, 34vw" />
-          <Image className={styles.revealPouch} src="/product/metabolic-morning-blend.webp" alt="Metabolic Morning Blend pouch" width={760} height={760} sizes="(max-width: 767px) 62vw, 28vw" />
+          <Image className={styles.revealDrink} src="/illustrations/step-drink.png" alt="Prepared orange Metabolic Morning Blend in a glass" width={720} height={720} sizes="(max-width: 767px) 66vw, 28vw" />
+          <Image className={styles.revealPouch} src="/product/metabolic-morning-blend.webp" alt="Metabolic Morning Blend pouch" width={760} height={760} sizes="(max-width: 767px) 65vw, 29vw" />
+          <span className={styles.revealLabel}>One scoop<br />in the morning</span>
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.benefits}`} aria-labelledby="benefits-title">
-        <div className={styles.benefitIntro}>
-          <p className={styles.kicker}>Built for repeatable mornings</p>
-          <h2 id="benefits-title">Less ritual. More consistency.</h2>
-          <p>A practical format matters when the goal is to use it every day.</p>
+      <section className={`${styles.section} ${styles.benefitStory}`} aria-labelledby="benefits-title">
+        <div className={styles.benefitHeading}>
+          <h2 id="benefits-title">Built around the day you actually have.</h2>
+          <p>The value is not another promise to transform your life overnight. It is a formula and format made easier to repeat.</p>
         </div>
-        <article className={styles.benefitLarge}>
-          <span>01</span><h3>Stimulant-free by design</h3><p>Keep your coffee if you want it. The formula does not add caffeine or another stimulant.</p>
-        </article>
-        <article className={styles.benefitTall}>
-          <span>02</span><h3>A full month in one pouch</h3><p>Thirty servings keep the routine compact and easy to store.</p>
-          <Image src="/product/metabolic-morning-blend.webp" alt="One 30-serving pouch of Metabolic Morning Blend" width={540} height={540} sizes="(max-width: 767px) 65vw, 24vw" />
-        </article>
-        <article className={styles.benefitWide}>
-          <span>03</span><h3>Plant-based ingredient blend</h3><p>Eight label-listed actives, including sunflower-derived phosphatidylserine and botanical extracts.</p>
-        </article>
-      </section>
-
-      <section className={`${styles.section} ${styles.education}`} aria-labelledby="education-title">
-        <div className={styles.educationWord} aria-hidden="true">AM</div>
-        <div className={styles.educationCopy}>
-          <p className={styles.kicker}>Why the morning</p>
-          <h2 id="education-title">Work with the rhythm you already have.</h2>
-          <p>Cortisol naturally peaks shortly after waking. That is why Metabolic Morning Blend belongs in the first part of your day.</p>
-          <p>It is not another complicated protocol. It is one consistent cue that can live beside an existing habit.</p>
+        <div className={styles.benefitRows}>
+          <article>
+            <span>Morning 01</span>
+            <h3>Keep the coffee.</h3>
+            <p>The blend is stimulant-free, so it can fit next to the drink you already enjoy.</p>
+          </article>
+          <article>
+            <span>Morning 02</span>
+            <h3>Skip the cabinet full of bottles.</h3>
+            <p>Eight label-listed ingredients arrive together in one measured scoop.</p>
+          </article>
+          <article>
+            <span>Morning 03</span>
+            <h3>Know when to reorder.</h3>
+            <p>Thirty servings make one pouch a clear one-month rhythm.</p>
+          </article>
         </div>
       </section>
     </>

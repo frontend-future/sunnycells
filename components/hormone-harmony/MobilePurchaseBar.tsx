@@ -9,13 +9,22 @@ export function MobilePurchaseBar() {
   useEffect(() => {
     const hero = document.getElementById("top");
     if (!hero) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(!entry.isIntersecting),
-      { threshold: 0.05 },
-    );
-    observer.observe(hero);
-    return () => observer.disconnect();
+    const plans = document.getElementById("plans");
+    const update = () => {
+      const heroRect = hero.getBoundingClientRect();
+      const plansRect = plans?.getBoundingClientRect();
+      const purchaseAreaVisible = plansRect
+        ? plansRect.top < window.innerHeight && plansRect.bottom > 0
+        : false;
+      setVisible(heroRect.bottom < 80 && !purchaseAreaVisible);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   return (

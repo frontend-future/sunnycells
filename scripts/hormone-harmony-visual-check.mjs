@@ -42,7 +42,9 @@ function check(condition, message) {
 for (const viewport of [
   { name: "small-mobile", width: 360, height: 740 },
   { name: "mobile", width: 390, height: 844 },
+  { name: "large-mobile", width: 430, height: 932 },
   { name: "tablet", width: 768, height: 1024 },
+  { name: "small-laptop", width: 1024, height: 768 },
   { name: "laptop", width: 1280, height: 800 },
   { name: "desktop", width: 1440, height: 1000 },
 ]) {
@@ -53,10 +55,12 @@ for (const viewport of [
   });
 
   const response = await page.goto(`${base}/hormone-harmony`, { waitUntil: "networkidle" });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(100);
   check(response?.status() === 200, `${viewport.name} route returns 200`);
-  check(await page.getByRole("heading", { level: 1, name: "Daily stress support, mixed into your morning." }).isVisible(), `${viewport.name} hero heading is visible`);
-  check(await page.getByRole("link", { name: "Choose your plan" }).first().isVisible(), `${viewport.name} primary CTA is visible`);
-  check(await page.locator('img[alt*="orange-flavor pouch"]').evaluate((image) => image.complete && image.naturalWidth > 0), `${viewport.name} hero product image loads`);
+  check(await page.getByRole("heading", { level: 1, name: "Make your morning do more." }).isVisible(), `${viewport.name} hero heading is visible`);
+  check(await page.getByRole("link", { name: "Shop the blend" }).first().isVisible(), `${viewport.name} primary CTA is visible`);
+  check(await page.locator('img[alt*="orange flavor pouch"]').evaluate((image) => image.complete && image.naturalWidth > 0), `${viewport.name} hero product image loads`);
   check(await page.locator('article').filter({ hasText: "KSM-66 Ashwagandha" }).count() === 1, `${viewport.name} ingredient content renders`);
 
   const dimensions = await page.evaluate(() => ({
@@ -65,11 +69,26 @@ for (const viewport of [
   }));
   check(dimensions.scrollWidth === dimensions.clientWidth, `${viewport.name} has no horizontal overflow`);
 
+  if (viewport.width <= 900) {
+    const menuButton = page.getByRole("button", { name: "Open menu" });
+    check(await menuButton.isVisible(), `${viewport.name} mobile menu button is visible`);
+    await menuButton.click();
+    check(await page.locator("#hormone-mobile-menu").getByRole("link", { name: /Take the diet quiz/ }).isVisible(), `${viewport.name} mobile menu opens with real navigation`);
+    check(await page.evaluate(() => document.body.style.overflow === "hidden"), `${viewport.name} mobile menu locks body scroll`);
+    await page.keyboard.press("Escape");
+    check(await page.getByRole("button", { name: "Open menu" }).isVisible(), `${viewport.name} mobile menu closes with Escape`);
+  } else {
+    check(await page.getByRole("navigation", { name: "Hormone Harmony navigation" }).isVisible(), `${viewport.name} desktop navigation is visible`);
+  }
+
   if (viewport.width < 768) {
     const sticky = page.getByRole("link", { name: "Choose plan" });
     check(!(await sticky.isVisible()), `${viewport.name} sticky CTA does not obstruct the hero`);
-    await page.locator("section").nth(2).scrollIntoViewIfNeeded();
-    await page.waitForTimeout(250);
+    await page.evaluate(() => {
+      const hero = document.getElementById("top");
+      window.scrollTo(0, (hero?.offsetTop ?? 0) + (hero?.offsetHeight ?? window.innerHeight) + 220);
+    });
+    await page.waitForTimeout(400);
     check(await sticky.isVisible(), `${viewport.name} sticky CTA appears after the hero`);
   }
 
@@ -84,6 +103,7 @@ for (const viewport of [
     images.filter((image) => !image.complete || image.naturalWidth === 0).map((image) => image.alt),
   );
   check(failedImages.length === 0, `${viewport.name} loads every image${failedImages.length ? ` (${failedImages.join(", ")})` : ""}`);
+  check(await page.getByRole("link", { name: "View cart" }).last().getAttribute("href") === "/hormone-harmony/cart", `${viewport.name} footer cart link is live`);
   await page.screenshot({ path: `${output}/hormone-harmony-${viewport.name}.png`, fullPage: true });
   check(consoleErrors.length === 0, `${viewport.name} has no console errors`);
   await page.close();
@@ -114,6 +134,11 @@ for (const viewport of [
   }));
   check(dimensions.scrollWidth === dimensions.clientWidth, `${viewport.name} has no horizontal overflow`);
   check(await page.getByRole("heading", { level: 1 }).isVisible(), `${viewport.name} remains readable`);
+  const lightLock = await page.locator("main").evaluate((element) => ({
+    scheme: getComputedStyle(element).colorScheme,
+    background: getComputedStyle(element).backgroundColor,
+  }));
+  check(lightLock.scheme === "light" && lightLock.background !== "rgb(13, 13, 12)", `${viewport.name} remains locked to light mode`);
   await page.screenshot({ path: `${output}/hormone-harmony-${viewport.name}.png`, fullPage: true });
   await page.close();
 }
