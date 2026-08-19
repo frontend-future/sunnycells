@@ -71,7 +71,7 @@ export function HormoneCartPage() {
 
             <section className={styles.cartAssurance} aria-label="Order assurances">
               <div><Icon name="truck" size={24} /><strong>Free shipping</strong><span>Included on this delivery.</span></div>
-              <div><Icon name="shield-check" size={24} /><strong>30-day guarantee</strong><span>Try the routine with less risk.</span></div>
+              <div><Icon name="shield-check" size={24} /><strong>60-day returns</strong><span>Try the routine with less risk.</span></div>
               <div><Icon name="repeat" size={24} /><strong>Flexible subscription</strong><span>Skip or cancel anytime.</span></div>
             </section>
           </div>
@@ -91,7 +91,7 @@ export function HormoneCartPage() {
             </div>
             <button className={styles.primaryButton} type="button" onClick={() => router.push("/hormone-harmony/checkout")}>Continue to shipping<Icon name="arrow-right" size={21} /></button>
             <p className={styles.secureNote}><Icon name="shield-check" size={18} />Payment details come next.</p>
-            <div className={styles.guaranteeNote}><Image src="/badges/money-back.png" alt="30-day money-back guarantee" width={90} height={90} /><p><strong>Covered for 30 days.</strong><span>Your order includes the SUNNYCELLS money-back guarantee.</span></p></div>
+            <div className={styles.guaranteeNote}><Image src="/badges/money-back.png" alt="60-day returns" width={90} height={90} /><p><strong>Covered for 60 days.</strong><span>Your order includes SUNNYCELLS 60-day returns.</span></p></div>
           </aside>
         </div>
       </main>

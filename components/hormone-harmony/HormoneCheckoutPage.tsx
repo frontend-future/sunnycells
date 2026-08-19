@@ -130,7 +130,7 @@ export function HormoneCheckoutPage() {
               <div><span>Shipping</span><strong>Free</strong></div>
             </div>
             <div className={styles.totalRow}><span>Due today</span><div><s>{money(order.strikeTotal)}</s><strong>{ready ? money(order.total) : "\u00a0"}</strong></div></div>
-            <ul className={styles.railPromises}><li><Icon name="shield-check" size={19} />30-day guarantee</li><li><Icon name="repeat" size={19} />Skip or cancel anytime</li></ul>
+            <ul className={styles.railPromises}><li><Icon name="shield-check" size={19} />60-day returns</li><li><Icon name="repeat" size={19} />Skip or cancel anytime</li></ul>
           </div>
         </aside>
       </main>

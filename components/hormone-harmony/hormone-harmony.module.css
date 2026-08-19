@@ -176,7 +176,7 @@
 .mobileMenu nav a {
   display: grid;
   min-height: 62px;
-  grid-template-columns: 38px 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   border-bottom: 1px solid var(--hh-line);
   color: var(--ink);

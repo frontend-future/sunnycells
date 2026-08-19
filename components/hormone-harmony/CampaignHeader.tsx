@@ -35,7 +35,7 @@ export function CampaignHeader() {
     <>
       <div className={styles.announcement}>
         <span>Free shipping on every plan</span>
-        <span>30-day money-back guarantee</span>
+        <span>60-day money-back guarantee</span>
       </div>
       <header className={styles.siteHeader}>
         <div className={styles.headerInner}>
@@ -69,13 +69,13 @@ export function CampaignHeader() {
         aria-hidden={!open}
       >
         <nav aria-label="Mobile Hormone Harmony navigation">
-          {links.map((link, index) => (
+          {links.map((link) => (
             <a key={link.href} href={link.href} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
-              <span>0{index + 1}</span>{link.label}<Icon name="arrow-right" size={22} />
+              {link.label}<Icon name="arrow-right" size={22} />
             </a>
           ))}
           <Link href="/hormone-harmony/cart" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
-            <span>06</span>View cart<Icon name="shopping-bag" size={22} />
+            View cart<Icon name="shopping-bag" size={22} />
           </Link>
         </nav>
         <p>Stimulant-free. 30 servings. Orange flavor.</p>

@@ -32,16 +32,16 @@ export function HormoneHarmonyPage() {
         <div className={styles.heroCopy}>
           <div className={styles.heroLead}>
             <p className={styles.kicker}>Metabolic Morning Blend</p>
-            <h1 id="hero-title">Make your morning do more.</h1>
-            <p className={styles.heroBody}>Eight thoughtfully selected ingredients in one bright, stimulant-free scoop made to fit the morning you already have.</p>
+            <h1 id="hero-title">YOUR MORNING HAS ENOUGH GOING ON.</h1>
+            <p className={styles.heroBody}>Eight label-listed ingredients in one orange, stimulant-free scoop. Mix with water or juice and get on with your morning.</p>
           </div>
           <div className={styles.heroDetails}>
             <ul className={styles.heroBenefits}>
               {heroBenefits.map((benefit) => <li key={benefit}><Icon name="check" size={20} />{benefit}</li>)}
             </ul>
             <div className={styles.heroAction}>
-              <CampaignLink>Shop the blend</CampaignLink>
-              <p>Free shipping. 30-day guarantee. Skip or cancel anytime.</p>
+              <CampaignLink>CHOOSE YOUR SUPPLY</CampaignLink>
+              <p>50% off your first order. From $10 first month, then $21 per month. Free shipping, 60-day returns, skip or cancel anytime.</p>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@ export function HormoneHarmonyPage() {
           <div className={styles.heroScene}>
             <Image src="/photos/hormone-hero-woman-v2.webp" alt="Woman holding the SUNNYCELLS orange flavor pouch beside an orange morning drink" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
           </div>
-          <p className={styles.heroArtNote}><strong>Orange flavor</strong><span>30 daily servings</span></p>
+          <p className={styles.heroArtNote}><strong>Orange flavor</strong><span>30 servings per pouch</span></p>
         </div>
       </section>
 
@@ -75,11 +75,11 @@ export function HormoneHarmonyPage() {
           <Image src="/product/pouch-3.webp" alt="Three-month supply of Metabolic Morning Blend" width={1200} height={900} sizes="(max-width: 767px) 92vw, 48vw" />
         </div>
         <div className={styles.finalCopy}>
-          <p className={styles.kicker}>Tomorrow morning is close</p>
+          <p className={styles.kicker}>Metabolic Morning Blend</p>
           <h2 id="final-title">Start with one scoop.</h2>
-          <p>No complicated reset. No new stimulant. Just a bright orange blend that belongs beside the morning you already know.</p>
-          <CampaignLink>Choose your supply</CampaignLink>
-          <p className={styles.finalReassurance}>From $39 per month with free shipping and a 30-day guarantee.</p>
+          <p>A bright orange blend for the morning you already have. Eight label-listed ingredients, no stimulants, and one measured scoop.</p>
+          <CampaignLink>CHOOSE YOUR SUPPLY</CampaignLink>
+          <p className={styles.finalReassurance}>50% off your first order. From $10 first month, then $21 per month, with free shipping and 60-day returns.</p>
         </div>
       </section>
 
