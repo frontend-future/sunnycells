@@ -347,8 +347,7 @@
 .heroScene img { object-fit: cover; object-position: 52% center; }
 
 @media (min-width: 901px) {
-  .heroScene { background: var(--sun-tint); }
-  .heroScene img { transform: scale(0.78); }
+  .heroScene img { transform: scale(0.93); }
 }
 
 .heroArtNote {
