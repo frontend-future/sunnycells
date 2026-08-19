@@ -27,7 +27,7 @@ check("checkout stays inside the new route family", new URL(page.url()).pathname
 check("checkout back link returns to the new cart", (await page.getByRole("link", { name: "Back", exact: true }).getAttribute("href")) === "/hormone-harmony/cart");
 
 await page.goto(`${BASE}/quiz/diet/results/plans`, { waitUntil: "networkidle" });
-await page.getByRole("button", { name: "Order now" }).nth(1).click();
+await page.getByRole("button", { name: "Try now" }).nth(1).click();
 await page.waitForURL("**/quiz/diet/results/checkout");
 check("existing quiz flow keeps its original direct checkout route", new URL(page.url()).pathname === "/quiz/diet/results/checkout");
 

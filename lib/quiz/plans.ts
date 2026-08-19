@@ -21,6 +21,8 @@ export type Plan = {
   compareAt: number;
   flag?: string;
   best?: boolean;
+  /** How often a delivery arrives, shown as the last bullet. */
+  cadence: string;
 };
 
 /** One pouch is a month at one scoop a day. */
@@ -53,6 +55,7 @@ export function planBullets(plan: Plan): string[] {
     `${plan.months * SERVINGS_PER_POUCH} servings`,
     perDayLabel(plan.price),
     `${pouches} ${pouches === 1 ? "pouch" : "pouches"} delivered`,
+    plan.cadence,
   ];
 }
 
@@ -65,6 +68,7 @@ export const PLANS: Plan[] = [
     image: "/product/metabolic-morning-blend.png",
     price: 25,
     compareAt: 50,
+    cadence: "Delivered fresh monthly",
   },
   {
     id: "m3",
@@ -72,8 +76,9 @@ export const PLANS: Plan[] = [
     label: "3 month supply",
     sub: "Great for building new habits",
     image: "/product/pouch-3.png",
-    price: 20,
+    price: 23,
     compareAt: 50,
+    cadence: "Delivered fresh every 60 days",
     flag: "Most chosen",
     best: true,
   },
@@ -83,8 +88,9 @@ export const PLANS: Plan[] = [
     label: "6 month supply",
     sub: "For achieving sustainable results",
     image: "/product/pouch-6.png",
-    price: 15,
+    price: 21,
     compareAt: 50,
+    cadence: "Delivered fresh every 90 days",
     flag: "Best value",
   },
 ];

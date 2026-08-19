@@ -34,5 +34,5 @@ viewport. Everything should read `ok`.
 
 The plans page is the exception to the rule, deliberately: it is a long-scroll
 sales page, so what is checked there is its hero button, which scrolls down to the
-plan cards. The Order now buttons themselves sit thousands of pixels down and are
+plan cards. The Try now buttons themselves sit thousands of pixels down and are
 not expected above the fold.

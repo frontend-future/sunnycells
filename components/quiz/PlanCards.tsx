@@ -5,13 +5,14 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/core/Button";
 import { Badge } from "@/components/core/Badge";
+import { Icon } from "@/components/core/Icon";
 import { PLANS, planBullets, type Plan } from "@/lib/quiz/plans";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { writeAnswer } from "@/lib/quiz/store";
 
 export function PlanCards({
   destinationHref = "/quiz/diet/results/checkout",
-  ctaLabel = "Order now",
+  ctaLabel = "Try now",
   optimizedImages = false,
 }: {
   destinationHref?: string;
@@ -77,8 +78,8 @@ export function PlanCards({
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
             />
 
-            {/* Price, the struck list price, and the unit all on one line, so the
-                comparison reads in a single glance rather than over two rows. */}
+            {/* Price and the struck list price on one line, so the comparison reads
+                in a single glance rather than over two rows. */}
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "var(--space-3)", flexWrap: "wrap" }}>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", lineHeight: 1 }}>
                 ${p.price}
@@ -86,11 +87,24 @@ export function PlanCards({
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
                 ${p.compareAt}
               </span>
-              <span style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)" }}>per month</span>
             </div>
-            <div style={{ textAlign: "center", marginTop: -6 }}>
+            {/* The standing first-order term, stated on the card rather than left to
+                be inferred from the struck price. */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--space-2)", marginTop: -6 }}>
+              {/* The filled circular tick already used on the ad creatives, rather than
+                  a new glyph for one line. */}
+              <span
+                aria-hidden="true"
+                style={{
+                  flex: "none", width: 20, height: 20, borderRadius: "50%",
+                  background: "var(--status-success)", color: "var(--white)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}
+              >
+                <Icon name="check" size={13} strokeWidth={3.5} />
+              </span>
               <span style={{ fontSize: "var(--size-meta)", fontWeight: 800, color: "var(--status-success)" }}>
-                Save ${p.compareAt - p.price} a month
+                50% off auto-applied today
               </span>
             </div>
 

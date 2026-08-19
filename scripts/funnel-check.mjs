@@ -116,10 +116,10 @@ await step("story", "/quiz/diet/results/plans", () => page.getByRole("button", {
 await page.waitForTimeout(400);
 await page.screenshot({ path: "shot-plans.png", fullPage: true });
 
-await step("plans", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Order now/ }).nth(1).click());
+await step("plans", "/quiz/diet/results/checkout", () => page.getByRole("button", { name: /Try now/ }).nth(1).click());
 await page.waitForTimeout(300);
 const summaryText = await page.locator("body").innerText();
-check("checkout charges the 3 month plan in full", summaryText.includes("$60"));
+check("checkout charges the 3 month plan in full", summaryText.includes("$69"));
 check("checkout strikes the list total", summaryText.includes("$210"));
 check("summary is collapsed on a phone", !/3 pouches\. Ships every 3 months\./.test(summaryText));
 await page.getByRole("button", { name: /Order summary/ }).click();
