@@ -10,7 +10,7 @@ node scripts/render-ads.mjs       # writes ads/out/adset-N-name/
 | Set | Angle | Layout | Size | What it leads with |
 |---|---|---|---|---|
 | 1 | problem | `photo` | 1080x1920 | The problem in a photo, then the mechanism |
-| 2 | transformation | `photo` + `after` | 1080x1920 | A labelled before and after pair |
+| 2 | reframe | `photo` | 1080x1920 | The problem state, blame moved off the customer |
 | 3 | proof | `stats` | 1080x1920 | "We can't say X, but we can say", then figures |
 | 4 | routine | `timeline` | 1080x1080 | Day by day, with the offer and the ingredients |
 | 5 | offer | `deal` | 1080x1920 | The problem state, what is included, the pack |
@@ -32,11 +32,12 @@ shows the problem, never a result.
 - **Survey figures** in set 3 and the **day by day timeline** in set 4 are
   placeholders. No survey produced those numbers. Each creative carries its own
   fine print, but the figures still need real data behind them.
-- **The after panels in set 2 are marked slots.** A generated body presented as one
-  person's result is fabricated proof that the product caused it, which is the most
-  enforced image type in this category. Drop in a real customer photo with their
-  release on file and the creative is finished. Set 5 shows the problem state alone
-  and needs nothing.
+- **No set ships an after image.** A generated body presented as one person's result
+  is fabricated proof that the product caused it, which is the most enforced image
+  type in this category, and an empty panel waiting on one only advertised the gap.
+  Every creative shows the problem state alone. A real customer photo with a release
+  on file is the only thing that should ever fill an after slot, and adding one means
+  adding the panel back deliberately.
 - **The "up to" discount** tracks the deepest card in `lib/quiz/plans.ts` by hand.
   If a plan price changes, `flash` in set 4 needs updating with it. Set 5 carries no
   price at all, so it does not go stale.

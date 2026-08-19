@@ -72,9 +72,8 @@
   {
     "id": "pair-face-puffiness",
     "photo": "photos/before-1.jpg",
-    "after": null,
-    "headline": "The puffiness went when the cortisol did.",
-    "line": "Cortisol holds fluid in your face and your middle. Bring it down and both change.",
+    "headline": "You are not eating badly. Your cortisol is high.",
+    "line": "Cortisol holds fluid in your face and your middle. Eating less does not reach either.",
     "points": [
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
@@ -82,14 +81,13 @@
     ],
     "layout": "photo",
     "set": 2,
-    "setName": "transformation"
+    "setName": "reframe"
   },
   {
     "id": "pair-belly-bloat",
     "photo": "photos/before-2.jpg",
-    "after": null,
-    "headline": "Twelve weeks of getting my cortisol under control.",
-    "line": "High cortisol moves fat to your middle and keeps it there.",
+    "headline": "Twelve weeks of eating less. Nothing moved.",
+    "line": "A calorie deficit does not bring cortisol down. It pushes it up.",
     "points": [
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
@@ -97,14 +95,13 @@
     ],
     "layout": "photo",
     "set": 2,
-    "setName": "transformation"
+    "setName": "reframe"
   },
   {
     "id": "pair-jeans",
     "photo": "photos/before-3.jpg",
-    "after": null,
-    "headline": "The jeans do up again, and my diet did not change.",
-    "line": "When the cause is cortisol, eating less does not touch it.",
+    "headline": "It is not willpower. It is a hormone.",
+    "line": "Willpower was never the variable. The hormone deciding where fat is stored is.",
     "points": [
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
@@ -112,14 +109,13 @@
     ],
     "layout": "photo",
     "set": 2,
-    "setName": "transformation"
+    "setName": "reframe"
   },
   {
     "id": "pair-middle",
     "photo": "photos/before-4.jpg",
-    "after": null,
-    "headline": "Same arms. Same legs. Different middle.",
-    "line": "Weight round the middle with the rest of you unchanged is the cortisol pattern.",
+    "headline": "You cannot diet your way out of a cortisol problem.",
+    "line": "Cutting harder raises the hormone already putting it on your middle.",
     "points": [
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
       "Made for weight that sits around the middle and will not shift.",
@@ -127,13 +123,12 @@
     ],
     "layout": "photo",
     "set": 2,
-    "setName": "transformation"
+    "setName": "reframe"
   },
   {
     "id": "pair-face-neck",
     "photo": "photos/before-5.jpg",
-    "after": null,
-    "headline": "I thought this was my age. It came off anyway.",
+    "headline": "Everyone told me to try harder. Effort was not the problem.",
     "line": "Cortisol is the piece most diets never go anywhere near.",
     "points": [
       "KSM-66 ashwagandha at the dose the cortisol research actually used.",
@@ -142,7 +137,7 @@
     ],
     "layout": "photo",
     "set": 2,
-    "setName": "transformation"
+    "setName": "reframe"
   },
   {
     "id": "stats-flat-belly",

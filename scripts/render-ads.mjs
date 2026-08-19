@@ -68,14 +68,6 @@ const photoPage = (c) => `${head(1080, 1920)}
 <style>
   .shot { position: relative; height: 1180px; overflow: hidden; }
   .shot > img { width: 100%; height: 100%; object-fit: cover; object-position: center 28%; display: block; }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; height: 100%; }
-  .panel { position: relative; overflow: hidden; background: ${SUN_TINT}; }
-  .panel img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
-  .tag { position: absolute; top: 24px; left: 24px; z-index: 2; background: ${INK}; color: ${WHITE};
-    font-size: 24px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 8px 16px; border-radius: 8px; }
-  .slot { height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px;
-    text-align: center; font-size: 30px; font-weight: 700; line-height: 1.4; }
   /* The headline sits on the photo, so it needs a scrim to stay readable whatever the
      picture is doing behind it. */
   .scrim { position: absolute; inset: auto 0 0 0; height: 62%;
@@ -96,14 +88,7 @@ const photoPage = (c) => `${head(1080, 1920)}
   .tick svg { width: 26px; height: 26px; }
 </style>
   <div class="shot">
-    ${!("after" in c)
-      ? `<img src="${c.photo}">`
-      : `<div class="pair">
-           <div class="panel"><span class="tag">Before</span><img src="${c.photo}"></div>
-           <div class="panel"><span class="tag">After</span>${
-             c.after ? `<img src="${c.after}">` : `<div class="slot">A real customer&rsquo;s after photo goes here</div>`
-           }</div>
-         </div>`}
+    <img src="${c.photo}">
     <div class="scrim"></div>
     <div class="headline">${c.headline}</div>
   </div>
