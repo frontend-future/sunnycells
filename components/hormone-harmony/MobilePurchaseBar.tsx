@@ -30,8 +30,8 @@ export function MobilePurchaseBar() {
   return (
     <div className={`${styles.mobileBar} ${visible ? styles.mobileBarVisible : ""}`} aria-hidden={!visible}>
       <div>
-        <strong>From $39/month</strong>
-        <span>Free shipping</span>
+        <strong>From $10 first month</strong>
+        <span>Then $21 per month. Free shipping.</span>
       </div>
       <a href="#plans" tabIndex={visible ? 0 : -1}>Choose plan</a>
     </div>

@@ -12,7 +12,7 @@ const faqItems = [
   { title: "Is the formula plant based?", body: "Yes. The formula is plant based, and its phosphatidylserine comes from sunflower rather than soy." },
   { title: "Where is it produced?", body: "Metabolic Morning Blend is made in the USA in a facility that follows current Good Manufacturing Practice." },
   { title: "How does the subscription work?", body: "Your selected supply renews on its delivery schedule. Shipping is free, and you can skip or cancel anytime." },
-  { title: "What is the guarantee?", body: "Your order is covered by the SUNNYCELLS 30-day money-back guarantee." },
+  { title: "What is the return policy?", body: "Your order is covered by SUNNYCELLS 60-day returns." },
   { title: "Who should speak with a doctor first?", body: "The formula is for adults. If you are pregnant, breastfeeding, taking prescription medication, or managing a health condition, speak with your doctor before use." },
 ] as const;
 
@@ -21,13 +21,13 @@ export function CampaignFaq() {
     <>
       <section id="guarantee" className={`${styles.section} ${styles.guarantee}`} aria-labelledby="guarantee-title">
         <div className={styles.guaranteeSeal}>
-          <Image src="/badges/money-back.png" alt="30-day money-back guarantee" width={300} height={300} sizes="220px" />
+          <Image src="/badges/money-back.png" alt="60-day returns" width={300} height={300} sizes="220px" />
         </div>
         <div>
           <p className={styles.kicker}>Try it with less risk</p>
-          <h2 id="guarantee-title">Your first 30 days are covered.</h2>
-          <p>Your order is protected by the SUNNYCELLS 30-day money-back guarantee. Shipping is free, and subscriptions can be skipped or canceled anytime.</p>
-          <CampaignLink>Choose your supply</CampaignLink>
+          <h2 id="guarantee-title">Your first 60 days are covered.</h2>
+          <p>Your order is covered by SUNNYCELLS 60-day returns. Shipping is free, and subscriptions can be skipped or canceled anytime.</p>
+          <CampaignLink>CHOOSE YOUR SUPPLY</CampaignLink>
         </div>
       </section>
 

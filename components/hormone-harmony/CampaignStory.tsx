@@ -49,7 +49,7 @@ export function CampaignStory() {
       <section className={`${styles.section} ${styles.benefitStory}`} aria-labelledby="benefits-title">
         <div className={styles.benefitHeading}>
           <h2 id="benefits-title">Built around the day you actually have.</h2>
-          <p>The value is not another promise to transform your life overnight. It is a formula and format made easier to repeat.</p>
+          <p>The value is a formula and format made easier to repeat. No overnight promises required.</p>
         </div>
         <div className={styles.benefitRows}>
           <article>

@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icon } from "@/components/core/Icon";
 import { dietQuiz } from "@/lib/quiz/diet";
-import { perDayLabel, PLANS, type Plan } from "@/lib/quiz/plans";
+import { PLANS, type Plan } from "@/lib/quiz/plans";
+import { firstOrderPrice } from "@/lib/price";
 import { writeAnswer } from "@/lib/quiz/store";
 import styles from "./hormone-harmony.module.css";
 
@@ -15,7 +16,7 @@ function PlanChoice({ plan, selected, onSelect, featured = false }: {
   onSelect: (plan: Plan) => void;
   featured?: boolean;
 }) {
-  const total = plan.price * plan.months;
+  const firstPrice = firstOrderPrice(plan.price);
   const savings = (plan.compareAt - plan.price) * plan.months;
 
   return (
@@ -34,12 +35,12 @@ function PlanChoice({ plan, selected, onSelect, featured = false }: {
           {plan.flag ? <em>{plan.flag}</em> : null}
         </span>
         <span>{plan.sub}</span>
-        <small>Save ${savings} per delivery · {perDayLabel(plan.price)}</small>
+        <small>Save ${savings} per delivery. 50% off your first month.</small>
       </span>
       <span className={styles.planPrice}>
-        <strong>${plan.price}</strong>
-        <span>per month</span>
-        <small>${total} today</small>
+        <strong>${firstPrice}</strong>
+        <span>first month</span>
+        <small>Then ${plan.price} per month</small>
       </span>
     </label>
   );
@@ -83,15 +84,15 @@ export function OfferSection() {
           ))}
         </div>
         <button className={styles.offerButton} type="button" onClick={addToCart}>
-          Add {selected.label} to cart
+          ADD {selected.label.toUpperCase()} TO CART
         </button>
         <div className={styles.offerTerms}>
           <span><Icon name="truck" size={18} />Free shipping</span>
-          <span><Icon name="shield-check" size={18} />30-day guarantee</span>
+          <span><Icon name="shield-check" size={18} />60-day returns</span>
           <span><Icon name="repeat" size={18} />Skip or cancel anytime</span>
         </div>
         <p className={styles.subscriptionNote}>
-          Subscription renews every {selected.months} {selected.months === 1 ? "month" : "months"} at ${selected.price * selected.months}.
+          Subscription renews every {selected.months} {selected.months === 1 ? "month" : "months"} at ${selected.price} per month.
         </p>
         <p className={styles.secureNote}>Secure checkout. Your plan and total are reviewed again before payment.</p>
       </div>

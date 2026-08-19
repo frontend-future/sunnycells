@@ -24,7 +24,7 @@ const footerGroups = [
     title: "Support",
     links: [
       ["Frequently asked questions", "#faq"],
-      ["30-day guarantee", "#guarantee"],
+      ["60-day returns", "#guarantee"],
       ["Subscription details", "#plans"],
     ],
   },
