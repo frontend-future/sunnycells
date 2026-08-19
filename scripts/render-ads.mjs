@@ -123,22 +123,27 @@ const photoPage = (c) => `${head(1080, 1920)}
 
 const statsPage = (c) => `${head(1080, 1920)}
 <style>
-  body { background: ${SUN}; }
+  /* Ink, not sun: the pack is sun yellow, so a yellow field swallowed it. Black is
+     the strongest ground the system has for a yellow product. */
+  body { background: ${INK}; color: ${WHITE}; }
+  .mark { color: ${WHITE}; }
   .page { height: 1920px; padding: 96px 74px 0; display: flex; flex-direction: column; align-items: center;
     justify-content: center; }
   .headline { font-family: Outfit, sans-serif; font-weight: 900; font-size: 68px; line-height: 1.12;
     letter-spacing: -0.03em; text-transform: uppercase; text-align: center; text-wrap: balance; }
-  .headline em { font-style: normal; background: ${WHITE}; padding: 0 14px;
+  /* The knocked-out phrase carries the brand colour now the field is black, and
+     takes ink type on it, which is the only pairing allowed on sun. */
+  .headline em { font-style: normal; background: ${SUN}; color: ${INK}; padding: 0 14px;
     box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .pack { width: 560px; margin: 40px 0 28px; }
   .pack img { width: 100%; height: auto; display: block; }
   ul { list-style: none; display: flex; flex-direction: column; gap: 34px; width: 100%; }
   li { display: flex; gap: 22px; align-items: flex-start; font-size: 36px; line-height: 1.3; font-weight: 500; }
   b { font-weight: 800; }
-  .ico { flex: none; width: 56px; height: 56px; border-radius: 50%; background: ${INK}; color: ${SUN};
+  .ico { flex: none; width: 56px; height: 56px; border-radius: 50%; background: ${SUN}; color: ${INK};
     display: flex; align-items: center; justify-content: center; }
   .ico svg { width: 29px; height: 29px; }
-  .fine { position: absolute; inset: auto 74px 130px 74px; font-size: 23px; color: rgba(13,13,12,0.62); text-align: center; }
+  .fine { position: absolute; inset: auto 74px 130px 74px; font-size: 23px; color: rgba(255,255,255,0.6); text-align: center; }
 </style>
   <div class="page">
     <div class="headline">${c.headline}</div>
