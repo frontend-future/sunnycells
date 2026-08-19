@@ -17,7 +17,13 @@ const BONUS_ICON: Record<string, IconName> = Object.fromEntries(
   BONUSES.map((bonus) => [bonus.id, bonus.icon as IconName]),
 );
 
-export function CartScreen() {
+export function CartScreen({
+  plansHref = "/quiz/diet/results/plans#plans",
+  checkoutHref = "/quiz/diet/results/checkout",
+}: {
+  plansHref?: string;
+  checkoutHref?: string;
+}) {
   const router = useRouter();
   const { answers, ready } = useAnswers(dietQuiz.id);
   const plan = planById(answers.plan);
@@ -61,7 +67,7 @@ export function CartScreen() {
         }}
       >
         <Link
-          href="/quiz/diet/results/plans#plans"
+          href={plansHref}
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -263,7 +269,7 @@ export function CartScreen() {
             </div>
 
             <div style={{ marginTop: "var(--space-6)" }}>
-              <Button className="sc-cart-cta" size="lg" fullWidth variant="accent" iconRight="arrow-right" onClick={() => router.push("/quiz/diet/results/checkout")}>
+              <Button className="sc-cart-cta" size="lg" fullWidth variant="accent" iconRight="arrow-right" onClick={() => router.push(checkoutHref)}>
                 Continue to checkout
               </Button>
             </div>

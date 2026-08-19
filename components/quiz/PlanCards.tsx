@@ -9,7 +9,7 @@ import { PLANS, planBullets, type Plan } from "@/lib/quiz/plans";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { writeAnswer } from "@/lib/quiz/store";
 
-export function PlanCards() {
+export function PlanCards({ cartHref = "/quiz/diet/results/cart" }: { cartHref?: string }) {
   const router = useRouter();
   const [hover, setHover] = useState("");
 
@@ -17,7 +17,7 @@ export function PlanCards() {
     writeAnswer(dietQuiz.id, "plan", p.id);
     writeAnswer(dietQuiz.id, "planPrice", String(p.price));
     writeAnswer(dietQuiz.id, "planMonths", String(p.months));
-    router.push("/quiz/diet/results/cart");
+    router.push(cartHref);
   };
 
   return (

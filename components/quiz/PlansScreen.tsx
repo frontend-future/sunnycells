@@ -140,7 +140,7 @@ function Tick() {
   );
 }
 
-export function PlansScreen() {
+export function PlansScreen({ cartHref = "/quiz/diet/results/cart" }: { cartHref?: string }) {
   const { answers } = useAnswers(dietQuiz.id);
   const set = answers.gender === "Male" ? "male" : "female";
 
@@ -313,7 +313,7 @@ export function PlansScreen() {
           </span>
         </div>
 
-        <PlanCards />
+        <PlanCards cartHref={cartHref} />
         <div
           style={{
             display: "flex",
