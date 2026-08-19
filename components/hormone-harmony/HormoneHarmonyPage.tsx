@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Icon } from "@/components/core/Icon";
+import { firstOrderPrice } from "@/lib/price";
+import { PLANS } from "@/lib/quiz/plans";
 import { CampaignFaq } from "./CampaignFaq";
 import { CampaignFooter } from "./CampaignFooter";
 import { CampaignHeader } from "./CampaignHeader";
@@ -8,6 +10,7 @@ import { CampaignStory } from "./CampaignStory";
 import { IngredientJourney } from "./IngredientJourney";
 import { MobilePurchaseBar } from "./MobilePurchaseBar";
 import { OfferSection } from "./OfferSection";
+import { SunnycellsStandard } from "./SunnycellsStandard";
 import styles from "./hormone-harmony.module.css";
 
 const productFacts = [
@@ -23,6 +26,9 @@ const heroBenefits = [
   "One pouch lasts 30 mornings",
 ] as const;
 
+const lowestPlan = PLANS.reduce((lowest, plan) => plan.price < lowest.price ? plan : lowest);
+const lowestFirstPrice = firstOrderPrice(lowestPlan.price);
+
 export function HormoneHarmonyPage() {
   return (
     <main className={styles.page}>
@@ -31,17 +37,17 @@ export function HormoneHarmonyPage() {
       <section id="top" className={styles.hero} aria-labelledby="hero-title">
         <div className={styles.heroCopy}>
           <div className={styles.heroLead}>
-            <p className={styles.kicker}>Metabolic Morning Blend</p>
-            <h1 id="hero-title">YOUR MORNING HAS ENOUGH GOING ON.</h1>
-            <p className={styles.heroBody}>Eight label-listed ingredients in one orange, stimulant-free scoop. Mix with water or juice and get on with your morning.</p>
+            <p className={styles.kicker}>Daily metabolic wellness</p>
+            <h1 id="hero-title">FEEL MORE LIKE YOURSELF BEFORE THE DAY GETS GOING.</h1>
+            <p className={styles.heroBody}>Eight label-listed ingredients, including paired inositols, KSM-66 Ashwagandha, L-Theanine, and Rhodiola. One orange scoop. No stimulants.</p>
           </div>
           <div className={styles.heroDetails}>
             <ul className={styles.heroBenefits}>
               {heroBenefits.map((benefit) => <li key={benefit}><Icon name="check" size={20} />{benefit}</li>)}
             </ul>
             <div className={styles.heroAction}>
-              <CampaignLink>CHOOSE YOUR SUPPLY</CampaignLink>
-              <p>50% off your first order. From $10 first month, then $21 per month. Free shipping, 60-day returns, skip or cancel anytime.</p>
+              <CampaignLink>START YOUR MORNING ROUTINE</CampaignLink>
+              <p>50% off your first order. From ${lowestFirstPrice} first month, then ${lowestPlan.price} per month. Free shipping, 60-day returns, skip or cancel anytime.</p>
             </div>
           </div>
         </div>
@@ -66,6 +72,7 @@ export function HormoneHarmonyPage() {
 
       <CampaignStory />
       <IngredientJourney />
+      <SunnycellsStandard />
       <OfferSection />
       <CampaignFaq />
 
@@ -79,7 +86,7 @@ export function HormoneHarmonyPage() {
           <h2 id="final-title">Start with one scoop.</h2>
           <p>A bright orange blend for the morning you already have. Eight label-listed ingredients, no stimulants, and one measured scoop.</p>
           <CampaignLink>CHOOSE YOUR SUPPLY</CampaignLink>
-          <p className={styles.finalReassurance}>50% off your first order. From $10 first month, then $21 per month, with free shipping and 60-day returns.</p>
+          <p className={styles.finalReassurance}>50% off your first order. From ${lowestFirstPrice} first month, then ${lowestPlan.price} per month, with free shipping and 60-day returns.</p>
         </div>
       </section>
 

@@ -16,6 +16,11 @@ function PlanChoice({ plan, selected, onSelect, featured = false }: {
   onSelect: (plan: Plan) => void;
   featured?: boolean;
 }) {
+  const supplyCopy: Record<number, string> = {
+    1: "A simple way to try the morning ritual",
+    3: "Enough time to make the routine familiar",
+    6: "The lowest monthly price for a longer supply",
+  };
   const firstPrice = firstOrderPrice(plan.price);
   const savings = (plan.compareAt - plan.price) * plan.months;
 
@@ -34,7 +39,7 @@ function PlanChoice({ plan, selected, onSelect, featured = false }: {
           <strong>{plan.label}</strong>
           {plan.flag ? <em>{plan.flag}</em> : null}
         </span>
-        <span>{plan.sub}</span>
+        <span>{supplyCopy[plan.months] ?? plan.sub}</span>
         <small>Save ${savings} per delivery. 50% off your first month.</small>
       </span>
       <span className={styles.planPrice}>
