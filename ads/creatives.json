@@ -1,56 +1,116 @@
 [
   {
-    "id": "cortisol-storing-fat",
-    "photo": "photos/ad-1.jpg",
-    "headline": "No one told me cortisol was deciding where my body stored fat.",
-    "quote": "I found the blend that finally moved it.",
+    "id": "where-the-weight-goes",
+    "photo": "photos/before-1.jpg",
+    "headline": "No one told me cortisol puts the weight on your face first.",
+    "line": "Cortisol decides where the weight goes, not just how much of it there is.",
     "points": [
-      "Ashwagandha, rhodiola and L-theanine at the doses used in published trials.",
-      "30 day money back guarantee, so there is no risk.",
-      "No stimulants and no sugar. One scoop, sixty seconds."
+      "Ashwagandha, rhodiola and L-theanine at the doses used in the cortisol trials.",
+      "Made for weight that sits around the middle and the face and will not shift.",
+      "30 day money back guarantee, so there is no risk."
     ]
   },
   {
-    "id": "doing-everything-right",
-    "photo": "photos/ad-2.jpg",
-    "headline": "I was doing everything right. My cortisol was not.",
-    "quote": "One scoop in the morning was the piece I was missing.",
+    "id": "told-my-body-to-store-it",
+    "photo": "photos/before-2.jpg",
+    "headline": "It was not what I ate. It was cortisol telling my body to store it.",
+    "line": "High cortisol moves fat to your middle and keeps it there.",
     "points": [
       "Eight ingredients with the milligrams printed on the front of the pack.",
-      "30 day money back guarantee, so there is no risk.",
-      "Skip, change or cancel from your account, with no call."
-    ]
-  },
-  {
-    "id": "sleep-was-the-reason",
-    "photo": "photos/ad-3.jpg",
-    "headline": "The scale would not move. My sleep was the reason.",
-    "quote": "I sleep through now, and the rest followed.",
-    "points": [
-      "L-theanine and magnesium, the two the sleep research actually uses.",
-      "No caffeine, so it does not push cortisol back up.",
+      "Inositol and chromium for the appetite and blood sugar side of it.",
       "30 day money back guarantee, so there is no risk."
     ]
   },
   {
-    "id": "not-a-willpower-problem",
-    "photo": "photos/ad-4.jpg",
-    "headline": "I stopped blaming my willpower and looked at my cortisol.",
-    "quote": "It was never a discipline problem.",
+    "id": "same-diet-same-training",
+    "photo": "photos/before-3.jpg",
+    "headline": "Same diet. Same training. The jeans stopped doing up.",
+    "line": "When the cause is cortisol, eating less does not touch it.",
     "points": [
-      "Made for the pattern: broken sleep, afternoon crashes, weight round the middle.",
-      "Plant based, no GMO, no gluten, no sugar.",
+      "KSM-66 ashwagandha at the dose the cortisol research actually used.",
+      "No stimulants, so nothing in it pushes your cortisol back up.",
       "30 day money back guarantee, so there is no risk."
     ]
   },
   {
-    "id": "sixty-one-and-stuck",
-    "photo": "photos/ad-5.jpg",
-    "headline": "Sixty one, exhausted, and stuck. It was not my diet.",
-    "quote": "Three weeks in and the afternoon crash is gone.",
+    "id": "everything-on-my-middle",
+    "photo": "photos/before-4.jpg",
+    "headline": "Slim arms. Slim legs. Everything landing on my middle.",
+    "line": "Weight round the middle with the rest of you unchanged is the cortisol pattern.",
     "points": [
-      "KSM-66 ashwagandha at the dose the cortisol trials used.",
+      "Built for that pattern rather than for cutting calories harder.",
+      "Plant based, no sugar, no gluten, no GMO.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "i-thought-it-was-age",
+    "photo": "photos/before-5.jpg",
+    "headline": "I thought this was just my age. It was my cortisol.",
+    "line": "Cortisol is the piece most diets never go anywhere near.",
+    "points": [
       "One scoop in water each morning. That is the whole routine.",
+      "Doses on the front of the pack, not hidden inside a blend.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "pair-face-puffiness",
+    "photo": "photos/before-1.jpg",
+    "after": null,
+    "headline": "The puffiness went when the cortisol did.",
+    "line": "Cortisol holds fluid in your face and your middle. Bring it down and both change.",
+    "points": [
+      "KSM-66 ashwagandha at the dose the cortisol research actually used.",
+      "Made for weight that sits around the middle and will not shift.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "pair-belly-bloat",
+    "photo": "photos/before-2.jpg",
+    "after": null,
+    "headline": "Twelve weeks of getting my cortisol under control.",
+    "line": "High cortisol moves fat to your middle and keeps it there.",
+    "points": [
+      "KSM-66 ashwagandha at the dose the cortisol research actually used.",
+      "Made for weight that sits around the middle and will not shift.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "pair-jeans",
+    "photo": "photos/before-3.jpg",
+    "after": null,
+    "headline": "The jeans do up again, and my diet did not change.",
+    "line": "When the cause is cortisol, eating less does not touch it.",
+    "points": [
+      "KSM-66 ashwagandha at the dose the cortisol research actually used.",
+      "Made for weight that sits around the middle and will not shift.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "pair-middle",
+    "photo": "photos/before-4.jpg",
+    "after": null,
+    "headline": "Same arms. Same legs. Different middle.",
+    "line": "Weight round the middle with the rest of you unchanged is the cortisol pattern.",
+    "points": [
+      "KSM-66 ashwagandha at the dose the cortisol research actually used.",
+      "Made for weight that sits around the middle and will not shift.",
+      "30 day money back guarantee, so there is no risk."
+    ]
+  },
+  {
+    "id": "pair-face-neck",
+    "photo": "photos/before-5.jpg",
+    "after": null,
+    "headline": "I thought this was my age. It came off anyway.",
+    "line": "Cortisol is the piece most diets never go anywhere near.",
+    "points": [
+      "KSM-66 ashwagandha at the dose the cortisol research actually used.",
+      "Made for weight that sits around the middle and will not shift.",
       "30 day money back guarantee, so there is no risk."
     ]
   }

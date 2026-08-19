@@ -21,6 +21,7 @@ const tokens = readFileSync(join(ROOT, "app", "tokens", "colors.css"), "utf8");
 const token = (name) => tokens.match(new RegExp(`--${name}:\\s*(#[0-9A-Fa-f]{6})`))[1];
 const INK = token("ink");
 const SUN = token("sun");
+const SUN_TINT = token("sun-tint");
 const WHITE = "#FFFFFF";
 
 const page = (c) => `
@@ -32,6 +33,15 @@ const page = (c) => `
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { width: 1080px; height: 1920px; background: ${WHITE}; font-family: Figtree, sans-serif; color: ${INK}; }
   .shot { position: relative; height: 1180px; overflow: hidden; }
+  /* Pair format: two panels under one headline, each labelled. */
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; height: 100%; }
+  .panel { position: relative; overflow: hidden; background: ${SUN_TINT}; }
+  .panel img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+  .tag { position: absolute; top: 24px; left: 24px; background: ${INK}; color: ${WHITE};
+    font-size: 24px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 8px 16px; border-radius: 8px; z-index: 2; }
+  .slot { height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px;
+    text-align: center; font-size: 30px; font-weight: 700; line-height: 1.4; color: ${INK}; }
   .shot img { width: 100%; height: 100%; object-fit: cover; object-position: center 28%; display: block; }
   /* The headline sits on the photo, so it needs a scrim under it to stay readable
      whatever the picture is doing behind. */
@@ -41,8 +51,8 @@ const page = (c) => `
     font-family: Outfit, sans-serif; font-weight: 900; font-size: 72px; line-height: 1.02;
     letter-spacing: -0.03em; text-transform: uppercase; text-wrap: balance; }
   .body { padding: 60px 56px 0; }
-  .quote { font-size: 42px; font-weight: 800; line-height: 1.25; text-align: center; text-wrap: balance; }
-  .quote span { background: ${SUN}; padding: 0 10px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .line { font-size: 42px; font-weight: 800; line-height: 1.25; text-align: center; text-wrap: balance; }
+  .line span { background: ${SUN}; padding: 0 10px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .row { display: flex; gap: 40px; align-items: center; margin-top: 60px; }
   .pack { flex: none; width: 380px; }
   .pack img { width: 100%; height: auto; display: block; }
@@ -56,12 +66,23 @@ const page = (c) => `
     text-transform: uppercase; }
 </style></head><body>
   <div class="shot">
-    <img src="${c.photo}">
+    ${!("after" in c)
+      ? `<img src="${c.photo}">`
+      : `<div class="pair">
+           <div class="panel"><span class="tag">Before</span><img src="${c.photo}"></div>
+           <div class="panel"><span class="tag">After</span>${
+             c.after
+               ? `<img src="${c.after}">`
+               : `<div class="slot">A real customer&rsquo;s after photo goes here</div>`
+           }</div>
+         </div>`}
     <div class="scrim"></div>
     <div class="headline">${c.headline}</div>
   </div>
   <div class="body">
-    <div class="quote"><span>&ldquo;${c.quote}&rdquo;</span></div>
+    <!-- A statement about the mechanism rather than a quoted customer: nobody has
+         said this, so it is not set in quote marks as though somebody had. -->
+    <div class="line"><span>${c.line}</span></div>
     <div class="row">
       <div class="pack"><img src="../public/product/metabolic-morning-blend.png"></div>
       <ul>${c.points.map((p) => `

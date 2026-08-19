@@ -13,7 +13,10 @@ node scripts/payment-check.mjs  # the payment step: brand detection, spinner, fa
 separate: run `npx playwright install chromium` once.
 
 `node scripts/render-ads.mjs [outDir]` renders the ad creatives in `ads/` to
-1080x1920 PNGs. Copy lives in `ads/creatives.json` and photos in `ads/photos`, so a
+1080x1920 PNGs. An entry with an `after` key renders as a labelled before and after
+pair; without one it renders as a single photo. Setting `after` to null leaves the
+panel as a marked slot, which is how the pair creatives ship: the before photos show
+the problem, and the after panel waits for a real customer. Copy lives in `ads/creatives.json` and photos in `ads/photos`, so a
 new variation is a JSON entry and an image rather than a code change. Colours and
 type come from the design tokens, so a token change carries into the ads.
 
