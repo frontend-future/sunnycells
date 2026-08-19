@@ -8,7 +8,8 @@ import { Badge } from "@/components/core/Badge";
 import { Icon } from "@/components/core/Icon";
 import { PLANS, planBullets, type Plan } from "@/lib/quiz/plans";
 import { dietQuiz } from "@/lib/quiz/diet";
-import { writeAnswer } from "@/lib/quiz/store";
+import { readAnswers, writeAnswer } from "@/lib/quiz/store";
+import { trackMetaEvent } from "@/lib/meta";
 
 export function PlanCards({
   destinationHref = "/quiz/diet/results/checkout",
@@ -26,6 +27,15 @@ export function PlanCards({
     writeAnswer(dietQuiz.id, "plan", p.id);
     writeAnswer(dietQuiz.id, "planPrice", String(p.price));
     writeAnswer(dietQuiz.id, "planMonths", String(p.months));
+    trackMetaEvent("InitiateCheckout", {
+      currency: "USD",
+      value: p.price * p.months,
+      content_ids: [p.id],
+      content_type: "product",
+      content_name: p.label,
+      /* The quiz captured an email several steps back. Passing it here is what
+         lets Meta match this event to a person rather than a cookie. */
+    }, { email: readAnswers(dietQuiz.id).email });
     router.push(destinationHref);
   };
 

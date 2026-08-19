@@ -36,3 +36,21 @@ The plans page is the exception to the rule, deliberately: it is a long-scroll
 sales page, so what is checked there is its hero button, which scrolls down to the
 plan cards. The Try now buttons themselves sit thousands of pixels down and are
 not expected above the fold.
+
+## meta-check.mjs
+
+Proves the Meta wiring without contacting Meta: the pixel script is blocked and
+`fbq` is stubbed, so the run records what the app asks the pixel to do and what it
+posts to the Conversions API. Needs a build started with a stub id, because
+`trackMetaEvent` is a no-op when the pixel is unset:
+
+```
+NEXT_PUBLIC_META_PIXEL_ID=000000000000000 npm run build
+NEXT_PUBLIC_META_PIXEL_ID=000000000000000 npx next start -p 3100
+node scripts/meta-check.mjs
+```
+
+It guards the things that are silently wrong rather than loudly broken: PageView
+following client-side routing, one event id across both sides so Meta dedupes,
+the match set on AddPaymentInfo, no Purchase ever reported, and no card detail in
+either payload.

@@ -8,6 +8,7 @@ import { Badge } from "@/components/core/Badge";
 import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
+import { trackMetaEvent } from "@/lib/meta";
 import { buildAnswersPayload, nextHref, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
@@ -355,6 +356,7 @@ function EmailBody({
     }
     set("email", trimmed);
     notifyLead(config, { ...answers, email: trimmed }, trimmed);
+    trackMetaEvent("Lead", { content_name: config.id }, { email: trimmed });
     go();
   };
 

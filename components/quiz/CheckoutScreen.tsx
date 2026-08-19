@@ -11,6 +11,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
 import { BONUSES, buildOrder, US_STATES } from "@/lib/quiz/order";
+import { trackMetaEvent } from "@/lib/meta";
 import { planById } from "@/lib/quiz/plans";
 import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { CardForm } from "./CardForm";
@@ -108,6 +109,20 @@ export function CheckoutScreen({
       zip: f.zip ?? "",
       phone: f.phone ?? "",
     });
+    trackMetaEvent(
+      "AddPaymentInfo",
+      { currency: "USD", value: order.total, content_ids: [plan.id], content_type: "product", content_name: plan.label },
+      {
+        email: (f.email ?? answers.email ?? "").trim(),
+        phone: f.phone ?? "",
+        firstName: f.firstName ?? "",
+        lastName: f.lastName ?? "",
+        city: f.city ?? "",
+        state: f.state ?? "",
+        zip: f.zip ?? "",
+        country: "US",
+      },
+    );
     setPhase("payment");
   };
 
