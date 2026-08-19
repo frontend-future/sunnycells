@@ -16,7 +16,7 @@
  *                        pair; null leaves the after panel as a marked slot.
  *   stats     1080x1920  a flat colour field, headline, pack, then figures.
  *   timeline  1080x1080  a day by day routine beside the pack, with ingredients.
-   deal      1080x1920  headline bar, panels, struck price against the offer price.
+   deal      1080x1920  headline bar, the problem-state photo, what is included, the pack.
  */
 import { chromium } from "playwright";
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
@@ -215,51 +215,31 @@ const timelinePage = (c) => `${head(1080, 1080)}
 
 const dealPage = (c) => `${head(1080, 1920)}
 <style>
-  body { background: ${SUN_TINT}; }
-  .bar { background: ${INK}; color: ${WHITE}; padding: 44px 56px; text-align: center;
+  /* A one- or two-line headline changes the height of everything under it, so the
+     column absorbs the slack in the pack rather than letting it run under the mark. */
+  body { background: ${SUN_TINT}; display: flex; flex-direction: column; padding-bottom: 190px; }
+  .bar { flex: none; background: ${INK}; color: ${WHITE}; padding: 44px 56px; text-align: center;
     font-family: Outfit, sans-serif; font-weight: 900; font-size: 82px; line-height: 1.02;
     letter-spacing: -0.04em; text-transform: uppercase; text-wrap: balance; }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 46px 56px 0; }
-  .panel { position: relative; height: 520px; border-radius: 20px; overflow: hidden; background: ${WHITE}; }
-  .panel img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
-  .tag { position: absolute; top: 18px; left: 18px; z-index: 2; background: ${INK}; color: ${WHITE};
-    font-size: 22px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 7px 14px; border-radius: 8px; }
-  .slot { height: 100%; display: flex; align-items: center; justify-content: center; padding: 36px;
-    text-align: center; font-size: 28px; font-weight: 700; line-height: 1.4; }
-  .offer { display: flex; align-items: center; gap: 30px; padding: 56px 56px 0; }
-  .disc { flex: none; width: 240px; height: 240px; border-radius: 50%; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center; line-height: 1; }
-  .was { background: ${SUN}; border: 4px solid ${INK}; }
-  .was .k { font-size: 26px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-  .was .v { font-family: Outfit, sans-serif; font-weight: 900; font-size: 64px; margin-top: 8px;
-    text-decoration: line-through; }
-  .now { background: ${INK}; color: ${WHITE}; }
-  .now .k { font-size: 26px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-  .now .v { font-family: Outfit, sans-serif; font-weight: 900; font-size: 78px; margin-top: 6px; }
-  .extras { display: flex; flex-direction: column; gap: 20px; }
-  .extras div { display: flex; gap: 16px; align-items: center; font-size: 32px; font-weight: 700; }
-  .extras .tick { flex: none; width: 46px; height: 46px; border-radius: 50%; background: ${INK}; color: ${SUN};
+  /* One photo, not a pair. The problem state is the whole point of the frame, and
+     an empty second panel waiting on a customer release only advertised the gap. */
+  .shot { flex: 1 1 auto; min-height: 0; padding: 46px 56px 0; }
+  .panel { position: relative; height: 100%; border-radius: 20px; overflow: hidden; background: ${WHITE}; }
+  .panel img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; display: block; }
+  .extras { flex: none; display: flex; flex-direction: column; gap: 22px; padding: 44px 56px 0; }
+  .extras div { display: flex; gap: 18px; align-items: center; font-size: 36px; font-weight: 700; }
+  .extras .tick { flex: none; width: 50px; height: 50px; border-radius: 50%; background: ${INK}; color: ${SUN};
     display: flex; align-items: center; justify-content: center; }
-  .extras .tick svg { width: 26px; height: 26px; }
-  .pack { width: 560px; margin: 10px auto 0; }
+  .extras .tick svg { width: 28px; height: 28px; }
+  .pack { flex: none; width: 600px; margin: 4px auto 0; }
   .pack img { width: 100%; height: auto; display: block; }
-  .fine { position: absolute; inset: auto 56px 130px 56px; font-size: 22px;
+  .fine { position: absolute; inset: auto 56px 126px 56px; font-size: 22px;
     color: rgba(13,13,12,0.6); text-align: center; }
 </style>
   <div class="bar">${c.headline}</div>
-  <div class="pair">
-    <div class="panel"><span class="tag">Before</span><img src="${c.photo}"></div>
-    <div class="panel"><span class="tag">After</span>${
-      c.after ? `<img src="${c.after}">` : `<div class="slot">A real customer&rsquo;s after photo goes here</div>`
-    }</div>
-  </div>
-  <div class="offer">
-    <div class="disc was"><span class="k">Price</span><span class="v">$${c.was}</span></div>
-    <div class="disc now"><span class="k">Deal</span><span class="v">$${c.now}</span></div>
-    <div class="extras">
-      ${c.extras.map((e) => `<div><span class="tick">${icon("check", 3.5)}</span>${e}</div>`).join("")}
-    </div>
+  <div class="shot"><div class="panel"><img src="${c.photo}"></div></div>
+  <div class="extras">
+    ${c.extras.map((e) => `<div><span class="tick">${icon("check", 3.5)}</span>${e}</div>`).join("")}
   </div>
   <div class="pack"><img src="${PACK}"></div>
   <div class="fine">${c.fine}</div>

@@ -279,7 +279,7 @@
     "layout": "timeline",
     "title": "Cortisol detox",
     "strap": "28 day routine for <b>weight loss</b>",
-    "flash": "Up to 60% off",
+    "flash": "Up to 70% off",
     "flashSub": "and free shipping",
     "days": [
       {
@@ -323,7 +323,7 @@
     "layout": "timeline",
     "title": "Cortisol reset",
     "strap": "28 days for <b>the belly</b>",
-    "flash": "Up to 60% off",
+    "flash": "Up to 70% off",
     "flashSub": "and free shipping",
     "days": [
       {
@@ -365,9 +365,9 @@
   {
     "id": "timeline-28-day",
     "layout": "timeline",
-    "title": "The 28 day blend",
-    "strap": "Week by week, <b>what to expect</b>",
-    "flash": "Up to 60% off",
+    "title": "The cortisol plan",
+    "strap": "28 days, week by week, <b>what to expect</b>",
+    "flash": "Up to 70% off",
     "flashSub": "and free shipping",
     "days": [
       {
@@ -409,9 +409,9 @@
   {
     "id": "timeline-one-scoop",
     "layout": "timeline",
-    "title": "28 days, one scoop",
-    "strap": "A morning routine for <b>weight loss</b>",
-    "flash": "Up to 60% off",
+    "title": "Cortisol challenge",
+    "strap": "One scoop, <b>28 mornings</b>",
+    "flash": "Up to 70% off",
     "flashSub": "and free shipping",
     "days": [
       {
@@ -453,9 +453,9 @@
   {
     "id": "timeline-on-the-blend",
     "layout": "timeline",
-    "title": "28 days on the blend",
-    "strap": "What changes, and <b>when</b>",
-    "flash": "Up to 60% off",
+    "title": "Cortisol reboot",
+    "strap": "28 days on the blend, <b>what changes and when</b>",
+    "flash": "Up to 70% off",
     "flashSub": "and free shipping",
     "days": [
       {
@@ -499,15 +499,12 @@
     "layout": "deal",
     "headline": "Cortisol detox",
     "photo": "photos/before-2.jpg",
-    "after": null,
-    "was": 119,
-    "now": 39,
     "extras": [
       "Free scoop in every pouch",
       "Free shipping, always",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "fine": "Results vary from person to person.",
     "set": 5,
     "setName": "offer"
   },
@@ -516,15 +513,12 @@
     "layout": "deal",
     "headline": "The cortisol reset",
     "photo": "photos/before-3.jpg",
-    "after": null,
-    "was": 119,
-    "now": 54,
     "extras": [
       "Free scoop in every pouch",
       "Free shipping, always",
       "Cancel in two clicks"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "fine": "Results vary from person to person.",
     "set": 5,
     "setName": "offer"
   },
@@ -533,15 +527,12 @@
     "layout": "deal",
     "headline": "28 day cortisol challenge",
     "photo": "photos/before-4.jpg",
-    "after": null,
-    "was": 119,
-    "now": 39,
     "extras": [
       "Doses printed on the pack",
       "Free shipping, always",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "fine": "Results vary from person to person.",
     "set": 5,
     "setName": "offer"
   },
@@ -550,15 +541,12 @@
     "layout": "deal",
     "headline": "The cortisol routine",
     "photo": "photos/before-1.jpg",
-    "after": null,
-    "was": 119,
-    "now": 54,
     "extras": [
       "Free scoop in every pouch",
       "No stimulants, no sugar",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "fine": "Results vary from person to person.",
     "set": 5,
     "setName": "offer"
   },
@@ -567,15 +555,12 @@
     "layout": "deal",
     "headline": "The cortisol belly plan",
     "photo": "photos/before-5.jpg",
-    "after": null,
-    "was": 119,
-    "now": 39,
     "extras": [
       "Free scoop in every pouch",
       "Free shipping, always",
       "30 day money back"
     ],
-    "fine": "Price is per month on a subscription. Results vary from person to person.",
+    "fine": "Results vary from person to person.",
     "set": 5,
     "setName": "offer"
   }
