@@ -97,6 +97,13 @@ export function PlanCards({
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
                 ${p.compareAt}
               </span>
+              {/* Only where more than one pouch arrives. On the single pouch card the
+                  price is plainly the whole thing, and a unit there reads as though
+                  there were more to buy. "pouch" is the word the bullets and the ads
+                  already use for the pack. */}
+              {p.months > 1 && (
+                <span style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)" }}>per pouch</span>
+              )}
             </div>
             {/* The standing first-order term, stated on the card rather than left to
                 be inferred from the struck price. */}
