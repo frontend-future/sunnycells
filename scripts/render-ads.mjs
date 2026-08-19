@@ -19,7 +19,8 @@
    deal      1080x1920  headline bar, the problem-state photo, what is included, the pack.
  */
 import { chromium } from "playwright";
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, cpSync } from "node:fs";
+import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -257,6 +258,21 @@ for (const c of creatives) {
 rmSync(scratch, { force: true });
 await browser.close();
 
+/* ads/out is gitignored working output. The creatives are picked up from a folder
+   outside the repo, so mirror there on every render rather than leaving it to a
+   copy by hand, which is how a renamed set went missing once already. Stale set
+   folders are cleared so a rename cannot leave both names sitting side by side. */
+const EXPORT = process.env.ADS_EXPORT_DIR ?? join(homedir(), "Downloads", "sunnycells-ads");
+const wanted = new Set(creatives.map((c) => `adset-${c.set}-${c.setName}`));
+mkdirSync(EXPORT, { recursive: true });
+for (const entry of readdirSync(EXPORT, { withFileTypes: true })) {
+  if (entry.isDirectory() && entry.name.startsWith("adset-") && !wanted.has(entry.name)) {
+    rmSync(join(EXPORT, entry.name), { recursive: true, force: true });
+    console.log(`removed stale ${entry.name}`);
+  }
+}
+cpSync(OUT, EXPORT, { recursive: true });
+
 const bySet = new Map();
 for (const c of creatives) bySet.set(c.set, (bySet.get(c.set) ?? 0) + 1);
 console.log("");
@@ -264,3 +280,4 @@ for (const [n, count] of [...bySet].sort((a, b) => a[0] - b[0])) {
   const name = creatives.find((c) => c.set === n).setName;
   console.log(`adset-${n}-${name}: ${count} creatives`);
 }
+console.log(`\nexported to ${EXPORT}`);
