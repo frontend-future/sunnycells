@@ -52,5 +52,5 @@ node scripts/meta-check.mjs
 
 It guards the things that are silently wrong rather than loudly broken: PageView
 following client-side routing, one event id across both sides so Meta dedupes,
-the match set on AddPaymentInfo, no Purchase ever reported, and no card detail in
+the match set on AddPaymentInfo, Purchase carrying a currency and value, and no card detail in
 either payload.

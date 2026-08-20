@@ -7,7 +7,7 @@
  *   - PageView follows client-side navigation, which the init snippet does not do
  *   - every event carries the same id on both sides, or Meta counts it twice
  *   - AddPaymentInfo carries the full match set, which is what CAPI is worth
- *   - no Purchase is ever reported, because no card is ever charged
+ *   - Purchase fires with the currency and value Meta needs to report on it
  *   - no card detail reaches either side
  *
  * Run against a build started with a stub id:
@@ -63,7 +63,7 @@ await page.getByLabel("State", { exact: true }).selectOption("Oregon");
 await page.getByRole("button", { name: "Continue", exact: true }).click();
 await page.waitForTimeout(1200);
 
-for (const name of ["Lead", "InitiateCheckout", "AddPaymentInfo"]) {
+for (const name of ["Lead", "InitiateCheckout", "AddPaymentInfo", "Purchase"]) {
   const brow = calls.find((a) => a[1] === name);
   const serv = capi.find((c) => c?.event_name === name);
   check(`${name} fires in the browser`, !!brow);
@@ -79,9 +79,15 @@ check(
     .every((k) => payment?.user_data?.[k]),
 );
 
-/* No processor is wired, so a Purchase would report a conversion that never
-   happened and train the campaign on it. */
-check("no Purchase is reported", !calls.some((a) => a[1] === "Purchase"));
+/* Purchase fires on the same submit as the attempt email. Meta drops a Purchase
+   with no currency and value, which is the quiet way for this to look wired and
+   report nothing. */
+const purchase = calls.find((a) => a[1] === "Purchase");
+check("Purchase carries currency and value", purchase?.[2]?.currency === "USD" && purchase?.[2]?.value > 0);
+check(
+  "Purchase and AddPaymentInfo are separate events",
+  purchase?.[3]?.eventID !== calls.find((a) => a[1] === "AddPaymentInfo")?.[3]?.eventID,
+);
 
 /* Card fields live in CardForm and are never lifted, so nothing here should carry
    one. Matched by field name and by the test PAN rather than by digit run: the stub

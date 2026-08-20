@@ -109,20 +109,33 @@ export function CheckoutScreen({
       zip: f.zip ?? "",
       phone: f.phone ?? "",
     });
-    trackMetaEvent(
-      "AddPaymentInfo",
-      { currency: "USD", value: order.total, content_ids: [plan.id], content_type: "product", content_name: plan.label },
-      {
-        email: (f.email ?? answers.email ?? "").trim(),
-        phone: f.phone ?? "",
-        firstName: f.firstName ?? "",
-        lastName: f.lastName ?? "",
-        city: f.city ?? "",
-        state: f.state ?? "",
-        zip: f.zip ?? "",
-        country: "US",
-      },
-    );
+    /* Both events fire here, on the same submit that sends the attempt email.
+       AddPaymentInfo is the literal truth about what happened. Purchase is
+       reported at the same moment by decision, so the campaign optimises on the
+       deepest signal this funnel produces.
+
+       Worth knowing what that means: no card is charged, so the value on the
+       Purchase is money that was not collected, and ROAS in the dashboard counts
+       intent rather than revenue. */
+    const identity = {
+      email: (f.email ?? answers.email ?? "").trim(),
+      phone: f.phone ?? "",
+      firstName: f.firstName ?? "",
+      lastName: f.lastName ?? "",
+      city: f.city ?? "",
+      state: f.state ?? "",
+      zip: f.zip ?? "",
+      country: "US",
+    };
+    const basket = {
+      currency: "USD",
+      value: order.total,
+      content_ids: [plan.id],
+      content_type: "product",
+      content_name: plan.label,
+    };
+    trackMetaEvent("AddPaymentInfo", basket, identity);
+    trackMetaEvent("Purchase", basket, identity);
     setPhase("payment");
   };
 
