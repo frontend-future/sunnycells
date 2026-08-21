@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { HormoneCartPage } from "@/components/hormone-harmony/HormoneCartPage";
+import { ClonePage } from "@/components/hormone-harmony-clone/ClonePage";
 
 export const metadata: Metadata = {
-  title: "Your cart | SUNNYCELLS",
+  title: "Your Cart | Hormone Harmony",
+  description: "Review your Hormone Harmony package before checkout.",
   robots: { index: false, follow: false },
 };
 
 export default function HormoneHarmonyCartPage() {
-  return <HormoneCartPage />;
+  return <ClonePage page="cart" />;
 }

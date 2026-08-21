@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { HormoneHarmonyPage } from "@/components/hormone-harmony/HormoneHarmonyPage";
+import { ClonePage } from "@/components/hormone-harmony-clone/ClonePage";
 
 export const metadata: Metadata = {
   title: "Metabolic Morning Blend for a Simpler Morning | SUNNYCELLS",
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function HormoneHarmonyRoute() {
-  return <HormoneHarmonyPage />;
+  return <ClonePage page="index" />;
 }
