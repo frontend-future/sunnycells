@@ -213,7 +213,11 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-button);
   font-weight: var(--weight-bold);
 }
-.icon-link { font-size: 24px; }
+.currency-link { display: inline-flex; align-items: center; gap: 3px; min-height: 48px; }
+.currency-chevron { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
+.icon-link { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-button); }
+.icon-link svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-link:hover { background: var(--ink-10); text-decoration: none !important; }
 .menu-btn {
   display: none;
   min-width: var(--tap-min);
@@ -627,8 +631,8 @@ h1, h2, h3, h4 {
 .store-nav { width: min(var(--page-max), calc(100% - 96px)); height: 84px; margin: auto; display: flex; align-items: center; justify-content: space-between; }
 .store-brand { display: flex; align-items: center; gap: 13px; color: var(--ink); font-family: var(--font-display); font-size: var(--size-body-lg); font-weight: var(--weight-max); letter-spacing: -0.02em; }
 .store-nav-links { display: flex; align-items: center; gap: 20px; font-size: var(--size-body); }
-.cart-link { min-height: 48px; display: inline-flex; align-items: center; gap: 8px; padding: 0 14px; background: var(--sun); color: var(--ink); border: 1px solid var(--ink); border-radius: var(--radius-button); font-weight: var(--weight-bold); }
-.cart-count { min-width: 24px; height: 24px; padding: 0 6px; display: inline-grid; place-items: center; background: var(--ink); color: var(--white); border-radius: var(--radius-pill); font-size: var(--size-meta); font-weight: var(--weight-bold); }
+.cart-link { min-height: 52px; display: inline-flex; align-items: center; gap: 10px; padding: 0 16px; background: var(--sun); color: var(--ink); border: 1px solid var(--ink); border-radius: var(--radius-button); font-weight: var(--weight-bold); }
+.cart-count { min-width: 28px; height: 28px; padding: 0 7px; display: inline-grid; place-items: center; background: var(--ink); color: var(--white); border-radius: var(--radius-pill); font-size: 17px; font-weight: var(--weight-bold); line-height: 1; }
 .store-main { width: min(var(--page-max), calc(100% - 96px)); margin: 0 auto; padding: 64px 0 112px; }
 .store-title { margin: 0 0 38px; font-size: var(--size-h1); line-height: var(--leading-tight); text-align: center; text-transform: uppercase; }
 .store-subtitle { max-width: 680px; margin: -22px auto 38px; color: var(--ink-60); font-size: var(--size-body); text-align: center; }
