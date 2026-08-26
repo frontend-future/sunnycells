@@ -79,18 +79,18 @@ export function EvenEnergyPage() {
                   the shape this hero pattern uses. The argument is the category's, the
                   sentences are ours. */}
               <h1 className={styles.heroTitle} id="hero-title">
-                An Entire Aisle
+                The Energy Industry
                 <br />
-                <span>Built On</span>
+                <span>Has Been Selling</span>
                 <br />
-                <span>The Comedown.</span>
+                <span>You a Crash.</span>
               </h1>
               {/* One paragraph, not two. Two pushed the CTA past the fold on a 640px
                   phone, and the second one was restating the first. */}
               <p className={styles.heroBody}>
-                Tiredness gets sold back to you as a personal failing. It is not one. The standard
-                fix is a scoop of caffeine that borrows against your afternoon to pay for your
-                morning, and the repayment always lands at the worst possible hour.
+                You&rsquo;re not tired because you&rsquo;re weak. You&rsquo;re not exhausted because you lack
+                motivation. Most energy products load you with caffeine, crash you an hour later,
+                and call it &ldquo;energy.&rdquo; That&rsquo;s not energy. That&rsquo;s a loan you pay back with interest.
               </p>
 
               <div className={styles.heroActions}>
