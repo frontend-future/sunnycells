@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { OfferFlag } from "@/components/core/OfferFlag";
 import { PLANS, PRODUCT, type Plan } from "@/lib/products/even-energy";
+import { EvenGallery } from "./EvenGallery";
 import styles from "./even-energy.module.css";
 
 export function EvenOffer() {
@@ -15,19 +15,7 @@ export function EvenOffer() {
     <section className={styles.offer} id="buy" aria-labelledby="offer-title">
       <div className={`${styles.wrap} ${styles.section}`}>
         <div className={styles.offerGrid}>
-          <div>
-            <Image
-              src="/product/even-energy.webp"
-              alt={`${PRODUCT.name}, a light green pouch of ${PRODUCT.servings} watermelon stick packs`}
-              width={1024}
-              height={768}
-              className={styles.offerShot}
-            />
-            <div className={styles.strip} style={{ marginTop: "var(--space-4)" }}>
-              <Image src="/photos/even-sticks-fan.webp" alt="A hand holding a fan of Even Energy stick packs" width={600} height={800} className={styles.stripShot} />
-              <Image src="/photos/even-mix.webp" alt="A glass of mixed Even Energy on a kitchen counter" width={600} height={800} className={styles.stripShot} />
-            </div>
-          </div>
+          <EvenGallery />
 
           <div className={styles.offerCard}>
             <h2 className={styles.h2} id="offer-title">

@@ -318,6 +318,10 @@ export function EvenEnergyPage() {
                   alt=""
                   width={1184}
                   height={864}
+                  /* The track scrolls sideways inside overflow:hidden, so the tiles past
+                     the right edge never intersect the viewport and lazy loading never
+                     fires for them. They have to be fetched up front. */
+                  loading="eager"
                   className={styles.ugcShot}
                 />
               )),
