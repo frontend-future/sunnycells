@@ -35,7 +35,7 @@ const TYPE = [
 
 const PLANS = [
   { id: "m1", label: "Every month", price: 39, per: "per month", unit: "month" },
-  { id: "m2", label: "Every two months", price: 35, note: "Works out cheaper per month", flag: "Most chosen", per: "per month", unit: "month" },
+  { id: "m2", label: "Every two months", price: 35, note: "Works out cheaper per month", flag: "Most popular", per: "per month", unit: "month" },
   { id: "m3", label: "Every three months", price: 32, note: "The lowest monthly price", per: "per month", unit: "month" },
 ];
 

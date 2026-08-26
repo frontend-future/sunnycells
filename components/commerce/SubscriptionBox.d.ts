@@ -15,7 +15,7 @@ export interface SubscriptionPlan {
   price: number;
   /** 17px line under the label: "30 servings, delivered monthly". */
   note?: string;
-  /** Short Badge text, e.g. "Most chosen". At most one plan carries it. */
+  /** Short Badge text, e.g. "Most popular". At most one plan carries it. */
   flag?: string;
   /** Unit line beside the headline price. Default "per delivery". */
   per?: string;

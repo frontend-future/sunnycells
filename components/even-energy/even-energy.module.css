@@ -1686,7 +1686,11 @@
 
   .stickyText {
     display: flex;
+    /* Takes the free space so the name sits against the thumb and the button keeps
+       its own edge, rather than the three items spreading across the bar. */
+    flex: 1;
     flex-direction: column;
+    align-items: flex-start;
     line-height: 1.25;
     min-width: 0;
   }

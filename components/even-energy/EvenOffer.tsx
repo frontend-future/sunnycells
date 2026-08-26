@@ -127,7 +127,7 @@ export function EvenOffer() {
                     <span className={styles.planText}>
                       <span className={styles.planName}>
                         {p.name}
-                        {p.best && <span className={styles.planTag}>Most chosen</span>}
+                        {p.best && <span className={styles.planTag}>Most popular</span>}
                       </span>
                       <span className={styles.planSub}>{p.sub}</span>
                     </span>

@@ -79,7 +79,7 @@ export const PLANS: Plan[] = [
     price: 23,
     compareAt: 50,
     cadence: "Delivered fresh every 60 days",
-    flag: "Most chosen",
+    flag: "Most popular",
     best: true,
   },
   {
