@@ -28,10 +28,13 @@ export type Plan = {
   best?: boolean;
 };
 
+/* Same ladder as SC-21 on the plans page: one $50 list price per pouch, and the
+   saving widening the longer the supply. First month lands at $25, which is the
+   standing 50% off first order stated exactly. */
 export const PLANS: Plan[] = [
-  { id: "e1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 39, compareAt: 78 },
-  { id: "e3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 35, compareAt: 78, best: true },
-  { id: "e6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 31, compareAt: 78 },
+  { id: "e1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 25, compareAt: 50 },
+  { id: "e3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 23, compareAt: 50, best: true },
+  { id: "e6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 21, compareAt: 50 },
 ];
 
 /** The three jobs the formula is built around, each with the dose that does it. */

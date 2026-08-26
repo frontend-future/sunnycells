@@ -95,6 +95,14 @@
   --container-page: var(--page-max);
 }
 
+/* In-page anchors glide rather than teleport, so the reader keeps their place
+   instead of being dropped somewhere new. Set on the scrolling element, which is
+   the only place it takes effect for document scrolling. The reduced-motion block
+   further down already forces this back to auto, so no guard is needed here. */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Base. Body floor is 20px at weight 500; nothing in this system ships lighter
    or smaller, because the reader is 35 to 55+ and often outdoors. */
 body {

@@ -419,6 +419,9 @@
 .offer {
   background: var(--sun-tint);
   border-block: 1px solid var(--border-hairline);
+  /* The header is sticky, so an anchor landing flush at the top would sit under
+     it. Clears the 64px bar with a little air. */
+  scroll-margin-top: 80px;
 }
 
 .offerGrid {
@@ -547,6 +550,40 @@
   font-size: var(--size-h4);
   font-weight: 900;
   letter-spacing: var(--tracking-heading);
+}
+
+/* Sits directly under the buy button: the standing term restated at the moment of
+   the decision, then the three things people check before pressing it. */
+.autoApplied {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-size: var(--size-body);
+  font-weight: 800;
+  color: var(--status-success);
+  text-align: center;
+}
+
+.autoTick {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--status-success);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.termsLine {
+  margin: var(--space-2) 0 0;
+  text-align: center;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
 }
 
 .trustRow {

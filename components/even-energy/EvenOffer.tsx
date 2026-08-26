@@ -8,12 +8,6 @@ import { OfferFlag } from "@/components/core/OfferFlag";
 import { PLANS, PRODUCT, type Plan } from "@/lib/products/even-energy";
 import styles from "./even-energy.module.css";
 
-const TRUST = [
-  { icon: "truck", label: "Free shipping" },
-  { icon: "shield-check", label: "30 day money back" },
-  { icon: "repeat", label: "Skip or cancel anytime" },
-] as const;
-
 export function EvenOffer() {
   const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
 
@@ -52,7 +46,9 @@ export function EvenOffer() {
 
             <div className={styles.priceRow}>
               <span className={styles.priceNow}>${chosen.price}</span>
-              <span className={styles.priceUnit}>/pouch</span>
+              {/* Only where more than one pouch arrives, matching the plans page. On a
+                  single pouch the price plainly is the whole thing. */}
+              {chosen.months > 1 && <span className={styles.priceUnit}>/pouch</span>}
               <span className={styles.priceWas}>${chosen.compareAt * chosen.months}</span>
             </div>
 
@@ -83,14 +79,18 @@ export function EvenOffer() {
               Try it now
             </Button>
 
-            <div className={styles.trustRow}>
-              {TRUST.map((t) => (
-                <span key={t.label} className={styles.trustItem}>
-                  <Icon name={t.icon} size={18} strokeWidth={2.2} />
-                  {t.label}
-                </span>
-              ))}
-            </div>
+            <p className={styles.autoApplied}>
+              <span className={styles.autoTick} aria-hidden="true">
+                <Icon name="check" size={13} strokeWidth={3.5} />
+              </span>
+              50% off auto-applied today
+            </p>
+            {/* Cadence comes from the selected plan, so this line cannot say monthly
+                while the customer has the six month supply chosen. */}
+            <p className={styles.termsLine}>
+              Free shipping &nbsp;|&nbsp; {chosen.sub} &nbsp;|&nbsp; Cancel anytime
+            </p>
+
           </div>
         </div>
       </div>
