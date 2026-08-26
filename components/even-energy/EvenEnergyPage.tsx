@@ -65,17 +65,22 @@ export function EvenEnergyPage() {
         <div className={styles.wrap}>
           <div className={styles.heroGrid}>
             <div>
+              {/* Three stacked lines with the weight dropping after the first, which is
+                  the shape this hero pattern uses. The argument is the category's, the
+                  sentences are ours. */}
               <h1 className={styles.heroTitle} id="hero-title">
-                Caffeine borrows.
+                Energy On Credit
                 <br />
-                <span>It never pays back.</span>
+                <span>Was Never</span>
+                <br />
+                <span>Energy.</span>
               </h1>
               {/* One paragraph, not two. Two pushed the CTA past the fold on a 640px
                   phone, and the second one was restating the first. */}
               <p className={styles.heroBody}>
-                Three in the afternoon is not a discipline problem. Caffeine leaves you flatter at
-                four than you were at two. {PRODUCT.name} has no stimulants at all: taurine 1000 mg,
-                CoQ10 150 mg and PEAK ATP 40 mg, so your cells make the energy themselves.
+                Flat afternoons get blamed on willpower. They are usually chemistry. A scoop of
+                caffeine moves energy out of your four o&rsquo;clock and into your ten, then
+                charges interest on the transfer. Nothing was added. It was only rescheduled.
               </p>
 
               <div className={styles.heroActions}>
@@ -89,8 +94,10 @@ export function EvenEnergyPage() {
               </div>
 
               <p className={styles.heroNote}>
-                <strong>{PRODUCT.sku} {PRODUCT.name}</strong> was built around how the body actually
-                makes energy, one cell at a time.
+                <em>
+                  <strong>{PRODUCT.sku} {PRODUCT.name}</strong> works the other end of the problem:
+                  the raw material your cells spend to make ATP in the first place.
+                </em>
               </p>
             </div>
 

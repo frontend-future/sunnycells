@@ -89,8 +89,11 @@
 
 /* ---------- hero ---------- */
 
+/* The one gradient in the system, requested for this hero specifically. Kept to two
+   tints that already exist in the palette and a narrow value range, so it reads as
+   light falling across a block rather than as a colour effect. */
 .hero {
-  background: var(--sprout-tint);
+  background: linear-gradient(168deg, #F2F9EE 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
   border-bottom: 1px solid var(--border-hairline);
   padding-block: var(--space-12) var(--space-8);
 }
@@ -106,7 +109,9 @@
 .heroTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(var(--size-h2-m), 8vw, var(--size-hero));
+  /* Capped at h1 rather than hero: at hero size the first line broke in two and the
+     headline ran to four lines against the three this layout is built for. */
+  font-size: clamp(var(--size-h2-m), 6.4vw, var(--size-h1));
   font-weight: 900;
   letter-spacing: var(--tracking-display);
   line-height: 1.02;
