@@ -8,6 +8,7 @@ import {
 import { EvenCta } from "./EvenCta";
 import { EvenOffer } from "./EvenOffer";
 import { EvenReviews } from "./EvenReviews";
+import { EvenStickyBar } from "./EvenStickyBar";
 import styles from "./even-energy.module.css";
 
 const UGC = [
@@ -297,6 +298,7 @@ export function EvenEnergyPage() {
       </section>
 
       <EvenOffer />
+      <EvenStickyBar />
 
       {/* ---------- ugc strip ---------- */}
       <section className={styles.sectionTight} aria-labelledby="ugc-title">

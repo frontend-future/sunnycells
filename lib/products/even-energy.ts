@@ -236,11 +236,11 @@ export function buildEvenOrder(planId: string | undefined): EvenOrder {
 export const SUBHEAD = "No stimulants, and nothing to come down from";
 
 export const DESCRIPTION =
-  "Most energy products move energy around your day and charge you for the move. This one gives your cells the raw material they spend to make it: taurine at 1000 mg, CoQ10 at 150 mg and PEAK ATP at 40 mg, plus B6 and B12. One stick in cold water, every morning.";
+  "Caffeine moves energy around your day and charges you for the move. This gives your cells the raw material they spend instead: taurine 1000 mg, CoQ10 150 mg, PEAK ATP 40 mg, plus B6 and B12.";
 
 export const SERVING_NOTE = {
-  title: "30 sticks, one a month's worth",
-  body: "Each stick is 2.4 g and dissolves clear in 8 to 10 oz of cold water. Zero sugar, zero calories, no colours beyond beet juice. Watermelon, and not a sweet one.",
+  title: "30 sticks, a month at one a day",
+  body: "2.4 g in 8 to 10 oz of cold water. Dissolves clear. Zero sugar, zero calories, watermelon and not a sweet one.",
 } as const;
 
 /** What every order carries, whatever the supply. */

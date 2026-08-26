@@ -430,8 +430,11 @@
 
 /* ---------- offer ---------- */
 
+/* Same gradient as the hero, so the page opens and closes its buying moments on
+   the same ground. A flat yellow block sat badly against a green pack and against
+   the white gallery and card on top of it. */
 .offer {
-  background: var(--sun-tint);
+  background: linear-gradient(168deg, #F2F9EE 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
   border-block: 1px solid var(--border-hairline);
   /* The header is sticky, so an anchor landing flush at the top would sit under
      it. Clears the 64px bar with a little air. */
@@ -1396,7 +1399,7 @@
 }
 
 .subhead {
-  margin: var(--space-4) 0 0;
+  margin: var(--space-3) 0 0;
   font-family: var(--font-label);
   font-size: var(--size-meta);
   font-weight: 800;
@@ -1404,23 +1407,27 @@
   color: var(--ink);
 }
 
+/* Tighter leading than body copy. These blocks sit above the price, and every line
+   they save is a line of the plan picker that clears the fold. 17px is the floor the
+   system uses for supporting copy; the reader here is 35 to 60, so the words came
+   down rather than the type. */
 .offerBody {
-  margin: var(--space-3) 0 0;
+  margin: var(--space-2) 0 0;
   font-size: var(--size-meta);
   font-weight: 500;
-  line-height: var(--leading-body);
+  line-height: 1.42;
   color: var(--ink-80);
 }
 
 .servingNote {
-  margin-top: var(--space-5);
-  padding: var(--space-5);
+  margin-top: var(--space-4);
+  padding: var(--space-4);
   background: var(--surface-sunk);
   border-radius: var(--radius-card);
 }
 
 .servingTitle {
-  margin: 0 0 var(--space-2);
+  margin: 0 0 var(--space-1);
   font-size: var(--size-meta);
   font-weight: 800;
 }
@@ -1568,4 +1575,76 @@
   height: 52px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+
+/* ---------- mobile sticky buy bar ---------- */
+
+.stickyBar {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .stickyBar {
+    position: fixed;
+    right: var(--space-3);
+    bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+    left: var(--space-3);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-height: 72px;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-card);
+    background: var(--ink);
+    color: var(--white);
+    box-shadow: 0 12px 30px rgba(13, 13, 12, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + var(--space-6)));
+    transition: opacity var(--duration-fast, 160ms) ease, transform var(--duration-fast, 160ms) ease;
+  }
+
+  .stickyBarOn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .stickyText {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    min-width: 0;
+  }
+
+  .stickyText strong {
+    font-size: var(--size-meta);
+    font-weight: 800;
+  }
+
+  .stickyText span {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink-20);
+  }
+
+  .stickyCta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding-inline: var(--space-5);
+    border-radius: var(--radius-button);
+    background: var(--sun);
+    color: var(--ink);
+    font-size: var(--size-meta);
+    font-weight: 800;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
 }

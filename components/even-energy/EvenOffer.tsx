@@ -9,7 +9,7 @@ import { OfferFlag } from "@/components/core/OfferFlag";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  AVATARS, CART_ID, DESCRIPTION, HOW_IT_WORKS, INCLUDED, PLANS, PRODUCT, QUOTES,
+  AVATARS, CART_ID, DESCRIPTION, INCLUDED, PLANS, PRODUCT, QUOTES,
   RATING, SERVING_NOTE, SUBHEAD, type Plan,
 } from "@/lib/products/even-energy";
 import { EvenGallery } from "./EvenGallery";
@@ -152,15 +152,6 @@ export function EvenOffer() {
             <p className={styles.termsLine}>
               Free shipping &nbsp;|&nbsp; {chosen.sub} &nbsp;|&nbsp; Cancel anytime
             </p>
-
-            <div className={styles.worksBox}>
-              <h3 className={styles.worksTitle}>How the subscription works</h3>
-              <ul className={styles.worksList}>
-                {HOW_IT_WORKS.map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-            </div>
 
             <figure className={styles.pullQuote}>
               <Image src={AVATARS[0]} alt="" aria-hidden="true" width={128} height={128} className={styles.quoteAvatar} />
