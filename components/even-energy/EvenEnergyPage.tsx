@@ -10,6 +10,15 @@ import { EvenOffer } from "./EvenOffer";
 import { EvenReviews } from "./EvenReviews";
 import styles from "./even-energy.module.css";
 
+const UGC = [
+  "/photos/even-ugc-1.webp",
+  "/photos/even-ugc-2.webp",
+  "/photos/even-ugc-3.webp",
+  "/photos/even-ugc-4.webp",
+  "/photos/even-ugc-5.webp",
+  "/photos/even-holding.webp",
+];
+
 const FOOTER = [
   { head: "Shop", links: ["Even Energy", "Metabolic Morning Blend", "Take the quiz"] },
   { head: "About", links: ["Our standard", "Ingredients", "Science"] },
@@ -69,23 +78,23 @@ export function EvenEnergyPage() {
                   the shape this hero pattern uses. The argument is the category's, the
                   sentences are ours. */}
               <h1 className={styles.heroTitle} id="hero-title">
-                Energy On Credit
+                The Crash Was
                 <br />
-                <span>Was Never</span>
+                <span>Always Part Of</span>
                 <br />
-                <span>Energy.</span>
+                <span>The Product.</span>
               </h1>
               {/* One paragraph, not two. Two pushed the CTA past the fold on a 640px
                   phone, and the second one was restating the first. */}
               <p className={styles.heroBody}>
-                Flat afternoons get blamed on willpower. They are usually chemistry. A scoop of
-                caffeine moves energy out of your four o&rsquo;clock and into your ten, then
-                charges interest on the transfer. Nothing was added. It was only rescheduled.
+                Being flat by three is not a character defect and it is not a motivation problem.
+                Caffeine adds nothing to your day. It moves energy out of your afternoon and into
+                your morning, then charges interest on the transfer. The bill lands at three.
               </p>
 
               <div className={styles.heroActions}>
                 <EvenCta>Try it now</EvenCta>
-                <span style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+                <span className={styles.heroRating}>
                   <Stars />
                   <span style={{ fontSize: "var(--size-meta)", fontWeight: 600 }}>
                     {RATING.score} from {RATING.count.toLocaleString("en-US")} reviews
@@ -95,7 +104,7 @@ export function EvenEnergyPage() {
 
               <p className={styles.heroNote}>
                 <em>
-                  <strong>{PRODUCT.sku} {PRODUCT.name}</strong> works the other end of the problem:
+                  <strong>{PRODUCT.name}</strong> works the other end of the problem:
                   the raw material your cells spend to make ATP in the first place.
                 </em>
               </p>
@@ -290,17 +299,30 @@ export function EvenEnergyPage() {
       <EvenOffer />
 
       {/* ---------- ugc strip ---------- */}
-      <section className={`${styles.wrap} ${styles.sectionTight}`} aria-labelledby="ugc-title">
-        <div className={styles.centered}>
+      <section className={styles.sectionTight} aria-labelledby="ugc-title">
+        <div className={`${styles.wrap} ${styles.centered}`}>
           <p className={styles.eyebrow}>@sunnycells</p>
           <h2 className={styles.h2} id="ugc-title">
             Women who took the coffee down to one
           </h2>
         </div>
-        <div className={styles.strip}>
-          {["/photos/social-1.jpg", "/photos/social-2.jpg", "/photos/social-3.jpg", "/photos/even-holding.webp"].map((src) => (
-            <Image key={src} src={src} alt="" aria-hidden="true" width={600} height={800} className={styles.stripShot} />
-          ))}
+        {/* Rendered twice so the track can loop on itself. The second pass is
+            decorative, and the first is already unlabelled, so neither is read out. */}
+        <div className={styles.ugc} aria-hidden="true">
+          <div className={styles.ugcTrack}>
+            {[0, 1].map((pass) =>
+              UGC.map((src) => (
+                <Image
+                  key={`${pass}-${src}`}
+                  src={src}
+                  alt=""
+                  width={1184}
+                  height={864}
+                  className={styles.ugcShot}
+                />
+              )),
+            )}
+          </div>
         </div>
       </section>
 

@@ -132,12 +132,20 @@
   text-wrap: pretty;
 }
 
+/* Column, so the rating reads as proof of the button rather than competing with
+   it for the same line. */
 .heroActions {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-4);
   margin-top: var(--space-8);
+}
+
+.heroRating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .heroNote {
@@ -167,6 +175,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: var(--space-3);
+  padding-top: var(--space-10);
   padding-bottom: var(--space-12);
 }
 
@@ -612,6 +621,7 @@
 
 /* ---------- ugc strip ---------- */
 
+/* Used inside the offer column, where two shots sit under the pack. */
 .strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(180px, 45%), 1fr));
@@ -627,14 +637,64 @@
   border-radius: var(--radius-sm);
 }
 
+/* The social row runs edge to edge and scrolls on its own. The track holds the
+   same set twice and travels exactly half its width, so the loop has no seam. */
+.ugc {
+  margin-top: var(--space-8);
+  overflow: hidden;
+}
+
+.ugcTrack {
+  display: flex;
+  width: max-content;
+  animation: ugcScroll 64s linear infinite;
+}
+
+/* Spacing lives on the tile, not as a track gap: a gap would add one extra
+   space between the two halves and the loop would jump every pass. */
+.ugcShot {
+  flex: none;
+  width: clamp(220px, 26vw, 340px);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  margin-right: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+@keyframes ugcScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Reading a face is the point, so the loop stops under a pointer. */
+.ugc:hover .ugcTrack {
+  animation-play-state: paused;
+}
+
+/* The global reduced-motion rule caps iterations at one, which would strand this
+   track halfway. Stop it where it starts instead and let the row be scrolled. */
+@media (prefers-reduced-motion: reduce) {
+  .ugc {
+    overflow-x: auto;
+  }
+
+  .ugcTrack {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 /* ---------- is / is not ---------- */
 
+/* stretch, not start: the two lists rarely run to the same number of lines and
+   uneven card bottoms read as a mistake rather than as content. */
 .isGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: var(--space-6);
   margin-top: var(--space-10);
-  align-items: start;
+  align-items: stretch;
 }
 
 .isCard {
@@ -642,6 +702,13 @@
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-card);
   padding: var(--space-8);
+}
+
+/* The lists sit at the top of their card and the slack falls to the bottom, so
+   the two columns start on the same line as each other. */
+.isCard .ticks {
+  margin-top: 0;
+  margin-bottom: auto;
 }
 
 .isTitle {
@@ -654,7 +721,9 @@
 
 .isShot {
   width: 100%;
-  height: auto;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
   border-radius: var(--radius-image);
   display: block;
 }

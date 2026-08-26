@@ -30,7 +30,6 @@ export function EvenOffer() {
           </div>
 
           <div className={styles.offerCard}>
-            <p className={styles.eyebrow}>{PRODUCT.sku}</p>
             <h2 className={styles.h2} id="offer-title">
               {PRODUCT.name}
             </h2>
