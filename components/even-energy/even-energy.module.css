@@ -1,0 +1,942 @@
+/* SC-22 Even Energy landing page.
+
+   Structured after the long-form supplement landing pattern the category runs:
+   problem hero, pillar cards, mechanism, comparison, proof, offer, close. The
+   sections and their order are the convention. Everything inside them is this
+   brand's: our palette, our two faces, our 12px corners, our standing offer.
+
+   Two places this deliberately departs from the reference it was scoped against.
+   Buttons keep 12px corners rather than pills, because the system says so. And
+   there is no countdown or limited-time framing anywhere, because the 50% off
+   first order is a standing term with no expiry. */
+
+.page {
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+/* ---------- shared ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--page-max, 1200px);
+  margin: 0 auto;
+  padding-inline: var(--page-gutter-mobile, 20px);
+}
+
+.section {
+  padding-block: var(--space-20);
+}
+
+.sectionTight {
+  padding-block: var(--space-12);
+}
+
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink-60);
+  margin: 0 0 var(--space-3);
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(var(--size-h3), 5.2vw, var(--size-h2));
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+.lede {
+  margin: var(--space-4) 0 0;
+  font-size: var(--size-body);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+  text-wrap: pretty;
+}
+
+.centered {
+  text-align: center;
+}
+
+.centered .lede {
+  margin-inline: auto;
+  max-width: 60ch;
+}
+
+/* ---------- header ---------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface-page);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 64px;
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  background: var(--sprout-tint);
+  border-bottom: 1px solid var(--border-hairline);
+  padding-block: var(--space-12) var(--space-8);
+}
+
+.heroGrid {
+  display: grid;
+  /* min() so a 360px phone cannot be pushed sideways by the track floor */
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(var(--size-h2-m), 8vw, var(--size-hero));
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.heroTitle span {
+  font-weight: 600;
+}
+
+.heroBody {
+  margin: var(--space-6) 0 0;
+  max-width: 52ch;
+  font-size: var(--size-body);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+  text-wrap: pretty;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.heroNote {
+  margin: var(--space-6) 0 0;
+  max-width: 48ch;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.heroNote strong {
+  font-weight: 800;
+}
+
+.heroShot {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  margin-inline: auto;
+  display: block;
+}
+
+/* ---------- pillar chips ---------- */
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-3);
+  padding-bottom: var(--space-12);
+}
+
+.chip {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-80);
+}
+
+.chip b {
+  font-family: var(--font-label);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink);
+}
+
+/* ---------- pillar cards ---------- */
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.pillarShot {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.pillarBody {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.pillarName {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--size-body);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+.pillarDose {
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink-60);
+}
+
+.pillarCopy {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.ticks {
+  list-style: none;
+  margin: auto 0 0;
+  padding: var(--space-4) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ticks li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+}
+
+.tick {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sprout);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+/* ---------- mechanism ---------- */
+
+.mechanism {
+  background: var(--surface-sunk);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.splitShot {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-image);
+  display: block;
+}
+
+.mechBlock + .mechBlock {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.mechName {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-label);
+  font-size: var(--size-body);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* ---------- comparison ---------- */
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.compareUs,
+.compareThem {
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  border: 1px solid var(--border-hairline);
+}
+
+.compareUs {
+  background: var(--sprout-tint);
+  border-color: var(--ink);
+}
+
+.compareThem {
+  background: var(--surface-sunk);
+}
+
+.compareHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.compareShot {
+  width: 72px;
+  height: auto;
+  display: block;
+}
+
+.compareTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--size-h4);
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+}
+
+.cross {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink-20);
+  color: var(--ink-80);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+/* ---------- quotes ---------- */
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.quote {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: var(--sun);
+}
+
+.quoteText {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.quoteWho {
+  margin: auto 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--size-meta);
+  font-weight: 700;
+}
+
+.verified {
+  color: var(--ink-60);
+  font-weight: 500;
+}
+
+/* ---------- offer ---------- */
+
+.offer {
+  background: var(--sun-tint);
+  border-block: 1px solid var(--border-hairline);
+}
+
+.offerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.offerShot {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-image);
+  background: var(--white);
+}
+
+.offerCard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+.priceNow {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+}
+
+.priceUnit {
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--ink-60);
+}
+
+.priceWas {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink-60);
+  text-decoration: line-through;
+  letter-spacing: -0.02em;
+}
+
+.plans {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+.plan {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 64px;
+  text-align: left;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-button);
+  border: 2px solid var(--border-hairline);
+  background: var(--surface-card);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.planOn {
+  border-color: var(--ink);
+  background: var(--sun-tint);
+}
+
+.radio {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--ink-60);
+  display: grid;
+  place-items: center;
+}
+
+.planOn .radio {
+  border-color: var(--ink);
+}
+
+.radio span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.planText {
+  flex: 1;
+  min-width: 0;
+}
+
+.planName {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 800;
+}
+
+.planSub {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
+.planPrice {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: var(--size-h4);
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+}
+
+.trustRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--ink-80);
+}
+
+/* ---------- ugc strip ---------- */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 45%), 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+}
+
+.stripShot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- is / is not ---------- */
+
+.isGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+  align-items: start;
+}
+
+.isCard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+}
+
+.isTitle {
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--size-h4);
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+}
+
+.isShot {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-image);
+  display: block;
+}
+
+/* ---------- expect ---------- */
+
+.expect {
+  background: var(--surface-invert);
+  color: var(--text-inverse);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+}
+
+.expectBody {
+  padding: var(--space-10);
+}
+
+.expectBody .h2 {
+  color: var(--white);
+}
+
+.expectBody .ticks li {
+  color: var(--white);
+}
+
+.expectShot {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- three benefits ---------- */
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-8);
+  text-align: center;
+}
+
+.benefitIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--border-hairline);
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-4);
+}
+
+.benefitName {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-label);
+  font-size: var(--size-body);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* ---------- closing banner ---------- */
+
+.banner {
+  position: relative;
+  isolation: isolate;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bannerShot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Flat scrim, not a gradient: the system does not use them, and a solid tint at
+   this opacity already clears contrast on the lightest part of the photo. */
+.bannerScrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 13, 12, 0.62);
+  z-index: -1;
+}
+
+.bannerTitle {
+  margin: 0;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: clamp(var(--size-h2-m), 7vw, var(--size-display));
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.bannerBody {
+  margin: var(--space-5) auto 0;
+  max-width: 46ch;
+  color: var(--white);
+  font-size: var(--size-body);
+  font-weight: 500;
+  line-height: var(--leading-body);
+}
+
+/* ---------- reviews ---------- */
+
+.reviewHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.scoreBig {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-block: var(--space-6);
+}
+
+.filter {
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-hairline);
+  background: var(--surface-card);
+  font: inherit;
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--ink-80);
+  cursor: pointer;
+}
+
+.filterOn {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+}
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+}
+
+.review {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.reviewWho {
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-80);
+}
+
+.reviewName {
+  display: block;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.reviewTitle {
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: var(--size-body);
+  font-weight: 800;
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  background: var(--sprout-tint);
+  border-top: 1px solid var(--border-hairline);
+  padding-top: var(--space-16);
+  overflow: hidden;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-10);
+  padding-bottom: var(--space-12);
+}
+
+.footerCol h3 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+.footerCol ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footerCol a {
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-80);
+  text-decoration: none;
+}
+
+.footerCol a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* The oversized wordmark that closes the page, bled to the gutters. */
+.footerMark {
+  display: block;
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 900;
+  /* Sized to fill the gutters without spilling past them. SUNNYCELLS is ten
+     characters of heavy Outfit at -0.05em, which measures about 6.1em wide, so
+     the viewport factor has to stay under 100/6.1. 19vw overflowed by 194px at
+     1280 and the footer's overflow:hidden ate the final S. */
+  font-size: clamp(40px, 16vw, 300px);
+  letter-spacing: -0.05em;
+  line-height: 0.82;
+  text-align: center;
+  color: var(--ink);
+  padding-bottom: var(--space-4);
+}
+
+.legal {
+  border-top: 1px solid var(--border-hairline);
+  padding-block: var(--space-6);
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+  text-align: center;
+  line-height: var(--leading-body);
+}
+
+@media (min-width: 900px) {
+  .wrap {
+    padding-inline: var(--space-8);
+  }
+}
+
+/* Link CTAs. Button is a <button> only, so anchors get the same look here rather
+   than nesting interactive elements. 12px corners and a 56px target, per the system. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-button);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  font-family: var(--font-text);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.cta:hover {
+  background: var(--action-primary-bg-press);
+}
+
+.ctaAccent {
+  background: var(--action-accent-bg);
+  color: var(--action-accent-fg);
+}
+
+.ctaAccent:hover {
+  background: var(--action-accent-bg-press);
+}
+
+.ctaSm {
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  font-size: 17px;
+}
+
+/* The hero has to put its button on screen on the smallest phone we support, so
+   the vertical rhythm compresses below 720px tall rather than the type shrinking.
+   Body copy stays at its 20px floor either way. */
+@media (max-height: 720px) and (max-width: 700px) {
+  .hero {
+    padding-block: var(--space-5) var(--space-4);
+  }
+
+  .heroBody {
+    margin-top: var(--space-4);
+  }
+
+  .heroActions {
+    margin-top: var(--space-5);
+  }
+
+  .heroNote {
+    margin-top: var(--space-4);
+  }
+}
