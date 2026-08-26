@@ -1060,6 +1060,16 @@
   gap: var(--space-3);
 }
 
+/* The buy column is far taller than the gallery, so once they sit side by side the
+   images follow rather than scrolling away and leaving a column of nothing. Below
+   that they stack, where sticky would trap the images over the copy. */
+@media (min-width: 900px) {
+  .gallery {
+    position: sticky;
+    top: 88px;
+  }
+}
+
 .galleryStage {
   position: relative;
   background: var(--white);
@@ -1354,4 +1364,208 @@
   font-size: 32px;
   font-weight: 900;
   letter-spacing: var(--tracking-display);
+}
+
+/* ---------- denser buy box ---------- */
+
+.offerTop {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.offerTerms {
+  font-size: var(--size-meta);
+  font-weight: 700;
+  color: var(--ink-80);
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.ratingScore {
+  font-size: var(--size-meta);
+  font-weight: 800;
+}
+
+.subhead {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink);
+}
+
+.offerBody {
+  margin: var(--space-3) 0 0;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.servingNote {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: var(--surface-sunk);
+  border-radius: var(--radius-card);
+}
+
+.servingTitle {
+  margin: 0 0 var(--space-2);
+  font-size: var(--size-meta);
+  font-weight: 800;
+}
+
+/* Faces then the link, so the row reads as people before it reads as navigation. */
+.reviewLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  margin-top: var(--space-4);
+  font-size: var(--size-meta);
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.reviewLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.avatars {
+  display: flex;
+}
+
+/* Overlapped, with a ring in the card colour so each face stays separate. */
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--surface-card);
+}
+
+.avatar + .avatar {
+  margin-left: -12px;
+}
+
+.savePill {
+  background: var(--sprout-tint);
+  border: 1px solid var(--sprout);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: var(--size-meta);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.included {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.included li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--size-meta);
+  font-weight: 600;
+}
+
+.planName {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.planTag {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-xs);
+  padding: 3px 8px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+/* The subscription terms, on the page rather than buried behind a link. This is
+   the slot a countdown or a stock meter would occupy on other sites; the system
+   does not run either, so it holds something true instead. */
+.worksBox {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+}
+
+.worksTitle {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+.worksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.worksList li {
+  position: relative;
+  padding-left: var(--space-5);
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.worksList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.pullQuote {
+  display: flex;
+  gap: var(--space-4);
+  margin: var(--space-6) 0 0;
+  padding: var(--space-5);
+  background: var(--surface-sunk);
+  border-radius: var(--radius-card);
+}
+
+.quoteAvatar {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
 }

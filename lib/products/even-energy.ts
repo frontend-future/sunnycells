@@ -231,3 +231,36 @@ export function buildEvenOrder(planId: string | undefined): EvenOrder {
     total: now,
   };
 }
+
+/** The short line under the title. Sentence case: it is a micro-label, not a headline. */
+export const SUBHEAD = "No stimulants, and nothing to come down from";
+
+export const DESCRIPTION =
+  "Most energy products move energy around your day and charge you for the move. This one gives your cells the raw material they spend to make it: taurine at 1000 mg, CoQ10 at 150 mg and PEAK ATP at 40 mg, plus B6 and B12. One stick in cold water, every morning.";
+
+export const SERVING_NOTE = {
+  title: "30 sticks, one a month's worth",
+  body: "Each stick is 2.4 g and dissolves clear in 8 to 10 oz of cold water. Zero sugar, zero calories, no colours beyond beet juice. Watermelon, and not a sweet one.",
+} as const;
+
+/** What every order carries, whatever the supply. */
+export const INCLUDED = [
+  { icon: "truck", label: "Free shipping on every order" },
+  { icon: "shield-check", label: "30 day money back guarantee" },
+  { icon: "repeat", label: "Skip or cancel in two clicks" },
+] as const;
+
+/** How the subscription behaves, stated plainly rather than buried in terms. */
+export const HOW_IT_WORKS = [
+  "Your first delivery ships as soon as you order.",
+  "After that it repeats on the cadence you picked, at the same price.",
+  "Change the date, skip a delivery, or cancel from your account.",
+  "No lock in, no fee for stopping, no phone call.",
+] as const;
+
+/** Faces on the reviews link. Cropped from the photography, not stock portraits. */
+export const AVATARS = [
+  "/photos/even-avatar-1.webp",
+  "/photos/even-avatar-2.webp",
+  "/photos/even-avatar-3.webp",
+] as const;
