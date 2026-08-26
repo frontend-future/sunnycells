@@ -72,6 +72,9 @@ export function EvenCheckout() {
   const [f, setF] = useState<Record<string, string>>({ phone: "+1" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [phase, setPhase] = useState<"shipping" | "payment">("shipping");
+  /* Collapsed by default, which only has an effect on a phone: the toggle and the
+     collapse are both display:none above 900px, where the rail is always open. */
+  const [summaryOpen, setSummaryOpen] = useState(false);
 
   const set = (name: string, value: string) =>
     setF((c) => ({ ...c, [name]: name === "phone" ? formatPhone(value) : value }));
@@ -203,7 +206,25 @@ export function EvenCheckout() {
           </div>
 
           <aside className={styles.summary} aria-label="Order summary">
-            <h2 className={styles.isTitle}>Your order</h2>
+            <button
+              type="button"
+              className={styles.summaryToggle}
+              onClick={() => setSummaryOpen((c) => !c)}
+              aria-expanded={summaryOpen}
+              aria-controls="even-summary-body"
+            >
+              <span>
+                <Icon name="shopping-bag" size={20} strokeWidth={2.2} />
+                Order summary
+              </span>
+              <strong>{ready ? `$${order.total}` : "\u00a0"}</strong>
+              <Icon name="chevron-down" size={20} strokeWidth={2.5} className={summaryOpen ? styles.chevronUp : undefined} />
+            </button>
+            <h2 className={`${styles.isTitle} ${styles.summaryTitle}`}>Your order</h2>
+            <div
+              id="even-summary-body"
+              className={`${styles.summaryBody} ${summaryOpen ? styles.summaryBodyOpen : ""}`}
+            >
             {!ready ? (
               <p className={styles.pillarCopy}>Loading your cart.</p>
             ) : (
@@ -249,6 +270,7 @@ export function EvenCheckout() {
                 </p>
               </>
             )}
+            </div>
           </aside>
         </div>
       </main>

@@ -78,11 +78,12 @@ export const PILLARS = [
 /** Read side by side against what the category normally sells. */
 export const COMPARISON = {
   us: [
-    "Zero stimulants, so there is nothing to come down from",
-    "Doses printed on the front of the pack",
-    "One stick, 2.4 g, mixes clear in cold water",
-    "Zero sugar and zero calories",
-    "Subscription you can skip or cancel in two clicks",
+    "Clinically studied CoQ10 with superior absorption",
+    "Supports cellular energy, not just stimulation",
+    "Clinically shown to reduce fatigue",
+    "Supports muscle function with taurine",
+    "Zero caffeine. Zero sugar. Zero crash.",
+    "Built for daily, long term use",
   ],
   them: [
     "150 to 300 mg of caffeine doing the work",
@@ -233,14 +234,14 @@ export function buildEvenOrder(planId: string | undefined): EvenOrder {
 }
 
 /** The short line under the title. Sentence case: it is a micro-label, not a headline. */
-export const SUBHEAD = "No stimulants, and nothing to come down from";
+export const SUBHEAD = "Clinically studied, reduced fatigue";
 
 export const DESCRIPTION =
-  "Caffeine moves energy around your day and charges you for the move. This gives your cells the raw material they spend instead: taurine 1000 mg, CoQ10 150 mg, PEAK ATP 40 mg, plus B6 and B12.";
+  "Fuel your body from the inside out with Even Energy so you can perform your best, whether in the gym or tackling the day. Formulated with clinically studied ingredients shown to reduce muscle fatigue, increase energy and improve cardiovascular function, with CoQ10, B vitamins and taurine.";
 
 export const SERVING_NOTE = {
-  title: "30 sticks, a month at one a day",
-  body: "2.4 g in 8 to 10 oz of cold water. Dissolves clear. Zero sugar, zero calories, watermelon and not a sweet one.",
+  title: "Get 30 servings of Even Energy",
+  body: "Support your body through real life changes. Clinically shown to support improved physical performance and reduced fatigue over 8 weeks, powered by highly absorbable CoQ10.",
 } as const;
 
 /** What every order carries, whatever the supply. */

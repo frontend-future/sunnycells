@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { PLANS } from "@/lib/products/even-energy";
+import { PLANS, PRODUCT } from "@/lib/products/even-energy";
 import styles from "./even-energy.module.css";
 
 const best = PLANS.find((p) => p.best) ?? PLANS[0];
@@ -44,9 +45,17 @@ export function EvenStickyBar() {
 
   return (
     <div className={`${styles.stickyBar} ${shown ? styles.stickyBarOn : ""}`} aria-hidden={!shown}>
+      <Image
+        src="/product/even-energy.webp"
+        alt=""
+        aria-hidden="true"
+        width={1024}
+        height={768}
+        className={styles.stickyShot}
+      />
       <span className={styles.stickyText}>
-        <strong>${best.price}/pouch</strong>
-        <span>50% off first order</span>
+        <strong>{PRODUCT.name}</strong>
+        <span>${best.price}/pouch, 50% off first order</span>
       </span>
       <a href="#buy" className={styles.stickyCta} tabIndex={shown ? 0 : -1}>
         Try it now

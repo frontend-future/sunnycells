@@ -220,11 +220,11 @@ export function EvenEnergyPage() {
       <section className={`${styles.wrap} ${styles.section}`} aria-labelledby="compare-title">
         <div className={styles.centered}>
           <h2 className={styles.h2} id="compare-title">
-            Why people move off stimulants
+            Why people are switching to a smarter, stimulant free option
           </h2>
           <p className={styles.lede}>
-            The two approaches are not the same product with a different label. They do opposite
-            things to the same afternoon.
+            Energy drinks and NAD boosters help some people, but they come with tradeoffs most
+            brands do not talk about.
           </p>
         </div>
 
@@ -305,7 +305,7 @@ export function EvenEnergyPage() {
         <div className={`${styles.wrap} ${styles.centered}`}>
           <p className={styles.eyebrow}>@sunnycells</p>
           <h2 className={styles.h2} id="ugc-title">
-            Women who took the coffee down to one
+            Evidently, women love it
           </h2>
         </div>
         {/* Rendered twice so the track can loop on itself. The second pass is
