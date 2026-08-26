@@ -1,15 +1,33 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { OfferFlag } from "@/components/core/OfferFlag";
-import { PLANS, PRODUCT, type Plan } from "@/lib/products/even-energy";
+import { writeAnswer } from "@/lib/quiz/store";
+import { trackMetaEvent } from "@/lib/meta";
+import { CART_ID, PLANS, PRODUCT, type Plan } from "@/lib/products/even-energy";
 import { EvenGallery } from "./EvenGallery";
 import styles from "./even-energy.module.css";
 
 export function EvenOffer() {
+  const router = useRouter();
   const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
+
+  /* Put the chosen plan in the cart before leaving, so checkout opens on the one
+     that was actually selected rather than on a default. */
+  const buy = () => {
+    writeAnswer(CART_ID, "plan", chosen.id);
+    trackMetaEvent("InitiateCheckout", {
+      currency: "USD",
+      value: chosen.price * chosen.months,
+      content_ids: [chosen.id],
+      content_type: "product",
+      content_name: `${PRODUCT.name} ${chosen.name}`,
+    });
+    router.push("/products/even-energy/checkout");
+  };
 
   return (
     <section className={styles.offer} id="buy" aria-labelledby="offer-title">
@@ -62,7 +80,7 @@ export function EvenOffer() {
               })}
             </div>
 
-            <Button fullWidth variant="accent" size="lg">
+            <Button fullWidth variant="accent" size="lg" onClick={buy}>
               Try it now
             </Button>
 

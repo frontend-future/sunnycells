@@ -9,6 +9,10 @@
  * as the placeholder reviews already flagged in readme.md.
  */
 
+/* The cart rides in sessionStorage under its own id, reusing the quiz store rather
+   than adding a second one. Keyed separately so it never collides with a funnel. */
+export const CART_ID = "even-energy";
+
 export const PRODUCT = {
   sku: "SC-22",
   name: "Even Energy",
@@ -174,3 +178,56 @@ export const REVIEWS = [
 export const REVIEW_TAGS = ["All", "Steady energy", "Stimulant free", "Afternoon", "Recovery"] as const;
 
 export const RATING = { score: 4.8, count: 1247 } as const;
+
+/** Look a plan up by id, falling back to the one most people choose. */
+export function evenPlanById(id: string | undefined): Plan {
+  return PLANS.find((p) => p.id === id) ?? PLANS.find((p) => p.best) ?? PLANS[0];
+}
+
+export type EvenOrderLine = {
+  id: string;
+  name: string;
+  note: string;
+  was: number | null;
+  now: number | null;
+  image: string | null;
+};
+
+export type EvenOrder = {
+  plan: Plan;
+  lines: EvenOrderLine[];
+  listTotal: number;
+  discount: number;
+  total: number;
+};
+
+/**
+ * What the cart holds. Charged is the per pouch price times the pouches that
+ * arrive; the struck figure is the same count at the $50 list price, which is the
+ * rule the plan cards use. Shipping is a line at zero rather than silence, so the
+ * summary answers the question before it is asked.
+ */
+export function buildEvenOrder(planId: string | undefined): EvenOrder {
+  const plan = evenPlanById(planId);
+  const now = plan.price * plan.months;
+  const list = plan.compareAt * plan.months;
+  const pouches = `${plan.months} ${plan.months === 1 ? "pouch" : "pouches"}`;
+
+  return {
+    plan,
+    lines: [
+      {
+        id: "product",
+        name: `${PRODUCT.name}, ${PRODUCT.flavour.toLowerCase()}`,
+        note: `${pouches}. ${plan.sub}.`,
+        was: list,
+        now,
+        image: "/product/even-energy.webp",
+      },
+      { id: "shipping", name: "Shipping", note: "Free on every order", was: null, now: 0, image: null },
+    ],
+    listTotal: list,
+    discount: list - now,
+    total: now,
+  };
+}
