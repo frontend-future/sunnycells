@@ -157,3 +157,72 @@ export const FAQS = [
   { title: "How long does the bag last?", body: "One pouch is 30 servings, so a month at one scoop a day." },
   { title: "Medical information, product, reviews, warnings and legal disclaimer", body: "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Results vary from person to person." },
 ];
+
+/* ---------------------------------------------------------------------------
+   The page as one bundle.
+
+   PlansScreen used to read these exports directly, which tied it to the diet
+   funnel. It now takes a bundle, so a second funnel is a second content file and
+   the structure of the page stays in one component for both.
+   --------------------------------------------------------------------------- */
+
+export type PlansContent = {
+  /** Namespaces the answers read for the gendered illustrations. */
+  quizId: string;
+  productName: string;
+  /** Right hand side of the offer bar. No countdown where a funnel has no deadline. */
+  offer: { label: string; badge: string; countdown: boolean };
+  hero: { title: string; lede: string; points: string[] };
+  /** Product shot for the hero, the comparison table, and the plan cards. */
+  productImage: string;
+  plansTitle: string;
+  /** The argument above the cards for taking the longer supply. */
+  plansNote: { badge: string; body: string };
+  quickBenefits: { lead: string; strong: string }[];
+  /** `illustration` is a path. `slug` alone means the gendered pair under
+      /illustrations, which only the diet funnel has drawn. */
+  pillars: { slug: string; title: string; body: string; illustration?: string }[];
+  headlineReview: { name: string; title: string; body: string };
+  reviews: { name: string; photo: string; title: string; body: string }[];
+  ingredientsTitle: string;
+  ingredients: { slug: string; title: string; image?: string; points: [string, string][] }[];
+  howItWorks: { img: string; title: string; body: string; illustration?: string }[];
+  comparisonNote: string;
+  comparison: string[];
+  faqs: { title: string; body: string }[];
+  /** The raised column behind our side of the comparison table. Defaults to the
+      brand yellow the diet funnel uses. */
+  tint?: string;
+  /** Rebinds the accent button tokens, so a funnel's buttons match its product. */
+  accent?: { bg: string; press: string };
+};
+
+export const DIET_PLANS_CONTENT: PlansContent = {
+  quizId: "diet",
+  productName: "Metabolic Morning Blend",
+  offer: { label: "Limited time offer", badge: "up to 60% off", countdown: true },
+  hero: {
+    title: "Complete natural formula",
+    lede: "SUNNYCELLS is here to release your stress and help you to lose weight.",
+    points: ["Helps with weight loss", "Lowers cortisol levels", "Relieves mood swings"],
+  },
+  productImage: "/product/metabolic-morning-blend.png",
+  plansTitle: "Let the Blend do the work",
+  plansNote: {
+    badge: "2x",
+    body: "People using SUNNYCELLS for 3 months lose twice as much weight as for 1 month",
+  },
+  quickBenefits: QUICK_BENEFITS,
+  pillars: PILLARS,
+  headlineReview: HEADLINE_REVIEW,
+  reviews: REVIEWS,
+  ingredientsTitle: "The science behind the core ingredients of Metabolic Morning Blend",
+  ingredients: INGREDIENTS.map((i) => ({ ...i, image: `/ingredients/${i.slug}.jpg` })),
+  howItWorks: [
+    { img: "step-scoop", title: "Add 1 scoop", body: "Mix a scoop into water or your favorite juice. Drink it in the morning.", illustration: "/illustrations/step-scoop.png" },
+    { img: "step-drink", title: "Feel calmer and healthier", body: "Notice your cortisol blend take effect within 48 hours. Release stress and boost your metabolism.", illustration: "/illustrations/step-drink.png" },
+  ],
+  comparisonNote: "Compared to other cortisol lowering drinks",
+  comparison: COMPARISON,
+  faqs: FAQS,
+};

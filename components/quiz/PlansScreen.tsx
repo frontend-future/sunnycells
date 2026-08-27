@@ -9,11 +9,8 @@ import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { StarRating } from "@/components/commerce/StarRating";
 import { Wordmark } from "@/components/core/Wordmark";
-import { dietQuiz } from "@/lib/quiz/diet";
 import { useAnswers } from "@/lib/quiz/store";
-import {
-  COMPARISON, FAQS, HEADLINE_REVIEW, INGREDIENTS, PILLARS, QUICK_BENEFITS, REVIEWS,
-} from "@/lib/quiz/plansContent";
+import { DIET_PLANS_CONTENT, type PlansContent } from "@/lib/quiz/plansContent";
 import { AnnouncementMarquee } from "./AnnouncementMarquee";
 import { HeroCarousel } from "./HeroCarousel";
 import { OfferCountdown } from "./OfferCountdown";
@@ -40,8 +37,6 @@ const TESTING = [
     body: "Know with absolute confidence all ingredients have been examined for heavy metals using world class testing methods.",
   },
 ];
-
-const HERO_POINTS = ["Helps with weight loss", "Lowers cortisol levels", "Relieves mood swings"];
 
 const TRUST = [
   { icon: "truck", label: "Free shipping" },
@@ -144,16 +139,40 @@ export function PlansScreen({
   destinationHref = "/quiz/diet/results/checkout",
   planCtaLabel = "Try now",
   optimizedImages = false,
+  content = DIET_PLANS_CONTENT,
+  plansSlot,
+  heroMedia,
 }: {
   destinationHref?: string;
   planCtaLabel?: string;
   optimizedImages?: boolean;
+  /** Every word and picture on the page. The layout below is the same for both funnels. */
+  content?: PlansContent;
+  /** The plan cards. A funnel passes its own so the page does not need to know which
+      catalogue or cart it is selling out of. */
+  plansSlot?: React.ReactNode;
+  /** The hero's right hand column. */
+  heroMedia?: React.ReactNode;
 }) {
-  const { answers } = useAnswers(dietQuiz.id);
+  const { answers } = useAnswers(content.quizId);
   const set = answers.gender === "Male" ? "male" : "female";
+  const productImage = optimizedImages
+    ? content.productImage.replace(/\.png$/, ".webp")
+    : content.productImage;
 
   return (
-    <div style={{ background: "var(--surface-page)" }}>
+    <div
+      style={{
+        background: "var(--surface-page)",
+        ...(content.accent
+          ? {
+              ["--action-accent-bg" as string]: content.accent.bg,
+              ["--action-accent-bg-press" as string]: content.accent.press,
+              ["--action-accent-fg" as string]: "var(--ink)",
+            }
+          : {}),
+      }}
+    >
       {/* Offer bar. The countdown is the brand's one timer, called out in
           OfferCountdown. Sun with ink on it, the only pairing allowed on yellow. */}
       <div
@@ -173,7 +192,8 @@ export function PlansScreen({
         }}
       >
         <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-3)" }}>
-          Limited time offer <Badge tone="ink">up to 60% off</Badge> <OfferCountdown />
+          {content.offer.label} <Badge tone="ink">{content.offer.badge}</Badge>
+          {content.offer.countdown ? <OfferCountdown /> : null}
         </span>
       </div>
 
@@ -214,13 +234,13 @@ export function PlansScreen({
                 lineHeight: "var(--leading-snug)",
               }}
             >
-              Complete natural formula
+              {content.hero.title}
             </h1>
             <p style={{ margin: "var(--space-4) 0 var(--space-6)", fontSize: "var(--size-body-lg)", lineHeight: 1.35 }}>
-              <BrandText>SUNNYCELLS is here to release your stress and help you to lose weight.</BrandText>
+              <BrandText>{content.hero.lede}</BrandText>
             </p>
             <ul style={{ margin: "0 0 var(--space-6)", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-              {HERO_POINTS.map((h) => (
+              {content.hero.points.map((h) => (
                 <li key={h} style={{ display: "flex", gap: "var(--space-3)", alignItems: "center", fontSize: "var(--size-body)" }}>
                   <Tick />
                   {h}
@@ -276,12 +296,12 @@ export function PlansScreen({
             </div>
           </div>
 
-          <HeroCarousel pouchSrc={optimizedImages ? "/product/metabolic-morning-blend.webp" : undefined} />
+          {heroMedia ?? <HeroCarousel pouchSrc={optimizedImages ? "/product/metabolic-morning-blend.webp" : undefined} />}
         </div>
       </section>
 
       {/* Plans */}
-      <Section id="plans" title="Let the Blend do the work" tone="shell">
+      <Section id="plans" title={content.plansTitle} tone="shell">
         {/* Sits above the cards, where it is an argument for the longer supply rather
             than a line of small print underneath one. */}
         <div
@@ -312,20 +332,20 @@ export function PlansScreen({
               letterSpacing: "-0.02em",
             }}
           >
-            2x
+            {content.plansNote.badge}
           </span>
           <span style={{ fontSize: "var(--size-body)", lineHeight: 1.35, textAlign: "left" }}>
-            <BrandText>
-              People using SUNNYCELLS for 3 months lose twice as much weight as for 1 month
-            </BrandText>
+            <BrandText>{content.plansNote.body}</BrandText>
           </span>
         </div>
 
-        <PlanCards
-          destinationHref={destinationHref}
-          ctaLabel={planCtaLabel}
-          optimizedImages={optimizedImages}
-        />
+        {plansSlot ?? (
+          <PlanCards
+            destinationHref={destinationHref}
+            ctaLabel={planCtaLabel}
+            optimizedImages={optimizedImages}
+          />
+        )}
         <div
           style={{
             display: "flex",
@@ -403,7 +423,7 @@ export function PlansScreen({
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "var(--space-5)" }}>
             {/* 190px, not 210: at 210 the fourth item dropped to a second row on a
                 1000px viewport, three across and one alone. */}
-            {QUICK_BENEFITS.map((b) => (
+            {content.quickBenefits.map((b) => (
               <div key={b.strong} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}>
                 <Tick />
                 <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.45 }}>
@@ -418,7 +438,7 @@ export function PlansScreen({
         {/* Pillars sit inside the same section, so the two blocks read as one band
            rather than being pushed apart by two lots of section padding. */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "var(--space-5)", marginTop: "var(--space-5)" }}>
-          {PILLARS.map((p) => (
+          {content.pillars.map((p) => (
             <div
               key={p.slug}
               style={{
@@ -431,11 +451,17 @@ export function PlansScreen({
               }}
             >
               <Image
-                src={`/illustrations/${p.slug}-${set}.png`}
+                src={p.illustration ?? `/illustrations/${p.slug}-${set}.png`}
                 alt=""
                 width={320}
                 height={320}
-                style={{ width: 130, height: 130, margin: "0 auto var(--space-6)" }}
+                style={{
+                  width: p.illustration ? "100%" : 130,
+                  height: p.illustration ? 150 : 130,
+                  objectFit: p.illustration ? "cover" : "contain",
+                  borderRadius: p.illustration ? "var(--radius-md)" : undefined,
+                  margin: "0 auto var(--space-6)",
+                }}
               />
               <h3
                 style={{
@@ -488,15 +514,15 @@ export function PlansScreen({
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-8)", alignItems: "center" }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", marginBottom: "var(--space-3)" }}>
-              <span style={{ fontSize: "var(--size-meta)", fontWeight: 700 }}>{HEADLINE_REVIEW.name}</span>
+              <span style={{ fontSize: "var(--size-meta)", fontWeight: 700 }}>{content.headlineReview.name}</span>
               <Badge tone="success">Verified</Badge>
             </div>
             <StarRating value={5} size={18} />
             <h3 style={{ margin: "var(--space-4) 0 var(--space-3)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)", lineHeight: 1.2 }}>
-              {HEADLINE_REVIEW.title}
+              {content.headlineReview.title}
             </h3>
             <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
-              {HEADLINE_REVIEW.body}
+              {content.headlineReview.body}
             </p>
           </div>
           <Image
@@ -512,7 +538,7 @@ export function PlansScreen({
       {/* Reviews */}
       <Section wide title="Thousands of happy clients" sub="Read what customers around the world say.">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(250px, 100%), 1fr))", gap: "var(--space-5)" }}>
-          {REVIEWS.map((r) => (
+          {content.reviews.map((r) => (
             <div
               key={r.name}
               style={{
@@ -577,17 +603,17 @@ export function PlansScreen({
       </Section>
 
       {/* Ingredients */}
-      <Section title="The science behind the core ingredients of Metabolic Morning Blend" tone="shell">
+      <Section title={content.ingredientsTitle} tone="shell">
         {/* 660, not 760: Accordion holds its body to a 620px reading measure, so a
             wider container left the photo floating short of the panel edge. */}
         <div style={{ maxWidth: 660, margin: "0 auto" }}>
           <Accordion
-            items={INGREDIENTS.map((ing) => ({
+            items={content.ingredients.map((ing) => ({
               title: ing.title,
               body: (
                 <div>
                   <Image
-                    src={`/ingredients/${ing.slug}.jpg`}
+                    src={ing.image ?? `/ingredients/${ing.slug}.jpg`}
                     alt=""
                     width={800}
                     height={450}
@@ -622,12 +648,21 @@ export function PlansScreen({
       {/* How it works */}
       <Section title="How does it work?">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: 720, margin: "0 auto" }}>
-          {[
-            { img: "step-scoop", title: "Add 1 scoop", body: "Mix a scoop into water or your favorite juice. Drink it in the morning." },
-            { img: "step-drink", title: "Feel calmer and healthier", body: "Notice your cortisol blend take effect within 48 hours. Release stress and boost your metabolism." },
-          ].map((s) => (
+          {content.howItWorks.map((s) => (
             <div key={s.img} style={{ textAlign: "center" }}>
-              <Image src={`/illustrations/${s.img}.png`} alt="" width={320} height={320} style={{ width: 130, height: 130, margin: "0 auto" }} />
+              <Image
+                src={s.illustration ?? `/illustrations/${s.img}.png`}
+                alt=""
+                width={320}
+                height={320}
+                style={{
+                  width: s.illustration ? "100%" : 130,
+                  height: s.illustration ? 170 : 130,
+                  objectFit: s.illustration ? "cover" : "contain",
+                  borderRadius: s.illustration ? "var(--radius-md)" : undefined,
+                  margin: "0 auto",
+                }}
+              />
               <h3 style={{ margin: "var(--space-3) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800 }}>{s.title}</h3>
               <p style={{ margin: 0, fontSize: "var(--size-body)", color: "var(--ink-80)", lineHeight: "var(--leading-body)" }}>{s.body}</p>
             </div>
@@ -670,10 +705,10 @@ export function PlansScreen({
                   lineHeight: "var(--leading-snug)",
                 }}
               >
-                Metabolic Morning Blend
+                {content.productName}
               </h2>
               <p style={{ margin: "var(--space-2) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.4 }}>
-                Compared to other cortisol lowering drinks
+                {content.comparisonNote}
               </p>
             </div>
 
@@ -681,7 +716,7 @@ export function PlansScreen({
                 what separates the two verdicts without needing a second colour. */}
             <div
               style={{
-                background: "var(--sun-tint)",
+                background: content.tint ?? "var(--sun-tint)",
                 borderRadius: "var(--radius-lg) var(--radius-lg) 0 0",
                 padding: "var(--space-4) var(--space-2) var(--space-3)",
                 display: "flex",
@@ -690,8 +725,8 @@ export function PlansScreen({
               }}
             >
               <Image
-                src={optimizedImages ? "/product/metabolic-morning-blend.webp" : "/product/metabolic-morning-blend.png"}
-                alt="Metabolic Morning Blend"
+                src={productImage}
+                alt={content.productName}
                 width={2400}
                 height={1792}
                 style={{ width: "100%", height: "auto", maxHeight: 88, objectFit: "contain" }}
@@ -708,8 +743,8 @@ export function PlansScreen({
               />
             </div>
 
-            {COMPARISON.map((row, i) => {
-              const last = i === COMPARISON.length - 1;
+            {content.comparison.map((row, i) => {
+              const last = i === content.comparison.length - 1;
               return (
                 <Fragment key={row}>
                   <div
@@ -726,7 +761,7 @@ export function PlansScreen({
                   </div>
                   <div
                     style={{
-                      background: "var(--sun-tint)",
+                      background: content.tint ?? "var(--sun-tint)",
                       borderRadius: last ? "0 0 var(--radius-lg) var(--radius-lg)" : undefined,
                       display: "flex",
                       justifyContent: "center",
@@ -771,7 +806,7 @@ export function PlansScreen({
       {/* FAQ */}
       <Section title="Frequently asked questions by our customers" tone="shell">
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          <Accordion items={FAQS} />
+          <Accordion items={content.faqs} />
         </div>
       </Section>
 

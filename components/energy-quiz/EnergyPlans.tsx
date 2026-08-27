@@ -1,212 +1,24 @@
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Badge } from "@/components/core/Badge";
-import { Button } from "@/components/core/Button";
-import { Icon } from "@/components/core/Icon";
-import { Wordmark } from "@/components/core/Wordmark";
-import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
-import { RatingPill } from "@/components/quiz/RatingPill";
-import { trackMetaEvent } from "@/lib/meta";
-import { CART_ID, PLANS, PRODUCT, QUOTES, RATING, type Plan } from "@/lib/products/even-energy";
-import { energyQuiz } from "@/lib/quiz/energy";
-import { readAnswers, writeAnswer } from "@/lib/quiz/store";
+import { EvenGallery } from "@/components/even-energy/EvenGallery";
+import { PlansScreen } from "@/components/quiz/PlansScreen";
+import { ENERGY_PLANS_CONTENT } from "@/lib/quiz/energyPlansContent";
+import { EnergyPlanCards } from "./EnergyPlanCards";
 
 const CHECKOUT = "/quiz/energy/results/checkout";
 
-const INCLUDED = [
-  "Free shipping on every order",
-  "30 day money back guarantee",
-  "Skip or cancel in two clicks",
-];
-
-/* Worked out from the price rather than written beside it, so it cannot quietly stop
-   being true when a price changes. Whole dollars only, per the pricing rule. */
-function perDay(price: number, servings: number): string {
-  const value = price / servings;
-  const floor = Math.floor(value);
-  if (Number.isInteger(value)) return `$${value} / day`;
-  return value - floor <= 0.35 && floor >= 1 ? `Just over $${floor} / day` : `Less than $${Math.ceil(value)} / day`;
-}
-
+/**
+ * The diet funnel's plans page, selling the other product. The layout, the section
+ * order, and the chrome all come from the shared screen: this file only says which
+ * content, which cards, and which gallery.
+ */
 export function EnergyPlans() {
-  const router = useRouter();
-  const [hover, setHover] = useState("");
-
-  /* Written into the Even Energy cart, not the quiz store, because the checkout that
-     receives it is the product's own and reads from there. */
-  const choose = (p: Plan) => {
-    writeAnswer(CART_ID, "plan", p.id);
-    trackMetaEvent(
-      "InitiateCheckout",
-      {
-        currency: "USD",
-        value: p.price * p.months,
-        content_ids: [p.id],
-        content_type: "product",
-        content_name: `${PRODUCT.name} ${p.name}`,
-      },
-      /* The quiz captured an email several steps back. Passing it here is what lets
-         Meta match this event to a person rather than a cookie. */
-      { email: readAnswers(energyQuiz.id).email },
-    );
-    router.push(CHECKOUT);
-  };
-
   return (
-    <div
-      style={{
-        background: "var(--surface-page)",
-        /* The same rebind the Even Energy product page does, so the plan buttons carry
-           the green the customer meets again on the checkout this screen hands off to.
-           Yellow here and green one click later reads as two different shops. */
-        ["--action-accent-bg" as string]: "linear-gradient(135deg, var(--sprout) 0%, var(--sprout-press) 100%)",
-        ["--action-accent-bg-press" as string]: "linear-gradient(135deg, var(--sprout-press) 0%, #4E9A55 100%)",
-        ["--action-accent-fg" as string]: "var(--ink)",
-      }}
-    >
-      <AnnouncementMarquee
-        terms={[
-          { strong: "Free shipping", rest: "on all orders" },
-          { strong: "30 day", rest: "money back guarantee" },
-          { strong: "Skip or cancel", rest: "anytime" },
-        ]}
-      />
-
-      <header style={{ display: "flex", justifyContent: "center", padding: "var(--space-4) var(--page-gutter-mobile)", borderBottom: "1px solid var(--border-hairline)" }}>
-        <Wordmark size={22} />
-      </header>
-
-      <main style={{ width: "100%", maxWidth: 960, margin: "0 auto", padding: "var(--space-10) var(--page-gutter-mobile) var(--space-16)" }}>
-        <div style={{ textAlign: "center" }}>
-          <h1
-            style={{
-              margin: 0,
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(var(--size-h3), 7vw, var(--size-h1))",
-              fontWeight: 900,
-              letterSpacing: "var(--tracking-heading)",
-              lineHeight: "var(--leading-snug)",
-              textWrap: "balance",
-            }}
-          >
-            Your Even Energy plan is ready
-          </h1>
-          <p style={{ maxWidth: 520, margin: "var(--space-4) auto 0", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-            One caffeine free stick each morning. Every plan is a subscription you can
-            skip or cancel in two clicks, and the longer the supply the lower the price
-            per pouch.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-5)" }}>
-            <RatingPill value={RATING.score} count={RATING.count} />
-          </div>
-        </div>
-
-        <Image
-          src="/product/even-energy.webp"
-          alt={`${PRODUCT.name}, a light green pouch of ${PRODUCT.servings} watermelon stick packs`}
-          width={1024}
-          height={768}
-          priority
-          style={{ display: "block", width: "100%", maxWidth: 380, height: "auto", margin: "var(--space-8) auto 0" }}
-        />
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))",
-            gap: "var(--space-5)",
-            alignItems: "stretch",
-            marginTop: "var(--space-10)",
-          }}
-        >
-          {PLANS.map((p) => {
-            const on = p.best || hover === p.id;
-            const saving = (p.compareAt - p.price) * p.months;
-            return (
-              <div
-                key={p.id}
-                onMouseEnter={() => setHover(p.id)}
-                onMouseLeave={() => setHover("")}
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "var(--space-4)",
-                  padding: "var(--space-6) var(--space-5) var(--space-5)",
-                  background: on ? "var(--sprout-tint)" : "var(--white)",
-                  border: `2px solid ${on ? "var(--ink)" : "var(--border-hairline)"}`,
-                  borderRadius: "var(--radius-card)",
-                  transition: "background var(--duration-fast) var(--ease-standard)",
-                }}
-              >
-                {p.best ? (
-                  <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)" }}>
-                    <Badge tone="ink">Most popular</Badge>
-                  </div>
-                ) : null}
-
-                <div style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
-                  {p.name}
-                </div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "var(--space-3)" }}>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h2)", fontWeight: 900, letterSpacing: "var(--tracking-display)" }}>
-                    ${p.price}
-                  </span>
-                  <span style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)" }}>/pouch</span>
-                  <s style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>${p.compareAt}</s>
-                </div>
-
-                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-                  {[
-                    `${p.months * PRODUCT.servings} servings`,
-                    perDay(p.price, PRODUCT.servings),
-                    `${p.months} ${p.months === 1 ? "pouch" : "pouches"} delivered`,
-                    p.sub,
-                  ].map((line) => (
-                    <li key={line} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start", fontSize: "var(--size-meta)", fontWeight: 500 }}>
-                      <span
-                        aria-hidden="true"
-                        style={{ flex: "none", width: 22, height: 22, borderRadius: "50%", background: "var(--sprout)", color: "var(--ink)", display: "flex", alignItems: "center", justifyContent: "center" }}
-                      >
-                        <Icon name="check" size={13} strokeWidth={3.5} />
-                      </span>
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-
-                <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-                  <div style={{ fontSize: "var(--size-meta)", fontWeight: 800 }}>Save ${saving}</div>
-                  <Button fullWidth size="lg" variant="accent" onClick={() => choose(p)}>
-                    Try now
-                  </Button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <ul style={{ margin: "var(--space-10) 0 0", padding: 0, listStyle: "none", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "var(--space-4) var(--space-8)" }}>
-          {INCLUDED.map((line) => (
-            <li key={line} style={{ display: "flex", gap: "var(--space-3)", alignItems: "center", fontSize: "var(--size-meta)", fontWeight: 600 }}>
-              <Icon name="check" size={18} strokeWidth={3} />
-              {line}
-            </li>
-          ))}
-        </ul>
-
-        <figure style={{ margin: "var(--space-12) auto 0", maxWidth: 560, textAlign: "center" }}>
-          <blockquote style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-            &ldquo;{QUOTES[0].text}&rdquo;
-          </blockquote>
-          <figcaption style={{ marginTop: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 800 }}>
-            {QUOTES[0].name} <span style={{ fontWeight: 600, color: "var(--ink-60)" }}>Verified buyer</span>
-          </figcaption>
-        </figure>
-      </main>
-    </div>
+    <PlansScreen
+      content={ENERGY_PLANS_CONTENT}
+      destinationHref={CHECKOUT}
+      heroMedia={<EvenGallery />}
+      plansSlot={<EnergyPlanCards destinationHref={CHECKOUT} />}
+    />
   );
 }
