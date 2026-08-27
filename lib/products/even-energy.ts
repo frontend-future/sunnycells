@@ -164,34 +164,30 @@ export const REVIEWS = [
   {
     name: "Marisa T.",
     when: "2 weeks ago",
-    title: "Third week was the turn",
+    title: "Took about three weeks for me",
     body:
-      "The first fortnight I honestly thought it was doing nothing. Then I got to a Thursday afternoon and realised I had not thought about coffee since breakfast. Watermelon is not too sweet, which I was worried about.",
-    tag: "Steady energy",
+      "Honestly, the first two weeks I figured I had wasted my money. Then one Thursday afternoon it hit me that I had not thought about coffee since breakfast. And the watermelon is not sweet, which was the thing I was worried about.",
   },
   {
     name: "Deb R.",
     when: "1 month ago",
-    title: "Nothing to come down from",
+    title: "Finally something I can actually take",
     body:
-      "I cannot take anything with caffeine in it. This has none, and it still does something. I take it at seven with cold water and it dissolves properly instead of sitting on top.",
-    tag: "Stimulant free",
+      "I cannot do caffeine at all, not even green tea. This has none in it and it still does something, which I was not expecting. I mix it at seven with cold water and it actually dissolves instead of sitting on top.",
   },
   {
     name: "Angela K.",
     when: "1 month ago",
-    title: "The afternoon dip is a dip now",
+    title: "Now it is a dip, not a cliff",
     body:
-      "Not a miracle. I still get tired, I just get tired at a normal time instead of falling apart at three. Sticks are handy, I keep one in my bag.",
-    tag: "Afternoon",
+      "It is not a miracle and I still get tired. I just get tired at a normal hour instead of falling apart at three. The sticks are handy too, I keep one in my bag.",
   },
   {
     name: "Priya S.",
     when: "2 months ago",
-    title: "Recovery is the part I noticed",
+    title: "The recovery is what got me",
     body:
-      "I lift three times a week and the day after used to be a write off. That has changed more than my energy during the day has. Doses are on the front which is why I bought it.",
-    tag: "Recovery",
+      "I lift three times a week and the day after used to wreck me. That has changed more than my energy during the day has, which surprised me. I bought it because the doses are printed right on the front.",
   },
 ] as const;
 

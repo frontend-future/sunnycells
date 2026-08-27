@@ -780,6 +780,15 @@
 
 .expectBody {
   padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+}
+
+/* The photo column sets the height of the row, so the list opens out to fill what
+   is left rather than bunching under the heading. */
+.expectBody .ticks {
+  flex: 1;
+  justify-content: space-between;
 }
 
 .expectBody .h2 {
