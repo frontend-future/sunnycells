@@ -79,6 +79,27 @@ export function EvenCheckout() {
   const set = (name: string, value: string) =>
     setF((c) => ({ ...c, [name]: name === "phone" ? formatPhone(value) : value }));
 
+  /* Read when an event fires rather than captured once, because the two events now
+     happen at different steps and the customer can go back and edit in between. */
+  const identity = () => ({
+    email: (f.email ?? "").trim(),
+    phone: f.phone ?? "",
+    firstName: f.firstName ?? "",
+    lastName: f.lastName ?? "",
+    city: f.city ?? "",
+    state: f.state ?? "",
+    zip: f.zip ?? "",
+    country: "US",
+  });
+
+  const basket = () => ({
+    currency: "USD",
+    value: order.total,
+    content_ids: [order.plan.id],
+    content_type: "product",
+    content_name: `${PRODUCT.name} ${order.plan.name}`,
+  });
+
   const submit = () => {
     const next: Record<string, string> = {};
     if (!f.firstName?.trim()) next.firstName = "We need a first name for the label.";
@@ -94,29 +115,20 @@ export function EvenCheckout() {
     setErrors(next);
     if (Object.keys(next).length) return;
 
-    const identity = {
-      email,
-      phone: f.phone ?? "",
-      firstName: f.firstName ?? "",
-      lastName: f.lastName ?? "",
-      city: f.city ?? "",
-      state: f.state ?? "",
-      zip: f.zip ?? "",
-      country: "US",
-    };
-    const basket = {
-      currency: "USD",
-      value: order.total,
-      content_ids: [order.plan.id],
-      content_type: "product",
-      content_name: `${PRODUCT.name} ${order.plan.name}`,
-    };
-
-    notifyAttempt({ ...identity, line1: f.line1 ?? "", line2: f.line2 ?? "" }, order.plan.name, order.total);
-    trackMetaEvent("AddPaymentInfo", basket, identity);
-    trackMetaEvent("Purchase", basket, identity);
+    notifyAttempt(
+      { ...identity(), line1: f.line1 ?? "", line2: f.line2 ?? "" },
+      order.plan.name,
+      order.total,
+    );
+    trackMetaEvent("AddPaymentInfo", basket(), identity());
     setPhase("payment");
   };
+
+  /* Purchase waits for Submit secure payment, so it reports a customer who gave a
+     card rather than one who only reached the payment step. Firing it back on the
+     shipping submit counted everyone who got that far, which inflates the signal
+     the campaign optimises on. */
+  const purchased = () => trackMetaEvent("Purchase", basket(), identity());
 
   return (
     <div className={styles.page}>
@@ -200,7 +212,7 @@ export function EvenCheckout() {
                   </button>
                 </div>
                 <h2 className={styles.isTitle}>Payment</h2>
-                <CardForm />
+                <CardForm onSubmitted={purchased} />
               </div>
             )}
           </div>

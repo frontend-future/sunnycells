@@ -38,7 +38,12 @@ function Spinner() {
   );
 }
 
-export function CardForm() {
+/**
+ * `onSubmitted` fires once the card fields validate, on the click of Submit secure
+ * payment, and never on a click that only surfaces errors. It is where a caller
+ * hangs the Purchase event, so nothing reports a purchase before a card was given.
+ */
+export function CardForm({ onSubmitted }: { onSubmitted?: () => void } = {}) {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -57,6 +62,7 @@ export function CardForm() {
     setErrors(next);
     if (Object.keys(next).length) return;
 
+    onSubmitted?.();
     setPhase("working");
     /* Stands in for the provider round trip. There is no provider, so it always
        lands on the same place. */
