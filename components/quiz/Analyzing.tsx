@@ -18,18 +18,20 @@ const HOLD_MS = 500;
    quarter at a time. The ticks land on top of it, they do not drive it. */
 const TOTAL_MS = LINES.length * STEP_MS + HOLD_MS;
 
-export function Analyzing() {
+/** `nextHref` is where the run hands off. Defaults to the diet funnel's summary, so
+    the existing route file stays a one-liner. */
+export function Analyzing({ nextHref = "/quiz/diet/results/summary" }: { nextHref?: string } = {}) {
   const router = useRouter();
   const [done, setDone] = useState(0);
 
   useEffect(() => {
     if (done >= LINES.length) {
-      const t = setTimeout(() => router.replace("/quiz/diet/results/summary"), HOLD_MS);
+      const t = setTimeout(() => router.replace(nextHref), HOLD_MS);
       return () => clearTimeout(t);
     }
     const t = setTimeout(() => setDone((d) => d + 1), STEP_MS);
     return () => clearTimeout(t);
-  }, [done, router]);
+  }, [done, router, nextHref]);
 
   return (
     <ResultsShell>

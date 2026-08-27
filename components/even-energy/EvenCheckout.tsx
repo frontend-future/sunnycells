@@ -66,7 +66,15 @@ function Field({ label, name, value, onChange, error, type = "text", autoComplet
   );
 }
 
-export function EvenCheckout() {
+/**
+ * `backHref` and `backLabel` let a funnel that arrives here from somewhere other than
+ * the product page point the way it came. The quiz sends people back to its plans
+ * screen, not to a product page they never saw.
+ */
+export function EvenCheckout({
+  backHref = "/products/even-energy",
+  backLabel = `Back to ${PRODUCT.name}`,
+}: { backHref?: string; backLabel?: string } = {}) {
   const { answers, ready } = useAnswers(CART_ID);
   const order = buildEvenOrder(answers.plan);
   const [f, setF] = useState<Record<string, string>>({ phone: "+1" });
@@ -134,9 +142,9 @@ export function EvenCheckout() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={`${styles.wrap} ${styles.headerInner}`}>
-          <Link href="/products/even-energy" className={styles.backLink}>
+          <Link href={backHref} className={styles.backLink}>
             <Icon name="chevron-left" size={20} strokeWidth={2.5} />
-            Back to {PRODUCT.name}
+            {backLabel}
           </Link>
           <Wordmark size={20} />
         </div>

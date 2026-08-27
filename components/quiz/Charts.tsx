@@ -142,12 +142,28 @@ function Pill({ cx, cy, label }: { cx: number; cy: number; label: string }) {
 }
 
 /** Projected weight over time, against what dieting alone tends to do. */
+/**
+ * The projection curve. Weight for the diet funnel, good hours for the energy one:
+ * the drawing is the same either way, so the series is passed in normalised rather
+ * than the chart knowing what it plots. `compare` is the second, dashed line, given
+ * as a fraction of the gap travelled at time t.
+ */
 export function ProjectionChart({
   p, startLabel, endLabel,
+  format,
+  planLabel = "With Metabolic Morning Blend",
+  compareLabel = "With dieting alone",
+  ariaNoun = "weight",
+  compare = dietLoss,
 }: {
   p: Projection;
   startLabel: string;
   endLabel: string;
+  format?: (value: number) => string;
+  planLabel?: string;
+  compareLabel?: string;
+  ariaNoun?: string;
+  compare?: (t: number) => number;
 }) {
   /* A 400 unit box, not 640: the SVG scales to its container, so a wide viewBox
      shrinks the type inside it. At 400 the labels land near their nominal size on a
@@ -159,13 +175,18 @@ export function ProjectionChart({
   const padB = 16;
 
   const toLose = p.start - p.target;
-  const lo = p.target - toLose * 0.12;
-  const hi = p.start + toLose * 0.12;
+  /* The value axis always puts the larger number at the top, whichever direction the
+     series travels. Weight starts high and falls; good hours start low and climb.
+     Deriving the window from min and max rather than from start and target is what
+     keeps the second case from drawing upside down. */
+  const pad = Math.abs(toLose) * 0.12;
+  const lo = Math.min(p.start, p.target) - pad;
+  const hi = Math.max(p.start, p.target) + pad;
   const x = (t: number) => padX + t * (W - padX * 2);
   const y = (lb: number) => padT + (1 - (lb - lo) / (hi - lo)) * (H - padT - padB);
 
   const DRAW_MS = 1400;
-  const show = (lb: number) => `${inUnit(lb, p.unit)} ${p.unit}`;
+  const show = format ?? ((lb: number) => `${inUnit(lb, p.unit)} ${p.unit}`);
 
   const plan = p.points.map((pt, i) => `${i ? "L" : "M"}${x(pt.week / p.weeks).toFixed(1)} ${y(pt.lb).toFixed(1)}`).join(" ");
   const area = `${plan} L${x(1).toFixed(1)} ${H - padB} L${x(0).toFixed(1)} ${H - padB} Z`;
@@ -173,7 +194,7 @@ export function ProjectionChart({
   const SAMPLES = 60;
   const diet = Array.from({ length: SAMPLES + 1 }, (_, i) => {
     const t = i / SAMPLES;
-    return `${i ? "L" : "M"}${x(t).toFixed(1)} ${y(p.start - toLose * dietLoss(t)).toFixed(1)}`;
+    return `${i ? "L" : "M"}${x(t).toFixed(1)} ${y(p.start - toLose * compare(t)).toFixed(1)}`;
   }).join(" ");
 
   return (
@@ -182,7 +203,7 @@ export function ProjectionChart({
         viewBox={`0 0 ${W} ${H}`}
         width="100%"
         role="img"
-        aria-label={`Projected weight from ${show(p.start)} to ${show(p.target)} over ${p.weeks} weeks, against a dieting curve that regains most of what it loses`}
+        aria-label={`Projected ${ariaNoun} from ${show(p.start)} to ${show(p.target)} over ${p.weeks} weeks, against a ${compareLabel.toLowerCase()} curve that gives most of it back`}
         style={{ display: "block", overflow: "visible" }}
       >
         <defs>
@@ -260,8 +281,8 @@ export function ProjectionChart({
         }}
       >
         {[
-          { label: "With Metabolic Morning Blend", color: "var(--series-plan)", dash: undefined },
-          { label: "With dieting alone", color: "var(--series-diet)", dash: "9 7" },
+          { label: planLabel, color: "var(--series-plan)", dash: undefined },
+          { label: compareLabel, color: "var(--series-diet)", dash: "9 7" },
         ].map((k) => (
           <span key={k.label} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 600 }}>
             <svg width={26} height={10} aria-hidden="true" style={{ flex: "none" }}>

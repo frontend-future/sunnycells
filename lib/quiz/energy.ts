@@ -1,0 +1,195 @@
+import type { QuizConfig } from "./types";
+
+/**
+ * The energy quiz, as content. Same engine, same shape, and deliberately the same
+ * rhythm as the diet funnel: a familiarity read, an education screen, goals, a run of
+ * symptom questions, the numbers, a second run, the brand statement, then the email.
+ * Only the subject changes. Slugs become URL segments, so they are stable.
+ */
+
+export const energyQuiz: QuizConfig = {
+  id: "energy",
+  basePath: "/quiz/energy",
+  resultsPath: "/quiz/energy/results/analyzing",
+  steps: [
+  {
+    slug: "caffeine-familiarity",
+    kind: "single",
+    question: "How familiar are you with how caffeine borrows energy from later in your day?",
+    options: ["I am an expert", "I know a thing or two", "I'm a beginner"],
+  },
+  {
+    slug: "how-the-crash-works",
+    kind: "info",
+    question: "How the caffeine crash actually works",
+    body: "Caffeine does not give you energy. It blocks the signal that tells you you are tired, and that signal arrives all at once when it wears off. Here are the most common signs you are running on borrowed energy:",
+    bullets: [
+      "Tired an hour or two after your coffee",
+      "Needing more caffeine than you used to",
+      "An afternoon that falls off a cliff at three",
+      "Jittery and wired but still not sharp",
+      "Waking up already needing a cup",
+      "Sleeping badly and blaming everything else",
+    ],
+    cta: "Continue",
+  },
+  {
+    slug: "goals",
+    kind: "single",
+    question: "What are your goals?",
+    options: ["Steady energy all day", "No more afternoon crash", "Getting off caffeine", "Better focus and stamina"],
+  },
+  {
+    slug: "jitters",
+    kind: "single",
+    question: "Do you get a jittery, wired, or racing feeling after coffee or an energy drink?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "brain-fog",
+    kind: "single",
+    question: "Do you feel fatigued or have difficulty concentrating, often described as “brain fog”?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "tolerance",
+    kind: "single",
+    question: "Do you need more caffeine now than you used to for the same effect?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "energy-pattern",
+    kind: "single",
+    question: "How would you describe your energy through the day?",
+    options: ["I am running on empty most of the day", "Fine until it drops off a cliff", "I usually feel good"],
+  },
+  {
+    slug: "post-coffee-dip",
+    kind: "single",
+    question: "After a coffee, do you dip again within an hour or two?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "steady-difficulty",
+    kind: "single",
+    question: "Despite your efforts, do you find it hard to keep your energy steady?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "caffeine-per-day",
+    kind: "number",
+    question: "How many caffeinated drinks do you have on a normal day?",
+    key: "caffeineDrinks",
+    units: ["drinks", "drinks"],
+    prefix: "About",
+    trailing: "a day",
+    label: "Drinks",
+    min: 0,
+    max: 20,
+  },
+  {
+    slug: "good-hours",
+    kind: "number",
+    question: "How many hours of genuinely good energy do you get in a day?",
+    key: "energyHours",
+    units: ["hours", "hours"],
+    prefix: "About",
+    trailing: "hours",
+    label: "Hours",
+    min: 1,
+    max: 16,
+  },
+  {
+    slug: "target-hours",
+    kind: "number",
+    question: "How many good hours would you like?",
+    key: "targetEnergyHours",
+    units: ["hours", "hours"],
+    prefix: "I want",
+    trailing: "hours",
+    label: "Hours",
+    min: 1,
+    max: 16,
+  },
+  {
+    slug: "age",
+    kind: "number",
+    question: "What's your age?",
+    key: "age",
+    units: ["years old", "years old"],
+    label: "Age",
+    prefix: "I am",
+    trailing: "years old",
+    min: 18,
+    max: 100,
+  },
+  {
+    slug: "last-felt-rested",
+    kind: "single",
+    question: "When was the last time you woke up genuinely rested?",
+    options: ["Less than 6 months ago", "6 to 12 months ago", "1 to 2 years ago", "More than 2 years ago"],
+  },
+  {
+    slug: "daytime-tiredness",
+    kind: "single",
+    question: "How tired do you typically feel during the day?",
+    options: [
+      "I usually feel tired all day long",
+      "I feel tired before meals",
+      "I feel sleepy after lunch",
+      "I am a ball of fire all day long",
+    ],
+  },
+  {
+    slug: "morning-caffeine",
+    kind: "single",
+    question: "Do you need caffeine before you feel like yourself in the morning?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "headaches",
+    kind: "single",
+    question: "Do you get a headache on a day you skip your usual caffeine?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "crash-despite-sleep",
+    kind: "single",
+    question: "Do you still crash in the afternoon even after a full night's sleep?",
+    options: ["Yes", "No"],
+  },
+  {
+    slug: "sleep",
+    kind: "single",
+    question: "How much do you usually sleep?",
+    options: ["Less than 5 hours", "5 to 6 hours", "7 to 8 hours", "More than 8 hours"],
+  },
+  {
+    slug: "made-for-you",
+    kind: "info",
+    /* The wordmark is drawn by the renderer and reads as the first line of the
+       heading, so the question picks up mid-sentence. */
+    question: "is made for you",
+    brandHeading: true,
+    bulletIcon: "check",
+    body: "Even Energy is a caffeine free daily drink that feeds the energy your cells make instead of stimulating you. One stick in cold water, zero sugar, and nothing to come down from. It will:",
+    bullets: [
+      "Give you steadier energy through the day",
+      "Take the afternoon crash out of your day",
+      "Support your muscles and your focus",
+    ],
+    footnote: "Continue to get your personal results and learn more about Even Energy.",
+    cta: "Continue",
+  },
+  {
+    slug: "email",
+    kind: "email",
+    question: "Enter your email",
+    subhead: "and see how Even Energy can help you",
+    placeholder: "Your email address",
+    privacy: "We don't send spam or share email addresses. We respect your privacy.",
+    cta: "Unlock my results",
+    badge: "50% off your first order",
+  },
+  ],
+};
