@@ -7,9 +7,17 @@
  */
 export type Funnel = "energy" | "default";
 
-/** Everything under the Even Energy product, including its checkout. */
+/* Every path that sells Even Energy: the product page with its checkout, and the
+   energy quiz funnel with its results and checkout. Anything else, which today means
+   the diet quiz and the Metabolic Morning Blend pages, stays on the original dataset.
+   A prefix that matched "/quiz/energy" loosely would also catch a future
+   "/quiz/energy-something-else", so both entries are the full segment. */
+const ENERGY_PATHS = ["/products/even-energy", "/quiz/energy"];
+
 export function funnelForPath(pathname: string): Funnel {
-  return pathname.startsWith("/products/even-energy") ? "energy" : "default";
+  return ENERGY_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"))
+    ? "energy"
+    : "default";
 }
 
 /* Both are read statically so Next can inline them into the client bundle. A
