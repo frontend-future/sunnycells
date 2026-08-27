@@ -11,7 +11,16 @@ import { US_STATES } from "@/lib/quiz/order";
 import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { useAnswers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
-import { buildEvenOrder, CART_ID, PRODUCT } from "@/lib/products/even-energy";
+import { buildEvenOrder, CART_ID, PRODUCT, type EvenOrder } from "@/lib/products/even-energy";
+
+/** What the checkout needs to know about whatever it is selling. */
+export type CheckoutProduct = {
+  name: string;
+  cartId: string;
+  buildOrder: (planId: string | undefined) => EvenOrder;
+};
+
+const EVEN: CheckoutProduct = { name: PRODUCT.name, cartId: CART_ID, buildOrder: buildEvenOrder };
 import styles from "./even-energy.module.css";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -73,10 +82,11 @@ function Field({ label, name, value, onChange, error, type = "text", autoComplet
  */
 export function EvenCheckout({
   backHref = "/products/even-energy",
-  backLabel = `Back to ${PRODUCT.name}`,
-}: { backHref?: string; backLabel?: string } = {}) {
-  const { answers, ready } = useAnswers(CART_ID);
-  const order = buildEvenOrder(answers.plan);
+  backLabel,
+  product = EVEN,
+}: { backHref?: string; backLabel?: string; product?: CheckoutProduct } = {}) {
+  const { answers, ready } = useAnswers(product.cartId);
+  const order = product.buildOrder(answers.plan);
   const [f, setF] = useState<Record<string, string>>({ phone: "+1" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [phase, setPhase] = useState<"shipping" | "payment">("shipping");
@@ -144,7 +154,7 @@ export function EvenCheckout({
         <div className={`${styles.wrap} ${styles.headerInner}`}>
           <Link href={backHref} className={styles.backLink}>
             <Icon name="chevron-left" size={20} strokeWidth={2.5} />
-            {backLabel}
+            {backLabel ?? `Back to ${product.name}`}
           </Link>
           <Wordmark size={20} />
         </div>

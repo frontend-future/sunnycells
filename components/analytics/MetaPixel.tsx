@@ -2,13 +2,21 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { funnelForPath, PIXEL_IDS } from "@/lib/meta-funnels";
 
 /* Which pixels this document has already called init on. Module level rather than
    component state because fbq's own registry is module level too: initialising the
    same pixel twice makes it count every later event twice. */
 const inited = new Set<string>();
+
+/* The last path counted, also module level and for the same reason. A ref inside the
+   component resets when React remounts it, and React remounts every component twice
+   on mount under StrictMode, which is on by default in development. With the guard in
+   a ref the second run saw a component that had already counted the first page and
+   sent a second PageView for it. Module state survives the remount, so the guard
+   holds. It also stops any future re-render on the same path counting twice. */
+let counted: string | null = null;
 
 export function markInited(pixel: string) {
   inited.add(pixel);
@@ -43,17 +51,18 @@ export function ensureInit(pixel: string) {
 export function MetaPixel() {
   const pathname = usePathname();
   const pixel = PIXEL_IDS[funnelForPath(pathname)];
-  /* The snippet already initialised and counted the first page. Firing again here
-     would double it. */
-  const counted = useRef(false);
 
   useEffect(() => {
     if (!pixel) return;
-    if (!counted.current) {
-      counted.current = true;
+    /* The inline snippet initialised this pixel and counted the page it loaded on, so
+       the first path this hook sees is already reported. */
+    if (counted === null) {
+      counted = pathname;
       markInited(pixel);
       return;
     }
+    if (counted === pathname) return;
+    counted = pathname;
     if (ensureInit(pixel)) window.fbq?.("trackSingle", pixel, "PageView");
   }, [pathname, pixel]);
 
