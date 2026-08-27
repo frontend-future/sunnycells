@@ -339,7 +339,9 @@
 }
 
 .compareUs {
-  background: var(--sprout-tint);
+  /* Sprout tint deepening down the card, so our column reads green against the flat
+     grey of theirs. The darkest stop still carries black body text at 11:1. */
+  background: linear-gradient(165deg, #F1FAF2 0%, var(--sprout-tint) 42%, #BFE3C3 100%);
   border-color: var(--ink);
 }
 

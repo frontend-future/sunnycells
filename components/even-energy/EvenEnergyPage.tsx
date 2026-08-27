@@ -174,28 +174,28 @@ export function EvenEnergyPage() {
           <div className={styles.split}>
             <div>
               <h2 className={styles.h2} id="mech-title">
-                Energy your body makes, not energy it borrows
+                Daily energy support that works with your body
               </h2>
               <p className={styles.lede}>
-                A stimulant blocks the signal that tells you you are tired. It does not give you
-                anything. These do the opposite: they are raw material, not a message.
+                No artificial stimulants. No jitters. No crash. Just clinically studied actives at
+                the dosages the research actually used.
               </p>
 
               <div style={{ marginTop: "var(--space-8)" }}>
                 <div className={styles.mechBlock}>
-                  <h3 className={styles.mechName}>Taurine 1000 mg</h3>
+                  <h3 className={styles.mechName}>Ubiqsome&reg; CoQ10</h3>
                   <p className={styles.pillarCopy}>
-                    One of the most abundant amino acids in muscle tissue, and a molecule the body
-                    uses in mitochondrial function. It is not a stimulant and it does not act like
-                    one, which is why nothing spikes and nothing drops.
+                    A phytosome delivered form of CoQ10, the molecule at the core of mitochondrial
+                    energy production. Clinically shown to increase muscle and skin CoQ10 levels
+                    significantly within 2 weeks.
                   </p>
                 </div>
                 <div className={styles.mechBlock}>
-                  <h3 className={styles.mechName}>CoQ10 150 mg</h3>
+                  <h3 className={styles.mechName}>Taurine</h3>
                   <p className={styles.pillarCopy}>
-                    Sits in the electron transport chain, the last step before your cells produce
-                    ATP. The body makes less of it with age, and 150 mg is the upper end of what
-                    studies of daily supplementation have used.
+                    A conditionally essential amino acid clinically associated with reduced fatigue
+                    and improved muscle performance. Supports cellular hydration and antioxidant
+                    defense, without stimulation.
                   </p>
                 </div>
               </div>
@@ -393,7 +393,7 @@ export function EvenEnergyPage() {
           </div>
           <Image
             src="/photos/even-expect.webp"
-            alt="Two women stretching outdoors in a park in the morning"
+            alt="Two women in workout clothes outdoors, smiling over glasses of watermelon drink"
             width={1024}
             height={768}
             className={styles.expectShot}

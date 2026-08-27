@@ -95,17 +95,18 @@ export const COMPARISON = {
 } as const;
 
 export const IS = [
-  "A daily drink you take in the morning",
-  "Built around three ingredients at studied doses",
-  "Designed for stimulant sensitive people",
-  "Something you feel over weeks, not minutes",
+  "A daily energy support formula",
+  "Built around clinically studied ingredients",
+  "Designed for consistent, sustainable use",
+  "Non stimulant, working at the cellular level",
 ] as const;
 
 export const IS_NOT = [
-  "A pre workout",
-  "A caffeine substitute that hides caffeine",
+  "A caffeine hit",
+  "A pre workout stimulant",
   "A crash and burn energy drink",
-  "A replacement for sleep, or for a doctor",
+  "A replacement for sleep or medical care",
+  "A prescription medication",
 ] as const;
 
 export const EXPECT = [
