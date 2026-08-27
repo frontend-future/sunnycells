@@ -154,6 +154,7 @@ export function EvenEnergyPage() {
                 <h3 className={styles.pillarName}>{p.name}</h3>
                 <span className={styles.pillarDose}>{p.dose}</span>
                 <p className={styles.pillarCopy}>{p.copy}</p>
+                <p className={styles.pillarTicksLabel}>{p.ticksLabel}</p>
                 <ul className={styles.ticks}>
                   {p.ticks.map((t) => (
                     <li key={t}>

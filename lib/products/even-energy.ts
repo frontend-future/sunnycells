@@ -41,37 +41,55 @@ export const PLANS: Plan[] = [
   { id: "e6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 21, compareAt: 50 },
 ];
 
-/** The three jobs the formula is built around, each with the dose that does it. */
+/** The three jobs the formula is built around, each with the dose that does it. The
+    tick list is labelled, because Fuel's four are study outcomes and the other two
+    lists are what the ingredient supports. */
 export const PILLARS = [
   {
     key: "fuel",
     name: "Fuel",
-    dose: "CoQ10 150 mg",
+    dose: "Ubiqsome\u00ae CoQ10 (150 mg)",
     photo: "/photos/even-fuel.webp",
-    alt: "A woman at a sunlit kitchen counter in the morning holding a glass of watermelon drink",
+    alt: "A woman at a sunlit kitchen counter in the morning holding a pouch of Even Energy",
     copy:
-      "Your mitochondria use CoQ10 to move electrons through the chain that ends in ATP. Levels fall with age and fall faster on a statin, and the cell makes less of what it runs on.",
-    ticks: ["Supports cellular energy production", "Supports healthy heart function"],
-  },
-  {
-    key: "sustain",
-    name: "Sustain",
-    dose: "Taurine 1000 mg",
-    photo: "/photos/even-sustain.webp",
-    alt: "A woman working at a bright desk in the afternoon with a glass of watermelon drink beside her",
-    copy:
-      "Taurine is one of the most abundant amino acids in muscle and it is not a stimulant. It supports the machinery already running rather than pushing on it harder.",
-    ticks: ["Supports fatigue reduction", "No caffeine and nothing to crash from"],
+      "A phytosome based form of Coenzyme Q10, the molecule your mitochondria use to generate ATP. Unlike standard CoQ10, Ubiqsome\u00ae is formulated for far higher absorption into muscle and skin tissue.",
+    ticksLabel: "Clinical results",
+    ticks: [
+      "48% increase in muscle CoQ10 levels at 2 weeks",
+      "103% increase in skin CoQ10 levels",
+      "Significant reduction in fatigue scores",
+      "Improved handgrip strength and aerobic endurance",
+    ],
   },
   {
     key: "restore",
     name: "Restore",
-    dose: "PEAK ATP 40 mg",
+    dose: "Taurine (1,000 mg)",
     photo: "/photos/even-restore.webp",
-    alt: "A woman in workout clothes after exercise holding a glass of watermelon drink",
+    alt: "A woman sitting on the floor after exercise holding an Even Energy stick pack",
     copy:
-      "ATP is the currency every cell spends. PEAK ATP is a studied oral form, included at the 40 mg the research used rather than a dusting of it for the label.",
-    ticks: ["Supports muscle function", "Studied at the dose on the pack"],
+      "A conditionally essential amino acid involved in muscle contraction, calcium signalling and cellular hydration. Human studies associate taurine intake with reduced fatigue and improved endurance, particularly in aging populations.",
+    ticksLabel: "Supports",
+    ticks: [
+      "Muscle function and efficiency",
+      "Antioxidant defense",
+      "Faster recovery between efforts",
+    ],
+  },
+  {
+    key: "sustain",
+    name: "Sustain",
+    dose: "Vitamin B6 + B12 + PEAK ATP\u00ae (40 mg)",
+    photo: "/photos/even-sustain.webp",
+    alt: "A woman at a bright desk in the afternoon holding a pouch of Even Energy",
+    copy:
+      "B vitamins are essential for converting food into usable cellular energy. PEAK ATP\u00ae supports energy signalling pathways. Together they give your body the nutritional foundation to sustain output, with no stimulants and no crash.",
+    ticksLabel: "Supports",
+    ticks: [
+      "Nutrient to energy conversion",
+      "Red blood cell formation",
+      "Nervous system function",
+    ],
   },
 ] as const;
 

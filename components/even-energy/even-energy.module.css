@@ -249,6 +249,17 @@
   color: var(--ink-60);
 }
 
+/* Names the tick list under it, since Fuel's are study outcomes and the other two
+   cards list what the ingredient supports. */
+.pillarTicksLabel {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink-60);
+}
+
 .pillarCopy {
   margin: 0;
   font-size: var(--size-meta);
