@@ -1,5 +1,8 @@
 "use client";
 
+import { ensureInit } from "@/components/analytics/MetaPixel";
+import { funnelForPath, PIXEL_IDS } from "@/lib/meta-funnels";
+
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
@@ -33,18 +36,23 @@ export type MetaUserData = {
  * side of this succeeds.
  */
 export function trackMetaEvent(eventName: string, customData?: MetaCustomData, userData?: MetaUserData) {
-  /* No pixel configured means no tracking at all, rather than a browser event with
-     nothing to receive it and a CAPI call the route can only reject. Keeps local
-     runs and preview deploys silent. */
-  if (!process.env.NEXT_PUBLIC_META_PIXEL_ID) return;
+  /* The dataset that owns this page. No pixel configured for it means no tracking at
+     all, rather than a browser event with nothing to receive it and a CAPI call the
+     route can only reject. Keeps local runs and preview deploys silent. */
+  const funnel = funnelForPath(typeof window !== "undefined" ? window.location.pathname : "/");
+  if (!PIXEL_IDS[funnel]) return;
 
   const eventId =
     typeof crypto !== "undefined" && "randomUUID" in crypto
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-  if (typeof window !== "undefined" && typeof window.fbq === "function") {
-    window.fbq("track", eventName, customData ?? {}, { eventID: eventId });
+  /* trackSingle, not track: once a visitor has crossed between the two funnels this
+     document has both pixels initialised, and a plain track would report the event
+     to whichever one does not own the page as well. */
+  const pixel = PIXEL_IDS[funnel] as string;
+  if (ensureInit(pixel)) {
+    window.fbq?.("trackSingle", pixel, eventName, customData ?? {}, { eventID: eventId });
   }
 
   fetch("/api/meta-capi", {
@@ -54,6 +62,7 @@ export function trackMetaEvent(eventName: string, customData?: MetaCustomData, u
     body: JSON.stringify({
       event_name: eventName,
       event_id: eventId,
+      funnel,
       event_source_url: typeof window !== "undefined" ? window.location.href : undefined,
       custom_data: customData,
       user_data: userData,

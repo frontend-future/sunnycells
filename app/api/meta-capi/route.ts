@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
 import { createHash } from "node:crypto";
 
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-const ACCESS_TOKEN = process.env.META_CAPI_ACCESS_TOKEN;
 const GRAPH_VERSION = "v21.0";
+
+/* One pixel and one token per funnel, paired here so a token can never be sent to
+   the other funnel's dataset. The client names a funnel, it never names a pixel:
+   an id off the wire would let anyone post events into any dataset we hold a token
+   for. Anything but the one known key falls back to the original dataset. */
+const DATASETS = {
+  energy: {
+    pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID_ENERGY,
+    token: process.env.META_CAPI_ACCESS_TOKEN_ENERGY,
+  },
+  default: {
+    pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID,
+    token: process.env.META_CAPI_ACCESS_TOKEN,
+  },
+} as const;
 
 type UserDataInput = {
   email?: string;
@@ -19,6 +32,7 @@ type UserDataInput = {
 type Payload = {
   event_name: string;
   event_id: string;
+  funnel?: string;
   event_source_url?: string;
   custom_data?: Record<string, unknown>;
   user_data?: UserDataInput;
@@ -35,10 +49,6 @@ function getCookie(cookieHeader: string | null, name: string) {
 }
 
 export async function POST(request: Request) {
-  if (!PIXEL_ID || !ACCESS_TOKEN) {
-    return NextResponse.json({ error: "Meta CAPI not configured" }, { status: 500 });
-  }
-
   let payload: Payload;
   try {
     payload = await request.json();
@@ -48,6 +58,11 @@ export async function POST(request: Request) {
 
   if (!payload.event_name || !payload.event_id) {
     return NextResponse.json({ error: "Missing event_name or event_id" }, { status: 400 });
+  }
+
+  const { pixel, token } = DATASETS[payload.funnel === "energy" ? "energy" : "default"];
+  if (!pixel || !token) {
+    return NextResponse.json({ error: "Meta CAPI not configured" }, { status: 500 });
   }
 
   const cookieHeader = request.headers.get("cookie");
@@ -90,7 +105,7 @@ export async function POST(request: Request) {
   let res: Response;
   try {
     res = await fetch(
-      `https://graph.facebook.com/${GRAPH_VERSION}/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`,
+      `https://graph.facebook.com/${GRAPH_VERSION}/${pixel}/events?access_token=${token}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
