@@ -222,6 +222,9 @@
   width: 100%;
   height: 220px;
   object-fit: cover;
+  /* The 220px band crops a square photo hard. Anchoring the top keeps the face in
+     frame instead of centring on the torso. */
+  object-position: top;
   display: block;
 }
 

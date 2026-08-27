@@ -81,7 +81,7 @@ export const PILLARS = [
     name: "Sustain",
     dose: "Vitamin B6 + B12 + PEAK ATP\u00ae (40 mg)",
     photo: "/photos/even-sustain.webp",
-    alt: "A woman at a bright desk in the afternoon holding a pouch of Even Energy",
+    alt: "A pouch of Even Energy on a sunlit counter beside a tall glass of iced watermelon drink",
     copy:
       "B vitamins are essential for converting food into usable cellular energy. PEAK ATP\u00ae supports energy signalling pathways. Together they give your body the nutritional foundation to sustain output, with no stimulants and no crash.",
     ticksLabel: "Supports",
