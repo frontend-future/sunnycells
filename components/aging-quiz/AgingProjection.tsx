@@ -86,7 +86,7 @@ export function AgingProjection() {
           Hydrolyzed collagen is broken into peptides small enough to be absorbed and
           carried to the layer that needs them. Skin cell turnover runs about four weeks,
           nails grow out over three to six months, and hair is slower still, which is why
-          the curve climbs rather than jumping.
+          the line moves steadily rather than jumping.
         </p>
         {p ? (
           <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
