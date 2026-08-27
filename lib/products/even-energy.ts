@@ -50,7 +50,7 @@ export const PILLARS = [
     name: "Fuel",
     dose: "Ubiqsome\u00ae CoQ10 (150 mg)",
     photo: "/photos/even-fuel.webp",
-    alt: "A woman at a sunlit kitchen counter in the morning holding a pouch of Even Energy",
+    alt: "A woman in a sunlit kitchen holding a pouch of Even Energy beside her face",
     copy:
       "A phytosome based form of Coenzyme Q10, the molecule your mitochondria use to generate ATP. Unlike standard CoQ10, Ubiqsome\u00ae is formulated for far higher absorption into muscle and skin tissue.",
     ticksLabel: "Clinical results",
@@ -66,7 +66,7 @@ export const PILLARS = [
     name: "Restore",
     dose: "Taurine (1,000 mg)",
     photo: "/photos/even-restore.webp",
-    alt: "A woman sitting on the floor after exercise holding an Even Energy stick pack",
+    alt: "A woman in workout clothes after exercise holding up an Even Energy stick pack",
     copy:
       "A conditionally essential amino acid involved in muscle contraction, calcium signalling and cellular hydration. Human studies associate taurine intake with reduced fatigue and improved endurance, particularly in aging populations.",
     ticksLabel: "Supports",
