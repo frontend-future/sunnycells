@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Badge } from "@/components/core/Badge";
@@ -83,6 +84,16 @@ export function AgingPlanCards({ destinationHref, ctaLabel = "Try now" }: { dest
             <div style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
               {p.name}
             </div>
+
+            {/* The pouch count matches what actually arrives, so a six month supply does
+                not look like one bag. One scoop in every shot regardless. */}
+            <Image
+              src={p.image}
+              alt={`${p.months} ${p.months === 1 ? "pouch" : "pouches"} of ${PRODUCT.name}`}
+              width={1200}
+              height={900}
+              style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
+            />
             <div style={{ display: "flex", alignItems: "baseline", gap: "var(--space-3)" }}>
               <span style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h2)", fontWeight: 900, letterSpacing: "var(--tracking-display)" }}>
                 ${p.price}

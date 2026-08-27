@@ -1,0 +1,95 @@
+/* Phones only. On a wide screen the plan cards sit three across and the page is
+   navigable without help; on a phone they are one column inside an 8000px page, so
+   once they scroll away there is nothing to buy with. */
+.bar {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .bar {
+    position: fixed;
+    right: var(--space-3);
+    bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+    left: var(--space-3);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 72px;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-card);
+    background: var(--ink);
+    color: var(--white);
+    box-shadow: 0 12px 30px rgba(13, 13, 12, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + var(--space-6)));
+    transition: opacity var(--duration-fast, 160ms) ease, transform var(--duration-fast, 160ms) ease;
+  }
+
+  .on {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Small enough that the name, the offer and a 48px tap target all fit across a
+     360px phone without the text column wrapping. */
+  .shot {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: var(--radius-xs);
+    background: var(--white);
+  }
+
+  .text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    line-height: 1.25;
+  }
+
+  /* Both lines hold one line each. A wrapping product name pushed the offer line off
+     the bottom of the bar and clipped it. */
+  .text strong {
+    max-width: 100%;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .text span {
+    max-width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-20);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding-inline: var(--space-3);
+    border: 0;
+    border-radius: var(--radius-button);
+    background: var(--action-accent-bg);
+    color: var(--action-accent-fg);
+    font-family: var(--font-text);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+}

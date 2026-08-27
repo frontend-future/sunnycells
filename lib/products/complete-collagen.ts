@@ -29,15 +29,18 @@ export type Plan = {
   price: number;
   compareAt: number;
   best?: boolean;
+  /** Shows the number of pouches the delivery actually contains, so a six month
+      supply does not look like one bag. */
+  image: string;
 };
 
 /* The same ladder the other two products use: one list price per pouch and the saving
    widening with the supply. The first month lands at half the list price, which is the
    standing 50% off a first order stated exactly. */
 export const PLANS: Plan[] = [
-  { id: "c1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 27, compareAt: 54 },
-  { id: "c3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 25, compareAt: 54, best: true },
-  { id: "c6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 22, compareAt: 54 },
+  { id: "c1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 27, compareAt: 54, image: "/product/complete-collagen.webp" },
+  { id: "c3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 25, compareAt: 54, best: true, image: "/product/collagen-pouch-3.webp" },
+  { id: "c6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 22, compareAt: 54, image: "/product/collagen-pouch-6.webp" },
 ];
 
 export function collagenPlanById(id: string | undefined): Plan {

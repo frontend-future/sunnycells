@@ -17,6 +17,7 @@ import { OfferCountdown } from "./OfferCountdown";
 import { CardBrandMark } from "./CardBrandMark";
 import { UsaFlag } from "./UsaFlag";
 import { PlanCards } from "./PlanCards";
+import { PlansStickyBar } from "./PlansStickyBar";
 
 const PRESS = [
   { name: "Business Insider", src: "/press/business-insider.webp", width: 256, height: 80 },
@@ -802,6 +803,8 @@ export function PlansScreen({
           ))}
         </div>
       </Section>
+
+      <PlansStickyBar image={productImage} offer={content.offer.badge} />
 
       {/* FAQ */}
       <Section title="Frequently asked questions by our customers" tone="shell">
