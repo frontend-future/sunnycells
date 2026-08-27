@@ -195,8 +195,6 @@ export const REVIEWS = [
   },
 ] as const;
 
-export const REVIEW_TAGS = ["All", "Steady energy", "Stimulant free", "Afternoon", "Recovery"] as const;
-
 export const RATING = { score: 4.8, count: 1247 } as const;
 
 /** Look a plan up by id, falling back to the one most people choose. */

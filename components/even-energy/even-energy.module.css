@@ -877,53 +877,12 @@
 
 /* ---------- reviews ---------- */
 
-.reviewHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-6);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--border-hairline);
-}
-
-.scoreBig {
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 900;
-  letter-spacing: var(--tracking-display);
-  line-height: 1;
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  padding-block: var(--space-6);
-}
-
-.filter {
-  min-height: 48px;
-  padding: 0 var(--space-5);
-  border-radius: var(--radius-button);
-  border: 1px solid var(--border-hairline);
-  background: var(--surface-card);
-  font: inherit;
-  font-size: var(--size-meta);
-  font-weight: 600;
-  color: var(--ink-80);
-  cursor: pointer;
-}
-
-.filterOn {
-  background: var(--ink);
-  color: var(--white);
-  border-color: var(--ink);
-}
-
 .reviewList {
   display: flex;
   flex-direction: column;
+  max-width: 900px;
+  margin-inline: auto;
+  margin-top: var(--space-8);
 }
 
 .review {
@@ -932,6 +891,11 @@
   gap: var(--space-6);
   padding-block: var(--space-8);
   border-bottom: 1px solid var(--border-hairline);
+}
+
+/* Nothing follows the last one, so its rule would just hang under the section. */
+.review:last-child {
+  border-bottom: 0;
 }
 
 .reviewWho {
