@@ -145,18 +145,18 @@ export const BENEFITS = [
 export const QUOTES = [
   {
     text:
-      "I stopped at one coffee instead of three and did not really notice until my husband pointed it out. Week three was when it turned.",
-    name: "Marisa T.",
+      "I\u2019ve always struggled with feeling in tune with my energy levels, and this is the first thing I\u2019ve tried that actually feels balanced. No jitters, no crash, just steady, clean energy that helps me get through workouts and busy days.",
+    name: "Kaitlin S.",
   },
   {
     text:
-      "I am sensitive to caffeine to the point that green tea keeps me up. This does nothing to my heart rate, which is the whole reason I kept taking it.",
-    name: "Deb R.",
+      "Delicious and easy to use, mixes easily! Gives a steady boost of energy and supports my mental clarity.",
+    name: "Anne H.",
   },
   {
     text:
-      "The three o'clock thing was the worst part of my day for about four years. It is not gone but it is a dip now instead of a wall.",
-    name: "Angela K.",
+      "Almost finished with my first package. I absolutely love the energy I get from this! I used to drink so much coffee into the afternoons that I would feel anxious. Now I don\u2019t have that jittery feeling and still have the energy to get things done!!",
+    name: "Emery K.",
   },
 ] as const;
 
