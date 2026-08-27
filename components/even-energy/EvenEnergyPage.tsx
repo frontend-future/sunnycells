@@ -94,7 +94,7 @@ export function EvenEnergyPage() {
               </p>
 
               <div className={styles.heroActions}>
-                <EvenCta>Try it now</EvenCta>
+                <EvenCta>Try now and save 50%</EvenCta>
                 <span className={styles.heroRating}>
                   <Stars />
                   <span style={{ fontSize: "var(--size-meta)", fontWeight: 600 }}>
