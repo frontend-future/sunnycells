@@ -11,6 +11,16 @@
    first order is a standing term with no expiry. */
 
 .page {
+  /* Every call to action on this product, on the page and through checkout, runs the
+     one green gradient. Rebinding the action tokens here means the shared Button, the
+     link CTAs and the phone bar all read from the same pair, and nothing outside this
+     page changes. */
+  --action-primary-bg: linear-gradient(135deg, var(--sprout) 0%, var(--sprout-press) 100%);
+  --action-primary-bg-press: linear-gradient(135deg, var(--sprout-press) 0%, #4E9A55 100%);
+  --action-primary-fg: var(--ink);
+  --action-accent-bg: var(--action-primary-bg);
+  --action-accent-bg-press: var(--action-primary-bg-press);
+  --action-accent-fg: var(--ink);
   background: var(--surface-page);
   color: var(--text-primary);
 }
@@ -481,11 +491,6 @@
 }
 
 .offerCard {
-  /* Rebinds the accent tokens the Button reads, so the buy button carries the same
-     green as the plan selector and the comparison column without touching the
-     accent button anywhere else in the system. */
-  --action-accent-bg: linear-gradient(135deg, var(--sprout) 0%, var(--sprout-press) 100%);
-  --action-accent-bg-press: linear-gradient(135deg, var(--sprout-press) 0%, #4E9A55 100%);
   background: var(--surface-card);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-card);
@@ -1292,7 +1297,7 @@
 }
 
 .summary {
-  background: var(--sun-tint);
+  background: linear-gradient(160deg, #F1FAF2 0%, var(--sprout-tint) 45%, #C6E8C9 100%);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-card);
   padding: var(--space-8);
@@ -1730,7 +1735,9 @@
   }
 
   .stickyText span {
-    font-size: 15px;
+    /* Small enough to hold the price and the standing offer on one line beside a
+       48px tap target on a 390px phone. */
+    font-size: 13px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1745,8 +1752,8 @@
     min-height: 48px;
     padding-inline: var(--space-5);
     border-radius: var(--radius-button);
-    background: var(--sun);
-    color: var(--ink);
+    background: var(--action-accent-bg);
+    color: var(--action-accent-fg);
     font-size: var(--size-meta);
     font-weight: 800;
     letter-spacing: var(--tracking-caps);

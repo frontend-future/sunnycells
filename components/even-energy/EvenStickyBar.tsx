@@ -55,7 +55,7 @@ export function EvenStickyBar() {
       />
       <span className={styles.stickyText}>
         <strong>{PRODUCT.name}</strong>
-        <span>${best.price}/pouch, 50% off first order</span>
+        <span>${best.price}/pouch &middot; 50% off first order</span>
       </span>
       <a href="#buy" className={styles.stickyCta} tabIndex={shown ? 0 : -1}>
         Try it now
