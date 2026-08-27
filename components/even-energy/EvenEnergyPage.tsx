@@ -151,8 +151,10 @@ export function EvenEnergyPage() {
             <article className={styles.pillar} key={p.key}>
               <Image src={p.photo} alt={p.alt} width={1024} height={1024} className={styles.pillarShot} />
               <div className={styles.pillarBody}>
-                <h3 className={styles.pillarName}>{p.name}</h3>
-                <span className={styles.pillarDose}>{p.dose}</span>
+                <div className={styles.pillarHead}>
+                  <h3 className={styles.pillarName}>{p.name}</h3>
+                  <span className={styles.pillarDose}>{p.dose}</span>
+                </div>
                 <p className={styles.pillarCopy}>{p.copy}</p>
                 <p className={styles.pillarTicksLabel}>{p.ticksLabel}</p>
                 <ul className={styles.ticks}>

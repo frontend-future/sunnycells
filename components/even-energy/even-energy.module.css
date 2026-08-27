@@ -233,18 +233,27 @@
   flex: 1;
 }
 
+/* Name and dose read as one spec line. They wrap to two only once the cards stack,
+   where there is no width left to hold them together. */
+.pillarHead {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
 .pillarName {
   margin: 0;
   font-family: var(--font-label);
-  font-size: var(--size-body);
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: var(--tracking-mono);
 }
 
 .pillarDose {
   font-family: var(--font-label);
-  /* Below --size-meta so the longest of the three, the B vitamins and PEAK ATP line,
-     still holds one line in a three column card. */
+  /* Sized so the longest of the three, the B vitamins and PEAK ATP line, still sits
+     beside its name on one line in a three column card. */
   font-size: 15px;
   font-weight: 600;
   letter-spacing: var(--tracking-mono);
@@ -472,6 +481,11 @@
 }
 
 .offerCard {
+  /* Rebinds the accent tokens the Button reads, so the buy button carries the same
+     green as the plan selector and the comparison column without touching the
+     accent button anywhere else in the system. */
+  --action-accent-bg: linear-gradient(135deg, var(--sprout) 0%, var(--sprout-press) 100%);
+  --action-accent-bg-press: linear-gradient(135deg, var(--sprout-press) 0%, #4E9A55 100%);
   background: var(--surface-card);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-card);
@@ -534,7 +548,7 @@
 
 .planOn {
   border-color: var(--ink);
-  background: var(--sun-tint);
+  background: linear-gradient(135deg, #F1FAF2 0%, var(--sprout-tint) 55%, #C6E8C9 100%);
 }
 
 .radio {

@@ -79,7 +79,7 @@ export const PILLARS = [
   {
     key: "sustain",
     name: "Sustain",
-    dose: "Vitamin B6 + B12 + PEAK ATP\u00ae (40 mg)",
+    dose: "B6 + B12 + PEAK ATP\u00ae (40 mg)",
     photo: "/photos/even-sustain.webp",
     alt: "A pouch of Even Energy on a sunlit counter beside a tall glass of iced watermelon drink",
     copy:
