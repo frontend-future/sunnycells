@@ -182,7 +182,9 @@ export type PlansContent = {
   /** `illustration` is a path. `slug` alone means the gendered pair under
       /illustrations, which only the diet funnel has drawn. */
   pillars: { slug: string; title: string; body: string; illustration?: string }[];
-  headlineReview: { name: string; title: string; body: string };
+  /** `photo` overrides the gendered story photograph beside the headline review, which
+      only the diet funnel has shot. */
+  headlineReview: { name: string; title: string; body: string; photo?: string };
   reviews: { name: string; photo: string; title: string; body: string }[];
   ingredientsTitle: string;
   ingredients: { slug: string; title: string; image?: string; points: [string, string][] }[];

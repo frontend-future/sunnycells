@@ -526,7 +526,7 @@ export function PlansScreen({
             </p>
           </div>
           <Image
-            src={`/photos/story-${set}.jpg`}
+            src={content.headlineReview.photo ?? `/photos/story-${set}.jpg`}
             alt=""
             width={1080}
             height={1480}

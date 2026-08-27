@@ -9,16 +9,19 @@ import type { PlansContent } from "./plansContent";
 /* PLACEHOLDER REVIEWS. None of these people exist and none of these results were
    measured. Replace with real, documented customers before launch. */
 const HEADLINE_REVIEW = {
+  /* A different woman from the four in the review row below. The same face under two
+     names is the tell that gives a placeholder away. */
+  photo: "/photos/collagen-skin.webp",
   name: "Nadia R.",
   title: "One ingredient, and the types are on the front.",
   body: "I have taken enough collagen to be suspicious of all of it. Most of them are a proprietary blend with a scoop half full of things I did not ask for. This one is hydrolyzed collagen and nothing else, with the types printed on the front, which is the only reason I tried it. Four months in and my nails stopped splitting first, then the hair in my brush thinned out. My skin is the slowest of the three, which is what I was told to expect.",
 };
 
 const REVIEWS = [
-  { name: "Bea T.", photo: "/photos/even-avatar-1.webp", title: "Unflavored actually means unflavored", body: "It goes in my coffee and I cannot tell it is there. That sounds like a small thing but it is the whole reason I have kept taking it, where every flavoured one ended up at the back of a cupboard." },
-  { name: "Corinne L.", photo: "/photos/even-avatar-2.webp", title: "My hairbrush told me first", body: "The change I noticed was not in the mirror. There is less in the brush than there was, and I had quietly decided that was just my age." },
-  { name: "Marguerite D.", photo: "/photos/even-avatar-3.webp", title: "Two months, and my nails are long", body: "I have not had nails past my fingertips since my thirties. They still bend, but they stopped tearing off, which is the part that mattered." },
-  { name: "Suzanne P.", photo: "/photos/even-ugc-2.webp", title: "The knees were the surprise", body: "I bought it for my skin. What I actually noticed was getting up off the floor after gardening without the noise I usually make. I did not know collagen was in cartilage too." },
+  { name: "Bea T.", photo: "/photos/collagen-avatar-1.webp", title: "Unflavored actually means unflavored", body: "It goes in my coffee and I cannot tell it is there. That sounds like a small thing but it is the whole reason I have kept taking it, where every flavoured one ended up at the back of a cupboard." },
+  { name: "Corinne L.", photo: "/photos/collagen-avatar-2.webp", title: "My hairbrush told me first", body: "The change I noticed was not in the mirror. There is less in the brush than there was, and I had quietly decided that was just my age." },
+  { name: "Marguerite D.", photo: "/photos/collagen-avatar-3.webp", title: "Two months, and my nails are long", body: "I have not had nails past my fingertips since my thirties. They still bend, but they stopped tearing off, which is the part that mattered." },
+  { name: "Suzanne P.", photo: "/photos/collagen-avatar-4.webp", title: "The knees were the surprise", body: "I bought it for my skin. What I actually noticed was getting up off the floor after gardening without the noise I usually make. I did not know collagen was in cartilage too." },
 ];
 
 export const AGING_PLANS_CONTENT: PlansContent = {
@@ -45,9 +48,9 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     { lead: "Hair is the slowest, give it ", strong: "3 to 6 months" },
   ],
   pillars: [
-    { slug: "skin", title: "Skin", body: "Types I and III are what the dermis is built from, the layer under the surface that keeps skin taut.", illustration: "/product/gallery/01-benefits.webp" },
-    { slug: "hair-nails", title: "Hair and nails", body: "Built from the same protein scaffolding as your skin, which is why they tend to change together.", illustration: "/product/complete-collagen.webp" },
-    { slug: "joints", title: "Joints", body: "Type II is the collagen in cartilage, with V and X in connective tissue and the growth plate.", illustration: "/product/gallery/06-in-the-glass.webp" },
+    { slug: "skin", title: "Skin", body: "Types I and III are what the dermis is built from, the layer under the surface that keeps skin taut.", illustration: "/photos/collagen-skin.webp" },
+    { slug: "hair-nails", title: "Hair and nails", body: "Built from the same protein scaffolding as your skin, which is why they tend to change together.", illustration: "/photos/collagen-hair.webp" },
+    { slug: "joints", title: "Joints", body: "Type II is the collagen in cartilage, with V and X in connective tissue and the growth plate.", illustration: "/photos/collagen-joints.webp" },
   ],
   headlineReview: HEADLINE_REVIEW,
   reviews: REVIEWS,
@@ -56,7 +59,7 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     {
       slug: "type-i-iii",
       title: "Types I and III",
-      image: "/product/complete-collagen.webp",
+      image: "/photos/collagen-skin.webp",
       points: [
         ["What your skin is made of", "Together they are the overwhelming majority of the collagen in your dermis, the layer under the surface that gives skin its firmness."],
         ["Also hair, nails and bone", "The same two types build the scaffolding in hair follicles and nail beds, which is why those tend to change together."],
@@ -65,7 +68,7 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     {
       slug: "type-ii",
       title: "Type II",
-      image: "/product/gallery/06-in-the-glass.webp",
+      image: "/photos/collagen-joints.webp",
       points: [
         ["The collagen in cartilage", "Type II is the main structural collagen in the cartilage between your joints rather than in skin."],
         ["Why one powder covers both", "It is the reason a collagen taken for skin is the same one people take to keep moving without paying for it the next day."],
@@ -74,7 +77,7 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     {
       slug: "type-v-x",
       title: "Types V and X",
-      image: "/product/gallery/02-ingredients.webp",
+      image: "/photos/collagen-pack-detail.webp",
       points: [
         ["The two most formulas leave out", "Type V sits in connective tissue and the surface of cells; type X is found at the growth plate and in cartilage repair."],
         ["Five types, not one", "Most collagen powders are types I and III alone. Naming all five on the front is the point of the pack."],
@@ -83,7 +86,7 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     {
       slug: "hydrolyzed",
       title: "Hydrolyzed, not whole",
-      image: "/product/gallery/03-stick.webp",
+      image: "/photos/collagen-in-cup.webp",
       points: [
         ["Broken down to be absorbed", "Whole collagen is too large to cross the gut wall. Hydrolysis cuts it into peptides small enough to be taken up and carried to the tissue."],
         ["Which is why it is a powder", "It also dissolves in hot or cold liquid without gelling, so it goes into coffee without turning it into anything."],
@@ -92,7 +95,7 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     {
       slug: "nothing-else",
       title: "Nothing else",
-      image: "/product/gallery/05-supplement-facts.webp",
+      image: "/photos/collagen-flatlay.webp",
       points: [
         ["One line on the panel", "Hydrolyzed collagen is the whole formula. No proprietary blend, no sweetener, no filler taking up the scoop."],
         ["Unflavored on purpose", "Flavour is where the sugar and the sweeteners get in. Without it the powder goes into whatever you already drink."],
@@ -100,8 +103,8 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     },
   ],
   howItWorks: [
-    { img: "step-scoop", title: "Add 1 scoop", body: "One 7.8 g scoop into coffee, water or a smoothie. Hot or cold, it dissolves either way.", illustration: "/illustrations/step-scoop.png" },
-    { img: "step-drink", title: "Give it a few weeks", body: "Nails tend to change first, then hair, then skin. This is a habit rather than a hit, which is why the pouch is a month.", illustration: "/illustrations/step-drink.png" },
+    { img: "step-scoop", title: "Add 1 scoop", body: "One 7.8 g scoop into coffee, water or a smoothie. Hot or cold, it dissolves either way.", illustration: "/photos/collagen-scoop.webp" },
+    { img: "step-drink", title: "Give it a few weeks", body: "Nails tend to change first, then hair, then skin. This is a habit rather than a hit, which is why the pouch is a month.", illustration: "/photos/collagen-in-cup.webp" },
   ],
   comparisonNote: "Compared to other collagen powders",
   comparison: [

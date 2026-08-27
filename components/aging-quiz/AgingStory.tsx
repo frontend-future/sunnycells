@@ -71,7 +71,7 @@ export function AgingStory() {
 
       <Image
         src="/product/complete-collagen.webp"
-        alt="A pouch of Complete Collagen on a warm stone surface"
+        alt="A pouch of Complete Collagen"
         width={1024}
         height={1024}
         style={{
@@ -81,8 +81,6 @@ export function AgingStory() {
           height: "auto",
           display: "block",
           margin: "0 auto",
-          background: "var(--shell)",
-          borderRadius: "var(--radius-card)",
         }}
       />
 

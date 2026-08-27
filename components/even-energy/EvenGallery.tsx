@@ -18,17 +18,19 @@ const SLIDES = [
   { src: "/product/gallery/06-in-the-glass.webp", alt: "Even Energy mixed into a glass of cold water" },
 ];
 
-export function EvenGallery() {
+export type Slide = { src: string; alt: string };
+
+export function EvenGallery({ slides = SLIDES }: { slides?: readonly Slide[] } = {}) {
   const [i, setI] = useState(0);
-  const go = (n: number) => setI((n + SLIDES.length) % SLIDES.length);
+  const go = (n: number) => setI((n + slides.length) % slides.length);
 
   return (
     <div className={styles.gallery}>
       <div className={styles.galleryStage}>
         <Image
-          key={SLIDES[i].src}
-          src={SLIDES[i].src}
-          alt={SLIDES[i].alt}
+          key={slides[i].src}
+          src={slides[i].src}
+          alt={slides[i].alt}
           width={1080}
           height={1080}
           priority={i === 0}
@@ -43,14 +45,14 @@ export function EvenGallery() {
         </button>
 
         <span className={styles.galleryCount} aria-hidden="true">
-          {i + 1} / {SLIDES.length}
+          {i + 1} / {slides.length}
         </span>
       </div>
 
       {/* Thumbnails scroll rather than shrink, so a seventh slide does not squeeze
           the other six down to nothing on a phone. */}
       <div className={styles.thumbs} role="tablist" aria-label="Product images">
-        {SLIDES.map((s, n) => (
+        {slides.map((s, n) => (
           <button
             key={s.src}
             type="button"
