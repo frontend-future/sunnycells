@@ -14,7 +14,7 @@
  *      it is a standing term, not a promotion. Savings are otherwise stated in dollars.
  *   3. A "FEATURED ON" press strip. There is no press. Fabricating logos is a false
  *      claim, so that band states what is actually verifiable about the jar.
- *   4. A credentialled author with a headshot. Inventing a doctor is inventing a
+ *   4. A credentialed author with a headshot. Inventing a doctor is inventing a
  *      person. The byline is the brand until a real named advisor exists to carry it.
  *
  * PLACEHOLDER FLAG: every review, every name, and both before/after pairs are written
@@ -56,7 +56,7 @@ export const HERO_PROOF = {
   before: "/photos/collagen-before.webp",
   after: "/photos/collagen-after.webp",
   quote:
-    "My hands and forearms were covered in those old-age bruises. I would barely catch the edge of a door and there would be a purple mark for a fortnight. It is not only how it looks. The skin itself feels thicker now, and those marks have mostly stopped happening.",
+    "My hands and forearms were covered in those old-age bruises. I would barely catch the edge of a door and there would be a purple mark for two weeks. It is not only how it looks. The skin itself feels thicker now, and those marks have mostly stopped happening.",
   attribution: "Beth R., 12 weeks in",
   disclaimer: "Customer results have not been independently verified. Individual results vary.",
 } as const;
@@ -64,7 +64,7 @@ export const HERO_PROOF = {
 export const OPENERS = [
   "Does your skin feel drier and thinner than it used to, like tissue paper across the back of your hands?",
   "Do your knees announce every flight of stairs before you are halfway up?",
-  "Does a knock you barely felt still leave a mark a fortnight later?",
+  "Does a knock you barely felt still leave a mark two weeks later?",
 ] as const;
 
 export const CRISIS_TITLE = "You may be running a collagen deficit.";
@@ -103,7 +103,7 @@ export const SIGNS: Sign[] = [
     alt: "The forearms and hands of a woman in her fifties resting on a pale kitchen table",
     body: [
       "Easy bruising is the sign that gets misread most often. People assume it means something is wrong with their blood.",
-      "Usually it means something is wrong with the wall. Collagen is the structural fibre in the capillaries just under your skin, and in the fatty layer that pads them. As both thin, a small knock is enough to rupture a vessel that would have flexed and survived ten years ago. With less padding above it, the blood spreads out where you can see it.",
+      "Usually it means something is wrong with the wall. Collagen is the structural fiber in the capillaries just under your skin, and in the fatty layer that pads them. As both thin, a small knock is enough to rupture a vessel that would have flexed and survived ten years ago. With less padding above it, the blood spreads out where you can see it.",
       "If your honest description is that you barely touched anything and there is already a mark, that is a structural problem, not a clotting one.",
     ],
   },
@@ -111,7 +111,7 @@ export const SIGNS: Sign[] = [
     n: 3,
     title: "Cellulite that arrived without a weight change",
     image: "/photos/sign-cellulite.webp",
-    alt: "A close crop of a woman's thigh in soft grey cotton shorts on pale linen",
+    alt: "A woman in her fifties sitting on the edge of a bed in the morning, lacing her sneakers",
     body: [
       "Cellulite is not a fat problem. It is a ceiling problem.",
       "Fat sits in chambers held down by bands of connective tissue. When the collagen in those bands weakens and the dermis above them thins, the fat pushes up through the gaps and you see the dimpling. The fat did not change. What was holding it flat did.",
@@ -171,7 +171,7 @@ export const NOT_JUST_AGE = {
 
 /** The decline curve. Bars are relative collagen against age, and the shape is the
     published one: broadly flat to the mid twenties, then a steady annual loss that
-    steepens through menopause. Rounded, and labelled as approximate on the page. */
+    steepens through menopause. Rounded, and labeled as approximate on the page. */
 export const DECLINE = {
   title: "Collagen production, by age",
   bars: [
@@ -308,7 +308,7 @@ export const SHORT_REVIEWS = [
   },
   {
     photo: "/photos/collagen-avatar-3.webp",
-    body: "My knees do not hurt nearly as much. I was sceptical, for the record. I wish I had known about the creatine part ten years ago rather than avoiding it.",
+    body: "My knees do not hurt nearly as much. I was skeptical, for the record. I wish I had known about the creatine part ten years ago rather than avoiding it.",
     who: "Marguerite D.",
   },
 ] as const;
@@ -331,7 +331,7 @@ export const COMPARE = {
 export const LONG_REVIEWS = [
   {
     who: "Janice W.",
-    body: "I turned 70 this year and I was feeling every bit of it. Lines above my lip, dry elbows, hair coming out, nails like paper. I tried a collagen from the supermarket first and it tasted awful, did not dissolve, and I felt nothing. I nearly did not bother trying another one. I have been on this since July, one scoop every morning, and last week my husband asked what I had changed. My skin is softer, the lines above my lip have filled a little, and my nails are shiny instead of splitting.",
+    body: "I turned 70 this year and I was feeling every bit of it. Lines above my lip, dry elbows, hair coming out, nails like paper. I tried a collagen from the drugstore first and it tasted awful, did not dissolve, and I felt nothing. I nearly did not bother trying another one. I have been on this since July, one scoop every morning, and last week my husband asked what I had changed. My skin is softer, the lines above my lip have filled a little, and my nails are shiny instead of splitting.",
   },
   {
     who: "Candy B.",
@@ -347,7 +347,7 @@ export const LONG_REVIEWS = [
   },
   {
     who: "Joanne R.",
-    body: "I had what my doctor called Covid shed and my hair was coming out in handfuls. My hairdresser suggested collagen and I was desperate enough to try anything before buying a wig. Two weeks and the shedding stopped. Skin is better too. I feel like myself.",
+    body: "I had what my doctor called Covid shed and my hair was coming out in handfuls. My stylist suggested collagen and I was desperate enough to try anything before buying a wig. Two weeks and the shedding stopped. Skin is better too. I feel like myself.",
   },
   {
     who: "Colleen B.",
@@ -376,7 +376,7 @@ export const WHY_LONGER = {
     "Not to get more money out of you up front. Because a one month jar is, on the evidence, not long enough to find out whether it works.",
     "Creatine works by saturation. It takes about 28 days at 5 g a day to fill your muscle stores, and the day you skip is the day that costs you.",
     "Collagen is slower still. The nail and hair trials read out at three to six months. The skin trials read out at eight to twelve weeks. The bone density trial ran for a year.",
-    "So the three month supply is the shortest honest test of this, and the six month one is where the slower changes land. Both are cheaper per jar, and both can be paused or cancelled in two clicks whenever you want.",
+    "So the three month supply is the shortest honest test of this, and the six month one is where the slower changes land. Both are cheaper per jar, and both can be paused or canceled in two clicks whenever you want.",
   ],
 } as const;
 
@@ -408,12 +408,12 @@ export const CLOSING_REVIEW = {
   photo: "/photos/collagen-review-nadia.webp",
   who: "Zannetta M.",
   body: [
-    "I want to give a shout out to my favourite thing I have bought this year, and list what I have actually noticed since February. Not what I hoped for. What I noticed.",
+    "I want to give a shout out to my favorite thing I have bought this year, and list what I have actually noticed since February. Not what I hoped for. What I noticed.",
     "Skin: the dark spots on my face are slowly fading. That has made me bother with a proper morning and evening routine again, which probably helps too.",
-    "Nails: growing fast. I am cutting them every fortnight, which has not happened in years.",
-    "Hair: I had visible thinning down the middle of my head. What is coming through is dark rather than grey, which I did not expect at all.",
-    "Joints: I had stiffness in my feet from plantar fasciitis and I would have to pause before walking after sitting for half an hour. The strange thing about pain is that you do not notice its absence. I only realised a few weeks ago that it had gone.",
-    "If this nudges one person to stick with something for longer than a fortnight, it was worth typing.",
+    "Nails: growing fast. I am cutting them every two weeks, which has not happened in years.",
+    "Hair: I had visible thinning down the middle of my head. What is coming through is dark rather than gray, which I did not expect at all.",
+    "Joints: I had stiffness in my feet from plantar fasciitis and I would have to pause before walking after sitting for half an hour. The strange thing about pain is that you do not notice its absence. I only realized a few weeks ago that it had gone.",
+    "If this nudges one person to stick with something for longer than two weeks, it was worth typing.",
   ],
 } as const;
 

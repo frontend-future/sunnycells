@@ -41,7 +41,7 @@ function Tick() {
 }
 
 /** Renders the **bold** lead-ins the buyer-beware paragraphs are written with. */
-function Emphasised({ text }: { text: string }) {
+function Emphasized({ text }: { text: string }) {
   const parts = text.split(/\*\*(.+?)\*\*/g);
   return (
     <>
@@ -70,15 +70,19 @@ export function WarningSignsPage() {
   const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
   const [stuck, setStuck] = useState(false);
   const offerRef = useRef<HTMLDivElement | null>(null);
+  const bewareRef = useRef<HTMLElement | null>(null);
 
-  /* The bar arrives once the reader is past the fold and hides again while the offer
-     block itself is on screen, so it never covers the thing it points at. */
+  /* The bar holds off until the reader reaches the buyer-beware section. Before that
+     she is still being told she has a problem, and a buy button over the top of that
+     is asking for the sale before the argument for it has been made. It hides again
+     while the offer block is on screen, so it never covers the thing it points at. */
   useEffect(() => {
     const onScroll = () => {
-      const past = window.scrollY > window.innerHeight * 0.9;
+      const beware = bewareRef.current?.getBoundingClientRect();
+      const reachedBeware = !!beware && beware.top < window.innerHeight;
       const box = offerRef.current?.getBoundingClientRect();
       const offerVisible = !!box && box.top < window.innerHeight && box.bottom > 0;
-      setStuck(past && !offerVisible);
+      setStuck(reachedBeware && !offerVisible);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -245,12 +249,12 @@ export function WarningSignsPage() {
         </section>
 
         {/* ---------- buyer beware ---------- */}
-        <section className={styles.sunkSection}>
+        <section className={styles.sunkSection} ref={bewareRef}>
           <div className={styles.wrap}>
             <h2 className={styles.h2}>{BUYER_BEWARE.title}</h2>
             <Image src={BUYER_BEWARE.image} alt={BUYER_BEWARE.alt} width={1200} height={900} className={styles.signShot} />
             <div className={styles.prose}>
-              {BUYER_BEWARE.body.map((p) => <p key={p}><Emphasised text={p} /></p>)}
+              {BUYER_BEWARE.body.map((p) => <p key={p}><Emphasized text={p} /></p>)}
             </div>
           </div>
         </section>

@@ -18,7 +18,7 @@ const HEADLINE_REVIEW = {
 };
 
 const REVIEWS = [
-  { name: "Bea T.", photo: "/photos/collagen-avatar-1.webp", title: "It tastes like a drink, not a supplement", body: "Raspberry lemonade, and it means it. That sounds like a small thing but it is the whole reason I have kept taking it, where every chalky one ended up at the back of a cupboard." },
+  { name: "Bea T.", photo: "/photos/collagen-avatar-1.webp", title: "It tastes like a drink, not a supplement", body: "Raspberry lemonade, and it means it. That sounds like a small thing but it is the whole reason I have kept taking it, where every chalky one ended up at the back of a cabinet." },
   { name: "Corinne L.", photo: "/photos/collagen-avatar-2.webp", title: "Nobody had ever suggested creatine to me", body: "Forty six, lifting twice a week, and every article I read was written for men. Turns out it is the most studied thing on the shelf and I had been avoiding it over a myth about bulking up." },
   { name: "Marguerite D.", photo: "/photos/collagen-avatar-3.webp", title: "Two months, and my nails are long", body: "I have not had nails past my fingertips since my thirties. They still bend, but they stopped tearing off, which is the part that mattered." },
   { name: "Suzanne P.", photo: "/photos/collagen-avatar-4.webp", title: "The recovery is what got me", body: "I bought it for my skin. What I actually noticed was getting up off the floor after gardening without the noise I usually make." },
@@ -101,7 +101,7 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     {
       slug: "electrolytes",
       title: "Electrolytes",
-      image: "/photos/cc-flavour.webp",
+      image: "/photos/cc-flavor.webp",
       points: [
         ["What a workout takes out", "Sodium, potassium and magnesium are what you lose in sweat, and what a plain glass of water does not put back."],
         ["Why it is in a daily scoop", "Hydration is not only a gym problem. A hot day and a long afternoon do the same thing more slowly."],
@@ -122,13 +122,13 @@ export const AGING_PLANS_CONTENT: PlansContent = {
       image: "/product/creatine-collagen.webp",
       points: [
         ["Every dose on the front", "5 g, 10 g and the electrolytes are printed on the jar rather than hidden inside a proprietary blend."],
-        ["Raspberry lemonade, no sugar", "The flavour is there so you finish the jar. The sugar that usually comes with it is not."],
+        ["Raspberry lemonade, no sugar", "The flavor is there so you finish the jar. The sugar that usually comes with it is not."],
       ],
     },
   ],
   howItWorks: [
     { img: "step-scoop", title: "Add 1 scoop", body: "One scoop into 300 to 400 ml of cold water. It dissolves without clumping.", illustration: "/photos/cc-mix.webp" },
-    { img: "step-drink", title: "Once a day, every day", body: "Creatine works by saturation rather than by dose, so the day you skip is the one that costs you.", illustration: "/photos/cc-flavour.webp" },
+    { img: "step-drink", title: "Once a day, every day", body: "Creatine works by saturation rather than by dose, so the day you skip is the one that costs you.", illustration: "/photos/cc-flavor.webp" },
   ],
   comparisonNote: "Compared to buying the three separately",
   comparison: [
@@ -146,10 +146,10 @@ export const AGING_PLANS_CONTENT: PlansContent = {
   faqs: [
     { title: "How do I use it?", body: "One scoop a day into 300 to 400 ml of cold water. Any time of day works, so pick the one you will remember." },
     { title: "What is actually in it?", body: "5 g creatine monohydrate, 10 g hydrolyzed collagen peptides, and electrolytes with vitamin C and D3. Every amount is printed on the front of the jar." },
-    { title: "Will creatine make me bulky?", body: "No. That worry comes from bodybuilding marketing rather than from the research. Creatine supports the lean muscle you already have, and building visible size takes a training and eating programme built for it." },
+    { title: "Will creatine make me bulky?", body: "No. That worry comes from bodybuilding marketing rather than from the research. Creatine supports the lean muscle you already have, and building visible size takes a training and eating program built for it." },
     { title: "Do I need to load it?", body: "No. Loading gets you to saturation faster, but 5 g a day gets you to the same place in about four weeks with less chance of an upset stomach." },
     { title: "How long until I notice anything?", body: "Nails usually change first, often in four to eight weeks. Creatine saturates in about four weeks. Skin turns over about every four weeks, and hair is the slowest, so give it three to six months." },
-    { title: "Does it taste of anything?", body: "Raspberry lemonade, with no sugar in it. It is flavoured on purpose: an unflavoured jar is the one that ends up at the back of a cupboard." },
+    { title: "Does it taste of anything?", body: "Raspberry lemonade, with no sugar in it. It is flavored on purpose: an unflavored jar is the one that ends up at the back of a cabinet." },
     { title: "Where is the formula produced?", body: "Made in the USA in a facility that follows current Good Manufacturing Practice." },
     { title: "Can I take it with other supplements?", body: "Yes. There are no stimulants in it, so it sits alongside anything else you already take." },
     { title: "Is it suitable for vegetarians?", body: "No. Collagen is an animal protein, so there is no vegetarian version of it. Anything sold as vegan collagen is a blend of nutrients meant to support your own production instead." },

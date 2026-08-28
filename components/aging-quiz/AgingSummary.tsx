@@ -37,7 +37,7 @@ export function AgingSummary() {
       >
         Based on your answers, your collagen decline seems to be{" "}
         {/* Highlighted rather than set in red. This is a screening questionnaire, and
-            colouring the verdict with the error value would overstate what it can tell
+            coloring the verdict with the error value would overstate what it can tell
             her. Sun with ink on top is the pairing the system allows. */}
         <span
           style={{

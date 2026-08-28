@@ -98,7 +98,7 @@ export default function AgingQuizLandingPage() {
               textWrap: "balance",
             }}
           >
-            <span style={{ fontWeight: 600 }}>Slow skin ageing, hold your strength and calm the aches with </span>
+            <span style={{ fontWeight: 600 }}>Slow skin aging, hold your strength and calm the aches with </span>
             <span style={{ fontWeight: 900 }}>Creatine + Collagen</span>
           </h1>
 

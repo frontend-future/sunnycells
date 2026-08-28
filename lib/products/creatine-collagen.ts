@@ -19,7 +19,7 @@ export const PRODUCT = {
      tight for all three, `shortName` is the one to use. */
   shortName: "Creatine + Collagen",
   strapline: "Daily Strength & Recovery Blend",
-  flavour: "Raspberry Lemonade",
+  flavor: "Raspberry Lemonade",
   servings: 30,
   netWeight: "330 g",
   image: "/product/creatine-collagen.webp",
@@ -79,7 +79,7 @@ export function buildOrder(planId: string | undefined): Order {
     lines: [
       {
         id: "product",
-        name: `${PRODUCT.name}, ${PRODUCT.flavour.toLowerCase()}`,
+        name: `${PRODUCT.name}, ${PRODUCT.flavor.toLowerCase()}`,
         note: `${jars}. ${plan.sub}.`,
         was: list,
         now,

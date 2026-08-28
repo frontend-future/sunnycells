@@ -32,7 +32,7 @@ export function AgingCollagen() {
       <Card>
         <div style={{ fontSize: "var(--size-body-lg)", fontWeight: 800 }}>
           Your collagen support:{" "}
-          {/* Highlighted rather than set in a status colour, the same emphasis the
+          {/* Highlighted rather than set in a status color, the same emphasis the
               summary verdict uses. */}
           <span style={{ background: "var(--sun)", color: "var(--ink)", padding: "0 0.14em" }}>
             {ready ? supportLabel(s.now) : " "}

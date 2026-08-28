@@ -14,7 +14,7 @@ const SLIDES = [
   { src: "/product/creatine-collagen.webp", alt: "Creatine + Collagen + Electrolytes, a jar of raspberry lemonade powder" },
   { src: "/photos/cc-watercolour.webp", alt: "The jar with its doses: 5 g creatine, 10 g collagen peptides and electrolytes" },
   { src: "/photos/cc-mix.webp", alt: "A scoop of raspberry lemonade powder beside a mixed glass" },
-  { src: "/photos/cc-flavour.webp", alt: "The mixed drink over ice with raspberries and lemon" },
+  { src: "/photos/cc-flavor.webp", alt: "The mixed drink over ice with raspberries and lemon" },
   { src: "/photos/cc-lifestyle.webp", alt: "A woman drinking a shaker of the mixed drink after training" },
   { src: "/product/creatine-collagen-3.webp", alt: "Three jars, the three month supply" },
 ];
