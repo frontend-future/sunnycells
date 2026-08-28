@@ -26,7 +26,11 @@ import styles from "./even-energy.module.css";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /* Shipping and contact only. Card number and CVC live inside CardForm and are never
-   lifted out of it, so nothing here can carry them. */
+   lifted out of it, so nothing here can carry them.
+
+   Called from the payment submit, not the shipping one. An "attempt" that fired when
+   somebody merely reached the card form was reporting people who never entered a card
+   at all, which is the opposite of what the word means. */
 function notifyAttempt(shipping: Record<string, string>, plan: string, total: number) {
   fetch("/api/notify-purchase", {
     method: "POST",
@@ -133,20 +137,25 @@ export function EvenCheckout({
     setErrors(next);
     if (Object.keys(next).length) return;
 
+    /* AddPaymentInfo stays here on purpose. Reaching the payment step is precisely
+       what that event means, so this is the honest moment for it. */
+    trackMetaEvent("AddPaymentInfo", basket(), identity());
+    setPhase("payment");
+  };
+
+  /* Both the attempt email and Purchase wait for Submit secure payment, so each one
+     describes a customer who filled in a card and asked to be charged. Firing either
+     back on the shipping submit counted everyone who merely got that far, which
+     inflates the signal the campaign optimises on and fills the inbox with people who
+     never reached for a card. */
+  const purchased = () => {
     notifyAttempt(
       { ...identity(), line1: f.line1 ?? "", line2: f.line2 ?? "" },
       order.plan.name,
       order.total,
     );
-    trackMetaEvent("AddPaymentInfo", basket(), identity());
-    setPhase("payment");
+    trackMetaEvent("Purchase", basket(), identity());
   };
-
-  /* Purchase waits for Submit secure payment, so it reports a customer who gave a
-     card rather than one who only reached the payment step. Firing it back on the
-     shipping submit counted everyone who got that far, which inflates the signal
-     the campaign optimises on. */
-  const purchased = () => trackMetaEvent("Purchase", basket(), identity());
 
   return (
     <div className={styles.page}>

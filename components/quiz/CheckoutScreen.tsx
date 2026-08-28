@@ -68,8 +68,12 @@ export function CheckoutScreen({
   };
 
   /**
-   * Tells the team someone reached payment, then gets out of the way. Never awaited,
-   * never allowed to throw.
+   * Tells the team someone entered a card and asked to be charged, then gets out of
+   * the way. Never awaited, never allowed to throw.
+   *
+   * Called from the payment submit, not the shipping one. An "attempt" that fired
+   * when somebody merely reached the card form was reporting people who never
+   * entered a card at all, which is the opposite of what the word means.
    *
    * Only ever handed shipping and contact fields. The card number, expiry and CVC
    * live inside CardForm and are never lifted into this component, so there is no
@@ -87,17 +91,9 @@ export function CheckoutScreen({
       .catch((err) => console.error("[checkout] notify-purchase failed", err));
   };
 
-  const submit = () => {
-    const next: Record<string, string> = {};
-    for (const x of FIELDS) if (!f[x.key]?.trim()) next[x.key] = x.missing;
-    if (!f.state?.trim()) next.state = "Choose a state so we can work out delivery.";
-    const email = (f.email ?? answers.email ?? "").trim();
-    if (!email) next.email = "We need an email address to send your receipt.";
-    else if (!EMAIL.test(email)) next.email = "That address is missing an @ or a domain.";
-    if (!phoneOk(f.phone ?? "")) next.phone = "We need a full 10 digit phone number the carrier can call.";
-    setErrors(next);
-    if (Object.keys(next).length) return;
-
+  /* Fires on Submit secure payment, once the card fields validate, and never on a
+     click that only surfaces errors. */
+  const purchased = () => {
     notifyAttempt({
       email: (f.email ?? answers.email ?? "").trim(),
       firstName: f.firstName ?? "",
@@ -109,7 +105,22 @@ export function CheckoutScreen({
       zip: f.zip ?? "",
       phone: f.phone ?? "",
     });
-    /* Both events fire here, on the same submit that sends the attempt email.
+  };
+
+  const submit = () => {
+    const next: Record<string, string> = {};
+    for (const x of FIELDS) if (!f[x.key]?.trim()) next[x.key] = x.missing;
+    if (!f.state?.trim()) next.state = "Choose a state so we can work out delivery.";
+    const email = (f.email ?? answers.email ?? "").trim();
+    if (!email) next.email = "We need an email address to send your receipt.";
+    else if (!EMAIL.test(email)) next.email = "That address is missing an @ or a domain.";
+    if (!phoneOk(f.phone ?? "")) next.phone = "We need a full 10 digit phone number the carrier can call.";
+    setErrors(next);
+    if (Object.keys(next).length) return;
+
+    /* The attempt email no longer fires here. It waits for Submit secure payment,
+       so it only ever describes someone who actually filled in a card.
+
        AddPaymentInfo is the literal truth about what happened. Purchase is
        reported at the same moment by decision, so the campaign optimises on the
        deepest signal this funnel produces.
@@ -462,7 +473,7 @@ export function CheckoutScreen({
               <p style={{ margin: "0 0 var(--space-5)", fontSize: "var(--size-body)", color: "var(--ink-60)" }}>
                 All transactions are secure and encrypted.
               </p>
-              <CardForm />
+              <CardForm onSubmitted={purchased} />
             </section>
           ) : null}
         </main>
