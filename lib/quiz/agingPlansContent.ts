@@ -44,16 +44,38 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     badge: "28",
     body: "28 days of 5 g is what it takes to fill your muscle creatine stores. Collagen trials measure firmer skin at week 8. The 3 month supply clears both, with a month spare to feel it.",
   },
+  /* Four outcomes on a rising clock, fastest first. The old set led with a feature
+     (it dissolves), a piece of jargon (creatine saturates) and two hedges (usually,
+     give it), which is three ways of saying nothing. Mixing is covered in how it works
+     and in the FAQ, so nothing is lost by dropping it here. */
   quickBenefits: [
-    { lead: "Dissolves in cold water in ", strong: "20 seconds" },
-    { lead: "Creatine saturates in about ", strong: "4 weeks" },
-    { lead: "Nails usually change first, in ", strong: "4 to 8 weeks" },
-    { lead: "Hair is the slowest, give it ", strong: "3 to 6 months" },
+    { lead: "Muscle creatine stores full in ", strong: "28 days" },
+    { lead: "Nails that stop splitting in ", strong: "4 to 8 weeks" },
+    { lead: "Firmer looking skin by ", strong: "week 8" },
+    { lead: "Hair with more body in ", strong: "3 to 6 months" },
   ],
+  /* Each card opens on the thing she has actually noticed and closes on the ingredient
+     that answers it. The previous set opened on doses and mechanisms, which is the
+     order the formulator cares about and the reverse of the order she does. */
   pillars: [
-    { slug: "strength", title: "Strength", body: "Creatine at 5 g, the dose the trials used, for the lean muscle that goes with the collagen.", illustration: "/photos/collagen-joints.webp" },
-    { slug: "skin", title: "Skin, hair and nails", body: "Collagen peptides at 10 g, hydrolyzed small enough to reach the layer under the surface.", illustration: "/photos/collagen-skin.webp" },
-    { slug: "recovery", title: "Recovery", body: "Electrolytes with vitamin C and D3, replacing what a workout or a hot day takes out.", illustration: "/photos/cc-lifestyle.webp" },
+    {
+      slug: "strength",
+      title: "Strength that shows up",
+      body: "The jar you cannot open. Training as hard as ever and getting less back for it. Creatine at 5 g is the most studied answer there is, and the one women are least often offered.",
+      illustration: "/photos/collagen-joints.webp",
+    },
+    {
+      slug: "skin",
+      title: "Looking tired when you are not",
+      body: "The photograph that does not match how you feel. A part that keeps getting wider. Nails that split before they grow. All three are built from collagen, which is why they started going at once.",
+      illustration: "/photos/collagen-skin.webp",
+    },
+    {
+      slug: "recovery",
+      title: "The day after costing less",
+      body: "Two days sore from one session, and stiff getting out of the car. Electrolytes with vitamin C and D3 put back what a hard hour or a hot afternoon takes out of you.",
+      illustration: "/photos/cc-lifestyle.webp",
+    },
   ],
   headlineReview: HEADLINE_REVIEW,
   reviews: REVIEWS,
