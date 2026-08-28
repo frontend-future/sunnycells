@@ -67,7 +67,7 @@ export default function AgingQuizLandingPage() {
           <Wordmark size={26} />
           <Image
             src="/product/creatine-collagen.webp"
-            alt="SC-23 Creatine + Collagen + Electrolytes, a tub of raspberry lemonade powder"
+            alt="SC-23 Creatine + Collagen + Electrolytes, a jar of raspberry lemonade powder"
             width={1024}
             height={768}
             priority
@@ -98,7 +98,7 @@ export default function AgingQuizLandingPage() {
               textWrap: "balance",
             }}
           >
-            <span style={{ fontWeight: 600 }}>Cover strength, skin and recovery with </span>
+            <span style={{ fontWeight: 600 }}>Slow skin ageing, hold your strength and calm the aches with </span>
             <span style={{ fontWeight: 900 }}>Creatine + Collagen</span>
           </h1>
 
@@ -111,8 +111,9 @@ export default function AgingQuizLandingPage() {
               textWrap: "pretty",
             }}
           >
-            Collagen falls about one percent a year from your mid twenties, and lean
-            muscle goes with it. Find out where you are and what to do about it.
+            Collagen falls about one percent a year from your mid twenties, lean muscle
+            follows it down, and aches take longer to settle. Find out where you are and
+            what to do about it.
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>

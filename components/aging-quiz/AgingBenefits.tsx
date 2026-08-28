@@ -50,7 +50,7 @@ export function AgingBenefits() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        Three supplements women over 35 are told to take, in one scoop.
+        Three supplements women over 25 are told to take, in one scoop.
       </h1>
 
       <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>

@@ -128,12 +128,18 @@ function dietLoss(t: number): number {
 /** Endpoint marker: a dot on the curve with its weight on a tab above it. Lives at
     module scope, not inside the chart, so React does not treat it as a new component
     type on every render. */
-function Pill({ cx, cy, label }: { cx: number; cy: number; label: string }) {
+/**
+ * An endpoint marker. The dot sits on the curve at (cx, cy); the label rides above it
+ * at `lx`, which is pulled inward at the ends so the pill does not hang off the chart.
+ * The two were a single x before, which put the dot wherever the label needed to be
+ * rather than on the line it was marking, visibly so on a steep curve.
+ */
+function Pill({ cx, cy, lx = cx, label }: { cx: number; cy: number; lx?: number; label: string }) {
   const w = label.length * 8 + 16;
   return (
     <g>
-      <rect x={cx - w / 2} y={cy - 28} width={w} height={22} rx={11} fill="var(--ink)" />
-      <text x={cx} y={cy - 12} fontSize={13} fontWeight={800} fill="var(--white)" textAnchor="middle">
+      <rect x={lx - w / 2} y={cy - 28} width={w} height={22} rx={11} fill="var(--ink)" />
+      <text x={lx} y={cy - 12} fontSize={13} fontWeight={800} fill="var(--white)" textAnchor="middle">
         {label}
       </text>
       <circle cx={cx} cy={cy} r={4} fill="var(--ink)" />
@@ -245,10 +251,10 @@ export function ProjectionChart({
 
         {/* Each endpoint appears as the line reaches it. */}
         <g style={{ animation: `sc-fade-in var(--duration-base) var(--ease-standard) both` }}>
-          <Pill cx={Math.max(x(0) + 16, 34)} cy={y(p.start)} label={show(p.start)} />
+          <Pill cx={x(0)} cy={y(p.start)} lx={Math.max(x(0) + 16, 34)} label={show(p.start)} />
         </g>
         <g style={{ animation: `sc-fade-in var(--duration-base) var(--ease-standard) ${DRAW_MS - 200}ms both` }}>
-          <Pill cx={Math.min(x(1) - 16, W - 34)} cy={y(p.target)} label={show(p.target)} />
+          <Pill cx={x(1)} cy={y(p.target)} lx={Math.min(x(1) - 16, W - 34)} label={show(p.target)} />
         </g>
       </svg>
 

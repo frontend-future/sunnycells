@@ -3,7 +3,7 @@ import type { PlansContent } from "./plansContent";
 /**
  * Everything the aging plans page says. The page structure is the diet funnel's,
  * unchanged; this file is the swap. It keeps the diet funnel's yellow chrome, which is
- * what the brief asked for, while the product photography carries the tub's own mauve.
+ * what the brief asked for, while the product photography carries the jar's own mauve.
  */
 
 /* PLACEHOLDER REVIEWS. None of these people exist and none of these results were
@@ -13,8 +13,8 @@ const HEADLINE_REVIEW = {
      names is the tell that gives a placeholder away. */
   photo: "/photos/collagen-skin.webp",
   name: "Nadia R.",
-  title: "It replaced two tubs and a bottle.",
-  body: "I was taking creatine out of one tub, collagen out of another, and an electrolyte tablet when I remembered, which was maybe twice a week. One scoop of this replaced all three and it is the first one I have actually finished. My nails changed first, inside about a month. The strength side is slower and harder to see in a mirror, but I am not sore for two days after a session any more, and that I do notice.",
+  title: "It replaced two jars and a bottle.",
+  body: "I was taking creatine out of one jar, collagen out of another, and an electrolyte tablet when I remembered, which was maybe twice a week. One scoop of this replaced all three and it is the first one I have actually finished. My nails changed first, inside about a month. The strength side is slower and harder to see in a mirror, but I am not sore for two days after a session any more, and that I do notice.",
 };
 
 const REVIEWS = [
@@ -38,8 +38,11 @@ export const AGING_PLANS_CONTENT: PlansContent = {
   productImage: "/product/creatine-collagen.png",
   plansTitle: "Let the scoop do the work",
   plansNote: {
-    badge: "3x",
-    body: "Creatine takes about 4 weeks to saturate, skin turns over in 4 and nails in 3 to 6 months, so 3 months is where most people judge it",
+    /* The badge carries the number the line is built on, the way the diet funnel's 2x
+       does. A day count is more concrete than a multiple and it is the one figure here
+       that is actually measurable. */
+    badge: "28",
+    body: "28 days of 5 g is what it takes to fill your muscle creatine stores. Collagen trials measure firmer skin at week 8. The 3 month supply clears both, with a month spare to feel it.",
   },
   quickBenefits: [
     { lead: "Dissolves in cold water in ", strong: "20 seconds" },
@@ -89,7 +92,7 @@ export const AGING_PLANS_CONTENT: PlansContent = {
       image: "/photos/cc-watercolour.webp",
       points: [
         ["Vitamin C is not decoration", "Your body cannot build collagen without it, so it is doing a job for the scoop it shares rather than padding the label."],
-        ["D3 alongside it", "Commonly low, particularly through winter and particularly in women over 35."],
+        ["D3 alongside it", "Commonly low, particularly through winter and particularly in women over 25."],
       ],
     },
     {
@@ -97,8 +100,8 @@ export const AGING_PLANS_CONTENT: PlansContent = {
       title: "Zero sugar, zero junk",
       image: "/product/creatine-collagen.webp",
       points: [
-        ["Every dose on the front", "5 g, 10 g and the electrolytes are printed on the tub rather than hidden inside a proprietary blend."],
-        ["Raspberry lemonade, no sugar", "The flavour is there so you finish the tub. The sugar that usually comes with it is not."],
+        ["Every dose on the front", "5 g, 10 g and the electrolytes are printed on the jar rather than hidden inside a proprietary blend."],
+        ["Raspberry lemonade, no sugar", "The flavour is there so you finish the jar. The sugar that usually comes with it is not."],
       ],
     },
   ],
@@ -116,22 +119,22 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     "No proprietary blend hiding the amounts",
     "Raspberry lemonade with zero sugar",
     "Dissolves in cold water without clumping",
-    "30 servings in every tub",
+    "30 servings in every jar",
     "Made in the USA",
   ],
   faqs: [
     { title: "How do I use it?", body: "One scoop a day into 300 to 400 ml of cold water. Any time of day works, so pick the one you will remember." },
-    { title: "What is actually in it?", body: "5 g creatine monohydrate, 10 g hydrolyzed collagen peptides, and electrolytes with vitamin C and D3. Every amount is printed on the front of the tub." },
+    { title: "What is actually in it?", body: "5 g creatine monohydrate, 10 g hydrolyzed collagen peptides, and electrolytes with vitamin C and D3. Every amount is printed on the front of the jar." },
     { title: "Will creatine make me bulky?", body: "No. That worry comes from bodybuilding marketing rather than from the research. Creatine supports the lean muscle you already have, and building visible size takes a training and eating programme built for it." },
     { title: "Do I need to load it?", body: "No. Loading gets you to saturation faster, but 5 g a day gets you to the same place in about four weeks with less chance of an upset stomach." },
     { title: "How long until I notice anything?", body: "Nails usually change first, often in four to eight weeks. Creatine saturates in about four weeks. Skin turns over about every four weeks, and hair is the slowest, so give it three to six months." },
-    { title: "Does it taste of anything?", body: "Raspberry lemonade, with no sugar in it. It is flavoured on purpose: an unflavoured tub is the one that ends up at the back of a cupboard." },
+    { title: "Does it taste of anything?", body: "Raspberry lemonade, with no sugar in it. It is flavoured on purpose: an unflavoured jar is the one that ends up at the back of a cupboard." },
     { title: "Where is the formula produced?", body: "Made in the USA in a facility that follows current Good Manufacturing Practice." },
     { title: "Can I take it with other supplements?", body: "Yes. There are no stimulants in it, so it sits alongside anything else you already take." },
     { title: "Is it suitable for vegetarians?", body: "No. Collagen is an animal protein, so there is no vegetarian version of it. Anything sold as vegan collagen is a blend of nutrients meant to support your own production instead." },
     { title: "Where should I store it?", body: "Somewhere cool and dry with the lid closed. Not the windowsill, and not the fridge." },
     { title: "Are there any side effects?", body: "Most people have none. If you are pregnant, breastfeeding, taking prescription medication, or managing a health condition, talk to your doctor before starting." },
-    { title: "How long does a tub last?", body: "One tub is 30 servings, so a month at one scoop a day." },
+    { title: "How long does a jar last?", body: "One jar is 30 servings, so a month at one scoop a day." },
     { title: "Medical information, product, reviews, warnings and legal disclaimer", body: "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Results vary from person to person." },
   ],
 };

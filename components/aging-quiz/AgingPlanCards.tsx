@@ -85,11 +85,11 @@ export function AgingPlanCards({ destinationHref, ctaLabel = "Try now" }: { dest
               {p.name}
             </div>
 
-            {/* The pouch count matches what actually arrives, so a six month supply does
+            {/* The jar count matches what actually arrives, so a six month supply does
                 not look like one bag. One scoop in every shot regardless. */}
             <Image
               src={p.image}
-              alt={`${p.months} ${p.months === 1 ? "tub" : "tubs"} of ${PRODUCT.name}`}
+              alt={`${p.months} ${p.months === 1 ? "jar" : "jars"} of ${PRODUCT.name}`}
               width={1200}
               height={900}
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
@@ -98,7 +98,7 @@ export function AgingPlanCards({ destinationHref, ctaLabel = "Try now" }: { dest
               <span style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h2)", fontWeight: 900, letterSpacing: "var(--tracking-display)" }}>
                 ${p.price}
               </span>
-              <span style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)" }}>/pouch</span>
+              <span style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)" }}>/jar</span>
               <s style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>${p.compareAt}</s>
             </div>
 
@@ -106,7 +106,7 @@ export function AgingPlanCards({ destinationHref, ctaLabel = "Try now" }: { dest
               {[
                 `${p.months * PRODUCT.servings} servings`,
                 perDay(p.price, PRODUCT.servings),
-                `${p.months} ${p.months === 1 ? "tub" : "tubs"} delivered`,
+                `${p.months} ${p.months === 1 ? "jar" : "jars"} delivered`,
                 p.sub,
               ].map((line) => (
                 <li key={line} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start", fontSize: "var(--size-meta)", fontWeight: 500 }}>

@@ -66,23 +66,59 @@ export function AgingStory() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        {WEEKS} weeks of one scoop a day, in {s.name}&apos;s words.
+        {WEEKS} weeks of one scoop a day.
       </h1>
 
-      <Image
-        src="/product/creatine-collagen.webp"
-        alt="A tub of Creatine + Collagen + Electrolytes"
-        width={1024}
-        height={1024}
-        style={{
-          width: "auto",
-          maxWidth: "100%",
-          maxHeight: 380,
-          height: "auto",
-          display: "block",
-          margin: "0 auto",
-        }}
-      />
+      {/* The before and after is the claim this screen is actually making, so it is the
+          picture rather than a pack shot. Cropped to the eye and cheek: the effect is
+          what has to be visible, not a face. */}
+      <figure style={{ margin: 0 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-3)" }}>
+          {[
+            { src: "/photos/collagen-before.webp", label: "Day 1" },
+            { src: "/photos/collagen-after.webp", label: `Week ${WEEKS}` },
+          ].map((shot) => (
+            <div key={shot.label} style={{ position: "relative" }}>
+              <Image
+                src={shot.src}
+                alt={`Skin at the outer eye and cheek, ${shot.label.toLowerCase()}`}
+                width={900}
+                height={900}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                  borderRadius: "var(--radius-card)",
+                  background: "var(--shell)",
+                }}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  left: "var(--space-3)",
+                  bottom: "var(--space-3)",
+                  padding: "6px 12px",
+                  borderRadius: "var(--radius-xs)",
+                  background: "var(--ink)",
+                  color: "var(--white)",
+                  fontFamily: "var(--font-label)",
+                  fontSize: "var(--size-meta)",
+                  fontWeight: 800,
+                  letterSpacing: "var(--tracking-mono)",
+                }}
+              >
+                {shot.label}
+              </span>
+            </div>
+          ))}
+        </div>
+        {/* Said on the page, not only in a comment. A before and after is the most
+            regulated asset a supplement can publish, and this pair is generated. */}
+        <figcaption style={{ marginTop: "var(--space-3)", fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.45 }}>
+          Illustration of the kind of change the ingredients are studied for. Not a
+          customer photograph, and not a measured result.
+        </figcaption>
+      </figure>
 
       <p style={{ margin: "var(--space-5) 0 0", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
         <em>&ldquo;{QUOTE}&rdquo;</em> says {s.name}.

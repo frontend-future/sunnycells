@@ -33,12 +33,12 @@ export type Plan = {
   price: number;
   compareAt: number;
   best?: boolean;
-  /** Shows the number of pouches the delivery actually contains, so a six month
+  /** Shows the number of jars the delivery actually contains, so a six month
       supply does not look like one bag. */
   image: string;
 };
 
-/* The same ladder the other two products use: one list price per pouch and the saving
+/* The same ladder the other two products use: one list price per jar and the saving
    widening with the supply. The first month lands at half the list price, which is the
    standing 50% off a first order stated exactly. */
 export const PLANS: Plan[] = [
@@ -72,7 +72,7 @@ export function buildOrder(planId: string | undefined): Order {
   const plan = planById(planId);
   const now = plan.price * plan.months;
   const list = plan.compareAt * plan.months;
-  const tubs = `${plan.months} ${plan.months === 1 ? "tub" : "tubs"}`;
+  const jars = `${plan.months} ${plan.months === 1 ? "jar" : "jars"}`;
 
   return {
     plan,
@@ -80,7 +80,7 @@ export function buildOrder(planId: string | undefined): Order {
       {
         id: "product",
         name: `${PRODUCT.name}, ${PRODUCT.flavour.toLowerCase()}`,
-        note: `${tubs}. ${plan.sub}.`,
+        note: `${jars}. ${plan.sub}.`,
         was: list,
         now,
         image: PRODUCT.image,
@@ -98,18 +98,18 @@ export const RATING = { score: 4.8, count: 9312 } as const;
 export const SUBHEAD = "Strength, skin and hydration in one scoop";
 
 export const DESCRIPTION =
-  "Three things women over 35 are usually told to take separately, in one raspberry lemonade scoop. Creatine at 5 g for strength, collagen peptides at 10 g for skin, hair and nails, and electrolytes with vitamin C and D3 for what you lose in a workout. Every dose printed on the front of the tub.";
+  "Three things women over 25 are usually told to take separately, in one raspberry lemonade scoop. Creatine at 5 g for strength, collagen peptides at 10 g for skin, hair and nails, and electrolytes with vitamin C and D3 for what you lose in a workout. Every dose printed on the front of the jar.";
 
 export const SERVING_NOTE = {
   title: "Get 30 servings of Creatine + Collagen + Electrolytes",
-  body: "One scoop a day in 300 to 400 ml of water. Raspberry lemonade, dissolves without clumping, 30 servings in the tub.",
+  body: "One scoop a day in 300 to 400 ml of water. Raspberry lemonade, dissolves without clumping, 30 servings in the jar.",
 } as const;
 
 /* PLACEHOLDER reviews. Voice is ours, the people are not real. */
 export const QUOTES = [
   {
     text:
-      "I was taking creatine out of one tub and collagen out of another and skipping both half the time. One scoop of this replaced the pair, and it is the first one I have actually finished.",
+      "I was taking creatine out of one jar and collagen out of another and skipping both half the time. One scoop of this replaced the pair, and it is the first one I have actually finished.",
     name: "Nadia R.",
   },
   {

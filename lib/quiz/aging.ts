@@ -21,14 +21,14 @@ export const agingQuiz: QuizConfig = {
   {
     slug: "collagen-familiarity",
     kind: "single",
-    question: "How familiar are you with what creatine and collagen do for women over 35?",
+    question: "How familiar are you with what creatine and collagen do for women over 25?",
     options: ["I am an expert", "I know a thing or two", "I'm a beginner"],
   },
   {
     slug: "how-collagen-works",
     kind: "info",
-    question: "What starts slipping after 35",
-    body: "Two things fall away at once. Collagen production drops about one percent a year from your mid twenties and steepens around menopause, and lean muscle goes with it. Creatine is the most studied supplement there is for holding onto that muscle, and most women have never been offered it. Between them they explain a lot:",
+    question: "What starts slipping after 25",
+    body: "It starts earlier than most people think. Collagen production drops about one percent a year from your mid twenties and steepens around menopause. Lean muscle follows it down, and inflammation is slower to settle than it used to be. Creatine is the most studied supplement there is for holding onto that muscle, and most women have never been offered it. Between them they explain a lot:",
     bullets: [
       "Fine lines that were not there last year",
       "Skin that has lost its bounce along the jaw",
