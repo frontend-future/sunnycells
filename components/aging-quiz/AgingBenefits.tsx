@@ -7,9 +7,14 @@ import { StickyCta } from "@/components/quiz/StickyCta";
 
 const BENEFITS = [
   {
+    slug: "strength",
+    title: "Strength and lean muscle",
+    body: "Creatine at 5 g is the dose almost every trial used, and it is the most studied supplement there is for holding onto lean muscle. Women are rarely offered it, usually on a worry about bulk that the research does not support. What it supports is the muscle you already have.",
+  },
+  {
     slug: "skin",
     title: "Smoother, firmer looking skin",
-    body: "Types I and III are the collagens that make up the dermis, the layer under the surface that keeps skin taut. Hydrolyzed peptides are broken small enough to be absorbed and carried there, which is the part a cream on the top layer cannot do.",
+    body: "Collagen peptides at 10 g, hydrolyzed so they are small enough to be absorbed and carried to the dermis, the layer under the surface that keeps skin taut. That is the part a cream on the top layer cannot reach.",
   },
   {
     slug: "hair-nails",
@@ -17,14 +22,9 @@ const BENEFITS = [
     body: "Hair and nails are built from the same protein scaffolding as your skin, which is why they tend to change together. Nails grow out over three to six months and hair is slower still, so this is the part you see last and notice most.",
   },
   {
-    slug: "joints",
-    title: "Joints that keep up with you",
-    body: "Type II is the collagen in cartilage and types V and X sit in connective tissue and the growth plate. This is why a collagen taken for skin is the same one people take to keep walking, lifting and moving without paying for it the next day.",
-  },
-  {
-    slug: "one-ingredient",
-    title: "One ingredient, nothing else",
-    body: "Hydrolyzed collagen and that is the whole panel. No proprietary blend, no sweetener, no filler taking up the scoop. Unflavored, so it goes into the coffee you already drink without changing what you are drinking.",
+    slug: "recovery",
+    title: "Recovery and hydration",
+    body: "Electrolytes replace what a workout or a hot day takes out of you, with vitamin C and D3 alongside them. Vitamin C is not decoration here: your body needs it to build collagen at all, so it is doing a job for the scoop it shares.",
   },
 ];
 
@@ -50,7 +50,7 @@ export function AgingBenefits() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        Complete Collagen replaces what your body has stopped making.
+        Three supplements women over 35 are told to take, in one scoop.
       </h1>
 
       <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>

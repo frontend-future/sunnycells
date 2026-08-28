@@ -57,14 +57,15 @@ export function AgingSummary() {
 
       <div style={{ marginTop: "var(--space-10)", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          It is not your fault. Your body makes about one percent less collagen every
-          year from your mid twenties, and no cream reaches the layer where that is
-          happening. Replacing the raw material is a different approach entirely.
+          It is not your fault. Collagen production falls about one percent a year from
+          your mid twenties and lean muscle goes with it, and no cream reaches either.
+          Replacing the raw material is a different approach entirely.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           Based on your answers you seem like a perfect candidate who{" "}
           <strong style={{ fontWeight: 800 }}>
-            could benefit from Complete Collagen for your skin, hair and nails.
+            could benefit from Creatine + Collagen + Electrolytes for your strength,
+            your skin and your recovery.
           </strong>
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>

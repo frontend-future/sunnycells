@@ -5,7 +5,7 @@ import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import { Wordmark } from "@/components/core/Wordmark";
 import { RatingPill } from "@/components/quiz/RatingPill";
 import { StartChoice } from "@/components/quiz/StartChoice";
-import { RATING } from "@/lib/products/complete-collagen";
+import { RATING } from "@/lib/products/creatine-collagen";
 import { agingQuiz } from "@/lib/quiz/aging";
 
 export const metadata: Metadata = {
@@ -66,8 +66,8 @@ export default function AgingQuizLandingPage() {
         >
           <Wordmark size={26} />
           <Image
-            src="/product/complete-collagen.webp"
-            alt="SC-23 Complete Collagen, a cream pouch of unflavored collagen powder"
+            src="/product/creatine-collagen.webp"
+            alt="SC-23 Creatine + Collagen + Electrolytes, a tub of raspberry lemonade powder"
             width={1024}
             height={768}
             priority
@@ -98,8 +98,8 @@ export default function AgingQuizLandingPage() {
               textWrap: "balance",
             }}
           >
-            <span style={{ fontWeight: 600 }}>Replace the collagen you stopped making with </span>
-            <span style={{ fontWeight: 900 }}>Complete Collagen</span>
+            <span style={{ fontWeight: 600 }}>Cover strength, skin and recovery with </span>
+            <span style={{ fontWeight: 900 }}>Creatine + Collagen</span>
           </h1>
 
           <p
@@ -111,8 +111,8 @@ export default function AgingQuizLandingPage() {
               textWrap: "pretty",
             }}
           >
-            Your body makes about one percent less collagen every year from your mid
-            twenties. Find out what that is doing to your skin, hair and nails.
+            Collagen falls about one percent a year from your mid twenties, and lean
+            muscle goes with it. Find out where you are and what to do about it.
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>

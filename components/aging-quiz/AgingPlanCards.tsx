@@ -7,7 +7,7 @@ import { Badge } from "@/components/core/Badge";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { trackMetaEvent } from "@/lib/meta";
-import { CART_ID, PLANS, PRODUCT, type Plan } from "@/lib/products/complete-collagen";
+import { CART_ID, PLANS, PRODUCT, type Plan } from "@/lib/products/creatine-collagen";
 import { agingQuiz } from "@/lib/quiz/aging";
 import { readAnswers, writeAnswer } from "@/lib/quiz/store";
 
@@ -89,7 +89,7 @@ export function AgingPlanCards({ destinationHref, ctaLabel = "Try now" }: { dest
                 not look like one bag. One scoop in every shot regardless. */}
             <Image
               src={p.image}
-              alt={`${p.months} ${p.months === 1 ? "pouch" : "pouches"} of ${PRODUCT.name}`}
+              alt={`${p.months} ${p.months === 1 ? "tub" : "tubs"} of ${PRODUCT.name}`}
               width={1200}
               height={900}
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
@@ -106,7 +106,7 @@ export function AgingPlanCards({ destinationHref, ctaLabel = "Try now" }: { dest
               {[
                 `${p.months * PRODUCT.servings} servings`,
                 perDay(p.price, PRODUCT.servings),
-                `${p.months} ${p.months === 1 ? "pouch" : "pouches"} delivered`,
+                `${p.months} ${p.months === 1 ? "tub" : "tubs"} delivered`,
                 p.sub,
               ].map((line) => (
                 <li key={line} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start", fontSize: "var(--size-meta)", fontWeight: 500 }}>

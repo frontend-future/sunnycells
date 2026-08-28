@@ -26,7 +26,7 @@ export function AgingCollagen() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        How does collagen affect how you age?
+        How do collagen and muscle affect how you age?
       </h1>
 
       <Card>
@@ -48,7 +48,7 @@ export function AgingCollagen() {
         >
           Between the decline that starts in your twenties and what a normal week of
           eating actually supplies, your body is working with less than it needs to keep
-          rebuilding.
+          rebuilding skin and muscle both.
         </p>
         <MetabolismGauge m={s} afterLabel="With SUNNYCELLS" />
       </Card>
@@ -56,10 +56,11 @@ export function AgingCollagen() {
       <div style={{ marginTop: "var(--space-8)", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           With collagen falling every year it is normal that your skin, hair and nails
-          all started changing around the same time. They are built from the same thing.
+          all started changing at once. They are built from the same thing, and the muscle
+          underneath is going the same way.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          However, <strong style={{ fontWeight: 800 }}>Complete Collagen</strong> is made to
+          However, <strong style={{ fontWeight: 800 }}>Creatine + Collagen + Electrolytes</strong> is made to
           fight exactly that.
         </p>
       </div>

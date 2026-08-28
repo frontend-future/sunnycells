@@ -66,12 +66,12 @@ export function AgingStory() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        {WEEKS} weeks of Complete Collagen, in {s.name}&apos;s words.
+        {WEEKS} weeks of one scoop a day, in {s.name}&apos;s words.
       </h1>
 
       <Image
-        src="/product/complete-collagen.webp"
-        alt="A pouch of Complete Collagen"
+        src="/product/creatine-collagen.webp"
+        alt="A tub of Creatine + Collagen + Electrolytes"
         width={1024}
         height={1024}
         style={{

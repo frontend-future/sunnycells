@@ -2,8 +2,8 @@ import type { PlansContent } from "./plansContent";
 
 /**
  * Everything the aging plans page says. The page structure is the diet funnel's,
- * unchanged; this file is the swap. It keeps the diet funnel's yellow, which is what
- * the brief asked for until the product has a palette of its own.
+ * unchanged; this file is the swap. It keeps the diet funnel's yellow chrome, which is
+ * what the brief asked for, while the product photography carries the tub's own mauve.
  */
 
 /* PLACEHOLDER REVIEWS. None of these people exist and none of these results were
@@ -13,125 +13,125 @@ const HEADLINE_REVIEW = {
      names is the tell that gives a placeholder away. */
   photo: "/photos/collagen-skin.webp",
   name: "Nadia R.",
-  title: "One ingredient, and the types are on the front.",
-  body: "I have taken enough collagen to be suspicious of all of it. Most of them are a proprietary blend with a scoop half full of things I did not ask for. This one is hydrolyzed collagen and nothing else, with the types printed on the front, which is the only reason I tried it. Four months in and my nails stopped splitting first, then the hair in my brush thinned out. My skin is the slowest of the three, which is what I was told to expect.",
+  title: "It replaced two tubs and a bottle.",
+  body: "I was taking creatine out of one tub, collagen out of another, and an electrolyte tablet when I remembered, which was maybe twice a week. One scoop of this replaced all three and it is the first one I have actually finished. My nails changed first, inside about a month. The strength side is slower and harder to see in a mirror, but I am not sore for two days after a session any more, and that I do notice.",
 };
 
 const REVIEWS = [
-  { name: "Bea T.", photo: "/photos/collagen-avatar-1.webp", title: "Unflavored actually means unflavored", body: "It goes in my coffee and I cannot tell it is there. That sounds like a small thing but it is the whole reason I have kept taking it, where every flavoured one ended up at the back of a cupboard." },
-  { name: "Corinne L.", photo: "/photos/collagen-avatar-2.webp", title: "My hairbrush told me first", body: "The change I noticed was not in the mirror. There is less in the brush than there was, and I had quietly decided that was just my age." },
+  { name: "Bea T.", photo: "/photos/collagen-avatar-1.webp", title: "It tastes like a drink, not a supplement", body: "Raspberry lemonade, and it means it. That sounds like a small thing but it is the whole reason I have kept taking it, where every chalky one ended up at the back of a cupboard." },
+  { name: "Corinne L.", photo: "/photos/collagen-avatar-2.webp", title: "Nobody had ever suggested creatine to me", body: "Forty six, lifting twice a week, and every article I read was written for men. Turns out it is the most studied thing on the shelf and I had been avoiding it over a myth about bulking up." },
   { name: "Marguerite D.", photo: "/photos/collagen-avatar-3.webp", title: "Two months, and my nails are long", body: "I have not had nails past my fingertips since my thirties. They still bend, but they stopped tearing off, which is the part that mattered." },
-  { name: "Suzanne P.", photo: "/photos/collagen-avatar-4.webp", title: "The knees were the surprise", body: "I bought it for my skin. What I actually noticed was getting up off the floor after gardening without the noise I usually make. I did not know collagen was in cartilage too." },
+  { name: "Suzanne P.", photo: "/photos/collagen-avatar-4.webp", title: "The recovery is what got me", body: "I bought it for my skin. What I actually noticed was getting up off the floor after gardening without the noise I usually make." },
 ];
 
 export const AGING_PLANS_CONTENT: PlansContent = {
   quizId: "aging",
-  productName: "Complete Collagen",
+  productName: "Creatine + Collagen + Electrolytes",
   /* No countdown. 50% off a first order is a standing term of the brand, not a
      promotion, so it never carries a deadline. */
   offer: { label: "Standing offer", badge: "50% off first order", countdown: false },
   hero: {
-    title: "One ingredient formula",
-    lede: "SUNNYCELLS is here to replace the collagen your body has stopped making.",
-    points: ["Types I, II, III, V and X", "Unflavored, goes in anything", "Zero sugar, zero junk"],
+    title: "Three in one scoop",
+    lede: "SUNNYCELLS is here to cover strength, skin and hydration in one raspberry lemonade scoop.",
+    points: ["5 g creatine and 10 g collagen peptides", "Electrolytes with vitamin C and D3", "Zero sugar, zero junk"],
   },
-  productImage: "/product/complete-collagen.png",
-  plansTitle: "Let the collagen do the work",
+  productImage: "/product/creatine-collagen.png",
+  plansTitle: "Let the scoop do the work",
   plansNote: {
     badge: "3x",
-    body: "Skin turns over in about 4 weeks, nails in 3 to 6 months and hair slower still, so 3 months is where most people judge it",
+    body: "Creatine takes about 4 weeks to saturate, skin turns over in 4 and nails in 3 to 6 months, so 3 months is where most people judge it",
   },
   quickBenefits: [
-    { lead: "Dissolves in hot or cold in ", strong: "20 seconds" },
+    { lead: "Dissolves in cold water in ", strong: "20 seconds" },
+    { lead: "Creatine saturates in about ", strong: "4 weeks" },
     { lead: "Nails usually change first, in ", strong: "4 to 8 weeks" },
-    { lead: "Skin turns over about every ", strong: "4 weeks" },
     { lead: "Hair is the slowest, give it ", strong: "3 to 6 months" },
   ],
   pillars: [
-    { slug: "skin", title: "Skin", body: "Types I and III are what the dermis is built from, the layer under the surface that keeps skin taut.", illustration: "/photos/collagen-skin.webp" },
-    { slug: "hair-nails", title: "Hair and nails", body: "Built from the same protein scaffolding as your skin, which is why they tend to change together.", illustration: "/photos/collagen-hair.webp" },
-    { slug: "joints", title: "Joints", body: "Type II is the collagen in cartilage, with V and X in connective tissue and the growth plate.", illustration: "/photos/collagen-joints.webp" },
+    { slug: "strength", title: "Strength", body: "Creatine at 5 g, the dose the trials used, for the lean muscle that goes with the collagen.", illustration: "/photos/collagen-joints.webp" },
+    { slug: "skin", title: "Skin, hair and nails", body: "Collagen peptides at 10 g, hydrolyzed small enough to reach the layer under the surface.", illustration: "/photos/collagen-skin.webp" },
+    { slug: "recovery", title: "Recovery", body: "Electrolytes with vitamin C and D3, replacing what a workout or a hot day takes out.", illustration: "/photos/cc-lifestyle.webp" },
   ],
   headlineReview: HEADLINE_REVIEW,
   reviews: REVIEWS,
-  ingredientsTitle: "The science behind Complete Collagen",
+  ingredientsTitle: "The science behind Creatine + Collagen + Electrolytes",
   ingredients: [
     {
-      slug: "type-i-iii",
-      title: "Types I and III",
+      slug: "creatine",
+      title: "Creatine monohydrate, 5 g",
+      image: "/photos/cc-mix.webp",
+      points: [
+        ["The most studied supplement there is", "Hundreds of trials, and 5 g a day is the dose almost all of them used. It is not a stimulant and there is nothing to come down from."],
+        ["Women are rarely offered it", "Usually on a worry about bulk that the research does not support. What it supports is holding onto the lean muscle you already have."],
+      ],
+    },
+    {
+      slug: "collagen",
+      title: "Collagen peptides, 10 g",
       image: "/photos/collagen-skin.webp",
       points: [
-        ["What your skin is made of", "Together they are the overwhelming majority of the collagen in your dermis, the layer under the surface that gives skin its firmness."],
-        ["Also hair, nails and bone", "The same two types build the scaffolding in hair follicles and nail beds, which is why those tend to change together."],
+        ["Hydrolyzed, so it is absorbed", "Whole collagen is too large to cross the gut wall. Hydrolysis cuts it into peptides small enough to be taken up and carried to the tissue."],
+        ["Skin, hair and nails together", "They are built from the same protein scaffolding, which is why they tend to change at the same time."],
       ],
     },
     {
-      slug: "type-ii",
-      title: "Type II",
-      image: "/photos/collagen-joints.webp",
+      slug: "electrolytes",
+      title: "Electrolytes",
+      image: "/photos/cc-flavour.webp",
       points: [
-        ["The collagen in cartilage", "Type II is the main structural collagen in the cartilage between your joints rather than in skin."],
-        ["Why one powder covers both", "It is the reason a collagen taken for skin is the same one people take to keep moving without paying for it the next day."],
+        ["What a workout takes out", "Sodium, potassium and magnesium are what you lose in sweat, and what a plain glass of water does not put back."],
+        ["Why it is in a daily scoop", "Hydration is not only a gym problem. A hot day and a long afternoon do the same thing more slowly."],
       ],
     },
     {
-      slug: "type-v-x",
-      title: "Types V and X",
-      image: "/photos/collagen-pack-detail.webp",
+      slug: "vitamins",
+      title: "Vitamin C and D3",
+      image: "/photos/cc-watercolour.webp",
       points: [
-        ["The two most formulas leave out", "Type V sits in connective tissue and the surface of cells; type X is found at the growth plate and in cartilage repair."],
-        ["Five types, not one", "Most collagen powders are types I and III alone. Naming all five on the front is the point of the pack."],
-      ],
-    },
-    {
-      slug: "hydrolyzed",
-      title: "Hydrolyzed, not whole",
-      image: "/photos/collagen-in-cup.webp",
-      points: [
-        ["Broken down to be absorbed", "Whole collagen is too large to cross the gut wall. Hydrolysis cuts it into peptides small enough to be taken up and carried to the tissue."],
-        ["Which is why it is a powder", "It also dissolves in hot or cold liquid without gelling, so it goes into coffee without turning it into anything."],
+        ["Vitamin C is not decoration", "Your body cannot build collagen without it, so it is doing a job for the scoop it shares rather than padding the label."],
+        ["D3 alongside it", "Commonly low, particularly through winter and particularly in women over 35."],
       ],
     },
     {
       slug: "nothing-else",
-      title: "Nothing else",
-      image: "/photos/collagen-flatlay.webp",
+      title: "Zero sugar, zero junk",
+      image: "/product/creatine-collagen.webp",
       points: [
-        ["One line on the panel", "Hydrolyzed collagen is the whole formula. No proprietary blend, no sweetener, no filler taking up the scoop."],
-        ["Unflavored on purpose", "Flavour is where the sugar and the sweeteners get in. Without it the powder goes into whatever you already drink."],
+        ["Every dose on the front", "5 g, 10 g and the electrolytes are printed on the tub rather than hidden inside a proprietary blend."],
+        ["Raspberry lemonade, no sugar", "The flavour is there so you finish the tub. The sugar that usually comes with it is not."],
       ],
     },
   ],
   howItWorks: [
-    { img: "step-scoop", title: "Add 1 scoop", body: "One 7.8 g scoop into coffee, water or a smoothie. Hot or cold, it dissolves either way.", illustration: "/photos/collagen-scoop.webp" },
-    { img: "step-drink", title: "Give it a few weeks", body: "Nails tend to change first, then hair, then skin. This is a habit rather than a hit, which is why the pouch is a month.", illustration: "/photos/collagen-in-cup.webp" },
+    { img: "step-scoop", title: "Add 1 scoop", body: "One scoop into 300 to 400 ml of cold water. It dissolves without clumping.", illustration: "/photos/cc-mix.webp" },
+    { img: "step-drink", title: "Once a day, every day", body: "Creatine works by saturation rather than by dose, so the day you skip is the one that costs you.", illustration: "/photos/cc-flavour.webp" },
   ],
-  comparisonNote: "Compared to other collagen powders",
+  comparisonNote: "Compared to buying the three separately",
   comparison: [
-    "Five collagen types, I, II, III, V and X",
-    "Hydrolyzed peptides, sized to be absorbed",
-    "One ingredient, printed on the front",
+    "5 g creatine at the dose the trials used",
+    "10 g hydrolyzed collagen peptides",
+    "Electrolytes with vitamin C and D3",
+    "Three supplements in one scoop",
+    "Every dose printed on the front",
     "No proprietary blend hiding the amounts",
-    "Unflavored, so it goes in anything",
-    "Zero sugar and no sweeteners",
-    "No fillers taking up the scoop",
-    "Dissolves in hot or cold without gelling",
-    "38 servings in a 300 g pouch",
+    "Raspberry lemonade with zero sugar",
+    "Dissolves in cold water without clumping",
+    "30 servings in every tub",
     "Made in the USA",
   ],
   faqs: [
-    { title: "How do I use Complete Collagen?", body: "One 7.8 g scoop a day into coffee, water, tea or a smoothie. Hot or cold both work, and it dissolves without gelling." },
-    { title: "What is actually in it?", body: "Hydrolyzed collagen and nothing else, covering types I, II, III, V and X. There is no proprietary blend, no sweetener and no filler." },
-    { title: "Does it really taste of nothing?", body: "It is unflavored. In coffee or a smoothie most people cannot tell it is there. In plain water you may notice a faint savoury note." },
-    { title: "How long until I notice anything?", body: "Nails usually change first, often in four to eight weeks. Skin turns over about every four weeks. Hair is the slowest, so give it three to six months before you judge it." },
-    { title: "Why five types rather than one?", body: "Different types build different tissue. I and III are skin, hair and nails, II is cartilage, and V and X sit in connective tissue. Most powders carry only I and III." },
+    { title: "How do I use it?", body: "One scoop a day into 300 to 400 ml of cold water. Any time of day works, so pick the one you will remember." },
+    { title: "What is actually in it?", body: "5 g creatine monohydrate, 10 g hydrolyzed collagen peptides, and electrolytes with vitamin C and D3. Every amount is printed on the front of the tub." },
+    { title: "Will creatine make me bulky?", body: "No. That worry comes from bodybuilding marketing rather than from the research. Creatine supports the lean muscle you already have, and building visible size takes a training and eating programme built for it." },
+    { title: "Do I need to load it?", body: "No. Loading gets you to saturation faster, but 5 g a day gets you to the same place in about four weeks with less chance of an upset stomach." },
+    { title: "How long until I notice anything?", body: "Nails usually change first, often in four to eight weeks. Creatine saturates in about four weeks. Skin turns over about every four weeks, and hair is the slowest, so give it three to six months." },
+    { title: "Does it taste of anything?", body: "Raspberry lemonade, with no sugar in it. It is flavoured on purpose: an unflavoured tub is the one that ends up at the back of a cupboard." },
     { title: "Where is the formula produced?", body: "Made in the USA in a facility that follows current Good Manufacturing Practice." },
-    { title: "Can I take it with other supplements?", body: "Yes. It has no stimulants and no active beyond the collagen itself, so it sits alongside anything else you already take." },
-    { title: "What is the best time of day to take it?", body: "Whenever you will remember. Most people put it in their morning coffee, which is the habit that sticks." },
-    { title: "Is it suitable for vegetarians?", body: "No. Collagen is an animal protein, so there is no vegetarian or vegan version of it. Anything sold as vegan collagen is a blend of nutrients meant to support your own production instead." },
-    { title: "Where should I store it?", body: "Somewhere cool and dry with the zip closed. Not the windowsill, and not the fridge." },
+    { title: "Can I take it with other supplements?", body: "Yes. There are no stimulants in it, so it sits alongside anything else you already take." },
+    { title: "Is it suitable for vegetarians?", body: "No. Collagen is an animal protein, so there is no vegetarian version of it. Anything sold as vegan collagen is a blend of nutrients meant to support your own production instead." },
+    { title: "Where should I store it?", body: "Somewhere cool and dry with the lid closed. Not the windowsill, and not the fridge." },
     { title: "Are there any side effects?", body: "Most people have none. If you are pregnant, breastfeeding, taking prescription medication, or managing a health condition, talk to your doctor before starting." },
-    { title: "How long does the pouch last?", body: "One pouch is 300 g, which is 38 scoops, so about five weeks at one a day." },
+    { title: "How long does a tub last?", body: "One tub is 30 servings, so a month at one scoop a day." },
     { title: "Medical information, product, reviews, warnings and legal disclaimer", body: "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Results vary from person to person." },
   ],
 };

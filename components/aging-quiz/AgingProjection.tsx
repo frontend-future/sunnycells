@@ -62,7 +62,7 @@ export function AgingProjection() {
             startLabel={monthYear(new Date())}
             endLabel={monthYear(addDays(SKIN_HORIZON_DAYS))}
             format={(v) => `${Math.round(v)} yrs`}
-            planLabel="With Complete Collagen"
+            planLabel="With Creatine + Collagen"
             compareLabel="With creams alone"
             ariaNoun="how old your skin looks"
             compare={creamsCurve}
@@ -84,9 +84,10 @@ export function AgingProjection() {
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           Hydrolyzed collagen is broken into peptides small enough to be absorbed and
-          carried to the layer that needs them. Skin cell turnover runs about four weeks,
-          nails grow out over three to six months, and hair is slower still, which is why
-          the line moves steadily rather than jumping.
+          carried to the layer that needs them, and creatine works on the muscle
+          underneath it. Skin cell turnover runs about four weeks, nails grow out over
+          three to six months, and hair is slower still, which is why the line moves
+          steadily rather than jumping.
         </p>
         {p ? (
           <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
