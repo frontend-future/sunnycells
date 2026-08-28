@@ -14,8 +14,15 @@ test("energy paths report to the energy dataset", () => {
 });
 
 test("aging paths report to the aging dataset", () => {
-  for (const p of ["/quiz/aging", "/quiz/aging/skin-feel", "/quiz/aging/results/checkout"])
-    assert.equal(funnelForPath(p), "aging", p);
+  for (const p of [
+    "/quiz/aging",
+    "/quiz/aging/skin-feel",
+    "/quiz/aging/results/checkout",
+    /* The advertorials live off /aging rather than under the quiz, and they are the
+       top of the same funnel, so they report to the same dataset. */
+    "/aging",
+    "/aging/7-warning-signs",
+  ]) assert.equal(funnelForPath(p), "aging", p);
 });
 
 test("everything else stays on the original dataset", () => {
@@ -26,6 +33,7 @@ test("everything else stays on the original dataset", () => {
     "/hormone-harmony",
     "/quiz/energydrinks",
     "/quiz/agingskin",
+    "/aging-something-else",
     "/products/even-energy-clone",
   ]) assert.equal(funnelForPath(p), "default", p);
 });

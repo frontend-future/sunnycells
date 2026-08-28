@@ -8,13 +8,13 @@
 export type Funnel = "energy" | "aging" | "default";
 
 /* Energy is the Even Energy product page with its checkout plus the energy quiz.
-   Aging is the collagen quiz, which is the only place that product is sold. Anything
+   Aging is the collagen quiz plus the /aging advertorials that feed it. Anything
    else, which today means the diet quiz and the Metabolic Morning Blend pages, stays
    on the original dataset. Matching is on the whole segment: a loose prefix on
    "/quiz/aging" would also swallow a future "/quiz/aging-something-else". */
 const PATHS: [Funnel, string[]][] = [
   ["energy", ["/products/even-energy", "/quiz/energy"]],
-  ["aging", ["/quiz/aging"]],
+  ["aging", ["/quiz/aging", "/aging"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {

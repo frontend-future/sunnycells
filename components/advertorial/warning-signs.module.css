@@ -1,0 +1,748 @@
+/* The advertorial's own chrome. It is a long single column of reading, so almost
+   everything here is width, rhythm and one rule about type size. The page never goes
+   below 20px body or weight 500, and --ink-40 never carries text. */
+
+.page {
+  background: var(--surface-page);
+  color: var(--text-primary);
+  /* The sticky bar sits over the last screenful, so the document buys itself room. */
+  padding-bottom: 6.5rem;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* A handful of blocks want the full page width behind them while their text stays in
+   the reading column. */
+.wide {
+  max-width: 64rem;
+}
+
+/* padding-block, never the shorthand: these classes are worn alongside .wrap, and
+   `padding: 3rem 0` would reset its inline padding to zero and run the text into the
+   edge of the screen. */
+.section { padding-block: 3rem; }
+.sectionTight { padding-block: 1.5rem; }
+
+/* ---------- masthead ---------- */
+.masthead {
+  background: var(--ink);
+  padding: 0.875rem 0;
+}
+.mastheadInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.mastheadTag {
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  color: var(--white);
+  opacity: 0.75;
+}
+
+/* ---------- hero ---------- */
+.hero { padding-block: 2.5rem 1.5rem; }
+
+.h1 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h1-m);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  margin: 0 0 1rem;
+}
+.h1 mark {
+  background: var(--sun-tint);
+  color: inherit;
+  padding: 0 0.1em;
+  border-radius: var(--radius-xs);
+}
+
+.heroSub {
+  font-size: var(--size-body-lg);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-medium);
+  color: var(--ink-80);
+  margin: 0;
+}
+
+/* ---------- byline ---------- */
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1.25rem 0;
+  border-bottom: 2px solid var(--border-hairline);
+}
+.bylineMark {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--sun);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: var(--weight-max);
+  font-size: var(--size-h4);
+  color: var(--ink);
+  line-height: 1;
+}
+.bylineName {
+  font-weight: var(--weight-bold);
+  margin: 0;
+  font-size: var(--size-body);
+}
+.bylineRole {
+  margin: 0;
+  color: var(--ink-60);
+  font-size: var(--size-meta);
+  line-height: 1.4;
+}
+
+/* ---------- before / after ---------- */
+.baGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.baFig { margin: 0; }
+.baShot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--shell);
+  display: block;
+}
+.baCap {
+  text-align: center;
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-body);
+  margin-top: 0.5rem;
+}
+
+.pullQuote {
+  margin: 1.5rem 0 0;
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+}
+.pullQuote p { margin: 0 0 0.5rem; }
+.pullQuote em { font-weight: var(--weight-bold); font-style: italic; }
+.attrib {
+  color: var(--ink-60);
+  font-style: italic;
+  font-size: var(--size-meta);
+}
+.smallPrint {
+  color: var(--ink-60);
+  font-size: var(--size-meta);
+  line-height: 1.45;
+  text-align: center;
+  margin: 1rem 0 0;
+}
+
+/* ---------- generic prose ---------- */
+.lead {
+  font-size: var(--size-body-lg);
+  line-height: var(--leading-body);
+  font-style: italic;
+  color: var(--ink-80);
+  margin: 0 0 1rem;
+}
+.prose p {
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  margin: 0 0 1.25rem;
+}
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { font-weight: var(--weight-bold); }
+
+.h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h2-m);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  margin: 0 0 1.25rem;
+}
+.h2Centre { text-align: center; }
+
+.eyebrow {
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  color: var(--ink-60);
+  margin: 0 0 0.5rem;
+}
+
+/* ---------- the seven signs ---------- */
+.sign { padding-block: 2rem; }
+.signHead {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+}
+.signNum {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h2-m);
+  line-height: 1;
+  color: var(--sun-press);
+  flex: none;
+}
+.signTitle {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h3);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  margin: 0;
+}
+.signShot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--shell);
+  display: block;
+  margin: 0 0 1.5rem;
+}
+
+/* ---------- decline chart ---------- */
+.chart {
+  background: var(--shell);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+}
+.chartTitle {
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-body);
+  margin: 0 0 1.25rem;
+}
+.chartBody {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.375rem;
+  height: 13rem;
+}
+.chartCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  gap: 0.5rem;
+}
+.chartBar {
+  width: 100%;
+  background: var(--ink);
+  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+  min-height: 2px;
+}
+/* The bars past menopause carry the accent, so the cliff in the data is the thing the
+   eye lands on rather than something you have to read the caption to find. */
+.chartBarDrop { background: var(--sun-press); }
+.chartAge {
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--ink-60);
+}
+.chartAxis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--ink-20);
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  color: var(--ink-60);
+}
+.chartNote {
+  margin: 0.75rem 0 0;
+  font-size: var(--size-meta);
+  color: var(--ink-60);
+  line-height: 1.45;
+}
+
+/* ---------- tick lists ---------- */
+.ticks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.ticks li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+}
+.tick {
+  flex: none;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  background: var(--sun);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  margin-top: 0.2rem;
+}
+
+/* ---------- ink card (quote / guarantee) ---------- */
+.inkCard {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
+}
+.inkCard p {
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  margin: 0 0 0.75rem;
+}
+.inkCard p:last-child { margin-bottom: 0; }
+.inkCard .attrib { color: var(--ink-20); }
+
+/* ---------- trust strip ---------- */
+.trust {
+  background: var(--sun-tint);
+  padding: 1.25rem 0;
+}
+.trustInner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem 1.5rem;
+}
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+}
+
+/* ---------- review cards ---------- */
+.reviewGrid {
+  display: grid;
+  gap: 1rem;
+}
+.reviewCard {
+  background: var(--surface-card);
+  border: 2px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+.reviewShot {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1rem;
+  background: var(--shell);
+}
+.reviewBody {
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  margin: 0 0 0.875rem;
+}
+.reviewWho {
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  margin: 0;
+}
+.stars {
+  display: inline-flex;
+  gap: 1px;
+  vertical-align: -2px;
+  margin-left: 0.4rem;
+}
+.quoteGlyph {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: 3rem;
+  line-height: 0.7;
+  color: var(--sun-press);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.sunkSection {
+  background: var(--shell);
+  padding: 3rem 0;
+}
+
+/* ---------- comparison ----------
+   Two stacked panels on a phone, a three column table from 768px. The table does not
+   fit a narrow screen: "SUNNYCELLS" at the 17px micro-label floor is about 105px, two
+   of those plus the gaps leave roughly 70px for the row label on a 360px handset. */
+.compareStack { display: grid; gap: 1rem; }
+.comparePanel {
+  border: 2px solid var(--ink-20);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+.comparePanelUs { border-color: var(--ink); }
+.comparePanelHead {
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-body);
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-hairline);
+}
+.comparePanelList { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.875rem; }
+.comparePanelList li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+.compareTable { display: none; }
+
+.compareHead {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: end;
+  padding: 0 0 0.75rem;
+  border-bottom: 2px solid var(--ink);
+}
+.compareHeadUs,
+.compareHeadThem {
+  width: 8.5rem;
+  text-align: center;
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  line-height: 1.25;
+}
+.compareHeadUs { color: var(--ink); }
+.compareHeadThem { color: var(--ink-60); }
+
+.compareRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  border-bottom: 2px solid var(--border-hairline);
+}
+.compareRowAlt { background: var(--shell); }
+.compareLabel {
+  font-weight: var(--weight-bold);
+  font-size: var(--size-body);
+  line-height: 1.35;
+  margin: 0;
+}
+.compareSub {
+  color: var(--ink-60);
+  font-size: var(--size-meta);
+  line-height: 1.4;
+  margin: 0.15rem 0 0;
+}
+.compareCell { width: 8.5rem; display: grid; place-items: center; }
+.yes {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+  background: var(--sun);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.no {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+  background: var(--ink-10);
+  color: var(--ink-60);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+/* ---------- offer ---------- */
+.offer {
+  background: var(--sun-tint);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+.offerShot {
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+.offerFlagRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.plans {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+  text-align: left;
+}
+.plan {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.875rem;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  background: var(--white);
+  border: 2px solid var(--ink-20);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  transition: border-color var(--duration-fast, 150ms) var(--ease-standard);
+}
+.planOn { border-color: var(--ink); }
+.radio {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  border: 2px solid var(--ink-40);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.planOn .radio { border-color: var(--ink); }
+.radio span {
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.planName {
+  display: block;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-body);
+}
+.planTag {
+  display: inline-block;
+  white-space: nowrap;
+  margin-left: 0.4rem;
+  background: var(--sun);
+  color: var(--ink);
+  border-radius: var(--radius-xs);
+  padding: 0.05rem 0.4rem;
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  vertical-align: 1px;
+}
+.planSub {
+  display: block;
+  color: var(--ink-60);
+  font-size: var(--size-meta);
+  line-height: 1.35;
+}
+.planPrice {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h4);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.planWas {
+  display: block;
+  color: var(--ink-60);
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  text-align: right;
+}
+.offerTerms {
+  margin: 0.875rem 0 0;
+  font-size: var(--size-meta);
+  color: var(--ink-60);
+  line-height: 1.45;
+}
+
+.ctaBlock { padding-block: 2rem; text-align: center; }
+
+/* ---------- disclosure ---------- */
+.disclosure {
+  border-top: 2px solid var(--border-hairline);
+}
+.disclosure summary {
+  padding: 1.125rem 0;
+  cursor: pointer;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-body);
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  list-style: none;
+}
+.disclosure summary::-webkit-details-marker { display: none; }
+.disclosure[open] summary { color: var(--ink); }
+.refList {
+  margin: 0 0 1.25rem;
+  padding-left: 1.5rem;
+}
+.refList li {
+  font-size: var(--size-meta);
+  line-height: 1.5;
+  color: var(--ink-60);
+  margin-bottom: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  background: var(--ink);
+  color: var(--white);
+  padding: 2.5rem 0;
+  margin-top: 2rem;
+}
+.footer p {
+  font-size: var(--size-meta);
+  line-height: 1.55;
+  color: var(--ink-20);
+  margin: 0 0 1rem;
+}
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-meta);
+}
+.footerLinks a {
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 0.25rem;
+}
+.footerMark { display: flex; justify-content: center; margin-top: 1.5rem; }
+
+/* ---------- sticky buy bar ---------- */
+.sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  background: var(--white);
+  border-top: 2px solid var(--ink-20);
+  box-shadow: var(--shadow-raised);
+  padding: 0.625rem 0;
+  transform: translateY(110%);
+  transition: transform 260ms var(--ease-out);
+}
+.stickyOn { transform: translateY(0); }
+.stickyInner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.stickyShot {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  flex: none;
+}
+.stickyText {
+  flex: 1;
+  min-width: 0;
+}
+.stickyOffer {
+  display: block;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-body);
+  line-height: 1.2;
+}
+.stickyTerms {
+  display: block;
+  color: var(--ink-60);
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  line-height: 1.3;
+}
+@media (max-width: 419px) {
+  .stickyShot { display: none; }
+}
+.stickyBtn { flex: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky { transition: none; }
+}
+
+/* ---------- desktop ---------- */
+@media (min-width: 768px) {
+  .wrap { padding: 0 2rem; }
+  .section { padding-block: 4rem; }
+  .sunkSection { padding: 4rem 0; }
+  .hero { padding-block: 3.5rem 2rem; }
+  .h1 { font-size: var(--size-h1); }
+  .h2 { font-size: var(--size-h2); }
+  .signNum { font-size: var(--size-h1-m); }
+  .signTitle { font-size: var(--size-h2-m); }
+  .heroSub { font-size: var(--size-h4); }
+  .signShot { aspect-ratio: 16 / 9; }
+  .reviewGrid { grid-template-columns: repeat(3, 1fr); }
+  .reviewGridTwo { grid-template-columns: repeat(2, 1fr); }
+  .plans { grid-template-columns: repeat(3, 1fr); }
+  /* A card per column, read top to bottom: what you get, how often, what it costs. */
+  .plan { grid-template-columns: auto 1fr; align-items: start; row-gap: 0.5rem; }
+  .plan > span:nth-child(2) { grid-column: 2; }
+  .plan > span:nth-child(3) { grid-column: 2; }
+  .plan .planPrice { text-align: left; }
+  .plan .planWas { text-align: left; }
+  .offer { padding: 2.5rem 2rem; }
+  .chartBody { height: 16rem; }
+  .compareStack { display: none; }
+  .compareTable { display: block; }
+}
