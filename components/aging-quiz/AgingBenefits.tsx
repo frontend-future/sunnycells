@@ -5,26 +5,29 @@ import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell } from "@/components/quiz/ResultsShell";
 import { StickyCta } from "@/components/quiz/StickyCta";
 
+/* Titles are what she would notice, not what the ingredient is called. The dose stays,
+   at the end of each body, where it works as the reason to believe rather than as the
+   pitch. */
 const BENEFITS = [
   {
-    slug: "strength",
-    title: "Strength and lean muscle",
-    body: "Creatine at 5 g is the dose almost every trial used, and it is the most studied supplement there is for holding onto lean muscle. Women are rarely offered it, usually on a worry about bulk that the research does not support. What it supports is the muscle you already have.",
+    slug: "fuller",
+    title: "Arms that look fuller, not softer",
+    body: "Creatine pulls water into the muscle cell itself, which is why the look changes before the strength does and why four weeks is usually enough to see it. 5 g is the dose almost every trial used. The worry about bulking up is not what the research shows, and it is the reason most women were never offered the one supplement with the deepest evidence behind it.",
   },
   {
-    slug: "skin",
-    title: "Smoother, firmer looking skin",
-    body: "Collagen peptides at 10 g, hydrolyzed so they are small enough to be absorbed and carried to the dermis, the layer under the surface that keeps skin taut. That is the part a cream on the top layer cannot reach.",
+    slug: "rested",
+    title: "Skin that looks rested in photographs",
+    body: "The complaint is rarely wrinkles in the abstract. It is the gap between how old you feel and how old you look in a photo nobody warned you about. Collagen peptides at 10 g are hydrolyzed small enough to be absorbed and carried to the dermis, the layer under the surface that holds skin taut, which is the layer a cream never reaches.",
   },
   {
     slug: "hair-nails",
-    title: "Stronger hair and nails",
-    body: "Hair and nails are built from the same protein scaffolding as your skin, which is why they tend to change together. Nails grow out over three to six months and hair is slower still, so this is the part you see last and notice most.",
+    title: "Nails past your fingertips, less hair in the brush",
+    body: "Hair and nails are built from the same scaffolding as your skin, which is why all three started changing at the same time and why they come back in the same order. Nails move first, usually inside two months. The brush is slower and it is the one most women check without mentioning it.",
   },
   {
-    slug: "recovery",
-    title: "Recovery and hydration",
-    body: "Electrolytes replace what a workout or a hot day takes out of you, with vitamin C and D3 alongside them. Vitamin C is not decoration here: your body needs it to build collagen at all, so it is doing a job for the scoop it shares.",
+    slug: "day-after",
+    title: "A day after that costs you less",
+    body: "Two days sore from one session, and stiff getting out of the car. Electrolytes put back the sodium, potassium and magnesium a hard hour or a hot afternoon takes out, with vitamin C and D3 alongside. The vitamin C is not padding: your body cannot build collagen without it, so it is working for the scoop it shares.",
   },
 ];
 
@@ -50,7 +53,7 @@ export function AgingBenefits() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        Three supplements women over 25 are told to take, in one scoop.
+        What actually changes, and when you will see it.
       </h1>
 
       <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>

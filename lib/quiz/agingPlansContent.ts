@@ -44,19 +44,15 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     badge: "28",
     body: "28 days of 5 g is what it takes to fill your muscle creatine stores. Collagen trials measure firmer skin at week 8. The 3 month supply clears both, with a month spare to feel it.",
   },
-  /* Four outcomes on a rising clock, fastest first. The old set led with a feature
-     (it dissolves), a piece of jargon (creatine saturates) and two hedges (usually,
-     give it), which is three ways of saying nothing. Mixing is covered in how it works
-     and in the FAQ, so nothing is lost by dropping it here. */
+  /* Every line is something she can see happening, on the clock it happens on. The set
+     before this one measured the mechanism rather than the result: full creatine stores
+     is a number from a muscle biopsy, not a thing anyone notices about themselves. */
   quickBenefits: [
-    { lead: "Muscle creatine stores full in ", strong: "28 days" },
-    { lead: "Nails that stop splitting in ", strong: "4 to 8 weeks" },
-    { lead: "Firmer looking skin by ", strong: "week 8" },
-    { lead: "Hair with more body in ", strong: "3 to 6 months" },
+    { lead: "Arms that look fuller, not softer, in ", strong: "4 weeks" },
+    { lead: "Nails that grow past your fingertips in ", strong: "4 to 8 weeks" },
+    { lead: "Skin that looks rested in photographs by ", strong: "week 8" },
+    { lead: "Less hair left in the brush in ", strong: "3 to 6 months" },
   ],
-  /* Each card opens on the thing she has actually noticed and closes on the ingredient
-     that answers it. The previous set opened on doses and mechanisms, which is the
-     order the formulator cares about and the reverse of the order she does. */
   pillars: [
     {
       slug: "strength",
