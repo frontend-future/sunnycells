@@ -11,7 +11,7 @@ import type { PlansContent } from "./plansContent";
 const HEADLINE_REVIEW = {
   /* A different woman from the four in the review row below. The same face under two
      names is the tell that gives a placeholder away. */
-  photo: "/photos/collagen-skin.webp",
+  photo: "/photos/collagen-review-nadia.webp",
   name: "Nadia R.",
   title: "It replaced two jars and a bottle.",
   body: "I was taking creatine out of one jar, collagen out of another, and an electrolyte tablet when I remembered, which was maybe twice a week. One scoop of this replaced all three and it is the first one I have actually finished. My nails changed first, inside about a month. The strength side is slower and harder to see in a mirror, but I am not sore for two days after a session any more, and that I do notice.",
