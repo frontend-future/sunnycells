@@ -53,23 +53,26 @@ export const AGING_PLANS_CONTENT: PlansContent = {
     { lead: "Skin that looks rested in photographs by ", strong: "week 8" },
     { lead: "Less hair left in the brush in ", strong: "3 to 6 months" },
   ],
+  /* Each card is a promise, a mechanism and a date, in that order. The set before this
+     one opened on three symptom fragments and closed on a dose, so the reader got a list
+     of her own problems and an ingredient, and nothing that said what happens next. */
   pillars: [
     {
       slug: "strength",
-      title: "Strength that shows up",
-      body: "The jar you cannot open. Training as hard as ever and getting less back for it. Creatine at 5 g is the most studied answer there is, and the one women are least often offered.",
+      title: "Fuller arms by week four",
+      body: "Creatine draws water into the muscle cell, so the shape comes back before the strength does. 5 g a day, the dose almost every trial used. You see it in the mirror before you feel it in the gym.",
       illustration: "/photos/collagen-joints.webp",
     },
     {
       slug: "skin",
-      title: "Looking tired when you are not",
-      body: "The photograph that does not match how you feel. A part that keeps getting wider. Nails that split before they grow. All three are built from collagen, which is why they started going at once.",
+      title: "Look as rested as you feel",
+      body: "Collagen holds the layer under your skin taut, and you make one percent less of it every year after 25. 10 g of peptides small enough to reach that layer. By week eight the photograph stops arguing with you.",
       illustration: "/photos/collagen-skin.webp",
     },
     {
       slug: "recovery",
-      title: "The day after costing less",
-      body: "Two days sore from one session, and stiff getting out of the car. Electrolytes with vitamin C and D3 put back what a hard hour or a hot afternoon takes out of you.",
+      title: "Stop paying for it the next day",
+      body: "One hard hour costs you sodium, potassium and magnesium, and water alone does not put them back. This does, with vitamin C and D3 alongside. You get up the next morning without negotiating with your knees.",
       illustration: "/photos/cc-lifestyle.webp",
     },
   ],
