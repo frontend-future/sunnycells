@@ -84,11 +84,11 @@ export const GALLERY = [
 export const HERO = {
   title: "Daily gummies made for",
   titleAccent: "those of us who don’t eat fruit.",
-  /* The whole proposition in two sentences: skipping fruit costs you three specific
-     things, and this puts those three back. Naming them is the point. A gummy that
-     just says "supports wellness" is asking the reader to take the gap on faith. */
+  /* One line, because the bullets underneath already name the three gaps and the doses
+     that cover them. Gaps rather than all the gaps: this covers vitamin C, fiber and
+     polyphenols, not every nutrient a piece of fruit carries. */
   lede:
-    "Skipping fruit leaves three specific gaps: vitamin C, fiber and the polyphenols that make fruit red. Daily Reds puts all three back in four gummies you chew once a day, with nothing to blend or measure.",
+    "Four gummies a day to cover the nutritional gaps that not eating fruit leaves behind.",
   points: [
     "100% of your daily vitamin C, from acerola cherry",
     "3 g of fiber, the thing 95% of us fall short on",
