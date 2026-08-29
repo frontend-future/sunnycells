@@ -138,7 +138,7 @@ export function DailyRedsPage() {
             <div>
               <Image
                 src={PRODUCT.image}
-                alt="The Daily Reds box with a single daily pack leaning against it"
+                alt="The Daily Reds bag with a single daily pack leaning against it"
                 width={1200}
                 height={1200}
                 className={styles.heroShot}
@@ -396,7 +396,7 @@ export function DailyRedsPage() {
 
               <div className={styles.priceRow}>
                 <span className={styles.priceNow}>${chosen.price}</span>
-                {chosen.months > 1 && <span className={styles.meta}>/box</span>}
+                {chosen.months > 1 && <span className={styles.meta}>/bag</span>}
                 <span className={styles.priceWas}>${chosen.compareAt * chosen.months}</span>
                 <span className={styles.savePill}>Save ${saving}</span>
               </div>
@@ -556,7 +556,7 @@ export function DailyRedsPage() {
         <section className={`${styles.wrap} ${styles.narrow} ${styles.section} ${styles.centre}`}>
           <h2 className={styles.h2}>Four gummies. Once a day. That is the whole thing.</h2>
           <p className={styles.lede} style={{ marginBottom: "1.5rem" }}>
-            Half off your first box, free shipping, and you can stop whenever you like.
+            Half off your first bag, free shipping, and you can stop whenever you like.
           </p>
           <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Try now and save 50%</Button>
         </section>
@@ -579,7 +579,7 @@ export function DailyRedsPage() {
         <div className={`${styles.wrap} ${styles.stickyInner}`}>
           <Image src={PRODUCT.image} alt="" aria-hidden="true" width={120} height={120} className={styles.stickyShot} />
           <span className={styles.stickyText}>
-            <span className={styles.stickyTitle}>50% off first box</span>
+            <span className={styles.stickyTitle}>50% off first bag</span>
             <span className={styles.stickyTerms}>then from ${PLANS[PLANS.length - 1].price}</span>
           </span>
           <Button variant="accent" size="md" onClick={toBuy}>Try now</Button>

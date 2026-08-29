@@ -57,12 +57,12 @@ export function buildOrder(planId: string | undefined): Order {
   const plan = planById(planId);
   const now = plan.price * plan.months;
   const list = plan.compareAt * plan.months;
-  const boxes = `${plan.months} ${plan.months === 1 ? "box" : "boxes"}`;
+  const bags = `${plan.months} ${plan.months === 1 ? "bag" : "bags"}`;
   return {
     plan,
     lines: [
       { id: "product", name: `${PRODUCT.name}, ${PRODUCT.flavor.toLowerCase()}`,
-        note: `${boxes} of 28 daily packs. ${plan.sub}.`, was: list, now, image: PRODUCT.image },
+        note: `${bags} of 28 daily packs. ${plan.sub}.`, was: list, now, image: PRODUCT.image },
       { id: "shipping", name: "Shipping", note: "Free on every order", was: null, now: 0, image: null },
     ],
     listTotal: list, discount: list - now, total: now,
@@ -73,12 +73,12 @@ export function buildOrder(planId: string | undefined): Order {
 export const RATING = { score: 4.7, count: 3182 } as const;
 
 export const GALLERY = [
-  { src: "/product/daily-reds.webp", alt: "The Daily Reds box with a single daily pack leaning against it" },
+  { src: "/product/daily-reds.webp", alt: "The Daily Reds bag with a single daily pack leaning against it" },
   { src: "/product/reds-card-1.webp", alt: "What you are short on if you do not eat fruit" },
   { src: "/product/reds-card-2.webp", alt: "Nine in ten US adults do not eat enough fruit" },
   { src: "/product/reds-card-3.webp", alt: "Why this one gets finished" },
-  { src: "/product/reds-card-4.webp", alt: "What arrives in the box" },
-  { src: "/product/daily-reds-coral.webp", alt: "The box and daily pack with fresh red fruit" },
+  { src: "/product/reds-card-4.webp", alt: "What arrives in the bag" },
+  { src: "/product/daily-reds-coral.webp", alt: "The bag and daily pack with fresh red fruit" },
 ] as const;
 
 export const HERO = {
@@ -221,13 +221,13 @@ export const FAQ = [
   { q: "Is this a replacement for eating fruit?",
     a: "That is what it is for. We cannot put a strawberry in a gummy and we are not going to pretend we can. What we can do is cover the nutrition fruit brings you: vitamin C, fiber and the polyphenols that make fruit red, in four gummies you will actually take." },
   { q: "How many do I take?",
-    a: "Four gummies, once a day. That is one daily pack. There are 28 packs in a box, so a box is four weeks." },
+    a: "Four gummies, once a day. That is one daily pack. There are 28 packs in a bag, so a bag is four weeks." },
   { q: "Does it have to be a subscription?",
     a: "Yes. It only does anything if you take it for months rather than weeks, and a subscription is the only version of that which actually happens. You can skip a delivery or cancel entirely in two clicks from your account." },
   { q: "When would I notice anything?",
     a: "The fiber tends to be the first thing people mention, usually inside a couple of weeks. Everything else is slower and harder to feel, which is why the guarantee runs 30 days and the supplies run longer." },
   { q: "What if I do not like them?",
-    a: "Email us inside 30 days and we refund it. You keep the box. We are not going to ask you to post gummies back." },
+    a: "Email us inside 30 days and we refund it. You keep the bag. We are not going to ask you to post gummies back." },
   { q: "Is there added sugar?",
     a: "None. The fruit brings its own and nothing else is added to make them palatable." },
 ] as const;
@@ -235,7 +235,7 @@ export const FAQ = [
 export const INCLUDED = [
   { n: "28", label: "daily packs", body: "One a day for four weeks. Four gummies in each pack." },
   { n: "Free", label: "shipping", body: "On every order, every time, with no minimum." },
-  { n: "30 days", label: "money back", body: "Email us and we refund it. You keep the box." },
+  { n: "30 days", label: "money back", body: "Email us and we refund it. You keep the bag." },
   { n: "2 clicks", label: "to cancel", body: "Skip a delivery or stop entirely from your account." },
 ] as const;
 
@@ -326,7 +326,7 @@ export const COST = {
   title: "What not eating fruit is costing you",
   lede: "It does not happen overnight. It shows up slowly, in the things you blame on getting older.",
   image: "/product/daily-reds.webp",
-  alt: "The Daily Reds box with a single daily pack",
+  alt: "The Daily Reds bag with a single daily pack",
   quadrants: [
     { icon: "droplet", title: "Wrinkles",
       body: "Your skin needs collagen to stay smooth. Your body needs vitamin C to make collagen. Fruit is where vitamin C comes from." },
@@ -360,14 +360,14 @@ export const GAP_SECOND = {
 export const TESTING = {
   title: "Snackable, packable, tested",
   lede:
-    "Every batch goes to an independent lab before it goes in a box. Not because it is a nice line on a page, because gummies concentrate whatever was in the fruit.",
+    "Every batch goes to an independent lab before it goes in a bag. Not because it is a nice line on a page, because gummies concentrate whatever was in the fruit.",
   items: [
     { title: "Heavy metals", body: "Lead, arsenic, cadmium and mercury, against California Proposition 65 limits." },
     { title: "Pesticides", body: "A multi-residue screen across the whole fruit blend." },
     { title: "Microbials", body: "Yeast, mould, salmonella, E. coli and total plate count." },
     { title: "Potency", body: "Vitamin C and fiber assayed against the label, not assumed from the recipe." },
   ],
-  note: "Certificates of analysis are available on request for any batch, identified by the code printed on the box.",
+  note: "Certificates of analysis are available on request for any batch, identified by the code printed on the bag.",
 } as const;
 
 /* PLACEHOLDER testimonials for the carousel. None of these people exist. */
