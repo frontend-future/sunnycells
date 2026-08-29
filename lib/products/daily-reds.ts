@@ -84,14 +84,12 @@ export const GALLERY = [
 export const HERO = {
   title: "Daily gummies made for",
   titleAccent: "those of us who don’t eat fruit.",
-  /* One line, because the bullets underneath already name the three gaps and the doses
-     that cover them. Gaps rather than all the gaps: this covers vitamin C, fiber and
-     polyphenols, not every nutrient a piece of fruit carries. */
+  /* One line, because the bullets underneath carry the doses. */
   lede:
     "Four gummies a day to cover all the nutritional gaps that not eating fruit leaves behind.",
   points: [
     "100% of your daily vitamin C, from acerola cherry",
-    "3 g of fiber, the thing 95% of us fall short on",
+    "3 g fiber to help keep things moving",
     "Polyphenols from eight red fruits",
     "No added sugar, nothing to mix",
   ],
