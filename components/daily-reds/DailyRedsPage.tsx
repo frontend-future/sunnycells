@@ -368,14 +368,13 @@ export function DailyRedsPage() {
                   shove the buy box down the page. */}
               <p className={styles.orderNote}>
                 <Icon name="truck" size={19} strokeWidth={2.4} />
-                <span>{now ? orderLine(now, chosen) : "\u00a0"}</span>
+                <span>{now ? orderLine(now) : "\u00a0"}</span>
               </p>
 
               <div className={styles.ratingRow}>
                 <Stars size={17} />
-                <span className={styles.ratingScore}>{RATING.score}/5</span>
-                <span className={styles.meta}>
-                  {RATING.count.toLocaleString("en-US")} reviews
+                <span className={styles.ratingScore}>
+                  {RATING.score.toFixed(1)}/5.0 ({RATING.count.toLocaleString("en-US")})
                 </span>
               </div>
 

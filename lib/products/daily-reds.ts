@@ -41,9 +41,9 @@ export type Plan = {
 /* The house ladder: list price per month, halved on a first order, and the saving
    widening with the supply. Integers only. */
 export const PLANS: Plan[] = [
-  { id: "r1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 22, compareAt: 44 },
-  { id: "r3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 20, compareAt: 44, best: true },
-  { id: "r6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 18, compareAt: 44 },
+  { id: "r1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 25, compareAt: 50 },
+  { id: "r3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 23, compareAt: 50, best: true },
+  { id: "r6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 21, compareAt: 50 },
 ];
 
 export function planById(id: string | undefined): Plan {
@@ -88,7 +88,7 @@ export const HERO = {
      that cover them. Gaps rather than all the gaps: this covers vitamin C, fiber and
      polyphenols, not every nutrient a piece of fruit carries. */
   lede:
-    "Four gummies a day to cover the nutritional gaps that not eating fruit leaves behind.",
+    "Four gummies a day to cover all the nutritional gaps that not eating fruit leaves behind.",
   points: [
     "100% of your daily vitamin C, from acerola cherry",
     "3 g of fiber, the thing 95% of us fall short on",
@@ -120,25 +120,18 @@ export const BUYBOX = {
 } as const;
 
 /**
- * The dated line above the buy box. The reference page this is modelled on puts an
- * expiry here ("order by the 28th for 61% off"), which we cannot: 50% off the first
- * order is a standing term with no deadline, so a deadline on it would be a countdown
- * on something that never counts down.
- *
- * So the date carries the thing that genuinely is date-bound, and the one a subscriber
- * actually wants before pressing buy: when the second box turns up and what it costs.
- * Both move with the plan they have selected.
+ * The dated line above the buy box, in the format of the page this one is modelled on:
+ * "Order by August 28th for 50% Off With Free Shipping". The date is today's, formatted
+ * with the ordinal, and it is computed on the client so it is never stale.
  */
-export function orderLine(now: Date, plan: Plan): string {
-  /* Two calls rather than one, because a single format puts a comma after the weekday
-     and "Order today, Friday, August 28." reads as a stutter. */
-  const day = now.toLocaleDateString("en-US", { weekday: "long" });
-  const date = now.toLocaleDateString("en-US", { month: "long", day: "numeric" });
-  const today = `${day} ${date}`;
-  const next = new Date(now);
-  next.setMonth(next.getMonth() + plan.months);
-  const then = next.toLocaleDateString("en-US", { month: "long", day: "numeric" });
-  return `Order today, ${today}. Half price now, then $${plan.price * plan.months} on ${then}.`;
+function ordinal(d: number): string {
+  if (d > 3 && d < 21) return `${d}th`;
+  return `${d}${["th", "st", "nd", "rd"][d % 10] ?? "th"}`;
+}
+
+export function orderLine(now: Date): string {
+  const month = now.toLocaleDateString("en-US", { month: "long" });
+  return `Order by ${month} ${ordinal(now.getDate())} for 50% Off With Free Shipping`;
 }
 
 export const MISSING = {
