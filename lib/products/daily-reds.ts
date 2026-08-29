@@ -250,7 +250,7 @@ export const FACTS = {
   blend:
     "Organic Strawberry Fruit Powder, Organic Raspberry Fruit Powder, Organic Tart Cherry Fruit Powder, Organic Pomegranate Fruit Powder, Organic Cranberry Fruit Powder, Organic Blackcurrant Fruit Powder, Organic Acerola Cherry Fruit Extract, Organic Beet Root Powder.",
   otherIngredients:
-    "Allulose, Tapioca Fiber, Water, Pectin, Citric Acid, Natural Mixed Berry Flavor, Sodium Citrate, Organic Carnauba Wax, Organic Sunflower Oil, Fruit and Vegetable Juice (for color).",
+    "Allulose, Tapioca Fiber, Water, Pectin, Citric Acid, Natural Mixed Berry Flavor, Sodium Citrate, Organic Carnauba Wax, Fruit and Vegetable Juice (for color).",
   footnotes: [
     "** Percent Daily Values are based on a 2,000 calorie diet.",
     "† Daily Value not established.",

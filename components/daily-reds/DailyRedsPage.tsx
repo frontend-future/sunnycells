@@ -46,14 +46,17 @@ export function DailyRedsPage() {
   const [slide, setSlide] = useState(0);
   const [stuck, setStuck] = useState(false);
   const buyRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
 
   /* The bar appears once the buy block has scrolled past and hides again whenever it is
      back on screen, so it never covers the thing it points at. */
   useEffect(() => {
     const onScroll = () => {
-      const box = buyRef.current?.getBoundingClientRect();
-      if (!box) return;
-      setStuck(box.bottom < 0);
+      const hero = heroRef.current?.getBoundingClientRect();
+      const buy = buyRef.current?.getBoundingClientRect();
+      const pastHero = !!hero && hero.bottom < 0;
+      const buyVisible = !!buy && buy.top < window.innerHeight && buy.bottom > 0;
+      setStuck(pastHero && !buyVisible);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -97,40 +100,14 @@ export function DailyRedsPage() {
       </header>
 
       <main>
-        {/* ---------- buy block ---------- */}
-        <section className={`${styles.wrap} ${styles.section}`} id="buy">
-          <div className={styles.buyGrid} ref={buyRef}>
-            <div className={styles.gallery}>
-              <Image
-                src={GALLERY[shot].src}
-                alt={GALLERY[shot].alt}
-                width={1200}
-                height={1200}
-                className={styles.galleryMain}
-                priority
-              />
-              <div className={styles.thumbs}>
-                {GALLERY.map((g, i) => (
-                  <button
-                    key={g.src}
-                    type="button"
-                    onClick={() => setShot(i)}
-                    aria-label={g.alt}
-                    aria-current={i === shot}
-                    className={`${styles.thumb} ${i === shot ? styles.thumbOn : ""}`}
-                    style={{ backgroundImage: `url(${g.src})`, backgroundSize: "cover", backgroundPosition: "center" }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.buyCard}>
-              <div>
-                <p className={styles.eyebrow}>{HERO.eyebrow}</p>
-                <h1 className={styles.h1}>
-                  {HERO.title} <span className={styles.accent}>{HERO.titleAccent}</span>
-                </h1>
-              </div>
+        {/* ---------- hero. Light: it introduces and points down, it does not sell. ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`} ref={heroRef}>
+          <div className={styles.heroGrid}>
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow}>{HERO.eyebrow}</p>
+              <h1 className={styles.h1}>
+                {HERO.title} <span className={styles.accent}>{HERO.titleAccent}</span>
+              </h1>
 
               <div className={styles.proofRow}>
                 <span className={styles.avatars} aria-hidden="true">
@@ -149,56 +126,21 @@ export function DailyRedsPage() {
                 {HERO.points.map((p) => <li key={p}><Tick />{p}</li>)}
               </ul>
 
-              <button type="button" className={styles.factsLink} onClick={() => setFactsOpen(true)}>
-                View nutrition label
-                <Icon name="chevron-right" size={18} strokeWidth={2.5} />
-              </button>
-
-              <div>
-                <OfferFlag size="sm" />
-              </div>
-
-              <div className={styles.priceRow}>
-                <span className={styles.priceNow}>${chosen.price}</span>
-                {chosen.months > 1 && <span className={styles.meta}>/box</span>}
-                <span className={styles.priceWas}>${chosen.compareAt * chosen.months}</span>
-                <span className={styles.savePill}>Save ${saving}</span>
-              </div>
-
-              <div className={styles.plans} role="radiogroup" aria-label="Choose your supply">
-                {PLANS.map((p) => {
-                  const on = p.id === chosen.id;
-                  return (
-                    <button
-                      key={p.id}
-                      type="button"
-                      role="radio"
-                      aria-checked={on}
-                      onClick={() => setChosen(p)}
-                      className={`${styles.plan} ${on ? styles.planOn : ""}`}
-                    >
-                      <span className={styles.radio} aria-hidden="true">{on && <span />}</span>
-                      <span>
-                        <span className={styles.planName}>
-                          {p.name}
-                          {p.best && <span className={styles.planTag}>Most popular</span>}
-                        </span>
-                        <span className={styles.planSub}>{p.sub}</span>
-                      </span>
-                      <span>
-                        <span className={styles.planPrice}>${p.price * p.months}</span>
-                        <span className={styles.planWas}>was ${p.compareAt * p.months}</span>
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <Button fullWidth variant="accent" size="lg" onClick={buy}>Start with half off</Button>
+              <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Get 50% off</Button>
               <p className={styles.termsLine}>
-                {chosen.sub}. Free shipping, skip or cancel in two clicks, and a 30 day money
-                back guarantee either way.
+                Try it risk free for 30 days. Free shipping, and you can cancel in two clicks.
               </p>
+            </div>
+
+            <div>
+              <Image
+                src={PRODUCT.image}
+                alt="The Daily Reds box with a single daily pack leaning against it"
+                width={1200}
+                height={1200}
+                className={styles.heroShot}
+                priority
+              />
             </div>
           </div>
         </section>
@@ -387,6 +329,93 @@ export function DailyRedsPage() {
               ))}
             </div>
             <p className={`${styles.meta} ${styles.centre}`} style={{ marginTop: "1.25rem" }}>{TESTING.note}</p>
+          </div>
+        </section>
+
+        {/* ---------- buy box. Sits after the education, the way the reference does. ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`} id="buy">
+          <div className={styles.buyGrid} ref={buyRef}>
+            <div className={styles.gallery}>
+              <Image
+                src={GALLERY[shot].src}
+                alt={GALLERY[shot].alt}
+                width={1200}
+                height={1200}
+                className={styles.galleryMain}
+              />
+              <div className={styles.thumbs}>
+                {GALLERY.map((g, i) => (
+                  <button
+                    key={g.src}
+                    type="button"
+                    onClick={() => setShot(i)}
+                    aria-label={g.alt}
+                    aria-current={i === shot}
+                    className={`${styles.thumb} ${i === shot ? styles.thumbOn : ""}`}
+                    style={{ backgroundImage: `url(${g.src})`, backgroundSize: "cover", backgroundPosition: "center" }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.buyCard}>
+              <h2 className={styles.h2}>Start with half off</h2>
+              <p className={styles.lede}>
+                Four gummies a day. Pick how often the box turns up, and change your mind
+                whenever you like.
+              </p>
+
+              <button type="button" className={styles.factsLink} onClick={() => setFactsOpen(true)}>
+                View nutrition label
+                <Icon name="chevron-right" size={18} strokeWidth={2.5} />
+              </button>
+
+              <div>
+                <OfferFlag size="sm" />
+              </div>
+
+              <div className={styles.priceRow}>
+                <span className={styles.priceNow}>${chosen.price}</span>
+                {chosen.months > 1 && <span className={styles.meta}>/box</span>}
+                <span className={styles.priceWas}>${chosen.compareAt * chosen.months}</span>
+                <span className={styles.savePill}>Save ${saving}</span>
+              </div>
+
+              <div className={styles.plans} role="radiogroup" aria-label="Choose your supply">
+                {PLANS.map((p) => {
+                  const on = p.id === chosen.id;
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      onClick={() => setChosen(p)}
+                      className={`${styles.plan} ${on ? styles.planOn : ""}`}
+                    >
+                      <span className={styles.radio} aria-hidden="true">{on && <span />}</span>
+                      <span>
+                        <span className={styles.planName}>
+                          {p.name}
+                          {p.best && <span className={styles.planTag}>Most popular</span>}
+                        </span>
+                        <span className={styles.planSub}>{p.sub}</span>
+                      </span>
+                      <span>
+                        <span className={styles.planPrice}>${p.price * p.months}</span>
+                        <span className={styles.planWas}>was ${p.compareAt * p.months}</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <Button fullWidth variant="accent" size="lg" onClick={buy}>Start with half off</Button>
+              <p className={styles.termsLine}>
+                {chosen.sub}. Free shipping, skip or cancel in two clicks, and a 30 day money
+                back guarantee either way.
+              </p>
+            </div>
           </div>
         </section>
 
