@@ -105,6 +105,42 @@ export const TRUST = [
   "30 day money back guarantee",
 ] as const;
 
+/**
+ * The header of the buy box: what it is, who it is for and what it does, restated at
+ * the point of the decision rather than assumed from 3000px of page above it.
+ */
+export const BUYBOX = {
+  lede: "Eight red fruits in four gummies, chewed once a day, covering what not eating fruit leaves you short on.",
+  points: [
+    "Supports skin, with 100% of your daily vitamin C",
+    "Supports digestion, with 3 g of fiber",
+    "Polyphenols from eight red fruits",
+    "Third-party tested for heavy metals and potency",
+  ],
+} as const;
+
+/**
+ * The dated line above the buy box. The reference page this is modelled on puts an
+ * expiry here ("order by the 28th for 61% off"), which we cannot: 50% off the first
+ * order is a standing term with no deadline, so a deadline on it would be a countdown
+ * on something that never counts down.
+ *
+ * So the date carries the thing that genuinely is date-bound, and the one a subscriber
+ * actually wants before pressing buy: when the second box turns up and what it costs.
+ * Both move with the plan they have selected.
+ */
+export function orderLine(now: Date, plan: Plan): string {
+  /* Two calls rather than one, because a single format puts a comma after the weekday
+     and "Order today, Friday, August 28." reads as a stutter. */
+  const day = now.toLocaleDateString("en-US", { weekday: "long" });
+  const date = now.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+  const today = `${day} ${date}`;
+  const next = new Date(now);
+  next.setMonth(next.getMonth() + plan.months);
+  const then = next.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+  return `Order today, ${today}. Half price now, then $${plan.price * plan.months} on ${then}.`;
+}
+
 export const MISSING = {
   title: "If you do not eat fruit, this is what you are short on",
   items: [

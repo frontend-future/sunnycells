@@ -101,6 +101,18 @@
 .thumbOn { border-color: var(--ink); }
 
 .buyCard { display: flex; flex-direction: column; gap: 1rem; }
+
+/* The dated line at the top of the buy box. Dashed rule rather than a filled bar: it
+   is information, not a klaxon, and the offer flag below it is already the loud thing.
+   min-height holds the row before the date arrives after mount. */
+.orderNote {
+  display: flex; align-items: center; gap: 0.625rem;
+  margin: 0; padding: 0.75rem 1rem; min-height: 52px;
+  border: 2px dashed var(--ivory-deep); border-radius: var(--radius-md);
+  background: var(--ivory); color: var(--ink);
+  font-size: var(--size-meta); font-weight: 600; line-height: 1.35;
+}
+.orderNote svg { flex: none; color: var(--reds); }
 .ratingRow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 .stars { display: inline-flex; gap: 1px; }
 .ratingScore { font-weight: var(--weight-bold); font-size: var(--size-body); }

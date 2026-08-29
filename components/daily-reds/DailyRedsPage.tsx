@@ -11,9 +11,9 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  AVATARS, CAROUSEL, CART_ID, COMPARE, DISCLAIMER, FAQ, FINISH, GALLERY, GAP,
+  AVATARS, BUYBOX, CAROUSEL, CART_ID, COMPARE, DISCLAIMER, FAQ, FINISH, GALLERY, GAP,
   GAP_SECOND, HERO, INCLUDED, INSIDE, MISSING, PLANS, PRODUCT, QUOTE, RATING,
-  REVIEWS, TESTING, COST, TRUST, type Plan,
+  orderLine, REVIEWS, TESTING, COST, TRUST, type Plan,
 } from "@/lib/products/daily-reds";
 import { NutritionLabel } from "./NutritionLabel";
 import styles from "./daily-reds.module.css";
@@ -45,6 +45,10 @@ export function DailyRedsPage() {
   const [factsOpen, setFactsOpen] = useState(false);
   const [slide, setSlide] = useState(0);
   const [stuck, setStuck] = useState(false);
+  /* Set after mount, not during render. The server has no idea what day it is where
+     the reader is, so rendering the date on both sides is a hydration mismatch. */
+  const [now, setNow] = useState<Date | null>(null);
+  useEffect(() => setNow(new Date()), []);
   const buyRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
 
@@ -360,11 +364,27 @@ export function DailyRedsPage() {
             </div>
 
             <div className={styles.buyCard}>
-              <h2 className={styles.h2}>Start with half off</h2>
-              <p className={styles.lede}>
-                Four gummies a day. Pick how often the box turns up, and change your mind
-                whenever you like.
+              {/* Reserves its own height so the date landing after mount does not
+                  shove the buy box down the page. */}
+              <p className={styles.orderNote}>
+                <Icon name="truck" size={19} strokeWidth={2.4} />
+                <span>{now ? orderLine(now, chosen) : "\u00a0"}</span>
               </p>
+
+              <div className={styles.ratingRow}>
+                <Stars size={17} />
+                <span className={styles.ratingScore}>{RATING.score}/5</span>
+                <span className={styles.meta}>
+                  {RATING.count.toLocaleString("en-US")} reviews
+                </span>
+              </div>
+
+              <h2 className={styles.h2}>{PRODUCT.name}</h2>
+              <p className={styles.lede}>{BUYBOX.lede}</p>
+
+              <ul className={styles.points}>
+                {BUYBOX.points.map((b) => <li key={b}><Tick />{b}</li>)}
+              </ul>
 
               <button type="button" className={styles.factsLink} onClick={() => setFactsOpen(true)}>
                 View nutrition label
