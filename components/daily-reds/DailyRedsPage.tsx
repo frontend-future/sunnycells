@@ -5,14 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
-import { Icon } from "@/components/core/Icon";
+import { Icon, type IconName } from "@/components/core/Icon";
 import { OfferFlag } from "@/components/core/OfferFlag";
 import { Wordmark } from "@/components/core/Wordmark";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  CART_ID, COMPARE, DISCLAIMER, FAQ, FINISH, GALLERY, GAP, HERO, INCLUDED, INSIDE,
-  MISSING, PLANS, PRODUCT, QUOTE, RATING, REVIEWS, TRUST, type Plan,
+  AVATARS, CAROUSEL, CART_ID, COMPARE, DISCLAIMER, FAQ, FINISH, GALLERY, GAP,
+  GAP_SECOND, HERO, INCLUDED, INSIDE, MISSING, PLANS, PRODUCT, QUOTE, RATING,
+  REVIEWS, TESTING, TRANSFORM, TRUST, type Plan,
 } from "@/lib/products/daily-reds";
 import { NutritionLabel } from "./NutritionLabel";
 import styles from "./daily-reds.module.css";
@@ -42,6 +43,7 @@ export function DailyRedsPage() {
   const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
   const [shot, setShot] = useState(0);
   const [factsOpen, setFactsOpen] = useState(false);
+  const [slide, setSlide] = useState(0);
   const [stuck, setStuck] = useState(false);
   const buyRef = useRef<HTMLDivElement | null>(null);
 
@@ -130,7 +132,12 @@ export function DailyRedsPage() {
                 </h1>
               </div>
 
-              <div className={styles.ratingRow}>
+              <div className={styles.proofRow}>
+                <span className={styles.avatars} aria-hidden="true">
+                  {AVATARS.map((a) => (
+                    <Image key={a} src={a} alt="" width={160} height={160} className={styles.avatar} />
+                  ))}
+                </span>
                 <Stars />
                 <span className={styles.ratingScore}>{RATING.score}/5</span>
                 <span className={styles.meta}>{RATING.count.toLocaleString("en-US")} reviews</span>
@@ -208,6 +215,75 @@ export function DailyRedsPage() {
           </div>
         </div>
 
+        {/* ---------- testimonial carousel ---------- */}
+        <section className={styles.carousel} aria-label="What customers say">
+          <div className={`${styles.wrap} ${styles.carouselInner}`}>
+            <blockquote className={styles.carouselQuote}>
+              &ldquo;{CAROUSEL[slide].quote}&rdquo;
+            </blockquote>
+            <div className={styles.carouselWho}>
+              <Image src={CAROUSEL[slide].photo} alt="" aria-hidden="true" width={160} height={160} className={styles.carouselShot} />
+              <span>
+                <Stars size={15} />
+                <span className={styles.reviewWho} style={{ display: "block" }}>{CAROUSEL[slide].name}</span>
+              </span>
+            </div>
+            <div className={styles.carouselNav}>
+              <button type="button" className={styles.carouselBtn} aria-label="Previous review"
+                onClick={() => setSlide((s) => (s - 1 + CAROUSEL.length) % CAROUSEL.length)}>
+                <Icon name="chevron-left" size={22} strokeWidth={2.5} />
+              </button>
+              <span className={styles.dots}>
+                {CAROUSEL.map((c, i) => (
+                  <button key={c.name} type="button" onClick={() => setSlide(i)}
+                    aria-label={`Review ${i + 1} of ${CAROUSEL.length}`} aria-current={i === slide}
+                    className={`${styles.dot} ${i === slide ? styles.dotOn : ""}`} />
+                ))}
+              </span>
+              <button type="button" className={styles.carouselBtn} aria-label="Next review"
+                onClick={() => setSlide((s) => (s + 1) % CAROUSEL.length)}>
+                <Icon name="chevron-right" size={22} strokeWidth={2.5} />
+              </button>
+            </div>
+            <p className={styles.meta} style={{ marginTop: "0.75rem" }}>
+              Customer results have not been independently verified. Individual results vary.
+            </p>
+          </div>
+        </section>
+
+        {/* ---------- the education block ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`}>
+          <h2 className={`${styles.h2} ${styles.centre}`}>{TRANSFORM.title}</h2>
+          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
+            {TRANSFORM.lede}
+          </p>
+          <div className={styles.quadWrap}>
+            <div className={styles.quadCol}>
+              {TRANSFORM.quadrants.slice(0, 2).map((q) => (
+                <div key={q.title} className={styles.quad}>
+                  <span className={styles.quadIcon} aria-hidden="true">
+                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
+                  </span>
+                  <h3 className={styles.h3}>{q.title}</h3>
+                  <p className={styles.body}>{q.body}</p>
+                </div>
+              ))}
+            </div>
+            <Image src={TRANSFORM.image} alt={TRANSFORM.alt} width={900} height={900} className={styles.quadShot} />
+            <div className={`${styles.quadCol} ${styles.quadColRight}`}>
+              {TRANSFORM.quadrants.slice(2).map((q) => (
+                <div key={q.title} className={styles.quad}>
+                  <span className={styles.quadIcon} aria-hidden="true">
+                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
+                  </span>
+                  <h3 className={styles.h3}>{q.title}</h3>
+                  <p className={styles.body}>{q.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ---------- what you are short on ---------- */}
         <section className={`${styles.wrap} ${styles.section}`}>
           <h2 className={`${styles.h2} ${styles.centre}`}>{MISSING.title}</h2>
@@ -242,6 +318,16 @@ export function DailyRedsPage() {
               <div>
                 <Image src={GAP.image} alt={GAP.alt} width={1200} height={900} className={styles.shot} />
                 <p className={styles.meta} style={{ marginTop: "1rem" }}>{GAP.source}</p>
+                <div className={styles.statSplit}>
+                  <div>
+                    <p className={styles.figure} style={{ fontSize: "3.5rem" }}>{GAP_SECOND.figure}</p>
+                    <h3 className={styles.h3}>{GAP_SECOND.title}</h3>
+                  </div>
+                  <div>
+                    <p className={styles.body}>{GAP_SECOND.body}</p>
+                    <p className={styles.meta} style={{ marginTop: "0.75rem" }}>{GAP_SECOND.source}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -282,6 +368,25 @@ export function DailyRedsPage() {
                 <Icon name="chevron-right" size={18} strokeWidth={2.5} />
               </button>
             </div>
+          </div>
+        </section>
+
+        {/* ---------- testing ---------- */}
+        <section className={styles.sunk}>
+          <div className={`${styles.wrap} ${styles.section}`}>
+            <h2 className={`${styles.h2} ${styles.centre}`}>{TESTING.title}</h2>
+            <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "42rem", margin: "0 auto 2rem" }}>
+              {TESTING.lede}
+            </p>
+            <div className={styles.testGrid}>
+              {TESTING.items.map((t) => (
+                <div key={t.title} className={styles.card}>
+                  <h3 className={styles.h3}>{t.title}</h3>
+                  <p className={styles.body}>{t.body}</p>
+                </div>
+              ))}
+            </div>
+            <p className={`${styles.meta} ${styles.centre}`} style={{ marginTop: "1.25rem" }}>{TESTING.note}</p>
           </div>
         </section>
 

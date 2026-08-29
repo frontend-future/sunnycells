@@ -259,3 +259,78 @@ export const FACTS = {
     "CHILDREN, PREGNANT OR NURSING WOMEN should seek professional medical advice before taking this or any other dietary supplement. Keep out of reach of children.",
   storage: "Store in a cool, dry place after opening.",
 } as const;
+
+/* PLACEHOLDER faces. Generated, not customers. */
+export const AVATARS = [
+  "/photos/reds-avatar-1.webp",
+  "/photos/reds-avatar-2.webp",
+  "/photos/reds-avatar-3.webp",
+  "/photos/reds-avatar-4.webp",
+] as const;
+
+/**
+ * The education block. The reference page opens this with "over 35,000 research
+ * publications support the ingredients", which is a count nobody can check and we are
+ * not going to invent one. Each quadrant instead names the nutrient, what it does, and
+ * where it normally comes from, which is the part this reader is actually missing.
+ */
+export const TRANSFORM = {
+  title: "What fruit is actually doing for people who eat it",
+  lede:
+    "None of this is exotic. It is the ordinary work that fruit does every day in the people who eat it, and does not do in the people who do not.",
+  image: "/product/daily-reds.webp",
+  alt: "The Daily Reds box with a single daily pack",
+  quadrants: [
+    { icon: "shield-check", title: "Immunity",
+      body: "Vitamin C supports normal immune function. Fruit is where most people get theirs, so skipping fruit is how most people end up short." },
+    { icon: "leaf", title: "Digestion",
+      body: "Fiber is what keeps things moving, and it is the nutrient Americans fall shortest on. Fruit is the easiest place in the diet to find it." },
+    { icon: "droplet", title: "Skin",
+      body: "Vitamin C is required to build collagen at all. Your body cannot make the protein that holds skin taut without it." },
+    { icon: "dna", title: "Everyday steadiness",
+      body: "Polyphenols are the compounds that colour fruit. They are the part of fruit that no other food group replaces." },
+  ],
+} as const;
+
+/**
+ * The second sourced figure. Fiber rather than fruit, because it is the specific
+ * shortfall that follows from not eating fruit and it is separately documented.
+ */
+export const GAP_SECOND = {
+  figure: "5%",
+  title: "of Americans meet the recommended daily fiber intake.",
+  body: "Average intake sits around 16 g against a recommendation of 25 to 38 g. Fruit is the easiest place in an ordinary diet to close that.",
+  source:
+    "Quagliani D and Felt-Gunderson P, Closing America's Fiber Intake Gap, American Journal of Lifestyle Medicine, 2017.",
+} as const;
+
+/**
+ * What third-party testing actually covers. This replaces the reference page's
+ * post-purchase survey block, which reports percentages from a customer survey we have
+ * not run. Everything here is a property of the testing regime rather than a claim
+ * about outcomes, so it needs no substantiation beyond the certificate of analysis.
+ */
+export const TESTING = {
+  title: "Snackable, packable, tested",
+  lede:
+    "Every batch goes to an independent lab before it goes in a box. Not because it is a nice line on a page, because gummies concentrate whatever was in the fruit.",
+  items: [
+    { title: "Heavy metals", body: "Lead, arsenic, cadmium and mercury, against California Proposition 65 limits." },
+    { title: "Pesticides", body: "A multi-residue screen across the whole fruit blend." },
+    { title: "Microbials", body: "Yeast, mould, salmonella, E. coli and total plate count." },
+    { title: "Potency", body: "Vitamin C and fiber assayed against the label, not assumed from the recipe." },
+  ],
+  note: "Certificates of analysis are available on request for any batch, identified by the code printed on the box.",
+} as const;
+
+/* PLACEHOLDER testimonials for the carousel. None of these people exist. */
+export const CAROUSEL = [
+  { quote: "I have not eaten a piece of fruit on purpose since school. Two months in, the only thing I can honestly report is that I am regular for the first time in years, and that alone was worth it.",
+    name: "Chelsea W.", photo: "/photos/reds-avatar-1.webp" },
+  { quote: "Bought it to stop my wife asking. Stayed on it because it is four sweets and takes four seconds, which is about my limit for anything health related.",
+    name: "Marcus B.", photo: "/photos/reds-avatar-2.webp" },
+  { quote: "The powders always ended up under the sink. This is a flat pack in my handbag and I have not missed a day since March, which is genuinely a first.",
+    name: "Ruth A.", photo: "/photos/reds-avatar-3.webp" },
+  { quote: "I am not going to pretend I feel transformed. I will say I have stopped feeling vaguely guilty every time I walk past the fruit aisle.",
+    name: "Owen T.", photo: "/photos/reds-avatar-4.webp" },
+] as const;
