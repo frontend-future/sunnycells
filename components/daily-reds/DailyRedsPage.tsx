@@ -13,7 +13,7 @@ import { trackMetaEvent } from "@/lib/meta";
 import {
   AVATARS, CAROUSEL, CART_ID, COMPARE, DISCLAIMER, FAQ, FINISH, GALLERY, GAP,
   GAP_SECOND, HERO, INCLUDED, INSIDE, MISSING, PLANS, PRODUCT, QUOTE, RATING,
-  REVIEWS, TESTING, TRANSFORM, TRUST, type Plan,
+  REVIEWS, TESTING, COST, TRUST, type Plan,
 } from "@/lib/products/daily-reds";
 import { NutritionLabel } from "./NutritionLabel";
 import styles from "./daily-reds.module.css";
@@ -157,6 +157,41 @@ export function DailyRedsPage() {
           </div>
         </div>
 
+        {/* ---------- what the habit costs. High on the page, because a reader who does not
+            eat fruit has not filed it as a problem yet. Symptoms here, the nutrients
+            behind them a section later. ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`}>
+          <h2 className={`${styles.h2} ${styles.centre}`}>{COST.title}</h2>
+          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
+            {COST.lede}
+          </p>
+          <div className={styles.quadWrap}>
+            <div className={styles.quadCol}>
+              {COST.quadrants.slice(0, 2).map((q) => (
+                <div key={q.title} className={styles.quad}>
+                  <span className={styles.quadIcon} aria-hidden="true">
+                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
+                  </span>
+                  <h3 className={styles.h3}>{q.title}</h3>
+                  <p className={styles.body}>{q.body}</p>
+                </div>
+              ))}
+            </div>
+            <Image src={COST.image} alt={COST.alt} width={900} height={900} className={styles.quadShot} />
+            <div className={`${styles.quadCol} ${styles.quadColRight}`}>
+              {COST.quadrants.slice(2).map((q) => (
+                <div key={q.title} className={styles.quad}>
+                  <span className={styles.quadIcon} aria-hidden="true">
+                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
+                  </span>
+                  <h3 className={styles.h3}>{q.title}</h3>
+                  <p className={styles.body}>{q.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ---------- testimonial carousel ---------- */}
         <section className={styles.carousel} aria-label="What customers say">
           <div className={`${styles.wrap} ${styles.carouselInner}`}>
@@ -190,39 +225,6 @@ export function DailyRedsPage() {
             <p className={styles.meta} style={{ marginTop: "0.75rem" }}>
               Customer results have not been independently verified. Individual results vary.
             </p>
-          </div>
-        </section>
-
-        {/* ---------- the education block ---------- */}
-        <section className={`${styles.wrap} ${styles.section}`}>
-          <h2 className={`${styles.h2} ${styles.centre}`}>{TRANSFORM.title}</h2>
-          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
-            {TRANSFORM.lede}
-          </p>
-          <div className={styles.quadWrap}>
-            <div className={styles.quadCol}>
-              {TRANSFORM.quadrants.slice(0, 2).map((q) => (
-                <div key={q.title} className={styles.quad}>
-                  <span className={styles.quadIcon} aria-hidden="true">
-                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
-                  </span>
-                  <h3 className={styles.h3}>{q.title}</h3>
-                  <p className={styles.body}>{q.body}</p>
-                </div>
-              ))}
-            </div>
-            <Image src={TRANSFORM.image} alt={TRANSFORM.alt} width={900} height={900} className={styles.quadShot} />
-            <div className={`${styles.quadCol} ${styles.quadColRight}`}>
-              {TRANSFORM.quadrants.slice(2).map((q) => (
-                <div key={q.title} className={styles.quad}>
-                  <span className={styles.quadIcon} aria-hidden="true">
-                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
-                  </span>
-                  <h3 className={styles.h3}>{q.title}</h3>
-                  <p className={styles.body}>{q.body}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -411,9 +413,19 @@ export function DailyRedsPage() {
               </div>
 
               <Button fullWidth variant="accent" size="lg" onClick={buy}>Try now</Button>
-              <p className={styles.termsLine}>
-                {chosen.sub}. Free shipping, skip or cancel in two clicks, and a 30 day money
-                back guarantee either way.
+              {/* The standing term restated at the point of decision. Cadence is read off
+                  the selected plan, so this cannot say monthly under a 6 month supply. */}
+              <p className={styles.autoApplied}>
+                <span className={styles.autoTick} aria-hidden="true">
+                  <Icon name="check" size={13} strokeWidth={3.5} />
+                </span>
+                50% off auto-applied today
+              </p>
+              <p className={`${styles.termsLine} ${styles.ctaTerms}`}>
+                Free shipping &nbsp;|&nbsp; {chosen.sub} &nbsp;|&nbsp; Cancel anytime
+              </p>
+              <p className={`${styles.termsLine} ${styles.ctaTerms}`}>
+                30 day money back guarantee, and you can skip or cancel in two clicks.
               </p>
             </div>
           </div>

@@ -169,6 +169,21 @@
 
 .termsLine { color: var(--ink-60); font-size: var(--size-meta); line-height: 1.45; margin: 0; }
 
+/* Sits directly under the buy button: the standing term restated at the moment of the
+   decision, then the three things people check before pressing it. Same treatment as
+   SC-22 uses under its own CTA. */
+.autoApplied {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  margin: 0.875rem 0 0; text-align: center;
+  font-size: var(--size-body); font-weight: 800; color: var(--status-success);
+}
+.autoTick {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--status-success); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+}
+.ctaTerms { margin-top: 0.5rem; text-align: center; }
+
 /* ---------- trust strip ---------- */
 .trust { background: var(--ivory); padding: 1.125rem 0; }
 .trustInner { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.625rem 1.75rem; }

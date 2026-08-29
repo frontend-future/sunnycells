@@ -282,21 +282,35 @@ export const AVATARS = [
  * not going to invent one. Each quadrant instead names the nutrient, what it does, and
  * where it normally comes from, which is the part this reader is actually missing.
  */
-export const TRANSFORM = {
-  title: "What fruit is actually doing for people who eat it",
+/**
+ * The cost of the habit, stated as symptoms rather than nutrients. It runs high on the
+ * page because a reader who does not eat fruit does not think of it as a problem yet.
+ *
+ * Every card is anchored to a mechanism that holds up on its own: vitamin C is a
+ * required cofactor for collagen synthesis, vitamin C multiplies non-heme iron
+ * absorption, fiber is what bulks and moves stool. Nothing here says Daily Reds fixes
+ * a symptom, because that would be a disease claim we cannot make and cannot support.
+ *
+ * The graying card is the softest of the four. The peroxide mechanism is real (Wood JM
+ * et al., FASEB J 2009) but nothing in the diet resets the genetic start date, so the
+ * card says exactly that rather than implying otherwise. Cut it first if legal wants a
+ * card cut.
+ */
+export const COST = {
+  title: "What not eating fruit is costing you",
   lede:
-    "None of this is exotic. It is the ordinary work that fruit does every day in the people who eat it, and does not do in the people who do not.",
+    "None of it arrives as an event. It arrives as a slow list of small things you put down to your age, or your job, or bad luck.",
   image: "/product/daily-reds.webp",
   alt: "The Daily Reds box with a single daily pack",
   quadrants: [
-    { icon: "shield-check", title: "Immunity",
-      body: "Vitamin C supports normal immune function. Fruit is where most people get theirs, so skipping fruit is how most people end up short." },
-    { icon: "leaf", title: "Digestion",
-      body: "Fiber is what keeps things moving, and it is the nutrient Americans fall shortest on. Fruit is the easiest place in the diet to find it." },
-    { icon: "droplet", title: "Skin",
-      body: "Vitamin C is required to build collagen at all. Your body cannot make the protein that holds skin taut without it." },
-    { icon: "dna", title: "Everyday steadiness",
-      body: "Polyphenols are the compounds that color fruit. They are the part of fruit that no other food group replaces." },
+    { icon: "droplet", title: "Lines that turn up early",
+      body: "Your body cannot build collagen without vitamin C. Not helped by it, cannot do it: the enzymes that assemble collagen use vitamin C as a cofactor, and collagen is the protein holding skin taut." },
+    { icon: "leaf", title: "Bathroom trips you plan around",
+      body: "Fiber is what gives stool bulk and keeps it moving. Americans average around 16 g against the 25 to 38 g recommended, and fruit is the easiest place in a normal diet to find the difference." },
+    { icon: "dna", title: "Hair in the drain",
+      body: "Vitamin C is what lets you absorb iron out of plant food, several times more of it. Low iron stores are one of the commonest reasons hair sheds, and the shower tells you before the mirror does." },
+    { icon: "shield-check", title: "Gray before your friends",
+      body: "Hair grays when the follicle stops clearing the peroxide it makes and bleaches itself from the inside. Genetics sets that start date and nothing on a shelf moves it. The antioxidants that do the clearing come mostly from plants." },
   ],
 } as const;
 
