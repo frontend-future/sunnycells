@@ -104,7 +104,6 @@ export function DailyRedsPage() {
         <section className={`${styles.wrap} ${styles.section}`} ref={heroRef}>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <p className={styles.eyebrow}>{HERO.eyebrow}</p>
               <h1 className={styles.h1}>
                 {HERO.title} <span className={styles.accent}>{HERO.titleAccent}</span>
               </h1>

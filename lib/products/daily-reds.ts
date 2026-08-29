@@ -82,7 +82,6 @@ export const GALLERY = [
 ] as const;
 
 export const HERO = {
-  eyebrow: "Daily Reds Gummies",
   title: "Daily gummies made for",
   titleAccent: "those of us who don’t eat fruit.",
   /* The whole proposition in two sentences: skipping fruit costs you three specific
