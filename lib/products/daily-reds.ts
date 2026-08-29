@@ -326,19 +326,18 @@ export const AVATARS = [
  */
 export const COST = {
   title: "What not eating fruit is costing you",
-  lede:
-    "None of it arrives as an event. It arrives as a slow list of small things you put down to your age, or your job, or bad luck.",
+  lede: "It does not happen overnight. It shows up slowly, in the things you blame on getting older.",
   image: "/product/daily-reds.webp",
   alt: "The Daily Reds box with a single daily pack",
   quadrants: [
-    { icon: "droplet", title: "Lines that turn up early",
-      body: "Skin is held firm by collagen. Your body cannot make collagen without vitamin C, and fruit is where most people get theirs." },
+    { icon: "droplet", title: "Wrinkles",
+      body: "Your skin needs collagen to stay smooth. Your body needs vitamin C to make collagen. Fruit is where vitamin C comes from." },
     { icon: "leaf", title: "Bathroom trips you plan around",
-      body: "Fiber is what keeps things moving. Most of us get about 16 g a day when the target is 25 to 38 g, and fruit is the easiest way to close that." },
+      body: "Fiber is what keeps you regular. Fruit is the easiest place to get it. Skip the fruit and you are almost certainly not getting enough." },
     { icon: "dna", title: "Hair in the drain",
-      body: "Low iron is a common reason hair sheds. Vitamin C is what lets your body take iron out of plant food, and fruit is where it comes from." },
+      body: "Hair thins when your iron runs low. Vitamin C is what helps your body absorb iron from food. Fruit is where you would normally get it." },
     { icon: "shield-check", title: "Gray before your friends",
-      body: "Hair goes gray when it bleaches itself from the inside. Genes set when that starts and no food changes it. The antioxidants that mop up that bleach come from plants." },
+      body: "Going gray is mostly your genes, and no food changes that. But hair also needs protection from damage, and that protection comes from plants." },
   ],
 } as const;
 
