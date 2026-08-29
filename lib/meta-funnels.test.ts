@@ -25,6 +25,11 @@ test("aging paths report to the aging dataset", () => {
   ]) assert.equal(funnelForPath(p), "aging", p);
 });
 
+test("daily reds reports to its own dataset", () => {
+  for (const p of ["/products/daily-reds", "/products/daily-reds/checkout"])
+    assert.equal(funnelForPath(p), "reds", p);
+});
+
 test("everything else stays on the original dataset", () => {
   for (const p of [
     "/",
@@ -35,5 +40,6 @@ test("everything else stays on the original dataset", () => {
     "/quiz/agingskin",
     "/aging-something-else",
     "/products/even-energy-clone",
+    "/products/daily-reds-clone",
   ]) assert.equal(funnelForPath(p), "default", p);
 });

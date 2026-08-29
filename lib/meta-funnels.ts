@@ -5,7 +5,7 @@
  * exactly one, so an event never lands in two datasets and no funnel's attribution is
  * polluted by another's traffic.
  */
-export type Funnel = "energy" | "aging" | "default";
+export type Funnel = "energy" | "aging" | "reds" | "default";
 
 /* Energy is the Even Energy product page with its checkout plus the energy quiz.
    Aging is the collagen quiz plus the /aging advertorials that feed it. Anything
@@ -15,6 +15,7 @@ export type Funnel = "energy" | "aging" | "default";
 const PATHS: [Funnel, string[]][] = [
   ["energy", ["/products/even-energy", "/quiz/energy"]],
   ["aging", ["/quiz/aging", "/aging"]],
+  ["reds", ["/products/daily-reds"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {
@@ -29,5 +30,9 @@ export function funnelForPath(pathname: string): Funnel {
 export const PIXEL_IDS: Record<Funnel, string | undefined> = {
   energy: process.env.NEXT_PUBLIC_META_PIXEL_ID_ENERGY,
   aging: process.env.NEXT_PUBLIC_META_PIXEL_ID_AGING,
+  /* No pixel of its own yet. Until one is set, Daily Reds reports nowhere rather than
+     into the weight loss dataset, which is where an unrouted path would otherwise land
+     and quietly poison that funnel's attribution. */
+  reds: process.env.NEXT_PUBLIC_META_PIXEL_ID_REDS,
   default: process.env.NEXT_PUBLIC_META_PIXEL_ID,
 };

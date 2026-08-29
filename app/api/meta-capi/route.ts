@@ -16,6 +16,10 @@ const DATASETS = {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID_AGING,
     token: process.env.META_CAPI_ACCESS_TOKEN_AGING,
   },
+  reds: {
+    pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID_REDS,
+    token: process.env.META_CAPI_ACCESS_TOKEN_REDS,
+  },
   default: {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID,
     token: process.env.META_CAPI_ACCESS_TOKEN,
