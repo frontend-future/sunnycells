@@ -82,7 +82,7 @@ export const GALLERY = [
 ] as const;
 
 export const HERO = {
-  eyebrow: "For people who do not eat fruit",
+  eyebrow: "Made for those of us who don’t eat fruit",
   title: "You are not going to start eating fruit.",
   titleAccent: "This is the other option.",
   lede:
