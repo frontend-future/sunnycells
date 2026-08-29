@@ -82,12 +82,20 @@ export const GALLERY = [
 ] as const;
 
 export const HERO = {
-  eyebrow: "Made for those of us who don’t eat fruit",
-  title: "You are not going to start eating fruit.",
-  titleAccent: "This is the other option.",
+  eyebrow: "Daily Reds Gummies",
+  title: "Daily gummies made for",
+  titleAccent: "those of us who don’t eat fruit.",
+  /* The whole proposition in two sentences: skipping fruit costs you three specific
+     things, and this puts those three back. Naming them is the point. A gummy that
+     just says "supports wellness" is asking the reader to take the gap on faith. */
   lede:
-    "Nine in ten US adults fall short on fruit. Daily Reds is eight red fruits in four gummies, taken once a day, with nothing to blend, measure or wash up.",
-  points: ["Eight red fruits in one pack", "Four gummies a day, no mixing", "No added sugar"],
+    "Skipping fruit leaves three specific gaps: vitamin C, fiber and the polyphenols that make fruit red. Daily Reds puts all three back in four gummies you chew once a day, with nothing to blend or measure.",
+  points: [
+    "100% of your daily vitamin C, from acerola cherry",
+    "3 g of fiber, the thing 95% of us fall short on",
+    "Polyphenols from eight red fruits",
+    "No added sugar, nothing to mix",
+  ],
 } as const;
 
 /** Replaces the reference page's press-logo strip. Every line here is checkable. */
@@ -288,7 +296,7 @@ export const TRANSFORM = {
     { icon: "droplet", title: "Skin",
       body: "Vitamin C is required to build collagen at all. Your body cannot make the protein that holds skin taut without it." },
     { icon: "dna", title: "Everyday steadiness",
-      body: "Polyphenols are the compounds that colour fruit. They are the part of fruit that no other food group replaces." },
+      body: "Polyphenols are the compounds that color fruit. They are the part of fruit that no other food group replaces." },
   ],
 } as const;
 

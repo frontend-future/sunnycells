@@ -95,7 +95,7 @@ export function DailyRedsPage() {
       <header className={styles.masthead}>
         <div className={`${styles.wrap} ${styles.mastheadInner}`}>
           <Wordmark size={22} />
-          <Button variant="accent" size="sm" onClick={toBuy}>Get 50% off</Button>
+          <Button variant="accent" size="sm" onClick={toBuy}>Try now</Button>
         </div>
       </header>
 
@@ -126,7 +126,7 @@ export function DailyRedsPage() {
                 {HERO.points.map((p) => <li key={p}><Tick />{p}</li>)}
               </ul>
 
-              <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Get 50% off</Button>
+              <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Try now and save 50%</Button>
               <p className={styles.termsLine}>
                 Try it risk free for 30 days. Free shipping, and you can cancel in two clicks.
               </p>
@@ -410,7 +410,7 @@ export function DailyRedsPage() {
                 })}
               </div>
 
-              <Button fullWidth variant="accent" size="lg" onClick={buy}>Start with half off</Button>
+              <Button fullWidth variant="accent" size="lg" onClick={buy}>Try now</Button>
               <p className={styles.termsLine}>
                 {chosen.sub}. Free shipping, skip or cancel in two clicks, and a 30 day money
                 back guarantee either way.
@@ -528,7 +528,7 @@ export function DailyRedsPage() {
           <p className={styles.lede} style={{ marginBottom: "1.5rem" }}>
             Half off your first box, free shipping, and you can stop whenever you like.
           </p>
-          <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Start with half off</Button>
+          <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Try now and save 50%</Button>
         </section>
       </main>
 
@@ -552,7 +552,7 @@ export function DailyRedsPage() {
             <span className={styles.stickyTitle}>50% off first box</span>
             <span className={styles.stickyTerms}>then from ${PLANS[PLANS.length - 1].price}</span>
           </span>
-          <Button variant="accent" size="md" onClick={toBuy}>Buy now</Button>
+          <Button variant="accent" size="md" onClick={toBuy}>Try now</Button>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import { DailyRedsPage } from "@/components/daily-reds/DailyRedsPage";
 export const metadata: Metadata = {
   title: "Daily Reds Gummies | SUNNYCELLS",
   description:
-    "Nine in ten US adults do not eat enough fruit. Daily Reds is eight red fruits in four gummies, once a day, with nothing to blend or wash up.",
+    "Not eating fruit leaves three specific gaps: vitamin C, fiber and polyphenols. Daily Reds puts all three back in four gummies a day.",
 };
 
 export default function Page() {

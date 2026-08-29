@@ -57,7 +57,11 @@ export function Button({
         gap: "var(--space-3)",
         width: fullWidth ? "100%" : undefined,
         minHeight: HEIGHTS[size],
-        padding: PADS[size],
+        /* A full width button centres its own label, so the side padding buys nothing
+           and only inflates min-content. At 36px a side it made "TRY NOW AND SAVE 50%"
+           353px wide, which is more than a 360px phone has, and a nowrap label that
+           cannot shrink drags the whole page into horizontal scroll. */
+        padding: fullWidth ? "0 12px" : PADS[size],
         fontFamily: "var(--font-text)",
         fontSize: FONTS[size],
         fontWeight: 800,
