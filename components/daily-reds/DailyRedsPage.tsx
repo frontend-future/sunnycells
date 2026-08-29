@@ -11,9 +11,9 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  AVATARS, BUYBOX, CAROUSEL, CART_ID, COMPARE, DISCLAIMER, FAQ, FINISH, GALLERY, GAP,
+  AVATARS, BUYBOX, CAROUSEL, CART_ID, COMPARE, DISCLAIMER, FACTS, FAQ, FINISH, GALLERY, GAP,
   GAP_SECOND, HERO, INCLUDED, INSIDE, MISSING, PLANS, PRODUCT, QUOTE, RATING,
-  orderLine, REVIEWS, TESTING, COST, TRUST, type Plan,
+  orderLine, REVIEWS, SUPPORT_EMAIL, TESTING, COST, TRUST, type Plan,
 } from "@/lib/products/daily-reds";
 import { NutritionLabel } from "./NutritionLabel";
 import styles from "./daily-reds.module.css";
@@ -371,19 +371,26 @@ export function DailyRedsPage() {
                 <span>{now ? orderLine(now) : "\u00a0"}</span>
               </p>
 
-              <div className={styles.ratingRow}>
+              <a className={styles.ratingRow} href="#reviews">
                 <Stars size={17} />
                 <span className={styles.ratingScore}>
                   {RATING.score.toFixed(1)}/5.0 ({RATING.count.toLocaleString("en-US")})
                 </span>
-              </div>
+              </a>
 
               <h2 className={styles.h2}>{PRODUCT.name}</h2>
+              <p className={styles.flavorLine}>
+                {PRODUCT.flavor} &middot; {PRODUCT.servings} daily packs &middot; {PRODUCT.perServing} a day
+              </p>
               <p className={styles.lede}>{BUYBOX.lede}</p>
 
               <ul className={styles.points}>
                 {BUYBOX.points.map((b) => <li key={b}><Tick />{b}</li>)}
               </ul>
+
+              <p className={styles.freeFrom}>
+                {FACTS.cleanChips.map((c) => <span key={c}>{c}</span>)}
+              </p>
 
               <button type="button" className={styles.factsLink} onClick={() => setFactsOpen(true)}>
                 View nutrition label
@@ -569,6 +576,7 @@ export function DailyRedsPage() {
             <Link href="/">Home</Link>
             <Link href="/quiz/aging">Take the quiz</Link>
             <Link href={CHECKOUT}>Order</Link>
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
           </nav>
           <p style={{ textAlign: "center" }}>&copy; 2026 SUNNYCELLS</p>
           <p className={styles.footerMark} aria-hidden="true">Daily Reds</p>
@@ -580,7 +588,7 @@ export function DailyRedsPage() {
           <Image src={PRODUCT.image} alt="" aria-hidden="true" width={120} height={120} className={styles.stickyShot} />
           <span className={styles.stickyText}>
             <span className={styles.stickyTitle}>50% off first bag</span>
-            <span className={styles.stickyTerms}>then from ${PLANS[PLANS.length - 1].price}</span>
+            <span className={styles.stickyTerms}>Free shipping &middot; Cancel anytime</span>
           </span>
           <Button variant="accent" size="md" onClick={toBuy}>Try now</Button>
         </div>

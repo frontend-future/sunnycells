@@ -17,6 +17,9 @@
 
 export const CART_ID = "daily-reds";
 
+/** PLACEHOLDER. Point this at the real support inbox before the page takes traffic. */
+export const SUPPORT_EMAIL = "support@sunnycells.com";
+
 export const PRODUCT = {
   sku: "SC-24",
   name: "Daily Reds Gummies",
@@ -38,12 +41,18 @@ export type Plan = {
   best?: boolean;
 };
 
-/* The house ladder: list price per month, halved on a first order, and the saving
-   widening with the supply. Integers only. */
+/* The house ladder. compareAt is the list price of a bag AT THAT SUPPLY, and every
+   plan is exactly half of it: a bigger pack lists cheaper per bag, and the first order
+   is half price whichever one you pick.
+
+   It used to be a flat $50 list against $25/$23/$21, which made the 3 and 6 month
+   plans 54% and 58% off while the flag, the banner, the sticky bar and the closing CTA
+   all said 50%. Two of the three plans contradicted the only percentage in the brand.
+   Integers only, and the halves land clean. */
 export const PLANS: Plan[] = [
   { id: "r1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 25, compareAt: 50 },
-  { id: "r3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 23, compareAt: 50, best: true },
-  { id: "r6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 21, compareAt: 50 },
+  { id: "r3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 23, compareAt: 46, best: true },
+  { id: "r6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 21, compareAt: 42 },
 ];
 
 export function planById(id: string | undefined): Plan {
@@ -98,8 +107,8 @@ export const HERO = {
 /** Replaces the reference page's press-logo strip. Every line here is checkable. */
 export const TRUST = [
   "Third-party tested every batch",
-  "Made in a GMP-certified facility",
-  "No added sugar",
+  "Made in the USA, GMP-certified facility",
+  "Free shipping, arrives in 3 to 5 days",
   "30 day money back guarantee",
 ] as const;
 
@@ -137,7 +146,7 @@ export const MISSING = {
   items: [
     { name: "Vitamin C", body: "Most people get theirs from fruit. Skip fruit and you run low on it, and you would not feel that happening." },
     { name: "Fiber", body: "The thing that keeps you regular. Fruit is the easiest place to get it, and it is the thing you are not eating." },
-    { name: "Polyphenols", body: "The compounds that make fruit red in the first place. There is nowhere else to get them." },
+    { name: "Polyphenols", body: "The compounds that make fruit red in the first place. Coffee and tea carry their own kind. The red ones come from red fruit." },
   ],
 } as const;
 
@@ -147,7 +156,7 @@ export const GAP = {
   eyebrow: "You are not the only one",
   figure: "9 in 10",
   title: "US adults do not eat enough fruit.",
-  body: "Not a little short. Short of the amount health authorities actually recommend. You probably already knew which side of that you are on.",
+  body: "Only 12.3% hit the amount health authorities recommend. Not a little short of it, short of it. You probably already knew which side of that you are on.",
   stats: [
     { n: "8", label: "red fruits in one pack" },
     { n: "4", label: "gummies a day" },
@@ -176,8 +185,8 @@ export const INSIDE = {
   title: "What is in it",
   /* PLACEHOLDER FORMULA. Replace every line with the real panel. */
   groups: [
-    { title: "Eight red fruits", body: "Strawberry, raspberry, tart cherry, pomegranate, cranberry, blackcurrant, acerola cherry and beet." },
-    { title: "Vitamin C from acerola cherry", body: "Not synthetic ascorbic acid. Acerola is one of the densest natural sources there is." },
+    { title: "Eight red fruits", body: "Strawberry, raspberry, tart cherry, pomegranate, cranberry, blackcurrant, acerola cherry and elderberry." },
+    { title: "Vitamin C from acerola cherry", body: "Acerola is one of the densest natural sources there is, so the vitamin C comes out of the fruit rather than being added as a separate powder." },
     { title: "Prebiotic fiber", body: "The part of fruit that feeds the bacteria already living in you." },
     { title: "No added sugar", body: "The fruit brings its own. Nothing else is added to make it palatable." },
   ],
@@ -193,7 +202,7 @@ export const COMPARE = {
     { label: "Travels in a pocket", sub: "Flat single-serve packs rather than a tub" },
     { label: "Built around fruit", sub: "Not a green powder with fruit dusted on top" },
     { label: "No added sugar", sub: "The fruit brings its own" },
-    { label: "Doses on the pack", sub: "No proprietary blend hiding the amounts" },
+    { label: "Every active amount printed", sub: "Vitamin C and fiber in milligrams and grams, with the %DV" },
   ],
 } as const;
 
@@ -227,9 +236,19 @@ export const FAQ = [
   { q: "When would I notice anything?",
     a: "The fiber tends to be the first thing people mention, usually inside a couple of weeks. Everything else is slower and harder to feel, which is why the guarantee runs 30 days and the supplies run longer." },
   { q: "What if I do not like them?",
-    a: "Email us inside 30 days and we refund it. You keep the bag. We are not going to ask you to post gummies back." },
+    a: `Email ${SUPPORT_EMAIL} inside 30 days and we refund it. You keep the bag. We are not going to ask you to post gummies back.` },
+  { q: "I bought six months. Is the guarantee still only 30 days?",
+    a: `The 30 days runs from the day your first delivery arrives, and it refunds the whole order, not one bag of it. Email ${SUPPORT_EMAIL} inside that window and the full amount goes back. Keep whatever has already turned up.` },
+  { q: "What do they taste like?",
+    a: "Mixed berry. Sweet, chewy, closer to a fruit sweet than a supplement. That is deliberate: a gummy you have to talk yourself into is a gummy you stop taking in week three." },
   { q: "Is there added sugar?",
     a: "None. The fruit brings its own and nothing else is added to make them palatable." },
+  { q: "What is not in them?",
+    a: "No gelatin, no nuts, no dairy, no gluten, no artificial colors and no artificial flavors. They are vegan. The full panel is on the nutrition label." },
+  { q: "When will it arrive?",
+    a: "Orders leave the warehouse within one business day and land in 3 to 5 business days anywhere in the US. Shipping is free on every order with no minimum." },
+  { q: "Where is it made?",
+    a: "Made in the USA, in a facility that follows current Good Manufacturing Practice. Every batch goes to an independent lab before it ships." },
 ] as const;
 
 export const INCLUDED = [
@@ -282,7 +301,7 @@ export const FACTS = {
   ],
   blendTitle: "Red Fruit Blend",
   blend:
-    "Organic Strawberry Fruit Powder, Organic Raspberry Fruit Powder, Organic Tart Cherry Fruit Powder, Organic Pomegranate Fruit Powder, Organic Cranberry Fruit Powder, Organic Blackcurrant Fruit Powder, Organic Acerola Cherry Fruit Extract, Organic Beet Root Powder.",
+    "Organic Strawberry Fruit Powder, Organic Raspberry Fruit Powder, Organic Tart Cherry Fruit Powder, Organic Pomegranate Fruit Powder, Organic Cranberry Fruit Powder, Organic Blackcurrant Fruit Powder, Organic Acerola Cherry Fruit Extract, Organic Elderberry Fruit Powder.",
   otherIngredients:
     "Allulose, Tapioca Fiber, Water, Pectin, Citric Acid, Natural Mixed Berry Flavor, Sodium Citrate, Organic Carnauba Wax, Fruit and Vegetable Juice (for color).",
   footnotes: [
