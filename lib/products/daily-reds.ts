@@ -303,13 +303,13 @@ export const COST = {
   alt: "The Daily Reds box with a single daily pack",
   quadrants: [
     { icon: "droplet", title: "Lines that turn up early",
-      body: "Your body cannot build collagen without vitamin C. Not helped by it, cannot do it: the enzymes that assemble collagen use vitamin C as a cofactor, and collagen is the protein holding skin taut." },
+      body: "Skin is held firm by collagen. Your body cannot make collagen without vitamin C, and fruit is where most people get theirs." },
     { icon: "leaf", title: "Bathroom trips you plan around",
-      body: "Fiber is what gives stool bulk and keeps it moving. Americans average around 16 g against the 25 to 38 g recommended, and fruit is the easiest place in a normal diet to find the difference." },
+      body: "Fiber is what keeps things moving. Most of us get about 16 g a day when the target is 25 to 38 g, and fruit is the easiest way to close that." },
     { icon: "dna", title: "Hair in the drain",
-      body: "Vitamin C is what lets you absorb iron out of plant food, several times more of it. Low iron stores are one of the commonest reasons hair sheds, and the shower tells you before the mirror does." },
+      body: "Low iron is a common reason hair sheds. Vitamin C is what lets your body take iron out of plant food, and fruit is where it comes from." },
     { icon: "shield-check", title: "Gray before your friends",
-      body: "Hair grays when the follicle stops clearing the peroxide it makes and bleaches itself from the inside. Genetics sets that start date and nothing on a shelf moves it. The antioxidants that do the clearing come mostly from plants." },
+      body: "Hair goes gray when it bleaches itself from the inside. Genes set when that starts and no food changes it. The antioxidants that mop up that bleach come from plants." },
   ],
 } as const;
 
