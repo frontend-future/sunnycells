@@ -11,7 +11,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  AVATARS, BUYBOX, CAROUSEL, CART_ID, COMPARE, DISCLAIMER, FACTS, FAQ, FINISH, GALLERY, GAP,
+  ALTERNATIVES, AVATARS, BUYBOX, CAROUSEL, CART_ID, DISCLAIMER, FACTS, FAQ, FINISH, GALLERY, GAP,
   GAP_SECOND, HERO, INCLUDED, INSIDE, MISSING, PLANS, PRODUCT, QUOTE, RATING,
   orderLine, REVIEWS, SUPPORT_EMAIL, TESTING, COST, TRUST, type Plan,
 } from "@/lib/products/daily-reds";
@@ -195,6 +195,23 @@ export function DailyRedsPage() {
           </div>
         </section>
 
+        {/* ---------- why this one gets finished ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`}>
+          <h2 className={`${styles.h2} ${styles.centre}`}>{FINISH.title}</h2>
+          <p className={`${styles.lede} ${styles.centre}`} style={{ marginBottom: "2rem" }}>{FINISH.lede}</p>
+          <div className={`${styles.cols} ${styles.cols3}`}>
+            {FINISH.steps.map((s, i) => (
+              <div key={s.title}>
+                <Image src={s.image} alt={s.alt} width={1200} height={900} className={styles.shot} />
+                <h3 className={styles.h3} style={{ marginTop: "1rem" }}>
+                  <span className={styles.accent}>{i + 1}.</span> {s.title}
+                </h3>
+                <p className={styles.body}>{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ---------- testimonial carousel ---------- */}
         <section className={styles.carousel} aria-label="What customers say">
           <div className={`${styles.wrap} ${styles.carouselInner}`}>
@@ -277,23 +294,6 @@ export function DailyRedsPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* ---------- why this one gets finished ---------- */}
-        <section className={`${styles.wrap} ${styles.section}`}>
-          <h2 className={`${styles.h2} ${styles.centre}`}>{FINISH.title}</h2>
-          <p className={`${styles.lede} ${styles.centre}`} style={{ marginBottom: "2rem" }}>{FINISH.lede}</p>
-          <div className={`${styles.cols} ${styles.cols3}`}>
-            {FINISH.steps.map((s, i) => (
-              <div key={s.title}>
-                <Image src={s.image} alt={s.alt} width={1200} height={900} className={styles.shot} />
-                <h3 className={styles.h3} style={{ marginTop: "1rem" }}>
-                  <span className={styles.accent}>{i + 1}.</span> {s.title}
-                </h3>
-                <p className={styles.body}>{s.body}</p>
-              </div>
-            ))}
           </div>
         </section>
 
@@ -456,27 +456,20 @@ export function DailyRedsPage() {
           </div>
         </section>
 
-        {/* ---------- comparison ---------- */}
+        {/* ---------- the three real alternatives ---------- */}
         <section className={`${styles.wrap} ${styles.section}`}>
-          <h2 className={styles.h2}>{COMPARE.title}</h2>
-          <div className={styles.compare}>
-            <div className={styles.compareHead}>
-              <span />
-              <span className={styles.compareCol}>{COMPARE.usLabel}</span>
-              <span className={styles.compareCol} style={{ color: "var(--ink-60)" }}>{COMPARE.themLabel}</span>
-            </div>
-            {COMPARE.rows.map((r, i) => (
-              <div key={r.label} className={`${styles.compareRow} ${i % 2 ? styles.compareAlt : ""}`}>
-                <span>
-                  <span className={styles.reviewWho}>{r.label}</span>
-                  <span className={styles.statLabel}>{r.sub}</span>
+          <h2 className={`${styles.h2} ${styles.centre}`}>{ALTERNATIVES.title}</h2>
+          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
+            {ALTERNATIVES.lede}
+          </p>
+          <div className={`${styles.cols} ${styles.cols3}`}>
+            {ALTERNATIVES.items.map((a) => (
+              <div key={a.q} className={styles.card}>
+                <span className={styles.quadIcon} aria-hidden="true">
+                  <Icon name={a.icon as IconName} size={22} strokeWidth={2.2} />
                 </span>
-                <span className={styles.cell}>
-                  <span className={styles.yes} aria-label="Yes"><Icon name="check" size={15} strokeWidth={3.5} /></span>
-                </span>
-                <span className={styles.cell}>
-                  <span className={styles.no} aria-label="No"><Icon name="x" size={15} strokeWidth={3} /></span>
-                </span>
+                <h3 className={styles.h3}>{a.q}</h3>
+                <p className={styles.body}>{a.a}</p>
               </div>
             ))}
           </div>

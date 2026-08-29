@@ -170,7 +170,8 @@ export const GAP = {
 
 export const FINISH = {
   title: "You have tried this before. This one you will finish.",
-  lede: "Every fruit habit dies for the same three reasons. So we removed all three.",
+  lede:
+    "None of it counts if you stop. Fruit goes off in the bowl, tubs end up under the sink, tablets end up at the back of a drawer. Every one of them fails in the same place, so that is the part we built around.",
   steps: [
     { image: "/photos/reds-pour.webp", alt: "Gummies tipped from a daily pack into an open palm",
       title: "They taste like sweets", body: "Four gummies, chewed. If it tasted like a supplement you would stop, and we both know it." },
@@ -192,21 +193,20 @@ export const INSIDE = {
   ],
 } as const;
 
-export const COMPARE = {
-  title: "Daily Reds against the alternatives",
-  usLabel: "Daily Reds",
-  themLabel: "A greens powder",
-  rows: [
-    { label: "Tastes like something you want", sub: "The reason a jar gets finished rather than shelved" },
-    { label: "Nothing to blend or wash", sub: "No shaker, no scoop, no sink" },
-    { label: "Travels in a pocket", sub: "Flat single-serve packs rather than a tub" },
-    { label: "Built around fruit", sub: "Not a green powder with fruit dusted on top" },
-    { label: "No added sugar", sub: "The fruit brings its own" },
-    { label: "Every active amount printed", sub: "Vitamin C and fiber in milligrams and grams, with the %DV" },
+/* PLACEHOLDER reviews. Voice is ours, the people are not real. */
+export const ALTERNATIVES = {
+  title: "Why not just do one of these instead",
+  lede: "Three fair questions. We would rather answer them here than have you close the tab.",
+  items: [
+    { icon: "leaf", q: "Why not just eat fruit?",
+      a: "You should, and it beats us on every measure except one: you are not going to. If you were, you would already be doing it, and a bowl of fruit going brown on the counter is worth nothing." },
+    { icon: "shield-check", q: "Why not a multivitamin?",
+      a: "A multivitamin covers the vitamins. It does not carry fiber or the polyphenols that come with red fruit, and most people abandon a tablet within a few months because there is no reason to look forward to it." },
+    { icon: "repeat", q: "Why not a greens powder?",
+      a: "Because you have to make it. A scoop, a shaker, a taste you tolerate and a thing to wash. That is why the tub is under your sink, and it is the whole reason this is four sweets instead." },
   ],
 } as const;
 
-/* PLACEHOLDER reviews. Voice is ours, the people are not real. */
 export const QUOTE = {
   photo: "/photos/reds-smile.webp",
   text:
