@@ -158,7 +158,7 @@ export const GAP = {
   image: "/photos/reds-fruit.webp",
   alt: "Strawberries, raspberries, cherries and pomegranate on a pale surface",
   source:
-    "12.3% of US adults met the daily fruit intake recommendation. Lee SH et al., CDC MMWR 2022, from BRFSS 2019 data. Daily Reds is a supplement, not a substitute for eating fruit.",
+    "12.3% of US adults met the daily fruit intake recommendation. Lee SH et al., CDC MMWR 2022, from BRFSS 2019 data.",
 } as const;
 
 export const FINISH = {
@@ -221,7 +221,7 @@ export const REVIEWS = [
 
 export const FAQ = [
   { q: "Is this a replacement for eating fruit?",
-    a: "No, and we would not sell it that way. Whole fruit brings water, bulk and a mix of compounds no supplement matches. This is a floor under the days you do not get there, which for most people is most days." },
+    a: "That is what it is for. We cannot put a strawberry in a gummy and we are not going to pretend we can. What we can do is cover the nutrition fruit brings you: vitamin C, fiber and the polyphenols that make fruit red, in four gummies you will actually take." },
   { q: "How many do I take?",
     a: "Four gummies, once a day. That is one daily pack. There are 28 packs in a box, so a box is four weeks." },
   { q: "Does it have to be a subscription?",
@@ -242,7 +242,7 @@ export const INCLUDED = [
 ] as const;
 
 export const DISCLAIMER =
-  "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease. Daily Reds is a supplement and not a substitute for eating fruit and vegetables.";
+  "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.";
 
 /**
  * The supplement facts panel behind the "View nutrition label" link.
