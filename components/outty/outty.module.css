@@ -314,6 +314,11 @@
 }
 .phThumb { border-width: 1px; border-radius: 3px; padding: 2px; font-size: 8px; height: 100%; }
 
+@media (max-width: 419px) {
+  .headerRight a:first-child { display: none; }
+  .headerInner { gap: 8px; }
+}
+
 @media (min-width: 900px) {
   .hero { grid-template-columns: 1fr 1fr; gap: 48px; padding: 44px 0 64px; }
   .insideGrid { grid-template-columns: 1fr 1.15fr 1fr; gap: 26px; }
