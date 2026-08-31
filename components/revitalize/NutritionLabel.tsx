@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Icon } from "@/components/core/Icon";
-import { FACTS, PRODUCT } from "@/lib/products/steady-burn";
+import { FACTS, PRODUCT } from "@/lib/products/revitalize";
 import styles from "./nutrition-label.module.css";
 
 /**

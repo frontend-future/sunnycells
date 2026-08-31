@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildOrder, orderLine, planById, PLANS } from "./steady-burn.ts";
+import { buildOrder, orderLine, planById, PLANS } from "./revitalize.ts";
 
 test("every plan is exactly half of its own list price", () => {
   for (const p of PLANS) {

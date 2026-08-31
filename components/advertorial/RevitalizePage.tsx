@@ -13,11 +13,11 @@ import { trackMetaEvent } from "@/lib/meta";
 import {
   BUYER_BEWARE, BYLINE, CLOSING, CRISIS_TITLE, DISCLAIMER, HERO, INTRO, INTRODUCING,
   NOT_JUST_AGE, OPENERS, REFERENCES, REVIEWS, SIGNS, THREE, TRUST,
-} from "@/lib/content/steadyBurn";
-import { CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/steady-burn";
-import styles from "./steady-burn.module.css";
+} from "@/lib/content/revitalize";
+import { CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
+import styles from "./revitalize.module.css";
 
-const CHECKOUT = "/products/steady-burn/checkout";
+const CHECKOUT = "/products/revitalize/checkout";
 
 function Stars({ size = 17 }: { size?: number }) {
   return (
@@ -29,7 +29,7 @@ function Stars({ size = 17 }: { size?: number }) {
   );
 }
 
-export function SteadyBurnAdvertorial() {
+export function RevitalizeAdvertorial() {
   const router = useRouter();
   const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
   const [stuck, setStuck] = useState(false);
@@ -277,7 +277,7 @@ export function SteadyBurnAdvertorial() {
           <p className={styles.smallPrint}>{DISCLAIMER}</p>
           <nav className={styles.footerLinks}>
             <Link href="/">Home</Link>
-            <Link href="/products/steady-burn">Steady Burn</Link>
+            <Link href="/products/revitalize">Revitalize</Link>
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
           </nav>
           <p className={styles.footerMark} aria-hidden="true">SUNNYCELLS</p>

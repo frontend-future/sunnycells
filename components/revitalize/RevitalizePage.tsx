@@ -14,11 +14,11 @@ import {
   CART_ID, COST, DISCLAIMER, FACTS, FAQ, FINISH, GALLERY, HERO, INCLUDED, INSIDE,
   orderLine, PILLARS, PLANS, PRODUCT, QUOTE, RATING, REVIEWS, STATS, SUPPORT_EMAIL,
   TESTING, TRUST, type Plan,
-} from "@/lib/products/steady-burn";
+} from "@/lib/products/revitalize";
 import { NutritionLabel } from "./NutritionLabel";
-import styles from "./steady-burn.module.css";
+import styles from "./revitalize.module.css";
 
-const CHECKOUT = "/products/steady-burn/checkout";
+const CHECKOUT = "/products/revitalize/checkout";
 
 function Stars({ size = 17 }: { size?: number }) {
   return (
@@ -38,7 +38,7 @@ function Tick() {
   );
 }
 
-export function SteadyBurnPage() {
+export function RevitalizePage() {
   const router = useRouter();
   const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
   const [shot, setShot] = useState(0);
@@ -134,7 +134,7 @@ export function SteadyBurnPage() {
             <div>
               <Image
                 src={HERO.photo}
-                alt="A pouch of Steady Burn on a marble counter beside a coffee brewer and a bowl of limes"
+                alt="A pouch of Revitalize on a marble counter beside a coffee brewer and a bowl of limes"
                 width={1200} height={1200} priority className={styles.heroShot}
               />
             </div>
@@ -310,8 +310,9 @@ export function SteadyBurnPage() {
                 {PRODUCT.flavor} &middot; {PRODUCT.servings} daily sachets &middot; {PRODUCT.perServing} a day
               </p>
               <p className={styles.lede}>
-                One sachet a day for a calmer stress response, 10 g of protein so you are
-                not hungry at 3pm, and the B vitamins your body runs energy metabolism on.
+                One sachet a day against what a desk job takes: a calmer stress response,
+                10 g of protein so 3pm is not a raid on the snack drawer, and the B
+                vitamins your body runs energy metabolism on.
               </p>
 
               <ul className={styles.points}>
@@ -454,9 +455,10 @@ export function SteadyBurnPage() {
         {/* ---------- closing cta ---------- */}
         <section className={styles.closing}>
           <div className={`${styles.wrap} ${styles.narrow} ${styles.section}`}>
-            <h2 className={styles.h2}>Four gummies. Once a day. That is the whole thing.</h2>
+            <h2 className={styles.h2}>Office work drains you. Put it back.</h2>
             <p className={styles.lede}>
-              Half off your first pouch, free shipping, and you can stop whenever you like.
+              Four gummies, once a day. Half off your first pouch, free shipping, and you
+              can stop whenever you like.
             </p>
             <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Try now and save 50%</Button>
           </div>
@@ -473,7 +475,7 @@ export function SteadyBurnPage() {
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
           </nav>
           <p style={{ textAlign: "center" }}>&copy; 2026 SUNNYCELLS</p>
-          <p className={styles.footerMark} aria-hidden="true">Steady Burn</p>
+          <p className={styles.footerMark} aria-hidden="true">Revitalize</p>
         </div>
       </footer>
 

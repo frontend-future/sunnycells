@@ -1,5 +1,5 @@
 /**
- * SC-25 Steady Burn Gummies. Same shape as the other product files: every word the
+ * SC-25 Revitalize Gummies. Same shape as the other product files: every word the
  * page says lives here.
  *
  * THE FORMULA IS REAL. The panel below is transcribed from the spec sheet, unlike the
@@ -26,22 +26,22 @@
  * about cortisol and what it does, which is the mechanism, not the promise.
  */
 
-export const CART_ID = "steady-burn";
+export const CART_ID = "revitalize";
 
 /** PLACEHOLDER. Point at the real support inbox before launch. */
 export const SUPPORT_EMAIL = "support@sunnycells.com";
 
 export const PRODUCT = {
   sku: "SC-25",
-  name: "Steady Burn Gummies",
-  shortName: "Steady Burn",
+  name: "Revitalize Gummies",
+  shortName: "Revitalize",
   strapline: "Four gummies, once a day, cherry lime",
   flavor: "Cherry lime",
   servings: 28,
   perServing: "4 gummies",
   sachetWeight: "28 g",
   pouchWeight: "784 g",
-  image: "/product/steady-burn/kitchen.webp",
+  image: "/product/revitalize/kitchen.webp",
 } as const;
 
 export type Plan = {
@@ -105,26 +105,29 @@ export function orderLine(now: Date): string {
 export const RATING = { score: 4.8, count: 2417 } as const;
 
 export const GALLERY = [
-  { src: "/product/steady-burn/kitchen.webp", alt: "A pouch of Steady Burn on a marble counter beside a coffee brewer and a bowl of limes" },
-  { src: "/product/steady-burn/hand.webp", alt: "A hand taking two cherry lime gummies from an open sachet at a desk" },
-  { src: "/product/steady-burn/drawer-a.webp", alt: "The pouch, four sachets and a row of gummies laid out in a desk drawer" },
-  { src: "/product/steady-burn/desk.webp", alt: "The pouch beside a laptop and a black mug of coffee, with two sachets open on the desk" },
-  { src: "/product/steady-burn/gymbag.webp", alt: "The pouch propped against a gym bag on a locker room bench next to a water bottle" },
-  { src: "/product/steady-burn/backpack.webp", alt: "The pouch tucked into a backpack on a park bench with a sachet and three gummies" },
+  { src: "/product/revitalize/kitchen.webp", alt: "A pouch of Revitalize Gummies on a marble kitchen counter beside a pour-over coffee brewer and a bowl of limes" },
+  { src: "/product/revitalize/hand.webp", alt: "A hand holding a cherry lime gummy above an open sachet" },
+  { src: "/product/revitalize/slump.webp", alt: "The pouch and an open sachet of gummies on a sunlit desk beside a monitor and a mug" },
+  { src: "/product/revitalize/desk.webp", alt: "The pouch on a desk beside a laptop, with a sachet and loose gummies in front of it" },
+  { src: "/product/revitalize/tote.webp", alt: "The pouch tucked into a canvas tote bag with a sachet beside it" },
+  { src: "/product/revitalize/park.webp", alt: "The pouch and a sachet on a park bench in dappled afternoon light" },
 ] as const;
 
 export const HERO = {
-  title: "The 3pm crash is not",
-  titleAccent: "a willpower problem.",
+  title: "Office work drains you.",
+  titleAccent: "We built this to put it back.",
+  /* The two things a desk job takes slowly, and the two things in the pack aimed at
+     them. It stops at what the doses do. Saying it "stops aging and weight gain" would
+     be a drug claim, and neither the panel nor the law will carry it. */
   lede:
-    "Four gummies a day for the three things that actually run your afternoon: a calmer stress response, 10 g of protein so you are not hungry at 3pm, and the B vitamins your body burns food with.",
+    "A desk job takes it out of you in two directions at once. The stress wears you down and the 3pm snacking adds up, and neither one announces itself. Revitalize is four gummies a day built against both.",
   points: [
     "10 g of protein, so the snack drawer stays shut",
     "Magnesium glycinate and vitamin C for the stress response",
     "B1, B3 and B5 at 100% of the daily value",
     "65 calories, no added sugar",
   ],
-  photo: "/product/steady-burn/kitchen.webp",
+  photo: "/product/revitalize/kitchen.webp",
 } as const;
 
 export const TRUST = [
@@ -139,17 +142,17 @@ export const TRUST = [
  * actually stand behind, and none of them says the product treats anything.
  */
 export const COST = {
-  title: "What a day on adrenaline costs you",
-  lede: "It does not feel like stress. It feels like a normal Tuesday that leaves you wrecked by six.",
-  image: "/product/steady-burn/desk.webp",
-  alt: "A pouch of Steady Burn beside a laptop and a mug of coffee",
+  title: "What office work takes out of you",
+  lede: "None of it arrives as an event. It arrives as a normal Tuesday that leaves you wrecked by six, over and over, until it is just how you are.",
+  image: "/product/revitalize/monitor.webp",
+  alt: "A pouch of Revitalize Gummies on a desk in front of a monitor, mid afternoon",
   quadrants: [
     { icon: "zap-off", title: "The 3pm hole",
       body: "Cortisol peaks in the morning and drops through the afternoon. When it drops you get hungry, foggy and short with people. Most of us call that being tired." },
     { icon: "shopping-bag", title: "The snack drawer",
       body: "Nobody snacks at 3pm because they are hungry for lunch. They snack because breakfast had no protein in it and the body wants fast sugar." },
     { icon: "droplet", title: "Skin that shows the week",
-      body: "Cortisol breaks down collagen faster than you build it. Vitamin C is the cofactor your body needs to build it in the first place." },
+      body: "Cortisol breaks down collagen faster than you build it, and a desk job is a long run of days doing exactly that. Vitamin C is the cofactor your body needs to build collagen in the first place." },
     { icon: "repeat", title: "Wired at eleven",
       body: "Adrenaline you never spent has to go somewhere. It usually turns up as lying awake replaying the day at eleven at night." },
   ],
@@ -158,14 +161,14 @@ export const COST = {
 /** The three goals, in the order the day happens. */
 export const PILLARS = {
   title: "Three jobs, four gummies",
-  lede: "One sachet does three separate things, and each one has a named dose behind it.",
+  lede: "Putting it back is three separate jobs, and each one has a named dose behind it rather than a promise.",
   items: [
     {
       key: "calm",
       name: "Calm the stress response",
       dose: "Magnesium glycinate 60 mg · Vitamin C 90 mg · B5 5 mg",
-      photo: "/product/steady-burn/hand.webp",
-      alt: "A hand taking two cherry lime gummies from an open sachet",
+      photo: "/product/revitalize/hand.webp",
+      alt: "A hand holding a cherry lime gummy above an open sachet",
       copy:
         "Making cortisol uses up vitamin C and pantothenic acid, which is why the adrenal glands hold more vitamin C than almost any other tissue in the body. Magnesium bound to glycine absorbs well and does not upset the stomach the way oxide does.",
       ticksLabel: "Supports",
@@ -175,19 +178,19 @@ export const PILLARS = {
       key: "full",
       name: "Stay full past lunch",
       dose: "Protein 10 g · Glucomannan 500 mg",
-      photo: "/product/steady-burn/drawer-a.webp",
-      alt: "The pouch, four sachets and a row of gummies laid out in a desk drawer",
+      photo: "/product/revitalize/marble.webp",
+      alt: "The pouch and a torn sachet on a marble surface with gummies spilled out",
       copy:
         "Protein is the most satiating of the three macronutrients, and 10 g is a real amount of it rather than a gesture. Glucomannan is a soluble fiber from konjac root that takes on water in the stomach and slows it down.",
       ticksLabel: "Supports",
       ticks: ["Feeling full between meals", "Fewer reasons to open the snack drawer", "Slower gastric emptying"],
     },
     {
-      key: "burn",
+      key: "revitalize",
       name: "Run the engine you already have",
       dose: "B1 1.2 mg · B3 16 mg · B5 5 mg, all at 100% DV",
-      photo: "/product/steady-burn/gymbag.webp",
-      alt: "The pouch propped against a gym bag on a locker room bench",
+      photo: "/product/revitalize/typing.webp",
+      alt: "The pouch beside a keyboard with a sachet open at the side of the desk",
       copy:
         "These three are not stimulants and they do not speed anything up. They are the cofactors the reaction needs: thiamine to get carbohydrate into the Krebs cycle, niacin as the NAD that carries the electrons, pantothenic acid as the coenzyme A the fat goes through. Run short and the reaction runs badly.",
       ticksLabel: "Supports",
@@ -219,11 +222,11 @@ export const FINISH = {
   lede:
     "None of it counts if you stop. Capsules end up at the back of a cupboard, powders end up under the sink, and a pill you have to remember with water is a pill you skip on the days that matter.",
   steps: [
-    { image: "/product/steady-burn/hand.webp", alt: "A hand taking two gummies from an open sachet at a desk",
+    { image: "/product/revitalize/hand.webp", alt: "A hand holding a cherry lime gummy above an open sachet",
       title: "They taste like sweets", body: "Cherry lime, chewed. If it tasted worthy you would stop by week three, and we both know it." },
-    { image: "/product/steady-burn/car.webp", alt: "A pouch and an open sachet on a car dashboard at sunset",
+    { image: "/product/revitalize/laptop.webp", alt: "The pouch and a sachet next to an open laptop",
       title: "Nothing to measure", body: "One sachet, four gummies. No water, no scoop, no counting out five different bottles." },
-    { image: "/product/steady-burn/plane.webp", alt: "A pouch and a sachet on an airline tray table",
+    { image: "/product/revitalize/tote.webp", alt: "The pouch tucked into a canvas tote bag with a sachet beside it",
       title: "It travels flat", body: "Single-serve sachets. One lives in a bag rather than a cabinet you only open at home." },
   ],
 } as const;
@@ -243,7 +246,7 @@ export const INSIDE = {
 } as const;
 
 export const QUOTE = {
-  photo: "/product/steady-burn/backpack.webp",
+  photo: "/product/revitalize/park.webp",
   text:
     "I did not buy it to lose weight. I bought it because I was eating a flapjack at half three every single day and hating myself about it. Six weeks in I still eat one sometimes. Just not every day, and not standing at the cupboard.",
   name: "Erin L.",

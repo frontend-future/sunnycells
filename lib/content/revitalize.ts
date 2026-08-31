@@ -1,5 +1,5 @@
 /**
- * The Steady Burn advertorial at /steady-burn/3pm-crash.
+ * The Revitalize advertorial at /revitalize/3pm-crash.
  *
  * Written to the same rules the collagen advertorial ended up on. What it does NOT do,
  * on purpose, because the reference genre does all four and they are the parts that
@@ -17,21 +17,21 @@
  *
  * On the science: cortisol's diurnal fall, protein and satiety, and the roles of B1,
  * B3 and B5 as metabolic cofactors are all well established and cited. What is NOT
- * claimed anywhere is that Steady Burn lowers cortisol, causes weight loss, or raises
+ * claimed anywhere is that Revitalize lowers cortisol, causes weight loss, or raises
  * metabolic rate. The page describes the mechanism and states the dose.
  */
 
 export const META = {
-  title: "The 3pm crash is a cortisol problem, not a willpower problem",
+  title: "Office work drains you, and it does it slowly",
   description:
-    "Why the afternoon falls apart at the same time every day, what protein and magnesium actually do about it, and how to read a label before you buy one.",
+    "Why a desk job wears you down and puts weight on at the same time, what protein and magnesium actually do about it, and how to read a label before you buy one.",
 } as const;
 
 export const HERO = {
   eyebrow: "Energy and stress",
-  title: "The 3pm crash is a cortisol problem, not a willpower problem",
+  title: "Office work drains you, and it does it slowly",
   sub:
-    "Your afternoon does not collapse because you are lazy. It collapses on a curve you can plot, and there are three things in a normal diet that decide how steep it is.",
+    "Nobody leaves a desk job feeling like they did anything. You still come home emptied out, and the weight still goes on. Both of those run on a curve you can plot, and three things in an ordinary diet decide how steep it is.",
 } as const;
 
 export const BYLINE = {
@@ -43,9 +43,10 @@ export const BYLINE = {
 export const OPENERS = [
   "It arrives at roughly the same time every day. Somewhere between half two and half three the words on the screen stop going in, the meeting you were fine about becomes irritating, and you find yourself standing at a cupboard you did not decide to walk to.",
   "Most people file that under being tired, or being busy, or not having enough discipline. It is none of those. It is the predictable back half of a hormone curve that started before you woke up, and it behaves the same way in almost everybody.",
+  "The reason it matters is that it does not stay an afternoon problem. Repeated a few hundred times, it is the whole slow drift: the weight that arrives a pound at a time, the skin that starts showing the week, the evenings you have nothing left for.",
 ];
 
-export const CRISIS_TITLE = "Your afternoon is running on the wrong fuel.";
+export const CRISIS_TITLE = "The drift is not mysterious. It is an afternoon, repeated.";
 
 export const INTRO = [
   "Cortisol is not the villain it gets written up as. It is the hormone that gets you out of bed. It peaks about thirty to forty-five minutes after you wake, which is called the cortisol awakening response, and then it falls through the day until it bottoms out around midnight.",
@@ -59,7 +60,7 @@ export const SIGNS: Sign[] = [
   {
     n: 1,
     title: "You are not hungry at 3pm. You are looking for sugar.",
-    image: "/photos/steady-burn/cupboard.webp",
+    image: "/photos/revitalize/cupboard.webp",
     alt: "An open kitchen cupboard of snack bars with a hand reaching in",
     body: [
       "There is a difference and you can feel it if you look for it. Real hunger builds and will accept anything. The 3pm thing is specific: it wants something sweet, it wants it now, and a bowl of soup will not do.",
@@ -69,7 +70,7 @@ export const SIGNS: Sign[] = [
   {
     n: 2,
     title: "The tiredness is in your head, not your legs.",
-    image: "/photos/steady-burn/slump.webp",
+    image: "/photos/revitalize/slump.webp",
     alt: "A woman at a home office desk in the afternoon, hand pressed to her forehead",
     body: [
       "Physical tiredness makes you want to sit down. This makes you re-read the same paragraph four times while feeling perfectly capable of standing up and walking somewhere.",
@@ -87,7 +88,7 @@ export const SIGNS: Sign[] = [
   {
     n: 4,
     title: "You are wired at eleven at night.",
-    image: "/photos/steady-burn/awake.webp",
+    image: "/photos/revitalize/awake.webp",
     alt: "A person lying awake in a dim bedroom at night",
     body: [
       "Adrenaline you generated and never spent has to go somewhere. It usually turns up as lying flat on your back at eleven, replaying a conversation from two in the afternoon.",
@@ -105,10 +106,10 @@ export const SIGNS: Sign[] = [
 ];
 
 export const NOT_JUST_AGE = {
-  title: "This is not about being busy, and it is not about age.",
+  title: "This is not about being busy, and it is not about your age.",
   body: [
     "Plenty of very busy people do not have a 3pm. The difference is rarely how much they have on. It is what went in at breakfast, and whether their stress response ever gets switched off.",
-    "Both of those are things you can put a number on, which is the only reason this page is worth reading.",
+    "Both of those are things you can put a number on, which is the only reason this page is worth reading. Age is not a lever. Those two are.",
   ],
 } as const;
 
@@ -145,7 +146,7 @@ export const BUYER_BEWARE = {
     },
     {
       title: "Is the dose the one from the study?",
-      body: "Glucomannan is the clean example. The European weight-loss claim sits at 3 g a day split across three doses. Plenty of products carry a tenth of that and cite the same research. Steady Burn carries 0.5 g, and we would rather say so here than have you find it on the panel.",
+      body: "Glucomannan is the clean example. The European weight-loss claim sits at 3 g a day split across three doses. Plenty of products carry a tenth of that and cite the same research. Revitalize carries 0.5 g, and we would rather say so here than have you find it on the panel.",
     },
     {
       title: "Does it need you to do anything?",
@@ -156,7 +157,7 @@ export const BUYER_BEWARE = {
 
 export const INTRODUCING = {
   eyebrow: "What we made",
-  title: "Steady Burn: four gummies, three jobs, every dose printed.",
+  title: "Revitalize: four gummies against what the desk takes.",
   body: [
     "One sachet a day, cherry lime, chewed. No water, no scoop, nothing to wash up. Twenty-eight sachets to a pouch, so a pouch is four weeks.",
     "It is not a stimulant and it is not a weight loss drug. It is 10 g of protein so the afternoon has something under it, magnesium glycinate and vitamin C for the stress response, and B1, B3 and B5 at 100% of the daily value so the reaction that makes your energy is not running short.",
@@ -169,8 +170,8 @@ export const INTRODUCING = {
     { name: "Vitamin B1, B3 and B5", amount: "100% DV", note: "Thiamine, niacinamide, pantothenic acid." },
     { name: "Vitamin D3", amount: "25 mcg", note: "1000 IU, 125% DV." },
   ],
-  image: "/product/steady-burn/kitchen.webp",
-  alt: "A pouch of Steady Burn on a marble counter beside a coffee brewer and a bowl of limes",
+  image: "/product/revitalize/kitchen.webp",
+  alt: "A pouch of Revitalize Gummies on a marble kitchen counter beside a pour-over coffee brewer and a bowl of limes",
 } as const;
 
 export const TRUST = [
@@ -189,7 +190,7 @@ export const REVIEWS = [
 ] as const;
 
 export const CLOSING = {
-  title: "The afternoon is going to happen either way.",
+  title: "The desk is not going anywhere. Neither is the afternoon.",
   body: [
     "You will be at your desk at three whatever you decide here. The only question is what is underneath it when you get there.",
     "Half off your first pouch, free shipping, and thirty days to change your mind. If it does not do anything for you, email us and we refund it. Keep the pouch.",
@@ -208,4 +209,4 @@ export const REFERENCES = [
 ];
 
 export const DISCLAIMER =
-  "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease. Steady Burn is a dietary supplement, not a treatment for stress or a weight loss drug. If you are pregnant, nursing, taking prescription medication or managing a health condition, speak to your doctor before starting any supplement.";
+  "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease. Revitalize is a dietary supplement, not a treatment for stress or a weight loss drug. If you are pregnant, nursing, taking prescription medication or managing a health condition, speak to your doctor before starting any supplement.";
