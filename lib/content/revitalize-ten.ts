@@ -12,7 +12,7 @@
  */
 
 export const META = {
-  title: "10 reasons your office job is aging you, and what stops each one",
+  title: "Your office job is aging you like milk. Here's 10 reasons you'll never look back",
   description:
     "A desk job spikes cortisol, and cortisol is what ages you. Ten ways it shows, and what in a daily gummy meets each one.",
 };
@@ -20,8 +20,8 @@ export const META = {
 export const HERO = {
   rating: "Excellent 4.8",
   count: "2,417 reviews",
-  title: "10 Reasons Your Office Job Is Aging You, and What Stops Each One",
-  sub: "Here's why office workers are chewing four of these before nine in the morning...",
+  title: "Your Office Job Is Aging You Like Milk. Here's 10 Reasons You'll Never Look Back.",
+  sub: "Here's why office workers are chewing four of these every morning...",
   photo: "/product/revitalize/slump.webp",
   alt: "A pouch of Revitalize Gummies and an open sachet on a sunlit desk",
 };
