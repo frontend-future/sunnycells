@@ -310,9 +310,9 @@ export function RevitalizePage() {
                 {PRODUCT.flavor} &middot; {PRODUCT.servings} daily sachets &middot; {PRODUCT.perServing} a day
               </p>
               <p className={styles.lede}>
-                One sachet a day against what a desk job takes: a calmer stress response,
-                10 g of protein so 3pm is not a raid on the snack drawer, and the B
-                vitamins your body runs energy metabolism on.
+                One sachet a day for what cortisol burns through: vitamin C and magnesium
+                for the stress response, 10 g of protein so 3pm is not a raid on the snack
+                drawer, and the B vitamins your body runs energy metabolism on.
               </p>
 
               <ul className={styles.points}>
@@ -455,7 +455,7 @@ export function RevitalizePage() {
         {/* ---------- closing cta ---------- */}
         <section className={styles.closing}>
           <div className={`${styles.wrap} ${styles.narrow} ${styles.section}`}>
-            <h2 className={styles.h2}>Office work drains you. Put it back.</h2>
+            <h2 className={styles.h2}>Your job spends it. Put it back.</h2>
             <p className={styles.lede}>
               Four gummies, once a day. Half off your first pouch, free shipping, and you
               can stop whenever you like.

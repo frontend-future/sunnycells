@@ -114,13 +114,18 @@ export const GALLERY = [
 ] as const;
 
 export const HERO = {
-  title: "Office work drains you.",
-  titleAccent: "We built this to put it back.",
-  /* The two things a desk job takes slowly, and the two things in the pack aimed at
-     them. It stops at what the doses do. Saying it "stops aging and weight gain" would
-     be a drug claim, and neither the panel nor the law will carry it. */
+  title: "Office work spikes your cortisol.",
+  titleAccent: "Cortisol is what ages you.",
+  /* Both halves of the headline are claims about stress physiology, not about this
+     product, and both are cited on the advertorial: chronic work strain is associated
+     with a raised cortisol awakening response, and chronic cortisol tracks with
+     accelerated cellular aging and with collagen breakdown.
+     
+     The lede stops at "puts back what the day takes", which is what the panel supports.
+     "We built this to stop that" would be a claim that a gummy blocks cortisol, and
+     neither the doses nor the law will carry it. */
   lede:
-    "A desk job takes it out of you in two directions at once. The stress wears you down and the 3pm snacking adds up, and neither one announces itself. Revitalize is four gummies a day built against both.",
+    "Making cortisol burns through vitamin C and pantothenic acid. Then it breaks collagen down faster than you build it back, and drops you into the afternoon where the snacking starts. Revitalize puts back what the day takes: four gummies, once a day.",
   points: [
     "10 g of protein, so the snack drawer stays shut",
     "Magnesium glycinate and vitamin C for the stress response",
@@ -142,7 +147,7 @@ export const TRUST = [
  * actually stand behind, and none of them says the product treats anything.
  */
 export const COST = {
-  title: "What office work takes out of you",
+  title: "What cortisol takes on the way through",
   lede: "None of it arrives as an event. It arrives as a normal Tuesday that leaves you wrecked by six, over and over, until it is just how you are.",
   image: "/product/revitalize/monitor.webp",
   alt: "A pouch of Revitalize Gummies on a desk in front of a monitor, mid afternoon",
@@ -152,7 +157,7 @@ export const COST = {
     { icon: "shopping-bag", title: "The snack drawer",
       body: "Nobody snacks at 3pm because they are hungry for lunch. They snack because breakfast had no protein in it and the body wants fast sugar." },
     { icon: "droplet", title: "Skin that shows the week",
-      body: "Cortisol breaks down collagen faster than you build it, and a desk job is a long run of days doing exactly that. Vitamin C is the cofactor your body needs to build collagen in the first place." },
+      body: "Cortisol breaks collagen down faster than you build it back, and a desk job is a long run of days doing exactly that. Vitamin C is the cofactor your body needs to build collagen at all." },
     { icon: "repeat", title: "Wired at eleven",
       body: "Adrenaline you never spent has to go somewhere. It usually turns up as lying awake replaying the day at eleven at night." },
   ],

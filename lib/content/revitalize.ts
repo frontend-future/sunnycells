@@ -22,16 +22,16 @@
  */
 
 export const META = {
-  title: "Office work drains you, and it does it slowly",
+  title: "Office work spikes your cortisol, and cortisol is what ages you",
   description:
-    "Why a desk job wears you down and puts weight on at the same time, what protein and magnesium actually do about it, and how to read a label before you buy one.",
+    "What chronic work stress does to cortisol, what cortisol does to collagen and to your afternoon, and how to read a supplement label before you buy one.",
 } as const;
 
 export const HERO = {
-  eyebrow: "Energy and stress",
-  title: "Office work drains you, and it does it slowly",
+  eyebrow: "Stress and aging",
+  title: "Office work spikes your cortisol. Cortisol is what ages you.",
   sub:
-    "Nobody leaves a desk job feeling like they did anything. You still come home emptied out, and the weight still goes on. Both of those run on a curve you can plot, and three things in an ordinary diet decide how steep it is.",
+    "Nobody leaves a desk job feeling like they did anything physical. You still come home emptied out, the weight still goes on, and the face in the mirror still shows the year. All three run through one hormone, and what it costs you is measurable.",
 } as const;
 
 export const BYLINE = {
@@ -46,10 +46,12 @@ export const OPENERS = [
   "The reason it matters is that it does not stay an afternoon problem. Repeated a few hundred times, it is the whole slow drift: the weight that arrives a pound at a time, the skin that starts showing the week, the evenings you have nothing left for.",
 ];
 
-export const CRISIS_TITLE = "The drift is not mysterious. It is an afternoon, repeated.";
+export const CRISIS_TITLE = "Cortisol is not the villain. Living on it is.";
 
 export const INTRO = [
-  "Cortisol is not the villain it gets written up as. It is the hormone that gets you out of bed. It peaks about thirty to forty-five minutes after you wake, which is called the cortisol awakening response, and then it falls through the day until it bottoms out around midnight.",
+  "Cortisol is the hormone that gets you out of bed. It peaks about thirty to forty-five minutes after you wake, which is called the cortisol awakening response, and then it falls through the day until it bottoms out around midnight. That is the healthy shape.",
+  "Chronic job strain bends that shape. A meta-analysis of 62 studies found work stress and job strain among the psychosocial factors reliably associated with a raised awakening response, which is a polite way of saying your body starts every day braced for something.",
+  "The reason that matters past the tiredness: cortisol is catabolic. It breaks tissue down. It suppresses the fibroblasts that make collagen while speeding up the enzymes that degrade it, which is why a hard year shows on a face before it shows anywhere else. And in the study that made this famous, women under the highest chronic stress had telomeres shorter by the equivalent of roughly a decade of additional aging.",
   "That fall is supposed to be gentle. What makes it steep is a morning with no protein in it, a stress response that never got switched off, and a day where the only thing you put in front of the drop was coffee.",
   "The result is not mysterious. Blood sugar dips, the body asks for the fastest carbohydrate it can find, and you are at the cupboard before you have decided anything.",
 ];
@@ -98,9 +100,11 @@ export const SIGNS: Sign[] = [
   {
     n: 5,
     title: "Your skin looks like the week you have had.",
+    image: "/photos/revitalize/morning.webp",
+    alt: "A woman at a sunlit kitchen counter in the morning holding a mug of coffee",
     body: [
       "This one is slower and easier to miss. Cortisol breaks collagen down faster than the body puts it back, and the enzymes that build collagen in the first place use vitamin C as a required cofactor. It is not optional and there is no substitute for it in the reaction.",
-      "So a stretch of high-stress weeks pulls on both ends at once: more breakdown, and a bigger draw on the thing you need to rebuild.",
+      "So a stretch of high-stress weeks pulls on both ends at once: more breakdown, and a bigger draw on the thing you need to rebuild. That is the mechanism behind the vague sense that a bad year aged you. It is not vague. It is collagen.",
     ],
   },
 ];
@@ -190,7 +194,7 @@ export const REVIEWS = [
 ] as const;
 
 export const CLOSING = {
-  title: "The desk is not going anywhere. Neither is the afternoon.",
+  title: "The job is not going anywhere. What it spends, you can put back.",
   body: [
     "You will be at your desk at three whatever you decide here. The only question is what is underneath it when you get there.",
     "Half off your first pouch, free shipping, and thirty days to change your mind. If it does not do anything for you, email us and we refund it. Keep the pouch.",
@@ -199,6 +203,9 @@ export const CLOSING = {
 
 export const REFERENCES = [
   "Fries E, Dettenborn L, Kirschbaum C. The cortisol awakening response (CAR): facts and future directions. International Journal of Psychophysiology, 2009.",
+  "Chida Y, Steptoe A. Cortisol awakening response and psychosocial factors: a systematic review and meta-analysis. Biological Psychology, 2009. 62 studies; work stress and job strain among the factors associated with a raised awakening response.",
+  "Epel ES, Blackburn EH, Lin J, Dhabhar FS, Adler NE, Morrow JD, Cawthon RM. Accelerated telomere shortening in response to life stress. PNAS, 2004.",
+  "Hunter HJA, Momen SE, Kleyn CE. The impact of psychosocial stress on healthy skin. Clinical and Experimental Dermatology, 2015. On glucocorticoids, fibroblast suppression and collagen degradation.",
   "Berryman CE, Lieberman HR, Fulgoni VL, Pasiakos SM. Protein intake trends and conformity with the Dietary Reference Intakes in the United States. American Journal of Clinical Nutrition, 2018.",
   "Leidy HJ et al. The role of protein in weight loss and maintenance. American Journal of Clinical Nutrition, 2015.",
   "EFSA Panel on Dietetic Products, Nutrition and Allergies. Scientific Opinion on the substantiation of a health claim related to glucomannan and reduction of body weight. EFSA Journal, 2010. Claim conditions: 3 g per day in three doses of 1 g.",
