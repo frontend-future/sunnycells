@@ -12,16 +12,16 @@
  */
 
 export const META = {
-  title: "10 reasons office workers are chewing these before 9am",
+  title: "10 reasons your office job is aging you, and what stops each one",
   description:
-    "Ten things people notice after a month on Revitalize, from the 3pm snack drawer to what cortisol spends on the way through.",
+    "A desk job spikes cortisol, and cortisol is what ages you. Ten ways it shows, and what in a daily gummy meets each one.",
 };
 
 export const HERO = {
   rating: "Excellent 4.8",
   count: "2,417 reviews",
-  title: "10 Reasons You'll Stop Blaming Yourself for the 3pm Crash",
-  sub: "Here's why people are chewing four of these before nine in the morning...",
+  title: "10 Reasons Your Office Job Is Aging You, and What Stops Each One",
+  sub: "Here's why office workers are chewing four of these before nine in the morning...",
   photo: "/product/revitalize/slump.webp",
   alt: "A pouch of Revitalize Gummies and an open sachet on a sunlit desk",
 };
@@ -29,22 +29,24 @@ export const HERO = {
 export type Reason = { n: number; title: string; body: string; photo: string; alt: string; fit?: "contain" };
 
 export const REASONS: Reason[] = [
-  { n: 1, title: "No more afternoon cravings",
-    body: "Caffeine on an empty stomach is a recipe for high cortisol. 10 g of gelatin protein keeps you full for hours, so you get through the afternoon without the tummy grumbles pulling you to the snack drawer.",
-    photo: "/photos/revitalize/effects/snacking.webp", alt: "An open packet of biscuits and crumbs beside a keyboard" },
-  { n: 2, title: "No more early wrinkles",
-    body: "Cortisol breaks collagen down faster than you build it back. Vitamin C is the one thing your body cannot make collagen without. 90 mg a sachet, 100% of the daily value.",
-    photo: "/photos/revitalize/effects/lines.webp", alt: "Close crop of the corner of an eye and temple, fine lines visible" },
-  { n: 3, title: "No more hair in the brush",
-    body: "Under stress your body feeds the organs first and the follicles last. 10 g of protein and the B vitamins that turn it into fuel put hair back nearer the front of the queue.",
-    photo: "/photos/revitalize/effects/shedding.webp", alt: "A hairbrush on a bathroom counter with loose strands caught in it" },
-  { n: 4, title: "No more bags under your eyes",
-    body: "Those are a sleep problem, not an eye problem. Magnesium glycinate for getting to sleep. Pantothenic acid for the stress response that is keeping you awake at eleven.",
-    photo: "/photos/revitalize/effects/eyes.webp", alt: "Close crop of tired eyes with faint shadows beneath them" },
-  { n: 5, title: "No more 4pm brain fog",
+  { n: 1, title: "No more 4pm brain fog",
     body: "Turning food into energy takes B1, B3 and B5. Run short on any of them and the reaction runs badly. All three at 100% of the daily value, no caffeine, nothing to crash from.",
     photo: "/photos/revitalize/effects/flat.webp", alt: "Staring past the monitor at an office desk, chin on hand" },
-  { n: 6, title: "Your eyes… we've got them covered too",
+  { n: 2, title: "No more bags under your eyes",
+    body: "Those are a sleep problem, not an eye problem. Magnesium glycinate for getting to sleep. Pantothenic acid for the stress response that is keeping you awake at eleven.",
+    photo: "/photos/revitalize/effects/eyes.webp", alt: "Close crop of tired eyes with faint shadows beneath them" },
+  { n: 3, title: "No more early wrinkles",
+    body: "Cortisol breaks collagen down faster than you build it back. Vitamin C is the one thing your body cannot make collagen without. 90 mg a sachet, 100% of the daily value.",
+    photo: "/photos/revitalize/effects/lines.webp", alt: "Close crop of the corner of an eye and temple, fine lines visible" },
+  /* The satiety is the claim, not the fat. Cortisol deciding where weight sits is real
+     and citable; a gummy shrinking visceral fat is not, and this does not say it. */
+  { n: 4, title: "No more stubborn weight round the middle",
+    body: "Stare at a screen all day and cortisol decides where the weight sits. It arrives a few pounds at a time, in the places you least want it. 10 g of protein and konjac fiber keep you full past the 3pm drop, which is the part of this you can actually act on.",
+    photo: "/photos/revitalize/effects/middle.webp", alt: "Waist-level crop of a man in a work shirt tugging at a waistband that has gone tight" },
+  { n: 5, title: "No more afternoon cravings",
+    body: "Caffeine on an empty stomach is a recipe for high cortisol. 10 g of gelatin protein keeps you full for hours, so you get through the afternoon without the tummy grumbles pulling you to the snack drawer.",
+    photo: "/photos/revitalize/effects/snacking.webp", alt: "An open packet of biscuits and crumbs beside a keyboard" },
+  { n: 6, title: "Your eyes\u2026 we've got them covered too",
     body: "Lutein and zeaxanthin are what your macula is made of. In a trial in heavy screen users, supplementing them cut headache, eye strain and fatigue. Eight hours of screen a day is what your job is.",
     photo: "/photos/revitalize/effects/screen.webp", alt: "Taking off glasses and pressing the bridge of the nose at a monitor" },
   { n: 7, title: "Clean ingredients with clinical support",
@@ -64,6 +66,7 @@ export const REASONS: Reason[] = [
     photo: "/product/revitalize/carousel/08-guarantee.webp", fit: "contain",
     alt: "30 day money back guarantee on Revitalize Gummies" },
 ];
+
 
 
 
@@ -87,6 +90,7 @@ export const REVIEWS = [
 
 export const OFFER = {
   customers: "2,417 reviews",
+  ingredientsLink: "See the full ingredient list",
   title: "Putting back what a desk job spends, four gummies at a time",
   bullets: [
     "10 g of protein, so the snack drawer stays shut",

@@ -16,6 +16,9 @@ import { CAROUSEL as GALLERY, CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan 
 import styles from "./revitalize-ten.module.css";
 
 const CHECKOUT = "/products/revitalize/checkout";
+const LABEL_SLIDE = "/product/revitalize/carousel/03-inside.webp";
+const LABEL_ALT =
+  "The Revitalize supplement facts panel with every ingredient and the job it does";
 
 function Stars({ size = 16 }: { size?: number }) {
   return (
@@ -29,10 +32,13 @@ function Stars({ size = 16 }: { size?: number }) {
 
 export function RevitalizeTenPage() {
   const router = useRouter();
-  const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
+  /* The advertorial sells one thing at one price. The ladder lives on the product
+     page, where choosing a supply is the job. */
+  const chosen: Plan = PLANS[0];
   const [open, setOpen] = useState<string | null>(null);
   const [stuck, setStuck] = useState(false);
   const [shot, setShot] = useState(0);
+  const [labelOpen, setLabelOpen] = useState(false);
   const startRef = useRef<HTMLDivElement | null>(null);
   const offerRef = useRef<HTMLDivElement | null>(null);
 
@@ -50,6 +56,18 @@ export function RevitalizeTenPage() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!labelOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setLabelOpen(false);
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [labelOpen]);
 
   const toOffer = () => document.getElementById("offer")?.scrollIntoView({ behavior: "smooth" });
 
@@ -172,31 +190,13 @@ export function RevitalizeTenPage() {
                 ))}
               </ul>
 
-              <div className={styles.plans} role="radiogroup" aria-label="Choose your supply">
-                {PLANS.map((p) => {
-                  const on = p.id === chosen.id;
-                  return (
-                    <button key={p.id} type="button" role="radio" aria-checked={on}
-                      onClick={() => setChosen(p)} className={`${styles.plan} ${on ? styles.planOn : ""}`}>
-                      <span className={styles.radio} aria-hidden="true">{on && <span />}</span>
-                      <span>
-                        <span className={styles.planName}>
-                          {p.name}
-                          {p.best && <span className={styles.planTag}>Most popular</span>}
-                        </span>
-                        <span className={styles.planSub}>{p.sub}</span>
-                      </span>
-                      <span className={styles.planPriceCol}>
-                        <span className={styles.planPrice}>${p.price * p.months}</span>
-                        <span className={styles.planWas}>was ${p.compareAt * p.months}</span>
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
               <p className={styles.servings}>{OFFER.servings}</p>
               <p className={styles.cadence}>{chosen.sub}. Pause, skip, or cancel anytime.</p>
+
+              <button type="button" className={styles.labelLink} onClick={() => setLabelOpen(true)}>
+                {OFFER.ingredientsLink}
+                <Icon name="chevron-right" size={18} strokeWidth={2.5} />
+              </button>
 
               <Button fullWidth variant="accent" size="lg" onClick={buy}>{OFFER.cta}</Button>
 
@@ -253,6 +253,19 @@ export function RevitalizeTenPage() {
           <p style={{ textAlign: "center" }}>&copy; 2026 SUNNYCELLS</p>
         </div>
       </footer>
+
+      {/* The label, full size. Escape and the backdrop both close it. */}
+      {labelOpen && (
+        <div className={styles.modalWrap} role="dialog" aria-modal="true" aria-label="Full ingredient list"
+          onClick={() => setLabelOpen(false)}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <button type="button" className={styles.modalClose} onClick={() => setLabelOpen(false)} aria-label="Close">
+              <Icon name="x" size={22} strokeWidth={2.5} />
+            </button>
+            <Image src={LABEL_SLIDE} alt={LABEL_ALT} width={1080} height={1080} className={styles.modalShot} />
+          </div>
+        </div>
+      )}
 
       <div className={`${styles.sticky} ${stuck ? styles.stickyOn : ""}`}>
         <div className={`${styles.wrap} ${styles.stickyInner}`}>
