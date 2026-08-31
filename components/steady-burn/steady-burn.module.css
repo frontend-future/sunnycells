@@ -486,3 +486,10 @@ a.ratingRow .ratingScore { text-decoration: underline; text-underline-offset: 3p
   .pillar { grid-template-columns: 0.85fr 1fr; gap: 2.5rem; padding-block: 2.75rem; }
   .pillarFlip > :first-child { order: 2; }
 }
+
+/* The wordmark is a link home. Its glyph is 22px, so it needs a box around it to clear
+   the 48px tap floor. Same for any mailto sitting inline in a sentence. */
+.mastheadInner > a, .footNav a, .footerLinks a {
+  display: inline-flex; align-items: center; min-height: 48px;
+}
+.smallPrint a { display: inline-block; padding: 0.75rem 0; min-height: 48px; }
