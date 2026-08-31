@@ -30,18 +30,18 @@ export type Reason = { n: number; title: string; body: string; photo: string; al
 
 export const REASONS: Reason[] = [
   { n: 1, title: "No more 4pm brain fog",
-    body: "Turning food into energy takes B1, B3 and B5. Run short on any of them and the reaction runs badly. All three at 100% of the daily value, no caffeine, nothing to crash from.",
+    body: "Turning food into energy takes B1, B3 and B5. Run short on any of them and the whole reaction runs badly. Revitalize gives you all three at 100% of your daily value, so four o'clock runs on fuel instead of fumes. No caffeine, nothing to crash from.",
     photo: "/photos/revitalize/effects/flat.webp", alt: "Staring past the monitor at an office desk, chin on hand" },
   { n: 2, title: "No more bags under your eyes",
-    body: "Those are a sleep problem, not an eye problem. Magnesium glycinate for getting to sleep. Pantothenic acid for the stress response that is keeping you awake at eleven.",
+    body: "Those are a sleep problem, not an eye problem. Cortisol that never switched off is what has you lying there at eleven. Revitalize gives you magnesium glycinate and pantothenic acid so you get to sleep, which is the only thing that actually shifts them.",
     photo: "/photos/revitalize/effects/eyes.webp", alt: "Close crop of tired eyes with faint shadows beneath them" },
   { n: 3, title: "No more early wrinkles",
-    body: "Cortisol breaks collagen down faster than you build it back. Vitamin C is the one thing your body cannot make collagen without. 90 mg a sachet, 100% of the daily value.",
+    body: "Cortisol breaks collagen down faster than you build it back. Vitamin C is the one thing your body cannot make collagen without. Revitalize gives you 90 mg a sachet, 100% of your daily value, so your skin can keep rebuilding what the day takes off it.",
     photo: "/photos/revitalize/effects/lines.webp", alt: "Close crop of the corner of an eye and temple, fine lines visible" },
   /* The satiety is the claim, not the fat. Cortisol deciding where weight sits is real
      and citable; a gummy shrinking visceral fat is not, and this does not say it. */
   { n: 4, title: "No more stubborn weight round the middle",
-    body: "Stare at a screen all day and cortisol decides where the weight sits. It arrives a few pounds at a time, in the places you least want it. 10 g of protein and konjac fiber keep you full past the 3pm drop, which is the part of this you can actually act on.",
+    body: "Stare at a screen all day and cortisol decides where the weight sits. It arrives a few pounds at a time, in the places you least want it. Revitalize gives you 10 g of protein and konjac fiber to keep you full past the 3pm drop, which is the part of this you can actually act on.",
     photo: "/photos/revitalize/effects/middle.webp", alt: "Waist-level crop of a man in a work shirt tugging at a waistband that has gone tight" },
   { n: 5, title: "No more afternoon cravings",
     body: "Caffeine on an empty stomach is a recipe for high cortisol. 10 g of gelatin protein keeps you full for hours, so you get through the afternoon without the tummy grumbles pulling you to the snack drawer.",
