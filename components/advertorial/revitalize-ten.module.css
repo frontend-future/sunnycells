@@ -3,6 +3,7 @@
    the way the other SC-25 pages do. */
 
 .page {
+  /* No masthead: this reads as an article. See the component. */
   --reds: #D6212B;
   --reds-press: #A9161E;
   --reds-tint: #FBEBEC;
@@ -44,9 +45,12 @@
   text-align: center; color: var(--ink-60); font-size: var(--size-body-lg);
   line-height: var(--leading-body); margin: 0 0 1.75rem;
 }
+/* Framed the way the reference frames it: a single portrait photo, centred, with an
+   accent rule around it. */
 .heroShot {
-  width: 100%; max-width: 26rem; margin: 0 auto; display: block;
-  aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-lg);
+  width: 100%; max-width: 22rem; margin: 0 auto; display: block;
+  aspect-ratio: 3 / 4; object-fit: cover;
+  border: 3px solid var(--reds); border-radius: var(--radius-lg);
 }
 
 /* ---------- the ten ---------- */
@@ -55,6 +59,7 @@
   width: 100%; display: block; aspect-ratio: 3 / 4; object-fit: cover;
   border-radius: var(--radius-lg); background: var(--ivory);
 }
+.reasonFit { object-fit: contain; background: var(--white); border: 2px solid var(--ink-10); }
 .reasonBody { display: grid; gap: 0.75rem; }
 .h2 {
   font-family: var(--font-display); font-weight: var(--weight-display);

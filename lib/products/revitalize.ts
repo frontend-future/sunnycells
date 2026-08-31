@@ -104,13 +104,22 @@ export function orderLine(now: Date): string {
 /** PLACEHOLDER rating. */
 export const RATING = { score: 4.8, count: 2417 } as const;
 
+/* Carousel slides first, then the photography. The slides are the argument in order:
+   what it is, what you get, what is in it, when it works, why not the alternatives,
+   objections, why trust us, no risk. Built by scripts/build-carousel.mjs. */
 export const GALLERY = [
+  { src: "/product/revitalize/carousel/01-product.webp", alt: "A pouch of Revitalize Gummies with two sachets and five cherry lime gummies on white" },
+  { src: "/product/revitalize/carousel/02-outcome.webp", alt: "What a day off the cortisol curve looks like: no afternoon cravings, no 4pm brain fog, no hair in the brush, no shadows under your eyes, no tight neck and jaw, no burning eyes by five, no lines arriving early, no second coffee at three, evenings you have something left for" },
+  { src: "/product/revitalize/carousel/03-inside.webp", alt: "The supplement facts panel with each ingredient and its job: vitamin C to build collagen, 10 g gelatin for protein, magnesium glycinate to calm tension, B5 for the stress response, D3 for the indoor day, B1 and B3 for energy and skin, glucomannan to slow the stomach, lutein and zeaxanthin for the screen, allulose for sweetness with no added sugar" },
+  { src: "/product/revitalize/carousel/04-timeline.webp", alt: "What happens when you take Revitalize: week one the 3pm hole shallows, month three skin has turned over once, month six and beyond hair grown on the new intake" },
+  { src: "/product/revitalize/carousel/05-compare.webp", alt: "Revitalize compared with coffee and a multivitamin across energy without a crash, 10 g of protein, feeding what cortisol spends, staying full to dinner, being something you look forward to, and every dose printed on the front" },
+  { src: "/product/revitalize/carousel/06-faq.webp", alt: "Frequently asked questions: what Revitalize is, how it works, whether there is caffeine in it, and how long until you notice" },
+  { src: "/product/revitalize/carousel/07-honesty.webp", alt: "We print the weak claims too: every claim on the product page carries an evidence grade and six carry a caveat we wrote ourselves" },
+  { src: "/product/revitalize/carousel/08-guarantee.webp", alt: "30 day money back. Try Revitalize for 30 days, and if the afternoon does not change we refund the whole order" },
   { src: "/product/revitalize/kitchen.webp", alt: "A pouch of Revitalize Gummies on a marble kitchen counter beside a pour-over coffee brewer and a bowl of limes" },
   { src: "/product/revitalize/hand.webp", alt: "A hand holding a cherry lime gummy above an open sachet" },
   { src: "/product/revitalize/slump.webp", alt: "The pouch and an open sachet of gummies on a sunlit desk beside a monitor and a mug" },
-  { src: "/product/revitalize/desk.webp", alt: "The pouch on a desk beside a laptop, with a sachet and loose gummies in front of it" },
   { src: "/product/revitalize/tote.webp", alt: "The pouch tucked into a canvas tote bag with a sachet beside it" },
-  { src: "/product/revitalize/park.webp", alt: "The pouch and a sachet on a park bench in dappled afternoon light" },
 ] as const;
 
 export const HERO = {

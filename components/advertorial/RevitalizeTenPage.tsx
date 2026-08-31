@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { OfferFlag } from "@/components/core/OfferFlag";
-import { Wordmark } from "@/components/core/Wordmark";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
@@ -69,14 +68,6 @@ export function RevitalizeTenPage() {
 
   return (
     <div className={styles.page}>
-      <header className={styles.masthead}>
-        <div className={`${styles.wrap} ${styles.mastheadInner}`}>
-          <Link href="/" aria-label="SUNNYCELLS home">
-            <Wordmark size={20} tone="inverse" />
-          </Link>
-          <span className={styles.tag}>Advertisement</span>
-        </div>
-      </header>
 
       <main>
         {/* ---------- hero ---------- */}
@@ -87,14 +78,15 @@ export function RevitalizeTenPage() {
           </p>
           <h1 className={styles.h1}>{HERO.title}</h1>
           <p className={styles.sub}>{HERO.sub}</p>
-          <Image src={HERO.photo} alt={HERO.alt} width={1200} height={1200} priority className={styles.heroShot} />
+          <Image src={HERO.photo} alt={HERO.alt} width={900} height={1200} priority className={styles.heroShot} />
         </section>
 
         {/* ---------- the ten ---------- */}
         <section className={styles.wrap} ref={startRef}>
           {REASONS.map((r) => (
             <article key={r.n} className={styles.reason}>
-              <Image src={r.photo} alt={r.alt} width={720} height={960} className={styles.reasonShot} />
+              <Image src={r.photo} alt={r.alt} width={720} height={960}
+                className={`${styles.reasonShot} ${r.fit === "contain" ? styles.reasonFit : ""}`} />
               <div className={styles.reasonBody}>
                 <h2 className={styles.h2}>{r.n}. {r.title}</h2>
                 <p className={styles.body}>{r.body}</p>
