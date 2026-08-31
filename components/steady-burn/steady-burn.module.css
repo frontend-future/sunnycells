@@ -1,0 +1,488 @@
+/* Steady Burn lander. The pack is cherry red against lime, so the page rebinds the
+   accent tokens on .page rather than hardcoding a hex below. The button stays cherry
+   with cream type: lime is the pack's second colour and carries black only, which is
+   too low a contrast for a full-width control. Type never drops under 20px except on
+   legal and meta lines, and --ink-40 never carries text. */
+
+.page {
+  --reds: #D6212B;
+  --reds-press: #A9161E;
+  --reds-tint: #FBEBEC;
+  --lime: #A6DE1E;
+  --ivory: #F4F1E6;
+  --ivory-deep: #E7E2CE;
+  --cream: #FDFBF4;
+
+  --action-accent-bg: var(--reds);
+  --action-accent-bg-press: var(--reds-press);
+  --action-accent-fg: var(--cream);
+
+  background: var(--surface-page);
+  color: var(--text-primary);
+  padding-bottom: 6.5rem;
+}
+
+.wrap { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
+.narrow { max-width: 46rem; }
+.section { padding-block: 3.5rem; }
+
+.h1 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h1-m);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  margin: 0 0 1rem;
+}
+.h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h2-m);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  margin: 0 0 1rem;
+}
+.h3 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--size-h4);
+  line-height: var(--leading-heading);
+  margin: 0 0 0.5rem;
+}
+.centre { text-align: center; }
+.accent { color: var(--reds); }
+
+.lede { font-size: var(--size-body-lg); line-height: var(--leading-body); color: var(--ink-80); margin: 0; }
+.body { font-size: var(--size-body); line-height: var(--leading-body); margin: 0; }
+.meta { font-size: var(--size-meta); line-height: 1.45; color: var(--ink-60); margin: 0; }
+.eyebrow {
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+  color: var(--ink-60);
+  margin: 0 0 0.5rem;
+}
+
+/* ---------- announcement ---------- */
+.announce {
+  background: var(--reds);
+  color: var(--cream);
+  padding: 0.75rem 0;
+  text-align: center;
+}
+.announceInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 600;
+  font-size: var(--size-meta);
+}
+
+/* ---------- masthead ---------- */
+.masthead { border-bottom: 2px solid var(--border-hairline); padding: 0.875rem 0; }
+.mastheadInner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+/* ---------- hero / buy ---------- */
+.buyGrid { display: grid; gap: 2rem; align-items: start; }
+
+.gallery { display: grid; gap: 0.625rem; }
+.galleryMain {
+  width: 100%; aspect-ratio: 1; object-fit: cover;
+  border-radius: var(--radius-lg); background: var(--ivory); display: block;
+}
+.thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; }
+.thumb {
+  width: 100%; aspect-ratio: 1; min-height: 48px; object-fit: cover; display: block;
+  border-radius: var(--radius-sm); background: var(--ivory);
+  border: 2px solid transparent; padding: 0; cursor: pointer;
+}
+.thumbOn { border-color: var(--ink); }
+
+.buyCard { display: flex; flex-direction: column; gap: 1rem; }
+
+/* The dated line at the top of the buy box. Dashed rule rather than a filled bar: it
+   is information, not a klaxon, and the offer flag below it is already the loud thing.
+   min-height holds the row before the date arrives after mount. */
+.orderNote {
+  display: flex; align-items: center; gap: 0.625rem;
+  margin: 0; padding: 0.75rem 1rem; min-height: 52px;
+  border: 2px dashed var(--ivory-deep); border-radius: var(--radius-md);
+  background: var(--ivory); color: var(--ink);
+  font-size: var(--size-meta); font-weight: 600; line-height: 1.35;
+}
+.orderNote svg { flex: none; color: var(--reds); }
+.ratingRow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+/* The buy box rating is a link to the reviews. 3,182 with four on the page and no way
+   to reach the rest reads as a number somebody typed. */
+a.ratingRow { color: inherit; text-decoration: none; min-height: 48px; }
+a.ratingRow .ratingScore { text-decoration: underline; text-underline-offset: 3px; }
+
+.flavorLine {
+  margin: -0.5rem 0 0; color: var(--ink-60);
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-size: var(--size-meta); font-weight: 600;
+}
+
+/* Answers the allergen question without making anyone open the nutrition modal. */
+.freeFrom { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; }
+.freeFrom span {
+  padding: 0.375rem 0.75rem; border-radius: var(--radius-xs);
+  background: var(--ivory); color: var(--ink-80);
+  font-size: var(--size-meta); font-weight: 600; line-height: 1.2;
+}
+.stars { display: inline-flex; gap: 1px; }
+.ratingScore { font-weight: var(--weight-bold); font-size: var(--size-body); }
+
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
+.points li {
+  display: grid; grid-template-columns: auto 1fr; gap: 0.625rem; align-items: start;
+  font-size: var(--size-body); line-height: var(--leading-body);
+}
+.tick {
+  width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  background: var(--reds); color: var(--cream);
+  display: grid; place-items: center; margin-top: 0.2rem; flex: none;
+}
+
+.plans { display: grid; gap: 0.625rem; }
+.plan {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 0.875rem; align-items: center;
+  width: 100%; min-height: 48px; background: var(--surface-card);
+  border: 2px solid var(--ink-20); border-radius: var(--radius-md);
+  padding: 0.875rem 1rem; cursor: pointer; font: inherit; color: inherit; text-align: left;
+}
+.planOn { border-color: var(--reds); background: var(--reds-tint); }
+.radio {
+  width: 1.375rem; height: 1.375rem; border-radius: 50%;
+  border: 2px solid var(--border-input); display: grid; place-items: center; flex: none;
+}
+.planOn .radio { border-color: var(--reds); }
+.radio span { width: 0.6875rem; height: 0.6875rem; border-radius: 50%; background: var(--reds); }
+.planName { display: block; font-weight: var(--weight-bold); font-size: var(--size-body); }
+.planTag {
+  display: inline-block; margin-left: 0.4rem; background: var(--sun); color: var(--ink);
+  border-radius: var(--radius-xs); padding: 0.05rem 0.4rem;
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-weight: 600; font-size: var(--size-meta); vertical-align: 1px;
+}
+.planSub { display: block; color: var(--ink-60); font-size: var(--size-meta); line-height: 1.35; }
+.planPrice {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: var(--size-h4); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.planWas {
+  display: block; text-align: right; color: var(--ink-60);
+  font-family: var(--font-label); font-weight: 600; font-size: var(--size-meta);
+}
+
+.priceRow { display: flex; align-items: baseline; gap: 0.625rem; flex-wrap: wrap; }
+.priceNow {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: var(--size-h1-m); line-height: 1;
+}
+.priceWas { color: var(--ink-60); text-decoration: line-through; font-weight: var(--weight-bold); }
+.savePill {
+  background: var(--sun); color: var(--ink); border-radius: var(--radius-xs);
+  padding: 0.15rem 0.5rem; font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono); font-weight: 700; font-size: var(--size-meta);
+}
+
+/* A link, not a button: it opens a panel of reference information. 48px tap target. */
+.factsLink {
+  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 48px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font: inherit; font-weight: var(--weight-bold); font-size: var(--size-body);
+  color: var(--ink); text-decoration: underline; text-underline-offset: 3px;
+}
+
+.termsLine { color: var(--ink-60); font-size: var(--size-meta); line-height: 1.45; margin: 0; }
+
+/* Sits directly under the buy button: the standing term restated at the moment of the
+   decision, then the three things people check before pressing it. Same treatment as
+   SC-22 uses under its own CTA. */
+.autoApplied {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  margin: 0.875rem 0 0; text-align: center;
+  font-size: var(--size-body); font-weight: 800; color: var(--status-success);
+}
+.autoTick {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--status-success); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+}
+.ctaTerms { margin-top: 0.5rem; text-align: center; }
+
+/* ---------- trust strip ---------- */
+.trust { background: var(--ivory); padding: 1.125rem 0; }
+.trustInner { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.625rem 1.75rem; }
+.trustItem {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-weight: 600; font-size: var(--size-meta);
+}
+
+/* ---------- generic blocks ---------- */
+.sunk { background: var(--ivory); }
+.cols { display: grid; gap: 1.5rem; }
+.card {
+  background: var(--surface-card); border: 2px solid var(--ivory-deep);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+}
+.shot {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: var(--radius-md); background: var(--ivory); display: block;
+}
+
+/* ---------- the gap ---------- */
+.figure {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: 5rem; line-height: 1; color: var(--reds); letter-spacing: -0.04em;
+  margin: 0 0 0.5rem;
+}
+.statRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+.statCard {
+  background: var(--surface-card); border: 2px solid var(--ivory-deep);
+  border-radius: var(--radius-md); padding: 1rem;
+}
+.statN {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: var(--size-h3); color: var(--reds); line-height: 1;
+}
+.statLabel {
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-weight: 600; font-size: var(--size-meta); color: var(--ink-60);
+  margin-top: 0.35rem; line-height: 1.3; display: block;
+}
+
+/* ---------- comparison ---------- */
+
+/* ---------- accordion ---------- */
+.acc { border-bottom: 2px solid var(--border-hairline); }
+.acc summary {
+  min-height: 48px; display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 1rem 0; cursor: pointer; list-style: none;
+  font-weight: var(--weight-bold); font-size: var(--size-body);
+}
+.acc summary::-webkit-details-marker { display: none; }
+.accBody { padding-bottom: 1.25rem; }
+
+/* ---------- reviews ---------- */
+.reviewCard { border-bottom: 2px solid var(--border-hairline); padding: 1.5rem 0; }
+.reviewCard:last-child { border-bottom: 0; }
+.reviewHead { display: flex; align-items: center; gap: 0.625rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.reviewWho { font-weight: var(--weight-bold); font-size: var(--size-body); }
+.verified {
+  background: var(--reds-tint); color: var(--reds); border-radius: var(--radius-xs);
+  padding: 0.1rem 0.45rem; font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono); font-weight: 600; font-size: var(--size-meta);
+}
+
+.quoteCard {
+  background: var(--ink); color: var(--white); border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem; display: grid; gap: 1.25rem;
+}
+.quoteShot { width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; }
+
+/* ---------- footer ---------- */
+.footer { background: var(--ink); color: var(--white); padding: 2.5rem 0 1.5rem; margin-top: 2rem; }
+.footer p { font-size: var(--size-meta); line-height: 1.55; color: var(--ink-20); margin: 0 0 1rem; }
+.footerLinks {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center;
+  font-weight: var(--weight-bold); font-size: var(--size-meta); margin-bottom: 1rem;
+}
+.footerLinks a {
+  color: var(--white); display: inline-flex; align-items: center; min-height: 48px; padding: 0 0.25rem;
+}
+.footerMark {
+  font-family: var(--font-display); font-weight: var(--weight-max);
+  font-size: clamp(3rem, 15vw, 9rem); line-height: 0.85; letter-spacing: -0.04em;
+  text-transform: uppercase; text-align: center; color: var(--reds); margin-top: 1.5rem;
+}
+
+/* ---------- sticky buy bar ---------- */
+.sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  background: var(--white); border-top: 2px solid var(--ink-20);
+  box-shadow: var(--shadow-raised); padding: 0.625rem 0;
+  transform: translateY(110%); transition: transform 260ms var(--ease-out);
+}
+.stickyOn { transform: translateY(0); }
+.stickyInner { display: flex; align-items: center; gap: 0.75rem; }
+.stickyShot { width: 3rem; height: 3rem; object-fit: contain; flex: none; }
+.stickyText { flex: 1; min-width: 0; }
+.stickyTitle { display: block; font-weight: var(--weight-bold); font-size: var(--size-body); line-height: 1.2; }
+.stickyTerms {
+  display: block; color: var(--ink-60); font-family: var(--font-label);
+  letter-spacing: var(--tracking-mono); font-weight: 600; font-size: var(--size-meta); line-height: 1.3;
+}
+
+@media (prefers-reduced-motion: reduce) { .sticky { transition: none; } }
+
+@media (min-width: 768px) {
+  .wrap { padding: 0 2rem; }
+  .section { padding-block: 4.5rem; }
+  .h1 { font-size: var(--size-h1); }
+  .h2 { font-size: var(--size-h2); }
+  .figure { font-size: 7rem; }
+  .cols3 { grid-template-columns: repeat(3, 1fr); }
+  .cols2 { grid-template-columns: repeat(2, 1fr); }
+  .quoteCard { grid-template-columns: auto 1fr; align-items: center; }
+}
+@media (min-width: 1000px) {
+  .buyGrid { grid-template-columns: 1.1fr 1fr; gap: 3rem; }
+}
+
+/* ---------- hero social proof ---------- */
+.proofRow { display: flex; align-items: center; gap: 0.625rem; flex-wrap: wrap; }
+.avatars { display: inline-flex; }
+.avatar {
+  width: 2.25rem; height: 2.25rem; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--white); margin-left: -0.5rem; background: var(--ivory);
+}
+.avatar:first-child { margin-left: 0; }
+
+/* ---------- testimonial carousel ---------- */
+.carousel { background: var(--ivory); border-block: 2px solid var(--ivory-deep); }
+.carouselInner { padding-block: 2.25rem; text-align: center; }
+.carouselQuote {
+  font-size: var(--size-body-lg); line-height: var(--leading-body);
+  font-weight: var(--weight-medium); margin: 0 auto; max-width: 44rem;
+}
+.carouselWho { display: flex; align-items: center; justify-content: center; gap: 0.625rem; margin-top: 1rem; }
+.carouselShot { width: 2.75rem; height: 2.75rem; border-radius: 50%; object-fit: cover; }
+.carouselNav { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-top: 1.25rem; }
+.carouselBtn {
+  width: 48px; height: 48px; display: grid; place-items: center;
+  background: none; border: 0; cursor: pointer; color: var(--ink); border-radius: 50%;
+}
+.dots { display: flex; }
+.dot {
+  width: 28px; height: 48px; border: 0; padding: 0; background: none;
+  cursor: pointer; display: grid; place-items: center;
+}
+.dot::before {
+  content: "";
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ink-20);
+}
+.dotOn::before { background: var(--reds); }
+
+/* ---------- four quadrant education grid ---------- */
+.quadWrap { display: grid; gap: 1.5rem; align-items: center; }
+.quadCol { display: grid; gap: 1.75rem; }
+.quad { text-align: left; }
+.quadIcon {
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  background: var(--reds-tint); color: var(--reds);
+  display: grid; place-items: center; margin-bottom: 0.625rem;
+}
+.quadShot {
+  width: 100%; max-width: 22rem; margin: 0 auto; display: block;
+  border-radius: var(--radius-lg); background: var(--ivory);
+}
+
+/* ---------- second stat ---------- */
+.statSplit { display: grid; gap: 1.5rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--ivory-deep); }
+
+/* ---------- testing grid ---------- */
+.testGrid { display: grid; gap: 1rem; }
+
+@media (min-width: 768px) {
+  .quadWrap { grid-template-columns: 1fr auto 1fr; gap: 2.5rem; }
+  .quad { text-align: right; }
+  .quadColRight .quad { text-align: left; }
+  .quad .quadIcon { margin-left: auto; }
+  .quadColRight .quad .quadIcon { margin-left: 0; }
+  .statSplit { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .testGrid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ---------- hero ---------- */
+.heroGrid { display: grid; gap: 2rem; align-items: center; }
+.heroCopy { display: flex; flex-direction: column; gap: 1rem; }
+.heroShot {
+  width: 100%; aspect-ratio: 1; object-fit: cover;
+  border-radius: var(--radius-lg); background: var(--ivory); display: block;
+}
+
+@media (min-width: 900px) {
+  .heroGrid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+}
+
+/* ---------- SC-25 additions. The fork inherited SC-24's classes; these are the
+   sections this page has and that one does not. ---------- */
+
+.promo { background: var(--ink); color: var(--white); padding: 0.625rem 0; }
+.promoInner {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.375rem 0.75rem;
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-size: var(--size-meta); font-weight: 600; text-align: center;
+}
+
+/* The three jobs. Alternating, so the eye has somewhere to go down a long section. */
+.pillar {
+  display: grid; gap: 1.75rem; align-items: center;
+  padding-block: 2rem; border-top: 1px solid var(--ink-10);
+}
+.pillarShot { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-lg); display: block; }
+.doseLine {
+  margin: 0 0 0.875rem; color: var(--reds);
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-size: var(--size-meta); font-weight: 600;
+}
+.label {
+  margin: 1.25rem 0 0.625rem; color: var(--ink-60);
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-size: var(--size-meta); font-weight: 600;
+}
+
+.source { color: var(--ink-60); font-size: var(--size-meta); line-height: 1.45; margin: 0.75rem 0 0; }
+.quoteText { margin: 0.625rem 0; font-size: var(--size-body-lg); font-weight: 500; line-height: var(--leading-body); }
+
+.faq { display: grid; gap: 0; }
+.faqItem { border-top: 1px solid var(--ink-10); }
+.faqItem:last-child { border-bottom: 1px solid var(--ink-10); }
+.faqQ {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.125rem 0; min-height: 56px; cursor: pointer; list-style: none;
+  font-size: var(--size-body); font-weight: var(--weight-bold);
+}
+.faqQ::-webkit-details-marker { display: none; }
+.faqItem[open] .faqQ svg { transform: rotate(180deg); }
+.faqItem > p { margin: 0 0 1.25rem; }
+
+.review { padding-block: 1.5rem; border-top: 1px solid var(--ink-10); }
+.reviewTop { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-bottom: 0.5rem; }
+
+.stepShot {
+  width: 100%; aspect-ratio: 1; object-fit: cover;
+  border-radius: var(--radius-lg); display: block; margin-bottom: 1rem;
+}
+
+/* The struck total sits under the price so a three digit figure never has to share a
+   line with it on a phone. */
+.planPriceCol { display: grid; justify-items: end; text-align: right; }
+
+.closing { background: var(--ivory); }
+.closing .lede { margin-bottom: 1.5rem; }
+
+.footer .legal, .legal {
+  color: var(--ink-60); font-size: var(--size-meta); line-height: 1.5;
+  margin: 0 auto 1.5rem; max-width: 46rem; text-align: center;
+}
+.footNav {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.footNav a { min-height: 48px; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
+
+@media (min-width: 768px) {
+  .cols4 { grid-template-columns: repeat(4, 1fr); }
+  .pillar { grid-template-columns: 0.85fr 1fr; gap: 2.5rem; padding-block: 2.75rem; }
+  .pillarFlip > :first-child { order: 2; }
+}
