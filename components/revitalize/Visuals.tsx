@@ -2,7 +2,8 @@
 
 import { Icon } from "@/components/core/Icon";
 import { AGING_MAP, DOSE_BARS, GRADE_LABEL, type Grade } from "@/lib/products/revitalize";
-import { CURVE, STUDIES } from "@/lib/content/revitalize";
+import { CURVE, STUDIES, TIMELINE } from "@/lib/content/revitalize";
+import Image from "next/image";
 import styles from "./visuals.module.css";
 
 /* Shared between the PDP and the advertorial, because both pages are arguing the same
@@ -64,46 +65,93 @@ function GradeChip({ grade }: { grade: Grade }) {
 }
 
 /**
- * The effect map. Fourteen rows, grouped, each showing what it is, what meets it, and
- * how good the evidence actually is. The grade is the point: fourteen rows all
- * asserted equally is a wall nobody believes.
+ * The problem, shown. One photograph per effect, a label and a single line. No doses,
+ * no grades, no mechanism: this section's whole job is recognition. The fix is the
+ * next section and it carries all of that.
  */
-export function AgingMap() {
+export function EffectGrid() {
   return (
-    <div className={styles.map}>
+    <div className={styles.effects}>
+      {AGING_MAP.flatMap((g) => g.rows).map((r) => (
+        <figure key={r.key} className={styles.effect}>
+          <Image src={r.photo} alt={r.alt} width={800} height={800} className={styles.effectShot} />
+          <figcaption>
+            <span className={styles.effectTitle}>{r.short}</span>
+            <span className={styles.effectBody}>{r.short_body}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * The fix, compact. One line per row: what it meets, what meets it, how good the
+ * evidence is. The caveats are collected once underneath rather than repeated inside
+ * fifteen cards, which is what made the old version unreadable.
+ */
+export function FixList() {
+  const caveats = AGING_MAP.flatMap((g) => g.rows).filter((r) => r.caveat);
+  return (
+    <div className={styles.fix}>
       {AGING_MAP.map((g) => (
-        <section key={g.group} className={styles.group}>
+        <section key={g.group} className={styles.fixGroup}>
           <h3 className={styles.groupTitle}>{g.group}</h3>
-          <p className={styles.groupBlurb}>{g.blurb}</p>
-          <div className={styles.rows}>
+          <ul className={styles.fixRows}>
             {g.rows.map((r) => (
-              <article key={r.effect} className={styles.row}>
-                <div className={styles.rowTop}>
-                  <h4 className={styles.rowTitle}>{r.effect}</h4>
-                  <GradeChip grade={r.grade} />
-                </div>
-                <p className={styles.actives}>
+              <li key={r.key} className={styles.fixRow}>
+                <span className={styles.fixEffect}>{r.short}</span>
+                <span className={styles.fixActives}>
                   {r.actives.map((a) => <span key={a} className={styles.active}>{a}</span>)}
-                </p>
-                <p className={styles.rowBody}>{r.body}</p>
-                {r.caveat && (
-                  <p className={styles.caveat}>
-                    <Icon name="flag" size={16} strokeWidth={2.4} />
-                    {r.caveat}
-                  </p>
-                )}
-              </article>
+                </span>
+                <GradeChip grade={r.grade} />
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       ))}
+
+      <details className={styles.caveats}>
+        <summary className={styles.caveatsHead}>
+          Where we are being careful ({caveats.length})
+          <Icon name="chevron-down" size={20} strokeWidth={2.5} />
+        </summary>
+        <ul className={styles.caveatList}>
+          {caveats.map((r) => (
+            <li key={r.key}>
+              <strong>{r.short}.</strong> {r.caveat}
+            </li>
+          ))}
+        </ul>
+      </details>
+
       <p className={styles.gradeKey}>
         Three pips is a required biochemical role or a controlled trial at a comparable
-        dose. Two is an established role with a reasonable link to the effect. One is a
-        plausible mechanism and thin human evidence. We would rather print the difference
-        than average it away.
+        dose. Two is an established role with a reasonable link. One is a plausible
+        mechanism and thin human evidence. We would rather print the difference than
+        average it away.
       </p>
     </div>
+  );
+}
+
+/** Future pacing, staged by the biology rather than by when we want you to re-order. */
+export function Timeline() {
+  return (
+    <ol className={styles.tl}>
+      {TIMELINE.stages.map((st) => (
+        <li key={st.when} className={styles.tlStage}>
+          <span className={styles.tlWhen}>{st.when}</span>
+          <div className={styles.tlCard}>
+            <h3 className={styles.tlTitle}>{st.title}</h3>
+            <p className={styles.tlBody}>{st.body}</p>
+            <p className={styles.fixActives}>
+              {st.actives.map((a) => <span key={a} className={styles.active}>{a}</span>)}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
   );
 }
 

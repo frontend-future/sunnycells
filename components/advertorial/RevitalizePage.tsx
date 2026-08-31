@@ -15,8 +15,8 @@ import {
   NOT_JUST_AGE, OPENERS, REFERENCES, REVIEWS, SIGNS, THREE, TRUST,
 } from "@/lib/content/revitalize";
 import { AGING_ROW_COUNT, CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
-import { AgingMap, CortisolCurve, DoseBars, StudyCards } from "@/components/revitalize/Visuals";
-import { BEFORE_AFTER } from "@/lib/content/revitalize";
+import { CortisolCurve, DoseBars, EffectGrid, FixList, StudyCards, Timeline } from "@/components/revitalize/Visuals";
+import { BEFORE_AFTER, TIMELINE as TL } from "@/lib/content/revitalize";
 import styles from "./revitalize.module.css";
 
 const CHECKOUT = "/products/revitalize/checkout";
@@ -140,12 +140,29 @@ export function RevitalizeAdvertorial() {
 
         {/* ---------- every visible effect, and what meets it ---------- */}
         <section className={`${styles.wrap} ${styles.wide} ${styles.section}`}>
-          <h2 className={styles.h2Centre}>{AGING_ROW_COUNT} ways it shows, and what each one needs</h2>
+          <h2 className={styles.h2Centre}>{AGING_ROW_COUNT} ways it shows up on you</h2>
           <p className={styles.lead} style={{ textAlign: "center", maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
-            Grouped by where you notice it, with the strength of the evidence printed
-            next to each one rather than averaged into a single claim.
+            None of them announces itself. All of them are the same hormone.
           </p>
-          <AgingMap />
+          <EffectGrid />
+        </section>
+
+        {/* ---------- what meets each one ---------- */}
+        <section className={`${styles.wrap} ${styles.wide} ${styles.section}`}>
+          <h2 className={styles.h2Centre}>What in the pack meets each one</h2>
+          <FixList />
+        </section>
+
+        {/* ---------- future pacing ---------- */}
+        <section className={styles.sunkSection}>
+          <div className={`${styles.wrap} ${styles.wide} ${styles.section}`}>
+            <p className={styles.eyebrow} style={{ textAlign: "center" }}>{TL.eyebrow}</p>
+            <h2 className={styles.h2Centre}>{TL.title}</h2>
+            <Timeline />
+            <p className={styles.smallPrint} style={{ maxWidth: "42rem", margin: "1.75rem auto 0", textAlign: "center" }}>
+              {TL.foot}
+            </p>
+          </div>
         </section>
 
         {/* ---------- the evidence ---------- */}

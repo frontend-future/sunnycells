@@ -125,6 +125,57 @@ export const CURVE = {
   legend: [{ key: "normal", label: "A normal profile" }, { key: "strained", label: "Under chronic job strain" }],
 } as const;
 
+
+/**
+ * Future pacing. What consistent use looks like, staged.
+ *
+ * The rule for every line: it describes what the nutrient does over that period, or
+ * what the reader will notice about their own behaviour. Not a result we promise. The
+ * first two stages are the honest ones, because 10 g of protein and 60 mg of magnesium
+ * are things you can feel inside a fortnight. Everything past month three is written
+ * as what the biology allows rather than as a before and after, because collagen
+ * turnover and hair cycles genuinely run on that clock and we cannot show you a photo.
+ */
+export const TIMELINE = {
+  eyebrow: "What consistent use looks like",
+  title: "Nothing here happens in a week. Here is the actual clock.",
+  lede: "Staged by the biology rather than by when we would like you to re-order.",
+  stages: [
+    {
+      when: "Week 1",
+      title: "The afternoon changes first",
+      body: "10 g of protein in front of the 3pm drop is the fastest thing in the pack to notice. Magnesium glycinate is the other one people mention early, usually about getting to sleep.",
+      actives: ["Protein 10 g", "Magnesium glycinate 60 mg"],
+    },
+    {
+      when: "Week 4",
+      title: "You stop raiding the cupboard",
+      body: "One pouch in. The habit is the thing that has changed, not your metabolism. Fewer trips to the snack drawer is the whole mechanism and it is a real one.",
+      actives: ["Protein 10 g", "Glucomannan 500 mg"],
+    },
+    {
+      when: "Month 3",
+      title: "Skin turns over on this clock, not a shorter one",
+      body: "The outer layer replaces itself roughly monthly and the collagen underneath far slower. Three months is the earliest point any nutritional change to skin is worth looking for, which is why the shorter promises in this category are the ones to distrust.",
+      actives: ["Vitamin C 90 mg", "Gelatin 10 g"],
+    },
+    {
+      when: "Month 6",
+      title: "Hair grown in this window is hair grown on the new intake",
+      body: "Scalp hair grows about a centimetre a month and the growth phase runs years, so six months is the first honest look. Macular pigment also builds over months rather than weeks.",
+      actives: ["Protein 10 g", "B1, B3, B5", "Lutein and zeaxanthin 5 mg"],
+    },
+    {
+      when: "Month 12",
+      title: "The part that only shows up in a year",
+      body: "A year of not running short on the cofactors your energy metabolism needs, and of putting vitamin C back into a system that spends it making cortisol. This is the part nobody can photograph, and the part the research is actually about.",
+      actives: ["The whole panel"],
+    },
+  ],
+  foot:
+    "Individual results vary and none of this is guaranteed. What is fixed is the dose: the same panel, every sachet, every day you take one.",
+} as const;
+
 /**
  * PLACEHOLDER, and it stays a placeholder. Before-and-after imagery is a performance
  * claim, and generating one would be fabricating evidence for a product that has never

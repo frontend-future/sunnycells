@@ -26,26 +26,32 @@
 .swatchStrained { background: var(--reds); }
 .caption { margin: 0.75rem 0 0; color: var(--ink-60); font-size: var(--size-meta); line-height: 1.5; }
 
-/* ---------- the effect map ---------- */
-.map { display: grid; gap: 2.5rem; }
-.group { display: grid; gap: 0.75rem; }
+/* ---------- the problem, as photographs ---------- */
+.effects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+.effect { margin: 0; display: grid; gap: 0.625rem; align-content: start; min-width: 0; }
+.effectShot {
+  width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
+  border-radius: var(--radius-md); background: var(--ivory);
+}
+.effect figcaption { display: grid; gap: 0.25rem; }
+.effectTitle { font-size: var(--size-body); font-weight: var(--weight-bold); line-height: 1.25; }
+.effectBody { color: var(--ink-60); font-size: var(--size-meta); line-height: 1.4; }
+
+/* ---------- the fix, one line each ---------- */
+.fix { display: grid; gap: 2rem; }
+.fixGroup { display: grid; gap: 0.75rem; }
 .groupTitle {
   margin: 0; font-family: var(--font-display); font-weight: var(--weight-display);
   font-size: var(--size-h3); letter-spacing: var(--tracking-heading);
 }
-.groupBlurb { margin: 0 0 0.5rem; color: var(--ink-80); font-size: var(--size-body); line-height: var(--leading-body); }
-.rows { display: grid; gap: 1rem; }
-
-.row {
-  border: 2px solid var(--ink-10); border-radius: var(--radius-lg);
-  padding: 1.25rem; background: var(--white); display: grid; gap: 0.75rem;
-  align-content: start;
+.fixRows { list-style: none; margin: 0; padding: 0; display: grid; }
+.fixRow {
+  display: grid; gap: 0.5rem; align-items: center;
+  padding: 0.875rem 0; border-top: 1px solid var(--ink-10);
 }
-.rowTop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
-.rowTitle { margin: 0; font-size: var(--size-body-lg); font-weight: var(--weight-bold); line-height: 1.25; }
-.rowBody { margin: 0; font-size: var(--size-body); line-height: var(--leading-body); }
-
-.actives { display: flex; flex-wrap: wrap; gap: 0.375rem; margin: 0; }
+.fixRows li:last-child { border-bottom: 1px solid var(--ink-10); }
+.fixEffect { font-size: var(--size-body); font-weight: var(--weight-bold); }
+.fixActives { display: flex; flex-wrap: wrap; gap: 0.375rem; margin: 0; }
 .active {
   padding: 0.3125rem 0.625rem; border-radius: var(--radius-xs);
   background: var(--reds-tint); color: var(--ink);
@@ -53,7 +59,6 @@
   font-size: var(--size-meta); font-weight: 600; line-height: 1.2;
 }
 
-/* The grade is the honest bit, so it reads as information rather than a badge. */
 .grade {
   display: inline-flex; align-items: center; gap: 0.5rem; flex: none;
   color: var(--ink-60); font-size: var(--size-meta); font-weight: 600; white-space: nowrap;
@@ -64,17 +69,33 @@
 .supportive .pipOn { background: var(--ink-80); }
 .early .pipOn { background: var(--ink-40); }
 
-.caveat {
-  display: grid; grid-template-columns: 20px 1fr; gap: 0.5rem; align-items: start;
-  margin: 0; padding-top: 0.75rem; border-top: 1px solid var(--ink-10);
-  color: var(--ink-60); font-size: var(--size-meta); line-height: 1.5;
+/* The honest notes, collected once instead of repeated inside fifteen cards. */
+.caveats { border: 2px solid var(--ink-10); border-radius: var(--radius-lg); background: var(--ivory); }
+.caveatsHead {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1rem 1.25rem; min-height: 56px; cursor: pointer; list-style: none;
+  font-size: var(--size-body); font-weight: var(--weight-bold);
 }
-.caveat svg { margin-top: 3px; }
+.caveatsHead::-webkit-details-marker { display: none; }
+.caveats[open] .caveatsHead svg { transform: rotate(180deg); }
+.caveatList { margin: 0; padding: 0 1.25rem 1.25rem 2.5rem; display: grid; gap: 0.875rem; }
+.caveatList li { color: var(--ink-80); font-size: var(--size-meta); line-height: 1.5; }
 
-.gradeKey {
-  margin: 0; color: var(--ink-60); font-size: var(--size-meta); line-height: 1.55;
-  max-width: 44rem;
+.gradeKey { margin: 0; color: var(--ink-60); font-size: var(--size-meta); line-height: 1.55; max-width: 44rem; }
+
+/* ---------- future pacing ---------- */
+.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.tlStage { display: grid; gap: 0.5rem; }
+.tlWhen {
+  color: var(--reds); font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-size: var(--size-meta); font-weight: 600;
 }
+.tlCard {
+  border: 2px solid var(--ink-10); border-radius: var(--radius-lg);
+  padding: 1.25rem; background: var(--white); display: grid; gap: 0.625rem;
+}
+.tlTitle { margin: 0; font-size: var(--size-body-lg); font-weight: var(--weight-bold); line-height: 1.25; }
+.tlBody { margin: 0; font-size: var(--size-body); line-height: var(--leading-body); }
 
 /* ---------- dose bars ---------- */
 .bars { display: grid; gap: 0.875rem; }
@@ -115,9 +136,22 @@
 }
 
 @media (min-width: 768px) {
-  .rows { grid-template-columns: repeat(2, 1fr); }
+  .effects { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .fixRow { grid-template-columns: 16rem 1fr auto; gap: 1.25rem; }
   .studies { grid-template-columns: repeat(2, 1fr); }
+  .tl { gap: 1.25rem; }
+  .tlStage { grid-template-columns: 7rem 1fr; gap: 1.5rem; align-items: start; }
+  .tlWhen { padding-top: 1.25rem; }
   .bar { grid-template-columns: 12rem 1fr 11rem; gap: 1rem; }
   .baGrid { grid-template-columns: repeat(2, 1fr); }
   .gradeKey { grid-column: 1 / -1; }
+}
+
+/* After the 768 block on purpose: both match at 1280 and the later rule wins. */
+@media (min-width: 1080px) {
+  .effects { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 1240px) {
+  .effects { grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+  .effectTitle { font-size: var(--size-meta); }
 }

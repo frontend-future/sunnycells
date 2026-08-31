@@ -188,8 +188,13 @@ export const COST = {
 export type Grade = "strong" | "supportive" | "early";
 
 export type AgingRow = {
+  key: string;
+  short: string;
+  photo: string;
+  alt: string;
   effect: string;
   actives: string[];
+  short_body: string;
   body: string;
   grade: Grade;
   caveat?: string;
@@ -206,17 +211,22 @@ export const AGING_MAP: { group: string; blurb: string; rows: AgingRow[] }[] = [
     group: "Your face",
     blurb: "Cortisol is catabolic. It breaks tissue down faster than you rebuild it, and skin is where that shows first.",
     rows: [
-      { effect: "Lines around the eyes and forehead", actives: ["Vitamin C 90 mg"], grade: "strong",
+      { key: "eyes", short: "Under-eye shadows", photo: "/photos/revitalize/effects/eyes.webp", short_body: "Poor sleep shows here before anywhere else.",
+        alt: "Close crop of tired eyes with faint shadows beneath them",
+        effect: "Under-eye bags and dark circles", actives: ["Magnesium glycinate 60 mg", "B5 5 mg"], grade: "supportive",
+        body: "Neither of these does anything to the skin under your eyes directly. Magnesium glycinate supports sleep quality and pantothenic acid supports a normal stress response, which is the thing keeping you up.",
+        caveat: "This addresses the sleep behind the shadows rather than the shadows. Nothing taken orally moves fluid out from under your eyes." },
+      { key: "lines", short: "Lines and crow's feet", photo: "/photos/revitalize/effects/lines.webp", short_body: "Cortisol breaks collagen down faster than you rebuild it.", alt: "Close crop of the corner of an eye and temple, fine lines visible", effect: "Lines around the eyes and forehead", actives: ["Vitamin C 90 mg"], grade: "strong",
         body: "Collagen cannot be made without vitamin C. The enzymes that assemble it use ascorbate as a required cofactor, and there is no substitute for it in the reaction. In 4,025 women, higher vitamin C intake tracked with a lower likelihood of a wrinkled appearance." },
-      { effect: "Crepey, thinning skin", actives: ["Gelatin 10 g", "Vitamin C 90 mg"], grade: "strong",
+      { key: "crepey", short: "Crepey skin", photo: "/photos/revitalize/effects/crepey.webp", short_body: "Less collagen means thinner, looser skin.", alt: "Close crop of a cheek and jaw under flat office light", effect: "Crepey, thinning skin", actives: ["Gelatin 10 g", "Vitamin C 90 mg"], grade: "strong",
         body: "Gelatin supplies glycine, proline and hydroxyproline, which are the amino acids collagen is built from. Vitamin C is the cofactor that lets your body assemble them. The pack carries both, which is the point of putting them together.",
         caveat: "Gelatin is an incomplete protein and is not the same thing as hydrolysed collagen peptides." },
-      { effect: "Dull, sallow tone", actives: ["Vitamin C 90 mg", "B1 1.2 mg", "B3 16 mg"], grade: "supportive",
+      { key: "dull", short: "Dull tone", photo: "/photos/revitalize/effects/dull.webp", short_body: "Tired cells, tired-looking skin.", alt: "Skin looking tired and matte under office fluorescent light", effect: "Dull, sallow tone", actives: ["Vitamin C 90 mg", "B1 1.2 mg", "B3 16 mg"], grade: "supportive",
         body: "Niacin supports normal skin function and thiamine and vitamin C sit in the reactions that keep cells energised. Both are recognised roles rather than a colour claim." },
-      { effect: "Breakouts under stress", actives: ["Niacinamide 16 mg"], grade: "early",
+      { key: "breakout", short: "Stress breakouts", photo: "/photos/revitalize/effects/breakout.webp", short_body: "Stress hormones push oil production up.", alt: "Close crop of a jawline with a few small blemishes", effect: "Breakouts under stress", actives: ["Niacinamide 16 mg"], grade: "early",
         body: "Niacinamide is well studied for barrier function and oil regulation, and it supports the maintenance of normal skin.",
         caveat: "That research is overwhelmingly topical niacinamide. This is 16 mg taken orally, which is a nutritional dose, not a dermatological one." },
-      { effect: "Puffiness and facial bloating", actives: ["Magnesium glycinate 60 mg"], grade: "early",
+      { key: "puffy", short: "Puffiness", photo: "/photos/revitalize/effects/puffy.webp", short_body: "Cortisol holds onto water.", alt: "A face on waking, slightly puffy around the eyes", effect: "Puffiness and facial bloating", actives: ["Magnesium glycinate 60 mg"], grade: "early",
         body: "Magnesium is involved in electrolyte balance and in the stress response that drives fluid retention. The mechanism is plausible; the human evidence on facial puffiness specifically is thin, and we would rather say so." },
     ],
   },
@@ -224,11 +234,11 @@ export const AGING_MAP: { group: string; blurb: string; rows: AgingRow[] }[] = [
     group: "Hair and nails",
     blurb: "Follicles and nail beds are among the most metabolically demanding tissue you have, so they are the first thing the body deprioritises.",
     rows: [
-      { effect: "Shedding and thinning", actives: ["Protein 10 g", "B1, B3, B5", "Magnesium 60 mg"], grade: "supportive",
+      { key: "shedding", short: "Hair in the brush", photo: "/photos/revitalize/effects/shedding.webp", short_body: "Follicles are the first thing your body deprioritises.", alt: "A hairbrush on a bathroom counter with loose strands caught in it", effect: "Shedding and thinning", actives: ["Protein 10 g", "B1, B3, B5", "Magnesium 60 mg"], grade: "supportive",
         body: "Hair growth runs on a steady supply of amino acids and the B vitamin cofactors that turn them into usable energy. Under-eating protein is one of the commonest nutritional reasons hair sheds." },
-      { effect: "Brittle nails", actives: ["Protein 10 g", "B1, B3, B5"], grade: "supportive",
+      { key: "nails", short: "Brittle nails", photo: "/photos/revitalize/effects/nails.webp", short_body: "Nails are protein. Short on it and they split.", alt: "A hand resting on a desk, short unpolished nails", effect: "Brittle nails", actives: ["Protein 10 g", "B1, B3, B5"], grade: "supportive",
         body: "Nail keratin is a protein, built from the same amino acid pool and the same B vitamin cofactors as everything else." },
-      { effect: "Going gray earlier", actives: ["Pantothenic acid 5 mg"], grade: "early",
+      { key: "graying", short: "Gray coming early", photo: "/photos/revitalize/effects/graying.webp", short_body: "Pigment cells wear out under oxidative load.", alt: "The side of a head with a few grey hairs at the temple", effect: "Going gray earlier", actives: ["Pantothenic acid 5 mg"], grade: "early",
         body: "Pantothenic acid has a long history in the pigment literature and supports normal mental performance and energy metabolism at this dose.",
         caveat: "The graying research is mid-century animal work. Nothing in this pack reverses gray hair, genetics sets when it starts, and we are not going to imply otherwise." },
     ],
@@ -237,16 +247,16 @@ export const AGING_MAP: { group: string; blurb: string; rows: AgingRow[] }[] = [
     group: "Your body",
     blurb: "The part nobody photographs. Stress moves where fat sits and what you reach for at three in the afternoon.",
     rows: [
-      { effect: "The snacking that puts weight on", actives: ["Protein 10 g", "Glucomannan 500 mg"], grade: "strong",
+      { key: "snacking", short: "The 3pm snack", photo: "/photos/revitalize/effects/snacking.webp", short_body: "Cortisol drops at three and asks for sugar.", alt: "An open packet of biscuits and crumbs beside a keyboard", effect: "The snacking that puts weight on", actives: ["Protein 10 g", "Glucomannan 500 mg"], grade: "strong",
         body: "Protein is the most satiating of the three macronutrients and 10 g is a real amount rather than a gesture. Glucomannan is a soluble fiber that takes on water and slows the stomach.",
         caveat: "The EFSA weight loss claim for glucomannan is 3 g a day in three doses. A sachet carries 0.5 g. The protein is doing the work here." },
-      { effect: "Weight settling around the middle", actives: ["Magnesium 60 mg", "B5 5 mg", "Glucomannan 500 mg"], grade: "early",
+      { key: "middle", short: "Weight round the middle", photo: "/photos/revitalize/effects/middle.webp", short_body: "Stress decides where the weight sits.", alt: "Fastening a work trouser waistband in the morning", effect: "Weight settling around the middle", actives: ["Magnesium 60 mg", "B5 5 mg", "Glucomannan 500 mg"], grade: "early",
         body: "Magnesium and pantothenic acid support a normal stress response, and eating less between meals is the part of this you can actually act on.",
         caveat: "No supplement targets visceral fat. Where cortisol puts fat is not something a gummy changes." },
-      { effect: "Losing tone", actives: ["Protein 10 g"], grade: "supportive",
+      { key: "tone", short: "Losing tone", photo: "/photos/revitalize/effects/tone.webp", short_body: "Not enough protein, and muscle goes first.", alt: "A person slumped in a desk chair, seen from the side", effect: "Losing tone", actives: ["Protein 10 g"], grade: "supportive",
         body: "Protein contributes to the maintenance of muscle mass, which is an authorised claim at this level of intake.",
         caveat: "Gelatin is low in tryptophan, so this supports your total intake rather than replacing a complete protein." },
-      { effect: "Held tension in the neck and jaw", actives: ["Magnesium glycinate 60 mg"], grade: "supportive",
+      { key: "tension", short: "Neck and jaw tension", photo: "/photos/revitalize/effects/tension.webp", short_body: "Adrenaline you never spend ends up in your shoulders.", alt: "Reaching back to rub the base of the neck at a desk", effect: "Held tension in the neck and jaw", actives: ["Magnesium glycinate 60 mg"], grade: "supportive",
         body: "Magnesium contributes to normal muscle function and to the reduction of tiredness. The glycinate form was chosen because it absorbs well and is gentle on the stomach." },
     ],
   },
@@ -254,12 +264,12 @@ export const AGING_MAP: { group: string; blurb: string; rows: AgingRow[] }[] = [
     group: "Energy and eyes",
     blurb: "The two things a desk actually asks of you all day, and the two the day takes back.",
     rows: [
-      { effect: "Strained eyes from a screen", actives: ["Lutein and zeaxanthin 5 mg"], grade: "strong",
+      { key: "screen", short: "Screen-strained eyes", photo: "/photos/revitalize/effects/screen.webp", short_body: "Eight hours of screen, no recovery.", alt: "Taking off glasses and pressing the bridge of the nose at a monitor", effect: "Strained eyes from a screen", actives: ["Lutein and zeaxanthin 5 mg"], grade: "strong",
         body: "These two carotenoids are what the macula is made of. In a controlled trial in heavy screen users, supplementation raised macular pigment and reduced headache, eye strain and fatigue.",
         caveat: "That trial used 12 mg a day for six months. This is 5 mg." },
-      { effect: "Flat by mid-afternoon", actives: ["B1, B3, B5 at 100% DV", "Vitamin D3 25 mcg"], grade: "strong",
+      { key: "flat", short: "Flat by mid-afternoon", photo: "/photos/revitalize/effects/flat.webp", short_body: "The reaction that makes your energy runs short.", alt: "Staring past the monitor at an office desk, chin on hand", effect: "Flat by mid-afternoon", actives: ["B1, B3, B5 at 100% DV", "Vitamin D3 25 mcg"], grade: "strong",
         body: "Thiamine, niacin and pantothenic acid all carry authorised claims for normal energy-yielding metabolism, and niacin and pantothenic acid for the reduction of tiredness and fatigue. These are the cofactors the reaction runs on rather than a stimulant pushing on it." },
-      { effect: "Not seeing daylight", actives: ["Vitamin D3 25 mcg"], grade: "supportive",
+      { key: "daylight", short: "No daylight", photo: "/photos/revitalize/effects/daylight.webp", short_body: "Indoors all day, no vitamin D.", alt: "An open plan office under grey overcast light and ceiling fluorescents", effect: "Not seeing daylight", actives: ["Vitamin D3 25 mcg"], grade: "supportive",
         body: "Indoor workers run lower on vitamin D than people who work outside, for the obvious reason. 1000 IU is 125% of the daily value." },
     ],
   },

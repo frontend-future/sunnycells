@@ -15,8 +15,9 @@ import {
   orderLine, PILLARS, PLANS, PRODUCT, QUOTE, RATING, REVIEWS, STATS, SUPPORT_EMAIL,
   TESTING, TRUST, type Plan,
 } from "@/lib/products/revitalize";
+import { TIMELINE as TL } from "@/lib/content/revitalize";
 import { NutritionLabel } from "./NutritionLabel";
-import { AgingMap, CortisolCurve, DoseBars, StudyCards } from "./Visuals";
+import { CortisolCurve, DoseBars, EffectGrid, FixList, StudyCards, Timeline } from "./Visuals";
 import styles from "./revitalize.module.css";
 
 const CHECKOUT = "/products/revitalize/checkout";
@@ -170,7 +171,31 @@ export function RevitalizePage() {
           <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "42rem", margin: "0 auto 2.5rem" }}>
             {COST.lede}
           </p>
-          <AgingMap />
+          <EffectGrid />
+        </section>
+
+        {/* ---------- the fix, compact ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`}>
+          <h2 className={`${styles.h2} ${styles.centre}`}>What in the pack meets each one</h2>
+          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "42rem", margin: "0 auto 2.5rem" }}>
+            The dose against the effect, and how good the evidence is, on one line each.
+          </p>
+          <FixList />
+        </section>
+
+        {/* ---------- future pacing ---------- */}
+        <section className={styles.sunk}>
+          <div className={`${styles.wrap} ${styles.section}`}>
+            <p className={styles.label} style={{ textAlign: "center" }}>{TL.eyebrow}</p>
+            <h2 className={`${styles.h2} ${styles.centre}`}>{TL.title}</h2>
+            <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
+              {TL.lede}
+            </p>
+            <Timeline />
+            <p className={styles.source} style={{ maxWidth: "42rem", margin: "1.75rem auto 0", textAlign: "center" }}>
+              {TL.foot}
+            </p>
+          </div>
         </section>
 
         {/* ---------- the evidence ---------- */}
