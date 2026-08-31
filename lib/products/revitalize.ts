@@ -116,6 +116,15 @@ export const GALLERY = [
   { src: "/product/revitalize/carousel/06-faq.webp", alt: "Frequently asked questions: what Revitalize is, how it works, whether there is caffeine in it, and how long until you notice" },
   { src: "/product/revitalize/carousel/07-honesty.webp", alt: "We print the weak claims too: every claim on the product page carries an evidence grade and six carry a caveat we wrote ourselves" },
   { src: "/product/revitalize/carousel/08-guarantee.webp", alt: "30 day money back. Try Revitalize for 30 days, and if the afternoon does not change we refund the whole order" },
+] as const;
+
+/* The eight argument slides on their own. The listicle's offer carousel runs these and
+   nothing else: twelve dots wrapped onto two rows, and the four photographs are not
+   part of the argument anyway. */
+export const CAROUSEL = GALLERY;
+
+export const GALLERY_FULL = [
+  ...GALLERY,
   { src: "/product/revitalize/kitchen.webp", alt: "A pouch of Revitalize Gummies on a marble kitchen counter beside a pour-over coffee brewer and a bowl of limes" },
   { src: "/product/revitalize/hand.webp", alt: "A hand holding a cherry lime gummy above an open sachet" },
   { src: "/product/revitalize/slump.webp", alt: "The pouch and an open sachet of gummies on a sunlit desk beside a monitor and a mug" },

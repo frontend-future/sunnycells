@@ -11,7 +11,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  CART_ID, COST, DISCLAIMER, FACTS, FAQ, FINISH, GALLERY, HERO, INCLUDED, INSIDE,
+  CART_ID, COST, DISCLAIMER, FACTS, FAQ, FINISH, GALLERY_FULL as GALLERY, HERO, INCLUDED, INSIDE,
   orderLine, PILLARS, PLANS, PRODUCT, QUOTE, RATING, REVIEWS, STATS, SUPPORT_EMAIL,
   TESTING, TRUST, type Plan,
 } from "@/lib/products/revitalize";

@@ -12,7 +12,7 @@ import { trackMetaEvent } from "@/lib/meta";
 import {
   DISCLAIMER, HERO, OFFER, REASONS, REVIEWS, REVIEWS_TITLE,
 } from "@/lib/content/revitalize-ten";
-import { CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
+import { CAROUSEL as GALLERY, CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
 import styles from "./revitalize-ten.module.css";
 
 const CHECKOUT = "/products/revitalize/checkout";
@@ -32,6 +32,7 @@ export function RevitalizeTenPage() {
   const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
   const [open, setOpen] = useState<string | null>(null);
   const [stuck, setStuck] = useState(false);
+  const [shot, setShot] = useState(0);
   const startRef = useRef<HTMLDivElement | null>(null);
   const offerRef = useRef<HTMLDivElement | null>(null);
 
@@ -121,7 +122,32 @@ export function RevitalizeTenPage() {
         <div className={styles.rule} aria-hidden="true" />
         <section className={`${styles.wrap} ${styles.section}`} id="offer" ref={offerRef}>
           <div className={styles.offerGrid}>
-            <Image src={PRODUCT.image} alt="" aria-hidden="true" width={1200} height={1200} className={styles.offerShot} />
+            <div className={styles.offerGallery}>
+              <Image
+                src={GALLERY[shot].src}
+                alt={GALLERY[shot].alt}
+                width={1200}
+                height={1200}
+                className={styles.offerShot}
+              />
+              <button type="button" className={`${styles.gBtn} ${styles.gPrev}`} aria-label="Previous image"
+                onClick={() => setShot((i) => (i - 1 + GALLERY.length) % GALLERY.length)}>
+                <Icon name="chevron-left" size={26} strokeWidth={2.5} />
+              </button>
+              <button type="button" className={`${styles.gBtn} ${styles.gNext}`} aria-label="Next image"
+                onClick={() => setShot((i) => (i + 1) % GALLERY.length)}>
+                <Icon name="chevron-right" size={26} strokeWidth={2.5} />
+              </button>
+              <div className={styles.gDots}>
+                {GALLERY.map((g, i) => (
+                  <button key={g.src} type="button" onClick={() => setShot(i)}
+                    aria-label={`Image ${i + 1} of ${GALLERY.length}`} aria-current={i === shot}
+                    className={styles.gDotHit}>
+                    <span className={`${styles.gDot} ${i === shot ? styles.gDotOn : ""}`} />
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className={styles.offerCard}>
               <p className={styles.ratingLine} style={{ textAlign: "left", marginBottom: "0.75rem" }}>
                 <Stars size={15} />

@@ -86,10 +86,28 @@
 
 /* ---------- offer ---------- */
 .offerGrid { display: grid; gap: 1.5rem; align-items: start; }
+/* The eight slides run here, so somebody who scrolled straight to the price still gets
+   the argument. Contain rather than cover: the slides are composed to their own edges
+   and cropping one loses a line of type. */
+.offerGallery { position: relative; }
 .offerShot {
-  width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
-  border-radius: var(--radius-lg); background: var(--ivory);
+  width: 100%; aspect-ratio: 1; object-fit: contain; display: block;
+  border: 2px solid var(--ink-10); border-radius: var(--radius-lg); background: var(--white);
 }
+.gBtn {
+  position: absolute; top: calc(50% - 1.5rem); transform: translateY(-50%);
+  width: 48px; height: 48px; display: grid; place-items: center; cursor: pointer;
+  border: 2px solid var(--ink-10); border-radius: 50%; background: var(--white);
+  color: var(--ink); padding: 0;
+}
+.gBtn:hover { background: var(--ivory); }
+.gPrev { left: 8px; }
+.gNext { right: 8px; }
+.gDots { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; margin-top: 0.25rem; }
+/* A 10px dot inside a 48px target, so the control clears the tap floor. */
+.gDotHit { width: 48px; height: 48px; display: grid; place-items: center; background: none; border: 0; cursor: pointer; padding: 0; }
+.gDot { width: 10px; height: 10px; border-radius: 50%; background: var(--ink-20); display: block; }
+.gDotOn { background: var(--reds); }
 .offerCard { display: grid; gap: 1rem; }
 .offerTitle {
   margin: 0; color: var(--reds); font-family: var(--font-display);
