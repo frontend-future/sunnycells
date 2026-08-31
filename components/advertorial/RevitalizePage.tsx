@@ -14,7 +14,9 @@ import {
   BUYER_BEWARE, BYLINE, CLOSING, CRISIS_TITLE, DISCLAIMER, HERO, INTRO, INTRODUCING,
   NOT_JUST_AGE, OPENERS, REFERENCES, REVIEWS, SIGNS, THREE, TRUST,
 } from "@/lib/content/revitalize";
-import { CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
+import { AGING_ROW_COUNT, CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
+import { AgingMap, CortisolCurve, DoseBars, StudyCards } from "@/components/revitalize/Visuals";
+import { BEFORE_AFTER } from "@/lib/content/revitalize";
 import styles from "./revitalize.module.css";
 
 const CHECKOUT = "/products/revitalize/checkout";
@@ -107,6 +109,10 @@ export function RevitalizeAdvertorial() {
           </div>
         </section>
 
+        <section className={`${styles.wrap} ${styles.wide} ${styles.sectionTight}`}>
+          <CortisolCurve />
+        </section>
+
         {/* ---------- the five signs ---------- */}
         <section className={`${styles.wrap} ${styles.section}`}>
           {SIGNS.map((s) => (
@@ -129,6 +135,35 @@ export function RevitalizeAdvertorial() {
           <h2 className={styles.h2}>{NOT_JUST_AGE.title}</h2>
           <div className={styles.prose}>
             {NOT_JUST_AGE.body.map((p) => <p key={p}>{p}</p>)}
+          </div>
+        </section>
+
+        {/* ---------- every visible effect, and what meets it ---------- */}
+        <section className={`${styles.wrap} ${styles.wide} ${styles.section}`}>
+          <h2 className={styles.h2Centre}>{AGING_ROW_COUNT} ways it shows, and what each one needs</h2>
+          <p className={styles.lead} style={{ textAlign: "center", maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
+            Grouped by where you notice it, with the strength of the evidence printed
+            next to each one rather than averaged into a single claim.
+          </p>
+          <AgingMap />
+        </section>
+
+        {/* ---------- the evidence ---------- */}
+        <section className={styles.sunkSection}>
+          <div className={`${styles.wrap} ${styles.wide} ${styles.section}`}>
+            <h2 className={styles.h2Centre}>The research, with its sample size on the front</h2>
+            <StudyCards />
+          </div>
+        </section>
+
+        {/* ---------- before and after. A slot, not a picture. ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`}>
+          <h2 className={styles.h2}>{BEFORE_AFTER.title}</h2>
+          <p className={styles.lead}>{BEFORE_AFTER.body}</p>
+          <div className={styles.baPair}>
+            {BEFORE_AFTER.slots.map((sl) => (
+              <div key={sl} className={styles.baEmpty} role="img" aria-label={`Placeholder: ${sl}`}>{sl}</div>
+            ))}
           </div>
         </section>
 
@@ -171,6 +206,9 @@ export function RevitalizeAdvertorial() {
           <Image src={INTRODUCING.image} alt={INTRODUCING.alt} width={1200} height={1200} className={styles.introShot} />
           <div className={styles.prose}>
             {INTRODUCING.body.map((p) => <p key={p}>{p}</p>)}
+          </div>
+          <div style={{ margin: "2rem 0" }}>
+            <DoseBars />
           </div>
           <div className={styles.doses}>
             {INTRODUCING.doses.map((d) => (

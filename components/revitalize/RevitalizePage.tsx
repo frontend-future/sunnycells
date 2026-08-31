@@ -16,6 +16,7 @@ import {
   TESTING, TRUST, type Plan,
 } from "@/lib/products/revitalize";
 import { NutritionLabel } from "./NutritionLabel";
+import { AgingMap, CortisolCurve, DoseBars, StudyCards } from "./Visuals";
 import styles from "./revitalize.module.css";
 
 const CHECKOUT = "/products/revitalize/checkout";
@@ -153,37 +154,34 @@ export function RevitalizePage() {
           </div>
         </div>
 
-        {/* ---------- what the day costs. High, because the reader has not filed a
-            normal Tuesday as a problem yet. ---------- */}
+        {/* ---------- the curve, drawn ---------- */}
+        <section className={`${styles.wrap} ${styles.section}`}>
+          <h2 className={`${styles.h2} ${styles.centre}`}>This is the hormone doing it</h2>
+          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "42rem", margin: "0 auto 2rem" }}>
+            Cortisol peaks half an hour after you wake and should fall all day. Chronic job
+            strain raises the peak and flattens the fall, so you never come down.
+          </p>
+          <CortisolCurve />
+        </section>
+
+        {/* ---------- what it costs, and what meets it ---------- */}
         <section className={`${styles.wrap} ${styles.section}`}>
           <h2 className={`${styles.h2} ${styles.centre}`}>{COST.title}</h2>
-          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "40rem", margin: "0 auto 2.5rem" }}>
+          <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "42rem", margin: "0 auto 2.5rem" }}>
             {COST.lede}
           </p>
-          <div className={styles.quadWrap}>
-            <div className={styles.quadCol}>
-              {COST.quadrants.slice(0, 2).map((q) => (
-                <div key={q.title} className={styles.quad}>
-                  <span className={styles.quadIcon} aria-hidden="true">
-                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
-                  </span>
-                  <h3 className={styles.h3}>{q.title}</h3>
-                  <p className={styles.body}>{q.body}</p>
-                </div>
-              ))}
-            </div>
-            <Image src={COST.image} alt={COST.alt} width={900} height={900} className={styles.quadShot} />
-            <div className={`${styles.quadCol} ${styles.quadColRight}`}>
-              {COST.quadrants.slice(2).map((q) => (
-                <div key={q.title} className={styles.quad}>
-                  <span className={styles.quadIcon} aria-hidden="true">
-                    <Icon name={q.icon as IconName} size={22} strokeWidth={2.2} />
-                  </span>
-                  <h3 className={styles.h3}>{q.title}</h3>
-                  <p className={styles.body}>{q.body}</p>
-                </div>
-              ))}
-            </div>
+          <AgingMap />
+        </section>
+
+        {/* ---------- the evidence ---------- */}
+        <section className={styles.sunk}>
+          <div className={`${styles.wrap} ${styles.section}`}>
+            <h2 className={`${styles.h2} ${styles.centre}`}>The research this rests on</h2>
+            <p className={`${styles.lede} ${styles.centre}`} style={{ maxWidth: "42rem", margin: "0 auto 2.5rem" }}>
+              Design and sample size on the front of every card, so you can weigh them
+              rather than take our word for it.
+            </p>
+            <StudyCards />
           </div>
         </section>
 
@@ -252,6 +250,10 @@ export function RevitalizePage() {
                 <p className={styles.body}>{g.body}</p>
               </div>
             ))}
+          </div>
+          <div style={{ marginTop: "2.5rem" }}>
+            <p className={styles.label}>One sachet, against the daily value</p>
+            <DoseBars />
           </div>
           <p className={styles.centre} style={{ marginTop: "2rem" }}>
             <button type="button" className={styles.factsLink} onClick={() => setFactsOpen(true)}>

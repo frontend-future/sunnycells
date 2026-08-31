@@ -56,6 +56,89 @@ export const INTRO = [
   "The result is not mysterious. Blood sugar dips, the body asks for the fastest carbohydrate it can find, and you are at the cupboard before you have decided anything.",
 ];
 
+
+/**
+ * The evidence, shown rather than asserted. Each card carries the design, the sample
+ * size and the finding, so a reader can judge it instead of taking "clinically studied"
+ * on trust. Every one is a real paper.
+ *
+ * Note what these studies are OF. Four of them are about stress and about the
+ * nutrients. None of them is a trial of this product, and the page says so.
+ */
+export const STUDIES = [
+  {
+    finding: "Work strain raises the cortisol you wake up with",
+    n: "62 studies",
+    design: "Systematic review and meta-analysis",
+    body: "Across the pooled literature, work stress and job strain were among the psychosocial factors reliably associated with a raised cortisol awakening response.",
+    cite: "Chida & Steptoe, Biological Psychology, 2009",
+  },
+  {
+    finding: "Chronic stress tracked with a decade of extra cellular aging",
+    n: "58 women",
+    design: "Controlled observational study",
+    body: "Women in the highest chronic stress group had telomeres shorter by an amount the authors equated to roughly one additional decade of aging.",
+    cite: "Epel et al., PNAS, 2004",
+  },
+  {
+    finding: "Higher vitamin C intake, less wrinkled appearance",
+    n: "4,025 women",
+    design: "Cross-sectional, NHANES I, aged 40 to 74",
+    body: "Higher dietary vitamin C intake was associated with a lower likelihood of a wrinkled appearance and of senile dryness, after adjusting for age, sun exposure and other factors.",
+    cite: "Cosgrove et al., American Journal of Clinical Nutrition, 2007",
+  },
+  {
+    finding: "Lutein and zeaxanthin cut eye strain in heavy screen users",
+    n: "48 adults",
+    design: "Randomised, double-blind, placebo-controlled, 6 months",
+    body: "Supplementation raised macular pigment optical density and significantly reduced headache, eye strain and fatigue in people with high screen exposure.",
+    cite: "Stringham et al., Foods, 2017. Dose used: 12 mg a day, against 5 mg here.",
+  },
+  {
+    finding: "Vitamin C is not optional for collagen. It is the cofactor.",
+    n: "Review",
+    design: "Mechanistic review",
+    body: "The prolyl and lysyl hydroxylases that assemble collagen require ascorbate. Without it the reaction does not proceed, which is what scurvy is.",
+    cite: "Pullar, Carr & Vissers, Nutrients, 2017",
+  },
+  {
+    finding: "Glucocorticoids suppress the cells that build collagen",
+    n: "Review",
+    design: "Mechanistic review",
+    body: "Chronic cortisol suppresses fibroblast activity while accelerating the enzymes that degrade collagen, which is the route from a hard year to a face that shows it.",
+    cite: "Hunter, Momen & Kleyn, Clinical and Experimental Dermatology, 2015",
+  },
+] as const;
+
+/**
+ * The cortisol curve, drawn rather than described. Values are illustrative shape, not
+ * measured data, and the caption says so: the point is the difference between the two
+ * profiles, which is what the literature describes.
+ */
+export const CURVE = {
+  title: "The shape of a normal day, and the shape of a stressful one",
+  caption:
+    "Illustrative. Cortisol peaks 30 to 45 minutes after waking and falls through the day. Chronic job strain raises the waking peak and flattens the fall, which is the pattern the meta-analysis above describes.",
+  hours: ["6am", "9am", "12pm", "3pm", "6pm", "9pm", "12am"],
+  normal: [62, 100, 62, 38, 26, 16, 8],
+  strained: [78, 118, 88, 70, 58, 44, 26],
+  legend: [{ key: "normal", label: "A normal profile" }, { key: "strained", label: "Under chronic job strain" }],
+} as const;
+
+/**
+ * PLACEHOLDER, and it stays a placeholder. Before-and-after imagery is a performance
+ * claim, and generating one would be fabricating evidence for a product that has never
+ * been photographed on a customer. The slot exists so the layout is ready. Fill it only
+ * with permissioned photographs of real customers, same lighting, same framing, dated,
+ * with the disclosure the FTC requires.
+ */
+export const BEFORE_AFTER = {
+  title: "Before and after",
+  body:
+    "We do not have these yet. When we do they will be real customers, photographed in the same light at the same distance, dated, and shown with what else changed in between. Anything else on a page like this is a drawing.",
+  slots: ["Customer photo, day 1", "Customer photo, day 90"],
+} as const;
+
 export type Sign = { n: number; title: string; body: string[]; image?: string; alt?: string };
 
 export const SIGNS: Sign[] = [

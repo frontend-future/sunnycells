@@ -163,6 +163,122 @@ export const COST = {
   ],
 } as const;
 
+
+/**
+ * WHAT STRESS DOES, AND WHAT IN THE PACK MEETS IT.
+ *
+ * One row per visible effect, from the formula map. Three things about how this is
+ * rendered, all deliberate:
+ *
+ *   1. Every row carries an evidence grade and the page prints it. "Strong" means a
+ *      required biochemical role or a controlled trial at a comparable dose.
+ *      "Supportive" means the nutrient's role is established and the link to the
+ *      visible effect is reasonable rather than trialled. "Early" means the mechanism
+ *      is plausible and the human evidence is thin. Showing the reader which is which
+ *      is the single most persuasive thing on the page, and it is also the only honest
+ *      way to put fourteen rows next to each other.
+ *   2. Nothing says reduces, reverses, clears or shrinks. Every row says what the
+ *      nutrient does in the body. Wrinkle reduction, gray reversal and belly fat are
+ *      the three that cross from structure/function into a cosmetic or disease claim,
+ *      and they are the three graded lowest here on purpose.
+ *   3. Where the dose is below what the research used, the row says so.
+ *
+ * NEEDS A COMPLIANCE PASS before this takes paid traffic, as flagged in the brief.
+ */
+export type Grade = "strong" | "supportive" | "early";
+
+export type AgingRow = {
+  effect: string;
+  actives: string[];
+  body: string;
+  grade: Grade;
+  caveat?: string;
+};
+
+export const GRADE_LABEL: Record<Grade, string> = {
+  strong: "Strong evidence",
+  supportive: "Supportive evidence",
+  early: "Early evidence",
+};
+
+export const AGING_MAP: { group: string; blurb: string; rows: AgingRow[] }[] = [
+  {
+    group: "Your face",
+    blurb: "Cortisol is catabolic. It breaks tissue down faster than you rebuild it, and skin is where that shows first.",
+    rows: [
+      { effect: "Lines around the eyes and forehead", actives: ["Vitamin C 90 mg"], grade: "strong",
+        body: "Collagen cannot be made without vitamin C. The enzymes that assemble it use ascorbate as a required cofactor, and there is no substitute for it in the reaction. In 4,025 women, higher vitamin C intake tracked with a lower likelihood of a wrinkled appearance." },
+      { effect: "Crepey, thinning skin", actives: ["Gelatin 10 g", "Vitamin C 90 mg"], grade: "strong",
+        body: "Gelatin supplies glycine, proline and hydroxyproline, which are the amino acids collagen is built from. Vitamin C is the cofactor that lets your body assemble them. The pack carries both, which is the point of putting them together.",
+        caveat: "Gelatin is an incomplete protein and is not the same thing as hydrolysed collagen peptides." },
+      { effect: "Dull, sallow tone", actives: ["Vitamin C 90 mg", "B1 1.2 mg", "B3 16 mg"], grade: "supportive",
+        body: "Niacin supports normal skin function and thiamine and vitamin C sit in the reactions that keep cells energised. Both are recognised roles rather than a colour claim." },
+      { effect: "Breakouts under stress", actives: ["Niacinamide 16 mg"], grade: "early",
+        body: "Niacinamide is well studied for barrier function and oil regulation, and it supports the maintenance of normal skin.",
+        caveat: "That research is overwhelmingly topical niacinamide. This is 16 mg taken orally, which is a nutritional dose, not a dermatological one." },
+      { effect: "Puffiness and facial bloating", actives: ["Magnesium glycinate 60 mg"], grade: "early",
+        body: "Magnesium is involved in electrolyte balance and in the stress response that drives fluid retention. The mechanism is plausible; the human evidence on facial puffiness specifically is thin, and we would rather say so." },
+    ],
+  },
+  {
+    group: "Hair and nails",
+    blurb: "Follicles and nail beds are among the most metabolically demanding tissue you have, so they are the first thing the body deprioritises.",
+    rows: [
+      { effect: "Shedding and thinning", actives: ["Protein 10 g", "B1, B3, B5", "Magnesium 60 mg"], grade: "supportive",
+        body: "Hair growth runs on a steady supply of amino acids and the B vitamin cofactors that turn them into usable energy. Under-eating protein is one of the commonest nutritional reasons hair sheds." },
+      { effect: "Brittle nails", actives: ["Protein 10 g", "B1, B3, B5"], grade: "supportive",
+        body: "Nail keratin is a protein, built from the same amino acid pool and the same B vitamin cofactors as everything else." },
+      { effect: "Going gray earlier", actives: ["Pantothenic acid 5 mg"], grade: "early",
+        body: "Pantothenic acid has a long history in the pigment literature and supports normal mental performance and energy metabolism at this dose.",
+        caveat: "The graying research is mid-century animal work. Nothing in this pack reverses gray hair, genetics sets when it starts, and we are not going to imply otherwise." },
+    ],
+  },
+  {
+    group: "Your body",
+    blurb: "The part nobody photographs. Stress moves where fat sits and what you reach for at three in the afternoon.",
+    rows: [
+      { effect: "The snacking that puts weight on", actives: ["Protein 10 g", "Glucomannan 500 mg"], grade: "strong",
+        body: "Protein is the most satiating of the three macronutrients and 10 g is a real amount rather than a gesture. Glucomannan is a soluble fiber that takes on water and slows the stomach.",
+        caveat: "The EFSA weight loss claim for glucomannan is 3 g a day in three doses. A sachet carries 0.5 g. The protein is doing the work here." },
+      { effect: "Weight settling around the middle", actives: ["Magnesium 60 mg", "B5 5 mg", "Glucomannan 500 mg"], grade: "early",
+        body: "Magnesium and pantothenic acid support a normal stress response, and eating less between meals is the part of this you can actually act on.",
+        caveat: "No supplement targets visceral fat. Where cortisol puts fat is not something a gummy changes." },
+      { effect: "Losing tone", actives: ["Protein 10 g"], grade: "supportive",
+        body: "Protein contributes to the maintenance of muscle mass, which is an authorised claim at this level of intake.",
+        caveat: "Gelatin is low in tryptophan, so this supports your total intake rather than replacing a complete protein." },
+      { effect: "Held tension in the neck and jaw", actives: ["Magnesium glycinate 60 mg"], grade: "supportive",
+        body: "Magnesium contributes to normal muscle function and to the reduction of tiredness. The glycinate form was chosen because it absorbs well and is gentle on the stomach." },
+    ],
+  },
+  {
+    group: "Energy and eyes",
+    blurb: "The two things a desk actually asks of you all day, and the two the day takes back.",
+    rows: [
+      { effect: "Strained eyes from a screen", actives: ["Lutein and zeaxanthin 5 mg"], grade: "strong",
+        body: "These two carotenoids are what the macula is made of. In a controlled trial in heavy screen users, supplementation raised macular pigment and reduced headache, eye strain and fatigue.",
+        caveat: "That trial used 12 mg a day for six months. This is 5 mg." },
+      { effect: "Flat by mid-afternoon", actives: ["B1, B3, B5 at 100% DV", "Vitamin D3 25 mcg"], grade: "strong",
+        body: "Thiamine, niacin and pantothenic acid all carry authorised claims for normal energy-yielding metabolism, and niacin and pantothenic acid for the reduction of tiredness and fatigue. These are the cofactors the reaction runs on rather than a stimulant pushing on it." },
+      { effect: "Not seeing daylight", actives: ["Vitamin D3 25 mcg"], grade: "supportive",
+        body: "Indoor workers run lower on vitamin D than people who work outside, for the obvious reason. 1000 IU is 125% of the daily value." },
+    ],
+  },
+];
+
+/** Counted from the map rather than written into a headline that can drift out of date. */
+export const AGING_ROW_COUNT = AGING_MAP.reduce((n, g) => n + g.rows.length, 0);
+
+/** The panel as a picture. Percentages are the label's own %DV. */
+export const DOSE_BARS = [
+  { name: "Vitamin D3", amount: "25 mcg", pct: 125 },
+  { name: "Vitamin C", amount: "90 mg", pct: 100 },
+  { name: "Vitamin B1", amount: "1.2 mg", pct: 100 },
+  { name: "Vitamin B3", amount: "16 mg", pct: 100 },
+  { name: "Vitamin B5", amount: "5 mg", pct: 100 },
+  { name: "Protein", amount: "10 g", pct: 20 },
+  { name: "Magnesium", amount: "60 mg", pct: 14 },
+] as const;
+
 /** The three goals, in the order the day happens. */
 export const PILLARS = {
   title: "Three jobs, four gummies",
