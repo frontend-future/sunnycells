@@ -251,7 +251,10 @@
 .stickyTitle { font-weight: var(--weight-bold); font-size: var(--size-body); }
 .stickyTerms { color: var(--ink-60); font-size: var(--size-meta); }
 
-@media (max-width: 419px) { .stickyShot { display: none; } }
+@media (max-width: 767px) {
+  .sticky { display: none; }
+  .legal { padding-bottom: 2.5rem; }
+}
 
 @media (min-width: 768px) {
   .wrap { padding: 0 2rem; }
