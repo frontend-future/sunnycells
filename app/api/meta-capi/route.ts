@@ -20,6 +20,13 @@ const DATASETS = {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID_REDS,
     token: process.env.META_CAPI_ACCESS_TOKEN_REDS,
   },
+  /* SC-25 shares the original cortisol dataset with the diet quiz. It would fall
+     through to default anyway, but stated here so the browser and the server are
+     obviously reading the same pairing rather than agreeing by accident. */
+  revitalize: {
+    pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID,
+    token: process.env.META_CAPI_ACCESS_TOKEN,
+  },
   default: {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID,
     token: process.env.META_CAPI_ACCESS_TOKEN,

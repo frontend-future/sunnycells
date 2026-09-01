@@ -35,6 +35,11 @@ export const PIXEL_IDS: Record<Funnel, string | undefined> = {
      into the weight loss dataset, which is where an unrouted path would otherwise land
      and quietly poison that funnel's attribution. */
   reds: process.env.NEXT_PUBLIC_META_PIXEL_ID_REDS,
-  revitalize: process.env.NEXT_PUBLIC_META_PIXEL_ID_REVITALIZE,
+  /* SC-25 reports into the original cortisol dataset, the one the diet quiz and
+     Metabolic Morning Blend already run on, rather than a dataset of its own. Same
+     audience and the same cortisol angle, so the pixel keeps learning from one pool
+     instead of starting cold. Named rather than left to fall through to "default", so
+     the choice is visible here and a later split is one line. */
+  revitalize: process.env.NEXT_PUBLIC_META_PIXEL_ID,
   default: process.env.NEXT_PUBLIC_META_PIXEL_ID,
 };
