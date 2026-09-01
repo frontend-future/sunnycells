@@ -73,7 +73,7 @@ const ANGLES = [
     ],
   },
   {
-    key: "face", afterPos: "24% 50%", before: "face_b.webp", after: "face_a.webp",
+    key: "face", afterPos: "24% 50%", contain: true, before: "face_b.webp", after: "face_a.webp",
     headline: "“Cortisol Face” Is Real, And Your Job Is Causing It",
     kicker: "Why you wake up puffy every single morning",
     baCaption: "Fluid retention from unmanaged stress, not weight gain",
@@ -89,7 +89,7 @@ const ANGLES = [
     ],
   },
   {
-    key: "belly", afterPos: "78% 50%", before: "belly_b.webp", after: "belly_a.webp",
+    key: "belly", afterPos: "78% 50%", contain: true, before: "belly_b.webp", after: "belly_a.webp",
     headline: "Why Stress Puts Weight On Your Stomach First",
     kicker: "It isn't your diet. It's where cortisol stores fat.",
     baCaption: "Stress decides where the weight sits",
@@ -149,16 +149,17 @@ const fmtChat = (a) => shell(`
 const fmtBA = (a) => shell(`
 <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr">
   <div style="position:relative;overflow:hidden">
-    <img src="${img(a.before)}" style="width:100%;height:${SIZE}px;object-fit:cover;filter:saturate(.55) brightness(.93)">
+    ${a.contain ? `<img src="${img(a.before)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(34px) saturate(.4) brightness(.8);transform:scale(1.3)">` : ""}
+    <img src="${img(a.before)}" style="position:relative;width:100%;height:${SIZE}px;object-fit:${a.contain ? "contain" : "cover"};filter:saturate(.55) brightness(.93)">
     <span class="d" style="position:absolute;top:26px;left:26px;background:rgba(20,18,15,.8);color:#fff;
       padding:10px 20px;border-radius:8px;font-size:30px;text-transform:uppercase">Before</span>
   </div>
   <div style="position:relative;overflow:hidden">
-    <img src="${img(a.after)}" style="width:100%;height:${SIZE}px;object-fit:cover;object-position:${a.afterPos}">
+    ${a.contain ? `<img src="${img(a.after)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(34px) saturate(.5) brightness(.85);transform:scale(1.3)">` : ""}
+    <img src="${img(a.after)}" style="position:relative;width:100%;height:${SIZE}px;object-fit:${a.contain ? "contain" : "cover"};object-position:${a.contain ? "center" : a.afterPos}">
     <span class="d" style="position:absolute;top:26px;right:26px;background:${RED};color:#fff;
       padding:10px 20px;border-radius:8px;font-size:30px;text-transform:uppercase">After</span>
-    <img src="${img("pouch.png")}" style="position:absolute;right:-34px;bottom:82px;width:300px;
-      filter:drop-shadow(0 16px 26px rgba(0,0,0,.35))">
+    ${a.contain ? "" : `<img src="${img("pouch.png")}" style="position:absolute;right:-34px;bottom:82px;width:300px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.35))">`}
   </div>
 </div>
 <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:120px;
@@ -179,16 +180,17 @@ const fmtChallenge = (a) => shell(`
     font-size:44px;text-transform:uppercase;flex:none">The 28 Day Cortisol Challenge</div>
   <div style="flex:1;display:grid;grid-template-columns:1fr 1fr">
     <div style="position:relative;overflow:hidden;border-right:5px solid #fff">
-      <img src="${img(a.before)}" style="width:100%;height:100%;object-fit:cover;filter:saturate(.6)">
+      ${a.contain ? `<img src="${img(a.before)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(34px) saturate(.4) brightness(.8);transform:scale(1.3)">` : ""}
+      <img src="${img(a.before)}" style="position:relative;width:100%;height:100%;object-fit:${a.contain ? "contain" : "cover"};filter:saturate(.6)">
       <span class="d" style="position:absolute;bottom:22px;left:22px;background:rgba(20,18,15,.85);color:#fff;
         padding:10px 20px;border-radius:8px;font-size:32px;text-transform:uppercase">Day 1</span>
     </div>
     <div style="position:relative;overflow:hidden">
-      <img src="${img(a.after)}" style="width:100%;height:100%;object-fit:cover;object-position:${a.afterPos}">
+      ${a.contain ? `<img src="${img(a.after)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(34px) saturate(.5) brightness(.85);transform:scale(1.3)">` : ""}
+      <img src="${img(a.after)}" style="position:relative;width:100%;height:100%;object-fit:${a.contain ? "contain" : "cover"};object-position:${a.contain ? "center" : a.afterPos}">
       <span class="d" style="position:absolute;bottom:22px;right:22px;background:${LIME};color:${INK};
         padding:10px 20px;border-radius:8px;font-size:32px;text-transform:uppercase">Day 28</span>
-      <img src="${img("pouch.png")}" style="position:absolute;right:-30px;bottom:96px;width:280px;
-        filter:drop-shadow(0 16px 26px rgba(0,0,0,.35))">
+      ${a.contain ? "" : `<img src="${img("pouch.png")}" style="position:absolute;right:-30px;bottom:96px;width:280px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.35))">`}
     </div>
   </div>
   <div style="flex:none;background:#fff;padding:22px 34px;display:flex;align-items:center;gap:20px">
