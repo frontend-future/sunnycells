@@ -41,7 +41,7 @@ body{background:${bg};font-family:Figtree,system-ui,sans-serif;color:${INK};
 /* ---------- the five angles ---------- */
 const ANGLES = [
   {
-    key: "wrinkles", before: "wrink_b.webp", after: "wrink_a.webp",
+    key: "wrinkles", afterPos: "26% 50%", before: "wrink_b.webp", after: "wrink_a.webp",
     headline: "Your 9–5 Is Aging Your Skin Faster Than The Sun",
     kicker: "Dermatologists are blaming one hormone",
     baCaption: "Cortisol breaks collagen down faster than you rebuild it",
@@ -57,7 +57,7 @@ const ANGLES = [
     ],
   },
   {
-    key: "energy", before: "energy_b.webp", after: "energy_a.webp",
+    key: "energy", afterPos: "24% 50%", before: "energy_b.webp", after: "energy_a.webp",
     headline: "The 3PM Crash Isn't Normal. It's Your Cortisol.",
     kicker: "And it's why you can't stop snacking at your desk",
     baCaption: "Same desk. Same hours. No afternoon hole.",
@@ -73,7 +73,7 @@ const ANGLES = [
     ],
   },
   {
-    key: "face", before: "face_b.webp", after: "face_a.webp",
+    key: "face", afterPos: "24% 50%", before: "face_b.webp", after: "face_a.webp",
     headline: "“Cortisol Face” Is Real, And Your Job Is Causing It",
     kicker: "Why you wake up puffy every single morning",
     baCaption: "Fluid retention from unmanaged stress, not weight gain",
@@ -89,7 +89,7 @@ const ANGLES = [
     ],
   },
   {
-    key: "belly", before: "belly_b.webp", after: "belly_a.webp",
+    key: "belly", afterPos: "78% 50%", before: "belly_b.webp", after: "belly_a.webp",
     headline: "Why Stress Puts Weight On Your Stomach First",
     kicker: "It isn't your diet. It's where cortisol stores fat.",
     baCaption: "Stress decides where the weight sits",
@@ -105,7 +105,7 @@ const ANGLES = [
     ],
   },
   {
-    key: "gray", before: "gray_b.webp", after: "gray_a.webp",
+    key: "gray", afterPos: "22% 50%", before: "gray_b.webp", after: "gray_a.webp",
     headline: "Stress Is Greying Your Hair Years Before It Should",
     kicker: "The follicle research nobody told you about",
     baCaption: "Chronic stress depletes the cells that make your pigment",
@@ -154,9 +154,11 @@ const fmtBA = (a) => shell(`
       padding:10px 20px;border-radius:8px;font-size:30px;text-transform:uppercase">Before</span>
   </div>
   <div style="position:relative;overflow:hidden">
-    <img src="${img(a.after)}" style="width:100%;height:${SIZE}px;object-fit:cover">
+    <img src="${img(a.after)}" style="width:100%;height:${SIZE}px;object-fit:cover;object-position:${a.afterPos}">
     <span class="d" style="position:absolute;top:26px;right:26px;background:${RED};color:#fff;
       padding:10px 20px;border-radius:8px;font-size:30px;text-transform:uppercase">After</span>
+    <img src="${img("pouch.png")}" style="position:absolute;right:-34px;bottom:82px;width:300px;
+      filter:drop-shadow(0 16px 26px rgba(0,0,0,.35))">
   </div>
 </div>
 <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:120px;
@@ -182,9 +184,11 @@ const fmtChallenge = (a) => shell(`
         padding:10px 20px;border-radius:8px;font-size:32px;text-transform:uppercase">Day 1</span>
     </div>
     <div style="position:relative;overflow:hidden">
-      <img src="${img(a.after)}" style="width:100%;height:100%;object-fit:cover">
+      <img src="${img(a.after)}" style="width:100%;height:100%;object-fit:cover;object-position:${a.afterPos}">
       <span class="d" style="position:absolute;bottom:22px;right:22px;background:${LIME};color:${INK};
         padding:10px 20px;border-radius:8px;font-size:32px;text-transform:uppercase">Day 28</span>
+      <img src="${img("pouch.png")}" style="position:absolute;right:-30px;bottom:96px;width:280px;
+        filter:drop-shadow(0 16px 26px rgba(0,0,0,.35))">
     </div>
   </div>
   <div style="flex:none;background:#fff;padding:22px 34px;display:flex;align-items:center;gap:20px">
@@ -210,10 +214,7 @@ const fmtHeadline = (a) => shell(`
 /* ---------- format 5: sticky note, product in view ---------- */
 const fmtSticky = (a, deskFile) => shell(`
 <img src="${img(deskFile)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-<div style="position:absolute;inset:0;background:rgba(255,255,255,.1)"></div>
-<img src="${img("pouch.png")}" style="position:absolute;right:36px;bottom:26px;width:390px;
-  filter:drop-shadow(0 22px 34px rgba(0,0,0,.28))">
-<div style="position:absolute;left:66px;top:96px;width:470px;height:470px;background:#FFE96B;
+<div style="position:absolute;left:56px;top:92px;width:460px;height:460px;background:#FFE96B;
   transform:rotate(-5deg);box-shadow:0 20px 42px rgba(0,0,0,.26);padding:52px 46px;
   display:flex;flex-direction:column;gap:6px">
   <div style="font-family:Caveat,cursive;font-weight:700;font-size:76px;color:${DEEP};line-height:1">${a.sticky[0]}</div>
