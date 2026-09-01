@@ -33,17 +33,17 @@ export const SLIDES = {
   /* 2. Outcome. Nine lines, the shape of a day that is not running on cortisol. */
   outcome: {
     file: "02-outcome",
-    title: "What a day off the cortisol curve looks like",
+    title: "What a day with Revitalize looks like",
     items: [
-      { icon: "check", text: "No afternoon cravings" },
-      { icon: "check", text: "No 4pm brain fog" },
-      { icon: "check", text: "No hair in the brush" },
-      { icon: "check", text: "No shadows under your eyes" },
-      { icon: "check", text: "No tight neck and jaw" },
-      { icon: "check", text: "No burning eyes by five" },
-      { icon: "check", text: "No lines arriving early" },
-      { icon: "check", text: "No second coffee at three" },
-      { icon: "check", text: "Evenings you have something left for" },
+      { icon: "check", text: "No 3:30 PM pantry raids" },
+      { icon: "check", text: "No afternoon brain fog" },
+      { icon: "check", text: "No morning puffy face" },
+      { icon: "check", text: "No dark circles under your eyes" },
+      { icon: "check", text: "No tight neck or jaw tension" },
+      { icon: "check", text: "No screen-strained eyes by 5 PM" },
+      { icon: "check", text: "No premature fine lines" },
+      { icon: "check", text: "No second cup of afternoon coffee" },
+      { icon: "check", text: "No feeling too drained to enjoy your evenings" },
     ],
   },
 
