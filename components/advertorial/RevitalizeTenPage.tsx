@@ -99,7 +99,7 @@ export function RevitalizeTenPage() {
             {HERO.titleRest}
           </h1>
           <p className={styles.sub}>{HERO.sub}</p>
-          <Image src={HERO.photo} alt={HERO.alt} width={900} height={1200} priority className={styles.heroShot} />
+          <Image src={HERO.photo} alt={HERO.alt} width={1600} height={820} priority className={styles.heroShot} />
         </section>
 
         {/* ---------- the ten ---------- */}

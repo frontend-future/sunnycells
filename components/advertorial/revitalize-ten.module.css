@@ -55,9 +55,10 @@
 }
 /* Framed the way the reference frames it: a single portrait photo, centred, with an
    accent rule around it. */
+/* The hero is a before and after pair, so it runs wide rather than portrait. */
 .heroShot {
-  width: 100%; max-width: 22rem; margin: 0 auto; display: block;
-  aspect-ratio: 3 / 4; object-fit: cover;
+  width: 100%; margin: 0 auto; display: block;
+  aspect-ratio: 1600 / 820; object-fit: cover;
   border: 3px solid var(--reds); border-radius: var(--radius-lg);
 }
 

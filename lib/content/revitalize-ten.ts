@@ -26,8 +26,8 @@ export const HERO = {
   titleUnderline: "Aging You Faster Than The Sun",
   titleRest: ". Here Are 10 Reasons Office Workers Are Fighting Back With This Chew",
   sub: "From puffy morning eyes to stubborn cortisol belly, here's why thousands of desk workers chew four of these before 9 AM to keep their skin, eyes, and body looking ten years younger.",
-  photo: "/product/revitalize/slump.webp",
-  alt: "A pouch of Revitalize Gummies and an open sachet on a sunlit desk",
+  photo: "/photos/revitalize/hero-before-after.webp",
+  alt: "The same woman at her desk twice: on the left in black and white looking tired and worn down, an arrow to the right where she is in colour looking rested and happy with a pouch of Revitalize Gummies on the desk",
 };
 
 export type Reason = { n: number; title: string; body: string; photo: string; alt: string; fit?: "contain" };
