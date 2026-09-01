@@ -12,7 +12,7 @@
  */
 
 export const META = {
-  title: "Your office job is aging you like milk. Here's 10 reasons you'll never look back",
+  title: "Your laptop screen is aging you faster than the sun",
   description:
     "A desk job spikes cortisol, and cortisol is what ages you. Ten ways it shows, and what in a daily gummy meets each one.",
 };
@@ -20,52 +20,70 @@ export const META = {
 export const HERO = {
   rating: "Excellent 4.8",
   count: "2,417 reviews",
-  title: "Your Office Job Is Aging You Like Milk. Here's 10 Reasons You'll Never Look Back.",
-  sub: "Here's why office workers are chewing four of these every morning...",
+  title: "Your Laptop Screen Is Aging You Faster Than The Sun. Here Are 10 Reasons Office Workers Are Fighting Back With This Chew",
+  sub: "From puffy morning eyes to stubborn cortisol belly, here's why thousands of desk workers chew four of these before 9 AM to keep their skin, eyes, and body looking ten years younger.",
   photo: "/product/revitalize/slump.webp",
   alt: "A pouch of Revitalize Gummies and an open sachet on a sunlit desk",
 };
 
 export type Reason = { n: number; title: string; body: string; photo: string; alt: string; fit?: "contain" };
 
+/*
+ * Copy as supplied, with two corrections that are factual rather than editorial.
+ *
+ *   L-THEANINE IS NOT IN SC-25. The supplied text named it twice. It is an Outty
+ *   ingredient, from the competitor page in lib/products/outty.ts, and naming an
+ *   ingredient the pack does not contain is the one thing on a supplement page that
+ *   is indefensible. Replaced with what is actually in the sachet and does the job
+ *   described: magnesium glycinate and pantothenic acid.
+ *
+ *   "grass-fed gelatin" and "real fruit juice" are not on our label either. The label
+ *   says Gelatin (Bovine, Type B), and there is no juice in it. Written to the label.
+ *
+ * TWO THINGS STILL NEED A DECISION, both flagged rather than quietly changed:
+ *   1. Reason 10 says 60 days. Every other surface says 30, including the guarantee
+ *      slide, which is an image. Reason 10 therefore uses a photograph rather than
+ *      that slide, so nothing on screen contradicts itself while the number is open.
+ *   2. "thousands of desk workers" and "ten years younger" in the subhead, plus the
+ *      belly-fat and gray-hair claims below, are the strongest things anywhere in
+ *      SC-25. They want the compliance read the brief already asked for.
+ */
 export const REASONS: Reason[] = [
-  { n: 1, title: "No more 4pm brain fog",
-    body: "Turning food into energy takes B1, B3 and B5. Run short on any of them and the whole reaction runs badly. Revitalize gives you all three at 100% of your daily value, so four o'clock runs on fuel instead of fumes. No caffeine, nothing to crash from.",
-    photo: "/photos/revitalize/effects/flat.webp", alt: "Staring past the monitor at an office desk, chin on hand" },
-  { n: 2, title: "No more bags under your eyes",
-    body: "Those are a sleep problem, not an eye problem. Cortisol that never switched off is what has you lying there at eleven. Revitalize gives you magnesium glycinate and pantothenic acid so you get to sleep, which is the only thing that actually shifts them.",
-    photo: "/photos/revitalize/effects/eyes.webp", alt: "Close crop of tired eyes with faint shadows beneath them" },
-  { n: 3, title: "No more early wrinkles",
-    body: "Cortisol breaks collagen down faster than you build it back. Vitamin C is the one thing your body cannot make collagen without. Revitalize gives you 90 mg a sachet, 100% of your daily value, so your skin can keep rebuilding what the day takes off it.",
-    photo: "/photos/revitalize/effects/lines.webp", alt: "Close crop of the corner of an eye and temple, fine lines visible" },
-  /* The satiety is the claim, not the fat. Cortisol deciding where weight sits is real
-     and citable; a gummy shrinking visceral fat is not, and this does not say it. */
-  { n: 4, title: "No more stubborn weight round the middle",
-    body: "Stare at a screen all day and cortisol decides where the weight sits. It arrives a few pounds at a time, in the places you least want it. Revitalize gives you 10 g of protein and konjac fiber to keep you full past the 3pm drop, which is the part of this you can actually act on.",
+  { n: 1, title: "It shrinks stubborn \u201cCortisol Belly\u201d",
+    body: "High stress triggers your body to store visceral fat around your midsection. Revitalize uses Niacinamide and Magnesium Glycinate to mute the stress response at the cellular level, signaling your body to stop hoarding emergency fat and finally let go of lower-belly weight.",
     photo: "/photos/revitalize/effects/middle.webp", alt: "Waist-level crop of a man in a work shirt tugging at a waistband that has gone tight" },
-  { n: 5, title: "No more afternoon cravings",
-    body: "Caffeine on an empty stomach is a recipe for high cortisol. 10 g of gelatin protein keeps you full for hours, so you get through the afternoon without the tummy grumbles pulling you to the snack drawer.",
-    photo: "/photos/revitalize/effects/snacking.webp", alt: "An open packet of biscuits and crumbs beside a keyboard" },
-  { n: 6, title: "Your eyes\u2026 we've got them covered too",
-    body: "Lutein and zeaxanthin are what your macula is made of. In a trial in heavy screen users, supplementing them cut headache, eye strain and fatigue. Eight hours of screen a day is what your job is.",
+  { n: 2, title: "It flushes away morning \u201cPuffy Face\u201d",
+    body: "Unmanaged cortisol disrupts fluid balance, leaving you swollen and heavy-looking. The Magnesium Glycinate in Revitalize helps restore fluid regulation and relax micro-vessels, flushing out morning retention so you wake up with a defined face.",
+    photo: "/photos/revitalize/effects/puffy.webp", alt: "A face on waking, slightly puffy around the eyes" },
+  { n: 3, title: "It stops early wrinkles before they start",
+    body: "Elevated cortisol breaks down your collagen and accelerates fine lines. Revitalize counters this by pairing Bovine Gelatin, rich in skin-building glycine aminos, with natural Acerola Vitamin C to shield your collagen matrix from stress breakdown.",
+    photo: "/photos/revitalize/effects/lines.webp", alt: "Close crop of the corner of an eye and temple, fine lines visible" },
+  { n: 4, title: "It shields your eyes from digital damage",
+    body: "Staring at screens all day drains ocular tissue and causes micro-tension. Revitalize delivers clinically backed Lutein and Zeaxanthin alongside Acerola antioxidants to actively filter blue light and neutralize digital strain, keeping your eyes fresh after long workdays.",
     photo: "/photos/revitalize/effects/screen.webp", alt: "Taking off glasses and pressing the bridge of the nose at a monitor" },
-  { n: 7, title: "Clean ingredients with clinical support",
-    body: "No proprietary blend. No caffeine. No added sugar. Every dose printed in milligrams and grams, at levels you can check against the research yourself.",
+  { n: 5, title: "It kills relentless afternoon cravings",
+    body: "That 3:30 PM pantry raid isn\u2019t a lack of willpower. Revitalize pairs 10 g of satiety-boosting gelatin aminos with konjac fiber that swells in the stomach, keeping you full and silencing afternoon cravings until dinner.",
+    photo: "/photos/revitalize/effects/snacking.webp", alt: "An open packet of biscuits and crumbs beside a keyboard" },
+  { n: 6, title: "It erases tired, baggy eyes",
+    body: "Spiked nighttime cortisol ruins sleep quality and restricts facial blood flow, leaving dark circles. Revitalize uses Magnesium Glycinate and Pantothenic Acid to lower evening tension, supporting the deep sleep needed to wake up looking rested.",
+    photo: "/photos/revitalize/effects/eyes.webp", alt: "Close crop of tired eyes with faint shadows beneath them" },
+  { n: 7, title: "It fights stress-induced gray hair",
+    body: "Chronic stress depletes the follicle stem cells that produce natural hair pigment. Revitalize delivers Niacinamide to shield hair follicles from oxidative stress, helping preserve your natural hair color and strand vitality.",
+    photo: "/photos/revitalize/effects/graying.webp", alt: "The side of a head with a few grey hairs at the temple" },
+  { n: 8, title: "It\u2019s built with 100% clean ingredients",
+    body: "No cheap fillers, synthetic dyes, seed oils, or numbing herbs like Ashwagandha. Every chew of Revitalize uses pure, highly bioavailable ingredients, like Bovine Gelatin and Magnesium Glycinate, to support cellular metabolism naturally.",
     photo: "/product/revitalize/carousel/03-inside.webp", fit: "contain",
     alt: "The supplement facts panel with every ingredient and the job it does" },
-  { n: 8, title: "Results get better over time",
-    body: "Week one is the afternoon. Month three is when skin has turned over once. Month six is hair grown on the new intake. Consistent use is the whole thing, which is why it turns up monthly.",
-    photo: "/product/revitalize/carousel/04-timeline.webp", fit: "contain",
-    alt: "What happens when you take Revitalize, staged at week one, month three and month six" },
-  { n: 9, title: "Third-party tested every batch",
-    body: "Heavy metals, microbials, allergens, and every vitamin assayed against the label rather than assumed from the recipe. Certificates of analysis on request for any batch.",
+  { n: 9, title: "It\u2019s third-party tested & backed by biochemistry",
+    body: "No hidden proprietary blends or micro-dosed gimmick ingredients. Every batch of Revitalize undergoes rigorous independent third-party lab testing for purity, potency, and heavy metals.",
     photo: "/product/revitalize/marble.webp",
     alt: "The pouch and a torn sachet on a marble surface with gummies spilled out" },
-  { n: 10, title: "It works or you do not pay",
-    body: "30 days to try it. If the afternoon does not change, email us and we refund the order. Keep the pouch. We take the risk, not you.",
-    photo: "/product/revitalize/carousel/08-guarantee.webp", fit: "contain",
-    alt: "30 day money back guarantee on Revitalize Gummies" },
+  { n: 10, title: "It works or you don\u2019t pay",
+    body: "Try Revitalize for 60 full days. If you don\u2019t notice a real difference in your stress, afternoon energy, and appearance, you get a full refund. We take the risk, not you.",
+    photo: "/photos/revitalize/ten/r10.webp",
+    alt: "A person on a sofa at home holding a cream supplement pouch" },
 ];
+
 
 
 
