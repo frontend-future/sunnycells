@@ -24,7 +24,7 @@ export const HERO = {
      sentence, so the page title and any share preview still read normally. */
   titleLead: "Your Laptop Screen Is ",
   titleUnderline: "Aging You Faster Than The Sun",
-  titleRest: ". Here Are 10 Reasons Office Workers Are Fighting Back With This Chew",
+  titleRest: ". Here Are 10 Ways Women Are Preventing Premature Aging With This Daily Chew",
   sub: "From puffy morning eyes to stubborn cortisol belly, here's why thousands of desk workers chew four of these before 9 AM to keep their skin, eyes, and body looking ten years younger.",
   photo: "/photos/revitalize/hero-before-after.webp",
   alt: "The same woman at her desk twice: on the left in black and white looking tired and worn down, an arrow to the right where she is in colour looking rested and happy with a pouch of Revitalize Gummies on the desk",
@@ -53,14 +53,14 @@ export type Reason = { n: number; title: string; body: string; photo: string; al
  *      SC-25. They want the compliance read the brief already asked for.
  */
 export const REASONS: Reason[] = [
-  { n: 1, title: "Shrink stubborn \u201cCortisol Belly\u201d",
-    body: "High stress forces your body into fat-storage mode, especially around your midsection. Niacinamide and Magnesium Glycinate step in to calm that cellular panic, giving your body the green light to finally drop lower-belly weight.",
-    photo: "/photos/revitalize/effects/middle.webp", fit: "contain",
-    alt: "A before and after illustration of a midsection, with a diagram of fat under the skin reducing" },
-  { n: 2, title: "Say goodbye to \u201cCortisol Face\u201d",
+  { n: 1, title: "Say goodbye to \u201cCortisol Face\u201d",
     body: "Waking up with a puffy, heavy face usually means your fluid balance is out of whack from unmanaged stress. Magnesium Glycinate relaxes micro-vessels and clears fluid retention so your natural jawline comes back out.",
     photo: "/photos/revitalize/effects/puffy.webp", fit: "contain",
     alt: "Two women photographed side by side, one with a fuller puffier face and one with a more defined face" },
+  { n: 2, title: "Shrink stubborn \u201cCortisol Belly\u201d",
+    body: "High stress forces your body into fat-storage mode, especially around your midsection. Niacinamide and Magnesium Glycinate step in to calm that cellular panic, giving your body the green light to finally drop lower-belly weight.",
+    photo: "/photos/revitalize/effects/middle.webp", fit: "contain",
+    alt: "A before and after illustration of a midsection, with a diagram of fat under the skin reducing" },
   { n: 3, title: "Stop early wrinkles before they start",
     body: "Cortisol is a collagen killer. By pairing rich aminos from Bovine Gelatin with natural Acerola Vitamin C, you get a daily rebuild-and-protect combo that keeps deadline stress from writing itself onto your face.",
     photo: "/photos/revitalize/effects/lines.webp",
