@@ -34,26 +34,9 @@ export function RevitalizeTenPage() {
      page, where choosing a supply is the job. */
   const chosen: Plan = PLANS[0];
   const [open, setOpen] = useState<string | null>(null);
-  const [stuck, setStuck] = useState(false);
   const [shot, setShot] = useState(0);
   const [labelOpen, setLabelOpen] = useState(false);
-  const startRef = useRef<HTMLDivElement | null>(null);
   const offerRef = useRef<HTMLDivElement | null>(null);
-
-  /* The bar waits for reason three, so the reader has had a run at the argument before
-     anything is asked of them, and hides again over the offer. */
-  useEffect(() => {
-    const onScroll = () => {
-      const start = startRef.current?.getBoundingClientRect();
-      const offer = offerRef.current?.getBoundingClientRect();
-      const reached = !!start && start.top < window.innerHeight * 0.6;
-      const offerVisible = !!offer && offer.top < window.innerHeight && offer.bottom > 0;
-      setStuck(reached && !offerVisible);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (!labelOpen) return;
@@ -66,8 +49,6 @@ export function RevitalizeTenPage() {
       document.body.style.overflow = prev;
     };
   }, [labelOpen]);
-
-  const toOffer = () => document.getElementById("offer")?.scrollIntoView({ behavior: "smooth" });
 
   const buy = () => {
     writeAnswer(CART_ID, "plan", chosen.id);
@@ -103,7 +84,7 @@ export function RevitalizeTenPage() {
         </section>
 
         {/* ---------- the ten ---------- */}
-        <section className={styles.wrap} ref={startRef}>
+        <section className={styles.wrap}>
           {REASONS.map((r) => (
             <article key={r.n} className={styles.reason}>
               <div className={styles.reasonFrame} style={{ backgroundImage: `url(${r.photo})` }}>
@@ -272,17 +253,6 @@ export function RevitalizeTenPage() {
           </div>
         </div>
       )}
-
-      <div className={`${styles.sticky} ${stuck ? styles.stickyOn : ""}`}>
-        <div className={`${styles.wrap} ${styles.stickyInner}`}>
-          <Image src={PRODUCT.image} alt="" aria-hidden="true" width={120} height={120} className={styles.stickyShot} />
-          <span className={styles.stickyText}>
-            <span className={styles.stickyTitle}>50% off first pouch</span>
-            <span className={styles.stickyTerms}>Free shipping &middot; Cancel anytime</span>
-          </span>
-          <Button variant="accent" size="md" onClick={toOffer}>Try now</Button>
-        </div>
-      </div>
     </div>
   );
 }

@@ -231,31 +231,13 @@
 .ingRow dd { margin: 0; font-weight: 700; text-align: right; white-space: nowrap; }
 .ingDv { color: var(--ink-60); font-weight: 600; }
 
-/* ---------- legal and sticky ---------- */
+/* ---------- legal ---------- */
 .smallPrint { color: var(--ink-60); font-size: var(--size-meta); line-height: 1.55; margin: 1rem 0 0; }
 
 /* No footer on this page. These two lines stay because a page making structure or
    function claims has to carry them, and because it is a paid advertisement. */
-.legal { padding: 2rem 1.25rem 7rem; display: grid; gap: 0.75rem; }
+.legal { padding: 2rem 1.25rem 2.5rem; display: grid; gap: 0.75rem; }
 .legal p { margin: 0; color: var(--ink-60); font-size: var(--size-meta); line-height: 1.55; text-align: center; }
-
-.sticky {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-  background: var(--white); border-top: 1px solid var(--ink-10);
-  box-shadow: var(--shadow-raised); padding: 0.625rem 0;
-  transform: translateY(110%); transition: transform var(--duration-fast) var(--ease-out);
-}
-.stickyOn { transform: translateY(0); }
-.stickyInner { display: flex; align-items: center; gap: 0.875rem; }
-.stickyShot { width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-xs); flex: none; }
-.stickyText { flex: 1; min-width: 0; display: grid; }
-.stickyTitle { font-weight: var(--weight-bold); font-size: var(--size-body); }
-.stickyTerms { color: var(--ink-60); font-size: var(--size-meta); }
-
-@media (max-width: 767px) {
-  .sticky { display: none; }
-  .legal { padding-bottom: 2.5rem; }
-}
 
 @media (min-width: 768px) {
   .wrap { padding: 0 2rem; }
