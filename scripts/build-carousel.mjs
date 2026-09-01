@@ -171,13 +171,35 @@ const s07 = (S) => shell(`
 </div>`);
 
 /* ---------- 8. guarantee ---------- */
+/* The badge is drawn here rather than dropped in as stock art: it lands on brand, it
+   scales, and the number stays editable when the term changes. */
+const badge = () => `
+<div style="position:relative;width:300px;height:300px;margin:0 auto">
+  <svg viewBox="0 0 300 300" style="width:300px;height:300px;display:block">
+    <defs><path id="arc" d="M150,150 m-108,0 a108,108 0 1,1 216,0 a108,108 0 1,1 -216,0"/></defs>
+    <circle cx="150" cy="150" r="132" fill="${LIME}"/>
+    <circle cx="150" cy="150" r="122" fill="${RED}"/>
+    <circle cx="150" cy="150" r="98" fill="${LIME}"/>
+    <text font-family="Outfit" font-weight="800" font-size="21" fill="#fff" letter-spacing="2.4">
+      <textPath href="#arc" startOffset="25%" text-anchor="middle">100% MONEY BACK</textPath>
+    </text>
+    <text x="150" y="150" text-anchor="middle" font-family="Outfit" font-weight="800"
+      font-size="82" fill="${INK}">60</text>
+    <text x="150" y="186" text-anchor="middle" font-family="Outfit" font-weight="800"
+      font-size="30" fill="${INK}" letter-spacing="3">DAYS</text>
+  </svg>
+  <div style="position:absolute;left:-24px;right:-24px;top:196px;background:${DEEP};color:#fff;
+    text-align:center;padding:12px 0;font-family:Outfit;font-weight:800;font-size:30px;letter-spacing:2px">GUARANTEE</div>
+</div>`;
+
 const s08 = (S) => shell(`
-<div style="flex:1;display:grid;place-items:center;background:#fff">
-  <img src="${img(S.guarantee.photo)}" style="width:700px;height:600px;object-fit:contain">
+<div style="flex:1;display:grid;place-items:center;background:#fff;padding-top:20px">
+  <img src="${img(S.guarantee.photo)}" style="width:620px;height:470px;object-fit:contain">
 </div>
-<div style="background:${DEEP};color:#fff;padding:44px 70px 78px;text-align:center">
-  <h1 class="d" style="font-size:76px;text-transform:uppercase">${S.guarantee.title}</h1>
-  <p style="font-size:31px;font-weight:600;line-height:1.35;margin-top:14px;opacity:.94">${S.guarantee.body}</p>
+<div style="background:${DEEP};color:#fff;padding:36px 70px 76px;text-align:center;position:relative">
+  <div style="position:absolute;left:50%;top:-160px;transform:translateX(-50%)">${badge()}</div>
+  <h1 class="d" style="font-size:72px;text-transform:uppercase;margin-top:44px">${S.guarantee.title}</h1>
+  <p style="font-size:30px;font-weight:600;line-height:1.35;margin-top:12px;opacity:.94">${S.guarantee.body}</p>
 </div>`, "#fff");
 
 /* ---------- render ---------- */

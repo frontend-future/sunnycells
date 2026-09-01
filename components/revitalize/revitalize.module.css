@@ -19,7 +19,6 @@
 
   background: var(--surface-page);
   color: var(--text-primary);
-  padding-bottom: 6.5rem;
 }
 
 .wrap { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
@@ -289,7 +288,8 @@ a.ratingRow .ratingScore { text-decoration: underline; text-underline-offset: 3p
 .quoteShot { width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; }
 
 /* ---------- footer ---------- */
-.footer { background: var(--ink); color: var(--white); padding: 2.5rem 0 1.5rem; margin-top: 2rem; }
+.footer {
+  background: var(--ink); color: var(--white); padding: 2.5rem 0 6.5rem; margin-top: 2rem; }
 .footer p { font-size: var(--size-meta); line-height: 1.55; color: var(--ink-20); margin: 0 0 1rem; }
 .footerLinks {
   display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center;

@@ -56,7 +56,7 @@ export const REASONS: Reason[] = [
   { n: 1, title: "It shrinks stubborn \u201cCortisol Belly\u201d",
     body: "High stress triggers your body to store visceral fat around your midsection. Revitalize uses Niacinamide and Magnesium Glycinate to mute the stress response at the cellular level, signaling your body to stop hoarding emergency fat and finally let go of lower-belly weight.",
     photo: "/photos/revitalize/effects/middle.webp", alt: "Side profile of a middle aged man in a t-shirt, a soft belly visible in profile against a plain wall" },
-  { n: 2, title: "It flushes away morning \u201cPuffy Face\u201d",
+  { n: 2, title: "It flushes away \u201cCortisol Face\u201d",
     body: "Unmanaged cortisol disrupts fluid balance, leaving you swollen and heavy-looking. The Magnesium Glycinate in Revitalize helps restore fluid regulation and relax micro-vessels, flushing out morning retention so you wake up with a defined face.",
     photo: "/photos/revitalize/effects/puffy.webp", alt: "A woman sitting on the edge of a bed just after waking, face puffy around the eyes and cheeks, pillow crease on one cheek" },
   { n: 3, title: "It stops early wrinkles before they start",
@@ -73,7 +73,7 @@ export const REASONS: Reason[] = [
     photo: "/photos/revitalize/effects/eyes.webp", alt: "Close on a woman's face in a bathroom, dark shadows and puffiness under both eyes" },
   { n: 7, title: "It fights stress-induced gray hair",
     body: "Chronic stress depletes the follicle stem cells that produce natural hair pigment. Revitalize delivers Niacinamide to shield hair follicles from oxidative stress, helping preserve your natural hair color and strand vitality.",
-    photo: "/photos/revitalize/effects/graying.webp", alt: "Close on the side of a man's head, grey hairs scattered through darker hair at the temple" },
+    photo: "/photos/revitalize/effects/graying.webp", alt: "A woman lifting her hair back from her parting to show grey strands running through the roots" },
   { n: 8, title: "It\u2019s built with 100% clean ingredients",
     body: "No cheap fillers, synthetic dyes, seed oils, or numbing herbs like Ashwagandha. Every chew of Revitalize uses pure, highly bioavailable ingredients, like Bovine Gelatin and Magnesium Glycinate, to support cellular metabolism naturally.",
     photo: "/product/revitalize/carousel/03-inside.webp", fit: "contain",
@@ -96,29 +96,32 @@ export const REVIEWS_TITLE = "What people are saying about Revitalize";
 
 /** PLACEHOLDER. None of these people exist. */
 export const REVIEWS = [
-  { headline: "I stopped raiding the cupboard at half three.",
-    body: "I take them with coffee about nine. By the time three comes round I am not hunting for something sweet, which has never been true before. Cannot tell you anything about my metabolism. Can tell you about that.",
+  { headline: "Finally stopped raiding the office pantry at 3:30.",
+    body: "I take four of these with my morning coffee around 9 AM. By the time 3 PM rolls around, I\u2019m not mindlessly hunting for sugar, which has literally never happened before. I can\u2019t speak to all the cellular science, but the lack of afternoon cravings is very real.",
     name: "Priya M.", place: "Austin, TX", photo: "/photos/revitalize/ugc/holding.webp" },
-  { headline: "Ten grams of protein in a sweet.",
-    body: "Bought it for the protein honestly. Four gummies is easier than a shake at my desk and it does not need washing up. Cherry lime is not sickly, which I was worried about.",
+  { headline: "Way easier than mixing a protein shake at my desk.",
+    body: "Bought these to help bridge the gap between lunch and dinner. Popping four gummies is so much cleaner than shaking up a chalky powder at my keyboard and washing out a cup in the office sink. Cherry Lime actually tastes like real fruit, not overly sweet chemical candy.",
     name: "Dan W.", place: "Columbus, OH", photo: "/photos/revitalize/ugc/desk-overhead.webp" },
-  { headline: "The magnesium is the bit doing something for me.",
-    body: "I am not lying there at eleven going over the day the way I was. Everything else I am taking on faith, and I am fine with that because they say which bits are which.",
+  { headline: "My brain actually shuts off when my head hits the pillow.",
+    body: "The stress and magnesium combo is doing heavy lifting for me. I used to lie in bed at 11 PM replaying Slack messages and meeting notes in my head for an hour. Now I actually wind down. Waking up without that heavy, puffy morning face is just a massive bonus.",
     name: "Marguerite S.", place: "Portland, OR", photo: "/photos/revitalize/ugc/palm.webp" },
-  { headline: "Honest report at two months.",
-    body: "Down about six pounds but I also started walking at lunch, so I am not going to pretend it was the gummies. What did change is I stopped grazing after dinner.",
+  { headline: "Honest 60-day update.",
+    body: "Down about 6 pounds, but I also started walking on my lunch break, so I\u2019m not going to pretend this is some magic weight-loss chew. What did change is that my stress-snacking completely stopped. I\u2019m no longer grazing through the pantry after dinner.",
     name: "Tom R.", place: "Nashville, TN", photo: "/photos/revitalize/ugc/car.webp" },
 ];
+
 
 export const OFFER = {
   customers: "2,417 reviews",
   ingredientsLink: "See the full ingredient list",
   title: "Daily chews to keep your high-stress workweeks from prematurely aging you",
+  /* Split at the colon: the lead-in is the scannable half, so it carries the weight
+     and the rule while the explanation stays plain. */
   bullets: [
-    "Kills Snack Room Cravings: Keeps your energy steady all afternoon so you stop hunting for snacks",
-    "Fights Cortisol Belly: Helps your body stop hoarding stubborn stress fat around your midsection",
-    "Combats Early Wrinkles: Protects your collagen matrix from daily work stress so skin stays firm",
-    "Clean, Steady Energy: Lifts afternoon brain fog and fatigue without jitters, crashes, or anxiety",
+    { lead: "Kills Snack Room Cravings:", rest: " Keeps your energy steady all afternoon so you stop hunting for snacks" },
+    { lead: "Fights Cortisol Belly:", rest: " Helps your body stop hoarding stubborn stress fat around your midsection" },
+    { lead: "Combats Early Wrinkles:", rest: " Protects your collagen matrix from daily work stress so skin stays firm" },
+    { lead: "Clean, Steady Energy:", rest: " Lifts afternoon brain fog and fatigue without jitters, crashes, or anxiety" },
   ],
   servings: "28 daily sachets per pouch",
   cadence: "Delivered fresh monthly. Pause, skip, or cancel anytime.",
@@ -128,13 +131,13 @@ export const OFFER = {
     "50% off your first order",
     "Free shipping always",
     "Cancel or pause anytime",
-    "30 day money back guarantee",
+    "60 day money back guarantee",
     "First access to new products",
   ],
   accordions: [
     { title: "Ingredients", body: "10 g protein from bovine gelatin, glucomannan 500 mg, magnesium glycinate 60 mg, vitamin C 90 mg from acerola, vitamin D3 25 mcg, B1, B3 and B5 at 100% DV, lutein and zeaxanthin 5 mg, sweetened with allulose. Full panel on the product page." },
-    { title: "Guarantee", body: "30 days, whole order refunded, and you keep the pouch. Email us inside the window." },
-    { title: "How to use", body: "One sachet a day. Tear it open and chew all four. Any time of day, with or without food. Take oral medication an hour either side, as glucomannan can slow absorption." },
+    { title: "Guarantee", body: "60 days, whole order refunded, and you keep the pouch. Email us inside the window." },
+    { title: "How to use", body: "One pack a day, taken in the morning with or without food. Chew all four thoroughly. Take with 8 to 16 fl oz of water for best effect." },
   ],
 };
 

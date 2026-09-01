@@ -115,7 +115,7 @@ export const GALLERY = [
   { src: "/product/revitalize/carousel/05-compare.webp", alt: "Revitalize compared with coffee and a multivitamin across energy without a crash, 10 g of protein, feeding what cortisol spends, staying full to dinner, being something you look forward to, and every dose printed on the front" },
   { src: "/product/revitalize/carousel/06-faq.webp", alt: "Frequently asked questions: what Revitalize is, how it works, whether there is caffeine in it, and how long until you notice" },
   { src: "/product/revitalize/carousel/07-honesty.webp", alt: "We print the weak claims too: every claim on the product page carries an evidence grade and six carry a caveat we wrote ourselves" },
-  { src: "/product/revitalize/carousel/08-guarantee.webp", alt: "30 day money back. Try Revitalize for 30 days, and if the afternoon does not change we refund the whole order" },
+  { src: "/product/revitalize/carousel/08-guarantee.webp", alt: "60 day money back. Try Revitalize for 60 days, and if the afternoon does not change we refund the whole order" },
 ] as const;
 
 /* The eight argument slides on their own. The listicle's offer carousel runs these and
@@ -157,7 +157,7 @@ export const TRUST = [
   "Third-party tested every batch",
   "Made in the USA, GMP-certified facility",
   "Free shipping, arrives in 3 to 5 days",
-  "30 day money back guarantee",
+  "60 day money back guarantee",
 ] as const;
 
 /**
@@ -432,7 +432,7 @@ export const FAQ = [
   { q: "Can I take it with other supplements or medication?",
     a: `With most supplements, yes. Glucomannan can slow the absorption of oral medication, so take those an hour either side. If you are pregnant, nursing, or on prescription medication, speak to your doctor first, and email ${SUPPORT_EMAIL} if you want the full panel to show them.` },
   { q: "What if I do not like them?",
-    a: `Email ${SUPPORT_EMAIL} inside 30 days and we refund the whole order. You keep the pouch.` },
+    a: `Email ${SUPPORT_EMAIL} inside 60 days and we refund the whole order. You keep the pouch.` },
   { q: "Where is it made?",
     a: "Made in the USA, in a facility that follows current Good Manufacturing Practice. Every batch goes to an independent lab before it ships." },
 ] as const;
@@ -440,7 +440,7 @@ export const FAQ = [
 export const INCLUDED = [
   { n: "28", label: "daily sachets", body: "One a day for four weeks. Four gummies in each." },
   { n: "Free", label: "shipping", body: "On every order, every time, with no minimum." },
-  { n: "30 days", label: "money back", body: "Email us and we refund it. You keep the pouch." },
+  { n: "60 days", label: "money back", body: "Email us and we refund it. You keep the pouch." },
   { n: "2 clicks", label: "to cancel", body: "Skip a delivery or stop entirely from your account." },
 ] as const;
 
@@ -467,7 +467,7 @@ export const DISCLAIMER =
 export const FACTS = {
   servingSize: "One sachet (4 gummies, approx. 28 g)",
   servingsPerContainer: 28,
-  suggestedUse: "Take one sachet daily. Do not exceed one sachet per day.",
+  suggestedUse: "One pack a day, taken in the morning with or without food. Chew all four thoroughly. Take with 8 to 16 fl oz of water for best effect. Do not exceed one pack per day.",
   callout: {
     headline: "10 g of protein per sachet",
     parts: [

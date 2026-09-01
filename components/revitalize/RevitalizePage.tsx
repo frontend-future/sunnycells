@@ -129,7 +129,7 @@ export function RevitalizePage() {
 
               <Button fullWidth variant="accent" size="lg" onClick={toBuy}>Try now and save 50%</Button>
               <p className={styles.termsLine}>
-                Try it risk free for 30 days. Free shipping, and you can cancel in two clicks.
+                Try it risk free for 60 days. Free shipping, and you can cancel in two clicks.
               </p>
             </div>
 
@@ -402,7 +402,7 @@ export function RevitalizePage() {
                 Free shipping &nbsp;|&nbsp; {chosen.sub} &nbsp;|&nbsp; Cancel anytime
               </p>
               <p className={`${styles.termsLine} ${styles.ctaTerms}`}>
-                30 day money back guarantee, and you can skip or cancel in two clicks.
+                60 day money back guarantee, and you can skip or cancel in two clicks.
               </p>
             </div>
           </div>

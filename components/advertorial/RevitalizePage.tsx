@@ -306,7 +306,7 @@ export function RevitalizeAdvertorial() {
               Try now and save ${saving}
             </Button>
             <p className={styles.offerTerms} style={{ textAlign: "center", marginTop: "0.75rem" }}>
-              Free shipping &nbsp;|&nbsp; {chosen.sub} &nbsp;|&nbsp; 30 day money back guarantee
+              Free shipping &nbsp;|&nbsp; {chosen.sub} &nbsp;|&nbsp; 60 day money back guarantee
             </p>
             <p className={styles.smallPrint} style={{ textAlign: "center" }}>
               Questions before you buy? <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>

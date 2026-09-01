@@ -15,7 +15,6 @@
 
   background: var(--surface-page);
   color: var(--text-primary);
-  padding-bottom: 6.5rem;
 }
 
 .wrap { width: 100%; max-width: 46rem; margin: 0 auto; padding: 0 1.25rem; }
@@ -139,6 +138,10 @@
 
 .bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
 .bullets li { display: grid; grid-template-columns: 28px 1fr; align-items: start; font-size: var(--size-body); }
+.bulletLead {
+  font-weight: 800; text-decoration: underline;
+  text-decoration-thickness: 2px; text-underline-offset: 3px;
+}
 .tick {
   width: 20px; height: 20px; border-radius: 50%; background: var(--reds); color: var(--white);
   display: grid; place-items: center; margin-top: 3px;
@@ -194,7 +197,7 @@
 
 /* ---------- footer and sticky ---------- */
 .smallPrint { color: var(--ink-60); font-size: var(--size-meta); line-height: 1.55; margin: 1rem 0 0; }
-.footer { background: var(--ivory); margin-top: 2rem; }
+.footer { background: var(--ivory); margin-top: 2rem; padding-bottom: 6.5rem; }
 .disclosure { margin: 0; color: var(--ink-80); font-size: var(--size-meta); line-height: 1.55; }
 .footNav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; margin: 1.5rem 0 1rem; }
 .footNav a {

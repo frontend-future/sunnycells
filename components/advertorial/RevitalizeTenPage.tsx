@@ -185,11 +185,14 @@ export function RevitalizeTenPage() {
 
               <ul className={styles.bullets}>
                 {OFFER.bullets.map((b) => (
-                  <li key={b}>
+                  <li key={b.lead}>
                     <span className={styles.tick} aria-hidden="true">
                       <Icon name="check" size={13} strokeWidth={3.5} />
                     </span>
-                    {b}
+                    <span>
+                      <strong className={styles.bulletLead}>{b.lead}</strong>
+                      {b.rest}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -206,7 +209,7 @@ export function RevitalizeTenPage() {
 
               <div className={styles.offerFlagRow}>
                 <OfferFlag size="sm" />
-                <span className={styles.terms}>Free shipping &middot; 30 day money back</span>
+                <span className={styles.terms}>Free shipping &middot; 60 day money back</span>
               </div>
 
               <div className={styles.benefits}>

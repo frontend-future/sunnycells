@@ -316,7 +316,7 @@ export const TRUST = [
   "Third-party tested every batch",
   "Made in the USA, GMP-certified facility",
   "65 calories, no added sugar",
-  "30 day money back guarantee",
+  "60 day money back guarantee",
 ] as const;
 
 /** PLACEHOLDER reviews. None of these people exist. */

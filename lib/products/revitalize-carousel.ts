@@ -125,8 +125,8 @@ export const SLIDES = {
   guarantee: {
     file: "08-guarantee",
     photo: "/product/revitalize/studio.webp",
-    title: "30 day money back",
-    body: "Try Revitalize for 30 days. If the afternoon does not change, email us and we refund the whole order. Keep the pouch.",
+    title: "60 day money back",
+    body: "Try Revitalize for 60 days. If the afternoon does not change, email us and we refund the whole order. Keep the pouch.",
   },
 } as const;
 
