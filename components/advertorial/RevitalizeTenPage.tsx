@@ -156,12 +156,12 @@ export function RevitalizeTenPage() {
                 onClick={() => setShot((i) => (i + 1) % GALLERY.length)}>
                 <Icon name="chevron-right" size={26} strokeWidth={2.5} />
               </button>
-              <div className={styles.gDots}>
+              <div className={styles.gThumbs}>
                 {GALLERY.map((g, i) => (
                   <button key={g.src} type="button" onClick={() => setShot(i)}
-                    aria-label={`Image ${i + 1} of ${GALLERY.length}`} aria-current={i === shot}
-                    className={styles.gDotHit}>
-                    <span className={`${styles.gDot} ${i === shot ? styles.gDotOn : ""}`} />
+                    aria-label={g.alt} aria-current={i === shot}
+                    className={`${styles.gThumb} ${i === shot ? styles.gThumbOn : ""}`}>
+                    <Image src={g.src} alt="" aria-hidden="true" width={160} height={160} />
                   </button>
                 ))}
               </div>
