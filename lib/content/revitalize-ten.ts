@@ -55,10 +55,10 @@ export type Reason = { n: number; title: string; body: string; photo: string; al
 export const REASONS: Reason[] = [
   { n: 1, title: "It shrinks stubborn \u201cCortisol Belly\u201d",
     body: "High stress triggers your body to store visceral fat around your midsection. Revitalize uses Niacinamide and Magnesium Glycinate to mute the stress response at the cellular level, signaling your body to stop hoarding emergency fat and finally let go of lower-belly weight.",
-    photo: "/photos/revitalize/effects/middle.webp", alt: "A woman in a black sports bra and leggings pinching a roll of belly fat above the waistband" },
+    photo: "/photos/revitalize/effects/middle.webp", fit: "contain", alt: "A woman in a black sports bra and leggings pinching a roll of belly fat above the waistband" },
   { n: 2, title: "It flushes away \u201cCortisol Face\u201d",
     body: "Unmanaged cortisol disrupts fluid balance, leaving you swollen and heavy-looking. The Magnesium Glycinate in Revitalize helps restore fluid regulation and relax micro-vessels, flushing out morning retention so you wake up with a defined face.",
-    photo: "/photos/revitalize/effects/puffy.webp", alt: "Two women photographed side by side, one with a fuller puffier face and one with a more defined face" },
+    photo: "/photos/revitalize/effects/puffy.webp", fit: "contain", alt: "Two women photographed side by side, one with a fuller puffier face and one with a more defined face" },
   { n: 3, title: "It stops early wrinkles before they start",
     body: "Elevated cortisol breaks down your collagen and accelerates fine lines. Revitalize counters this by pairing Bovine Gelatin, rich in skin-building glycine aminos, with natural Acerola Vitamin C to shield your collagen matrix from stress breakdown.",
     photo: "/photos/revitalize/effects/lines.webp", alt: "Close on a tired woman's face under overhead bathroom light, deep crow's feet and forehead lines" },
@@ -70,10 +70,10 @@ export const REASONS: Reason[] = [
     photo: "/photos/revitalize/effects/snacking.webp", alt: "A takeaway bag overflowing with burgers, fries, pizza, cake and a cola" },
   { n: 6, title: "It erases tired, baggy eyes",
     body: "Spiked nighttime cortisol ruins sleep quality and restricts facial blood flow, leaving dark circles. Revitalize uses Magnesium Glycinate and Pantothenic Acid to lower evening tension, supporting the deep sleep needed to wake up looking rested.",
-    photo: "/photos/revitalize/effects/eyes.webp", alt: "A grid of faces showing under-eye bags and dark circles" },
+    photo: "/photos/revitalize/effects/eyes.webp", fit: "contain", alt: "A grid of faces showing under-eye bags and dark circles" },
   { n: 7, title: "It fights stress-induced gray hair",
     body: "Chronic stress depletes the follicle stem cells that produce natural hair pigment. Revitalize delivers Niacinamide to shield hair follicles from oxidative stress, helping preserve your natural hair color and strand vitality.",
-    photo: "/photos/revitalize/effects/graying.webp", alt: "A woman lifting her hair back from the parting to show grey strands through the roots" },
+    photo: "/photos/revitalize/effects/graying.webp", fit: "contain", alt: "A woman lifting her hair back from the parting to show grey strands through the roots" },
   { n: 8, title: "It\u2019s built with 100% clean ingredients",
     body: "No cheap fillers, synthetic dyes, seed oils, or numbing herbs like Ashwagandha. Every chew of Revitalize uses pure, highly bioavailable ingredients, like Bovine Gelatin and Magnesium Glycinate, to support cellular metabolism naturally.",
     photo: "/product/revitalize/carousel/03-inside.webp", fit: "contain",
@@ -115,8 +115,7 @@ export type Accordion = { title: string; body: string; table?: boolean };
 
 export const OFFER = {
   customers: "2,417 reviews",
-  ingredientsLink: "See the full ingredient list",
-  title: "Daily chews to keep your high-stress workweeks from prematurely aging you",
+  title: "Daily stress chews to keep your job from aging you prematurely",
   /* Split at the colon: the lead-in is the scannable half, so it carries the weight
      and the rule while the explanation stays plain. */
   bullets: [
@@ -127,7 +126,7 @@ export const OFFER = {
   ],
   servings: "28 daily sachets per pouch",
   cadence: "Delivered fresh monthly. Pause, skip, or cancel anytime.",
-  cta: "Try now and save 50%",
+  cta: "Try Now",
   benefitsTitle: "Subscriber-only benefits",
   benefits: [
     "50% off your first order",

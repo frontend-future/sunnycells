@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
-import { OfferFlag } from "@/components/core/OfferFlag";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
@@ -175,9 +174,9 @@ export function RevitalizeTenPage() {
               <h2 className={styles.offerTitle}>{OFFER.title}</h2>
 
               <div className={styles.priceRow}>
-                <span className={styles.priceWas}>${chosen.compareAt * chosen.months}</span>
                 <span className={styles.priceNow}>${chosen.price * chosen.months}</span>
-                <span className={styles.savePill}>Save ${saving}</span>
+                <span className={styles.priceWas}>${chosen.compareAt * chosen.months}</span>
+                <span className={styles.offPill}>50% OFF TODAY</span>
               </div>
 
               <ul className={styles.bullets}>
@@ -197,17 +196,18 @@ export function RevitalizeTenPage() {
               <p className={styles.servings}>{OFFER.servings}</p>
               <p className={styles.cadence}>{chosen.sub}. Pause, skip, or cancel anytime.</p>
 
-              <button type="button" className={styles.labelLink} onClick={() => setLabelOpen(true)}>
-                {OFFER.ingredientsLink}
-                <Icon name="chevron-right" size={18} strokeWidth={2.5} />
-              </button>
 
               <Button fullWidth variant="accent" size="lg" onClick={buy}>{OFFER.cta}</Button>
 
-              <div className={styles.offerFlagRow}>
-                <OfferFlag size="sm" />
-                <span className={styles.terms}>Free shipping &middot; 60 day money back</span>
-              </div>
+              <p className={styles.autoApplied}>
+                <span className={styles.autoTick} aria-hidden="true">
+                  <Icon name="check" size={13} strokeWidth={3.5} />
+                </span>
+                50% Off Auto-Applied Today!
+              </p>
+              <p className={styles.terms}>
+                Free Shipping | {chosen.sub} | Cancel Anytime
+              </p>
 
               <div className={styles.benefits}>
                 <h3 className={styles.benefitsTitle}>{OFFER.benefitsTitle}</h3>
