@@ -114,7 +114,7 @@ export const GALLERY = [
   { src: "/product/revitalize/carousel/04-timeline.webp", alt: "What happens when you take Revitalize. Week one: afternoon cravings vanish, the 3 PM energy crash disappears, sleep feels deeper. Month one: face looks less puffy, cortisol belly starts shrinking, skin stays calm under deadline stress. Month three: fine lines and screen strain fade, steady focus is your new baseline, you look and feel rested even on 60-hour weeks" },
   { src: "/product/revitalize/carousel/05-compare.webp", alt: "Revitalize compared with coffee and a multivitamin on all-day energy without jitters or crashes, a satiety-boosting protein matrix, flushing cortisol and shielding against screen strain, killing afternoon pantry cravings, being a daily ritual you look forward to, and fully transparent high-potency ingredients" },
   { src: "/product/revitalize/carousel/06-faq.webp", alt: "Frequently asked questions: what Revitalize is, how it works, whether there is caffeine in it, and how fast you will see results" },
-  { src: "/product/revitalize/carousel/07-honesty.webp", alt: "We print the weak claims too: every claim on the product page carries an evidence grade and six carry a caveat we wrote ourselves" },
+  { src: "/product/revitalize/carousel/07-honesty.webp", alt: "We do not do miracle claims, we do honest doses. The entire formula and the exact amount of every ingredient is on the pouch: no mystery blends, no synthetic shortcuts, third-party verified every batch" },
   { src: "/product/revitalize/carousel/08-guarantee.webp", alt: "60 day money back. Try Revitalize for 60 days, and if the afternoon does not change we refund the whole order" },
 ] as const;
 

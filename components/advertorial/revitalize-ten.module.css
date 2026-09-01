@@ -63,12 +63,22 @@
 
 /* ---------- the ten ---------- */
 .reason { display: grid; gap: 1.25rem; align-items: center; padding-block: 2rem; }
-.reasonShot {
-  width: 100%; display: block; aspect-ratio: 3 / 4; object-fit: cover;
+/* The frame carries a blurred copy of the same photograph, so a source that does not
+   match 3:4 fills the box instead of sitting in a flat band. */
+.reasonFrame {
+  position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
   border-radius: var(--radius-lg); background: var(--ivory);
+  background-size: cover; background-position: center;
 }
+.reasonFrame::before {
+  content: ""; position: absolute; inset: 0;
+  background: inherit; background-size: cover; background-position: center;
+  filter: blur(26px) saturate(1.15) brightness(0.97);
+  transform: scale(1.25);
+}
+.reasonShot { position: relative; width: 100%; height: 100%; object-fit: cover; display: block; }
 .reasonLow { object-position: 50% 62%; }
-.reasonFit { object-fit: contain; background: var(--ivory); border: 2px solid var(--ink-10); }
+.reasonFit { object-fit: contain; }
 .reasonBody { display: grid; gap: 0.75rem; }
 .h2 {
   font-family: var(--font-display); font-weight: var(--weight-display);
@@ -122,7 +132,7 @@
 .gThumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .gThumbOn { border-color: var(--reds); }
 @media (min-width: 640px) { .gThumbs { grid-template-columns: repeat(8, 1fr); gap: 0.375rem; } }
-.offerCard { display: grid; gap: 1rem; }
+.offerCard { display: grid; gap: 0.875rem; }
 .offerTitle {
   margin: 0; color: var(--reds); font-family: var(--font-display);
   font-weight: var(--weight-display); text-transform: uppercase;
@@ -141,7 +151,7 @@
    three things people check before pressing it. */
 .autoApplied {
   display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  margin: 0.875rem 0 0; text-align: center;
+  margin: -0.125rem 0 0; text-align: center;
   font-size: var(--size-body); font-weight: 800; color: var(--status-success);
 }
 .autoTick {
@@ -186,10 +196,10 @@
 .planPrice { font-weight: var(--weight-bold); font-size: var(--size-body-lg); }
 .planWas { color: var(--ink-60); font-size: var(--size-meta); text-decoration: line-through; }
 
-.servings { margin: 0; text-align: center; font-size: var(--size-body); font-weight: var(--weight-bold); }
+.servings { margin: 0.25rem 0 -0.25rem; text-align: center; font-size: var(--size-body); font-weight: var(--weight-bold); }
 .cadence { margin: -0.5rem 0 0; text-align: center; color: var(--ink-60); font-size: var(--size-meta); }
 .offerFlagRow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem; }
-.terms { margin: 0.5rem 0 0; text-align: center; color: var(--ink-60); font-size: var(--size-meta); font-weight: 600; }
+.terms { margin: -0.375rem 0 0.25rem; text-align: center; color: var(--ink-60); font-size: var(--size-meta); font-weight: 600; }
 
 .benefits { border: 2px solid var(--reds); border-radius: var(--radius-md); background: var(--ivory); padding: 1.125rem 1.25rem; }
 .benefitsTitle { margin: 0 0 0.75rem; color: var(--reds); font-size: var(--size-body-lg); font-weight: var(--weight-bold); }

@@ -127,14 +127,16 @@ export const SLIDES = {
   /* 7. Trust. The reference uses a founder story. We use the thing that is true. */
   honesty: {
     file: "07-honesty",
-    title: "We print the weak claims too",
-    photo: "/product/revitalize/monitor.webp",
-    body: [
-      "Sixteen things stress does to you are on our product page. Next to every one is how good the evidence actually is, in three grades.",
-      "Six of them carry a caveat we wrote ourselves. Our glucomannan is a sixth of the dose in the European claim, and it says so. Our lutein is 5 mg against a trial that used 12 mg, and it says so. Nothing here reverses gray hair.",
-      "Every other label in this aisle asserts all of it equally. Read ours, then go and read one of theirs.",
+    title: "We don\u2019t do miracle claims. We do honest doses.",
+    lede:
+      "Most supplement brands hide behind proprietary blends and inflated promises. We put our entire formula, and the exact amount of every single ingredient, right on the pouch.",
+    points: [
+      { lead: "No mystery blends:", rest: " 10 g Bovine Gelatin, Magnesium Glycinate, Niacinamide, B1, B5, Vitamin D3, Acerola Vitamin C, Lutein/Zeaxanthin, and Konjac Root Glucomannan." },
+      { lead: "No synthetic shortcuts:", rest: " Zero artificial stimulants, zero useless fillers, and zero added sugar, sweetened naturally with Allulose." },
+      { lead: "Third-party verified:", rest: " Every batch is independently tested for purity and potency before it ever reaches your desk." },
     ],
-    kicker: "The strong claims are worth more when you can see we did not inflate the weak ones.",
+    kicker:
+      "We won\u2019t promise to cure aging overnight or rewrite your genetics. But if you stick with it, you\u2019ll notice less brain fog, a sharper jawline, and a less stressed face and eyes. Try it for 60 days. If it doesn\u2019t earn a permanent spot on your desk, your money back.",
   },
 
   /* 8. Risk reversal. */

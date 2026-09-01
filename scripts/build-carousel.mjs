@@ -159,15 +159,20 @@ const s06 = (S) => shell(`
 
 /* ---------- 7. trust ---------- */
 const s07 = (S) => shell(`
-<div class="pad" style="flex:1;display:flex;flex-direction:column;gap:26px;padding-bottom:82px">
-  <h1 class="d" style="font-size:64px;text-transform:uppercase;color:${RED};max-width:900px">${S.honesty.title}</h1>
-  <div style="display:grid;grid-template-columns:1fr 340px;gap:36px;align-items:start">
-    <div style="display:flex;flex-direction:column;gap:22px">
-      ${S.honesty.body.map((p) => `<p style="font-size:29px;font-weight:600;line-height:1.35;color:${INK80}">${p}</p>`).join("")}
-    </div>
-    <img src="${img(S.honesty.photo)}" style="width:340px;height:340px;object-fit:cover;border-radius:20px">
+<div class="pad" style="flex:1;display:flex;flex-direction:column;gap:22px;padding:52px 62px 84px">
+  <h1 class="d" style="font-size:52px;text-transform:uppercase;color:${RED};line-height:1.04">${S.honesty.title}</h1>
+  <p style="font-size:25px;font-weight:600;line-height:1.34;color:${INK80}">${S.honesty.lede}</p>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    ${S.honesty.points.map((x) => `
+    <div style="display:flex;gap:14px;align-items:flex-start">
+      <span style="flex:none;width:32px;height:32px;border-radius:50%;background:${RED};color:#fff;
+        display:grid;place-items:center;font-weight:800;font-size:17px;margin-top:2px">&#10003;</span>
+      <p style="font-size:24px;line-height:1.32"><strong>${x.lead}</strong>${x.rest}</p>
+    </div>`).join("")}
   </div>
-  <p style="font-size:31px;font-weight:800;line-height:1.25;border-left:8px solid ${RED};padding-left:22px;margin-top:auto">${S.honesty.kicker}</p>
+  <img src="${img(S.product.photo)}" style="width:100%;height:250px;object-fit:contain;margin:6px 0">
+  <p style="font-size:24px;font-weight:600;line-height:1.34;border-left:8px solid ${RED};
+    padding-left:20px;margin-top:auto;color:${INK}">${S.honesty.kicker}</p>
 </div>`);
 
 /* ---------- 8. guarantee ---------- */

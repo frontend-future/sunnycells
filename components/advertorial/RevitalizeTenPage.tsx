@@ -107,8 +107,10 @@ export function RevitalizeTenPage() {
         <section className={styles.wrap} ref={startRef}>
           {REASONS.map((r) => (
             <article key={r.n} className={styles.reason}>
-              <Image src={r.photo} alt={r.alt} width={720} height={960}
-                className={`${styles.reasonShot} ${r.fit === "contain" ? styles.reasonFit : ""}`} />
+              <div className={styles.reasonFrame} style={{ backgroundImage: `url(${r.photo})` }}>
+                <Image src={r.photo} alt={r.alt} width={720} height={960}
+                  className={`${styles.reasonShot} ${r.fit === "contain" ? styles.reasonFit : ""}`} />
+              </div>
               <div className={styles.reasonBody}>
                 <h2 className={styles.h2}>{r.n}. {r.title}</h2>
                 <p className={styles.body}>{r.body}</p>
