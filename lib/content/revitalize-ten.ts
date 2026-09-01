@@ -20,7 +20,11 @@ export const META = {
 export const HERO = {
   rating: "Excellent 4.8",
   count: "2,417 reviews",
-  title: "Your Laptop Screen Is Aging You Faster Than The Sun. Here Are 10 Reasons Office Workers Are Fighting Back With This Chew",
+  /* Split so the claim carries a rule under it. The three parts join back into one
+     sentence, so the page title and any share preview still read normally. */
+  titleLead: "Your Laptop Screen Is ",
+  titleUnderline: "Aging You Faster Than The Sun",
+  titleRest: ". Here Are 10 Reasons Office Workers Are Fighting Back With This Chew",
   sub: "From puffy morning eyes to stubborn cortisol belly, here's why thousands of desk workers chew four of these before 9 AM to keep their skin, eyes, and body looking ten years younger.",
   photo: "/product/revitalize/slump.webp",
   alt: "A pouch of Revitalize Gummies and an open sachet on a sunlit desk",

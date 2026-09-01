@@ -95,7 +95,11 @@ export function RevitalizeTenPage() {
             <Stars size={15} />
             <strong>{HERO.rating}</strong> {HERO.count}
           </p>
-          <h1 className={styles.h1}>{HERO.title}</h1>
+          <h1 className={styles.h1}>
+            {HERO.titleLead}
+            <span className={styles.underline}>{HERO.titleUnderline}</span>
+            {HERO.titleRest}
+          </h1>
           <p className={styles.sub}>{HERO.sub}</p>
           <Image src={HERO.photo} alt={HERO.alt} width={900} height={1200} priority className={styles.heroShot} />
         </section>
