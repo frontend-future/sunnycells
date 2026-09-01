@@ -167,10 +167,6 @@ export function RevitalizeTenPage() {
               </div>
             </div>
             <div className={styles.offerCard}>
-              <p className={styles.ratingLine} style={{ textAlign: "left", marginBottom: "0.75rem" }}>
-                <Stars size={15} />
-                {OFFER.customers}
-              </p>
               <h2 className={styles.offerTitle}>{OFFER.title}</h2>
 
               <div className={styles.priceRow}>
@@ -194,7 +190,6 @@ export function RevitalizeTenPage() {
               </ul>
 
               <p className={styles.servings}>{OFFER.servings}</p>
-              <p className={styles.cadence}>{chosen.sub}. Pause, skip, or cancel anytime.</p>
 
 
               <Button fullWidth variant="accent" size="lg" onClick={buy}>{OFFER.cta}</Button>

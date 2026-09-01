@@ -55,7 +55,7 @@ export type Reason = { n: number; title: string; body: string; photo: string; al
 export const REASONS: Reason[] = [
   { n: 1, title: "It shrinks stubborn \u201cCortisol Belly\u201d",
     body: "High stress triggers your body to store visceral fat around your midsection. Revitalize uses Niacinamide and Magnesium Glycinate to mute the stress response at the cellular level, signaling your body to stop hoarding emergency fat and finally let go of lower-belly weight.",
-    photo: "/photos/revitalize/effects/middle.webp", fit: "contain", alt: "A woman in a black sports bra and leggings pinching a roll of belly fat above the waistband" },
+    photo: "/photos/revitalize/effects/middle.webp", fit: "contain", alt: "A before and after illustration of a midsection, with a diagram of fat under the skin reducing" },
   { n: 2, title: "It flushes away \u201cCortisol Face\u201d",
     body: "Unmanaged cortisol disrupts fluid balance, leaving you swollen and heavy-looking. The Magnesium Glycinate in Revitalize helps restore fluid regulation and relax micro-vessels, flushing out morning retention so you wake up with a defined face.",
     photo: "/photos/revitalize/effects/puffy.webp", fit: "contain", alt: "Two women photographed side by side, one with a fuller puffier face and one with a more defined face" },
