@@ -12,7 +12,7 @@ import { trackMetaEvent } from "@/lib/meta";
 import {
   DISCLAIMER, HERO, OFFER, REASONS, REVIEWS, REVIEWS_TITLE,
 } from "@/lib/content/revitalize-ten";
-import { CAROUSEL as GALLERY, CART_ID, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
+import { CAROUSEL as GALLERY, CART_ID, FACTS, PLANS, PRODUCT, SUPPORT_EMAIL, type Plan } from "@/lib/products/revitalize";
 import styles from "./revitalize-ten.module.css";
 
 const CHECKOUT = "/products/revitalize/checkout";
@@ -135,9 +135,6 @@ export function RevitalizeTenPage() {
               </article>
             ))}
           </div>
-          <p className={styles.smallPrint}>
-            Customer results have not been independently verified. Individual results vary.
-          </p>
         </section>
 
         {/* ---------- offer ---------- */}
@@ -235,7 +232,22 @@ export function RevitalizeTenPage() {
                       {a.title}
                       <Icon name={on ? "minus" : "plus"} size={20} strokeWidth={2.4} />
                     </button>
-                    {on && <p className={styles.accBody}>{a.body}</p>}
+                    {on && (
+                      <div className={styles.accBody}>
+                        <p style={{ margin: 0 }}>{a.body}</p>
+                        {"table" in a && a.table && (
+                          <dl className={styles.ingTable}>
+                            {FACTS.rows.map((r) => (
+                              <div key={r.name} className={styles.ingRow}>
+                                <dt style={{ paddingLeft: "indent" in r ? `${r.indent * 0.75}rem` : undefined }}>{r.name}</dt>
+                                <dd>{r.amount}</dd>
+                                <dd className={styles.ingDv}>{r.dv}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}

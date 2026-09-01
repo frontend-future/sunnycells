@@ -55,25 +55,25 @@ export type Reason = { n: number; title: string; body: string; photo: string; al
 export const REASONS: Reason[] = [
   { n: 1, title: "It shrinks stubborn \u201cCortisol Belly\u201d",
     body: "High stress triggers your body to store visceral fat around your midsection. Revitalize uses Niacinamide and Magnesium Glycinate to mute the stress response at the cellular level, signaling your body to stop hoarding emergency fat and finally let go of lower-belly weight.",
-    photo: "/photos/revitalize/effects/middle.webp", alt: "Side profile of a middle aged man in a t-shirt, a soft belly visible in profile against a plain wall" },
+    photo: "/photos/revitalize/effects/middle.webp", alt: "A woman in a black sports bra and leggings pinching a roll of belly fat above the waistband" },
   { n: 2, title: "It flushes away \u201cCortisol Face\u201d",
     body: "Unmanaged cortisol disrupts fluid balance, leaving you swollen and heavy-looking. The Magnesium Glycinate in Revitalize helps restore fluid regulation and relax micro-vessels, flushing out morning retention so you wake up with a defined face.",
-    photo: "/photos/revitalize/effects/puffy.webp", alt: "A woman sitting on the edge of a bed just after waking, face puffy around the eyes and cheeks, pillow crease on one cheek" },
+    photo: "/photos/revitalize/effects/puffy.webp", alt: "Two women photographed side by side, one with a fuller puffier face and one with a more defined face" },
   { n: 3, title: "It stops early wrinkles before they start",
     body: "Elevated cortisol breaks down your collagen and accelerates fine lines. Revitalize counters this by pairing Bovine Gelatin, rich in skin-building glycine aminos, with natural Acerola Vitamin C to shield your collagen matrix from stress breakdown.",
     photo: "/photos/revitalize/effects/lines.webp", alt: "Close on a tired woman's face under overhead bathroom light, deep crow's feet and forehead lines" },
   { n: 4, title: "It shields your eyes from digital damage",
     body: "Staring at screens all day drains ocular tissue and causes micro-tension. Revitalize delivers clinically backed Lutein and Zeaxanthin alongside Acerola antioxidants to actively filter blue light and neutralize digital strain, keeping your eyes fresh after long workdays.",
-    photo: "/photos/revitalize/effects/screen.webp", alt: "A man at a cluttered office desk late in the day, glasses pushed up, rubbing reddened tired eyes" },
+    photo: "/photos/revitalize/effects/screen.webp", alt: "A woman at a laptop at night taking off her glasses and pressing the bridge of her nose" },
   { n: 5, title: "It kills relentless afternoon cravings",
     body: "That 3:30 PM pantry raid isn\u2019t a lack of willpower. Revitalize pairs 10 g of satiety-boosting gelatin aminos with konjac fiber that swells in the stomach, keeping you full and silencing afternoon cravings until dinner.",
-    photo: "/photos/revitalize/effects/snacking.webp", alt: "A messy office desk mid afternoon: a half-eaten packet of biscuits on its side, crumbs, a stained mug" },
+    photo: "/photos/revitalize/effects/snacking.webp", alt: "A takeaway bag overflowing with burgers, fries, pizza, cake and a cola" },
   { n: 6, title: "It erases tired, baggy eyes",
     body: "Spiked nighttime cortisol ruins sleep quality and restricts facial blood flow, leaving dark circles. Revitalize uses Magnesium Glycinate and Pantothenic Acid to lower evening tension, supporting the deep sleep needed to wake up looking rested.",
-    photo: "/photos/revitalize/effects/eyes.webp", alt: "Close on a woman's face in a bathroom, dark shadows and puffiness under both eyes" },
+    photo: "/photos/revitalize/effects/eyes.webp", alt: "A grid of faces showing under-eye bags and dark circles" },
   { n: 7, title: "It fights stress-induced gray hair",
     body: "Chronic stress depletes the follicle stem cells that produce natural hair pigment. Revitalize delivers Niacinamide to shield hair follicles from oxidative stress, helping preserve your natural hair color and strand vitality.",
-    photo: "/photos/revitalize/effects/graying.webp", alt: "A woman lifting her hair back from her parting to show grey strands running through the roots" },
+    photo: "/photos/revitalize/effects/graying.webp", alt: "A woman lifting her hair back from the parting to show grey strands through the roots" },
   { n: 8, title: "It\u2019s built with 100% clean ingredients",
     body: "No cheap fillers, synthetic dyes, seed oils, or numbing herbs like Ashwagandha. Every chew of Revitalize uses pure, highly bioavailable ingredients, like Bovine Gelatin and Magnesium Glycinate, to support cellular metabolism naturally.",
     photo: "/product/revitalize/carousel/03-inside.webp", fit: "contain",
@@ -84,8 +84,8 @@ export const REASONS: Reason[] = [
     alt: "The pouch and a torn sachet on a marble surface with gummies spilled out" },
   { n: 10, title: "It works or you don\u2019t pay",
     body: "Try Revitalize for 60 full days. If you don\u2019t notice a real difference in your stress, afternoon energy, and appearance, you get a full refund. We take the risk, not you.",
-    photo: "/photos/revitalize/ten/r10.webp",
-    alt: "A person on a sofa at home holding a cream supplement pouch" },
+    photo: "/photos/revitalize/effects/guarantee.webp", fit: "contain",
+    alt: "60 day 100% money back guarantee badge" },
 ];
 
 
@@ -98,7 +98,7 @@ export const REVIEWS_TITLE = "What people are saying about Revitalize";
 export const REVIEWS = [
   { headline: "Finally stopped raiding the office pantry at 3:30.",
     body: "I take four of these with my morning coffee around 9 AM. By the time 3 PM rolls around, I\u2019m not mindlessly hunting for sugar, which has literally never happened before. I can\u2019t speak to all the cellular science, but the lack of afternoon cravings is very real.",
-    name: "Priya M.", place: "Austin, TX", photo: "/photos/revitalize/ugc/holding.webp" },
+    name: "Stacy M.", place: "Austin, TX", photo: "/photos/revitalize/ugc/holding.webp" },
   { headline: "Way easier than mixing a protein shake at my desk.",
     body: "Bought these to help bridge the gap between lunch and dinner. Popping four gummies is so much cleaner than shaking up a chalky powder at my keyboard and washing out a cup in the office sink. Cherry Lime actually tastes like real fruit, not overly sweet chemical candy.",
     name: "Dan W.", place: "Columbus, OH", photo: "/photos/revitalize/ugc/desk-overhead.webp" },
@@ -110,6 +110,8 @@ export const REVIEWS = [
     name: "Tom R.", place: "Nashville, TN", photo: "/photos/revitalize/ugc/car.webp" },
 ];
 
+
+export type Accordion = { title: string; body: string; table?: boolean };
 
 export const OFFER = {
   customers: "2,417 reviews",
@@ -135,7 +137,7 @@ export const OFFER = {
     "First access to new products",
   ],
   accordions: [
-    { title: "Ingredients", body: "10 g protein from bovine gelatin, glucomannan 500 mg, magnesium glycinate 60 mg, vitamin C 90 mg from acerola, vitamin D3 25 mcg, B1, B3 and B5 at 100% DV, lutein and zeaxanthin 5 mg, sweetened with allulose. Full panel on the product page." },
+    { title: "Ingredients", table: true, body: "Per pack of four gummies. The full panel, including the allergen statement, is on the product page." },
     { title: "Guarantee", body: "60 days, whole order refunded, and you keep the pouch. Email us inside the window." },
     { title: "How to use", body: "One pack a day, taken in the morning with or without food. Chew all four thoroughly. Take with 8 to 16 fl oz of water for best effect." },
   ],
