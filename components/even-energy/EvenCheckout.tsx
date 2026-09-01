@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,6 +19,8 @@ export type CheckoutProduct = {
   name: string;
   cartId: string;
   buildOrder: (planId: string | undefined) => EvenOrder;
+  /** Days in the money back window. SC-22 is 30, SC-25 is 60. */
+  guaranteeDays?: number;
 };
 
 const EVEN: CheckoutProduct = { name: PRODUCT.name, cartId: CART_ID, buildOrder: buildEvenOrder };
@@ -88,7 +91,16 @@ export function EvenCheckout({
   backHref = "/products/even-energy",
   backLabel,
   product = EVEN,
-}: { backHref?: string; backLabel?: string; product?: CheckoutProduct } = {}) {
+  theme,
+}: {
+  backHref?: string;
+  backLabel?: string;
+  product?: CheckoutProduct;
+  /* Palette overrides for a product whose page is not the green one. Inline rather
+     than a second class, because .page declares these tokens itself and two single
+     class selectors would leave the winner up to stylesheet order. */
+  theme?: CSSProperties;
+} = {}) {
   const { answers, ready } = useAnswers(product.cartId);
   const order = product.buildOrder(answers.plan);
   const [f, setF] = useState<Record<string, string>>({ phone: "+1" });
@@ -158,7 +170,7 @@ export function EvenCheckout({
   };
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} style={theme}>
       <header className={styles.header}>
         <div className={`${styles.wrap} ${styles.headerInner}`}>
           <Link href={backHref} className={styles.backLink}>
@@ -304,7 +316,7 @@ export function EvenCheckout({
                 </dl>
 
                 <p className={styles.lineNote}>
-                  {order.plan.sub}. Skip or cancel in two clicks, and a 30 day money back guarantee
+                  {order.plan.sub}. Skip or cancel in two clicks, and a {product.guaranteeDays ?? 30} day money back guarantee
                   either way.
                 </p>
               </>

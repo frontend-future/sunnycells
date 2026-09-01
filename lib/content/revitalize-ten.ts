@@ -114,7 +114,7 @@ export const REVIEWS = [
   { headline: "My brain actually shuts off when my head hits the pillow.",
     body: "The stress and magnesium combo is doing heavy lifting for me. I used to lie in bed at 11 PM replaying Slack messages and meeting notes in my head for an hour. Now I actually wind down. Waking up without that heavy, puffy morning face is just a massive bonus.",
     name: "Marguerite S.", place: "Portland, OR", photo: "/photos/revitalize/ugc/palm.webp" },
-  { headline: "Honest 60-day update.",
+  { headline: "6 pounds after 60 days",
     body: "Down about 6 pounds, but I also started walking on my lunch break, so I\u2019m not going to pretend this is some magic weight-loss chew. What did change is that my stress-snacking completely stopped. I\u2019m no longer grazing through the pantry after dinner.",
     name: "Tom R.", place: "Nashville, TN", photo: "/photos/revitalize/ugc/car.webp" },
 ];

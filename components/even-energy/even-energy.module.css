@@ -1270,7 +1270,7 @@
 }
 
 .summary {
-  background: linear-gradient(160deg, #F1FAF2 0%, var(--sprout-tint) 45%, #C6E8C9 100%);
+  background: linear-gradient(160deg, var(--summary-a, #F1FAF2) 0%, var(--sprout-tint) 45%, var(--summary-b, #C6E8C9) 100%);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-card);
   padding: var(--space-8);
