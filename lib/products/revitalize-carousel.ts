@@ -72,9 +72,21 @@ export const SLIDES = {
     file: "04-timeline",
     title: "What happens when you take Revitalize",
     cols: [
-      { when: "Week 1", tone: "a", items: ["The 3pm hole shallows", "You stop grazing", "Sleep comes easier"] },
-      { when: "Month 3", tone: "b", items: ["Skin has turned over once", "Calm is the baseline", "Steady through a long day"] },
-      { when: "Month 6+", tone: "c", items: ["Hair grown on the new intake", "Macular pigment built", "The good days outnumber"] },
+      { when: "Week 1", tone: "a", items: [
+        "Afternoon cravings vanish",
+        "3 PM energy crash disappears",
+        "Sleep feels deeper and more restful",
+      ] },
+      { when: "Month 1", tone: "b", items: [
+        "Face looks noticeably less puffy",
+        "Cortisol belly starts shrinking",
+        "Skin stays calm and smooth under deadline stress",
+      ] },
+      { when: "Month 3", tone: "c", items: [
+        "Fine lines and screen strain fade",
+        "Steady focus is your new baseline",
+        "You look and feel rested, even on 60-hour weeks",
+      ] },
     ],
   },
 
