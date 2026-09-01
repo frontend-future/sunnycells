@@ -124,7 +124,7 @@ export const OFFER = {
     { lead: "Combats Early Wrinkles:", rest: " Protects your collagen matrix from daily work stress so skin stays firm" },
     { lead: "Clean, Steady Energy:", rest: " Lifts afternoon brain fog and fatigue without jitters, crashes, or anxiety" },
   ],
-  servings: "28 daily sachets per pouch",
+  servings: "28 daily servings per pouch",
   cadence: "Delivered fresh monthly. Pause, skip, or cancel anytime.",
   cta: "Try Now",
   benefitsTitle: "Subscriber-only benefits",
