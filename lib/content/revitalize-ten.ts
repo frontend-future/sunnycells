@@ -94,16 +94,16 @@ export const REVIEWS_TITLE = "What people are saying about Revitalize";
 export const REVIEWS = [
   { headline: "I stopped raiding the cupboard at half three.",
     body: "I take them with coffee about nine. By the time three comes round I am not hunting for something sweet, which has never been true before. Cannot tell you anything about my metabolism. Can tell you about that.",
-    name: "Priya M.", place: "Austin, TX", photo: "/product/revitalize/desk.webp" },
+    name: "Priya M.", place: "Austin, TX", photo: "/photos/revitalize/ugc/holding.webp" },
   { headline: "Ten grams of protein in a sweet.",
     body: "Bought it for the protein honestly. Four gummies is easier than a shake at my desk and it does not need washing up. Cherry lime is not sickly, which I was worried about.",
-    name: "Dan W.", place: "Columbus, OH", photo: "/product/revitalize/typing.webp" },
+    name: "Dan W.", place: "Columbus, OH", photo: "/photos/revitalize/ugc/desk-overhead.webp" },
   { headline: "The magnesium is the bit doing something for me.",
     body: "I am not lying there at eleven going over the day the way I was. Everything else I am taking on faith, and I am fine with that because they say which bits are which.",
-    name: "Marguerite S.", place: "Portland, OR", photo: "/product/revitalize/marble.webp" },
+    name: "Marguerite S.", place: "Portland, OR", photo: "/photos/revitalize/ugc/palm.webp" },
   { headline: "Honest report at two months.",
     body: "Down about six pounds but I also started walking at lunch, so I am not going to pretend it was the gummies. What did change is I stopped grazing after dinner.",
-    name: "Tom R.", place: "Nashville, TN", photo: "/product/revitalize/park.webp" },
+    name: "Tom R.", place: "Nashville, TN", photo: "/photos/revitalize/ugc/car.webp" },
 ];
 
 export const OFFER = {
