@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
@@ -253,22 +252,13 @@ export function RevitalizeTenPage() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={`${styles.wrap} ${styles.section}`}>
-          <p className={styles.disclosure}>
-            This page is an advertisement for a SUNNYCELLS product and we are paid when
-            you buy.
-          </p>
-          <p className={styles.smallPrint}>{DISCLAIMER}</p>
-          <nav className={styles.footNav}>
-            <Link href="/">Home</Link>
-            <Link href="/products/revitalize">Revitalize</Link>
-            <Link href="/revitalize/3pm-crash">The full story</Link>
-            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
-          </nav>
-          <p style={{ textAlign: "center" }}>&copy; 2026 SUNNYCELLS</p>
-        </div>
-      </footer>
+      <div className={`${styles.wrap} ${styles.legal}`}>
+        <p>
+          This page is an advertisement for a SUNNYCELLS product and we are paid when
+          you buy.
+        </p>
+        <p>{DISCLAIMER}</p>
+      </div>
 
       {/* The label, full size. Escape and the backdrop both close it. */}
       {labelOpen && (
