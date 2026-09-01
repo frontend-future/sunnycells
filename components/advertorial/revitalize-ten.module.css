@@ -59,6 +59,7 @@
   width: 100%; display: block; aspect-ratio: 3 / 4; object-fit: cover;
   border-radius: var(--radius-lg); background: var(--ivory);
 }
+.reasonLow { object-position: 50% 62%; }
 .reasonFit { object-fit: contain; background: var(--white); border: 2px solid var(--ink-10); }
 .reasonBody { display: grid; gap: 0.75rem; }
 .h2 {
