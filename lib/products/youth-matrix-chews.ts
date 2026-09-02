@@ -13,7 +13,7 @@
  */
 
 export const PRODUCT = {
-  badge: "Clinical Formula • Non-Melatonin",
+  badge: "Clinical formula · non-melatonin",
   title: "Youth Matrix Chews",
   subhead: "Internal Dermal Repair & Cortisol Defense Chews",
   rating: { score: "4.9/5", count: "1,248 Verified Reviews" },
@@ -33,6 +33,7 @@ export type Plan = {
   name: string;
   price: string;
   compareAt?: string;
+  save?: string;
   cadence?: string;
   best?: boolean;
   points?: string[];
@@ -41,24 +42,25 @@ export type Plan = {
 export const PLANS: Plan[] = [
   {
     id: "sub",
-    name: "Subscribe & Save 23%",
-    price: "$52.00",
-    compareAt: "$68.00",
-    cadence: "/ month",
+    name: "Subscribe and save",
+    price: "$52",
+    compareAt: "$68",
+    save: "Save $16",
+    cadence: "a month",
     best: true,
     points: [
-      "Includes Heavy Frosted Glass Vessel (Free with 1st Order)",
-      "Eco-Friendly Refill Pouches Delivered Every 30 Days",
-      "Swap, Pause, or Cancel Anytime with 1-Click",
+      "Includes the heavy frosted glass vessel, free with your first order",
+      "Eco-friendly refill pouches delivered every 30 days",
+      "Swap, pause, or cancel anytime in one click",
     ],
   },
-  { id: "once", name: "One-Time Purchase", price: "$68.00" },
+  { id: "once", name: "One-time purchase", price: "$68" },
 ];
 
 export const TRUST = [
-  "30-Day Money-Back Guarantee",
-  "Free Priority Shipping On Subscriptions",
-  "Formulated Without Melatonin or Synthetic Fillers",
+  "30 day money back guarantee",
+  "Free priority shipping on subscriptions",
+  "Formulated without melatonin or synthetic fillers",
 ] as const;
 
 const IMG = "/products/youth-matrix-chews";
@@ -73,7 +75,7 @@ export const GALLERY = [
 ] as const;
 
 export const STACK = {
-  title: "The 4-In-1 Clinical Stack",
+  title: "The four in one clinical stack",
   lede: "Every chew carries the full stack. No proprietary blend, no rounding down.",
   items: [
     {
@@ -100,7 +102,7 @@ export const STACK = {
 } as const;
 
 export const COMPARE = {
-  title: "Why Chews Beat Pills",
+  title: "Why chews beat pills",
   usLabel: "Youth Matrix Chews",
   themLabel: "Standard Capsules / Pills",
   rows: [

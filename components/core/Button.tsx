@@ -68,8 +68,12 @@ export function Button({
         letterSpacing: "var(--tracking-caps)",
         textTransform: "uppercase",
         textDecoration: "none",
-        lineHeight: 1,
-        whiteSpace: "nowrap",
+        /* A full width button already has its width decided, so a long label should
+           wrap inside it rather than set a min-content the page has to scroll to
+           reach. "CHECK AVAILABILITY AND ORDER" measured 401px against a 360px
+           viewport. An inline button still never wraps. */
+        whiteSpace: fullWidth ? "normal" : "nowrap",
+        lineHeight: fullWidth ? 1.2 : 1,
         color: disabled ? "var(--action-disabled-fg)" : f.fg,
         background: disabled ? "var(--action-disabled-bg)" : hover || down ? f.press : f.bg,
         border: "2px solid " + (disabled ? "transparent" : f.border),

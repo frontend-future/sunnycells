@@ -1,0 +1,214 @@
+/* SC-26 Youth Matrix Chews PDP, on the SUNNYCELLS system.
+   The product family colour is --family-wellness, which is --sprout, an existing
+   system accent designed to carry black text. The page rebinds the action tokens on
+   .page rather than hardcoding a hex below, the way SC-24 and SC-25 do.
+   Type never drops under 20px except on legal and meta lines, --ink-40 never carries
+   text, and buttons keep 12px corners. */
+
+.page {
+  --matrix: var(--family-wellness);
+  --matrix-press: var(--sprout-press);
+  --matrix-tint: var(--sprout-tint);
+  --ivory: #F4F1E6;
+
+  /* Black on the accent, per the rule: all four family codes carry black text only. */
+  --action-accent-bg: var(--matrix);
+  --action-accent-bg-press: var(--matrix-press);
+  --action-accent-fg: var(--ink);
+
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+.wrap { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
+.narrow { max-width: 52rem; }
+/* padding-block, never the shorthand: these are worn alongside .wrap and the
+   shorthand would reset its inline padding to zero. */
+.section { padding-block: 3.5rem; }
+
+.h1 {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: var(--size-h1-m); line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading); text-transform: uppercase; margin: 0;
+}
+.h2 {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: var(--size-h2-m); line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading); margin: 0;
+}
+.h3 { font-size: var(--size-body-lg); font-weight: var(--weight-bold); line-height: 1.25; margin: 0; }
+.body { font-size: var(--size-body); line-height: var(--leading-body); margin: 0; }
+.lede { font-size: var(--size-body-lg); line-height: var(--leading-body); color: var(--ink-80); margin: 0; }
+.meta { color: var(--ink-60); font-size: var(--size-meta); line-height: 1.45; }
+.centre { text-align: center; }
+
+/* Micro-labels: sentence case in the text face, never caps and never mono. */
+.label {
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-size: var(--size-meta); font-weight: 600; color: var(--ink-60);
+}
+
+.masthead { border-bottom: 1px solid var(--border-hairline); background: var(--surface-page); }
+.mastheadInner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
+.mastheadInner > a { display: inline-flex; align-items: center; min-height: 48px; }
+.mastheadLink {
+  display: inline-flex; align-items: center; min-height: 48px;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+
+.badge {
+  display: inline-flex; align-items: center; background: var(--matrix-tint);
+  color: var(--ink); border-radius: var(--radius-xs); padding: 0.4375rem 0.75rem;
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-size: var(--size-meta); font-weight: 600;
+}
+
+/* ---------- above the fold ---------- */
+.buyGrid { display: grid; gap: 2rem; align-items: start; }
+.buyGrid > * { min-width: 0; }
+.gallery { display: grid; gap: 0.75rem; min-width: 0; }
+.galleryMain {
+  width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
+  border-radius: var(--radius-lg); background: var(--ivory);
+}
+.thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+.thumb {
+  padding: 0; cursor: pointer; overflow: hidden; aspect-ratio: 1; min-height: 48px;
+  border: 2px solid var(--ink-10); border-radius: var(--radius-sm); background: var(--ivory);
+}
+.thumbOn { border-color: var(--matrix-press); }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.buyCard { display: grid; gap: 1rem; min-width: 0; }
+.subhead { margin: 0; font-size: var(--size-body-lg); color: var(--ink-80); }
+.stars { display: inline-flex; gap: 2px; color: var(--sun); }
+.ratingRow { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.ratingScore { font-weight: var(--weight-bold); font-size: var(--size-body); }
+
+/* The cross-link to the advertorial, above the pricing. */
+.crossLink {
+  display: block; text-decoration: none; color: inherit;
+  border-left: 4px solid var(--matrix); border-radius: var(--radius-md);
+  background: var(--ivory); padding: 1.125rem 1.25rem;
+}
+.crossLink:hover { background: var(--ink-10); }
+.crossQuote { margin: 0.5rem 0 0; font-size: var(--size-body); font-weight: 500; line-height: 1.35; }
+.crossCta {
+  display: inline-block; margin-top: 0.75rem; font-weight: var(--weight-bold);
+  font-size: var(--size-body); text-decoration: underline; text-underline-offset: 3px;
+}
+
+.plans { display: grid; gap: 0.625rem; }
+.plan {
+  display: grid; grid-template-columns: 24px 1fr; gap: 0.875rem; align-items: start;
+  width: 100%; text-align: left; cursor: pointer; padding: 1.125rem;
+  border: 2px solid var(--ink-10); border-radius: var(--radius-md);
+  background: var(--surface-card); font: inherit; color: inherit; min-height: 56px;
+}
+.planOn { border-color: var(--matrix-press); background: var(--matrix-tint); }
+.radio {
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--ink-20);
+  display: grid; place-items: center; margin-top: 2px;
+}
+.planOn .radio { border-color: var(--matrix-press); }
+.radio > span { width: 10px; height: 10px; border-radius: 50%; background: var(--matrix-press); }
+.planName { font-weight: var(--weight-bold); font-size: var(--size-body); }
+.planTag {
+  margin-left: 0.5rem; background: var(--matrix); color: var(--ink);
+  border-radius: var(--radius-xs); padding: 0.125rem 0.5rem;
+  font-size: var(--size-meta); font-weight: 700;
+}
+.priceRow { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem; margin-top: 0.5rem; }
+.priceNow { font-family: var(--font-display); font-weight: var(--weight-display); font-size: 2rem; line-height: 1; }
+.priceWas { color: var(--ink-60); text-decoration: line-through; font-size: var(--size-body); }
+/* Savings in dollars. The only percentage in the brand is the standing 50% off. */
+.savePill {
+  background: var(--sun); color: var(--ink); border-radius: var(--radius-xs);
+  padding: 0.1875rem 0.5rem; font-size: var(--size-meta); font-weight: 800;
+}
+.points { list-style: none; margin: 0.875rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.points li { display: grid; grid-template-columns: 26px 1fr; align-items: start; font-size: var(--size-meta); color: var(--ink-80); }
+.tick {
+  width: 18px; height: 18px; border-radius: 50%; background: var(--matrix-press);
+  color: var(--white); display: grid; place-items: center; margin-top: 2px;
+}
+.trust { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
+.trust li { display: grid; grid-template-columns: 28px 1fr; align-items: center; font-size: var(--size-body); }
+
+/* ---------- stack, comparison, reviews ---------- */
+.sunk { background: var(--ivory); }
+.cols { display: grid; gap: 1.25rem; }
+.card {
+  border: 2px solid var(--ink-10); border-radius: var(--radius-lg);
+  background: var(--surface-card); padding: 1.5rem; display: grid; gap: 0.5rem; align-content: start;
+}
+.dose {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: 1.75rem; line-height: 1; color: var(--matrix-press);
+}
+
+.compare { display: none; border-top: 2px solid var(--ink); }
+.compareHead, .compareRow { display: grid; grid-template-columns: 1fr 1.2fr 1.2fr; gap: 1rem; }
+.compareHead { padding: 0.875rem 1rem; background: var(--ivory); }
+.compareRow { padding: 1rem; border-top: 1px solid var(--ink-10); align-items: start; }
+.compareUs { background: var(--matrix-tint); }
+.compareCol { font-family: var(--font-label); letter-spacing: var(--tracking-mono); font-size: var(--size-meta); font-weight: 600; }
+.compareStack { display: grid; gap: 1rem; }
+.compareCard { border: 2px solid var(--ink-10); border-radius: var(--radius-lg); padding: 1.25rem; }
+.compareLine { display: grid; grid-template-columns: 26px 1fr; gap: 0.5rem; align-items: start; margin: 0.75rem 0 0; }
+.no { color: var(--ink-60); }
+
+.bridge { background: var(--ink); color: var(--white); }
+.bridge .h2, .bridge .lede { color: var(--white); }
+.bridgeGrid { display: grid; gap: 2rem; align-items: center; }
+.bridgeShot { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-lg); display: block; }
+
+.review { padding-block: 1.5rem; border-top: 1px solid var(--ink-10); }
+.reviewTop { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-bottom: 0.5rem; }
+.verified {
+  background: var(--matrix-tint); color: var(--ink); border-radius: var(--radius-xs);
+  padding: 0.125rem 0.5rem; font-size: var(--size-meta); font-weight: 700;
+}
+
+.footer { background: var(--ink); color: var(--white); }
+.footer .legal { color: var(--ink-20); font-size: var(--size-meta); line-height: 1.55; margin: 0 auto 1.5rem; max-width: 46rem; text-align: center; }
+.footNav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; margin-bottom: 1rem; }
+.footNav a { min-height: 48px; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- sticky bar, under 768px only ---------- */
+.sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  background: var(--surface-card); border-top: 1px solid var(--ink-10);
+  box-shadow: var(--shadow-raised); padding: 0.625rem 0;
+}
+.stickyInner { display: flex; align-items: center; gap: 0.875rem; }
+.stickyShot { width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-xs); flex: none; }
+.stickyText { flex: 1; min-width: 0; display: grid; }
+.stickyPrice { font-weight: var(--weight-bold); font-size: var(--size-body); }
+
+@media (max-width: 419px) { .stickyShot { display: none; } }
+
+@media (min-width: 480px) {
+  .thumbs { grid-template-columns: repeat(6, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .wrap { padding: 0 2rem; }
+  .section { padding-block: 4.5rem; }
+  .h1 { font-size: var(--size-h1); }
+  .h2 { font-size: var(--size-h2); }
+  .cols2 { grid-template-columns: repeat(2, 1fr); }
+  .cols4 { grid-template-columns: repeat(4, 1fr); }
+  .bridgeGrid { grid-template-columns: 1fr 340px; gap: 3rem; }
+  /* The brief puts the sticky bar under 768 only. */
+  .sticky { display: none; }
+  /* Table from here up, cards below: three columns of prose will not fit a phone. */
+  .compare { display: block; }
+  .compareStack { display: none; }
+}
+
+@media (min-width: 1000px) {
+  .buyGrid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  /* Sticky so the purchase box can run long beside it. */
+  .gallery { position: sticky; top: 2rem; }
+}
