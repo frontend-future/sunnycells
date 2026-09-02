@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml, FROM_NAME, NOTIFY_TO_EMAIL, postToSlack, type Result } from "@/lib/notify";
+import { stageFor, type Stage } from "@/lib/notify-stage";
 
 type Shipping = {
   email: string;
@@ -18,9 +19,11 @@ type NotifyPayload = {
   shipping: Shipping;
   plan: string;
   total: number;
+  stage?: Stage;
 };
 
 async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
+  const stage = stageFor(p.stage);
   const apiKey = process.env.RESEND_API_KEY;
   const domain = process.env.RESEND_EMAIL_DOMAIN;
   if (!apiKey || !domain) {
@@ -35,7 +38,7 @@ async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
 
   const html = `
     <div style="font-family: sans-serif; font-size: 14px; color: #0D0D0C; line-height: 1.6;">
-      <h2 style="margin: 0 0 12px;">New purchase attempt</h2>
+      <h2 style="margin: 0 0 12px;">${stage.title}</h2>
       <p><strong>Plan:</strong> ${escapeHtml(plan)}<br>
       <strong>Total:</strong> $${total}</p>
       <p><strong>Name:</strong> ${escapeHtml(name)}<br>
@@ -43,7 +46,7 @@ async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
       <strong>Phone:</strong> ${escapeHtml(shipping.phone || "—")}</p>
       <p><strong>Shipping address:</strong><br>${address}</p>
       <p style="color: #6B6B60; font-size: 12px; margin-top: 24px;">
-        No payment was processed. This checkout does not run real transactions yet.
+        ${stage.note}
       </p>
     </div>
   `;
@@ -52,7 +55,7 @@ async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
   const { error } = await resend.emails.send({
     from: `${FROM_NAME} <notifications@${domain}>`,
     to: NOTIFY_TO_EMAIL,
-    subject: `Purchase attempt: ${name || shipping.email}, $${total}`,
+    subject: `${stage.subject}: ${name || shipping.email}, $${total}`,
     html,
   });
 
@@ -60,23 +63,24 @@ async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
 }
 
 async function sendSlack(p: NotifyPayload, name: string): Promise<Result> {
+  const stage = stageFor(p.stage);
   const { shipping, plan, total } = p;
   const address = [shipping.line1, shipping.line2, `${shipping.city}, ${shipping.state} ${shipping.zip}`]
     .filter(Boolean)
     .join(", ");
 
-  return postToSlack(`New purchase attempt: ${name || shipping.email}, $${total}`, [
+  return postToSlack(`${stage.title}: ${name || shipping.email}, $${total}`, [
     {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*New purchase attempt*\n*Plan:* ${plan}\n*Total:* $${total}\n*Name:* ${name}\n*Email:* ${shipping.email}\n*Phone:* ${shipping.phone || "—"}\n*Shipping:* ${address}`,
+        text: `*${stage.title}*\n*Plan:* ${plan}\n*Total:* $${total}\n*Name:* ${name}\n*Email:* ${shipping.email}\n*Phone:* ${shipping.phone || "—"}\n*Shipping:* ${address}`,
       },
     },
     {
       type: "context",
       elements: [
-        { type: "mrkdwn", text: "No payment was processed. This checkout does not run real transactions yet." },
+        { type: "mrkdwn", text: stage.note },
       ],
     },
   ]);

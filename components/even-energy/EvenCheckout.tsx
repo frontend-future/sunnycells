@@ -31,14 +31,19 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 /* Shipping and contact only. Card number and CVC live inside CardForm and are never
    lifted out of it, so nothing here can carry them.
 
-   Called from the payment submit, not the shipping one. An "attempt" that fired when
-   somebody merely reached the card form was reporting people who never entered a card
-   at all, which is the opposite of what the word means. */
-function notifyAttempt(shipping: Record<string, string>, plan: string, total: number) {
+   Fires twice, and the stage says which is which: once when somebody reaches the card
+   step, and once when they enter a card and press pay. They are different leads and
+   collapsing them into one subject line loses the distinction. */
+function notifyAttempt(
+  shipping: Record<string, string>,
+  plan: string,
+  total: number,
+  stage: "payment" | "purchase",
+) {
   fetch("/api/notify-purchase", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ shipping, plan, total }),
+    body: JSON.stringify({ shipping, plan, total, stage }),
   }).catch((err) => console.error("[even] notify-purchase failed", err));
 }
 
@@ -152,6 +157,12 @@ export function EvenCheckout({
     /* AddPaymentInfo stays here on purpose. Reaching the payment step is precisely
        what that event means, so this is the honest moment for it. */
     trackMetaEvent("AddPaymentInfo", basket(), identity());
+    notifyAttempt(
+      { ...identity(), line1: f.line1 ?? "", line2: f.line2 ?? "" },
+      order.plan.name,
+      order.total,
+      "payment",
+    );
     setPhase("payment");
   };
 
@@ -165,6 +176,7 @@ export function EvenCheckout({
       { ...identity(), line1: f.line1 ?? "", line2: f.line2 ?? "" },
       order.plan.name,
       order.total,
+      "purchase",
     );
     trackMetaEvent("Purchase", basket(), identity());
   };

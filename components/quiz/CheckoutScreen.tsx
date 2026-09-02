@@ -79,11 +79,11 @@ export function CheckoutScreen({
    * live inside CardForm and are never lifted into this component, so there is no
    * payment data here to leak into a payload.
    */
-  const notifyAttempt = (shipping: Record<string, string>) => {
+  const notifyAttempt = (shipping: Record<string, string>, stage: "payment" | "purchase") => {
     fetch("/api/notify-purchase", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ shipping, plan: plan.label, total: order.total }),
+      body: JSON.stringify({ shipping, plan: plan.label, total: order.total, stage }),
     })
       .then((res) => {
         if (!res.ok) console.error("[checkout] notify-purchase returned", res.status);
@@ -91,21 +91,21 @@ export function CheckoutScreen({
       .catch((err) => console.error("[checkout] notify-purchase failed", err));
   };
 
+  const shippingPayload = () => ({
+    email: (f.email ?? answers.email ?? "").trim(),
+    firstName: f.firstName ?? "",
+    lastName: f.lastName ?? "",
+    line1: f.line1 ?? "",
+    line2: f.line2 ?? "",
+    city: f.city ?? "",
+    state: f.state ?? "",
+    zip: f.zip ?? "",
+    phone: f.phone ?? "",
+  });
+
   /* Fires on Submit secure payment, once the card fields validate, and never on a
      click that only surfaces errors. */
-  const purchased = () => {
-    notifyAttempt({
-      email: (f.email ?? answers.email ?? "").trim(),
-      firstName: f.firstName ?? "",
-      lastName: f.lastName ?? "",
-      line1: f.line1 ?? "",
-      line2: f.line2 ?? "",
-      city: f.city ?? "",
-      state: f.state ?? "",
-      zip: f.zip ?? "",
-      phone: f.phone ?? "",
-    });
-  };
+  const purchased = () => notifyAttempt(shippingPayload(), "purchase");
 
   const submit = () => {
     const next: Record<string, string> = {};
@@ -147,6 +147,9 @@ export function CheckoutScreen({
     };
     trackMetaEvent("AddPaymentInfo", basket, identity);
     trackMetaEvent("Purchase", basket, identity);
+    /* Reaching the card step is its own lead, so it gets its own notification. The
+       purchase one still waits for a card. */
+    notifyAttempt(shippingPayload(), "payment");
     setPhase("payment");
   };
 
