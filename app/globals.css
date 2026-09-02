@@ -93,6 +93,13 @@
   --ease-out: var(--ease-out);
 
   --container-page: var(--page-max);
+
+  /* The advertorial routes run an editorial pairing rather than the house faces, so
+     they get their own two family keys. The variables they point at are defined only
+     on those route wrappers; everywhere else the fallback stacks carry it, and the
+     house --font-display / --font-text are untouched. */
+  --font-editorial: var(--font-editorial-serif), ui-serif, Georgia, "Times New Roman", serif;
+  --font-editorial-ui: var(--font-editorial-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* In-page anchors glide rather than teleport, so the reader keeps their place

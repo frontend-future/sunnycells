@@ -117,10 +117,12 @@ export function YouthMatrixPage() {
                         </span>
                         <span className={styles.priceRow}>
                           <span className={styles.priceNow}>{p.price}</span>
-                          {p.cadence && <span className={styles.meta}>{p.cadence}</span>}
                           {p.compareAt && <span className={styles.priceWas}>{p.compareAt}</span>}
                           {p.save && <span className={styles.savePill}>{p.save}</span>}
                         </span>
+                        {/* The ongoing price rides with the first-order price, on its
+                            own line: it is a sentence, not a unit like "/pouch". */}
+                        {p.cadence && <span className={styles.cadence}>{p.cadence}</span>}
                         {p.points && (
                           <ul className={styles.points}>
                             {p.points.map((pt) => <li key={pt}><Tick />{pt}</li>)}
@@ -274,11 +276,8 @@ export function YouthMatrixPage() {
             className={styles.stickyShot}
           />
           <span className={styles.stickyText}>
-            <span className={styles.stickyPrice}>
-              {chosen.price}
-              {chosen.cadence ? ` ${chosen.cadence}` : ""}
-            </span>
-            <span className={styles.meta}>30 day money back</span>
+            <span className={styles.stickyPrice}>{chosen.price}</span>
+            <span className={styles.meta}>{chosen.shortCadence ?? chosen.cadence ?? "30 day money back"}</span>
           </span>
           <Button variant="accent" size="md" onClick={() => router.push(CHECKOUT_HREF)}>
             Check availability

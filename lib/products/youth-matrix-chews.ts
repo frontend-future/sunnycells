@@ -1,3 +1,5 @@
+import { firstOrderPrice, formatPrice } from "@/lib/price";
+
 /**
  * Youth Matrix Chews PDP content for /products/youth-matrix-chews.
  *
@@ -35,18 +37,25 @@ export type Plan = {
   compareAt?: string;
   save?: string;
   cadence?: string;
+  /* The compact form for the sticky bar, where the full sentence has no room. */
+  shortCadence?: string;
   best?: boolean;
   points?: string[];
 };
+
+/* $50 a month, half price on the first order. Derived, never typed by hand. */
+export const MONTHLY = formatPrice(50);
+export const FIRST_ORDER = formatPrice(firstOrderPrice(50));
 
 export const PLANS: Plan[] = [
   {
     id: "sub",
     name: "Subscribe and save",
-    price: "$52",
-    compareAt: "$68",
-    save: "Save $16",
-    cadence: "a month",
+    price: FIRST_ORDER,
+    compareAt: MONTHLY,
+    save: `Save ${formatPrice(50 - firstOrderPrice(50))}`,
+    cadence: `first month, then ${MONTHLY} a month`,
+    shortCadence: `then ${MONTHLY} a month`,
     best: true,
     points: [
       "Includes the heavy frosted glass vessel, free with your first order",
@@ -54,7 +63,7 @@ export const PLANS: Plan[] = [
       "Swap, pause, or cancel anytime in one click",
     ],
   },
-  { id: "once", name: "One-time purchase", price: "$68" },
+  { id: "once", name: "One-time purchase", price: MONTHLY, cadence: "one delivery, no repeat" },
 ];
 
 export const TRUST = [

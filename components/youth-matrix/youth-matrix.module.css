@@ -181,12 +181,22 @@
   background: var(--surface-card); border-top: 1px solid var(--ink-10);
   box-shadow: var(--shadow-raised); padding: 0.625rem 0;
 }
-.stickyInner { display: flex; align-items: center; gap: 0.875rem; }
+.stickyInner { display: flex; align-items: center; gap: 0.875rem; flex-wrap: wrap; }
 .stickyShot { width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-xs); flex: none; }
 .stickyText { flex: 1; min-width: 0; display: grid; }
 .stickyPrice { font-weight: var(--weight-bold); font-size: var(--size-body); }
 
 @media (max-width: 419px) { .stickyShot { display: none; } }
+
+/* Below 480 the button's label cannot shrink (it never wraps at this size) and it
+   squeezed the price column to about seventy pixels, which stacked "then $50 a
+   month" one word per line. Two rows instead: the figures across the top, the
+   button across the bottom. The ongoing price has to stay beside the first-order
+   price, so dropping it to make room was not an option. */
+@media (max-width: 479px) {
+  .stickyText { flex: 1 0 100%; display: flex; align-items: baseline; gap: 0.5rem; }
+  .stickyInner > button { flex: 1 0 100%; }
+}
 
 @media (min-width: 480px) {
   .thumbs { grid-template-columns: repeat(6, 1fr); }
@@ -211,4 +221,16 @@
   .buyGrid { grid-template-columns: 1fr 1fr; gap: 3rem; }
   /* Sticky so the purchase box can run long beside it. */
   .gallery { position: sticky; top: 2rem; }
+}
+
+/* The cadence line under a plan's figures. Its own row because it is a sentence
+   ("first month, then $50 a month"), not a unit, and inside the price row it forced
+   the row to wrap a word at a time on a phone. */
+.cadence {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-label);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-60);
 }

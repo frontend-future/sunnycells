@@ -10,9 +10,20 @@
  *      SC-21 and SC-25 advertorials in this repo deliberately do not do: both are
  *      bylined to the brand. Flagged, not altered, because the brief said verbatim.
  *   2. Youth Matrix Chews is not a product this codebase sells. The formula, the
- *      doses, the $52/mo price, the 23% offer and the SKU below have no counterpart
- *      in lib/products, and the CTA points at /checkout, a route that does not exist.
+ *      doses and the SKU below have no counterpart in lib/products, and the CTA
+ *      points at /checkout, a route that does not exist.
+ *
+ * The page is styled as an editorial piece and deliberately runs off the house
+ * design system, so it states the standing offer in its own type rather than with
+ * OfferFlag. The figures are still derived with firstOrderPrice(), never typed, and
+ * the first-order price never appears without the ongoing price beside it.
  */
+
+import { firstOrderPrice, formatPrice } from "@/lib/price";
+
+/** $50 a month, half price on the first order. */
+export const MONTHLY = formatPrice(50);
+export const FIRST_ORDER = formatPrice(firstOrderPrice(50));
 
 export const META = {
   category: "Dermal Physiology & Cellular Health",
@@ -23,10 +34,60 @@ export const META = {
     "Cortisol-induced dermal collapse, the five warning signs, and the 10-second evening ritual that reverses it.",
 } as const;
 
+/**
+ * The furniture that makes this read as a piece of journalism rather than a landing
+ * page: masthead, section rail, standfirst, key points, pull quote, author note.
+ *
+ * The masthead is deliberately a desk name carrying "A SUNNYCELLS publication" in
+ * the same breath. An advertorial dressed as an outlet the reader might mistake for
+ * a real newsroom is the version of this that gets a brand in trouble, so the
+ * publisher is named at the top, at the foot, and in the disclosure strip.
+ */
+export const NEWS = {
+  masthead: "The Longevity Desk",
+  publisher: "A SUNNYCELLS publication",
+  sections: ["Skin", "Sleep", "Hormones", "Nutrition", "Research"],
+  section: "Skin",
+  disclosure:
+    "Advertisement. This article is written and paid for by SUNNYCELLS and features a product we sell.",
+  /* The standfirst: the paragraph a news page runs under the headline, summarising
+     the piece before the reader commits to it. */
+  deck:
+    "Chronic evening cortisol dismantles the collagen scaffold under your skin faster than any topical can rebuild it. Here is what dermatologists look for, and what the research says actually reaches the dermal layer.",
+  byline: "Dr. Elena Vance",
+  bylineRole: "Dermal physiology correspondent",
+  dateline: "Updated today",
+  readTime: "6 min read",
+  keyPointsTitle: "What you need to know",
+  keyPoints: [
+    "Cortisol stays elevated through the night for most people under sustained stress, which is when collagen is normally rebuilt.",
+    "Topicals reach the epidermis. The collagen scaffold that holds a jawline sits below it, in the dermis.",
+    "The five signs below are the ones that show up before a wrinkle does.",
+    "The fix is an oral amino acid substrate plus the cofactors that let the body use it.",
+  ],
+  pullQuote:
+    "Every night you spend at a raised cortisol level is a night your skin spends taking the scaffold apart instead of building it.",
+  pullQuoteWho: "Dr. Elena Vance",
+  inThisArticle: "In this article",
+  glossaryTitle: "Key terms",
+  glossary: [
+    { term: "Cortisol", def: "The body's primary stress hormone. Useful in the morning, corrosive to tissue when it stays high overnight." },
+    { term: "Dermal matrix", def: "The collagen and elastin scaffold in the layer beneath the surface of the skin. What firmness actually is." },
+    { term: "NAD+", def: "The coenzyme cells use to run overnight repair. It falls with both age and stress load." },
+  ],
+  authorNote:
+    "Dr. Elena Vance writes on dermal physiology and cellular health for The Longevity Desk. This piece was commissioned and paid for by SUNNYCELLS.",
+  footnote:
+    "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results vary.",
+} as const;
+
 export const CTA = {
   label: "Check availability",
   href: "/checkout?sku=youth-matrix-chews-sub",
-  price: "$52/mo",
+  price: FIRST_ORDER,
+  /* The ongoing price travels with the first-order price everywhere it is shown. */
+  note: `first month, then ${MONTHLY} a month`,
+  flag: "50% off first order",
 } as const;
 
 export const INTRO = [
@@ -165,6 +226,7 @@ export const OFFER = {
     "Sunnycells formulates Youth Matrix Chews in small batches using ultra-pure, bioavailable ingredients—free from synthetic fillers, melatonin, or excess sugars.",
     "To eliminate plastic waste, your initial order arrives in a heavy, frosted custom glass vessel designed to sit elegantly on your vanity, accompanied by a 30-day supply of Chews. Subsequent orders arrive in eco-friendly refill pouches.",
   ],
-  offerLine: "SPECIAL OFFER: 23% Off First-Time Subscriber Orders",
+  offerLine: "Standing offer: 50% off your first order",
+  offerPrice: `${FIRST_ORDER} for your first month, then ${MONTHLY} a month`,
   guarantee: "Backed by a 30-Day Money-Back Guarantee.",
 } as const;
