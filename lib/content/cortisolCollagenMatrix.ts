@@ -27,6 +27,8 @@ export const FIRST_ORDER = formatPrice(firstOrderPrice(50));
 
 export const META = {
   category: "Dermal Physiology & Cellular Health",
+  sub:
+    "Here is why women are chewing four of these before bed, and what dermatologists look for when stress starts showing on a face.",
   title:
     "5 Signs High Stress Is Destroying Your Skin’s Collagen Matrix (And the Nightly Ritual Fixing It)",
   author: "By Dr. Elena Vance | 6 min read | Updated Today",
@@ -35,48 +37,24 @@ export const META = {
 } as const;
 
 /**
- * The furniture that makes this read as a piece of journalism rather than a landing
- * page: masthead, section rail, standfirst, key points, pull quote, author note.
+ * The header, in the format the listicle at /revitalize/10-reasons uses: rating line,
+ * title, subtitle, hero shot, then straight into the piece. No masthead, no section
+ * rail, no byline furniture.
  *
- * The masthead is deliberately a desk name carrying "A SUNNYCELLS publication" in
- * the same breath. An advertorial dressed as an outlet the reader might mistake for
- * a real newsroom is the version of this that gets a brand in trouble, so the
- * publisher is named at the top, at the foot, and in the disclosure strip.
+ * The rating figures are the supplied ones from the PDP, and they are placeholders on
+ * the same footing as every other rating in this repo: written to voice, not collected.
  */
-export const NEWS = {
-  masthead: "The Longevity Desk",
-  publisher: "A SUNNYCELLS publication",
-  sections: ["Skin", "Sleep", "Hormones", "Nutrition", "Research"],
-  section: "Skin",
+export const HERO = {
+  rating: "Excellent 4.9",
+  count: "1,248 Reviews",
+  photo: "/advertorials/cortisol-collagen-matrix/hero-header.webp",
+  alt: "Split-screen of the same woman: on the left tired with morning facial puffiness, on the right rested with a sculpted jawline",
+} as const;
+
+/** Paid-content disclosure and the FDA line, both at the foot. */
+export const FOOT = {
   disclosure:
     "Advertisement. This article is written and paid for by SUNNYCELLS and features a product we sell.",
-  /* The standfirst: the paragraph a news page runs under the headline, summarising
-     the piece before the reader commits to it. */
-  deck:
-    "Chronic evening cortisol dismantles the collagen scaffold under your skin faster than any topical can rebuild it. Here is what dermatologists look for, and what the research says actually reaches the dermal layer.",
-  byline: "Dr. Elena Vance",
-  bylineRole: "Dermal physiology correspondent",
-  dateline: "Updated today",
-  readTime: "6 min read",
-  keyPointsTitle: "What you need to know",
-  keyPoints: [
-    "Cortisol stays elevated through the night for most people under sustained stress, which is when collagen is normally rebuilt.",
-    "Topicals reach the epidermis. The collagen scaffold that holds a jawline sits below it, in the dermis.",
-    "The five signs below are the ones that show up before a wrinkle does.",
-    "The fix is an oral amino acid substrate plus the cofactors that let the body use it.",
-  ],
-  pullQuote:
-    "Every night you spend at a raised cortisol level is a night your skin spends taking the scaffold apart instead of building it.",
-  pullQuoteWho: "Dr. Elena Vance",
-  inThisArticle: "In this article",
-  glossaryTitle: "Key terms",
-  glossary: [
-    { term: "Cortisol", def: "The body's primary stress hormone. Useful in the morning, corrosive to tissue when it stays high overnight." },
-    { term: "Dermal matrix", def: "The collagen and elastin scaffold in the layer beneath the surface of the skin. What firmness actually is." },
-    { term: "NAD+", def: "The coenzyme cells use to run overnight repair. It falls with both age and stress load." },
-  ],
-  authorNote:
-    "Dr. Elena Vance writes on dermal physiology and cellular health for The Longevity Desk. This piece was commissioned and paid for by SUNNYCELLS.",
   footnote:
     "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results vary.",
 } as const;
