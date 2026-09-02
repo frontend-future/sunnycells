@@ -11,7 +11,7 @@ import {
 const BTN =
   "block w-full max-w-md mx-auto rounded-lg px-8 py-4 text-center text-lg font-bold " +
   "uppercase tracking-wide text-white shadow-xl transition-all duration-200 md:text-xl " +
-  "bg-[#14402F] hover:bg-[#C8A96A] hover:text-[#14402F] hover:scale-[1.02] active:scale-100";
+  "bg-[#18804F] hover:bg-[#C8A96A] hover:text-[#18804F] hover:scale-[1.02] active:scale-100";
 
 const BODY = "space-y-5 text-lg leading-relaxed text-stone-800 md:text-xl md:leading-[1.75]";
 
@@ -104,7 +104,7 @@ export function CortisolMatrixPage() {
           <ol className="mt-5 space-y-4 text-lg leading-relaxed text-stone-800 md:text-xl">
             {SOLUTION.numbered.map((t, i) => (
               <li key={t} className="flex gap-4">
-                <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[#14402F] font-editorial-ui text-sm font-bold text-white">
+                <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[#18804F] font-editorial-ui text-sm font-bold text-white">
                   {i + 1}
                 </span>
                 <span>{t}</span>
@@ -158,8 +158,8 @@ export function CortisolMatrixPage() {
         <section className="mt-12 border-t border-stone-200 pt-10">
           <Figure src={OFFER.image} alt={OFFER.alt} caption={OFFER.caption} />
           <div className={BODY}>{OFFER.body.map((p) => <p key={p}>{p}</p>)}</div>
-          <div className="mt-8 rounded-xl border-2 border-[#14402F] bg-[#14402F]/[0.04] p-6 text-center md:p-10">
-            <p className="font-editorial text-xl font-bold text-[#14402F] md:text-3xl">
+          <div className="mt-8 rounded-xl border-2 border-[#18804F] bg-[#18804F]/[0.04] p-6 text-center md:p-10">
+            <p className="font-editorial text-xl font-bold text-[#18804F] md:text-3xl">
               {OFFER.offerLine}
             </p>
             {/* The first-order price never stands alone. */}
@@ -189,14 +189,10 @@ export function CortisolMatrixPage() {
           (pastGate ? "translate-y-0" : "pointer-events-none translate-y-full")
         }
       >
-        <div className="mx-auto flex max-w-2xl items-center gap-3">
-          <span className="flex-none leading-tight">
-            <span className="block font-editorial text-xl font-bold text-stone-900">{CTA.price}</span>
-            <span className="block font-editorial-ui text-xs font-semibold text-stone-500">{CTA.note}</span>
-          </span>
+        <div className="mx-auto max-w-2xl">
           <a
             href={CTA.href}
-            className="flex-1 rounded-lg bg-[#14402F] px-4 py-4 text-center font-editorial-ui text-base font-bold uppercase tracking-wide text-white shadow-xl transition-transform duration-200 active:scale-[0.99]"
+            className="block w-full rounded-lg bg-[#18804F] px-4 py-4 text-center font-editorial-ui text-base font-bold uppercase tracking-wide text-white shadow-xl transition-transform duration-200 hover:bg-[#166E45] active:scale-[0.99]"
           >
             {CTA.label}
           </a>

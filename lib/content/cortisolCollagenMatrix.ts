@@ -62,10 +62,6 @@ export const FOOT = {
 export const CTA = {
   label: "Check availability",
   href: "/checkout?sku=youth-matrix-chews-sub",
-  price: FIRST_ORDER,
-  /* The ongoing price travels with the first-order price everywhere it is shown. */
-  note: `first month, then ${MONTHLY} a month`,
-  flag: "50% off first order",
 } as const;
 
 export const INTRO = [
