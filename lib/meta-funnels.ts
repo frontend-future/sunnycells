@@ -9,8 +9,10 @@ export type Funnel = "energy" | "aging" | "reds" | "revitalize" | "default";
 
 /* Energy is the Even Energy product page with its checkout plus the energy quiz.
    Aging is the collagen quiz plus the /aging advertorials that feed it. Anything
-   else, which today means the diet quiz and the Metabolic Morning Blend pages, stays
-   on the original dataset. Matching is on the whole segment: a loose prefix on
+   else, which today means the diet quiz, the Metabolic Morning Blend pages and the
+   cortisol skin quiz at /quiz/cortisol, stays on the original dataset. /quiz/cortisol
+   is left unrouted on purpose: same cortisol angle and the same audience as the diet
+   quiz, so it should keep learning from that one pool rather than start a new one. Matching is on the whole segment: a loose prefix on
    "/quiz/aging" would also swallow a future "/quiz/aging-something-else". */
 const PATHS: [Funnel, string[]][] = [
   ["energy", ["/products/even-energy", "/quiz/energy"]],
