@@ -44,3 +44,4 @@ ads/out/
 
 # funnel-check screenshots
 shot-*.png
+.ymx-carousel-tmp/

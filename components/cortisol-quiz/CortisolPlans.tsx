@@ -10,16 +10,23 @@ import { CortisolPlanCards } from "./CortisolPlanCards";
    month with a subscribe-or-once toggle and knows nothing about a six month supply. */
 const DESTINATION = "/quiz/cortisol/results/checkout";
 
-/* The pack first, then what it looks like in use, in the order someone works through
-   it. The shared gallery takes its slides, so this funnel does not carry a carousel of
-   another product's panels. */
+const CAROUSEL = "/products/youth-matrix-chews/carousel";
+
+/* The pack, then the dose, then the argument: proof, expectation, the alternatives and
+   risk reversal, which is the order the SC-25 carousel runs and the order someone works
+   through a decision. The shared gallery takes its slides, so this funnel does not
+   carry a carousel of another product's panels. */
 const SLIDES = [
   { src: "/product/youth-matrix-chews.webp", alt: "A frosted glass SUNNYCELLS Youth Matrix jar filled with ruby tart-cherry chews" },
   { src: "/products/youth-matrix-chews/four-chews.webp", alt: "Four ruby tart-cherry gumdrop chews on a travertine counter, one turned to show its flat base" },
-  { src: "/products/youth-matrix-chews/pdp-vessel-unboxing.webp", alt: "The jar beside an eco-friendly refill pouch" },
-  { src: "/products/youth-matrix-chews/pdp-routine-vanity.webp", alt: "The open jar on a bathroom vanity at night" },
-  { src: "/products/youth-matrix-chews/pdp-clinical-matrix.webp", alt: "A render of dermal collagen fibres repairing" },
-  { src: "/products/youth-matrix-chews/pdp-before-after.webp", alt: "A woman's lower face, puffier on the left and more defined on the right" },
+  /* 3 to 6 are built by scripts/build-youth-matrix-carousel.mjs rather than shot.
+     They replaced four generic product photographs that were doing no selling: a jar
+     beside a pouch, a vanity at night, a collagen render and a before/after. Each of
+     these carries an argument instead, in the order the SC-25 carousel uses. */
+  { src: `${CAROUSEL}/03-inside.webp`, alt: "The supplement facts panel with each ingredient and the job it does: gelatin for collagen, vitamin C to assemble it, magnesium and L-theanine to settle you, niacinamide for overnight repair" },
+  { src: `${CAROUSEL}/04-timeline.webp`, alt: "What happens week by week: sleeping through by week 1, the puffiness drained by week 2, firmer skin by week 8" },
+  { src: `${CAROUSEL}/05-compare.webp`, alt: "Youth Matrix compared with a night cream and collagen pills across six things, and the only one that does all six" },
+  { src: `${CAROUSEL}/06-guarantee.webp`, alt: "A 30 day money back guarantee seal over the jar" },
 ];
 
 /**
