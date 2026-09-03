@@ -185,7 +185,10 @@ export const cortisolQuiz: QuizConfig = {
     question: "is made for you",
     brandHeading: true,
     bulletIcon: "check",
-    body: "Youth Matrix Chews are four tart-cherry evening chews that work while you sleep. Gelatin, magnesium glycinate, niacinamide and vitamin C, with no melatonin. They will:",
+    /* The full stack, in the order the PDP and the advertorial list it. Keep the
+       five in step with lib/products/youth-matrix-chews.ts: an ingredient named on one
+       surface and missing on another is the kind of thing a reader notices. */
+    body: "Youth Matrix Chews are four tart-cherry evening chews that work while you sleep. Gelatin, magnesium glycinate, L-theanine, niacinamide and vitamin C, with no melatonin. They will:",
     bullets: [
       "Help settle the nighttime cortisol that keeps your face puffy",
       "Supply the amino acids your skin rebuilds collagen from",
