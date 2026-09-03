@@ -19,12 +19,12 @@ import type { QuizConfig } from "./types";
 export const cortisolQuiz: QuizConfig = {
   id: "cortisol",
   basePath: "/quiz/cortisol",
-  /* NO RESULTS FLOW EXISTS FOR THIS FUNNEL YET. The three older quizzes each hand off
-     to their own eight-screen results sequence; this one hands off to the product page
-     instead, and the email step's wording promises a recommendation rather than a
-     results report so the handoff is not a broken promise. Point this at
-     /quiz/cortisol/results/analyzing when that sequence is built. */
-  resultsPath: "/products/youth-matrix-chews",
+  /* analyzing -> summary -> projection -> benefits, then the product page. The other
+     funnels carry a story screen and their own plans/cart/checkout after benefits;
+     this one hands to /products/youth-matrix-chews, which already has a real buy box,
+     because there is no SKU, cart or order builder for Youth Matrix in lib/products to
+     drive a checkout of its own. */
+  resultsPath: "/quiz/cortisol/results/analyzing",
   steps: [
   {
     slug: "cortisol-familiarity",
