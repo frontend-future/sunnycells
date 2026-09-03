@@ -1,8 +1,9 @@
 "use client";
 
 import { Card } from "@/components/core/Card";
+import { levelWord } from "@/lib/quiz/assessment";
 import { cortisolQuiz } from "@/lib/quiz/cortisol";
-import { CORTISOL_HORIZON_DAYS, cortisolProjection } from "@/lib/quiz/cortisolAssessment";
+import { CORTISOL_HORIZON_DAYS, cortisolProjection, cortisolRows } from "@/lib/quiz/cortisolAssessment";
 import { useAnswers } from "@/lib/quiz/store";
 import { ProjectionChart } from "@/components/quiz/Charts";
 import { NextButton } from "@/components/quiz/NextButton";
@@ -28,9 +29,13 @@ export function CortisolProjection() {
   const { answers, ready } = useAnswers(cortisolQuiz.id);
   const p = cortisolProjection(answers);
 
-  /* Dates are read on the client only, behind `ready`. A statically rendered page
-     would otherwise bake in the date it was built and go stale after a deploy. */
-  const eightWeekDrop = p ? Math.round(p.start - (p.points[8]?.value ?? p.start)) : 0;
+  /* The word comes off the summary's own cortisol row, so the two screens cannot
+     disagree about where she is starting from. The chart prints these words instead
+     of the underlying numbers: a score like "77" invites a precision the quiz does
+     not have, and nobody needs the number to read the shape. */
+  const startWord = levelWord(cortisolRows(answers)[0].you);
+  const endWord = "Low";
+  const label = (v: number) => (Math.abs(v - (p?.target ?? 0)) < 0.5 ? endWord : startWord);
 
   /* ProjectionChart is generic over its series; it just calls the value field `lb`. */
   const series = p
@@ -56,23 +61,23 @@ export function CortisolProjection() {
         }}
       >
         {ready && p
-          ? `Your cortisol score could fall ${eightWeekDrop} points by ${dayMonth(addDays(CORTISOL_HORIZON_DAYS))}`
+          ? `Your cortisol could go from ${startWord.toLowerCase()} to low by ${dayMonth(addDays(CORTISOL_HORIZON_DAYS))}`
           : "Your cortisol timeline"}
       </h1>
 
       {!ready ? null : series && p ? (
         <Card>
           <div style={{ fontSize: "var(--size-body)", fontWeight: 700, marginBottom: "var(--space-5)" }}>
-            Your cortisol screening score
+            Your cortisol level
           </div>
           <ProjectionChart
             p={series}
             startLabel={monthYear(new Date())}
             endLabel={monthYear(addDays(CORTISOL_HORIZON_DAYS))}
-            format={(v) => `${Math.round(v)}`}
+            format={label}
             planLabel="With Youth Matrix Chews"
             compareLabel="With stress management alone"
-            ariaNoun="your cortisol screening score"
+            ariaNoun="your cortisol level"
             compare={stressAloneCurve}
           />
         </Card>
@@ -85,19 +90,32 @@ export function CortisolProjection() {
       )}
 
       <div style={{ marginTop: "var(--space-8)", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
+        {/* Plain language on purpose. Four beats: what it is, what it is for, what
+            goes wrong, and what you see in the mirror when it comes down. */}
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          Cortisol is meant to peak in the morning and fall away by night. Under
-          sustained stress it stays up through the window when your skin does its
-          repair, and it does two things at once: it holds fluid in the tissue of your
-          face, and it switches on the enzymes that cut through collagen faster than you
-          rebuild it.
+          <strong style={{ fontWeight: 800 }}>What cortisol is.</strong> It is the
+          hormone your body makes when you are under stress. Everyone has it, and you
+          need it.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          Bring the evening level down and both stop. The fluid drains first, which is
-          why puffiness is what people notice inside the first fortnight. Firmness takes
-          longer, because your skin has to lay collagen back down and that runs on a
-          turnover of about four weeks, which is why the line keeps falling rather than
-          jumping.
+          <strong style={{ fontWeight: 800 }}>What it is supposed to do.</strong> Go up
+          in the morning to get you out of bed, then drop away at night. Night is when
+          your skin does its repair work.
+        </p>
+        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+          <strong style={{ fontWeight: 800 }}>What goes wrong.</strong> If you are
+          stressed most days, it never drops. So two things happen every night while
+          you sleep. Your face holds on to water, which is why you wake up puffy. And
+          your body starts breaking down collagen, the scaffolding that holds your skin
+          tight, faster than it builds it back. That is why lines turn up early and
+          your face stops feeling firm.
+        </p>
+        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+          <strong style={{ fontWeight: 800 }}>What changes when it comes down.</strong>{" "}
+          The water goes first. Most people see it in about two weeks: the puffiness
+          under the eyes drains, the cheeks flatten out, and the jawline comes back.
+          Then the collagen starts rebuilding, which takes around a month to show up,
+          and skin gets firmer and smoother instead of soft and crepey.
         </p>
         {p ? (
           <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
@@ -108,8 +126,7 @@ export function CortisolProjection() {
               {answers["stress-level"] ? `, stressed ${answers["stress-level"].toLowerCase()}` : ""}
               {answers.sleep ? `, sleeping ${answers.sleep.toLowerCase()}` : ""}).
             </strong>{" "}
-            This is an illustration of a rate on our own screening scale, not a
-            prediction of a hormone result.
+            This is what the typical curve looks like, not a promise about you.
           </p>
         ) : null}
       </div>
