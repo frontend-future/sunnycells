@@ -109,7 +109,10 @@ const sTimeline = (S) => {
       </div>
     </div>`).join("")}
   </div>
-  <img src="${img(S.timeline.photo)}" style="width:100%;height:250px;object-fit:cover;object-position:50% 62%;margin-top:auto;border-radius:16px">
+  <!-- 56%, measured rather than guessed: the ruby pixels in four-chews.webp span y 502
+       to 801 of 1200, so the chews sit at 54.3% of the frame. At the 62% this used to
+       carry, the crop landed 37px low and clipped the tops. -->
+  <img src="${img(S.timeline.photo)}" style="width:100%;height:250px;object-fit:cover;object-position:50% 56%;margin-top:auto;border-radius:16px">
 </div>`);
 };
 
