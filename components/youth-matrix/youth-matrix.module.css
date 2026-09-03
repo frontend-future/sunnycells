@@ -208,7 +208,10 @@
   .h1 { font-size: var(--size-h1); }
   .h2 { font-size: var(--size-h2); }
   .cols2 { grid-template-columns: repeat(2, 1fr); }
-  .cols4 { grid-template-columns: repeat(4, 1fr); }
+  /* The stack is five since magnesium and L-theanine were split, and five across a
+     four column grid leaves one card alone on a second row. Auto-fit at a 200px floor
+     gives three and two on a tablet and five across on a wide screen. */
+  .cols4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
   .bridgeGrid { grid-template-columns: 1fr 340px; gap: 3rem; }
   /* The brief puts the sticky bar under 768 only. */
   .sticky { display: none; }

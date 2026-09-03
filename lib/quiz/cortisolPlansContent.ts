@@ -78,13 +78,25 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
         ["Works overnight", "Laid down during the deep sleep window, which is the only time your skin does this work."],
       ],
     },
+    /* The two calming ingredients get a panel each. They are dosed together and work
+       on the same problem, but they do different jobs: one is physical, one is mental,
+       and a reader deciding whether to trust the formula wants to see both named. */
     {
-      slug: "magnesium-theanine",
-      title: "100 mg magnesium glycinate + 150 mg L-theanine",
+      slug: "magnesium-glycinate",
+      title: "100 mg magnesium glycinate",
       image: "/products/youth-matrix-chews/pdp-routine-vanity.webp",
       points: [
-        ["Settles the evening", "Blunts the fight-or-flight side of the stress response so the nighttime rise does not happen."],
-        ["Not a sedative", "It lowers the tension keeping you up rather than knocking you out, so there is no morning grogginess."],
+        ["The glycinate form", "Bound to glycine, which absorbs well and does not carry the laxative effect magnesium oxide is known for."],
+        ["Settles the body", "Relaxes smooth muscle and lowers core body temperature, which is one of the signals your body uses to fall asleep."],
+      ],
+    },
+    {
+      slug: "l-theanine",
+      title: "150 mg L-theanine",
+      image: "/products/youth-matrix-chews/pdp-hero-jar.webp",
+      points: [
+        ["The amino acid in green tea", "It raises alpha brain wave activity, the state you are in when you are calm but still awake."],
+        ["Quiets the racing mind", "It works on the mental side of the stress response rather than sedating you, which is why there is no morning grogginess."],
       ],
     },
     {

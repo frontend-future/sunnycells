@@ -84,7 +84,10 @@ export const GALLERY = [
 ] as const;
 
 export const STACK = {
-  title: "The four in one clinical stack",
+  /* Five since magnesium and L-theanine were split onto their own cards. The
+     advertorial still says 4-in-1 and is still right: it lists the two together in a
+     single bullet. If that ever splits too, this number moves with it. */
+  title: "The five in one clinical stack",
   lede: "Every chew carries the full stack. No proprietary blend, no rounding down.",
   items: [
     {
@@ -93,9 +96,14 @@ export const STACK = {
       body: "Rebuilds cross-linked collagen fibers in the deep dermis and seals the gut mucosa.",
     },
     {
-      dose: "100mg + 150mg",
-      name: "Magnesium Glycinate + L-Theanine",
-      body: "Blunts nighttime HPA-axis stress surges, drops core body temperature, and eliminates 3 AM wake-ups.",
+      dose: "100mg",
+      name: "Magnesium Glycinate",
+      body: "Blunts nighttime HPA-axis stress surges and drops core body temperature, the signal that starts sleep.",
+    },
+    {
+      dose: "150mg",
+      name: "L-Theanine",
+      body: "Raises alpha wave activity to quiet the racing mind behind 3 AM wake-ups, without sedating you.",
     },
     {
       dose: "150mg",
