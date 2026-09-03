@@ -8,7 +8,7 @@ import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  CART_ID, PRODUCT, SUPPLY_PLANS, supplyBullets, type SupplyPlan,
+  CART_ID, discountPct, PRODUCT, SUPPLY_PLANS, supplyBullets, type SupplyPlan,
 } from "@/lib/products/youth-matrix-chews";
 import { cortisolQuiz } from "@/lib/quiz/cortisol";
 import { readAnswers, writeAnswer } from "@/lib/quiz/store";
@@ -104,9 +104,9 @@ export function CortisolPlanCards({
                 )}
               </span>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
-                {/* The list price for everything in the box. Per supply rather than a
-                    flat one month figure, so all three cards are exactly half off and
-                    the 50% the page states stays true on every one. */}
+                {/* The list price for everything in the box: the one month figure times
+                    the jars that arrive. The longer supplies come in under half of it,
+                    which is why each card prints its own percentage below. */}
                 ${p.compareAt * p.months}
               </span>
             </div>
@@ -125,7 +125,7 @@ export function CortisolPlanCards({
                 <Icon name="check" size={13} strokeWidth={3.5} />
               </span>
               <span style={{ fontSize: "var(--size-meta)", fontWeight: 800, color: "var(--status-success)" }}>
-                50% off auto-applied today
+                {discountPct(p)}% off auto-applied today
               </span>
             </div>
 

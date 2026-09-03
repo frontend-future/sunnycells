@@ -1,5 +1,5 @@
 import type { PlansContent } from "./plansContent";
-import { SUPPLY_PLANS } from "@/lib/products/youth-matrix-chews";
+import { discountPct, maxDiscountPct, SUPPLY_PLANS } from "@/lib/products/youth-matrix-chews";
 
 /**
  * Everything the cortisol plans page says. The page structure is the diet funnel's,
@@ -16,9 +16,11 @@ import { SUPPLY_PLANS } from "@/lib/products/youth-matrix-chews";
 export const CORTISOL_PLANS_CONTENT: PlansContent = {
   quizId: "cortisol",
   productName: "Youth Matrix Chews",
-  /* No countdown. 50% off a first order is a standing term of the brand, not a
-     promotion, so it never carries a deadline. */
-  offer: { label: "Standing offer", badge: "50% off first order", countdown: false },
+  /* "Up to", because the ladder is 50, 54 and 58 off and each card prints its own.
+     Read off the deepest rung rather than typed, so the bar cannot claim a number the
+     cards do not back. Still no countdown: the first order discount is a standing term
+     of the brand, not a promotion, so it never carries a deadline. */
+  offer: { label: "Standing offer", badge: `up to ${maxDiscountPct()}% off`, countdown: false },
   hero: {
     title: "Four chews, before bed",
     lede: "SUNNYCELLS is here to settle the cortisol that keeps your face puffy and to give your skin the material it rebuilds with.",
@@ -72,7 +74,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     {
       slug: "gelatin",
       title: "2,500 mg bovine gelatin",
-      image: "/products/youth-matrix-chews/pdp-texture-macro.webp",
+      image: "/products/youth-matrix-chews/four-chews.webp",
       points: [
         ["Glycine and proline", "The two amino acids collagen is actually built from, supplied as the substrate rather than as a finished protein."],
         ["Works overnight", "Laid down during the deep sleep window, which is the only time your skin does this work."],
@@ -119,7 +121,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     },
   ],
   howItWorks: [
-    { img: "step-chew", title: "Four chews, after dinner", body: "Tart cherry. No water, no counting out pills, no shaker to wash.", illustration: "/products/youth-matrix-chews/pdp-texture-macro.webp" },
+    { img: "step-chew", title: "Four chews, after dinner", body: "Tart cherry. No water, no counting out pills, no shaker to wash.", illustration: "/products/youth-matrix-chews/four-chews.webp" },
     { img: "step-sleep", title: "Every night, not most nights", body: "The cortisol rise happens nightly, so the night you skip is the one that costs you.", illustration: "/products/youth-matrix-chews/pdp-routine-vanity.webp" },
   ],
   comparisonNote: "Compared to a nighttime skincare routine",
@@ -149,7 +151,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     { title: "Are there any side effects?", body: "Most people have none. If you are pregnant, breastfeeding, taking prescription medication, or managing a health condition, talk to your doctor before starting." },
     /* The ladder, not the PDP's subscribe-or-once framing: this page sells a supply
        length. Built from the same SUPPLY_PLANS the cards render, so it cannot drift. */
-    { title: "What does it cost?", body: `${SUPPLY_PLANS.map((p) => `$${p.price} a jar on the ${p.name.toLowerCase()}`).join(", ")}. Every one is half its list price, with free shipping and a 30 day money back guarantee.` },
+    { title: "What does it cost?", body: `${SUPPLY_PLANS.map((p) => `$${p.price} a jar on the ${p.name.toLowerCase()}, ${discountPct(p)}% off`).join("; ")}. Free shipping and a 30 day money back guarantee on all three.` },
     { title: "Medical information, product, reviews, warnings and legal disclaimer", body: "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Results vary from person to person." },
   ],
 };

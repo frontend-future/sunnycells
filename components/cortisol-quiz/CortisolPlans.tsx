@@ -15,7 +15,7 @@ const DESTINATION = "/quiz/cortisol/results/checkout";
    another product's panels. */
 const SLIDES = [
   { src: "/product/youth-matrix-chews.webp", alt: "A frosted glass SUNNYCELLS Youth Matrix jar filled with ruby tart-cherry chews" },
-  { src: "/products/youth-matrix-chews/pdp-texture-macro.webp", alt: "Macro close-up of a single translucent tart-cherry chew" },
+  { src: "/products/youth-matrix-chews/four-chews.webp", alt: "Four ruby tart-cherry gumdrop chews on a travertine counter, one turned to show its flat base" },
   { src: "/products/youth-matrix-chews/pdp-vessel-unboxing.webp", alt: "The jar beside an eco-friendly refill pouch" },
   { src: "/products/youth-matrix-chews/pdp-routine-vanity.webp", alt: "The open jar on a bathroom vanity at night" },
   { src: "/products/youth-matrix-chews/pdp-clinical-matrix.webp", alt: "A render of dermal collagen fibres repairing" },

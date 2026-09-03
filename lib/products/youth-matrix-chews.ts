@@ -76,7 +76,7 @@ const IMG = "/products/youth-matrix-chews";
 
 export const GALLERY = [
   { src: `${IMG}/pdp-hero-jar.webp`, alt: "A frosted glass jar reading SUNNYCELLS Youth Matrix beside four tart-cherry red gummies on dark green marble" },
-  { src: `${IMG}/pdp-texture-macro.webp`, alt: "Macro close-up of a single translucent tart-cherry red chew on white travertine" },
+  { src: `${IMG}/four-chews.webp`, alt: "Four ruby tart-cherry gumdrop chews on a travertine counter, one turned to show its flat base" },
   { src: `${IMG}/pdp-vessel-unboxing.webp`, alt: "The frosted glass jar beside a dark green eco-friendly refill pouch on beige linen" },
   { src: `${IMG}/pdp-routine-vanity.webp`, alt: "The open jar on a bathroom vanity at night beside a glass of water" },
   { src: `${IMG}/pdp-clinical-matrix.webp`, alt: "A 3D render of dermal collagen fibers repairing and plumping" },
@@ -164,11 +164,11 @@ export const DISCLAIMER =
  * supply length, the way the other three funnels do, so it needs a ladder rather than
  * a cadence toggle. Both describe the same jar at the same monthly price.
  *
- * Note the compareAt: it drops with the supply instead of sitting flat at the one
- * month list price. A flat $50 against $23 and $21 would make the three and six month
- * plans 54% and 58% off while the page states 50% off, which is the exact arithmetic
- * bug that had to be fixed on Daily Reds and Revitalize. Every rung here is half of
- * its own list price, so the one percentage the brand states stays true on all three.
+ * compareAt is the flat one month list price on every rung, so the longer supplies are
+ * genuinely cheaper against the same yardstick: 50%, 54% and 58% off. Each card states
+ * its own real figure rather than one blanket number, which is what keeps that honest.
+ * Anything that quotes a single percentage for the whole ladder has to say "up to", and
+ * discountPct below is what those surfaces read so they cannot drift from the cards.
  */
 export type SupplyPlan = {
   id: string;
@@ -187,7 +187,7 @@ export type SupplyPlan = {
   image: string;
   /** Charged per month. */
   price: number;
-  /** Struck through. Per supply, so every rung is exactly half. */
+  /** Struck through. The one month list price, the same on every rung. */
   compareAt: number;
   flag?: string;
   best?: boolean;
@@ -210,7 +210,7 @@ export const SUPPLY_PLANS: SupplyPlan[] = [
     id: "y3", months: 3, name: "3 month supply",
     sub: "One full skin turnover cycle, and then some",
     image: "/product/youth-matrix-chews.webp",
-    price: 23, compareAt: 46,
+    price: 23, compareAt: 50,
     cadence: "Delivered fresh every 3 months",
     flag: "Most popular", best: true,
   },
@@ -218,11 +218,19 @@ export const SUPPLY_PLANS: SupplyPlan[] = [
     id: "y6", months: 6, name: "6 month supply",
     sub: "For achieving sustainable results",
     image: "/product/youth-matrix-chews.webp",
-    price: 21, compareAt: 42,
+    price: 21, compareAt: 50,
     cadence: "Delivered fresh every 6 months",
     flag: "Best value",
   },
 ];
+
+/** A rung's own discount, worked out from its prices so a card can never state a
+    figure its own numbers do not support. */
+export const discountPct = (p: SupplyPlan): number =>
+  Math.round((1 - p.price / p.compareAt) * 100);
+
+/** The deepest rung, for any surface quoting one "up to" number for the whole ladder. */
+export const maxDiscountPct = (): number => Math.max(...SUPPLY_PLANS.map(discountPct));
 
 export const supplyPlanById = (id: string | undefined): SupplyPlan =>
   SUPPLY_PLANS.find((p) => p.id === id) ?? SUPPLY_PLANS.find((p) => p.best) ?? SUPPLY_PLANS[0];
