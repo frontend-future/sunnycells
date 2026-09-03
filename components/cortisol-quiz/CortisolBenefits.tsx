@@ -138,7 +138,7 @@ export function CortisolBenefits() {
       </ul>
 
       <StickyCta>
-        <NextButton href="/products/youth-matrix-chews">See my recommendation</NextButton>
+        <NextButton href="/quiz/cortisol/results/plans">See my recommendation</NextButton>
       </StickyCta>
     </ResultsShell>
   );

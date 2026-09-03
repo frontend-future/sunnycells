@@ -510,7 +510,10 @@ export function PlansScreen({
         </div>
       </Section>
 
-      {/* Headline review */}
+      {/* Headline review. Skipped entirely by a funnel that has none: the fallback
+          photograph belongs to the diet funnel, so rendering an empty section here would
+          put another product's face on this page. */}
+      {content.headlineReview ? (
       <Section tone="shell">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-8)", alignItems: "center" }}>
           <div>
@@ -535,8 +538,10 @@ export function PlansScreen({
           />
         </div>
       </Section>
+      ) : null}
 
       {/* Reviews */}
+      {content.reviews.length > 0 ? (
       <Section wide title="Thousands of happy clients" sub="Read what customers around the world say.">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(250px, 100%), 1fr))", gap: "var(--space-5)" }}>
           {content.reviews.map((r) => (
@@ -602,6 +607,7 @@ export function PlansScreen({
           ))}
         </div>
       </Section>
+      ) : null}
 
       {/* Ingredients */}
       <Section title={content.ingredientsTitle} tone="shell">

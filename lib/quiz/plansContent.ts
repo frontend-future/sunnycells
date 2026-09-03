@@ -183,8 +183,10 @@ export type PlansContent = {
       /illustrations, which only the diet funnel has drawn. */
   pillars: { slug: string; title: string; body: string; illustration?: string }[];
   /** `photo` overrides the gendered story photograph beside the headline review, which
-      only the diet funnel has shot. */
-  headlineReview: { name: string; title: string; body: string; photo?: string };
+      only the diet funnel has shot. Optional as a whole: a funnel with no collected
+      customers leaves it out and the section does not render, rather than being made
+      to invent one to satisfy the type. Same for an empty `reviews`. */
+  headlineReview?: { name: string; title: string; body: string; photo?: string };
   reviews: { name: string; photo: string; title: string; body: string }[];
   ingredientsTitle: string;
   ingredients: { slug: string; title: string; image?: string; points: [string, string][] }[];
