@@ -36,7 +36,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     /* The one figure on this page that is actually measurable: skin turns over on
        roughly a four week cycle, so a month is one cycle and three is three. */
     badge: "4",
-    body: "Fluid drains in the first fortnight, so puffiness is the early one. Skin turns over about every 4 weeks, which is the clock firmness runs on. Three months is three of those cycles.",
+    body: "Your skin grows a whole new layer about every 4 weeks. The puffiness goes first, usually in two weeks, because that part is just water. Getting firm again takes longer. Three months gives your skin three full rounds to rebuild.",
   },
   /* Every line is something she can see happening, on the clock it happens on. */
   quickBenefits: [
