@@ -74,15 +74,13 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
      for you, in words nobody has to look up. The doses stay: they are the reason to
      believe, and the prose around them is what gets simplified.
 
-     PHOTOGRAPHY: only l-theanine has a real ingredient shot in this repo. The other
-     four point at product photographs as a placeholder and each carries the file it
-     should get. scripts/build-ingredient-shots.mjs has the prompts ready; it needs fal
-     credit, which ran out mid-task. */
+     PHOTOGRAPHY: every panel now shows the ingredient itself rather than a product
+     shot. l-theanine was already in the repo; the other four come from
+     scripts/build-ingredient-shots.mjs. */
   ingredients: [
     {
       slug: "gelatin",
-      // TODO: swap for /ingredients/gelatin.jpg once generated
-      image: "/products/youth-matrix-chews/four-chews.webp",
+      image: "/ingredients/gelatin.webp",
       title: "2,500 mg bovine gelatin",
       points: [
         ["It is what collagen is made of", "Collagen is the stuff under your skin that keeps it tight. Your body builds it out of tiny pieces called amino acids. Gelatin is those pieces."],
@@ -91,8 +89,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     },
     {
       slug: "magnesium-glycinate",
-      // TODO: swap for /ingredients/magnesium-glycinate.jpg once generated
-      image: "/products/youth-matrix-chews/pdp-routine-vanity.webp",
+      image: "/ingredients/magnesium-glycinate.webp",
       title: "100 mg magnesium glycinate",
       points: [
         ["The kind that is easy on your stomach", "Some magnesium sends you running to the bathroom. This kind does not. It is attached to an amino acid so your body takes it in gently."],
@@ -111,8 +108,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     },
     {
       slug: "niacinamide",
-      // TODO: swap for /ingredients/niacinamide.jpg once generated
-      image: "/products/youth-matrix-chews/pdp-clinical-matrix.webp",
+      image: "/ingredients/niacinamide.webp",
       title: "150 mg niacinamide",
       points: [
         ["It powers the night shift", "Your skin cells need fuel to repair themselves overnight. This is what gives them that fuel."],
@@ -121,8 +117,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     },
     {
       slug: "vitamin-c",
-      // TODO: swap for /ingredients/acerola-vitamin-c.jpg once generated
-      image: "/products/youth-matrix-chews/pdp-vessel-unboxing.webp",
+      image: "/ingredients/acerola-vitamin-c.webp",
       title: "60 mg acerola vitamin C",
       points: [
         ["Your body cannot make collagen without it", "Gelatin gives your body the parts. Vitamin C is what snaps them together. Without it the parts just sit there."],
@@ -132,7 +127,7 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
   ],
   howItWorks: [
     { img: "step-chew", title: "Four chews, after dinner", body: "Tart cherry. No water, no counting out pills, no shaker to wash.", illustration: "/products/youth-matrix-chews/four-chews.webp" },
-    { img: "step-sleep", title: "Every night, not most nights", body: "The cortisol rise happens nightly, so the night you skip is the one that costs you.", illustration: "/products/youth-matrix-chews/pdp-routine-vanity.webp" },
+    { img: "step-sleep", title: "Every night, not most nights", body: "Your cortisol goes up every single night, so the night you skip is the one that costs you.", illustration: "/ingredients/night-routine.webp" },
   ],
   comparisonNote: "Compared to a nighttime skincare routine",
   comparison: [

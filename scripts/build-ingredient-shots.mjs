@@ -75,13 +75,28 @@ export const SHOTS = [
 
 const auth = { Authorization: `Key ${KEY}`, "Content-Type": "application/json" };
 
+/* fal returns 403 "Exhausted balance" intermittently on a low balance: a probe a few
+   seconds later goes straight through. Treating the first one as fatal cost this task
+   a whole round trip, so submits retry with backoff and only give up after the lock
+   has held for a couple of minutes. */
+async function submit(body, tries = 8) {
+  for (let i = 0; i < tries; i++) {
+    const r = await fetch("https://queue.fal.run/fal-ai/flux/dev", {
+      method: "POST", headers: auth, body: JSON.stringify(body),
+    });
+    if (r.ok) return r.json();
+    const text = await r.text();
+    if (r.status !== 403 || i === tries - 1) throw new Error(`submit: ${r.status} ${text}`);
+    const wait = 5000 * (i + 1);
+    console.log(`  locked, retrying in ${wait / 1000}s (${i + 1}/${tries - 1})`);
+    await new Promise((s) => setTimeout(s, wait));
+  }
+}
+
 async function run(prompt) {
-  const r = await fetch("https://queue.fal.run/fal-ai/flux/dev", {
-    method: "POST", headers: auth,
-    body: JSON.stringify({ prompt, image_size: "landscape_16_9", num_images: 1, num_inference_steps: 34 }),
+  const { status_url, response_url } = await submit({
+    prompt, image_size: "landscape_16_9", num_images: 1, num_inference_steps: 34,
   });
-  if (!r.ok) throw new Error(`submit: ${r.status} ${await r.text()}`);
-  const { status_url, response_url } = await r.json();
   for (let i = 0; i < 120; i++) {
     await new Promise((s) => setTimeout(s, 2500));
     const st = await (await fetch(status_url, { headers: auth })).json();
