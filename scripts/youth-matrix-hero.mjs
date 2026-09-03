@@ -1,7 +1,7 @@
 /**
  * Five variations on the Youth Matrix hero jar.
  *
- *   FAL_KEY=... OUT_DIR=~/Downloads/youth-matrix-hero [SIZE=square_hd] \
+ *   FAL_KEY=... OUT_DIR=~/Downloads/youth-matrix-hero [SIZE=square_hd] [FORM=capsules] \
  *     node scripts/youth-matrix-hero.mjs [variant ...]
  *
  * Runs openai/gpt-image-2 at quality "high" rather than flux/dev, and that choice is
@@ -23,6 +23,9 @@ const KEY = process.env.FAL_KEY;
 const OUT = process.env.OUT_DIR;
 /* landscape_16_9 by default; SIZE=square_hd for the 1:1 cut. */
 const SIZE = process.env.SIZE || "landscape_16_9";
+/* FORM=capsules swaps the dosage form and nothing else: same jar, same colourway,
+   same five setups, so the two sets read as one brand shot two ways. */
+const FORM = process.env.FORM === "capsules" ? "capsules" : "chews";
 
 /* A 16:9 composition does not survive a square crop, so the square pass asks for the
    subject to be recomposed rather than just re-framed. */
@@ -41,14 +44,31 @@ const LABEL =
   "'YOUTH MATRIX' beneath it in lighter, wider uppercase letters. Crisp, " +
   "correctly spelled, perfectly legible lettering, printed flat on the glass.";
 
+/* The chews come back as spheres unless the flat circular base is spelled out, and
+   the capsules come back as pressed tablets unless the two-piece shell and its seam
+   are. Both forms keep the same jar, colourway and cap so the two sets read as one
+   brand photographed two ways. */
+const FILL = FORM === "capsules"
+  ? "roughly sixty smooth two-piece gelatin CAPSULES. Every one is an elongated " +
+    "rounded cylinder with domed ends and a visible seam where the two halves meet, " +
+    "the classic supplement capsule shape. They are NOT round tablets, NOT pressed " +
+    "pills and NOT gummies. Deep translucent ruby tart-cherry shells, glossy, with " +
+    "the fine powder inside faintly visible through the casing"
+  : "roughly forty-eight rich translucent ruby tart-cherry red soft chews. EVERY CHEW " +
+    "IS A MINI GUMDROP: a smooth rounded dome on top sitting on a completely FLAT " +
+    "CIRCULAR BASE, the shape of a half-sphere resting flat side down, like a classic " +
+    "gumdrop or a jelly dome. They are NOT balls and NOT spheres and are not round " +
+    "underneath";
+
+const UNIT = FORM === "capsules" ? "capsule" : "chew";
+
 const JAR =
   "A LARGE heavy wide-mouth apothecary-style frosted glass jar, tall and generously " +
   "proportioned, about the size of a 500ml storage jar and clearly big enough to hold " +
-  "a full month's supply. It is filled almost to the top with roughly forty-eight rich " +
-  "translucent ruby tart-cherry red soft chews, each a small smooth semi-circular " +
-  "gumdrop dome, packed in layers and visibly stacked deep inside the glass. The jar " +
-  "towers over the individual chews resting beside it: each loose chew is only about " +
-  "a sixth of the jar's height. Deep emerald green screw cap. " + LABEL;
+  "a full month's supply. It is filled almost to the top with " + FILL + ". Packed in " +
+  "layers and visibly stacked deep inside the glass. The jar towers over the loose " +
+  `${UNIT}s resting beside it: each one is only a small fraction of the jar's height. ` +
+  "Deep emerald green screw cap. " + LABEL;
 
 const LOOK =
   "High-end commercial hero product photography, luxury DTC skincare aesthetic, " +
@@ -61,11 +81,11 @@ export const VARIANTS = [
   },
   {
     name: "02-eye-level-sealed",
-    prompt: `${JAR} Shot straight on at eye level, the jar closed and centred on a honed beige travertine slab, a low even bank of soft light raking across the frosted glass so the chews glow through it from behind. A scatter of six chews across the stone in the foreground. Cool clean shadowless studio ground. ${LOOK}`,
+    prompt: `${JAR} Shot straight on at eye level, the jar closed and centred on a honed beige travertine slab, a low even bank of soft light raking across the frosted glass so the ${UNIT}s glow through it from behind. A scatter of six ${UNIT}s across the stone in the foreground. Cool clean shadowless studio ground. ${LOOK}`,
   },
   {
     name: "03-overhead-into-jar",
-    prompt: `${JAR} Shot from directly overhead looking down into the open jar, the mouth of the jar filling the frame and the packed ruby chews visible right to the rim. The emerald cap lies upturned beside it on cream travertine. Diffuse overhead daylight, soft shadow. ${LOOK}`,
+    prompt: `${JAR} Shot from directly overhead looking down into the open jar, the mouth of the jar filling the frame and the packed ruby ${UNIT}s visible right to the rim. The emerald cap lies upturned beside it on cream travertine. Diffuse overhead daylight, soft shadow. ${LOOK}`,
   },
   {
     name: "04-vanity-scene",
@@ -73,7 +93,7 @@ export const VARIANTS = [
   },
   {
     name: "05-macro-label",
-    prompt: `${JAR} An extremely close three-quarter macro crop on the shoulder and label of the jar, the frosted glass texture and the printed lettering razor sharp and filling most of the frame, the ruby chews inside softly abstract behind the glass. Two chews in the extreme foreground thrown far out of focus. Warm side light, shallow plane of focus. ${LOOK}`,
+    prompt: `${JAR} An extremely close three-quarter macro crop on the shoulder and label of the jar, the frosted glass texture and the printed lettering razor sharp and filling most of the frame, the ruby ${UNIT}s inside softly abstract behind the glass. Two ${UNIT}s in the extreme foreground thrown far out of focus. Warm side light, shallow plane of focus. ${LOOK}`,
   },
 ];
 
