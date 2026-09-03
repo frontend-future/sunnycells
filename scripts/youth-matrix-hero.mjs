@@ -1,7 +1,7 @@
 /**
  * Five variations on the Youth Matrix hero jar.
  *
- *   FAL_KEY=... OUT_DIR=~/Downloads/youth-matrix-hero \
+ *   FAL_KEY=... OUT_DIR=~/Downloads/youth-matrix-hero [SIZE=square_hd] \
  *     node scripts/youth-matrix-hero.mjs [variant ...]
  *
  * Runs openai/gpt-image-2 at quality "high" rather than flux/dev, and that choice is
@@ -21,6 +21,15 @@ import path from "node:path";
 
 const KEY = process.env.FAL_KEY;
 const OUT = process.env.OUT_DIR;
+/* landscape_16_9 by default; SIZE=square_hd for the 1:1 cut. */
+const SIZE = process.env.SIZE || "landscape_16_9";
+
+/* A 16:9 composition does not survive a square crop, so the square pass asks for the
+   subject to be recomposed rather than just re-framed. */
+const SQUARE =
+  " Composed for a SQUARE 1:1 frame: the jar centred and upright, filling the height " +
+  "of the frame with even breathing room on the left and right, and the surrounding " +
+  "scene pulled in tight around it rather than spread horizontally.";
 
 /* The label wording is identical across all five so the product reads as one SKU.
    Per the SUNNYCELLS system the wordmark is a heavy geometric sans, uppercase and
@@ -92,8 +101,8 @@ for (const v of VARIANTS) {
   if (only.length && !only.includes(v.name)) continue;
   console.log(`generating ${v.name}...`);
   const url = await run("openai/gpt-image-2", {
-    prompt: v.prompt, image_size: "landscape_16_9", num_images: 1, quality: "high",
-    output_format: "png",
+    prompt: v.prompt + (SIZE.startsWith("square") ? SQUARE : ""),
+    image_size: SIZE, num_images: 1, quality: "high", output_format: "png",
   });
   const buf = Buffer.from(await (await fetch(url)).arrayBuffer());
   await writeFile(path.join(OUT, `${v.name}.png`), buf);
