@@ -70,53 +70,63 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
   ],
   reviews: [],
   ingredientsTitle: "The science behind Youth Matrix Chews",
+  /* Plain language, on purpose. Each panel says what the thing is, then what it does
+     for you, in words nobody has to look up. The doses stay: they are the reason to
+     believe, and the prose around them is what gets simplified.
+
+     PHOTOGRAPHY: only l-theanine has a real ingredient shot in this repo. The other
+     four point at product photographs as a placeholder and each carries the file it
+     should get. scripts/build-ingredient-shots.mjs has the prompts ready; it needs fal
+     credit, which ran out mid-task. */
   ingredients: [
     {
       slug: "gelatin",
-      title: "2,500 mg bovine gelatin",
+      // TODO: swap for /ingredients/gelatin.jpg once generated
       image: "/products/youth-matrix-chews/four-chews.webp",
+      title: "2,500 mg bovine gelatin",
       points: [
-        ["Glycine and proline", "The two amino acids collagen is actually built from, supplied as the substrate rather than as a finished protein."],
-        ["Works overnight", "Laid down during the deep sleep window, which is the only time your skin does this work."],
+        ["It is what collagen is made of", "Collagen is the stuff under your skin that keeps it tight. Your body builds it out of tiny pieces called amino acids. Gelatin is those pieces."],
+        ["It works while you sleep", "Your skin only does this building at night. That is why you take these before bed and not in the morning."],
       ],
     },
-    /* The two calming ingredients get a panel each. They are dosed together and work
-       on the same problem, but they do different jobs: one is physical, one is mental,
-       and a reader deciding whether to trust the formula wants to see both named. */
     {
       slug: "magnesium-glycinate",
-      title: "100 mg magnesium glycinate",
+      // TODO: swap for /ingredients/magnesium-glycinate.jpg once generated
       image: "/products/youth-matrix-chews/pdp-routine-vanity.webp",
+      title: "100 mg magnesium glycinate",
       points: [
-        ["The glycinate form", "Bound to glycine, which absorbs well and does not carry the laxative effect magnesium oxide is known for."],
-        ["Settles the body", "Relaxes smooth muscle and lowers core body temperature, which is one of the signals your body uses to fall asleep."],
+        ["The kind that is easy on your stomach", "Some magnesium sends you running to the bathroom. This kind does not. It is attached to an amino acid so your body takes it in gently."],
+        ["It helps your body wind down", "It loosens tight muscles and cools you down a little. Getting slightly cooler is one of the signals that tells your body it is time to sleep."],
       ],
     },
     {
       slug: "l-theanine",
+      /* The one real ingredient photograph this repo already had. */
+      image: "/ingredients/l-theanine.jpg",
       title: "150 mg L-theanine",
-      image: "/products/youth-matrix-chews/pdp-hero-jar.webp",
       points: [
-        ["The amino acid in green tea", "It raises alpha brain wave activity, the state you are in when you are calm but still awake."],
-        ["Quiets the racing mind", "It works on the mental side of the stress response rather than sedating you, which is why there is no morning grogginess."],
+        ["It comes from green tea", "This is the part of green tea that makes you feel calm instead of wired. There is no caffeine in it."],
+        ["It turns the noise down", "It quiets a busy mind without knocking you out, so you wake up clear instead of foggy."],
       ],
     },
     {
       slug: "niacinamide",
-      title: "150 mg niacinamide",
+      // TODO: swap for /ingredients/niacinamide.jpg once generated
       image: "/products/youth-matrix-chews/pdp-clinical-matrix.webp",
+      title: "150 mg niacinamide",
       points: [
-        ["Raises cellular NAD+", "The coenzyme your skin runs overnight repair and lipid production on."],
-        ["Barrier, from the inside", "The part your creams were closest to reaching and still could not do from the outside."],
+        ["It powers the night shift", "Your skin cells need fuel to repair themselves overnight. This is what gives them that fuel."],
+        ["It patches your skin back up", "Your skin has a thin outer layer that holds water in and keeps irritation out. Stress wears it thin. This helps build it back from the inside."],
       ],
     },
     {
       slug: "vitamin-c",
-      title: "60 mg acerola vitamin C",
+      // TODO: swap for /ingredients/acerola-vitamin-c.jpg once generated
       image: "/products/youth-matrix-chews/pdp-vessel-unboxing.webp",
+      title: "60 mg acerola vitamin C",
       points: [
-        ["The enzymatic trigger", "Your body cannot convert amino acids into collagen without it. Gelatin with no vitamin C is raw material with nothing to assemble it."],
-        ["From acerola cherry", "Not padding. It is working for the space it takes."],
+        ["Your body cannot make collagen without it", "Gelatin gives your body the parts. Vitamin C is what snaps them together. Without it the parts just sit there."],
+        ["It comes from acerola cherries", "A small red cherry with a lot of vitamin C in it. It is here to do a job, not to pad the label."],
       ],
     },
   ],
