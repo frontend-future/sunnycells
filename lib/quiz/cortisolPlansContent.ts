@@ -1,5 +1,5 @@
 import type { PlansContent } from "./plansContent";
-import { FIRST_ORDER, MONTHLY } from "@/lib/products/youth-matrix-chews";
+import { SUPPLY_PLANS } from "@/lib/products/youth-matrix-chews";
 
 /**
  * Everything the cortisol plans page says. The page structure is the diet funnel's,
@@ -147,7 +147,9 @@ export const CORTISOL_PLANS_CONTENT: PlansContent = {
     { title: "How long does a jar last?", body: "A jar is 30 nights at four chews a night." },
     { title: "Can I cancel?", body: "Yes, in one click from your account, any time. There is no phone call and no fee for stopping." },
     { title: "Are there any side effects?", body: "Most people have none. If you are pregnant, breastfeeding, taking prescription medication, or managing a health condition, talk to your doctor before starting." },
-    { title: "What does it cost?", body: `${FIRST_ORDER} for your first month, then ${MONTHLY} a month, with free shipping and a 30 day money back guarantee.` },
+    /* The ladder, not the PDP's subscribe-or-once framing: this page sells a supply
+       length. Built from the same SUPPLY_PLANS the cards render, so it cannot drift. */
+    { title: "What does it cost?", body: `${SUPPLY_PLANS.map((p) => `$${p.price} a jar on the ${p.name.toLowerCase()}`).join(", ")}. Every one is half its list price, with free shipping and a 30 day money back guarantee.` },
     { title: "Medical information, product, reviews, warnings and legal disclaimer", body: "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Results vary from person to person." },
   ],
 };

@@ -5,10 +5,10 @@ import { PlansScreen } from "@/components/quiz/PlansScreen";
 import { CORTISOL_PLANS_CONTENT } from "@/lib/quiz/cortisolPlansContent";
 import { CortisolPlanCards } from "./CortisolPlanCards";
 
-/* Youth Matrix has no checkout route of its own: no SKU, no cart, no order builder in
-   lib/products. So the cards hand to the product page, which has a working buy box.
-   Point this at /quiz/cortisol/results/checkout once that exists. */
-const DESTINATION = "/products/youth-matrix-chews";
+/* The funnel's own checkout, reading the supply the cards wrote into the product's
+   cart. Sending a ladder to the PDP instead would drop the choice: the PDP sells one
+   month with a subscribe-or-once toggle and knows nothing about a six month supply. */
+const DESTINATION = "/quiz/cortisol/results/checkout";
 
 /* The pack first, then what it looks like in use, in the order someone works through
    it. The shared gallery takes its slides, so this funnel does not carry a carousel of

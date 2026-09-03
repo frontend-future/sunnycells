@@ -153,3 +153,129 @@ export const REVIEWS = [
 
 export const DISCLAIMER =
   "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease. Individual results vary.";
+
+
+/* ------------------------------------------------------------------------------ */
+/* The supply ladder, for the cortisol funnel's plans page and its checkout.        */
+/* ------------------------------------------------------------------------------ */
+
+/**
+ * The PDP above sells one month with a subscribe-or-once choice. The funnel sells a
+ * supply length, the way the other three funnels do, so it needs a ladder rather than
+ * a cadence toggle. Both describe the same jar at the same monthly price.
+ *
+ * Note the compareAt: it drops with the supply instead of sitting flat at the one
+ * month list price. A flat $50 against $23 and $21 would make the three and six month
+ * plans 54% and 58% off while the page states 50% off, which is the exact arithmetic
+ * bug that had to be fixed on Daily Reds and Revitalize. Every rung here is half of
+ * its own list price, so the one percentage the brand states stays true on all three.
+ */
+export type SupplyPlan = {
+  id: string;
+  months: number;
+  /* `name`, not `label`: EvenCheckout's order type expects this field, and this ladder
+     is what feeds it. */
+  name: string;
+  /** One line under the label saying who the length suits. */
+  sub: string;
+  /**
+   * The card's picture. The diet and aging funnels have renders showing the actual
+   * number of pouches or jars a delivery contains; this product has one jar shot and
+   * nothing else, so all three rungs use it and the jar count is carried by the
+   * bullet instead. Replace with real 3 and 6 jar renders when they exist.
+   */
+  image: string;
+  /** Charged per month. */
+  price: number;
+  /** Struck through. Per supply, so every rung is exactly half. */
+  compareAt: number;
+  flag?: string;
+  best?: boolean;
+  /** How often a delivery arrives, shown as the last bullet. */
+  cadence: string;
+};
+
+/** One jar is a month at four chews a night. */
+export const NIGHTS_PER_JAR = 30;
+
+export const SUPPLY_PLANS: SupplyPlan[] = [
+  {
+    id: "y1", months: 1, name: "1 month supply",
+    sub: "Ideal solution for trying out",
+    image: "/product/youth-matrix-chews.webp",
+    price: 25, compareAt: 50,
+    cadence: "Delivered fresh monthly",
+  },
+  {
+    id: "y3", months: 3, name: "3 month supply",
+    sub: "One full skin turnover cycle, and then some",
+    image: "/product/youth-matrix-chews.webp",
+    price: 23, compareAt: 46,
+    cadence: "Delivered fresh every 3 months",
+    flag: "Most popular", best: true,
+  },
+  {
+    id: "y6", months: 6, name: "6 month supply",
+    sub: "For achieving sustainable results",
+    image: "/product/youth-matrix-chews.webp",
+    price: 21, compareAt: 42,
+    cadence: "Delivered fresh every 6 months",
+    flag: "Best value",
+  },
+];
+
+export const supplyPlanById = (id: string | undefined): SupplyPlan =>
+  SUPPLY_PLANS.find((p) => p.id === id) ?? SUPPLY_PLANS.find((p) => p.best) ?? SUPPLY_PLANS[0];
+
+/**
+ * The per-night line, worked out from the price rather than written beside it, so it
+ * cannot quietly stop being true when a price changes. Always a whole dollar: the
+ * system does not print decimals. Under a third past the mark rounds down and says
+ * "just over", otherwise it rounds up and says "less than", so the number in front of
+ * the customer is always the honest side of the real figure.
+ */
+export function perNightLabel(price: number): string {
+  const perNight = price / NIGHTS_PER_JAR;
+  const floor = Math.floor(perNight);
+  if (Number.isInteger(perNight)) return `$${perNight} / night`;
+  return perNight - floor <= 0.35 && floor >= 1
+    ? `Just over $${floor} / night`
+    : `Less than $${Math.ceil(perNight)} / night`;
+}
+
+export function supplyBullets(plan: SupplyPlan): string[] {
+  const jars = plan.months;
+  return [
+    `${plan.months * NIGHTS_PER_JAR} nights`,
+    perNightLabel(plan.price),
+    `${jars} ${jars === 1 ? "jar" : "jars"} delivered`,
+    plan.cadence,
+  ];
+}
+
+/* The cart rides in sessionStorage under its own id, keyed separately so it never
+   collides with a funnel's answers. */
+export const CART_ID = "youth-matrix";
+
+export type OrderLine = { id: string; name: string; note: string; was: number | null; now: number | null; image: string | null };
+export type Order = { plan: SupplyPlan; lines: OrderLine[]; listTotal: number; discount: number; total: number };
+
+export function buildOrder(planId: string | undefined): Order {
+  const plan = supplyPlanById(planId);
+  const now = plan.price * plan.months;
+  const list = plan.compareAt * plan.months;
+  const jars = `${plan.months} ${plan.months === 1 ? "jar" : "jars"}`;
+  return {
+    plan,
+    lines: [
+      {
+        id: "product",
+        name: `${PRODUCT.title}, tart cherry`,
+        note: `${jars} of ${NIGHTS_PER_JAR} nights. ${plan.sub}.`,
+        was: list, now, image: "/product/youth-matrix-chews.webp",
+      },
+      { id: "shipping", name: "Shipping", note: "Free on every order", was: null, now: 0, image: null },
+    ],
+    listTotal: list, discount: list - now, total: now,
+  };
+}

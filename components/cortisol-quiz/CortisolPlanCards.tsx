@@ -7,17 +7,13 @@ import { Badge } from "@/components/core/Badge";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { trackMetaEvent } from "@/lib/meta";
-import { PLANS, PRODUCT, type Plan } from "@/lib/products/youth-matrix-chews";
+import {
+  CART_ID, PRODUCT, SUPPLY_PLANS, supplyBullets, type SupplyPlan,
+} from "@/lib/products/youth-matrix-chews";
 import { cortisolQuiz } from "@/lib/quiz/cortisol";
 import { readAnswers, writeAnswer } from "@/lib/quiz/store";
 
-/* Youth Matrix has no cart or order builder in lib/products, unlike the other three
-   funnels' products, so there is nothing to write a line item into. The choice goes in
-   this quiz's own store and the PDP is where it is actually bought. Swap this for the
-   product's cart id when one exists. */
-const CHOICE_FIELD = "plan";
-
-/** The diet funnel's PlanCards, selling the chews. Same card, same grid, same job. */
+/** The diet funnel's PlanCards, selling the chews on a 1, 3 and 6 month ladder. */
 export function CortisolPlanCards({
   destinationHref,
   ctaLabel = "Try now",
@@ -25,15 +21,15 @@ export function CortisolPlanCards({
   const router = useRouter();
   const [hover, setHover] = useState("");
 
-  const choose = (p: Plan) => {
-    writeAnswer(cortisolQuiz.id, CHOICE_FIELD, p.id);
+  const choose = (p: SupplyPlan) => {
+    /* Written into the product's own cart, not the quiz store, because the checkout
+       that receives it reads from there. */
+    writeAnswer(CART_ID, "plan", p.id);
     trackMetaEvent(
       "InitiateCheckout",
       {
         currency: "USD",
-        /* The figures on this product are display strings, not numbers, so the value
-           is parsed off the price rather than multiplied out of a supply ladder. */
-        value: Number(p.price.replace(/[^0-9.]/g, "")) || 0,
+        value: p.price * p.months,
         content_ids: [p.id],
         content_type: "product",
         content_name: `${PRODUCT.title} ${p.name}`,
@@ -49,12 +45,12 @@ export function CortisolPlanCards({
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
         gap: "var(--space-5)",
         alignItems: "stretch",
       }}
     >
-      {PLANS.map((p) => {
+      {SUPPLY_PLANS.map((p) => {
         const on = p.best || hover === p.id;
         return (
           <div
@@ -67,63 +63,87 @@ export function CortisolPlanCards({
               flexDirection: "column",
               gap: "var(--space-4)",
               padding: "var(--space-6) var(--space-5) var(--space-5)",
+              /* Sprout rather than the diet funnel's sun: this is the wellness family
+                 code, the one the Youth Matrix PDP already runs on. */
               background: on ? "var(--sprout-tint)" : "var(--white)",
               border: `2px solid ${on ? "var(--ink)" : "var(--border-hairline)"}`,
               borderRadius: "var(--radius-card)",
               transition: "background var(--duration-fast) var(--ease-standard)",
             }}
           >
-            {p.best ? (
-              <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)" }}>
-                <Badge tone="ink">Most popular</Badge>
+            {p.flag ? (
+              <div style={{ position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)" }}>
+                <Badge tone={p.best ? "ink" : "sun"}>{p.flag}</Badge>
               </div>
             ) : null}
 
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
-              {p.name}
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>{p.name}</div>
+              <div style={{ marginTop: 2, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{p.sub}</div>
             </div>
 
             <Image
-              src="/product/youth-matrix-chews.webp"
-              alt={`A jar of ${PRODUCT.title}`}
+              src={p.image}
+              alt={`${p.months} ${p.months === 1 ? "jar" : "jars"} of ${PRODUCT.title}`}
               width={1200}
               height={1200}
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
             />
 
-            <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: "var(--space-3)" }}>
-              <span style={{ fontFamily: "var(--font-display)", fontSize: "var(--size-h2)", fontWeight: 900, letterSpacing: "var(--tracking-display)" }}>
-                {p.price}
+            {/* Price and the struck list price on one line, so the comparison reads in
+                a single glance rather than over two rows. */}
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "var(--space-3)", flexWrap: "wrap" }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", lineHeight: 1 }}>
+                ${p.price}
+                {/* Tight against the figure it qualifies, and only where more than one
+                    jar arrives: on a single jar the price is the whole thing. */}
+                {p.months > 1 && (
+                  <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)", letterSpacing: 0 }}>
+                    /jar
+                  </span>
+                )}
               </span>
-              {p.compareAt ? <s style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>{p.compareAt}</s> : null}
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
+                {/* The list price for everything in the box. Per supply rather than a
+                    flat one month figure, so all three cards are exactly half off and
+                    the 50% the page states stays true on every one. */}
+                ${p.compareAt * p.months}
+              </span>
             </div>
 
-            {/* The ongoing price never lets the first-order price stand on its own. */}
-            {p.cadence ? (
-              <div style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)", marginTop: "calc(var(--space-3) * -1)" }}>
-                {p.cadence}
-              </div>
-            ) : null}
+            {/* The standing first-order term, stated on the card rather than left to be
+                inferred from the struck price. */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--space-2)", marginTop: -6 }}>
+              <span
+                aria-hidden="true"
+                style={{
+                  flex: "none", width: 20, height: 20, borderRadius: "50%",
+                  background: "var(--status-success)", color: "var(--white)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}
+              >
+                <Icon name="check" size={13} strokeWidth={3.5} />
+              </span>
+              <span style={{ fontSize: "var(--size-meta)", fontWeight: 800, color: "var(--status-success)" }}>
+                50% off auto-applied today
+              </span>
+            </div>
 
-            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-              {(p.points ?? ["30 nights of chews", "Free shipping", "30 day money back guarantee"]).map((line) => (
-                <li key={line} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start", fontSize: "var(--size-meta)", fontWeight: 500 }}>
-                  <span
-                    aria-hidden="true"
-                    style={{ flex: "none", width: 22, height: 22, borderRadius: "50%", background: "var(--sprout)", color: "var(--ink)", display: "flex", alignItems: "center", justifyContent: "center" }}
-                  >
-                    <Icon name="check" size={13} strokeWidth={3.5} />
-                  </span>
-                  {line}
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 4 }}>
+              {supplyBullets(p).map((b) => (
+                <li key={b} style={{ fontSize: "var(--size-meta)", color: "var(--ink-80)", textAlign: "center" }}>
+                  {b}
                 </li>
               ))}
             </ul>
 
-            <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-              {p.save ? <div style={{ fontSize: "var(--size-meta)", fontWeight: 800 }}>{p.save}</div> : null}
-              <Button fullWidth size="lg" variant="accent" onClick={() => choose(p)}>
+            <div style={{ marginTop: "auto", paddingTop: "var(--space-3)" }}>
+              <Button fullWidth variant={p.best ? "primary" : "outline"} onClick={() => choose(p)}>
                 {ctaLabel}
               </Button>
+              <div style={{ marginTop: "var(--space-3)", textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
+                Cancel anytime. Free shipping.
+              </div>
             </div>
           </div>
         );
