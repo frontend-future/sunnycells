@@ -73,13 +73,6 @@ export function CortisolSummary() {
           Similar {women ? "women" : "men"} to you noticed the morning puffiness going
           first, usually inside the first two weeks.
         </p>
-        {/* Said plainly, on the screen that gives the reading, rather than buried at
-            the foot. A questionnaire does not measure a hormone. */}
-        <p style={{ margin: 0, fontSize: "var(--size-meta)", lineHeight: 1.5, color: "var(--ink-60)" }}>
-          This is a screening score built from your answers, not a measurement. Cortisol
-          is measured in blood, saliva or urine. If you want a number, ask your doctor
-          for a test.
-        </p>
       </div>
 
       <StickyCta>

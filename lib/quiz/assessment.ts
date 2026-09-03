@@ -17,7 +17,19 @@ export function poundsFrom(answers: Answers, key: string): number | null {
  * copy on the results pages says so, and this file should keep it true.
  */
 
-export type Row = { label: string; you: number };
+export type Row = {
+  label: string;
+  you: number;
+  /**
+   * Flips the scale printed under the track, so it reads High to Low instead of Low
+   * to High. `you` still means the same thing on every row, the disrupted end, and
+   * the marker still sits at the same place: only the words under it change. Set it
+   * on any row whose label names the good thing rather than the problem, like "Skin
+   * firmness", where a marker at the red end has to read as low firmness and not as
+   * high firmness.
+   */
+  reverse?: boolean;
+};
 
 const yes = (a: Answers, slug: string) => a[slug] === "Yes";
 

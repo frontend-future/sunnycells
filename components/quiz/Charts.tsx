@@ -30,7 +30,10 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       {rows.map((r, i) => {
-        const level = levelWord(r.you);
+        /* A reversed row's word has to flip with its scale, or the marker and the
+           screen reader would disagree about the same position. */
+        const level = levelWord(r.reverse ? 100 - r.you : r.you);
+        const scale = r.reverse ? ["High", "Medium", "Low"] : ["Low", "Medium", "High"];
         return (
           <div key={r.label} role="group" aria-label={`${r.label}: ${level}`}>
             <div style={{ fontSize: "var(--size-body)", fontWeight: 700, marginBottom: "var(--space-3)" }}>
@@ -92,9 +95,7 @@ export function AssessmentChart({ rows }: { rows: Row[] }) {
                 color: "var(--ink-60)",
               }}
             >
-              <span>Low</span>
-              <span>Medium</span>
-              <span>High</span>
+              {scale.map((s) => <span key={s}>{s}</span>)}
             </div>
           </div>
         );

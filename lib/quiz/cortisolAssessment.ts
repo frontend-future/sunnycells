@@ -51,6 +51,7 @@ export function cortisolRows(a: Answers): Row[] {
     },
     {
       label: "Skin firmness",
+      reverse: true,
       you: toScale(
         (a["skin-elasticity"] === "Yes" ? 76 : 24) + (a["skincare-frustration"] === "Yes" ? 14 : 0),
         92,
@@ -59,6 +60,7 @@ export function cortisolRows(a: Answers): Row[] {
     { label: "Fine lines", you: toScale(three(lines, 86, 54, 22), 93) },
     {
       label: "Sleep quality",
+      reverse: true,
       you: toScale(
         (a.sleep === "Less than 5 hours" ? 82 : a.sleep === "5 to 6 hours" ? 62 : 26) +
           (a["sleep-quality"] === "Both" ? 14 : a["sleep-quality"] === "Neither" ? 0 : 8),
