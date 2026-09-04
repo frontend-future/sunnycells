@@ -1,0 +1,278 @@
+import { firstOrderPrice, formatPrice } from "@/lib/price";
+
+/**
+ * BeetRoot+ Chews lander, /lander/beetroot. Every word and figure from the supplied
+ * design export (Sunnycells BeetRoot Chews PDP.dc.html), which is the source of truth
+ * for this page.
+ *
+ * THREE THINGS A READER OF THIS FILE SHOULD KNOW BEFORE IT TAKES TRAFFIC:
+ *
+ *   1. THIS PAGE RUNS ITS OWN PALETTE AND TYPE, not the SUNNYCELLS design system. The
+ *      design specifies a navy and plum scheme on cream with an Artifex CF stack, and
+ *      the brief was to build that design. So the house tokens are deliberately absent
+ *      here. Every other product surface in this repo does use them.
+ *   2. THE COUNTDOWN AND THE DATED GIFT DEADLINE CONFLICT WITH A HOUSE RULE. The system
+ *      says no countdowns and no scarcity lines, because 50% off a first order is a
+ *      standing term rather than a promotion. The design asks for both, so both are
+ *      built. Worth a decision before launch: the arithmetic here is the standing
+ *      offer, dressed as a sale that ends.
+ *   3. EVERY REVIEW, PERCENTAGE AND SURVEY FIGURE IS PLACEHOLDER. Nobody named here is
+ *      a real customer, the 4.8 and the 2,140 reviews were not collected, and the four
+ *      survey stats were not measured. Same footing as the placeholders flagged across
+ *      SC-21, SC-24 and SC-25. Replace before this is anything other than a build.
+ */
+
+/* $50 every four weeks, half off the first. Derived, never typed: this is the house
+   standing term and firstOrderPrice() is what states it. */
+export const SUB_PRICE = 50;
+export const FIRST_PRICE = firstOrderPrice(SUB_PRICE);
+export const SALE_PERCENT = Math.round((1 - FIRST_PRICE / SUB_PRICE) * 100);
+export const money = (n: number) => formatPrice(n);
+
+export const OFFER = {
+  announcement: `Fall reset sale — your first 4 weeks are ${SALE_PERCENT}% off`,
+  ctaLabel: `Save ${SALE_PERCENT}% + Free Gifts`,
+  riskFree: "Risk-Free For 30 Days",
+  giftValue: "32.85",
+} as const;
+
+export const HERO = {
+  rating: "Rated 4.8 out of 5 stars",
+  title: ["Your Blood Flow Slows With Age.", "BeetRoot+ Turns It Back On."],
+  points: [
+    { text: "Nearly 2x more effective blood pressure support than diet and exercise alone, from clinically researched grape seed extract.", note: "1" },
+    { text: "Supports heart-healthy energy" },
+    { text: "Supports healthy blood flow + circulation" },
+    { text: "No powder. No shaker. No dirt taste. Just tasty chews." },
+  ],
+  photo: "pouch + chews hero shot",
+} as const;
+
+export const STRIP_REVIEWS = [
+  { title: "“My 5am rides stopped hurting”", body: "Two chews before I clip in and the first ten minutes aren’t a negotiation anymore.", who: "Dana R. · Verified Buyer" },
+  { title: "“Finally, beets I’ll actually take”", body: "I quit beet powder three times. The chews are the first version that survived a month.", who: "Marcus T. · Verified Buyer" },
+  { title: "“My numbers moved”", body: "Six weeks in, my cuff readings at home are the steadiest they’ve been in years.", who: "Priya N. · Verified Buyer" },
+] as const;
+
+export const PRESS = ["THE SLAMM", "GLAMOUR", "BON APPÉTIT", "FORBES", "YAHOO!LIFE", "WELL+GOOD"] as const;
+
+export const BENEFITS = {
+  title: "Transform Your Health",
+  lede: "Over 2,800 research publications support dietary nitrate and the ingredients in BeetRoot+.",
+  photo: "single chew, macro",
+  left: [
+    { name: "Endurance", body: "More oxygen delivered per beat means less perceived effort at the same pace." },
+    { name: "Heart & Vessels", body: "Nitric oxide relaxes vessel walls, supporting healthy pressure already in range." },
+  ],
+  right: [
+    { name: "Clean Energy", body: "Blood flow, not stimulants — no jitter, no 3pm collapse, no tolerance curve." },
+    { name: "Focus", body: "Cerebral perfusion supports attention and mental stamina through long days." },
+  ],
+} as const;
+
+export const DEFICIENCY = {
+  title: "Nitric Oxide Output Falls Roughly 10% Per Decade",
+  lede: "BeetRoot+ is the daily chew that keeps the pipeline supplied.",
+  stats: [
+    { figure: "50%", tone: "navy", body: "less nitric oxide produced by age 50 versus your twenties" },
+    { figure: "1 in 9", tone: "plum", body: "adults eat the recommended daily servings of vegetables" },
+  ],
+  photo: "lifestyle: hand tearing pouch",
+} as const;
+
+export const SURVEY = {
+  title: "Chewable, Packable, Tested",
+  lede: "We asked customers what changed after 90 days on BeetRoot+. Here’s what they told us.",
+  stats: [
+    { figure: "89%", body: "take it at least 6 days a week — up with powders they’d quit" },
+    { figure: "71%", body: "say workouts feel easier at the same effort" },
+    { figure: "64%", body: "report steadier energy without caffeine" },
+    { figure: "58%", body: "notice better recovery the following day" },
+  ],
+} as const;
+
+export const QUALITY = {
+  title: "Quality You Can Verify",
+  lede: "Our chews are regularly tested for all 21 vitamins & minerals to ensure label claims are accurate and clear of contaminants including:",
+  items: ["70 different pesticides", "4 types of heavy metals", "16 different contaminants", "9 microbial contaminants"],
+} as const;
+
+export const BUY = {
+  kicker: "It’s Our First Harvest.",
+  headline: "We Lowered Our Price To Celebrate.",
+  rating: "4.8 · 2,140 verified reviews",
+  name: "BeetRoot+ Chews",
+  lede: "3,000mg concentrated beetroot in a soft daily chew — built to support heart health and healthy circulation.",
+  points: [
+    "Supports healthy circulation and blood pressure already in range",
+    "Endurance and recovery without stimulants",
+    "Sweetened with tart cherry, never sugar alcohols",
+  ],
+  facts: ["4-week supply", "Tart cherry", "Third-party tested"],
+  countLabel: "Select number of adults",
+  counts: [1, 2],
+  giftsTitle: "Free gifts with your first order",
+  cta: "Try Now",
+  terms: "Free shipping | Delivered every 4 weeks | Cancel anytime",
+  attrs: ["Real fruit taste", "No added sugar", "Clean label", "Non-GMO", "No sugar alcohols", "Gluten-free", "Vegan", "Third-party tested"],
+} as const;
+
+export const THUMBS = [
+  { label: "pouch front", short: "FRONT" },
+  { label: "chews spilled", short: "CHEWS" },
+  { label: "supplement facts", short: "FACTS" },
+  { label: "lifestyle run", short: "LIFE" },
+  { label: "size in hand", short: "HAND" },
+] as const;
+
+export const GIFTS = [
+  { name: "Heart Smart Guide", tag: "Free · ", was: "$9.95", plum: true },
+  { name: "Free Shipping", tag: "Free · ", was: "$6.95", plum: true },
+  { name: "Mystery Gift", tag: "Free · ", was: "$15.95", plum: true },
+  { name: "$1000 Giveaway", tag: "Chance to win", was: "", plum: false },
+] as const;
+
+export const REAL_PEOPLE = {
+  title: "Real People. Real Results.",
+  items: [
+    { body: "I’ve noticed a real difference in how I feel taking these. Not more relaxed, more energetic — and overall just better day to day. They’re hassle-free and easy on my stomach too.", who: "Jess C. · Verified Customer", when: "February 2, 2026" },
+    { body: "Great supplement that gives me more energy through out the day. Two chews in the morning and I’m not reaching for a third coffee.", who: "Terri K. · Verified Customer", when: "January 18, 2026" },
+    { body: "I’m in my second month taking BeetRoot+ Chews and really loving how I feel. I’ve added them into my daily wellness routine and I’m excited to keep going.", who: "Trudy F. · Verified Customer", when: "December 30, 2025" },
+    { body: "I ordered these for my wife and ended up taking them myself. They really seem to help, and the tart cherry taste is genuinely good.", who: "Mary S. · Verified Customer", when: "January 27, 2026" },
+  ],
+} as const;
+
+export const MODERN = {
+  title: "Modern Life Doesn’t Always Make It Easy",
+  body: "Between processed food, long hours sitting and constant stress, supporting your cardiovascular wellness can take a back seat. A simple daily habit can help.",
+  photo: "morning routine photo",
+  points: ["Daily circulation support", "Naturally rich in dietary nitrates", "One ingredient story, two chews per day", "A simple addition to your morning routine"],
+  card: {
+    kicker: "The root that supports healthy circulation",
+    title: "Support your body from the inside out",
+    body: "BeetRoot+ delivers 3,000mg of concentrated beetroot per serving, naturally rich in the dietary nitrates your body uses to support healthy blood flow and daily vitality.",
+    photo: "three pouches, angled",
+    items: ["Supports healthy blood flow", "Supports daily energy", "Supports mental clarity", "Supports cardiovascular wellness"],
+  },
+} as const;
+
+export const WHY = {
+  title: "Why Take Beetroot?",
+  cards: [
+    { kicker: "The ingredient", title: "Rich in Dietary Nitrates", body: "Beetroot is one of the most concentrated natural sources of dietary nitrates — compounds the body uses through a natural pathway to support healthy circulation and blood flow." },
+    { kicker: "The gap", title: "Hard to Get Enough", body: "Most people don’t eat beetroot regularly. It stains, it’s earthy, it takes time to prepare. Even people who like it rarely eat enough to get a meaningful daily amount." },
+    { kicker: "The solution", title: "Two Chews, Once a Day", body: "BeetRoot+ delivers 3,000mg of concentrated beetroot in two tart cherry chews — a meaningful daily dose, in a form that takes ten seconds." },
+  ],
+} as const;
+
+export const DECLINE = {
+  kicker: "Nitric oxide declines with age",
+  title: "Why Daily Beetroot Matters More Over Time",
+  body: "Nitric oxide plays a key role in how blood vessels relax and how blood flows. Research shows the body’s natural production tends to decline with age — making daily dietary nitrate intake more important over time. Beetroot is one of the richest natural sources.",
+  chartTitle: "BeetRoot+ vs Other Supplements",
+  bars: [
+    { value: "3,000mg", height: 150, label: ["BeetRoot+", "Chews"], plum: true },
+    { value: "400mg", height: 32, label: ["Other", "Supplements"], plum: false },
+  ],
+  note: "BeetRoot+ delivers 3,000mg of concentrated beetroot per serving — meaningfully more than many beetroot supplements on the market.",
+} as const;
+
+export const OVER_TIME = {
+  title: "What BeetRoot+ Users Experience Over Time",
+  lede: "A realistic pace for a daily habit — most people describe the shift as gradual, not sudden.",
+  phases: [
+    { week: "Week 1–2", pill: "Build the habit", dot: "#D9A9C0" },
+    { week: "Week 3–4", pill: "Stay consistent", dot: "#C2779A" },
+    { week: "Week 5–8", pill: "Settle in", dot: "#A64C74" },
+    { week: "Week 9–12+", pill: "Long-term support", dot: "#8E2B54" },
+  ],
+  cards: [
+    { when: "Week 1–2", pill: "Build the habit", body: "Take two chews daily with water, ideally in the morning. Like most supplements, the goal in the first two weeks is consistency — making it a daily habit you don’t have to think about.", ticks: ["More consistent energy through the day", "Less of that heavy sluggish feeling"] },
+    { when: "Week 3–4", pill: "Stay consistent", body: "Beetroot works best with steady daily use. Keep your routine going. If it helps, set a reminder or pair it with another daily habit like coffee or breakfast.", ticks: ["Hands and feet feel warmer", "Afternoon energy feels steadier"] },
+    { when: "Week 5–8", pill: "Settle into the routine", body: "By now the daily chews should feel automatic. Most people report that pairing BeetRoot+ with other daily wellness habits — movement, hydration, sleep — works better than any single change alone.", ticks: ["More stamina during physical activity", "Sharper mental clarity through the day"] },
+    { when: "Week 9–12+", pill: "Long-term daily support", body: "Beetroot is best used for ongoing daily use as part of a balanced lifestyle, not as a short-term fix. Most people stay on it because it becomes a small part of that routine.", ticks: ["Sustained energy levels", "Greater overall vitality and wellbeing"] },
+  ],
+  guarantee: {
+    title: "30-day money-back guarantee",
+    body: "Try BeetRoot+ for a full 30 days. If you’re not happy, contact us within 30 days of your first order for a full refund — pouches empty or not.",
+  },
+} as const;
+
+export const SAYING = {
+  title: "What BeetRoot+ Customers Are Saying",
+  lede: "In an August 2026 survey of 1,204 verified SUNNYCELLS customers:",
+  stats: [
+    { figure: "71%", body: "reported feeling more energized as part of their daily routine" },
+    { figure: "82%", body: "reported feeling better daily circulation support" },
+    { figure: "91%", body: "said they would recommend BeetRoot+ to a friend" },
+  ],
+  footnote: "Based on a survey of 1,204 verified SUNNYCELLS customers conducted August 2026.",
+  photo: "pouch trio",
+  portrait: "customer portrait",
+  guarantee: {
+    big: "30 Day",
+    title: "Money-Back Guarantee",
+    body: "Try BeetRoot+ for 30 days. If you’re not happy, contact us within 30 days of your first order for a full refund — just send the pouches back, empty or not.",
+    ticks: ["30-day guarantee", "No questions asked"],
+  },
+} as const;
+
+const subTerms = `Your first 4 weeks are ${money(FIRST_PRICE)}, then ${money(SUB_PRICE)} every 4 weeks at a locked price. Skip, delay or cancel in two clicks — no calls, no retention maze.`;
+
+/** Buy-box accordion. */
+export const FAQS: [string, string][] = [
+  ["Why chews instead of powder?", "Powder is the number one reason people quit beets — the taste, the shaker, the stained counter. A chew gets taken on day 60, which is when nitrate support actually compounds."],
+  ["How much beetroot am I getting?", "3,000mg of concentrated beetroot standardized for naturally occurring nitrates, plus 250mg L-citrulline and 60mg vitamin C per two-chew serving."],
+  ["When should I take it?", "Most people take two chews 60–90 minutes before training, or first thing in the morning on rest days. Consistency matters more than timing."],
+  ["Is it safe with my medication?", "Beetroot can affect blood pressure. If you take nitrates, PDE5 inhibitors or blood pressure medication, talk to your physician before starting."],
+  ["Sugar and allergens", "No added sugar. No sugar alcohols, gluten, dairy, soy or artificial dye. Made in a nut-free cGMP facility."],
+  ["Subscription terms", subTerms],
+];
+
+export const SHORT_FAQ = {
+  kicker: "Frequently asked questions",
+  title: "Everything You Want to Know Before You Order",
+  items: [
+    ["How do I take BeetRoot+?", "Two chews a day with water, ideally in the morning. No powder, no shaker, no timing rules."],
+    ["Will this help with my energy levels?", "Most customers describe steadier energy rather than a spike — it works through blood flow, not stimulants."],
+    ["Is the beetroot concentrated?", "Yes. Each serving delivers 3,000mg of concentrated beetroot standardized for naturally occurring nitrates."],
+    ["What if it doesn’t work for me?", "Contact us within 30 days of your first order for a full refund. Pouches empty or not."],
+    ["When will I see results?", "Some notice a difference in the first two weeks. Beetroot works best with steady daily use over 4–8 weeks."],
+    ["How fast is shipping?", "Orders typically ship within 1 business day from our U.S. facility. Most U.S. orders arrive in 3–5 business days."],
+  ] as [string, string][],
+} as const;
+
+export const LONG_FAQ: [string, string][] = [
+  ["Can I buy BeetRoot+ Chews in stores?", "Not today. BeetRoot+ is sold directly from sunnycells.com so we can keep the price down and the lots fresh."],
+  ["What ingredients are in BeetRoot+ Chews?", "3,000mg concentrated beetroot, 250mg L-citrulline, 60mg vitamin C from acerola, tart cherry and pectin. No added sugar, no sugar alcohols, no dyes or artificial sweeteners."],
+  ["Is BeetRoot+ safe with my current medications?", "Beetroot can affect blood pressure. If you take nitrates, PDE5 inhibitors or blood pressure medication, speak with your physician before starting."],
+  ["How should I store the chews?", "Somewhere cool and dry, resealed after opening. No refrigeration needed — they travel fine."],
+  ["Who is BeetRoot+ intended for?", "Healthy adults who want daily circulation, energy and endurance support. Not intended for children or anyone pregnant or nursing."],
+  ["How often should I take it?", "Every day. Consistency matters more than timing — the benefit comes from steady daily nitrate intake."],
+  ["How many servings are in each pouch?", "28 servings — a full 4-week supply at two chews per day."],
+  ["Are there any age or health restrictions?", "It is formulated for adults 18 and over. Talk to your physician if you have a medical condition."],
+  ["What if the supplement doesn’t work for me?", "Contact us within 30 days of your first order and we will refund you in full, no questions asked."],
+  ["What is your return policy?", "If you are not satisfied, contact us within 30 days of receiving your order. Simply return the product and we will issue a full refund."],
+];
+
+export const FINAL = {
+  rating: "4.8 · 2,140 reviews",
+  title: "Your Nitric Oxide Won’t Wait. Neither Should This Price.",
+  points: [
+    "3,000mg beetroot + 250mg L-citrulline, one tart cherry chew",
+    `${money(FIRST_PRICE)} for your first 4 weeks, then ${money(SUB_PRICE)} — cancel anytime`,
+    `Free shipping and $${OFFER.giftValue} of gifts on your first order`,
+  ],
+  photo: "pouch + chews hero shot",
+} as const;
+
+export const FOOTER = {
+  blurb: "Whole-food actives in formats people finish. Made in the USA, tested by people who don’t work for us.",
+  columns: [
+    { title: "Shop", items: ["BeetRoot+ Chews", "Subscribe & Save", "Bundles", "Gift Cards"] },
+    { title: "Learn", items: ["The Science", "Lab Results", "Articles", "FAQ"] },
+    { title: "Support", items: ["Contact Us", "Shipping", "Returns", "Manage Subscription"] },
+  ],
+  disclaimer: "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+  copyright: "© 2026 SUNNYCELLS",
+} as const;

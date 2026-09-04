@@ -1,0 +1,381 @@
+/**
+ * BeetRoot+ lander.
+ *
+ * The supplied design is desktop only: every grid in it is a fixed two, three or four
+ * column rule and the hero headline is a flat 52px. Dropped onto a phone that overflows
+ * in a dozen places. So this is written mobile first with the design's columns applied
+ * at breakpoints, which is the one thing here that is not a literal transcription of
+ * the export.
+ *
+ * The palette and type are the design's own, not the house tokens, per the brief. See
+ * the header of lib/products/beetroot.ts.
+ */
+
+.page {
+  --navy: #0E2049;
+  --blue: #17356B;
+  --plum: #8E2B54;
+  --gold: #C9911F;
+  --cream: #FBF6EC;
+  --cream-2: #F3EFE2;
+  --blush: #F7EFF3;
+  --blush-2: #FCF5F8;
+  --ink: #12203B;
+  --ink-2: #2A3A57;
+  --ink-3: #3B4A66;
+  --muted: #5A6B87;
+  --faint: #8B98AE;
+  --line: #E3E7EF;
+  --line-warm: #E9E2D4;
+  --line-blush: #E6D9E0;
+
+  font-family: "Artifex CF", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page * { box-sizing: border-box; }
+.wrap { max-width: 1200px; margin: 0 auto; }
+.narrow { max-width: 1000px; margin: 0 auto; }
+.mid { max-width: 1100px; margin: 0 auto; }
+
+/* ---------- announcement ---------- */
+.announce {
+  background: var(--navy); color: #fff; display: flex; align-items: center;
+  justify-content: center; gap: 14px; padding: 9px 20px; font-size: 13px;
+  letter-spacing: .04em; font-weight: 600; text-align: center; flex-wrap: wrap;
+}
+.cd { display: flex; gap: 5px; font-variant-numeric: tabular-nums; }
+.cd span { background: #fff; color: var(--navy); border-radius: 4px; padding: 2px 6px; font-weight: 700; }
+
+/* ---------- shared ---------- */
+.stars { color: var(--gold); letter-spacing: 2px; font-size: 15px; }
+.tick { color: var(--blue); font-weight: 800; flex: none; }
+.tickPlum { color: var(--plum); font-weight: 800; flex: none; }
+.dot {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--blue); color: #fff;
+  font-size: 11px; font-weight: 800; display: grid; place-items: center; flex: none;
+}
+
+/* Placeholder art from the design, kept as drawn. Every one names the shot it wants,
+   so the page reads as a layout waiting on photography rather than as broken. */
+.ph {
+  background: repeating-linear-gradient(135deg, #EDE4F0 0 12px, #E4D6E9 12px 24px);
+  border-radius: 22px; display: grid; place-items: center; text-align: center; padding: 12px;
+}
+.phLabel {
+  font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .1em;
+  text-transform: uppercase; color: #7B5A78;
+}
+
+.pill {
+  display: block; width: 100%; background: var(--blue); color: #fff; font-size: 18px;
+  font-weight: 800; padding: 20px 28px; border-radius: 999px; text-align: center;
+  box-shadow: 0 7px 0 var(--navy); border: 0; cursor: pointer;
+}
+.pill:hover { background: var(--navy); }
+.ctaBlock { display: flex; flex-direction: column; gap: 14px; align-items: center; max-width: 440px; }
+.riskFree { display: flex; gap: 9px; align-items: center; font-size: 16px; color: var(--ink-2); }
+
+.h1 {
+  font-size: clamp(32px, 8vw, 52px); line-height: 1.04; letter-spacing: -.03em;
+  margin: 0 0 20px; font-weight: 800; color: var(--navy); text-wrap: balance;
+}
+.h2 { font-size: clamp(26px, 6vw, 38px); font-weight: 800; letter-spacing: -.02em; color: var(--navy); margin: 0 0 10px; }
+.h3 { font-size: clamp(23px, 5.4vw, 30px); font-weight: 800; color: var(--navy); letter-spacing: -.02em; margin: 0 0 12px; line-height: 1.15; }
+.lede { font-size: 16px; color: var(--muted); line-height: 1.55; }
+
+/* ---------- hero ---------- */
+.hero { background: var(--cream); }
+.heroGrid { padding: 40px 24px; display: grid; gap: 32px; align-items: center; }
+.heroPoints { display: grid; gap: 12px; margin-bottom: 26px; }
+.heroPoint { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--ink-2); line-height: 1.45; }
+.sup { font-size: 10px; color: var(--faint); }
+.heroArt { aspect-ratio: 4 / 3; }
+
+/* ---------- review strip ---------- */
+.strip { background: var(--cream); padding: 0 24px 48px; }
+.stripGrid { display: grid; gap: 20px; }
+.stripCard { background: #fff; border: 1px solid var(--line-warm); border-radius: 14px; padding: 22px; }
+.stripTitle { font-size: 15px; font-weight: 700; color: var(--navy); margin: 10px 0 8px; }
+.stripBody { font-size: 14px; color: var(--muted); line-height: 1.5; }
+.who { font-size: 12px; color: var(--faint); margin-top: 12px; }
+
+/* ---------- press ---------- */
+.press { background: var(--blue); overflow: hidden; padding: 16px 0; }
+.pressRow { display: flex; gap: 56px; padding-left: 56px; width: max-content; animation: bt-marquee 42s linear infinite; opacity: .85; }
+.pressRow span { color: #fff; font-size: 19px; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+@keyframes bt-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .pressRow { animation: none; } }
+
+/* ---------- benefits radial ---------- */
+.benefits { background: #fff; padding: 56px 24px; }
+.benefitsGrid { display: grid; gap: 28px; align-items: center; text-align: left; margin-top: 34px; }
+.benefitCol { display: grid; gap: 28px; }
+.benefitName { font-size: 17px; font-weight: 800; color: var(--blue); margin-bottom: 6px; }
+.benefitBody { font-size: 14px; color: var(--muted); line-height: 1.5; }
+.benefitArt { aspect-ratio: 1; border-radius: 20px; }
+
+/* ---------- deficiency / survey / quality ---------- */
+.band { background: var(--cream); padding: 20px 24px 24px; }
+.bandLast { background: var(--cream); padding: 0 24px 56px; }
+.split { background: #fff; border-radius: 20px; overflow: hidden; display: grid; }
+.splitBody { padding: 36px 28px; }
+.figures { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+.figure { font-size: clamp(38px, 9vw, 56px); font-weight: 800; line-height: 1; }
+.figureNavy { color: var(--blue); }
+.figurePlum { color: var(--plum); }
+.figureNote { font-size: 13px; color: var(--muted); line-height: 1.45; margin-top: 6px; }
+.btnSm {
+  display: inline-block; background: var(--blue); color: #fff; font-size: 15px; font-weight: 800;
+  padding: 15px 26px; border-radius: 10px; box-shadow: 0 5px 0 var(--navy); border: 0; cursor: pointer;
+}
+.btnSm:hover { background: var(--navy); }
+.splitArt { min-height: 260px; border-radius: 0; }
+
+.surveyCard { background: var(--cream-2); border-radius: 20px; padding: 36px 24px; text-align: center; }
+.surveyGrid { display: grid; gap: 24px; margin-top: 30px; }
+.surveyFigure { font-size: clamp(34px, 8vw, 48px); font-weight: 800; color: var(--blue); line-height: 1; }
+.surveyNote { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+
+.qualityCard { background: #fff; border: 1px solid var(--line-warm); border-radius: 20px; padding: 32px 24px; text-align: center; }
+.qualityGrid { display: grid; gap: 14px; max-width: 700px; margin: 24px auto 0; text-align: left; }
+.qualityItem { display: flex; gap: 10px; font-size: 14px; color: var(--ink-2); }
+
+/* ---------- buy box ---------- */
+.buy { background: #fff; padding: 48px 24px 56px; }
+.buyHead { text-align: center; margin-bottom: 32px; }
+.buyKicker { font-size: clamp(20px, 5vw, 26px); font-weight: 800; color: var(--plum); }
+.buyHeadline { font-size: clamp(24px, 6vw, 34px); font-weight: 800; color: var(--blue); letter-spacing: -.02em; }
+.buyGrid { display: grid; gap: 36px; align-items: start; }
+.gallery { display: grid; gap: 16px; min-width: 0; }
+.thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; order: 2; }
+.thumb {
+  background: repeating-linear-gradient(135deg, #EDE4F0 0 8px, #E4D6E9 8px 16px);
+  border-radius: 10px; aspect-ratio: 1; display: grid; place-items: center; cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--line); border: 0; padding: 4px; min-height: 48px;
+}
+.thumbOn { box-shadow: inset 0 0 0 2px var(--blue); }
+.thumbLabel { font-family: ui-monospace, Menlo, monospace; font-size: 8px; letter-spacing: .06em; text-transform: uppercase; color: #7B5A78; }
+.stage { aspect-ratio: 1; border-radius: 18px; position: relative; order: 1; }
+.saveBadge {
+  position: absolute; top: 16px; right: 16px; background: var(--plum); color: #fff;
+  font-size: 12px; font-weight: 800; padding: 8px 14px; border-radius: 999px;
+}
+
+.buyRating { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.buyRatingNote { font-size: 13px; color: var(--muted); }
+.buyName { font-size: clamp(28px, 7vw, 38px); font-weight: 800; color: var(--navy); letter-spacing: -.03em; margin: 0 0 14px; line-height: 1.05; }
+.buyLede { font-size: 16px; color: var(--ink-3); line-height: 1.55; margin: 0 0 18px; }
+.buyPoints { display: grid; gap: 9px; margin-bottom: 26px; }
+.buyPoint { display: flex; gap: 10px; font-size: 15px; color: var(--ink-2); }
+.priceRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+.priceNow { font-size: clamp(32px, 8vw, 40px); font-weight: 800; color: var(--navy); letter-spacing: -.03em; }
+.priceWas { font-size: 24px; font-weight: 700; color: #98A3B8; text-decoration: line-through; }
+.priceTag { background: var(--plum); color: #fff; font-size: 13px; font-weight: 800; padding: 7px 14px; border-radius: 6px; white-space: nowrap; }
+.factRow { display: grid; gap: 16px; padding: 20px 22px; background: #F7F9FC; border-radius: 12px; margin-bottom: 28px; }
+.fact { display: flex; gap: 10px; align-items: center; font-size: 14px; font-weight: 600; color: var(--ink-2); line-height: 1.3; }
+.countLabel { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+.countRow { display: flex; gap: 10px; margin-bottom: 28px; }
+.count {
+  flex: 1; text-align: center; padding: 15px 8px; border-radius: 10px; cursor: pointer;
+  font-size: 14px; font-weight: 700; white-space: nowrap; color: var(--ink-3);
+  background: #fff; box-shadow: inset 0 0 0 1px var(--line); border: 0; min-height: 48px;
+}
+.countOn { color: #fff; background: var(--blue); box-shadow: inset 0 0 0 2px var(--blue); }
+
+.giftBox { background: var(--cream); border: 1px solid var(--line-warm); border-radius: 14px; padding: 20px; margin-bottom: 20px; }
+.giftTitle { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+.giftNote { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+.giftGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
+.gift { border: 1px dashed #C9A9B8; border-radius: 12px; padding: 10px; background: #fff; position: relative; }
+.giftTag {
+  position: absolute; top: -9px; left: 50%; transform: translateX(-50%); white-space: nowrap;
+  color: #fff; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 999px;
+}
+.giftTagPlum { background: var(--plum); }
+.giftTagBlue { background: var(--blue); }
+.giftStrike { text-decoration: line-through; opacity: .85; }
+.giftArt { background: repeating-linear-gradient(135deg, #EEF1F7 0 8px, #E4E9F2 8px 16px); border-radius: 8px; height: 66px; margin-top: 6px; }
+.giftName { font-size: 12px; font-weight: 700; color: var(--ink-3); margin-top: 8px; line-height: 1.3; text-align: center; }
+
+.buyCta {
+  width: 100%; background: var(--blue); color: #fff; font-size: clamp(20px, 5vw, 28px);
+  font-weight: 800; text-align: center; padding: 26px 20px; border-radius: 12px;
+  box-shadow: 0 6px 0 var(--navy); cursor: pointer; border: 0;
+}
+.buyCta:hover { background: var(--navy); }
+.applied { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 26px; }
+.appliedStar {
+  width: 26px; height: 26px; background: var(--blue); color: #fff; font-size: 12px; font-weight: 800;
+  display: grid; place-items: center; flex: none;
+  clip-path: polygon(100% 50%,89.6% 60.6%,93.3% 75%,79% 79%,75% 93.3%,60.6% 89.6%,50% 100%,39.4% 89.6%,25% 93.3%,21% 79%,6.7% 75%,10.4% 60.6%,0% 50%,10.4% 39.4%,6.7% 25%,21% 21%,25% 6.7%,39.4% 10.4%,50% 0%,60.6% 10.4%,75% 6.7%,79% 21%,93.3% 25%,89.6% 39.4%);
+}
+.appliedText { font-size: clamp(15px, 4vw, 19px); font-weight: 800; color: var(--blue); }
+.termsLine { font-size: 15px; color: var(--muted); margin-top: 9px; text-align: center; }
+.attrGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 12px; margin: 30px 0 34px; text-align: center; }
+.attrDisc { background: #EEF2F9; border-radius: 50%; width: 52px; height: 52px; margin: 0 auto 8px; }
+.attrName { font-size: 12px; font-weight: 700; color: var(--ink-3); line-height: 1.3; }
+
+/* ---------- accordions ---------- */
+.acc { border-top: 1px solid var(--line); }
+.accRow { border-bottom: 1px solid var(--line); }
+.accBtn {
+  width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 14px;
+  padding: 16px 2px; cursor: pointer; font-size: 15px; font-weight: 700; color: var(--navy);
+  background: none; border: 0; text-align: left; min-height: 48px; font-family: inherit;
+}
+.accSign { color: var(--blue); font-size: 20px; font-weight: 400; flex: none; }
+.accBody { font-size: 14px; color: var(--muted); line-height: 1.6; padding: 0 2px 18px; }
+.accCard { border: 1px solid var(--line); border-radius: 10px; padding: 0 18px; }
+
+/* ---------- real people ---------- */
+.people { background: var(--blush); padding: 56px 24px; }
+.peopleGrid { display: grid; gap: 16px; margin-top: 28px; }
+.personCard { background: #fff; border: 1px solid var(--line-blush); border-radius: 12px; padding: 20px; }
+.personBody { font-size: 14px; color: var(--ink-3); line-height: 1.55; }
+
+/* ---------- short faq ---------- */
+.shortFaq { background: #fff; padding: 56px 24px; }
+.shortFaqGrid { display: grid; gap: 14px; align-items: start; margin-top: 26px; }
+.kicker { font-size: 13px; font-weight: 700; color: var(--plum); margin-bottom: 6px; }
+
+/* ---------- modern life ---------- */
+.modern { background: var(--blush); padding: 56px 24px; }
+.modernGrid { display: grid; gap: 28px; align-items: center; margin-bottom: 24px; }
+.modernArt { aspect-ratio: 4 / 3; border-radius: 14px; }
+.modernPoints { display: grid; gap: 9px; }
+.modernPoint { display: flex; gap: 10px; font-size: 14px; color: var(--ink-2); }
+.rootCard { background: var(--blush-2); border: 1px solid var(--line-blush); border-radius: 16px; padding: 26px 22px; display: grid; gap: 24px; align-items: center; }
+.rootIcons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.rootDisc { width: 34px; height: 34px; border-radius: 50%; background: #F0DDE6; margin-bottom: 8px; }
+.rootIconName { font-size: 12px; font-weight: 700; color: var(--ink-3); line-height: 1.35; }
+.rootArt { height: 210px; border-radius: 14px; }
+
+/* ---------- why ---------- */
+.why { background: #fff; padding: 56px 24px; }
+.whyGrid { display: grid; gap: 16px; margin-top: 26px; }
+.whyCard { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: grid; }
+.whyArt { min-height: 150px; border-radius: 0; }
+.whyBody { padding: 20px; }
+.whyKicker { font-size: 11px; font-weight: 800; color: var(--plum); margin-bottom: 6px; }
+.whyTitle { font-size: 17px; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
+.whyText { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* ---------- decline ---------- */
+.decline { background: #fff; padding: 0 24px 56px; }
+.declineGrid { display: grid; gap: 32px; align-items: center; }
+.chartTitle { font-size: 14px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 18px; }
+.bars { display: flex; align-items: flex-end; justify-content: center; gap: 30px; height: 190px; }
+.bar { text-align: center; }
+.barValue { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+.barShape { width: 82px; border-radius: 8px 8px 0 0; }
+.barLabel { font-size: 12px; font-weight: 700; color: var(--ink-3); margin-top: 8px; line-height: 1.3; }
+.chartNote { background: #F7F9FC; border-radius: 10px; padding: 12px 16px; font-size: 12px; color: var(--muted); line-height: 1.5; text-align: center; margin-top: 18px; }
+
+/* ---------- over time ---------- */
+.overTime { background: var(--blush); padding: 56px 24px; }
+.rail { position: relative; margin: 30px 12px 24px; }
+.railLine { position: absolute; left: 12.5%; right: 12.5%; top: 11px; height: 6px; border-radius: 999px; background: linear-gradient(90deg, #E3C2D1 0%, #8E2B54 100%); }
+.railRow { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); }
+.railItem { display: flex; flex-direction: column; align-items: center; gap: 9px; text-align: center; }
+.railDot { width: 28px; height: 28px; border-radius: 50%; box-shadow: 0 0 0 5px var(--blush); }
+.railWeek { font-size: 14px; font-weight: 800; color: var(--navy); }
+.railPill { font-size: 12px; font-weight: 700; color: var(--plum); }
+.phaseGrid { display: grid; gap: 16px; }
+.phaseCard { background: #fff; border: 1px solid var(--line-blush); border-radius: 14px; padding: 20px; }
+.phaseWhen { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+.phasePill { display: inline-block; background: #F3E3EA; color: var(--plum); font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 999px; margin-bottom: 12px; }
+.phaseBody { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+.phaseTicks { display: grid; gap: 8px; }
+.phaseTick { display: flex; gap: 8px; font-size: 12px; color: var(--ink-2); line-height: 1.4; }
+.guaranteeBar { max-width: 680px; margin: 28px auto 0; background: #F2F7F1; border: 1px solid #DCE7D9; border-radius: 12px; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; }
+.guaranteeDisc { width: 26px; height: 26px; border-radius: 50%; background: #2C5233; color: #fff; font-size: 14px; font-weight: 800; display: grid; place-items: center; flex: none; }
+.guaranteeTitle { font-size: 14px; font-weight: 800; color: #2C5233; margin-bottom: 4px; }
+.guaranteeBody { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* ---------- saying ---------- */
+.saying { background: var(--blush); padding: 0 24px 56px; }
+.sayingCard { background: var(--blush-2); border: 1px solid var(--line-blush); border-radius: 18px; padding: 28px 22px; }
+.sayingGrid { display: grid; gap: 28px; align-items: start; }
+.sayingStats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+.sayingFigure { font-size: clamp(28px, 7vw, 38px); font-weight: 800; color: var(--plum); line-height: 1; }
+.sayingNote { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+.sayingFootnote { font-size: 11px; color: #98A3B8; }
+.sayingSplit { display: grid; gap: 20px; align-items: center; margin-top: 26px; }
+.sayingArt { height: 170px; border-radius: 14px; }
+.sayingBig { font-size: 24px; font-weight: 800; color: var(--plum); line-height: 1.1; }
+.sayingGuarantee { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.sayingTicks { display: flex; gap: 18px; flex-wrap: wrap; }
+.sayingTick { font-size: 12px; font-weight: 700; color: var(--ink-3); }
+.portrait { min-height: 300px; border-radius: 14px; }
+
+/* ---------- long faq + final ---------- */
+.longFaq { background: #fff; padding: 56px 24px; }
+.longFaqList { display: grid; gap: 12px; margin-top: 26px; max-width: 900px; margin-left: auto; margin-right: auto; }
+.final { background: var(--cream); padding: 56px 24px; }
+.finalGrid { display: grid; gap: 32px; align-items: center; max-width: 1080px; margin: 0 auto; }
+.finalTitle { font-size: clamp(30px, 8vw, 44px); font-weight: 800; color: var(--navy); letter-spacing: -.03em; line-height: 1.04; margin: 0 0 18px; text-wrap: balance; }
+.finalPoints { display: grid; gap: 11px; margin-bottom: 26px; }
+.finalArt { aspect-ratio: 4 / 3; }
+
+/* ---------- footer ---------- */
+.footer { background: var(--navy); padding: 48px 24px 32px; }
+.footerGrid { display: grid; gap: 32px; }
+.footerMark { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -.02em; margin-bottom: 12px; }
+.footerBlurb { font-size: 13px; color: #8FA3C9; line-height: 1.6; max-width: 260px; }
+.footerColTitle { font-size: 12px; font-weight: 800; letter-spacing: .1em; color: #fff; margin-bottom: 14px; }
+.footerCol { display: grid; gap: 9px; font-size: 13px; color: #8FA3C9; }
+.footerBottom { max-width: 1200px; margin: 32px auto 0; padding-top: 22px; border-top: 1px solid #1E3B6E; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footerLegal { font-size: 11px; color: #6C82AC; max-width: 720px; line-height: 1.6; }
+
+/* ================= breakpoints: the design's own columns ================= */
+@media (min-width: 640px) {
+  .stripGrid { grid-template-columns: repeat(3, 1fr); }
+  .surveyGrid { grid-template-columns: repeat(2, 1fr); }
+  .qualityGrid { grid-template-columns: 1fr 1fr; gap: 14px 44px; }
+  .factRow { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .giftGrid { grid-template-columns: repeat(4, 1fr); }
+  .peopleGrid { grid-template-columns: repeat(2, 1fr); }
+  .shortFaqGrid { grid-template-columns: 1fr 1fr; }
+  .whyGrid { grid-template-columns: repeat(3, 1fr); }
+  .phaseGrid { grid-template-columns: repeat(2, 1fr); }
+  .rootIcons { grid-template-columns: repeat(4, 1fr); }
+  .footerGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .heroGrid { grid-template-columns: 1fr 1.05fr; gap: 48px; padding: 56px 24px 40px; }
+  .benefitsGrid { grid-template-columns: 1fr 1.1fr 1fr; gap: 32px; }
+  .benefitCol { gap: 44px; }
+  .benefitColLeft { text-align: right; }
+  .split { grid-template-columns: 1fr 1fr; }
+  .splitBody { padding: 56px 48px; }
+  .splitArt { min-height: 420px; }
+  .surveyCard { padding: 52px 48px; }
+  .surveyGrid { grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .qualityCard { padding: 44px 48px; }
+  .buyGrid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
+  .gallery { grid-template-columns: 88px minmax(0, 1fr); position: sticky; top: 24px; }
+  .thumbs { grid-template-columns: 1fr; order: 0; }
+  .stage { order: 0; }
+  .peopleGrid { grid-template-columns: repeat(4, 1fr); }
+  .modernGrid { grid-template-columns: .85fr 1.15fr; gap: 36px; }
+  .rootCard { grid-template-columns: 1.25fr .75fr; padding: 30px 32px; }
+  .whyCard { grid-template-columns: .8fr 1.2fr; }
+  .whyArt { min-height: 190px; }
+  .declineGrid { grid-template-columns: 1.1fr .9fr; gap: 44px; }
+  .phaseGrid { grid-template-columns: repeat(4, 1fr); }
+  .sayingGrid { grid-template-columns: 1.15fr .85fr; gap: 34px; }
+  .sayingCard { padding: 34px 36px; }
+  .sayingSplit { grid-template-columns: .9fr 1.1fr; gap: 22px; }
+  .portrait { min-height: 420px; }
+  .finalGrid { grid-template-columns: 1.05fr .95fr; gap: 56px; }
+  .footerGrid { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+  .buy { padding: 64px 24px 72px; }
+  .benefits, .people, .shortFaq, .modern, .why, .overTime, .longFaq { padding: 64px 24px; }
+  .final { padding: 76px 24px; }
+}
