@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   BENEFITS, BUY, DECLINE, DEFICIENCY, FAQS, FINAL, FIRST_PRICE, FOOTER, GIFTS, HERO,
@@ -12,9 +13,19 @@ const Stars = ({ size = 15 }: { size?: number }) => (
   <span className={s.stars} style={{ fontSize: size }} aria-hidden="true">★★★★★</span>
 );
 
-const Art = ({ label, className }: { label: string; className?: string }) => (
-  <div className={`${s.ph} ${className ?? ""}`} role="img" aria-label={`Placeholder for ${label}`}>
-    <span className={s.phLabel}>{label}</span>
+/* Every shot fills a box the design already sized, so they are all fill + cover
+   rather than intrinsic. `sizes` keeps the optimiser from serving a 1400px file into
+   a 88px thumbnail. */
+const Art = ({
+  photo, className, sizes = "(max-width: 900px) 100vw, 50vw", priority,
+}: {
+  photo: { src: string; alt: string };
+  className?: string;
+  sizes?: string;
+  priority?: boolean;
+}) => (
+  <div className={`${s.shot} ${className ?? ""}`}>
+    <Image src={photo.src} alt={photo.alt} fill sizes={sizes} priority={priority} style={{ objectFit: "cover" }} />
   </div>
 );
 
@@ -108,7 +119,7 @@ export function BeetrootLander() {
             </div>
             {cta}
           </div>
-          <Art label={HERO.photo} className={s.heroArt} />
+          <Art photo={HERO.photo} className={s.heroArt} priority />
         </div>
       </section>
 
@@ -147,7 +158,7 @@ export function BeetrootLander() {
                 </div>
               ))}
             </div>
-            <Art label={BENEFITS.photo} className={s.benefitArt} />
+            <Art photo={BENEFITS.photo} className={s.benefitArt} sizes="(max-width: 900px) 100vw, 33vw" />
             <div className={s.benefitCol}>
               {BENEFITS.right.map((b) => (
                 <div key={b.name}>
@@ -176,7 +187,7 @@ export function BeetrootLander() {
             </div>
             <a href="#product" className={s.btnSm}>{OFFER.ctaLabel}</a>
           </div>
-          <Art label={DEFICIENCY.photo} className={s.splitArt} />
+          <Art photo={DEFICIENCY.photo} className={s.splitArt} />
         </div>
       </section>
 
@@ -224,16 +235,23 @@ export function BeetrootLander() {
                   key={t.short}
                   type="button"
                   onClick={() => setImg(i)}
-                  aria-label={`Show ${t.label}`}
+                  aria-label={`Show ${t.alt}`}
                   aria-pressed={img === i}
                   className={`${s.thumb} ${img === i ? s.thumbOn : ""}`}
                 >
-                  <span className={s.thumbLabel}>{t.short}</span>
+                  <Image src={t.src} alt="" fill sizes="88px" style={{ objectFit: "cover" }} />
                 </button>
               ))}
             </div>
-            <div className={`${s.ph} ${s.stage}`} role="img" aria-label={`Placeholder for ${THUMBS[img].label}`}>
-              <span className={s.phLabel}>{THUMBS[img].label}</span>
+            <div className={s.stage}>
+              <Image
+                key={THUMBS[img].src}
+                src={THUMBS[img].src}
+                alt={THUMBS[img].alt}
+                fill
+                sizes="(max-width: 900px) 100vw, 45vw"
+                style={{ objectFit: "cover" }}
+              />
               <div className={s.saveBadge}>Save {SALE_PERCENT}%</div>
             </div>
           </div>
@@ -288,7 +306,9 @@ export function BeetrootLander() {
                       <span>{g.tag}</span>
                       {g.was && <span className={s.giftStrike}>{g.was}</span>}
                     </div>
-                    <div className={s.giftArt} />
+                    <div className={s.giftArt}>
+                      <Image src={g.src} alt={g.alt} fill sizes="120px" style={{ objectFit: "cover" }} />
+                    </div>
                     <div className={s.giftName}>{g.name}</div>
                   </div>
                 ))}
@@ -350,7 +370,7 @@ export function BeetrootLander() {
       <section className={s.modern}>
         <div className={s.narrow}>
           <div className={s.modernGrid}>
-            <Art label={MODERN.photo} className={s.modernArt} />
+            <Art photo={MODERN.photo} className={s.modernArt} sizes="(max-width: 900px) 100vw, 40vw" />
             <div>
               <h3 className={s.h3} style={{ fontSize: 28 }}>{MODERN.title}</h3>
               <p className={s.lede} style={{ fontSize: 14, marginBottom: 16 }}>{MODERN.body}</p>
@@ -375,7 +395,7 @@ export function BeetrootLander() {
                 ))}
               </div>
             </div>
-            <Art label={MODERN.card.photo} className={s.rootArt} />
+            <Art photo={MODERN.card.photo} className={s.rootArt} sizes="(max-width: 900px) 100vw, 30vw" />
           </div>
         </div>
       </section>
@@ -387,7 +407,7 @@ export function BeetrootLander() {
           <div className={s.whyGrid}>
             {WHY.cards.map((c) => (
               <div key={c.title} className={s.whyCard}>
-                <Art label="" className={s.whyArt} />
+                <Art photo={c.photo} className={s.whyArt} sizes="(max-width: 900px) 100vw, 15vw" />
                 <div className={s.whyBody}>
                   <div className={s.whyKicker}>{c.kicker}</div>
                   <div className={s.whyTitle}>{c.title}</div>
@@ -481,7 +501,7 @@ export function BeetrootLander() {
               </div>
               <div className={s.sayingFootnote}>{SAYING.footnote}</div>
               <div className={s.sayingSplit}>
-                <Art label={SAYING.photo} className={s.sayingArt} />
+                <Art photo={SAYING.photo} className={s.sayingArt} sizes="(max-width: 900px) 100vw, 25vw" />
                 <div>
                   <div className={s.rootDisc} style={{ marginBottom: 10 }} aria-hidden="true" />
                   <div className={s.sayingBig}>{SAYING.guarantee.big}</div>
@@ -493,7 +513,7 @@ export function BeetrootLander() {
                 </div>
               </div>
             </div>
-            <Art label={SAYING.portrait} className={s.portrait} />
+            <Art photo={SAYING.portrait} className={s.portrait} sizes="(max-width: 900px) 100vw, 35vw" />
           </div>
         </div>
       </section>
@@ -522,7 +542,7 @@ export function BeetrootLander() {
             </div>
             {cta}
           </div>
-          <Art label={FINAL.photo} className={s.finalArt} />
+          <Art photo={FINAL.photo} className={s.finalArt} />
         </div>
       </section>
 

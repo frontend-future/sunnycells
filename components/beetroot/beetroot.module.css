@@ -60,15 +60,10 @@
   font-size: 11px; font-weight: 800; display: grid; place-items: center; flex: none;
 }
 
-/* Placeholder art from the design, kept as drawn. Every one names the shot it wants,
-   so the page reads as a layout waiting on photography rather than as broken. */
-.ph {
-  background: repeating-linear-gradient(135deg, #EDE4F0 0 12px, #E4D6E9 12px 24px);
-  border-radius: 22px; display: grid; place-items: center; text-align: center; padding: 12px;
-}
-.phLabel {
-  font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .1em;
-  text-transform: uppercase; color: #7B5A78;
+/* Every shot fills a box the design already sized, so the wrapper carries the ratio
+   and the image covers it. The blush ground shows only while one is decoding. */
+.shot {
+  position: relative; overflow: hidden; border-radius: 22px; background: #EDE4F0;
 }
 
 .pill {
@@ -134,7 +129,7 @@
   padding: 15px 26px; border-radius: 10px; box-shadow: 0 5px 0 var(--navy); border: 0; cursor: pointer;
 }
 .btnSm:hover { background: var(--navy); }
-.splitArt { min-height: 260px; border-radius: 0; }
+.splitArt { min-height: 300px; border-radius: 0; }
 
 .surveyCard { background: var(--cream-2); border-radius: 20px; padding: 36px 24px; text-align: center; }
 .surveyGrid { display: grid; gap: 24px; margin-top: 30px; }
@@ -154,13 +149,13 @@
 .gallery { display: grid; gap: 16px; min-width: 0; }
 .thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; order: 2; }
 .thumb {
-  background: repeating-linear-gradient(135deg, #EDE4F0 0 8px, #E4D6E9 8px 16px);
-  border-radius: 10px; aspect-ratio: 1; display: grid; place-items: center; cursor: pointer;
-  box-shadow: inset 0 0 0 1px var(--line); border: 0; padding: 4px; min-height: 48px;
+  position: relative; overflow: hidden; background: #EDE4F0;
+  border-radius: 10px; aspect-ratio: 1; cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--line); border: 0; padding: 0; min-height: 48px;
 }
 .thumbOn { box-shadow: inset 0 0 0 2px var(--blue); }
 .thumbLabel { font-family: ui-monospace, Menlo, monospace; font-size: 8px; letter-spacing: .06em; text-transform: uppercase; color: #7B5A78; }
-.stage { aspect-ratio: 1; border-radius: 18px; position: relative; order: 1; }
+.stage { aspect-ratio: 1; border-radius: 18px; position: relative; overflow: hidden; background: #EDE4F0; order: 1; }
 .saveBadge {
   position: absolute; top: 16px; right: 16px; background: var(--plum); color: #fff;
   font-size: 12px; font-weight: 800; padding: 8px 14px; border-radius: 999px;
@@ -199,7 +194,7 @@
 .giftTagPlum { background: var(--plum); }
 .giftTagBlue { background: var(--blue); }
 .giftStrike { text-decoration: line-through; opacity: .85; }
-.giftArt { background: repeating-linear-gradient(135deg, #EEF1F7 0 8px, #E4E9F2 8px 16px); border-radius: 8px; height: 66px; margin-top: 6px; }
+.giftArt { position: relative; overflow: hidden; background: #EEF1F7; border-radius: 8px; height: 66px; margin-top: 6px; }
 .giftName { font-size: 12px; font-weight: 700; color: var(--ink-3); margin-top: 8px; line-height: 1.3; text-align: center; }
 
 .buyCta {
@@ -259,7 +254,7 @@
 .why { background: #fff; padding: 56px 24px; }
 .whyGrid { display: grid; gap: 16px; margin-top: 26px; }
 .whyCard { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: grid; }
-.whyArt { min-height: 150px; border-radius: 0; }
+.whyArt { min-height: 170px; border-radius: 0; }
 .whyBody { padding: 20px; }
 .whyKicker { font-size: 11px; font-weight: 800; color: var(--plum); margin-bottom: 6px; }
 .whyTitle { font-size: 17px; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
