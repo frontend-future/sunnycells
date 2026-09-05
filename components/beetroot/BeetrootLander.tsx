@@ -119,7 +119,6 @@ export function BeetrootLander() {
           </div>
         </div>
 
-        <span className={s.announceInfo} aria-hidden="true">i</span>
       </div>
 
       {/* hero */}
