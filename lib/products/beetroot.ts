@@ -107,7 +107,7 @@ export const QUALITY = {
 } as const;
 
 export const BUY = {
-  kicker: "It’s Our First Harvest.",
+  kicker: "It’s Labor Day Weekend.",
   headline: "We Lowered Our Price To Celebrate.",
   rating: "4.8 · 2,140 verified reviews",
   name: "BeetRoot+ Chews",
