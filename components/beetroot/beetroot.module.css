@@ -91,13 +91,20 @@
   position: relative; overflow: hidden; border-radius: 22px; background: #EDE4F0;
 }
 
+/* 14px rather than the design's 999px pill: still soft, but it stops reading as a
+   lozenge next to the 12px buy button and the 10px secondary. */
 .pill {
   display: block; width: 100%; background: var(--blue); color: #fff; font-size: 18px;
-  font-weight: 800; padding: 20px 28px; border-radius: 999px; text-align: center;
+  font-weight: 800; padding: 20px 28px; border-radius: 14px; text-align: center;
   box-shadow: 0 7px 0 var(--navy); border: 0; cursor: pointer;
 }
 .pill:hover { background: var(--navy); }
-.ctaBlock { display: flex; flex-direction: column; gap: 14px; align-items: center; max-width: 440px; }
+/* The 440px cap with no auto margin left this hard against the left edge on a phone,
+   where its column is the full width. */
+.ctaBlock {
+  display: flex; flex-direction: column; gap: 14px; align-items: center;
+  width: 100%; max-width: 440px; margin: 0 auto;
+}
 .riskFree { display: flex; gap: 9px; align-items: center; font-size: 16px; color: var(--ink-2); }
 
 .h1 {
@@ -149,9 +156,12 @@
 .figureNavy { color: var(--blue); }
 .figurePlum { color: var(--plum); }
 .figureNote { font-size: 13px; color: var(--muted); line-height: 1.45; margin-top: 6px; }
+/* Full width on a phone like the other two, and back to its own width once there is
+   room beside it. */
 .btnSm {
-  display: inline-block; background: var(--blue); color: #fff; font-size: 15px; font-weight: 800;
-  padding: 15px 26px; border-radius: 10px; box-shadow: 0 5px 0 var(--navy); border: 0; cursor: pointer;
+  display: block; width: 100%; background: var(--blue); color: #fff; font-size: 15px;
+  font-weight: 800; padding: 16px 26px; border-radius: 12px; text-align: center;
+  box-shadow: 0 5px 0 var(--navy); border: 0; cursor: pointer;
 }
 .btnSm:hover { background: var(--navy); }
 .splitArt { min-height: 300px; border-radius: 0; }
@@ -359,6 +369,7 @@
 
 /* ================= breakpoints: the design's own columns ================= */
 @media (min-width: 640px) {
+  .btnSm { display: inline-block; width: auto; }
   .stripGrid { grid-template-columns: repeat(3, 1fr); }
   .surveyGrid { grid-template-columns: repeat(2, 1fr); }
   .qualityGrid { grid-template-columns: 1fr 1fr; gap: 14px 44px; }
