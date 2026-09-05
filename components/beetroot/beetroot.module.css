@@ -212,7 +212,10 @@
 .appliedText { font-size: clamp(15px, 4vw, 19px); font-weight: 800; color: var(--blue); }
 .termsLine { font-size: 15px; color: var(--muted); margin-top: 9px; text-align: center; }
 .attrGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 12px; margin: 30px 0 34px; text-align: center; }
-.attrDisc { background: #EEF2F9; border-radius: 50%; width: 52px; height: 52px; margin: 0 auto 8px; }
+.attrDisc {
+  background: #EEF2F9; color: var(--blue); border-radius: 50%; width: 52px; height: 52px;
+  margin: 0 auto 8px; display: grid; place-items: center;
+}
 .attrName { font-size: 12px; font-weight: 700; color: var(--ink-3); line-height: 1.3; }
 
 /* ---------- accordions ---------- */
@@ -246,7 +249,10 @@
 .modernPoint { display: flex; gap: 10px; font-size: 14px; color: var(--ink-2); }
 .rootCard { background: var(--blush-2); border: 1px solid var(--line-blush); border-radius: 16px; padding: 26px 22px; display: grid; gap: 24px; align-items: center; }
 .rootIcons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.rootDisc { width: 34px; height: 34px; border-radius: 50%; background: #F0DDE6; margin-bottom: 8px; }
+.rootDisc {
+  width: 34px; height: 34px; border-radius: 50%; background: #F0DDE6; color: var(--plum);
+  margin-bottom: 8px; display: grid; place-items: center;
+}
 .rootIconName { font-size: 12px; font-weight: 700; color: var(--ink-3); line-height: 1.35; }
 .rootArt { height: 210px; border-radius: 14px; }
 
@@ -299,7 +305,6 @@
 .sayingStats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
 .sayingFigure { font-size: clamp(28px, 7vw, 38px); font-weight: 800; color: var(--plum); line-height: 1; }
 .sayingNote { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
-.sayingFootnote { font-size: 11px; color: #98A3B8; }
 .sayingSplit { display: grid; gap: 20px; align-items: center; margin-top: 26px; }
 .sayingArt { height: 170px; border-radius: 14px; }
 .sayingBig { font-size: 24px; font-weight: 800; color: var(--plum); line-height: 1.1; }

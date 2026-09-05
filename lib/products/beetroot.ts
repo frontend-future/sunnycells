@@ -1,3 +1,4 @@
+import type { BeetIconName } from "@/components/beetroot/BeetrootIcons";
 import { firstOrderPrice, formatPrice } from "@/lib/price";
 
 /**
@@ -122,7 +123,16 @@ export const BUY = {
   giftsTitle: "Free gifts with your first order",
   cta: "Try Now",
   terms: "Free shipping | Delivered every 4 weeks | Cancel anytime",
-  attrs: ["Real fruit taste", "No added sugar", "Clean label", "Non-GMO", "No sugar alcohols", "Gluten-free", "Vegan", "Third-party tested"],
+  attrs: [
+    { name: "Real fruit taste", icon: "fruit" },
+    { name: "No added sugar", icon: "no-sugar" },
+    { name: "Clean label", icon: "clean-label" },
+    { name: "Non-GMO", icon: "non-gmo" },
+    { name: "No sugar alcohols", icon: "no-alcohols" },
+    { name: "Gluten-free", icon: "gluten-free" },
+    { name: "Vegan", icon: "vegan" },
+    { name: "Third-party tested", icon: "tested" },
+  ] as { name: string; icon: BeetIconName }[],
 } as const;
 
 export const THUMBS = [
@@ -160,7 +170,12 @@ export const MODERN = {
     title: "Support your body from the inside out",
     body: "BeetRoot+ delivers 3,000mg of concentrated beetroot per serving, naturally rich in the dietary nitrates your body uses to support healthy blood flow and daily vitality.",
     photo: { src: `${IMG}/three-pouches.webp`, alt: "Three BeetRoot+ pouches standing in a row at slight angles" },
-    items: ["Supports healthy blood flow", "Supports daily energy", "Supports mental clarity", "Supports cardiovascular wellness"],
+    items: [
+      { name: "Supports healthy blood flow", icon: "blood-flow" },
+      { name: "Supports daily energy", icon: "energy" },
+      { name: "Supports mental clarity", icon: "clarity" },
+      { name: "Supports cardiovascular wellness", icon: "heart" },
+    ] as { name: string; icon: BeetIconName }[],
   },
 } as const;
 
@@ -208,13 +223,11 @@ export const OVER_TIME = {
 
 export const SAYING = {
   title: "What BeetRoot+ Customers Are Saying",
-  lede: "In an August 2026 survey of 1,204 verified SUNNYCELLS customers:",
   stats: [
     { figure: "71%", body: "reported feeling more energized as part of their daily routine" },
     { figure: "82%", body: "reported feeling better daily circulation support" },
     { figure: "91%", body: "said they would recommend BeetRoot+ to a friend" },
   ],
-  footnote: "Based on a survey of 1,204 verified SUNNYCELLS customers conducted August 2026.",
   photo: { src: `${IMG}/pouch-trio.webp`, alt: "Three BeetRoot+ pouches grouped on a blush surface" },
   portrait: { src: `${IMG}/customer-portrait.webp`, alt: "A woman in her fifties at home by a window, smiling" },
   guarantee: {

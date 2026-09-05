@@ -7,6 +7,7 @@ import {
   LONG_FAQ, MODERN, money, OFFER, OVER_TIME, PRESS, QUALITY, REAL_PEOPLE, SALE_PERCENT,
   SAYING, SHORT_FAQ, STRIP_REVIEWS, SUB_PRICE, SURVEY, THUMBS, WHY,
 } from "@/lib/products/beetroot";
+import { BeetIcon } from "./BeetrootIcons";
 import s from "./beetroot.module.css";
 
 const Stars = ({ size = 15 }: { size?: number }) => (
@@ -324,9 +325,9 @@ export function BeetrootLander() {
 
             <div className={s.attrGrid}>
               {BUY.attrs.map((a) => (
-                <div key={a}>
-                  <div className={s.attrDisc} aria-hidden="true" />
-                  <div className={s.attrName}>{a}</div>
+                <div key={a.name}>
+                  <div className={s.attrDisc}><BeetIcon name={a.icon} size={26} /></div>
+                  <div className={s.attrName}>{a.name}</div>
                 </div>
               ))}
             </div>
@@ -388,9 +389,9 @@ export function BeetrootLander() {
               <p className={s.lede} style={{ fontSize: 14, marginBottom: 22 }}>{MODERN.card.body}</p>
               <div className={s.rootIcons}>
                 {MODERN.card.items.map((i) => (
-                  <div key={i}>
-                    <div className={s.rootDisc} aria-hidden="true" />
-                    <div className={s.rootIconName}>{i}</div>
+                  <div key={i.name}>
+                    <div className={s.rootDisc}><BeetIcon name={i.icon} size={19} /></div>
+                    <div className={s.rootIconName}>{i.name}</div>
                   </div>
                 ))}
               </div>
@@ -489,8 +490,7 @@ export function BeetrootLander() {
         <div className={`${s.mid} ${s.sayingCard}`}>
           <div className={s.sayingGrid}>
             <div>
-              <h3 className={s.h3} style={{ fontSize: 26, marginBottom: 8 }}>{SAYING.title}</h3>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: "0 0 22px" }}>{SAYING.lede}</p>
+              <h3 className={s.h3} style={{ fontSize: 26, marginBottom: 22 }}>{SAYING.title}</h3>
               <div className={s.sayingStats}>
                 {SAYING.stats.map((f) => (
                   <div key={f.figure}>
@@ -499,11 +499,10 @@ export function BeetrootLander() {
                   </div>
                 ))}
               </div>
-              <div className={s.sayingFootnote}>{SAYING.footnote}</div>
               <div className={s.sayingSplit}>
                 <Art photo={SAYING.photo} className={s.sayingArt} sizes="(max-width: 900px) 100vw, 25vw" />
                 <div>
-                  <div className={s.rootDisc} style={{ marginBottom: 10 }} aria-hidden="true" />
+                  <div className={s.rootDisc} style={{ marginBottom: 10 }}><BeetIcon name="guarantee" size={19} /></div>
                   <div className={s.sayingBig}>{SAYING.guarantee.big}</div>
                   <div className={s.sayingGuarantee}>{SAYING.guarantee.title}</div>
                   <div className={s.sayingNote} style={{ marginBottom: 12 }}>{SAYING.guarantee.body}</div>
