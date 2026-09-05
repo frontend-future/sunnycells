@@ -92,13 +92,34 @@ export function BeetrootLander() {
     <div className={s.page}>
       {/* announcement */}
       <div className={s.announce}>
-        <span style={{ opacity: .85 }} aria-hidden="true">★</span>
-        <span>{OFFER.announcement}</span>
-        <span className={s.cd} aria-hidden="true">
-          <span>{mounted ? pad(Math.floor(left / 3600)) : "00"}</span>
-          <span>{mounted ? pad(Math.floor(left / 60) % 60) : "00"}</span>
-          <span>{mounted ? pad(left % 60) : "00"}</span>
-        </span>
+        <div className={s.announceText}>
+          <div className={s.announceTitle}>
+            <span className={s.announceStar} aria-hidden="true">★</span>
+            {OFFER.bannerTitle}
+            <span className={s.announceStar} aria-hidden="true">★</span>
+          </div>
+          <div className={s.announceSub}>{OFFER.bannerSub}</div>
+        </div>
+
+        {/* The clock only renders live values after mount: a statically rendered page
+            would otherwise ship the build time and disagree with the client. */}
+        <div className={s.cd}>
+          <div className={s.cdRow}>
+            {[
+              ["HRS", Math.floor(left / 3600)],
+              ["MIN", Math.floor(left / 60) % 60],
+              ["SEC", left % 60],
+            ].map(([label, v], i) => (
+              <div key={label as string} className={s.cdCell}>
+                <span className={s.cdNum}>{mounted ? pad(v as number) : "--"}</span>
+                <span className={s.cdLabel}>{label}</span>
+                {i < 2 && <span className={s.cdSep} aria-hidden="true" />}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <span className={s.announceInfo} aria-hidden="true">i</span>
       </div>
 
       {/* hero */}

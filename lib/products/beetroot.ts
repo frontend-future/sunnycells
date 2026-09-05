@@ -35,7 +35,8 @@ export const SALE_PERCENT = Math.round((1 - FIRST_PRICE / SUB_PRICE) * 100);
 export const money = (n: number) => formatPrice(n);
 
 export const OFFER = {
-  announcement: `Fall reset sale — your first 4 weeks are ${SALE_PERCENT}% off`,
+  bannerTitle: "Labor Day Sale",
+  bannerSub: `Up to ${SALE_PERCENT}% off w/ free gifts`,
   ctaLabel: `Save ${SALE_PERCENT}% + Free Gifts`,
   riskFree: "Risk-Free For 30 Days",
   giftValue: "32.85",
