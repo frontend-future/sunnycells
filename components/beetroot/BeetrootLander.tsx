@@ -158,11 +158,22 @@ export function BeetrootLander() {
         </div>
       </section>
 
-      {/* press marquee. Doubled so the -50% translate loops seamlessly. */}
-      <div className={s.press} aria-hidden="true">
-        <div className={s.pressRow}>
-          {Array.from({ length: 12 }, (_, i) => <span key={i}>{PRESS[i % PRESS.length]}</span>)}
+      {/* Logo bar. The row is the set twice over so the -50% translate loops with no
+          seam, and it is aria-hidden because a screen reader wants the names once, not
+          twelve times: the visually hidden list below carries them. */}
+      <div className={s.press}>
+        <div className={s.pressRow} aria-hidden="true">
+          {Array.from({ length: 12 }, (_, i) => {
+            const p = PRESS[i % PRESS.length];
+            return (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img key={i} src={p.src} alt="" style={{ height: p.h }} className={s.pressLogo} />
+            );
+          })}
         </div>
+        <ul className={s.srOnly}>
+          {PRESS.map((p) => <li key={p.name}>{p.name}</li>)}
+        </ul>
       </div>
 
       {/* benefits */}

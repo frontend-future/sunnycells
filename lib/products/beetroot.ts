@@ -64,7 +64,39 @@ export const STRIP_REVIEWS = [
   { title: "“My numbers moved”", body: "Six weeks in, my cuff readings at home are the steadiest they’ve been in years.", who: "Priya N. · Verified Buyer" },
 ] as const;
 
-export const PRESS = ["THE SLAMM", "GLAMOUR", "BON APPÉTIT", "FORBES", "YAHOO!LIFE", "WELL+GOOD"] as const;
+/**
+ * The logo bar.
+ *
+ * THESE ARE REAL PUBLICATION TRADEMARKS AND THE BAR ASSERTS COVERAGE. Nothing in this
+ * repo evidences that any of them has written about SUNNYCELLS, and the design gives
+ * the row no heading at all, so it reads as "as seen in" without saying it. Either
+ * substantiate each one before launch or reframe the row: the sister funnels label
+ * theirs "Benefits of our ingredients are researched by", which is a claim about the
+ * ingredients rather than about us, and is defensible on the same logos.
+ *
+ * Two of the design's six could not be sourced honestly and were swapped:
+ *   THE SLAMM   is not a publication. There is no logo to find.
+ *   WELL+GOOD   has no freely licensed mark anywhere; the only files available are
+ *               scraped from their own site.
+ * Women's Health and Healthline replace them. Both are real, both already ship in
+ * public/press on the quiz landing pages, and both are wellness titles.
+ *
+ * The four SVGs come from Wikimedia Commons, all four PD-textlogo: a wordmark set in
+ * type carries no copyright. That is a copyright question and not a trademark one, so
+ * it says nothing about the claim above.
+ *
+ * `h` is a rendered height in pixels, tuned per mark so they look the same size rather
+ * than measure the same size. Equal heights read wrong when one logo is all caps and
+ * the next has ascenders and a descender.
+ */
+export const PRESS = [
+  { name: "Forbes", src: "/press-logos/forbes.svg", h: 20 },
+  { name: "Glamour", src: "/press-logos/glamour.svg", h: 21 },
+  { name: "Bon Appétit", src: "/press-logos/bon-appetit.svg", h: 30 },
+  { name: "Yahoo", src: "/press-logos/yahoo.svg", h: 25 },
+  { name: "Women's Health", src: "/press-logos/womens-health.webp", h: 26 },
+  { name: "Healthline", src: "/press-logos/healthline.webp", h: 23 },
+] as const;
 
 export const BENEFITS = {
   title: "Transform Your Health",
