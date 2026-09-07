@@ -18,6 +18,19 @@ const inited = new Set<string>();
    holds. It also stops any future re-render on the same path counting twice. */
 let counted: string | null = null;
 
+/**
+ * The pixel the inline snippet initialised for this document.
+ *
+ * fbevents.js patches history.pushState and fires its own PageView on every
+ * client-side route change. It is not optional: fbq('set','autoConfig',false) does not
+ * turn it off, measured. And it always reports to this pixel, never to one initialised
+ * later. So on a route change inside a single funnel our own PageView is a second copy
+ * of an event Meta already has, which is what the "fired 2 times with identical data"
+ * warning in Events Manager was. On a route change that crosses into another dataset
+ * it is the only report that dataset gets, so it still has to fire.
+ */
+let basePixel: string | null = null;
+
 export function markInited(pixel: string) {
   inited.add(pixel);
 }
@@ -58,11 +71,17 @@ export function MetaPixel() {
        the first path this hook sees is already reported. */
     if (counted === null) {
       counted = pathname;
+      basePixel = pixel;
       markInited(pixel);
       return;
     }
     if (counted === pathname) return;
     counted = pathname;
+    /* fbevents has already counted this one against basePixel. Sending ours as well is
+       the duplicate. */
+    if (pixel === basePixel) return;
+    /* A different dataset owns this page, and fbevents reported the change to the base
+       pixel instead, so this is the only PageView this dataset will see. */
     if (ensureInit(pixel)) window.fbq?.("trackSingle", pixel, "PageView");
   }, [pathname, pixel]);
 

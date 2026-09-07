@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Badge } from "@/components/core/Badge";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
@@ -21,7 +21,16 @@ export function CortisolPlanCards({
   const router = useRouter();
   const [hover, setHover] = useState("");
 
+  /* One click, one event. Nothing unmounts the card between the tap and the route
+     change, so a double tap fired InitiateCheckout twice with two event ids, which
+     Meta cannot dedupe. A ref, not state: state would not have updated before the
+     second click in the same tick. Resets if she comes back, because the component
+     remounts. */
+  const chosen = useRef(false);
+
   const choose = (p: SupplyPlan) => {
+    if (chosen.current) return;
+    chosen.current = true;
     /* Written into the product's own cart, not the quiz store, because the checkout
        that receives it reads from there. */
     writeAnswer(CART_ID, "plan", p.id);

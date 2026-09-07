@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { Badge } from "@/components/core/Badge";
@@ -343,6 +343,11 @@ function EmailBody({
 }) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  /* Nothing unmounts this form between the click and the route change, so a double
+     tap ran the handler twice: two Lead events with different event ids, which Meta
+     cannot dedupe, and two lead notifications to the team. A ref rather than state
+     because state would not have updated before the second click in the same tick. */
+  const sent = useRef(false);
 
   const submit = () => {
     const trimmed = email.trim();
@@ -354,6 +359,9 @@ function EmailBody({
       setError("That address is missing an @ or a domain. Check it and try again.");
       return;
     }
+    /* After validation, so a rejected address does not lock the form. */
+    if (sent.current) return;
+    sent.current = true;
     set("email", trimmed);
     notifyLead(config, { ...answers, email: trimmed }, trimmed);
     trackMetaEvent("Lead", { content_name: config.id }, { email: trimmed });
