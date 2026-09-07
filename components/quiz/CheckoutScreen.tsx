@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon, type IconName } from "@/components/core/Icon";
 import { Input } from "@/components/forms/Input";
@@ -103,9 +103,41 @@ export function CheckoutScreen({
     phone: f.phone ?? "",
   });
 
-  /* Fires on Submit secure payment, once the card fields validate, and never on a
-     click that only surfaces errors. */
-  const purchased = () => notifyAttempt(shippingPayload(), "purchase");
+  const identity = () => ({
+    email: (f.email ?? answers.email ?? "").trim(),
+    phone: f.phone ?? "",
+    firstName: f.firstName ?? "",
+    lastName: f.lastName ?? "",
+    city: f.city ?? "",
+    state: f.state ?? "",
+    zip: f.zip ?? "",
+    country: "US",
+  });
+
+  const basket = () => ({
+    currency: "USD",
+    value: order.total,
+    content_ids: [plan.id],
+    content_type: "product",
+    content_name: plan.label,
+  });
+
+  /**
+   * Fires on Submit secure payment, once the card fields validate, and never on a
+   * click that only surfaces errors.
+   *
+   * Purchase lives here rather than back on the shipping submit, so it describes
+   * someone who filled in a card and asked to be charged instead of everyone who got
+   * as far as an address. Guarded, because the failed screen offers Try again and
+   * would otherwise report a second Purchase for the same person.
+   */
+  const bought = useRef(false);
+  const purchased = () => {
+    notifyAttempt(shippingPayload(), "purchase");
+    if (bought.current) return;
+    bought.current = true;
+    trackMetaEvent("Purchase", basket(), identity());
+  };
 
   const submit = () => {
     const next: Record<string, string> = {};
@@ -118,35 +150,15 @@ export function CheckoutScreen({
     setErrors(next);
     if (Object.keys(next).length) return;
 
-    /* The attempt email no longer fires here. It waits for Submit secure payment,
-       so it only ever describes someone who actually filled in a card.
+    /* AddPaymentInfo stays here on purpose: reaching the payment step is precisely
+       what that event means. Purchase does not, and used to. It waits for Submit
+       secure payment now, the way the Even Energy checkout already did, so the
+       campaign optimises on people who reached for a card rather than on everyone who
+       typed an address.
 
-       AddPaymentInfo is the literal truth about what happened. Purchase is
-       reported at the same moment by decision, so the campaign optimises on the
-       deepest signal this funnel produces.
-
-       Worth knowing what that means: no card is charged, so the value on the
-       Purchase is money that was not collected, and ROAS in the dashboard counts
-       intent rather than revenue. */
-    const identity = {
-      email: (f.email ?? answers.email ?? "").trim(),
-      phone: f.phone ?? "",
-      firstName: f.firstName ?? "",
-      lastName: f.lastName ?? "",
-      city: f.city ?? "",
-      state: f.state ?? "",
-      zip: f.zip ?? "",
-      country: "US",
-    };
-    const basket = {
-      currency: "USD",
-      value: order.total,
-      content_ids: [plan.id],
-      content_type: "product",
-      content_name: plan.label,
-    };
-    trackMetaEvent("AddPaymentInfo", basket, identity);
-    trackMetaEvent("Purchase", basket, identity);
+       Still worth knowing: no card is charged, so the value on that Purchase is money
+       that was not collected, and ROAS in the dashboard counts intent, not revenue. */
+    trackMetaEvent("AddPaymentInfo", basket(), identity());
     /* Reaching the card step is its own lead, so it gets its own notification. The
        purchase one still waits for a card. */
     notifyAttempt(shippingPayload(), "payment");

@@ -3,7 +3,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { Wordmark } from "@/components/core/Wordmark";
@@ -171,6 +171,9 @@ export function EvenCheckout({
      back on the shipping submit counted everyone who merely got that far, which
      inflates the signal the campaign optimises on and fills the inbox with people who
      never reached for a card. */
+  /* Guarded: the failed screen offers Try again, and a second submit would otherwise
+     report a second Purchase for the same person. */
+  const bought = useRef(false);
   const purchased = () => {
     notifyAttempt(
       { ...identity(), line1: f.line1 ?? "", line2: f.line2 ?? "" },
@@ -178,6 +181,8 @@ export function EvenCheckout({
       order.total,
       "purchase",
     );
+    if (bought.current) return;
+    bought.current = true;
     trackMetaEvent("Purchase", basket(), identity());
   };
 
