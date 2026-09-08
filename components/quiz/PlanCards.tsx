@@ -15,10 +15,14 @@ export function PlanCards({
   destinationHref = "/quiz/diet/results/checkout",
   ctaLabel = "Try now",
   optimizedImages = false,
+  plans = PLANS,
 }: {
   destinationHref?: string;
   ctaLabel?: string;
   optimizedImages?: boolean;
+  /** The ladder to render. Defaults to the diet one; the staging page passes its own
+      so it can show different photography without a second copy of this component. */
+  plans?: Plan[];
 }) {
   const router = useRouter();
   const [hover, setHover] = useState("");
@@ -57,7 +61,7 @@ export function PlanCards({
         alignItems: "stretch",
       }}
     >
-      {PLANS.map((p) => {
+      {plans.map((p) => {
         const on = p.best || hover === p.id;
         return (
           <div
