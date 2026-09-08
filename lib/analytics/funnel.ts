@@ -20,8 +20,7 @@ export type FunnelStep = {
 
 /* The order each funnel's results screens actually run in, read off the NextButton
    hrefs in the screens themselves rather than off the folder listing, which is
-   alphabetical and wrong. /quiz/diet/results/cart is deliberately absent: the route
-   exists but nothing links to it. */
+   alphabetical and wrong. */
 const RESULTS: Record<string, string[]> = {
   diet: ["analyzing", "summary", "projection", "metabolism", "benefits", "story", "plans", "checkout"],
   aging: ["analyzing", "summary", "projection", "collagen", "benefits", "story", "plans", "checkout"],

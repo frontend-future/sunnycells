@@ -53,7 +53,7 @@ test("cortisol has no story screen, so plans sits one place earlier", async () =
 
 test("pages outside a funnel are not steps", async () => {
   for (const p of ["/", "/products/daily-reds", "/lander/beetroot", "/quiz", "/quiz/nope/x",
-    "/quiz/diet/results/nope", "/quiz/diet/results/cart"]) {
+    "/quiz/diet/results/nope", "/quiz/diet/results/cart"  /* removed route */]) {
     assert.equal(await funnelStepFor(p), null, p);
   }
 });

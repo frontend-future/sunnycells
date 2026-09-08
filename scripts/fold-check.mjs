@@ -20,7 +20,6 @@ const TARGETS = [
   ["/quiz/diet/email", "button:has-text('Unlock my results')", "email CTA"],
   ["/quiz/diet/results/summary", "button:has-text('Continue')", "summary CTA"],
   ["/quiz/diet/results/plans", "button:has-text('Get it now')", "plans hero CTA"],
-  ["/quiz/diet/results/cart", "button:has-text('Continue to checkout')", "cart CTA"],
   ["/quiz/diet/results/checkout", "button:has-text('Continue')", "checkout CTA"],
 ];
 
