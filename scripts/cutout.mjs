@@ -43,6 +43,39 @@ const res = await p.evaluate(async () => {
     if (py > 0) q.push(i-w); if (py < h-1) q.push(i+w);
   }
 
+  /* Ground the border flood could not reach. In a group shot the floor between and
+     behind the products is walled off by the products themselves, so it survives as an
+     enclosed patch of background colour. Label what is left of that colour and clear
+     any patch big enough to be floor. Light lettering inside a dark band passes the
+     same colour test but is three orders of magnitude smaller, so it stays. */
+  /* Looser than the flood's test: a floor lit by a coloured product picks up that
+     colour and stops being neutral. Measured at spread 24 on the open floor under the
+     yellow canisters and 34 in the contact shadow right beneath them, where the
+     flood's limit is 16. Loosening the flood itself would eat the specular
+     highlights running down the tube, so the tolerance is raised only here, where
+     enclosure and size already prove it is floor. */
+  const enclosedBg = (i) => {
+    const r = a[i*4], g = a[i*4+1], bl = a[i*4+2];
+    const mn = Math.min(r, g, bl), mx = Math.max(r, g, bl);
+    return mn > 190 && (mx - mn) <= 40;
+  };
+  const ENCLOSED_MIN = N * 0.002;
+  const blab = new Int32Array(N).fill(-1), bsizes = [];
+  for (let s = 0; s < N; s++) {
+    if (blab[s] !== -1 || a[s*4+3] === 0 || !enclosedBg(s)) continue;
+    const id = bsizes.length; const st = [s]; blab[s] = id; let n = 0;
+    while (st.length) {
+      const i = st.pop(); n++;
+      const px = i % w, py = (i / w) | 0, nb = [];
+      if (px > 0) nb.push(i-1); if (px < w-1) nb.push(i+1);
+      if (py > 0) nb.push(i-w); if (py < h-1) nb.push(i+w);
+      for (const j of nb) if (blab[j] === -1 && a[j*4+3] !== 0 && enclosedBg(j)) { blab[j] = id; st.push(j); }
+    }
+    bsizes.push(n);
+  }
+  let enclosed = 0;
+  for (let i = 0; i < N; i++) if (blab[i] >= 0 && bsizes[blab[i]] >= ENCLOSED_MIN) { a[i*4+3] = 0; enclosed++; }
+
   /* The shadow fades, so its core can survive as an island. Anything too small to be
      part of the product goes. */
   const lab = new Int32Array(N).fill(-1), sizes = [];
@@ -72,9 +105,9 @@ const res = await p.evaluate(async () => {
     a[i*4+3] = Math.round(sum / 9);
   }
   x.putImageData(d, 0, 0);
-  return { png: c.toDataURL("image/png").split(",")[1], kept: sizes.filter((s) => s >= MIN).length };
+  return { png: c.toDataURL("image/png").split(",")[1], kept: sizes.filter((s) => s >= MIN).length, enclosed };
 });
 
 writeFileSync(out, Buffer.from(res.png, "base64"));
-console.log(`kept ${res.kept} components ->`, out);
+console.log(`kept ${res.kept} components, cleared ${res.enclosed} enclosed background px ->`, out);
 await b.close();
