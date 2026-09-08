@@ -22,12 +22,22 @@ import os from "node:os";
 const KEY = process.env.FAL_KEY;
 if (!KEY) throw new Error("FAL_KEY not set");
 const DIR = process.env.OUT_DIR || path.join(os.homedir(), "Downloads/cortisol-control");
-const MASTER = path.join(DIR, "sun-02-marigold.png");
 
 const KEEP =
   "Keep the canister exactly as it is: the same marigold yellow paper tube, the same " +
   "near-black cap, and every word already printed on it unchanged, correctly spelled " +
   "and readable. Do not redesign the label, do not add or remove any text.";
+
+/* The gummy, settled by plans-palm-gummies and now the reference for every other shot
+   that shows one. Described AND passed as a second reference image, because adjectives
+   alone drifted it: the first pass came back with domes in one shot and cushions in
+   another. Flat discs, not bears, not domes. */
+const GUMMY =
+  "The gummies are flat round discs like thick coins: a flat top and a flat bottom " +
+  "with straight rounded sides, roughly two centimetres across, a deep dark cherry " +
+  "burgundy red that goes semi-translucent where the light catches the edge, with a " +
+  "matte finely sugar-frosted surface and no coarse sugar crystals. They are not " +
+  "domes, not cushions, not spheres and not bear shapes.";
 
 const LOOK =
   "Natural soft daylight, shallow depth of field, warm neutral surfaces, nothing " +
@@ -41,8 +51,10 @@ export const EDITS = [
     p: `${KEEP} Recompose as three identical canisters standing in a row on a plain warm white background, the middle one square to camera and the outer two turned very slightly, overlapping a little. Soft contact shadows. No caption, no words anywhere in the image except what is printed on the canisters themselves.` },
   { name: "plans-pack-6", ar: "1:1",
     p: `${KEEP} Recompose as six identical canisters grouped into one tight cluster on a plain warm white background, arranged exactly like a hero group shot and NOT as an evenly spaced grid: three standing across the front and three behind them, the rows staggered so the back canisters peek between the front ones, every canister overlapping its neighbour, the front centre one square to camera with its label fully readable and the others turned very slightly. Shot at the same low eye level as a single-bottle hero, so the group reads as one arrangement with depth rather than a product listing. Soft contact shadows pooling under the cluster. No caption, no words anywhere in the image except what is printed on the canisters themselves.` },
-  { name: "plans-pack-open", ar: "1:1",
-    p: `${KEEP} Recompose with the canister open, its cap resting beside it, and a scatter of deep tart-cherry red gummies spilling from the mouth onto a warm cream surface. ${LOOK}` },
+  { name: "plans-pack-open", ar: "1:1", refs: ["sun-02-marigold.png", "plans-palm-gummies.png"],
+    p: `Use the canister from the first image and the gummies from the second image. ${KEEP} ${GUMMY} Recompose with the canister STANDING UPRIGHT on its base, not tipped over and not lying on its side, open with no cap on it, its cap resting flat on the surface beside it, and a scatter of those exact gummies on the surface in front of it as though just poured out. The canister stays square to camera with the full label readable. ${LOOK}` },
+  { name: "plans-gummies-macro", ar: "16:9", refs: ["plans-palm-gummies.png"],
+    p: `Use the gummies from this image. ${GUMMY} Recompose as an extreme macro photograph of a small pile of those exact gummies on a warm cream surface, filling the frame, no hand and no packaging anywhere in shot. ${LOOK}` },
   { name: "plans-hold-hand", ar: "1:1",
     p: `${KEEP} Recompose as one hand holding the canister upright from the side against a plain warm background, so the size of the tube against the hand is obvious. ${LOOK}` },
   { name: "plans-hold-woman", ar: "4:3",
@@ -59,8 +71,6 @@ export const EDITS = [
 
 /* No pack in frame, so these are generated rather than edited. */
 export const FRESH = [
-  { name: "plans-gummies-macro", size: "landscape_16_9",
-    p: `An extreme macro photograph of deep tart-cherry red soft gummies on a warm cream surface, sugar-free matte finish, their translucent edges catching the light. ${LOOK}` },
   { name: "plans-tart-cherries", size: "landscape_16_9",
     p: `Fresh tart cherries with their stems on, deep red and glossy, scattered on a pale linen cloth with one cut in half to show the flesh and stone. ${LOOK}` },
   { name: "plans-story", size: "portrait_4_3",
@@ -111,13 +121,17 @@ async function run(model, body) {
 const only = process.argv.slice(2);
 const want = (n) => only.length === 0 || only.includes(n);
 await mkdir(DIR, { recursive: true });
-const b64 = (await readFile(MASTER)).toString("base64");
+const asDataUri = async (file) =>
+  `data:image/png;base64,${(await readFile(path.join(DIR, file))).toString("base64")}`;
 
 for (const e of EDITS) {
   if (!want(e.name)) continue;
-  console.log(`editing ${e.name} from the marigold master...`);
+  /* Defaults to the canister master; `refs` overrides it where a shot needs the gummy
+     reference too, or instead. */
+  const files = e.refs ?? ["sun-02-marigold.png"];
+  console.log(`editing ${e.name} from ${files.join(" + ")}...`);
   const buf = await run("fal-ai/nano-banana/edit", {
-    prompt: e.p, image_urls: [`data:image/png;base64,${b64}`], num_images: 1, aspect_ratio: e.ar,
+    prompt: e.p, image_urls: await Promise.all(files.map(asDataUri)), num_images: 1, aspect_ratio: e.ar,
   });
   await writeFile(path.join(DIR, `${e.name}.png`), buf);
   console.log(`  -> ${e.name}.png`);
