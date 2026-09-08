@@ -40,7 +40,7 @@ export const EDITS = [
   { name: "plans-pack-3", ar: "1:1",
     p: `${KEEP} Recompose as three identical canisters standing in a row on a plain warm white background, the middle one square to camera and the outer two turned very slightly, overlapping a little. Soft contact shadows. No caption, no words anywhere in the image except what is printed on the canisters themselves.` },
   { name: "plans-pack-6", ar: "1:1",
-    p: `${KEEP} Recompose as six identical canisters on a plain warm white background, arranged as a back row of three and a front row of three, the front centre one square to camera with its label fully readable. Soft contact shadows. No caption, no words anywhere in the image except what is printed on the canisters themselves.` },
+    p: `${KEEP} Recompose as six identical canisters grouped into one tight cluster on a plain warm white background, arranged exactly like a hero group shot and NOT as an evenly spaced grid: three standing across the front and three behind them, the rows staggered so the back canisters peek between the front ones, every canister overlapping its neighbour, the front centre one square to camera with its label fully readable and the others turned very slightly. Shot at the same low eye level as a single-bottle hero, so the group reads as one arrangement with depth rather than a product listing. Soft contact shadows pooling under the cluster. No caption, no words anywhere in the image except what is printed on the canisters themselves.` },
   { name: "plans-pack-open", ar: "1:1",
     p: `${KEEP} Recompose with the canister open, its cap resting beside it, and a scatter of deep tart-cherry red gummies spilling from the mouth onto a warm cream surface. ${LOOK}` },
   { name: "plans-hold-hand", ar: "1:1",
