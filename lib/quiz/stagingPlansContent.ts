@@ -42,17 +42,3 @@ export const STAGING_PLANS_CONTENT: PlansContent = {
     { ...DIET_PLANS_CONTENT.howItWorks[1], illustration: `${IMG}/counter.webp` },
   ],
 };
-
-/** The hero carousel: pack, then the product in use, then the people using it. */
-export const STAGING_SLIDES = [
-  { src: `${IMG}/pack-1.webp`, alt: "A marigold SUNNYCELLS Cortisol Control canister" },
-  { src: `${IMG}/gallery-angle.webp`, alt: "The canister turned to show the paper tube and cap seam" },
-  { src: `${IMG}/pack-open.webp`, alt: "The canister open with tart cherry gummies poured out in front of it" },
-  { src: `${IMG}/gummies-macro.webp`, alt: "A macro close-up of the deep red tart cherry gummies" },
-  { src: `${IMG}/hold-hand.webp`, alt: "A hand holding the canister, showing its size" },
-  { src: `${IMG}/hold-woman.webp`, alt: "A woman in a kitchen holding the canister" },
-  { src: `${IMG}/ugc-1.webp`, alt: "A customer holding the canister in her kitchen" },
-  { src: `${IMG}/ugc-2.webp`, alt: "A customer holding the canister at his kitchen table" },
-  { src: `${IMG}/ugc-3.webp`, alt: "A customer holding the canister in a bathroom mirror selfie" },
-  { src: `${IMG}/ugc-4.webp`, alt: "A customer holding the canister on her sofa" },
-];

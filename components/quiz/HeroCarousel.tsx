@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import { BrandText } from "@/components/core/BrandText";
-import { Icon } from "@/components/core/Icon";
+import { Icon, type IconName } from "@/components/core/Icon";
 import { IconButton } from "@/components/core/IconButton";
 import {
   SLIDE_ATTRIBUTES, SLIDE_BENEFITS, SLIDE_SEALS, SLIDE_STATS, SLIDE_STATS_NOTE,
@@ -15,6 +15,42 @@ import {
    legible when the slide is resized. */
 
 const DEFAULT_POUCH = "/product/metabolic-morning-blend.png";
+
+/**
+ * Everything on the six slides that names a product. Defaults reproduce the diet
+ * funnel's carousel exactly, so the live page is unchanged; the staging page passes
+ * its own so it can show a different product through the same slides rather than a
+ * gallery of photographs, which is a different kind of thing entirely.
+ */
+export type CarouselContent = {
+  benefitsTitle: string;
+  benefits: readonly string[];
+  stats: readonly { figure: string; body: string }[];
+  statsNote: string;
+  attributesTitle: string;
+  attributes: readonly { icon: IconName; label: string }[];
+  servingTitle: string;
+  servingBody: string;
+  servingFigures: readonly (readonly [string, string])[];
+  seals: readonly { src: string; label: string }[];
+  facts: typeof SUPPLEMENT_FACTS;
+  socialPhotos: readonly [string, string];
+};
+
+export const DEFAULT_CAROUSEL: CarouselContent = {
+  benefitsTitle: "Benefits of the ingredients in Metabolic Morning Blend",
+  benefits: SLIDE_BENEFITS,
+  stats: SLIDE_STATS,
+  statsNote: SLIDE_STATS_NOTE,
+  attributesTitle: "Cortisol control and hormonal support",
+  attributes: SLIDE_ATTRIBUTES,
+  servingTitle: "Take 1 scoop",
+  servingBody: "Daily in the morning. Mix with water or your favorite juice.",
+  servingFigures: [["30", "servings"], ["5.91 g", "per serving"]],
+  seals: SLIDE_SEALS,
+  facts: SUPPLEMENT_FACTS,
+  socialPhotos: ["/photos/social-1.jpg", "/photos/social-2.jpg"],
+};
 
 function Pouch({ height = 220, src = DEFAULT_POUCH }: { height?: number; src?: string }) {
   return (
@@ -74,7 +110,10 @@ function SlideTitle({ children }: { children: React.ReactNode }) {
 
 const SLIDE_COUNT = 6;
 
-export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }) {
+export function HeroCarousel({
+  pouchSrc = DEFAULT_POUCH,
+  content = DEFAULT_CAROUSEL,
+}: { pouchSrc?: string; content?: CarouselContent }) {
   const track = useRef<HTMLDivElement>(null);
   const [at, setAt] = useState(0);
 
@@ -109,9 +148,9 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
       >
         {/* 1. What the ingredients do */}
         <Slide>
-          <SlideTitle>Benefits of the ingredients in Metabolic Morning Blend</SlideTitle>
+          <SlideTitle>{content.benefitsTitle}</SlideTitle>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", marginBottom: "var(--space-4)" }}>
-            {SLIDE_BENEFITS.map((b) => (
+            {content.benefits.map((b) => (
               <span
                 key={b}
                 style={{
@@ -143,7 +182,7 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
               ))}
             </div>
 
-            {SLIDE_STATS.map((s) => (
+            {content.stats.map((s) => (
               <div
                 key={s.figure}
                 style={{
@@ -174,16 +213,16 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
             ))}
 
             <p style={{ margin: 0, textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-              {SLIDE_STATS_NOTE}
+              {content.statsNote}
             </p>
           </div>
         </Slide>
 
         {/* 3. Attributes */}
         <Slide>
-          <SlideTitle>Cortisol control and hormonal support</SlideTitle>
+          <SlideTitle>{content.attributesTitle}</SlideTitle>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "var(--space-3)", marginBottom: "var(--space-4)" }}>
-            {SLIDE_ATTRIBUTES.map((a) => (
+            {content.attributes.map((a) => (
               <div
                 key={a.label}
                 style={{
@@ -207,13 +246,13 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
 
         {/* 4. Serving */}
         <Slide>
-          <SlideTitle>Take 1 scoop</SlideTitle>
+          <SlideTitle>{content.servingTitle}</SlideTitle>
           <p style={{ margin: "0 0 var(--space-5)", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
-            Daily in the morning. Mix with water or your favorite juice.
+            {content.servingBody}
           </p>
           {/* Stacked with a rule above each, rather than side by side: the two figures
               are separate facts and the reference sets them as separate lines. */}
-          {[["30", "servings"], ["5.91 g", "per serving"]].map(([figure, unit]) => (
+          {content.servingFigures.map(([figure, unit]) => (
             <div
               key={unit}
               style={{
@@ -239,7 +278,7 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
               marginTop: "var(--space-5)",
             }}
           >
-            {SLIDE_SEALS.map((seal) => (
+            {content.seals.map((seal) => (
               <Image
                 key={seal.src}
                 src={seal.src}
@@ -258,8 +297,8 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
             <div style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "var(--size-h4)", letterSpacing: "-0.02em" }}>
               Supplement Facts
             </div>
-            <div style={{ color: "var(--ink-80)" }}>Serving size: {SUPPLEMENT_FACTS.serving}</div>
-            <div style={{ color: "var(--ink-80)", marginBottom: 6 }}>Servings per container: {SUPPLEMENT_FACTS.perContainer}</div>
+            <div style={{ color: "var(--ink-80)" }}>Serving size: {content.facts.serving}</div>
+            <div style={{ color: "var(--ink-80)", marginBottom: 6 }}>Servings per container: {content.facts.perContainer}</div>
             <table style={{ width: "100%", borderCollapse: "collapse", borderTop: "3px solid var(--ink)" }}>
               <thead>
                 <tr>
@@ -269,7 +308,7 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
                 </tr>
               </thead>
               <tbody>
-                {SUPPLEMENT_FACTS.rows.map((r) => (
+                {content.facts.rows.map((r) => (
                   <tr key={r[0]} style={{ borderTop: "1px solid var(--ink-20)" }}>
                     <td style={{ padding: "3px 6px 3px 0" }}>{r[0]}</td>
                     <td style={{ textAlign: "right", whiteSpace: "nowrap" }}>{r[1]}</td>
@@ -280,11 +319,11 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
             </table>
             <div style={{ borderTop: "3px solid var(--ink)", paddingTop: 6, marginTop: 4 }}>
               <strong>Proprietary blend</strong>{" "}
-              <span style={{ float: "right" }}>{SUPPLEMENT_FACTS.blendAmount}</span>
-              <div style={{ color: "var(--ink-80)", clear: "both" }}>{SUPPLEMENT_FACTS.blend}</div>
+              <span style={{ float: "right" }}>{content.facts.blendAmount}</span>
+              <div style={{ color: "var(--ink-80)", clear: "both" }}>{content.facts.blend}</div>
             </div>
             <div style={{ marginTop: 8, color: "var(--ink-60)" }}>
-              Other ingredients: {SUPPLEMENT_FACTS.other}
+              Other ingredients: {content.facts.other}
             </div>
           </div>
         </Slide>
@@ -311,7 +350,7 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
             {/* Fixed rather than gendered: this panel is showing a range of people
                 using it, so a mix says more than a match to whoever is reading. */}
             <Image
-              src="/photos/social-1.jpg"
+              src={content.socialPhotos[0]}
               alt=""
               width={1080}
               height={1440}
@@ -320,7 +359,7 @@ export function HeroCarousel({ pouchSrc = DEFAULT_POUCH }: { pouchSrc?: string }
               style={{ gridRow: "span 2", width: "100%", height: "100%", objectFit: "cover", borderRadius: "var(--radius-md)" }}
             />
             <Image
-              src="/photos/social-2.jpg"
+              src={content.socialPhotos[1]}
               alt=""
               width={1080}
               height={1440}
