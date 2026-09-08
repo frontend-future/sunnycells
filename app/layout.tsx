@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Figtree } from "next/font/google";
 import { MetaPixel } from "@/components/analytics/MetaPixel";
+import { PostHogAnalytics } from "@/components/analytics/PostHog";
 import "./globals.css";
 
 /* SUBSTITUTION FLAG: no brand font files were supplied. Outfit (display) and
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${outfit.variable} ${figtree.variable} h-full`}>
       <body className="min-h-full flex flex-col">
         <MetaPixel />
+        <PostHogAnalytics />
         {children}
       </body>
     </html>
