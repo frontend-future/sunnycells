@@ -44,6 +44,20 @@ The label reads, from the top down:
 Every word crisp, correctly spelled and perfectly legible. No other text anywhere, and
 no certification badges or seals of any kind.`;
 
+/* The vessel, and the thing the first pass got wrong. The reference is not a moulded
+   plastic supplement bottle with a rounded shoulder and a narrowed neck: it is a
+   straight-sided canister whose cap is the same diameter as the body, so the whole
+   silhouette is one clean cylinder, and the artwork is printed onto the tube edge to
+   edge rather than applied as a separate label panel. Saying "bottle" got a bottle. */
+const VESSEL =
+  "a straight-sided cylindrical paperboard supplement canister. The tube is uncoated " +
+  "matte paper with a faint fibrous texture and no gloss at all. The sides are " +
+  "perfectly straight with no taper and no narrowed neck, and the flat screw cap is " +
+  "exactly the same diameter as the tube, so the whole silhouette is a single clean " +
+  "cylinder with a flat top. There is a fine seam where the cap meets the tube. The " +
+  "artwork is printed directly onto the paper, wrapping the full body edge to edge, " +
+  "not applied as a separate glossy label panel.";
+
 const SHOT =
   "Shot straight on at eye level, the bottle centred and upright and filling most of " +
   "the frame, on a plain very light warm-grey studio background with a soft contact " +
@@ -53,34 +67,42 @@ const SHOT =
 
 export const VARIANTS = [
   {
-    name: "01-emerald",
-    body: "a deep emerald green opaque cylindrical supplement bottle with a matching " +
-      "deep emerald screw cap, matte finish. The accent band is warm cream and its type " +
-      "is deep green; all other label type is white.",
+    name: "sun-01-golden",
+    body: "The paper is a warm golden yellow. The accent band is deep charcoal ink " +
+      "with cream type; all other printed type is deep charcoal ink. The cap is the " +
+      "same golden yellow as the tube.",
   },
   {
-    name: "02-sun",
-    body: "a warm golden-yellow opaque cylindrical supplement bottle with a matching " +
-      "golden-yellow screw cap, matte finish. The accent band is deep charcoal ink with " +
-      "cream type; all other label type is deep charcoal ink.",
+    name: "sun-02-marigold",
+    body: "The paper is a bright marigold yellow. The accent band is near-black ink " +
+      "with pale type; all other printed type is near-black. The cap is near-black, " +
+      "which throws the yellow tube forward.",
   },
   {
-    name: "03-indigo",
-    body: "a deep indigo navy opaque cylindrical supplement bottle with a matching navy " +
-      "screw cap, soft-touch matte finish. The accent band is warm gold with navy type; " +
-      "all other label type is white.",
+    name: "sun-03-honey",
+    body: "The paper is a deep honey amber. The accent band is warm cream with amber " +
+      "type; all other printed type is warm cream white. The cap is the same honey " +
+      "amber as the tube.",
   },
   {
-    name: "04-terracotta",
-    body: "a warm terracotta clay-red opaque cylindrical supplement bottle with a " +
-      "matching terracotta screw cap, matte finish. The accent band is soft cream with " +
-      "terracotta type; all other label type is cream white.",
+    name: "sun-04-butter",
+    body: "The paper is a soft pale butter yellow. The accent band is deep forest " +
+      "green with pale type; all other printed type is deep forest green. The cap is " +
+      "deep forest green.",
   },
   {
-    name: "05-sage",
-    body: "a soft pale sage-green opaque cylindrical supplement bottle with a deep " +
-      "forest green screw cap, matte finish. The accent band is deep forest green with " +
-      "pale type; all other label type is deep forest green.",
+    name: "sun-05-ochre",
+    body: "The paper is a muted ochre mustard. The accent band is warm off-white with " +
+      "ochre type; all other printed type is warm off-white. The cap is a deeper " +
+      "burnt ochre than the tube.",
+  },
+  {
+    name: "sun-06-two-tone",
+    body: "The tube is two-tone: the upper third is warm cream and the lower two " +
+      "thirds are a saturated golden yellow, with a clean horizontal division between " +
+      "them. The brand wordmark and the accent band sit on the cream section in deep " +
+      "charcoal ink; the product name and everything below it sit on the yellow in " +
+      "deep charcoal ink. The cap is warm cream to match the top.",
   },
 ];
 
@@ -120,7 +142,7 @@ await mkdir(OUT, { recursive: true });
 for (const v of VARIANTS) {
   if (only.length && !only.includes(v.name)) continue;
   console.log(`generating ${v.name}...`);
-  const buf = await run(`Product mockup of ${v.body} ${LABEL} ${SHOT}`);
+  const buf = await run(`Product mockup of ${VESSEL} ${v.body} ${LABEL} ${SHOT}`);
   await writeFile(path.join(OUT, `${v.name}.png`), buf);
   console.log(`  -> ${v.name}.png (${(buf.length / 1024).toFixed(0)} kB)`);
 }
