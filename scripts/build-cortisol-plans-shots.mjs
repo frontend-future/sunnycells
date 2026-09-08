@@ -69,6 +69,37 @@ export const EDITS = [
     p: `${KEEP} Recompose as a three-quarter view of one canister on a plain warm white background, turned enough to show the curve of the paper tube and the seam where the cap meets it, label still readable. Soft contact shadow.` },
 ];
 
+/**
+ * UGC. Each one is a two-reference edit: the person from a review avatar and the
+ * canister from the master, so the face holding the product is the same face that
+ * appears beside the quote rather than a stranger.
+ *
+ * What makes these read as UGC is not the words "phone photo" but naming the defects:
+ * the wrong light source, the crooked handheld angle, grain in the shadows, an
+ * ordinary room nobody tidied. A polished version of this is just a stock photo.
+ *
+ * PLACEHOLDER PEOPLE. None of them exist. A generated face presented as a customer
+ * holding the product is a testimonial, and the FTC rule on consumer reviews names
+ * AI-generated endorsers directly. Replace before this takes traffic.
+ */
+const UGC =
+  "Shot on a phone by the person themselves or a friend, not by a photographer. " +
+  "Handheld and very slightly crooked, casual imperfect framing, mixed indoor light " +
+  "from a window and a lamp, faint grain in the shadows, no filter, no retouching, no " +
+  "studio lighting. Real unedited skin with pores and fine lines. An ordinary home " +
+  "that nobody tidied for the photo.";
+
+export const UGC_SHOTS = [
+  { name: "plans-ugc-1", ref: "plans-review-1.png",
+    scene: "standing in her kitchen holding the canister up towards the camera at chest height with a warm everyday smile" },
+  { name: "plans-ugc-2", ref: "plans-review-2.png",
+    scene: "sitting at his kitchen table in the morning, holding the canister in one hand and looking at the camera" },
+  { name: "plans-ugc-3", ref: "plans-review-3.png",
+    scene: "in her bathroom in front of the mirror, holding the canister beside her face, taking the photo herself" },
+  { name: "plans-ugc-4", ref: "plans-review-4.png",
+    scene: "on her sofa in the evening with a lamp on, holding the canister in her lap and smiling at the camera" },
+];
+
 /* No pack in frame, so these are generated rather than edited. */
 export const FRESH = [
   { name: "plans-tart-cherries", size: "landscape_16_9",
@@ -116,6 +147,14 @@ async function run(model, body) {
   const u = o.images?.[0]?.url;
   if (!u) throw new Error(JSON.stringify(o).slice(0, 200));
   return Buffer.from(await (await fetch(u)).arrayBuffer());
+}
+
+/* The UGC edits are built from the shot list above so the two references stay paired. */
+for (const u of UGC_SHOTS) {
+  EDITS.push({
+    name: u.name, ar: "1:1", refs: [u.ref, "sun-02-marigold.png"],
+    p: `Use the person from the first image and the product from the second image. Keep that person's face, hair, age and build exactly as they are, and keep the canister exactly as it is with every word on its label unchanged and readable. Recompose as a candid photograph of that same person ${u.scene}. ${UGC}`,
+  });
 }
 
 const only = process.argv.slice(2);
