@@ -58,8 +58,8 @@ export const REASONS: Reason[] = [
     n: 3,
     title: "Brings Your Skin To Life",
     body: "Glycine is a primary building block of collagen, which helps your skin glow like it did in your 20s. Now how's that for a side effect?",
-    photo: "/products/anytime-calm/hold-woman.webp",
-    alt: "A woman with a healthy, glowing complexion",
+    photo: "/products/anytime-calm/glycine-collagen-skin.png",
+    alt: "An illustration of glycine feeding into a collagen strand that builds the skin",
   },
   {
     n: 4,
