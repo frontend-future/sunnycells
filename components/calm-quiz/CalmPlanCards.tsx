@@ -93,7 +93,7 @@ export function CalmPlanCards({
 
             <Image
               src={p.image}
-              alt={`${p.months} ${p.months === 1 ? "jar" : "jars"} of ${PRODUCT.title}`}
+              alt={`${p.months} ${p.months === 1 ? "tub" : "tubs"} of ${PRODUCT.title}`}
               width={1200}
               height={1200}
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}
@@ -105,16 +105,16 @@ export function CalmPlanCards({
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", lineHeight: 1 }}>
                 ${p.price}
                 {/* Tight against the figure it qualifies, and only where more than one
-                    jar arrives: on a single jar the price is the whole thing. */}
+                    tub arrives: on a single tub the price is the whole thing. */}
                 {p.months > 1 && (
                   <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)", letterSpacing: 0 }}>
-                    /jar
+                    /tub
                   </span>
                 )}
               </span>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, color: "var(--ink-60)", textDecoration: "line-through", letterSpacing: "-0.02em" }}>
                 {/* The list price for everything in the box: the one month figure times
-                    the jars that arrive. The longer supplies come in under half of it,
+                    the tubs that arrive. The longer supplies come in under half of it,
                     which is why each card prints its own percentage below. */}
                 ${p.compareAt * p.months}
               </span>

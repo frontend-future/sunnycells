@@ -41,6 +41,10 @@ export const FIRST_ORDER = formatPrice(firstOrderPrice(50));
 
 const IMG = "/products/anytime-calm";
 
+/* The pack shots carry an alpha channel: they are composited from one cut-out master so
+   the tubs sit on whatever the card behind them is, not on a white square. Encoded with
+   cwebp -exact, which keeps the RGB under fully transparent pixels rather than letting
+   the encoder rewrite it for compression. */
 export type SupplyPlan = {
   id: string;
   months: number;
