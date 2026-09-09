@@ -103,8 +103,8 @@ export const OFFER = {
     { lead: "Third-party tested:", rest: " every batch, with the amounts on the front, not in a blend." },
   ],
   servingsLabel: `${28} servings per tub`,
-  cadence: "1 tub delivered every 4 weeks",
-  cta: "Start now",
+  cadence: "Delivered Every 4 Weeks",
+  cta: "Try now",
   benefitsTitle: "Subscriber-only benefits",
   benefits: [
     "50% off your first order",
