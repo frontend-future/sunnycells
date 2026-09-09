@@ -175,10 +175,17 @@
 }
 .stickyOn { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .stickyShot { flex: none; width: 56px; height: 56px; object-fit: contain; border-radius: var(--radius-sm); background: var(--shell); }
+/* Name and "Save 50%" stack here instead of riding on the button, so the button can
+   stay just "Try now" and never overlaps the name on a narrow phone. */
+.stickyNameCol { flex: 1; min-width: 0; display: grid; gap: 0.125rem; }
 .stickyName {
-  flex: 1; min-width: 0;
   font-family: var(--font-display); font-weight: var(--weight-display);
-  font-size: 1.25rem; line-height: 1.1;
+  font-size: 1.125rem; line-height: 1.15;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.stickySave {
+  font-family: var(--font-label); letter-spacing: var(--tracking-mono);
+  font-weight: 600; font-size: var(--size-meta); color: var(--status-success);
 }
 /* Sized to its label, not the row: the sticky bar's own CTA is the one place on the
    page that isn't fullWidth, so it sits at the end of the row rather than filling it. */

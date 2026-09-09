@@ -194,9 +194,12 @@ export function CalmSixReasonsPage() {
 
       <div className={`${styles.stickyBar} ${stickyOn ? styles.stickyOn : ""}`} aria-hidden={!stickyOn}>
         <Image src={GALLERY[0].src} alt="" aria-hidden="true" width={96} height={96} className={styles.stickyShot} />
-        <span className={styles.stickyName}>{PRODUCT.title}</span>
+        <span className={styles.stickyNameCol}>
+          <span className={styles.stickyName}>{PRODUCT.title}</span>
+          <span className={styles.stickySave}>{OFFER.stickySave}</span>
+        </span>
         <Button variant="accent" size="lg" tabIndex={stickyOn ? 0 : -1} onClick={buy} className={styles.stickyCta}>
-          {OFFER.stickyCta}
+          {OFFER.cta}
         </Button>
       </div>
     </div>
