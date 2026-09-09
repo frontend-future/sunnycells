@@ -139,18 +139,6 @@ export function CalmSixReasonsPage() {
                   <p className={styles.guaranteeSub}>{TRUST.guaranteeSub}</p>
                 </div>
               </div>
-              <div className={styles.trustCard}>
-                <div className={styles.trustGrid}>
-                  {TRUST.items.map((t) => (
-                    <div key={t.label} className={styles.trustItem}>
-                      <Icon name={t.icon} size={28} strokeWidth={1.75} />
-                      <span>{t.label}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className={styles.trustFootnote}>{TRUST.footnote}</p>
-              </div>
-
               {OFFER.accordions.map((a) => {
                 const on = open === a.title;
                 return (

@@ -21,8 +21,6 @@
  * both pages are live at once.
  */
 
-import type { IconName } from "@/components/core/Icon";
-
 export const META = {
   title: "7 Reasons Postpartum Moms Are Raving About This $1.78/Day Sleepytime Drink",
   description:
@@ -112,19 +110,11 @@ export const OFFER = {
   ],
 };
 
-/* Replaces the "Subscriber-only benefits" box: a guarantee banner plus a four-icon
-   trust row, sitting above the collapsibles. Labels stay sentence case per the house
-   micro-label rule, not the all-caps the reference uses. */
+/* Replaces the "Subscriber-only benefits" box: a green guarantee banner sitting above
+   the collapsibles. */
 export const TRUST = {
   guaranteeTitle: "90 day, 100% money back guarantee",
   guaranteeSub: "We're so confident you'll feel the benefits, try it for a full 90 days.",
-  items: [
-    { icon: "search", label: "Designed to feel results" },
-    { icon: "repeat", label: "Built for daily consistency" },
-    { icon: "truck", label: "Fast and free shipping" },
-    { icon: "shopping-bag", label: "Free surprise subscriber gifts" },
-  ] as { icon: IconName; label: string }[],
-  footnote: "*We recommend 3 to 6 months of consistent use for best results.",
 };
 
 export const DISCLAIMER =
