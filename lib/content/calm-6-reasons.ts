@@ -10,9 +10,8 @@
  * is illegal under the FTC rule on consumer reviews. This page carries neither rather
  * than inventing either. Add both once real, permissioned customers exist.
  *
- * HERO, OPENERS and REASONS are the copy as supplied. The headline's "$1.78/day" is
- * back at the user's explicit call, overriding the house rule against per-day pricing
- * (which forces a decimal and the system's prices are otherwise integers only).
+ * HERO, OPENERS and REASONS are the copy as supplied. The headline no longer states a
+ * per-day price, so it needs no exception to the house rule against per-day pricing.
  *
  * The guarantee is stated as 90 days everywhere on this page, also at the user's
  * explicit call. It still does not match lib/quiz/calmPlansContent.ts, which answers
@@ -22,13 +21,13 @@
  */
 
 export const META = {
-  title: "7 Reasons Postpartum Mamas Are Raving About This $1.78/Day Sleepytime Drink",
+  title: "7 Reasons Postpartum Mamas Are Raving About This Sleepytime Drink",
   description:
     "3 clinically-dosed ingredients. One scoop. 30 seconds. Why moms who've tried everything say this is the only thing that helps them fall asleep, stay asleep, and feel recharged the next day.",
 };
 
 export const HERO = {
-  title: "7 Reasons Postpartum Mamas Are Raving About This $1.78/Day Sleepytime Drink",
+  title: "7 Reasons Postpartum Mamas Are Raving About This Sleepytime Drink",
   /* The one word circled by hand in the headline, matched against `title` at render
      time rather than storing markup in a content file. */
   emphasis: "Raving",
@@ -45,7 +44,7 @@ export type Reason = { n: number; title: string; body: string; photo: string; al
 export const REASONS: Reason[] = [
   {
     n: 1,
-    title: "It Takes 30 Seconds",
+    title: "30 Second Ritual To Fall Asleep And Stay Asleep",
     body: "Mix a scoop into a glass of water, stir and enjoy. No need to get out the blender, no need for other supplements, you've got all the nutrients you need in just one scoop.",
     photo: "/products/anytime-calm/scoop.webp",
     alt: "A hand holding the white scoop heaped with pink powder, the tub behind it on a counter",
