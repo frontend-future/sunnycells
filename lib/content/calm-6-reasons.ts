@@ -31,7 +31,7 @@ export const HERO = {
   /* The one word circled by hand in the headline, matched against `title` at render
      time rather than storing markup in a content file. */
   emphasis: "Raving",
-  sub: "Here's why moms who've tried everything are saying this is the only thing that helps them fall asleep, stay asleep, and feel fully recharged the next day.",
+  sub: "Moms who've tried everything are saying this is the only thing that helps them fall asleep, stay asleep, and feel fully recharged the next day.",
 };
 
 export const OPENERS = [
