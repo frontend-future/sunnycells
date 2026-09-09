@@ -61,6 +61,37 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
     );
   }
 
+  if (step.kind === "multi") {
+    /* Stored as one comma-joined string so nothing downstream has to learn a new shape.
+       Continue stays disabled until something is picked, because an empty multi-select
+       tells the results screens nothing and there is no skip on any other step. */
+    const picked = answers[step.slug] ? answers[step.slug].split(", ") : [];
+    const toggle = (o: string) => {
+      const next = picked.includes(o) ? picked.filter((p) => p !== o) : [...picked, o];
+      /* Re-ordered to the config's order, not tap order, so two people who chose the
+         same things produce the same stored string. */
+      set(step.slug, step.options.filter((x) => next.includes(x)).join(", "));
+    };
+    return (
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-3)" }}>
+        {step.options.map((o) => (
+          <OptionButton
+            key={o}
+            label={o}
+            selected={picked.includes(o)}
+            indicator="check"
+            onClick={() => toggle(o)}
+          />
+        ))}
+        <StickyCta>
+          <Button size="lg" fullWidth iconRight="arrow-right" onClick={go} disabled={picked.length === 0}>
+            {step.cta}
+          </Button>
+        </StickyCta>
+      </div>
+    );
+  }
+
   if (step.kind === "info") {
     return (
       <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>

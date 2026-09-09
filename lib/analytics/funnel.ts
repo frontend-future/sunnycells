@@ -26,23 +26,26 @@ const RESULTS: Record<string, string[]> = {
   aging: ["analyzing", "summary", "projection", "collagen", "benefits", "story", "plans", "checkout"],
   energy: ["analyzing", "summary", "projection", "caffeine", "benefits", "story", "plans", "checkout"],
   cortisol: ["analyzing", "summary", "projection", "benefits", "plans", "checkout"],
+  calm: ["analyzing", "summary", "projection", "benefits", "plans", "checkout"],
 };
 
 /* Slugs come from the configs so a renamed step cannot silently fall out of the
-   funnel, and the import is dynamic so four quizzes' worth of question text does not
+   funnel, and the import is dynamic so five quizzes' worth of question text does not
    ride in the bundle of every page on the site. Cached after the first quiz view. */
 let ORDER: Record<string, string[]> | null = null;
 
 async function order(): Promise<Record<string, string[]>> {
   if (ORDER) return ORDER;
-  const [{ dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }] = await Promise.all([
-    import("../quiz/diet.ts"),
-    import("../quiz/aging.ts"),
-    import("../quiz/energy.ts"),
-    import("../quiz/cortisol.ts"),
-  ]);
+  const [{ dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }] =
+    await Promise.all([
+      import("../quiz/diet.ts"),
+      import("../quiz/aging.ts"),
+      import("../quiz/energy.ts"),
+      import("../quiz/cortisol.ts"),
+      import("../quiz/calm.ts"),
+    ]);
   ORDER = {};
-  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz]) {
+  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz]) {
     const id = q.id;
     ORDER[id] = ["", ...q.steps.map((s) => s.slug), ...(RESULTS[id] ?? []).map((r) => `results/${r}`)];
   }

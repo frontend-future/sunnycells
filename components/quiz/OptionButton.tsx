@@ -6,10 +6,13 @@ import { Icon } from "@/components/core/Icon";
 /** A full-width answer card. 12px corners like every other control in the system,
     never the pill the reference uses. */
 export function OptionButton({
-  label, selected = false, onClick,
+  label, selected = false, indicator = "arrow", onClick,
 }: {
   label: string;
   selected?: boolean;
+  /** "check" for select-all-that-apply, where an arrow would promise navigation the
+      tap does not do. Defaults to the arrow every single-select step uses. */
+  indicator?: "arrow" | "check";
   onClick: () => void;
 }) {
   const [hover, setHover] = useState(false);
@@ -43,7 +46,22 @@ export function OptionButton({
       }}
     >
       <span>{label}</span>
-      <Icon name="arrow-right" size={24} />
+      {indicator === "check" ? (
+        <span
+          aria-hidden="true"
+          style={{
+            flex: "none", width: 26, height: 26, borderRadius: "50%",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: selected ? "var(--ink)" : "transparent",
+            border: selected ? "none" : "2px solid var(--border-hairline)",
+            color: "var(--sun)",
+          }}
+        >
+          {selected ? <Icon name="check" size={16} strokeWidth={3.5} /> : null}
+        </span>
+      ) : (
+        <Icon name="arrow-right" size={24} />
+      )}
     </button>
   );
 }
