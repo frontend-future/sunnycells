@@ -22,13 +22,16 @@
  */
 
 export const META = {
-  title: "7 reasons postpartum moms are raving about this $1.78/day sleepytime drink",
+  title: "7 Reasons Postpartum Moms Are Raving About This $1.78/Day Sleepytime Drink",
   description:
     "3 clinically-dosed ingredients. One scoop. 30 seconds. Why moms who've tried everything say this is the only thing that helps them fall asleep, stay asleep, and feel recharged the next day.",
 };
 
 export const HERO = {
-  title: "7 reasons postpartum moms are raving about this $1.78/day sleepytime drink",
+  title: "7 Reasons Postpartum Moms Are Raving About This $1.78/Day Sleepytime Drink",
+  /* The one word circled by hand in the headline, matched against `title` at render
+     time rather than storing markup in a content file. */
+  emphasis: "Raving",
   sub: "3 clinically-dosed ingredients. One scoop. 30 seconds. Addicting taste. Here's why moms who've tried everything are saying this is the only thing that helps them fall asleep, stay asleep, and feel fully recharged the next day.",
 };
 
@@ -65,8 +68,8 @@ export const REASONS: Reason[] = [
     n: 4,
     title: "Supports Healthy Aging",
     body: "Your body needs glycine to build glutathione, your body's master antioxidant, which declines sharply with age. Taking Anytime Calm helps support your glutathione levels, so you can age gracefully just like your mom and grandma did.",
-    photo: "/products/anytime-calm/glycine-glutathione-aging.png",
-    alt: "An illustration of glycine feeding a shield representing glutathione, the body's master antioxidant",
+    photo: "/products/anytime-calm/not-old-just-depleted.png",
+    alt: "A woman's face split down the middle, one side desaturated and tired, the other side warm, bright and rested, captioned Not old. Just depleted.",
   },
   {
     n: 5,
@@ -100,6 +103,7 @@ export const OFFER = {
     { lead: "Third-party tested:", rest: " every batch, with the amounts on the front, not in a blend." },
   ],
   servingsLabel: `${28} servings per tub`,
+  cadence: "1 tub delivered every 4 weeks",
   cta: "Start now",
   benefitsTitle: "Subscriber-only benefits",
   benefits: [

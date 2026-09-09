@@ -185,7 +185,7 @@ export const FACTS = {
 /* Real product and lifestyle shots, already rendered for this product's ad set.
    Used by the 6-reasons listicle's offer carousel. */
 export const GALLERY = [
-  { src: `${IMG}/pack-3.webp`, alt: "The Anytime Calm tub, 3 month supply" },
+  { src: `${IMG}/pack-1.webp`, alt: "The Anytime Calm tub, 1 month supply" },
   { src: `${IMG}/scoop.webp`, alt: "A hand holding the white scoop heaped with pink powder" },
   { src: `${IMG}/powder-macro.webp`, alt: "A close, textured shot of the cherry lime Anytime Calm powder" },
   { src: `${IMG}/mixed-glass.webp`, alt: "The finished cherry lime drink in a glass beside the tub" },

@@ -18,9 +18,9 @@ const CHECKOUT = "/quiz/calm/results/checkout";
 
 export function CalmSixReasonsPage() {
   const router = useRouter();
-  /* The advertorial sells one thing at one price; choosing a supply is the plans
-     page's job. */
-  const chosen = supplyPlanById(undefined);
+  /* The advertorial sells one thing at one price, the 1 month supply: $25, $50
+     struck through. Choosing a longer supply is the plans page's job. */
+  const chosen = supplyPlanById("c1");
   const [open, setOpen] = useState<string | null>(null);
   const [shot, setShot] = useState(0);
 
@@ -49,10 +49,20 @@ export function CalmSixReasonsPage() {
       <main>
         {/* ---------- hero ---------- */}
         <section className={`${styles.wrap} ${styles.section}`}>
-          <h1 className={styles.h1}>{HERO.title}</h1>
+          <h1 className={styles.h1}>
+            {HERO.title.split(HERO.emphasis).map((part, i) => (
+              <span key={i}>
+                {part}
+                {i === 0 && <span className={styles.circle}>{HERO.emphasis}</span>}
+              </span>
+            ))}
+          </h1>
           <p className={styles.sub}>{HERO.sub}</p>
+          <div className={styles.heroRule} aria-hidden="true" />
           <div className={styles.openers}>
-            {OPENERS.map((p) => <p key={p} className={styles.body}>{p}</p>)}
+            {OPENERS.map((p, i) => (
+              <p key={p} className={i === OPENERS.length - 1 ? styles.bodyStrong : styles.body}>{p}</p>
+            ))}
           </div>
         </section>
 
@@ -122,7 +132,7 @@ export function CalmSixReasonsPage() {
                 <span className={styles.autoTick} aria-hidden="true"><Icon name="check" size={13} strokeWidth={3.5} /></span>
                 {discountPct(chosen)}% off, auto-applied at checkout
               </p>
-              <p className={styles.terms}>Free shipping &nbsp;|&nbsp; {chosen.cadence} &nbsp;|&nbsp; 90 day money back guarantee</p>
+              <p className={styles.terms}>Free shipping &nbsp;|&nbsp; {OFFER.cadence} &nbsp;|&nbsp; 90 day money back guarantee</p>
 
               <div className={styles.benefits}>
                 <h3 className={styles.benefitsTitle}>{OFFER.benefitsTitle}</h3>
