@@ -37,7 +37,7 @@ export const HERO = {
 export const OPENERS = [
   "Maybe you've tried the pills or the powders. Or maybe you've been waiting to see if your sleep would improve on its own.",
   "None of it stuck because nothing has worked yet, and it's not your fault.",
-  "We made Anytime Calm for women dealing with the same issue.\nHere are 7 Reasons Postpartum Mamas Are Raving About This New Sleepytime Drink...",
+  "We made Anytime Calm for women dealing with the same issue.\n\nHere are 7 Reasons Postpartum Mamas Are Raving About This New Sleepytime Drink...",
 ];
 
 export type Reason = { n: number; title: string; body: string; photo: string; alt: string };
