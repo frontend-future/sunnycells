@@ -65,8 +65,8 @@ export const REASONS: Reason[] = [
     n: 4,
     title: "Supports Healthy Aging",
     body: "Your body needs glycine to build glutathione, your body's master antioxidant, which declines sharply with age. Taking Anytime Calm helps support your glutathione levels, so you can age gracefully just like your mom and grandma did.",
-    photo: "/products/anytime-calm/story.webp",
-    alt: "A woman relaxing in the evening with a glass of the Anytime Calm drink",
+    photo: "/products/anytime-calm/glycine-glutathione-aging.png",
+    alt: "An illustration of glycine feeding a shield representing glutathione, the body's master antioxidant",
   },
   {
     n: 5,
@@ -85,7 +85,7 @@ export const REASONS: Reason[] = [
   {
     n: 7,
     title: "You Can Try It Completely Risk Free",
-    body: "Try it for yourself. You owe it to yourself. And if you don't absolutely love it or it doesn't work for you (but we know it will), send it back within 90 days with no awkward questions asked.",
+    body: "Try it for yourself. You owe it to yourself. And if you don't absolutely love it or it doesn't work for you (and we know it will), send it back within 90 days with no awkward questions asked.",
     photo: "/products/anytime-calm/nightstand.webp",
     alt: "The Anytime Calm tub and scoop on a nightstand beside a lamp",
   },
