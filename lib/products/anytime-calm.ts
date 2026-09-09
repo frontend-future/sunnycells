@@ -191,4 +191,7 @@ export const GALLERY = [
   { src: `${IMG}/mixed-glass.webp`, alt: "The finished cherry lime drink in a glass beside the tub" },
   { src: `${IMG}/gallery-angle.webp`, alt: "The Anytime Calm tub from a low angle" },
   { src: `${IMG}/nightstand.webp`, alt: "The tub and scoop on a nightstand beside a lamp" },
+  { src: `${IMG}/vs-melatonin.png`, alt: "Anytime Calm versus melatonin: how it works, morning after, habit forming, dose you get, and if it doesn't work" },
+  { src: `${IMG}/facts-label.png`, alt: "The Anytime Calm supplement facts panel: 3,000 mg glycine, 200 mg L-theanine, 120 mg magnesium glycinate" },
+  { src: `${IMG}/review-postpartum.png`, alt: "A five star review: getting better sleep as a postpartum, breastfeeding mama" },
 ] as const;
