@@ -97,12 +97,10 @@ export const REASONS: Reason[] = [
 export const OFFER = {
   title: "Anytime Calm",
   bullets: [
-    { lead: "Three actives, three doses:", rest: " glycine, L-theanine and magnesium glycinate, each printed on the tub." },
-    { lead: "No melatonin:", rest: " nothing here sedates you, so there is no next-day hangover to plan around." },
-    { lead: "Calm without drowsy:", rest: " you notice the edge come off, not your eyelids getting heavy." },
-    { lead: "Third-party tested:", rest: " every batch, with the amounts on the front, not in a blend." },
+    { lead: "Clinically proven results:", rest: " to help you fall asleep, stay asleep, and wake up feeling refreshed." },
+    { lead: "No melatonin, non habit forming:", rest: " nothing here sedates you, so there is no next-day hangover to plan around." },
+    { lead: "Flavor you'll crave every night:", rest: " natural cherry-lime flavor will have you looking forward to mommy's nighttime drink every night." },
   ],
-  servingsLabel: `${28} servings per tub`,
   cadence: "Delivered Every 4 Weeks",
   cta: "Try now",
   benefitsTitle: "Subscriber-only benefits",

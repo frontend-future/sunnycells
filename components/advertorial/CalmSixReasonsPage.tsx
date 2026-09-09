@@ -124,8 +124,6 @@ export function CalmSixReasonsPage() {
                 ))}
               </ul>
 
-              <p className={styles.terms}>{OFFER.servingsLabel}</p>
-
               <Button fullWidth variant="accent" size="lg" onClick={buy}>{OFFER.cta}</Button>
 
               <p className={styles.autoApplied}>
