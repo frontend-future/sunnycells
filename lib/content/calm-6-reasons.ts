@@ -98,7 +98,7 @@ export const OFFER = {
   title: "Anytime Calm",
   bullets: [
     { lead: "Clinically proven results:", rest: " to help you fall asleep, stay asleep, and wake up feeling refreshed." },
-    { lead: "No melatonin, non habit forming:", rest: " nothing here sedates you, so there is no next-day hangover to plan around." },
+    { lead: "No melatonin, non habit forming:", rest: " morning grogginess will be a thing of the past." },
     { lead: "Flavor you'll crave every night:", rest: " natural cherry-lime flavor will have you looking forward to mommy's nighttime drink every night." },
   ],
   cadence: "Delivered Every 4 Weeks",
