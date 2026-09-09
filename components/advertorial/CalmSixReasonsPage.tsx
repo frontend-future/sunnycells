@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
+import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
-import { DISCLAIMER, HERO, OFFER, REASONS, TOP_STRIP } from "@/lib/content/calm-6-reasons";
+import { DISCLAIMER, HERO, OFFER, OPENERS, REASONS } from "@/lib/content/calm-6-reasons";
 import { CART_ID, discountPct, FACTS, GALLERY, PRODUCT, supplyPlanById } from "@/lib/products/anytime-calm";
 import styles from "./calm-6-reasons.module.css";
 
@@ -37,16 +38,25 @@ export function CalmSixReasonsPage() {
 
   return (
     <div className={styles.page}>
-      <p className={styles.topStrip}>{TOP_STRIP}</p>
+      <AnnouncementMarquee
+        terms={[
+          { strong: "Free shipping", rest: "on all orders" },
+          { strong: "50%", rest: "off your first order, standing offer" },
+          { strong: "Skip or cancel", rest: "anytime" },
+        ]}
+      />
 
       <main>
         {/* ---------- hero ---------- */}
         <section className={`${styles.wrap} ${styles.section}`}>
           <h1 className={styles.h1}>{HERO.title}</h1>
           <p className={styles.sub}>{HERO.sub}</p>
+          <div className={styles.openers}>
+            {OPENERS.map((p) => <p key={p} className={styles.body}>{p}</p>)}
+          </div>
         </section>
 
-        {/* ---------- the six ---------- */}
+        {/* ---------- the seven ---------- */}
         <section className={styles.wrap}>
           {REASONS.map((r) => (
             <article key={r.n} className={styles.reason}>
@@ -112,7 +122,7 @@ export function CalmSixReasonsPage() {
                 <span className={styles.autoTick} aria-hidden="true"><Icon name="check" size={13} strokeWidth={3.5} /></span>
                 {discountPct(chosen)}% off, auto-applied at checkout
               </p>
-              <p className={styles.terms}>Free shipping &nbsp;|&nbsp; {chosen.cadence} &nbsp;|&nbsp; 30 day money back guarantee</p>
+              <p className={styles.terms}>Free shipping &nbsp;|&nbsp; {chosen.cadence} &nbsp;|&nbsp; 90 day money back guarantee</p>
 
               <div className={styles.benefits}>
                 <h3 className={styles.benefitsTitle}>{OFFER.benefitsTitle}</h3>

@@ -1,76 +1,93 @@
 /**
- * The "6 reasons" listicle at /products/anytime-calm, cloned from a competitor
- * stick-pack advertorial's structure (top offer strip, headline, six numbered reasons
- * alternating photo and copy, then an offer block with an image carousel). Sells
- * SC-26 Anytime Calm, the same product the /quiz/calm funnel sells, so every dose and
- * price here is imported from lib/products, never retyped.
+ * The "7 reasons" listicle at /products/anytime-calm, cloned from a competitor
+ * stick-pack advertorial's structure (top offer strip, headline, opener, seven
+ * numbered reasons alternating photo and copy, then an offer block with an image
+ * carousel). Sells SC-26 Anytime Calm, the same product the /quiz/calm funnel sells,
+ * so every dose and price here is imported from lib/products, never retyped.
  *
  * NO RATING AND NO REVIEWS, same standing instruction as lib/quiz/calmPlansContent.ts:
  * nobody has used this yet, and a written testimonial from a person who does not exist
  * is illegal under the FTC rule on consumer reviews. This page carries neither rather
  * than inventing either. Add both once real, permissioned customers exist.
  *
- * The six reason angles are drawn from the ad creative already written for this
- * product (ads/creatives-anytime-calm.json), not invented fresh for this page.
+ * HERO, OPENERS and REASONS are the copy as supplied. The headline's "$1.78/day" is
+ * back at the user's explicit call, overriding the house rule against per-day pricing
+ * (which forces a decimal and the system's prices are otherwise integers only).
+ *
+ * The guarantee is stated as 90 days everywhere on this page, also at the user's
+ * explicit call. It still does not match lib/quiz/calmPlansContent.ts, which answers
+ * the plans page's own FAQ with 30 days for the same product. That file was left
+ * alone, since only this page was in scope: worth a pass to bring it in line before
+ * both pages are live at once.
  */
 
 export const META = {
-  title: "6 reasons Anytime Calm is replacing the melatonin",
+  title: "7 reasons postpartum moms are raving about this $1.78/day sleepytime drink",
   description:
-    "3,000 mg glycine, 200 mg L-theanine, 200 mg magnesium glycinate, one scoop after dinner. No melatonin, no sedation, no next-day hangover.",
+    "3 clinically-dosed ingredients. One scoop. 30 seconds. Why moms who've tried everything say this is the only thing that helps them fall asleep, stay asleep, and feel recharged the next day.",
 };
-
-export const TOP_STRIP = "Free shipping · Standing 50% off first order · Cancel anytime";
 
 export const HERO = {
-  title: "6 reasons Anytime Calm is replacing the melatonin",
-  sub: "Getting woken up at three is the part you cannot fix. Getting back down is the part you can. Here is what is actually in the scoop, and why it is not another sedative.",
+  title: "7 reasons postpartum moms are raving about this $1.78/day sleepytime drink",
+  sub: "3 clinically-dosed ingredients. One scoop. 30 seconds. Addicting taste. Here's why moms who've tried everything are saying this is the only thing that helps them fall asleep, stay asleep, and feel fully recharged the next day.",
 };
+
+export const OPENERS = [
+  "You've tried the pills. You've tried the powders. You've tried doing nothing and hoping you'd feel better on your own.",
+  "None of it stuck because none of it was easy enough to stick with.",
+];
 
 export type Reason = { n: number; title: string; body: string; photo: string; alt: string };
 
 export const REASONS: Reason[] = [
   {
     n: 1,
-    title: "Twenty-eight scoops. That's the whole routine",
-    body: "One scoop, cold water, any time from dinner onward. No pills to count, no bedtime ritual to remember. That is the entire routine, which is most of why it gets finished.",
+    title: "It Takes 30 Seconds",
+    body: "Mix a scoop into a glass of water, stir and enjoy. No need to get out the blender, no need for other supplements, you've got all the nutrients you need in just one scoop.",
     photo: "/products/anytime-calm/scoop.webp",
     alt: "A hand holding the white scoop heaped with pink powder, the tub behind it on a counter",
   },
   {
     n: 2,
-    title: "Every dose is on the front of the tub",
-    body: "3,000 mg glycine, 200 mg L-theanine and 200 mg magnesium glycinate, each printed with its own amount. A lot of sleep formulas put small doses in a blend so nobody can check them.",
+    title: "Every Dose Is Clinically Proven",
+    body: "If you've ever taken a supplement and not felt anything, and let's face it, most of us have, odds are it was because the company undercut your dose to jack up their profits. Anytime Calm is different. Every scoop contains all the nutrients needed from the latest sleep research so you can return to having restorative sleep.",
     photo: "/products/anytime-calm/powder-macro.webp",
     alt: "A close, textured shot of the cherry lime Anytime Calm powder",
   },
   {
     n: 3,
-    title: "Calm without drowsy",
-    body: "L-theanine works on the mental edge, not on your eyelids, so you do not feel it come on. You notice that getting comfortable stopped being a project, and there is nothing left in you at seven the next morning.",
-    photo: "/products/anytime-calm/morning-rested.webp",
-    alt: "A woman waking up looking rested, morning light through the window",
+    title: "Brings Your Skin To Life",
+    body: "Glycine is a primary building block of collagen, which helps your skin glow like it did in your 20s. Now how's that for a side effect?",
+    photo: "/products/anytime-calm/hold-woman.webp",
+    alt: "A woman with a healthy, glowing complexion",
   },
   {
     n: 4,
-    title: "Not melatonin, so no hangover and no strange dreams",
-    body: "Melatonin is a hormone that sedates you, which is exactly why people quit it: the vivid dreams, the groggy morning, and not being able to wake up when someone actually needs you. Glycine is an amino acid your body already runs on.",
-    photo: "/products/anytime-calm/wired-tired.webp",
-    alt: "A woman lying awake in bed at night, wired but tired",
+    title: "Supports Healthy Aging",
+    body: "Your body needs glycine to build glutathione, your body's master antioxidant, which declines sharply with age. Taking Anytime Calm helps support your glutathione levels, so you can age gracefully just like your mom and grandma did.",
+    photo: "/products/anytime-calm/story.webp",
+    alt: "A woman relaxing in the evening with a glass of the Anytime Calm drink",
   },
   {
     n: 5,
-    title: "Fewer nights that break at three",
-    body: "Getting woken up is the part you cannot fix. Getting back down in nine minutes instead of ninety is the part you can. 200 mg of magnesium glycinate works on exactly that restlessness.",
-    photo: "/products/anytime-calm/sleep.webp",
-    alt: "A woman sleeping soundly through the night",
+    title: "It Tastes Amazing",
+    body: "With a natural but not overly sweet cherry-lime flavor, you'll look forward to your sleepytime ritual every night.",
+    photo: "/products/anytime-calm/cherries-lime.webp",
+    alt: "Fresh cherries and lime, the flavor behind the Anytime Calm powder",
   },
   {
     n: 6,
-    title: "It's called Anytime Calm for a reason",
-    body: "It does not have to be the last thing you do all day. Take it at dinner, not just at bedtime, and it is still working by the time you actually get into bed.",
-    photo: "/products/anytime-calm/mixed-glass.webp",
-    alt: "A finished glass of the cherry lime Anytime Calm drink beside the tub",
+    title: "Double The Savings",
+    body: "Buying the ingredients individually would cost you more and leave you with a chalky, tasteless drink. With Anytime Calm you'll save 50% on your first order and get to enjoy the benefits without the hassle.",
+    photo: "/products/anytime-calm/pack-open.webp",
+    alt: "An open tub of Anytime Calm beside the scoop",
+  },
+  {
+    n: 7,
+    title: "You Can Try It Completely Risk Free",
+    body: "Try it for yourself. You owe it to yourself. And if you don't absolutely love it or it doesn't work for you (but we know it will), send it back within 90 days with no awkward questions asked.",
+    photo: "/products/anytime-calm/nightstand.webp",
+    alt: "The Anytime Calm tub and scoop on a nightstand beside a lamp",
   },
 ];
 
@@ -89,11 +106,11 @@ export const OFFER = {
     "Standing 50% off your first order",
     "Free shipping, always",
     "Skip or cancel in two clicks",
-    "30 day money back guarantee",
+    "90 day money back guarantee",
   ],
   accordions: [
     { title: "Supplement facts", table: true, body: "Per scoop (5.4 g). One scoop a day, any time from dinner onward, stirred into cold water." },
-    { title: "Guarantee", body: "30 days, whole order refunded, and you keep the tub. Email us inside the window." },
+    { title: "Guarantee", body: "90 days, whole order refunded, and you keep the tub. Email us inside the window." },
     { title: "How to use", body: "One scoop in cold water, any time from dinner onward. Cherry lime, stirred, not shaken." },
   ],
 };
