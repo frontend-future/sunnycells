@@ -40,6 +40,13 @@ export function CalmSixReasonsPage() {
     return () => watch.disconnect();
   }, []);
 
+  /* The sticky bar's own CTA does not jump straight to checkout: it carries the
+     reader down to the offer section, where the real buy button and the plan details
+     they're about to pay for both sit. */
+  const scrollToOffer = () => {
+    document.getElementById("offer")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const buy = () => {
     writeAnswer(CART_ID, "plan", chosen.id);
     trackMetaEvent("InitiateCheckout", {
@@ -211,7 +218,7 @@ export function CalmSixReasonsPage() {
           <span className={styles.stickyName}>{PRODUCT.title}</span>
           <span className={styles.stickySave}>{OFFER.stickySave}</span>
         </span>
-        <Button variant="accent" size="lg" tabIndex={stickyOn ? 0 : -1} onClick={buy} className={styles.stickyCta}>
+        <Button variant="accent" size="lg" tabIndex={stickyOn ? 0 : -1} onClick={scrollToOffer} className={styles.stickyCta}>
           {OFFER.cta}
         </Button>
       </div>
