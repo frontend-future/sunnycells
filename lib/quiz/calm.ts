@@ -50,15 +50,14 @@ export const calmQuiz: QuizConfig = {
     },
     {
       slug: "goals",
-      kind: "multi",
-      question: "What are your goals?",
+      kind: "single",
+      question: "What is your main goal?",
       options: [
         "Fall asleep faster",
         "Stay asleep through the night",
         "Wake up feeling rested",
         "Feel calmer in the evenings",
       ],
-      cta: "Continue",
     },
     {
       slug: "switching-off",

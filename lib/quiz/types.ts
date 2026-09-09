@@ -6,10 +6,6 @@
 
 export type Step =
   | { slug: string; kind: "single"; question: string; options: string[] }
-  /** Select all that apply. Answers are stored as one comma-joined string, the same
-      shape every other step stores, so the store, the lead payload and the assessment
-      all keep reading a plain string. */
-  | { slug: string; kind: "multi"; question: string; options: string[]; cta: string }
   | {
       slug: string;
       kind: "info";
@@ -94,7 +90,7 @@ export function buildAnswersPayload(
   if (answers.gender) out["Gender"] = answers.gender;
 
   for (const step of config.steps) {
-    if (step.kind === "single" || step.kind === "multi") {
+    if (step.kind === "single") {
       if (answers[step.slug]) out[step.question] = answers[step.slug];
     } else if (step.kind === "number") {
       const value = answers[step.key];
