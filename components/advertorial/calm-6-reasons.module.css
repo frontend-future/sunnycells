@@ -161,19 +161,19 @@
   .wrap { max-width: 60rem; }
 }
 
-/* ---------- sticky buy bar, once reason 3 has scrolled into view ---------- */
+/* ---------- sticky buy bar, once reason 3 has scrolled into view ----------
+   Full width, edge to edge: pic, then name, then the CTA, stacked in that order. */
 .stickyBar {
-  position: fixed; right: 0.75rem; bottom: calc(0.75rem + env(safe-area-inset-bottom)); left: 0.75rem;
-  z-index: 60; max-width: 26rem; margin: 0 auto;
-  padding: 0.875rem 1rem 1rem; border-radius: var(--radius-lg);
-  background: var(--white); border: 2px solid var(--ink-10);
-  box-shadow: 0 12px 30px rgba(13, 13, 12, 0.18);
-  opacity: 0; pointer-events: none; transform: translateY(calc(100% + 1.5rem));
+  position: fixed; right: 0; bottom: 0; left: 0; width: 100%;
+  z-index: 60; display: grid; justify-items: center; gap: 0.5rem;
+  padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  background: var(--white); border-top: 2px solid var(--ink-10);
+  box-shadow: 0 -12px 30px rgba(13, 13, 12, 0.14);
+  opacity: 0; pointer-events: none; transform: translateY(100%);
   transition: opacity 200ms ease, transform 200ms ease;
 }
 .stickyOn { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.stickyTop { display: flex; align-items: center; gap: 0.75rem; }
-.stickyShot { flex: none; width: 48px; height: 48px; object-fit: contain; border-radius: var(--radius-sm); background: var(--shell); }
+.stickyShot { width: 56px; height: 56px; object-fit: contain; border-radius: var(--radius-sm); background: var(--shell); }
 .stickyName {
   font-family: var(--font-display); font-weight: var(--weight-display);
   font-size: 1.25rem; line-height: 1.1;
