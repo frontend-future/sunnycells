@@ -162,19 +162,24 @@
 }
 
 /* ---------- sticky buy bar, once reason 3 has scrolled into view ----------
-   Full width, edge to edge: pic, then name, then the CTA, stacked in that order. */
+   Full width, edge to edge, one horizontal row: pic on the left, name next to it,
+   CTA pushed to the right. */
 .stickyBar {
   position: fixed; right: 0; bottom: 0; left: 0; width: 100%;
-  z-index: 60; display: grid; justify-items: center; gap: 0.5rem;
-  padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  z-index: 60; display: flex; align-items: center; gap: 0.875rem;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
   background: var(--white); border-top: 2px solid var(--ink-10);
   box-shadow: 0 -12px 30px rgba(13, 13, 12, 0.14);
   opacity: 0; pointer-events: none; transform: translateY(100%);
   transition: opacity 200ms ease, transform 200ms ease;
 }
 .stickyOn { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.stickyShot { width: 56px; height: 56px; object-fit: contain; border-radius: var(--radius-sm); background: var(--shell); }
+.stickyShot { flex: none; width: 56px; height: 56px; object-fit: contain; border-radius: var(--radius-sm); background: var(--shell); }
 .stickyName {
+  flex: 1; min-width: 0;
   font-family: var(--font-display); font-weight: var(--weight-display);
   font-size: 1.25rem; line-height: 1.1;
 }
+/* Sized to its label, not the row: the sticky bar's own CTA is the one place on the
+   page that isn't fullWidth, so it sits at the end of the row rather than filling it. */
+.stickyCta { flex: none; }
