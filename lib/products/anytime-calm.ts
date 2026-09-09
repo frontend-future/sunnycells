@@ -187,7 +187,6 @@ export const FACTS = {
 export const GALLERY = [
   { src: `${IMG}/pack-1.webp`, alt: "The Anytime Calm tub, 1 month supply" },
   { src: `${IMG}/scoop.webp`, alt: "A hand holding the white scoop heaped with pink powder" },
-  { src: `${IMG}/powder-macro.webp`, alt: "A close, textured shot of the cherry lime Anytime Calm powder" },
   { src: `${IMG}/mixed-glass.webp`, alt: "The finished cherry lime drink in a glass beside the tub" },
   { src: `${IMG}/gallery-angle.webp`, alt: "The Anytime Calm tub from a low angle" },
   { src: `${IMG}/nightstand.webp`, alt: "The tub and scoop on a nightstand beside a lamp" },
@@ -196,4 +195,5 @@ export const GALLERY = [
   { src: `${IMG}/review-postpartum.png`, alt: "A five star review: getting better sleep as a postpartum, breastfeeding mama" },
   { src: `${IMG}/vs-melatonin-night.png`, alt: "A chart comparing melatonin to Anytime Calm across a night: melatonin falls asleep fast but wears off by 3am with lingering grogginess, Anytime Calm settles in gently, stays asleep through the night, and wakes up refreshed" },
   { src: `${IMG}/proven-built-on.png`, alt: "Built on what actually works: glycine cuts time to fall asleep by 15 minutes, L-theanine lowers perceived stress 18%, magnesium glycinate drops insomnia severity 70% more than placebo, each from published research at the studied dose" },
+  { src: `${IMG}/benefits-grid.png`, alt: "What one scoop supports: sleep quality, skin and collagen, calm rejuvenation, metabolic support, muscle relaxation, stress response, antioxidant support, nervous system" },
 ] as const;
