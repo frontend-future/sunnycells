@@ -8,7 +8,7 @@ import { Icon } from "@/components/core/Icon";
 import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
-import { DISCLAIMER, HERO, OFFER, OPENERS, REASONS } from "@/lib/content/calm-6-reasons";
+import { DISCLAIMER, HERO, OFFER, OPENERS, REASONS, TRUST } from "@/lib/content/calm-6-reasons";
 import { CART_ID, discountPct, FACTS, GALLERY, PRODUCT, supplyPlanById } from "@/lib/products/anytime-calm";
 import styles from "./calm-6-reasons.module.css";
 
@@ -132,16 +132,23 @@ export function CalmSixReasonsPage() {
               </p>
               <p className={styles.terms}>Free shipping &nbsp;|&nbsp; {OFFER.cadence} &nbsp;|&nbsp; 90 day money back guarantee</p>
 
-              <div className={styles.benefits}>
-                <h3 className={styles.benefitsTitle}>{OFFER.benefitsTitle}</h3>
-                <ul>
-                  {OFFER.benefits.map((b) => (
-                    <li key={b}>
-                      <span className={styles.benefitTick} aria-hidden="true"><Icon name="check" size={13} strokeWidth={3.5} /></span>
-                      {b}
-                    </li>
+              <div className={styles.guaranteeBanner}>
+                <Icon name="shield-check" size={32} strokeWidth={2} className={styles.guaranteeIcon} />
+                <div>
+                  <p className={styles.guaranteeTitle}>{TRUST.guaranteeTitle}</p>
+                  <p className={styles.guaranteeSub}>{TRUST.guaranteeSub}</p>
+                </div>
+              </div>
+              <div className={styles.trustCard}>
+                <div className={styles.trustGrid}>
+                  {TRUST.items.map((t) => (
+                    <div key={t.label} className={styles.trustItem}>
+                      <Icon name={t.icon} size={28} strokeWidth={1.75} />
+                      <span>{t.label}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
+                <p className={styles.trustFootnote}>{TRUST.footnote}</p>
               </div>
 
               {OFFER.accordions.map((a) => {
