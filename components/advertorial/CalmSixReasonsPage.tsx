@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
@@ -23,6 +23,21 @@ export function CalmSixReasonsPage() {
   const chosen = supplyPlanById("c1");
   const [open, setOpen] = useState<string | null>(null);
   const [shot, setShot] = useState(0);
+  const [stickyOn, setStickyOn] = useState(false);
+  const thirdReasonRef = useRef<HTMLElement | null>(null);
+
+  /* Sticky bar appears once reason 3 has scrolled into view, and stays up: a one-way
+     reveal, not a toggle that hides again further down the page. */
+  useEffect(() => {
+    const el = thirdReasonRef.current;
+    if (!el) return;
+    const watch = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStickyOn(true); watch.disconnect(); } },
+      { threshold: 0 },
+    );
+    watch.observe(el);
+    return () => watch.disconnect();
+  }, []);
 
   const buy = () => {
     writeAnswer(CART_ID, "plan", chosen.id);
@@ -69,7 +84,7 @@ export function CalmSixReasonsPage() {
         {/* ---------- the seven ---------- */}
         <section className={styles.wrap}>
           {REASONS.map((r) => (
-            <article key={r.n} className={styles.reason}>
+            <article key={r.n} ref={r.n === 3 ? thirdReasonRef : undefined} className={styles.reason}>
               <div className={styles.reasonFrame}>
                 <Image src={r.photo} alt={r.alt} width={720} height={960} className={styles.reasonShot} />
               </div>
@@ -175,6 +190,16 @@ export function CalmSixReasonsPage() {
       <div className={`${styles.wrap} ${styles.legal}`}>
         <p>This page is an advertisement for a SUNNYCELLS product and we are paid when you buy.</p>
         <p>{DISCLAIMER}</p>
+      </div>
+
+      <div className={`${styles.stickyBar} ${stickyOn ? styles.stickyOn : ""}`} aria-hidden={!stickyOn}>
+        <div className={styles.stickyTop}>
+          <Image src={GALLERY[0].src} alt="" aria-hidden="true" width={96} height={96} className={styles.stickyShot} />
+          <span className={styles.stickyName}>{PRODUCT.title}</span>
+        </div>
+        <Button fullWidth variant="accent" size="lg" tabIndex={stickyOn ? 0 : -1} onClick={buy} style={{ marginTop: "0.625rem" }}>
+          {OFFER.stickyCta}
+        </Button>
       </div>
     </div>
   );

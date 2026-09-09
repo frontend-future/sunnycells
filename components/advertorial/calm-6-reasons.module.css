@@ -127,8 +127,6 @@
   margin: 0.25rem 0 0; color: var(--status-success); font-family: var(--font-label);
   letter-spacing: var(--tracking-mono); font-weight: 600; font-size: var(--size-meta);
 }
-@media (min-width: 480px) { .trustGrid { grid-template-columns: repeat(4, 1fr); } }
-
 .acc { border-top: 1px solid var(--ink-10); }
 .acc:last-of-type { border-bottom: 1px solid var(--ink-10); }
 .accHead {
@@ -161,4 +159,22 @@
 }
 @media (min-width: 1024px) {
   .wrap { max-width: 60rem; }
+}
+
+/* ---------- sticky buy bar, once reason 3 has scrolled into view ---------- */
+.stickyBar {
+  position: fixed; right: 0.75rem; bottom: calc(0.75rem + env(safe-area-inset-bottom)); left: 0.75rem;
+  z-index: 60; max-width: 26rem; margin: 0 auto;
+  padding: 0.875rem 1rem 1rem; border-radius: var(--radius-lg);
+  background: var(--white); border: 2px solid var(--ink-10);
+  box-shadow: 0 12px 30px rgba(13, 13, 12, 0.18);
+  opacity: 0; pointer-events: none; transform: translateY(calc(100% + 1.5rem));
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.stickyOn { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.stickyTop { display: flex; align-items: center; gap: 0.75rem; }
+.stickyShot { flex: none; width: 48px; height: 48px; object-fit: contain; border-radius: var(--radius-sm); background: var(--shell); }
+.stickyName {
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: 1.25rem; line-height: 1.1;
 }

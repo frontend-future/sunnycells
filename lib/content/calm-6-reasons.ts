@@ -103,6 +103,9 @@ export const OFFER = {
   ],
   cadence: "Delivered Every 4 Weeks",
   cta: "Try now",
+  /* The sticky bar's own CTA, once reason 3 has scrolled into view. No price on the
+     bar itself, just the standing 50% off. */
+  stickyCta: "Try now and save 50%",
   accordions: [
     { title: "Supplement facts", table: true, body: "Per scoop (5.4 g). One scoop a day, any time from dinner onward, stirred into cold water." },
     { title: "Guarantee", body: "90 days, whole order refunded, and you keep the tub. Email us inside the window." },
