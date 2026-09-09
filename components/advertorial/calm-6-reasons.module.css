@@ -30,7 +30,9 @@
 }
 .heroRule { height: 1px; background: var(--border-hairline); max-width: 46rem; margin: 1.75rem auto; }
 .openers { display: grid; gap: 1rem; }
-.bodyStrong { margin: 0; font-size: var(--size-body); line-height: var(--leading-body); font-weight: var(--weight-bold); }
+/* pre-line lets a literal \n in the closing opener line break onto its own line
+   without turning the whole paragraph into two separately-styled ones. */
+.bodyStrong { margin: 0; font-size: var(--size-body); line-height: var(--leading-body); font-weight: var(--weight-bold); white-space: pre-line; }
 
 /* ---------- the six ---------- */
 .reason { display: grid; gap: 1.25rem; align-items: center; padding-block: 2rem; }
