@@ -1,7 +1,27 @@
 "use client";
 
+import type React from "react";
 import { EvenCheckout } from "@/components/even-energy/EvenCheckout";
 import { buildOrder, CART_ID, PRODUCT } from "@/lib/products/anytime-calm";
+
+/* The shared checkout defaults to Even Energy's green. Anytime Calm's own page never
+   rebinds the house tokens at all, it just uses the plain SUNNYCELLS sun yellow, so
+   this theme un-rebinds the same tokens the green product sets rather than inventing a
+   new palette: --sprout is used directly for several checkout backgrounds, not only
+   through --action-*, so it needs its own override too. */
+const THEME = {
+  "--action-primary-bg": "var(--ink)",
+  "--action-primary-bg-press": "var(--ink-80)",
+  "--action-primary-fg": "var(--white)",
+  "--action-accent-bg": "var(--sun)",
+  "--action-accent-bg-press": "var(--sun-press)",
+  "--action-accent-fg": "var(--ink)",
+  "--sprout": "var(--sun)",
+  "--sprout-press": "var(--sun-press)",
+  "--sprout-tint": "var(--sun-tint)",
+  "--summary-a": "#FFFDF5",
+  "--summary-b": "var(--sun-tint)",
+} as React.CSSProperties;
 
 /* The product bundle carries a function, and a function cannot be handed from a server
    component to a client one. Building it inside the client boundary is what keeps the
@@ -10,8 +30,9 @@ export function CalmCheckout() {
   return (
     <EvenCheckout
       product={{ name: PRODUCT.title, cartId: CART_ID, buildOrder }}
-      backHref="/quiz/calm/results/plans"
-      backLabel="Back to your match"
+      backHref="/products/anytime-calm"
+      backLabel="Back to Anytime Calm"
+      theme={THEME}
     />
   );
 }
