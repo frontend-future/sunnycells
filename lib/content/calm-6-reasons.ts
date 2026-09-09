@@ -32,7 +32,7 @@ export const HERO = {
   /* The one word circled by hand in the headline, matched against `title` at render
      time rather than storing markup in a content file. */
   emphasis: "Raving",
-  sub: "3 clinically-dosed ingredients. One scoop. 30 seconds. Addicting taste. Here's why moms who've tried everything are saying this is the only thing that helps them fall asleep, stay asleep, and feel fully recharged the next day.",
+  sub: "Here's why moms who've tried everything are saying this is the only thing that helps them fall asleep, stay asleep, and feel fully recharged the next day.",
 };
 
 export const OPENERS = [
@@ -82,15 +82,15 @@ export const REASONS: Reason[] = [
     n: 6,
     title: "Double The Savings",
     body: "Buying the ingredients individually would cost you more and leave you with a chalky, tasteless drink. With Anytime Calm you'll save 50% on your first order and get to enjoy the benefits without the hassle.",
-    photo: "/products/anytime-calm/pack-open.webp",
-    alt: "An open tub of Anytime Calm beside the scoop",
+    photo: "/products/anytime-calm/double-savings.png",
+    alt: "Skip the DIY stack: glycine, L-theanine and magnesium glycinate bought separately at $62 a month, versus Anytime Calm at $1.78 a day",
   },
   {
     n: 7,
     title: "You Can Try It Completely Risk Free",
     body: "Try it for yourself. You owe it to yourself. And if you don't absolutely love it or it doesn't work for you (and we know it will), send it back within 90 days with no awkward questions asked.",
-    photo: "/products/anytime-calm/nightstand.webp",
-    alt: "The Anytime Calm tub and scoop on a nightstand beside a lamp",
+    photo: "/products/anytime-calm/guarantee.avif",
+    alt: "The 90 day money back guarantee",
   },
 ];
 
