@@ -22,13 +22,13 @@
  */
 
 export const META = {
-  title: "7 Reasons Postpartum Moms Are Raving About This $1.78/Day Sleepytime Drink",
+  title: "7 Reasons Postpartum Mamas Are Raving About This $1.78/Day Sleepytime Drink",
   description:
     "3 clinically-dosed ingredients. One scoop. 30 seconds. Why moms who've tried everything say this is the only thing that helps them fall asleep, stay asleep, and feel recharged the next day.",
 };
 
 export const HERO = {
-  title: "7 Reasons Postpartum Moms Are Raving About This $1.78/Day Sleepytime Drink",
+  title: "7 Reasons Postpartum Mamas Are Raving About This $1.78/Day Sleepytime Drink",
   /* The one word circled by hand in the headline, matched against `title` at render
      time rather than storing markup in a content file. */
   emphasis: "Raving",
