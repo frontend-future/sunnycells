@@ -51,8 +51,8 @@ export const REASONS: Reason[] = [
     n: 2,
     title: "Every Dose Is Clinically Proven",
     body: "If you've ever taken a supplement and not felt anything, and let's face it, most of us have, odds are it was because the company undercut your dose to jack up their profits. Anytime Calm is different. Every scoop contains all the nutrients needed from the latest sleep research so you can return to having restorative sleep.",
-    photo: "/products/anytime-calm/powder-macro.webp",
-    alt: "A close, textured shot of the cherry lime Anytime Calm powder",
+    photo: "/products/anytime-calm/mg-for-mg.png",
+    alt: "A table matching the published research dose for glycine, L-theanine and magnesium glycinate against what is actually in Anytime Calm, mg for mg",
   },
   {
     n: 3,
