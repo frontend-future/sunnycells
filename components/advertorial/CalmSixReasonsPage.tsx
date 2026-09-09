@@ -41,7 +41,7 @@ export function CalmSixReasonsPage() {
       <AnnouncementMarquee
         terms={[
           { strong: "Free shipping", rest: "on all orders" },
-          { strong: "50%", rest: "off your first order, standing offer" },
+          { strong: "50%", rest: "off your first order" },
           { strong: "Skip or cancel", rest: "anytime" },
         ]}
       />

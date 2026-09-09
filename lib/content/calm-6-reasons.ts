@@ -103,7 +103,7 @@ export const OFFER = {
   cta: "Start now",
   benefitsTitle: "Subscriber-only benefits",
   benefits: [
-    "Standing 50% off your first order",
+    "50% off your first order",
     "Free shipping, always",
     "Skip or cancel in two clicks",
     "90 day money back guarantee",
