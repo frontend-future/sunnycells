@@ -72,8 +72,8 @@ export const REASONS: Reason[] = [
     n: 5,
     title: "It Tastes Amazing",
     body: "With a natural but not overly sweet cherry-lime flavor, you'll look forward to your sleepytime ritual every night.",
-    photo: "/products/anytime-calm/cherries-lime.webp",
-    alt: "Fresh cherries and lime, the flavor behind the Anytime Calm powder",
+    photo: "/products/anytime-calm/mixed-glass.webp",
+    alt: "A tall glass of the mixed cherry lime drink over ice with a wedge of lime, the tub standing behind it",
   },
   {
     n: 6,
