@@ -23,22 +23,40 @@ export function CalmSixReasonsPage() {
   const chosen = supplyPlanById("c1");
   const [open, setOpen] = useState<string | null>(null);
   const [shot, setShot] = useState(0);
-  const [stickyOn, setStickyOn] = useState(false);
+  const [pastReason3, setPastReason3] = useState(false);
+  const [offerVisible, setOfferVisible] = useState(false);
   const thirdReasonRef = useRef<HTMLElement | null>(null);
+  const offerRef = useRef<HTMLElement | null>(null);
   const thumbsRef = useRef<HTMLDivElement | null>(null);
 
-  /* Sticky bar appears once reason 3 has scrolled into view, and stays up: a one-way
-     reveal, not a toggle that hides again further down the page. */
+  /* Sticky bar appears once reason 3 has scrolled into view, and stays eligible: a
+     one-way reveal, not a toggle that hides again further down the page. */
   useEffect(() => {
     const el = thirdReasonRef.current;
     if (!el) return;
     const watch = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setStickyOn(true); watch.disconnect(); } },
+      ([entry]) => { if (entry.isIntersecting) { setPastReason3(true); watch.disconnect(); } },
       { threshold: 0 },
     );
     watch.observe(el);
     return () => watch.disconnect();
   }, []);
+
+  /* But it steps aside whenever the offer section itself is on screen: the sticky
+     bar's whole job is to carry someone down to that section, so once they're there
+     it would only sit on top of the real buy button. This one does toggle both ways. */
+  useEffect(() => {
+    const el = offerRef.current;
+    if (!el) return;
+    const watch = new IntersectionObserver(
+      ([entry]) => setOfferVisible(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    watch.observe(el);
+    return () => watch.disconnect();
+  }, []);
+
+  const stickyOn = pastReason3 && !offerVisible;
 
   /* The sticky bar's own CTA does not jump straight to checkout: it carries the
      reader down to the offer section, where the real buy button and the plan details
@@ -106,7 +124,7 @@ export function CalmSixReasonsPage() {
 
         {/* ---------- offer ---------- */}
         <div className={styles.rule} aria-hidden="true" />
-        <section className={`${styles.wrap} ${styles.section}`} id="offer">
+        <section ref={offerRef} className={`${styles.wrap} ${styles.section}`} id="offer">
           <div className={styles.offerGrid}>
             <div className={styles.offerGallery}>
               <div className={styles.gStage}>
