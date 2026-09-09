@@ -194,4 +194,6 @@ export const GALLERY = [
   { src: `${IMG}/vs-melatonin.png`, alt: "Anytime Calm versus melatonin: how it works, morning after, habit forming, dose you get, and if it doesn't work" },
   { src: `${IMG}/facts-label.png`, alt: "The Anytime Calm supplement facts panel: 3,000 mg glycine, 200 mg L-theanine, 120 mg magnesium glycinate" },
   { src: `${IMG}/review-postpartum.png`, alt: "A five star review: getting better sleep as a postpartum, breastfeeding mama" },
+  { src: `${IMG}/vs-melatonin-night.png`, alt: "A chart comparing melatonin to Anytime Calm across a night: melatonin falls asleep fast but wears off by 3am with lingering grogginess, Anytime Calm settles in gently, stays asleep through the night, and wakes up refreshed" },
+  { src: `${IMG}/proven-built-on.png`, alt: "Built on what actually works: glycine cuts time to fall asleep by 15 minutes, L-theanine lowers perceived stress 18%, magnesium glycinate drops insomnia severity 70% more than placebo, each from published research at the studied dose" },
 ] as const;
