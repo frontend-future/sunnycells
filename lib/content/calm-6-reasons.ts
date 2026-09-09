@@ -35,8 +35,9 @@ export const HERO = {
 };
 
 export const OPENERS = [
-  "You've tried the pills. You've tried the powders. You've tried doing nothing and hoping you'd feel better on your own.",
-  "None of it stuck because none of it was easy enough to stick with.",
+  "Maybe you've tried the pills or the powders. Or maybe you've been waiting to see if your sleep would improve on its own.",
+  "None of it stuck because nothing has worked yet, and it's not your fault.",
+  "That's why we made Anytime Calm. Here are 7 Reasons Postpartum Mamas Are Raving About This New Sleepytime Drink...",
 ];
 
 export type Reason = { n: number; title: string; body: string; photo: string; alt: string };
