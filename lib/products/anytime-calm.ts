@@ -194,4 +194,5 @@ export const GALLERY = [
   { src: `${IMG}/vs-melatonin-night.png`, alt: "A chart comparing melatonin to Anytime Calm across a night: melatonin falls asleep fast but wears off by 3am with lingering grogginess, Anytime Calm settles in gently, stays asleep through the night, and wakes up refreshed" },
   { src: `${IMG}/proven-built-on.png`, alt: "Built on what actually works: glycine cuts time to fall asleep by 15 minutes, L-theanine lowers perceived stress 18%, magnesium glycinate drops insomnia severity 70% more than placebo, each from published research at the studied dose" },
   { src: `${IMG}/benefits-grid.png`, alt: "What one scoop supports: sleep quality, skin and collagen, calm rejuvenation, metabolic support, muscle relaxation, stress response, antioxidant support, nervous system" },
+  { src: `${IMG}/finally-reliably-good-sleep.png`, alt: "Finally, reliably good sleep: proven ingredients, free shipping, 90 day guarantee, beside the Anytime Calm tub" },
 ] as const;
