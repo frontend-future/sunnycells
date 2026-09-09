@@ -25,6 +25,7 @@ export function CalmSixReasonsPage() {
   const [shot, setShot] = useState(0);
   const [stickyOn, setStickyOn] = useState(false);
   const thirdReasonRef = useRef<HTMLElement | null>(null);
+  const thumbsRef = useRef<HTMLDivElement | null>(null);
 
   /* Sticky bar appears once reason 3 has scrolled into view, and stays up: a one-way
      reveal, not a toggle that hides again further down the page. */
@@ -101,23 +102,35 @@ export function CalmSixReasonsPage() {
         <section className={`${styles.wrap} ${styles.section}`} id="offer">
           <div className={styles.offerGrid}>
             <div className={styles.offerGallery}>
-              <Image src={GALLERY[shot].src} alt={GALLERY[shot].alt} width={1200} height={1200} className={styles.offerShot} />
-              <button type="button" className={`${styles.gBtn} ${styles.gPrev}`} aria-label="Previous image"
-                onClick={() => setShot((i) => (i - 1 + GALLERY.length) % GALLERY.length)}>
-                <Icon name="chevron-left" size={26} strokeWidth={2.5} />
-              </button>
-              <button type="button" className={`${styles.gBtn} ${styles.gNext}`} aria-label="Next image"
-                onClick={() => setShot((i) => (i + 1) % GALLERY.length)}>
-                <Icon name="chevron-right" size={26} strokeWidth={2.5} />
-              </button>
-              <div className={styles.gThumbs}>
-                {GALLERY.map((g, i) => (
-                  <button key={g.src} type="button" onClick={() => setShot(i)}
-                    aria-label={g.alt} aria-current={i === shot}
-                    className={`${styles.gThumb} ${i === shot ? styles.gThumbOn : ""}`}>
-                    <Image src={g.src} alt="" aria-hidden="true" width={160} height={160} />
-                  </button>
-                ))}
+              <div className={styles.gStage}>
+                <Image src={GALLERY[shot].src} alt={GALLERY[shot].alt} width={1200} height={1200} className={styles.offerShot} />
+                <button type="button" className={`${styles.gBtn} ${styles.gPrev}`} aria-label="Previous image"
+                  onClick={() => setShot((i) => (i - 1 + GALLERY.length) % GALLERY.length)}>
+                  <Icon name="chevron-left" size={26} strokeWidth={2.5} />
+                </button>
+                <button type="button" className={`${styles.gBtn} ${styles.gNext}`} aria-label="Next image"
+                  onClick={() => setShot((i) => (i + 1) % GALLERY.length)}>
+                  <Icon name="chevron-right" size={26} strokeWidth={2.5} />
+                </button>
+              </div>
+              <div className={styles.gThumbRow}>
+                <button type="button" className={styles.gThumbNav} aria-label="Scroll thumbnails left"
+                  onClick={() => thumbsRef.current?.scrollBy({ left: -thumbsRef.current.clientWidth * 0.8, behavior: "smooth" })}>
+                  <Icon name="chevron-left" size={20} strokeWidth={2.5} />
+                </button>
+                <div className={styles.gThumbs} ref={thumbsRef}>
+                  {GALLERY.map((g, i) => (
+                    <button key={g.src} type="button" onClick={() => setShot(i)}
+                      aria-label={g.alt} aria-current={i === shot}
+                      className={`${styles.gThumb} ${i === shot ? styles.gThumbOn : ""}`}>
+                      <Image src={g.src} alt="" aria-hidden="true" width={160} height={160} />
+                    </button>
+                  ))}
+                </div>
+                <button type="button" className={styles.gThumbNav} aria-label="Scroll thumbnails right"
+                  onClick={() => thumbsRef.current?.scrollBy({ left: thumbsRef.current.clientWidth * 0.8, behavior: "smooth" })}>
+                  <Icon name="chevron-right" size={20} strokeWidth={2.5} />
+                </button>
               </div>
             </div>
 
