@@ -5,7 +5,7 @@
  * exactly one, so an event never lands in two datasets and no funnel's attribution is
  * polluted by another's traffic.
  */
-export type Funnel = "energy" | "aging" | "reds" | "revitalize" | "default";
+export type Funnel = "energy" | "aging" | "reds" | "revitalize" | "calm" | "default";
 
 /* Energy is the Even Energy product page with its checkout plus the energy quiz.
    Aging is the collagen quiz plus the /aging advertorials that feed it. Anything
@@ -19,6 +19,7 @@ const PATHS: [Funnel, string[]][] = [
   ["aging", ["/quiz/aging", "/aging"]],
   ["reds", ["/products/daily-reds"]],
   ["revitalize", ["/products/revitalize", "/revitalize"]],
+  ["calm", ["/products/anytime-calm", "/quiz/calm"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {
@@ -43,5 +44,6 @@ export const PIXEL_IDS: Record<Funnel, string | undefined> = {
      instead of starting cold. Named rather than left to fall through to "default", so
      the choice is visible here and a later split is one line. */
   revitalize: process.env.NEXT_PUBLIC_META_PIXEL_ID,
+  calm: process.env.NEXT_PUBLIC_META_PIXEL_ID_CALM,
   default: process.env.NEXT_PUBLIC_META_PIXEL_ID,
 };

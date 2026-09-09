@@ -27,6 +27,10 @@ const DATASETS = {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID,
     token: process.env.META_CAPI_ACCESS_TOKEN,
   },
+  calm: {
+    pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID_CALM,
+    token: process.env.META_CAPI_ACCESS_TOKEN_CALM,
+  },
   default: {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID,
     token: process.env.META_CAPI_ACCESS_TOKEN,
@@ -75,7 +79,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing event_name or event_id" }, { status: 400 });
   }
 
-  const key = payload.funnel === "energy" || payload.funnel === "aging" ? payload.funnel : "default";
+  const key =
+    payload.funnel === "energy" || payload.funnel === "aging" || payload.funnel === "calm"
+      ? payload.funnel
+      : "default";
   const { pixel, token } = DATASETS[key];
   if (!pixel || !token) {
     return NextResponse.json({ error: "Meta CAPI not configured" }, { status: 500 });
