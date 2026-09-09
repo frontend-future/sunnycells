@@ -183,7 +183,7 @@ export function CalmSixReasonsPage() {
                 <span className={styles.autoTick} aria-hidden="true"><Icon name="check" size={13} strokeWidth={3.5} /></span>
                 {discountPct(chosen)}% off, auto-applied at checkout
               </p>
-              <p className={styles.terms}>Free shipping &nbsp;|&nbsp; {OFFER.cadence} &nbsp;|&nbsp; 90 day money back guarantee</p>
+              <p className={styles.terms}>Free shipping &nbsp;|&nbsp; {OFFER.cadence}</p>
 
               <div className={styles.guaranteeBanner}>
                 <Icon name="shield-check" size={32} strokeWidth={2} className={styles.guaranteeIcon} />
