@@ -28,6 +28,13 @@
   text-align: center; color: var(--ink-60); font-size: var(--size-body-lg);
   line-height: var(--leading-body); margin: 0 auto; max-width: 38rem;
 }
+/* Used only by the melatonin variant's hero, which the postpartum page does not
+   render. A capped, centered square so it reads as a supporting photo under the
+   subhead rather than a full-bleed image at the 60rem desktop wrap width. */
+.heroShot {
+  width: 100%; max-width: 26rem; aspect-ratio: 1 / 1; margin: 1.5rem auto 0;
+  overflow: hidden; border-radius: var(--radius-lg); background: var(--shell);
+}
 .heroRule { height: 1px; background: var(--border-hairline); max-width: 46rem; margin: 1.75rem auto; }
 .openers { display: grid; gap: 1rem; }
 /* pre-line lets a literal \n in the closing opener line break onto its own line

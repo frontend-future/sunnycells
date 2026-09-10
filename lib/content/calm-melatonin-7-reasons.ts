@@ -28,6 +28,8 @@ export const HERO = {
      time rather than storing markup in a content file. */
   emphasis: "Raving",
   sub: "People who've tried melatonin are saying this is the only thing that actually helps them fall asleep, stay asleep, and wake up without the grogginess.",
+  image: "/products/anytime-calm/hero-mix.webp",
+  imageAlt: "A scoop of Anytime Calm powder pouring into a glass of water, the tub beside it on a kitchen counter",
 };
 
 export const OPENERS = [

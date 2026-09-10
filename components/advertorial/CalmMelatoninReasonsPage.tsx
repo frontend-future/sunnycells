@@ -100,6 +100,9 @@ export function CalmMelatoninReasonsPage() {
             ))}
           </h1>
           <p className={styles.sub}>{HERO.sub}</p>
+          <div className={styles.heroShot}>
+            <Image src={HERO.image} alt={HERO.imageAlt} width={720} height={720} className={styles.reasonShot} />
+          </div>
           <div className={styles.heroRule} aria-hidden="true" />
           <div className={styles.openers}>
             {OPENERS.map((p, i) => (
