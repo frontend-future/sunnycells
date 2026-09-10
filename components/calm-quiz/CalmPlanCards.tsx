@@ -34,6 +34,9 @@ export function CalmPlanCards({
     /* Written into the product's own cart, not the quiz store, because the checkout
        that receives it reads from there. */
     writeAnswer(CART_ID, "plan", p.id);
+    /* So the purchase-attempt notification can say which funnel sent them, same as
+       the two listicles that share this checkout. */
+    writeAnswer(CART_ID, "lander", "quiz");
     trackMetaEvent(
       "InitiateCheckout",
       {

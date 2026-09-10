@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml, FROM_NAME, NOTIFY_TO_EMAIL, postToSlack, type Result } from "@/lib/notify";
+import { landerTag } from "@/lib/notify-lander";
 import { stageFor, type Stage } from "@/lib/notify-stage";
 
 type Shipping = {
@@ -20,6 +21,9 @@ type NotifyPayload = {
   plan: string;
   total: number;
   stage?: Stage;
+  /** Which entry point wrote into the shared cart: the quiz funnel or one of the
+      listicles selling the same product. Absent for an older client. */
+  lander?: string;
 };
 
 async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
@@ -55,7 +59,7 @@ async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
   const { error } = await resend.emails.send({
     from: `${FROM_NAME} <notifications@${domain}>`,
     to: NOTIFY_TO_EMAIL,
-    subject: `${stage.subject}: ${name || shipping.email}, $${total}`,
+    subject: `${stage.subject}${landerTag(p.lander)}: ${name || shipping.email}, $${total}`,
     html,
   });
 

@@ -67,6 +67,8 @@ export function CalmSixReasonsPage() {
 
   const buy = () => {
     writeAnswer(CART_ID, "plan", chosen.id);
+    /* So the purchase-attempt notification can say which listicle sent them. */
+    writeAnswer(CART_ID, "lander", "postpartum");
     trackMetaEvent("InitiateCheckout", {
       currency: "USD",
       value: chosen.price * chosen.months,
