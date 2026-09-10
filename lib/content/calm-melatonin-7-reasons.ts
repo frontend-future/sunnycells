@@ -120,5 +120,24 @@ export const TRUST = {
   guaranteeSub: "We're so confident you'll feel the benefits, try it for a full 90 days.",
 };
 
+/* Own copy of the offer carousel rather than importing GALLERY from
+   lib/products/anytime-calm: this page's review slot carries the two-review
+   composite instead of the single postpartum review the original listicle
+   uses, and mutating the shared export would have changed that page's
+   carousel too. Every other slot is identical, same order. */
+const IMG = "/products/anytime-calm";
+export const GALLERY = [
+  { src: `${IMG}/finally-reliably-good-sleep.png`, alt: "Finally, reliably good sleep: proven ingredients, free shipping, 90 day guarantee, beside the Anytime Calm tub" },
+  { src: `${IMG}/benefits-grid.png`, alt: "What one scoop supports: sleep quality, skin and collagen, calm rejuvenation, metabolic support, muscle relaxation, stress response, antioxidant support, nervous system" },
+  { src: `${IMG}/review-dual.webp`, alt: "Two five star reviews: getting better sleep as a postpartum, breastfeeding mama, and finally sleeping through 3am insomnia" },
+  { src: `${IMG}/proven-built-on.png`, alt: "Built on what actually works: glycine cuts time to fall asleep by 15 minutes, L-theanine lowers perceived stress 18%, magnesium glycinate drops insomnia severity 70% more than placebo, each from published research at the studied dose" },
+  { src: `${IMG}/vs-melatonin.png`, alt: "Anytime Calm versus melatonin: how it works, morning after, habit forming, dose you get, and if it doesn't work" },
+  { src: `${IMG}/vs-melatonin-night.png`, alt: "A chart comparing melatonin to Anytime Calm across a night: melatonin falls asleep fast but wears off by 3am with lingering grogginess, Anytime Calm settles in gently, stays asleep through the night, and wakes up refreshed" },
+  { src: `${IMG}/facts-label.png`, alt: "The Anytime Calm supplement facts panel: 3,000 mg glycine, 200 mg L-theanine, 120 mg magnesium glycinate" },
+  { src: `${IMG}/mixed-glass.webp`, alt: "The finished cherry lime drink in a glass beside the tub" },
+  { src: `${IMG}/nightstand.webp`, alt: "The tub and scoop on a nightstand beside a lamp" },
+  { src: `${IMG}/scoop.webp`, alt: "A hand holding the white scoop heaped with pink powder" },
+] as const;
+
 export const DISCLAIMER =
   "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease. Results vary from person to person.";

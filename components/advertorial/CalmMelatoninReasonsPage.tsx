@@ -8,8 +8,8 @@ import { Icon } from "@/components/core/Icon";
 import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
-import { DISCLAIMER, HERO, OFFER, OPENERS, REASONS, TRUST } from "@/lib/content/calm-melatonin-7-reasons";
-import { CART_ID, discountPct, FACTS, GALLERY, PRODUCT, supplyPlanById } from "@/lib/products/anytime-calm";
+import { DISCLAIMER, GALLERY, HERO, OFFER, OPENERS, REASONS, TRUST } from "@/lib/content/calm-melatonin-7-reasons";
+import { CART_ID, discountPct, FACTS, PRODUCT, supplyPlanById } from "@/lib/products/anytime-calm";
 import styles from "./calm-6-reasons.module.css";
 
 /* Cloned from CalmSixReasonsPage. Same layout, same styles module, same checkout the
