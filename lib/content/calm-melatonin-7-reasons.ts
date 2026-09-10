@@ -53,8 +53,8 @@ export const REASONS: Reason[] = [
     n: 2,
     title: "It Crushes Cortisol And Helps You Fall Asleep Faster",
     body: "Melatonin's whole job is telling your body it's nighttime. That's it. It never touches the stress hormone, cortisol, that actually makes your mind race through tomorrow's to-do list or replay today's conversations in your head. L-theanine and magnesium glycinate take the edge off so that you'll fall asleep quicker.",
-    photo: "/products/anytime-calm/wired-tired.webp",
-    alt: "A woman lying awake in bed at night, wired and unable to switch her mind off",
+    photo: "/products/anytime-calm/racing-to-calm-mind.webp",
+    alt: "An illustration of a red head with a tangled, racing mind next to an arrow pointing to a calm yellow head, eyes closed, asleep under a crescent moon",
   },
   {
     n: 3,
