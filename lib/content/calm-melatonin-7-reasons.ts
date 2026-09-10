@@ -28,8 +28,8 @@ export const HERO = {
      time rather than storing markup in a content file. */
   emphasis: "Raving",
   sub: "People who've tried melatonin are saying this is the only thing that actually helps them fall asleep, stay asleep, and wake up without the grogginess.",
-  image: "/products/anytime-calm/hero-mix.webp",
-  imageAlt: "A scoop of Anytime Calm powder pouring into a glass of water, the tub beside it on a kitchen counter",
+  image: "/products/anytime-calm/hero-before-after.webp",
+  imageAlt: "Split screen: a woman wide awake staring at the ceiling in a dark room on the left, a red arrow pointing right, the same woman sound asleep on the right",
 };
 
 export const OPENERS = [
@@ -74,8 +74,8 @@ export const REASONS: Reason[] = [
     n: 5,
     title: "It Tastes Amazing",
     body: "With a natural but not overly sweet cherry-lime flavor, you'll look forward to your sleepytime ritual every night.",
-    photo: "/products/anytime-calm/mixed-glass.webp",
-    alt: "A tall glass of the mixed cherry lime drink over ice with a wedge of lime, the tub standing behind it",
+    photo: "/products/anytime-calm/hero-mix.webp",
+    alt: "A scoop of Anytime Calm powder pouring into a glass of water, the tub beside it on a kitchen counter",
   },
   {
     n: 6,

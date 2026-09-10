@@ -29,10 +29,10 @@
   line-height: var(--leading-body); margin: 0 auto; max-width: 38rem;
 }
 /* Used only by the melatonin variant's hero, which the postpartum page does not
-   render. A capped, centered square so it reads as a supporting photo under the
-   subhead rather than a full-bleed image at the 60rem desktop wrap width. */
+   render. Landscape (the source photo is 1920x1080), so it runs the full wrap
+   width rather than the capped square the product-shot version used. */
 .heroShot {
-  width: 100%; max-width: 26rem; aspect-ratio: 1 / 1; margin: 1.5rem auto 0;
+  width: 100%; aspect-ratio: 16 / 9; margin: 1.5rem auto 0;
   overflow: hidden; border-radius: var(--radius-lg); background: var(--shell);
 }
 .heroRule { height: 1px; background: var(--border-hairline); max-width: 46rem; margin: 1.75rem auto; }

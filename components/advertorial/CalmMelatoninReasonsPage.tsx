@@ -101,7 +101,7 @@ export function CalmMelatoninReasonsPage() {
           </h1>
           <p className={styles.sub}>{HERO.sub}</p>
           <div className={styles.heroShot}>
-            <Image src={HERO.image} alt={HERO.imageAlt} width={720} height={720} className={styles.reasonShot} />
+            <Image src={HERO.image} alt={HERO.imageAlt} width={1920} height={1080} className={styles.reasonShot} />
           </div>
           <div className={styles.heroRule} aria-hidden="true" />
           <div className={styles.openers}>
