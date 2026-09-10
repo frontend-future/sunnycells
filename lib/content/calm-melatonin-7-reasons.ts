@@ -31,7 +31,8 @@ export const HERO = {
 };
 
 export const OPENERS = [
-  "Maybe melatonin worked for you, until it didn't. Your body got used to it, so you upped the dose, and you were back to staring at the ceiling by 2am anyway.",
+  "Maybe melatonin worked for you… until it didn't.",
+  "Your body got used to it, so you upped the dose, and you were back to staring at the ceiling by 2am anyway.",
   "Or maybe it never worked at all, just left your mind racing and a headache that lingered the whole next day.",
   "We made Anytime Calm for people who are done chasing a higher melatonin dose.\n\nHere are 7 Reasons People Who Ditched Melatonin Are Raving About This New Sleepytime Drink...",
 ];
@@ -63,7 +64,7 @@ export const REASONS: Reason[] = [
   {
     n: 4,
     title: "Every Dose Is Clinically Proven",
-    body: "A lot of melatonin supplements hide the real dose behind a 'proprietary blend,' so you can't actually tell what you're taking. Anytime Calm uses three simple ingredients, no junk: 3,000 mg glycine, 200 mg L-theanine, 200 mg magnesium glycinate, the same amounts used in the studies, not a fraction of them.",
+    body: "A lot of melatonin supplements hide the real dose behind a 'proprietary blend,' so you can't actually tell what you're taking. Anytime Calm uses three simple ingredients without the junk: Glycine, L-Theanine, and Magnesium Glycinate… the same amounts used in the studies, not a fraction of them.",
     photo: "/products/anytime-calm/mg-for-mg.png",
     alt: "A table matching the published research dose for glycine, L-theanine and magnesium glycinate against what is actually in Anytime Calm, mg for mg",
   },
@@ -76,7 +77,7 @@ export const REASONS: Reason[] = [
   },
   {
     n: 6,
-    title: "Save 50% On Your First Order",
+    title: "Double The Savings",
     body: "Buying the ingredients individually would cost you more and leave you with a chalky, tasteless drink. With Anytime Calm you'll save 50% on your first order and get to enjoy the benefits without the hassle.",
     photo: "/products/anytime-calm/double-savings.png",
     alt: "Skip the DIY stack: glycine, L-theanine and magnesium glycinate bought separately at $62 a month, versus Anytime Calm at $1.78 a day",
