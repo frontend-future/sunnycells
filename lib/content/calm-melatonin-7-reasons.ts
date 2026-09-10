@@ -46,8 +46,8 @@ export const REASONS: Reason[] = [
     n: 1,
     title: "It Doesn't Stop Working Like Melatonin Does",
     body: "Melatonin is a hormone, which means your body builds a tolerance to it over time and it eventually stops working, if it ever worked at all. Anytime Calm works differently: it supplies amino acids and minerals your body already uses to calm its own nervous system, instead of adding more of a hormone it's already making. So night 100 feels like night 1.",
-    photo: "/products/anytime-calm/vs-melatonin.png",
-    alt: "A chart comparing melatonin to Anytime Calm: how it works, morning after, dose you get, and whether it's habit forming",
+    photo: "/products/anytime-calm/melatonin-stops-working.webp",
+    alt: "A bar chart titled Melatonin Stops Working, showing its effect shrinking from a tall bar on night 1 to almost nothing by night 100",
   },
   {
     n: 2,
