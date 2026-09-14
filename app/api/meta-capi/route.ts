@@ -31,6 +31,10 @@ const DATASETS = {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID_CALM,
     token: process.env.META_CAPI_ACCESS_TOKEN_CALM,
   },
+  brain: {
+    pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID_BRAIN,
+    token: process.env.META_CAPI_ACCESS_TOKEN_BRAIN,
+  },
   default: {
     pixel: process.env.NEXT_PUBLIC_META_PIXEL_ID,
     token: process.env.META_CAPI_ACCESS_TOKEN,
@@ -80,7 +84,10 @@ export async function POST(request: Request) {
   }
 
   const key =
-    payload.funnel === "energy" || payload.funnel === "aging" || payload.funnel === "calm"
+    payload.funnel === "energy" ||
+    payload.funnel === "aging" ||
+    payload.funnel === "calm" ||
+    payload.funnel === "brain"
       ? payload.funnel
       : "default";
   const { pixel, token } = DATASETS[key];

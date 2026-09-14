@@ -53,3 +53,12 @@ test("the revitalize funnel reports into the original cortisol dataset", () => {
   assert.equal(funnelForPath("/revitalize/3pm-crash"), "revitalize");
   assert.equal(PIXEL_IDS.revitalize, PIXEL_IDS.default);
 });
+
+test("brain and memory power boost reports to its own dataset, clear mind does not", () => {
+  assert.equal(funnelForPath("/products/brain-memory"), "brain");
+  assert.equal(funnelForPath("/products/brain-memory/checkout"), "brain");
+  /* Clear Mind (SC-27) is a different product on an adjacent path. Prefix
+     matching must not blur the two into one dataset. */
+  assert.equal(funnelForPath("/products/brain"), "default");
+  assert.equal(funnelForPath("/products/brain/checkout"), "default");
+});
