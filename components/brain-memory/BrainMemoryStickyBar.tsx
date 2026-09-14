@@ -50,7 +50,7 @@ export function BrainMemoryStickyBar() {
         <span>Free first bottle &middot; ${SHIPPING_PRICE} shipping today</span>
       </span>
       <a href="#buy" className={styles.stickyCta} tabIndex={shown ? 0 : -1}>
-        Claim it free
+        Try it now
       </a>
     </div>
   );

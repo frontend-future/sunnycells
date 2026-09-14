@@ -23,35 +23,6 @@ function Stars() {
   );
 }
 
-/** Not OfferFlag: that component is the brand's standing 50% off percentage
-    offer specifically. This product runs a different mechanic (a free first
-    bottle, shipping only due today), so it gets its own badge rather than
-    borrowing one whose copy says something else. */
-function FreeMonthFlag() {
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        height: 32,
-        padding: "0 12px",
-        background: "var(--sprout)",
-        color: "var(--ink)",
-        borderRadius: "var(--radius-xs)",
-        fontFamily: "var(--font-text)",
-        fontWeight: 800,
-        fontSize: "var(--size-meta)",
-        letterSpacing: "var(--tracking-caps)",
-        textTransform: "uppercase",
-        lineHeight: 1,
-        whiteSpace: "nowrap",
-      }}
-    >
-      First month free
-    </span>
-  );
-}
-
 export function BrainMemoryOffer() {
   const router = useRouter();
 
@@ -70,20 +41,17 @@ export function BrainMemoryOffer() {
   const quote = REVIEWS[0];
 
   return (
-    <section className={styles.offer} id="buy" aria-labelledby="hero-title">
+    <section className={styles.offer} id="buy" aria-label={PRODUCT.name}>
       <div className={`${styles.wrap} ${styles.section}`}>
         <div className={styles.offerGrid}>
-          <BrainMemoryGallery />
-
-          <div className={styles.offerCard}>
-            <div className={styles.offerTop}>
-              <FreeMonthFlag />
-            </div>
-
+          {/* Name, rating and subhead, above the gallery on a phone. The id lives
+              here rather than on the desktop copy below: this is the element
+              that's actually visible on mobile, and the sticky bar's
+              IntersectionObserver has to watch a visible element to work. */}
+          <div className={styles.offerHeadMobile}>
             <h2 className={styles.h2} id="hero-title">
               {PRODUCT.name}
             </h2>
-
             <div className={styles.ratingRow}>
               <Stars />
               <span className={styles.ratingScore}>{RATING.score}/5</span>
@@ -91,8 +59,27 @@ export function BrainMemoryOffer() {
                 {RATING.count.toLocaleString("en-US")} reviews
               </span>
             </div>
-
             <p className={styles.subhead}>{SUBHEAD}</p>
+          </div>
+
+          <BrainMemoryGallery />
+
+          <div className={styles.offerCard}>
+            <div className={styles.offerHeadDesktop}>
+              <h2 className={styles.h2}>
+                {PRODUCT.name}
+              </h2>
+
+              <div className={styles.ratingRow}>
+                <Stars />
+                <span className={styles.ratingScore}>{RATING.score}/5</span>
+                <span className={styles.lineNote}>
+                  {RATING.count.toLocaleString("en-US")} reviews
+                </span>
+              </div>
+
+              <p className={styles.subhead}>{SUBHEAD}</p>
+            </div>
 
             <figure className={styles.pullQuote}>
               <div>
@@ -107,7 +94,7 @@ export function BrainMemoryOffer() {
             {/* First bottle reads as free against the regular $49 price, with the
                 dollar value of that saving stated beside it. */}
             <div className={styles.priceRow}>
-              <span className={styles.priceNow}>Free</span>
+              <span className={styles.priceNow}>First Month Free</span>
               <span className={styles.priceWas}>${PLAN.compareAt}</span>
               <span className={styles.savePill}>Save ${PLAN.compareAt}</span>
             </div>
@@ -124,14 +111,14 @@ export function BrainMemoryOffer() {
             </ul>
 
             <Button fullWidth variant="accent" size="lg" onClick={buy} style={{ marginTop: "var(--space-6)" }}>
-              Claim my free bottle
+              Try it now
             </Button>
 
             <p className={styles.autoApplied}>
               <span className={styles.autoTick} aria-hidden="true">
                 <Icon name="check" size={13} strokeWidth={3.5} />
               </span>
-              First bottle free &mdash; just pay ${SHIPPING_PRICE} shipping today
+              First bottle free &mdash; just cover ${SHIPPING_PRICE} shipping today
             </p>
             <p className={styles.termsLine}>
               {PLAN.sub}. Cancel anytime.

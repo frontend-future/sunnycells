@@ -223,7 +223,7 @@ export const QUICK_INFO = [
   },
   {
     title: "Shipping, returns & guarantee",
-    body: "Your first bottle is free. You pay $10 shipping today, then $49 every month after that, shipped automatically. Cancel anytime. If you do not notice a difference, you are covered by a 30 day money back guarantee.",
+    body: "Your first bottle is free. You cover $10 shipping today, then $49 every month after that, shipped automatically. Cancel anytime. If you do not notice a difference, you are covered by a 30 day money back guarantee.",
   },
 ] as const;
 

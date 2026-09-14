@@ -23,6 +23,26 @@
   --action-accent-fg: var(--ink);
   background: var(--surface-page);
   color: var(--text-primary);
+
+  /* Every size token this module reads from is redefined here, larger than the
+     shared default. Scoped to .page, so only this product's text grows and
+     nothing outside this file changes. */
+  --size-hero: 104px;
+  --size-display: 76px;
+  --size-h1: 54px;
+  --size-h2: 42px;
+  --size-h3: 32px;
+  --size-h4: 28px;
+  --size-body-lg: 25px;
+  --size-body: 23px;
+  --size-label: 22px;
+  --size-meta: 19px;
+  --size-hero-m: 52px;
+  --size-display-m: 43px;
+  --size-h1-m: 36px;
+  --size-h2-m: 32px;
+  --size-h3-m: 27px;
+  --size-h4-m: 25px;
 }
 
 /* ---------- shared ---------- */
@@ -482,6 +502,24 @@
   align-items: start;
 }
 
+/* Name, rating and subhead read above the gallery on a phone (matching the
+   reference's mobile layout) and inside the card beside the gallery on a wide
+   screen. display:none removes the hidden one from grid flow entirely, so
+   this never becomes a stray third grid track on desktop. */
+.offerHeadMobile {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .offerHeadMobile {
+    display: block;
+  }
+
+  .offerHeadDesktop {
+    display: none;
+  }
+}
+
 .offerShot {
   width: 100%;
   height: auto;
@@ -505,12 +543,15 @@
   margin-top: var(--space-4);
 }
 
+/* Reads "First Month Free" here, not a number, so this stays well under the
+   44px a bare price would take: at that size the phrase wraps ugly next to
+   the struck $49 and the save pill on a phone. */
 .priceNow {
   font-family: var(--font-display);
-  font-size: 44px;
+  font-size: 32px;
   font-weight: 900;
   letter-spacing: var(--tracking-display);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .priceUnit {
@@ -521,7 +562,7 @@
 
 .priceWas {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--ink-60);
   text-decoration: line-through;
@@ -1016,7 +1057,7 @@
   background: var(--action-primary-bg);
   color: var(--action-primary-fg);
   font-family: var(--font-text);
-  font-size: 20px;
+  font-size: 23px;
   font-weight: 800;
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
@@ -1040,7 +1081,7 @@
 .ctaSm {
   min-height: 48px;
   padding: 0 var(--space-5);
-  font-size: 17px;
+  font-size: 19px;
 }
 
 /* The hero has to put its button on screen on the smallest phone we support, so
