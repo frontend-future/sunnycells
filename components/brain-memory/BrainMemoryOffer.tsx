@@ -7,7 +7,7 @@ import { Icon } from "@/components/core/Icon";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  DESCRIPTION, INCLUDED, PLAN, PRODUCT, QUICK_INFO, RATING,
+  INCLUDED, PLAN, PRODUCT, QUICK_INFO, RATING,
   REVIEWS, SHIPPING_PRICE, SUBHEAD, CART_ID,
 } from "@/lib/products/brain-memory";
 import { BrainMemoryGallery } from "./BrainMemoryGallery";
@@ -35,8 +35,8 @@ function FreeMonthFlag() {
         alignItems: "center",
         height: 32,
         padding: "0 12px",
-        background: "var(--ink)",
-        color: "var(--white)",
+        background: "var(--sprout)",
+        color: "var(--ink)",
         borderRadius: "var(--radius-xs)",
         fontFamily: "var(--font-text)",
         fontWeight: 800,
@@ -78,7 +78,6 @@ export function BrainMemoryOffer() {
           <div className={styles.offerCard}>
             <div className={styles.offerTop}>
               <FreeMonthFlag />
-              <span className={styles.offerTerms}>Just pay ${SHIPPING_PRICE} shipping &middot; Cancel anytime</span>
             </div>
 
             <h2 className={styles.h2} id="hero-title">
@@ -94,21 +93,23 @@ export function BrainMemoryOffer() {
             </div>
 
             <p className={styles.subhead}>{SUBHEAD}</p>
-            <p className={styles.offerBody}>{DESCRIPTION}</p>
 
-            <a className={styles.reviewLink} href="#reviews-title">
-              <Stars />
-              Read their reviews
-              <Icon name="chevron-right" size={18} strokeWidth={2.5} />
-            </a>
+            <figure className={styles.pullQuote}>
+              <div>
+                <Stars />
+                <blockquote className={styles.lineNote}>{quote.body}</blockquote>
+                <figcaption className={styles.quoteWho}>
+                  {quote.name} <span className={styles.verified}>Verified buyer</span>
+                </figcaption>
+              </div>
+            </figure>
 
             {/* First bottle reads as free against the regular $49 price, with the
-                $10 shipping charge stated plainly right beside it rather than
-                folded into a number that looks like the product's price. */}
+                dollar value of that saving stated beside it. */}
             <div className={styles.priceRow}>
               <span className={styles.priceNow}>Free</span>
               <span className={styles.priceWas}>${PLAN.compareAt}</span>
-              <span className={styles.savePill}>+ ${SHIPPING_PRICE} shipping today</span>
+              <span className={styles.savePill}>Save ${PLAN.compareAt}</span>
             </div>
 
             <ul className={styles.included}>
@@ -135,16 +136,6 @@ export function BrainMemoryOffer() {
             <p className={styles.termsLine}>
               {PLAN.sub}. Cancel anytime.
             </p>
-
-            <figure className={styles.pullQuote}>
-              <div>
-                <Stars />
-                <blockquote className={styles.lineNote}>{quote.body}</blockquote>
-                <figcaption className={styles.quoteWho}>
-                  {quote.name} <span className={styles.verified}>Verified buyer</span>
-                </figcaption>
-              </div>
-            </figure>
 
             <div style={{ marginTop: "var(--space-6)" }}>
               <Accordion items={QUICK_INFO.map((q) => ({ title: q.title, body: q.body }))} />

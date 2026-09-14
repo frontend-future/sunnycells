@@ -286,14 +286,6 @@ export function buildOrder(): Order {
 
 export const SUBHEAD = "The #1 doctor-formulated nootropic for a sharper brain";
 
-export const DESCRIPTION =
-  "Struggling to focus, or losing your train of thought mid conversation? Brain & Memory Power Boost is built around six research backed actives, including phosphatidylserine, acetyl-L-carnitine and ginkgo biloba, to support sharper memory, steadier focus and clearer thinking, at any age.";
-
-export const SERVING_NOTE = {
-  title: "Get 30 daily servings of Brain & Memory Power Boost",
-  body: "Four capsules with food, once a day. Six actives at the doses the research used, with nothing here relying on a stimulant.",
-} as const;
-
 export const INCLUDED = [
   { icon: "truck", label: "$10 shipping, charged today" },
   { icon: "shield-check", label: "30 day money back guarantee" },
