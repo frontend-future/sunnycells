@@ -1,0 +1,1957 @@
+/* SC-31 Brain & Memory Power Boost landing page.
+
+   Structured after the long-form supplement landing pattern the category runs:
+   problem hero, pillar cards, mechanism, comparison, proof, offer, close. The
+   sections and their order are the convention. Everything inside them is this
+   brand's: our palette, our two faces, our 12px corners, our standing offer.
+
+   Two places this deliberately departs from the reference it was scoped against.
+   Buttons keep 12px corners rather than pills, because the system says so. And
+   there is no countdown or limited-time framing anywhere, because the 50% off
+   first order is a standing term with no expiry. */
+
+.page {
+  /* Every call to action on this product, on the page and through checkout, runs the
+     one green gradient. Rebinding the action tokens here means the shared Button, the
+     link CTAs and the phone bar all read from the same pair, and nothing outside this
+     page changes. */
+  --action-primary-bg: linear-gradient(135deg, var(--sky) 0%, var(--sky-press) 100%);
+  --action-primary-bg-press: linear-gradient(135deg, var(--sky-press) 0%, #4E7AB0 100%);
+  --action-primary-fg: var(--ink);
+  --action-accent-bg: var(--action-primary-bg);
+  --action-accent-bg-press: var(--action-primary-bg-press);
+  --action-accent-fg: var(--ink);
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+/* ---------- shared ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--page-max, 1200px);
+  margin: 0 auto;
+  padding-inline: var(--page-gutter-mobile, 20px);
+}
+
+.section {
+  padding-block: var(--space-20);
+}
+
+.sectionTight {
+  padding-block: var(--space-12);
+}
+
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink-60);
+  margin: 0 0 var(--space-3);
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(var(--size-h3), 5.2vw, var(--size-h2));
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+.lede {
+  margin: var(--space-4) 0 0;
+  font-size: var(--size-body);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+  text-wrap: pretty;
+}
+
+.centered {
+  text-align: center;
+}
+
+.centered .lede {
+  margin-inline: auto;
+  max-width: 60ch;
+}
+
+/* ---------- header ---------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface-page);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 64px;
+}
+
+/* ---------- hero ---------- */
+
+/* The one gradient in the system, requested for this hero specifically. Kept to two
+   tints that already exist in the palette and a narrow value range, so it reads as
+   light falling across a block rather than as a colour effect. */
+.hero {
+  background: linear-gradient(168deg, #F2F9EE 0%, var(--sky-tint) 46%, var(--sun-tint) 100%);
+  border-bottom: 1px solid var(--border-hairline);
+  padding-block: var(--space-12) var(--space-8);
+}
+
+.heroGrid {
+  display: grid;
+  /* min() so a 360px phone cannot be pushed sideways by the track floor */
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  /* Capped at h1 rather than hero: at hero size the first line broke in two and the
+     headline ran to four lines against the three this layout is built for. */
+  font-size: clamp(var(--size-h2-m), 6.4vw, var(--size-h1));
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.heroTitle span {
+  font-weight: 600;
+}
+
+.heroBody {
+  margin: var(--space-6) 0 0;
+  max-width: 52ch;
+  font-size: var(--size-body);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+  text-wrap: pretty;
+}
+
+/* Column, so the rating reads as proof of the button rather than competing with
+   it for the same line. */
+.heroActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.heroRating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.heroNote {
+  margin: var(--space-6) 0 0;
+  max-width: 48ch;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.heroNote strong {
+  font-weight: 800;
+}
+
+.heroShot {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  margin-inline: auto;
+  display: block;
+}
+
+/* ---------- pillar chips ---------- */
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-3);
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-12);
+}
+
+.chip {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-80);
+}
+
+.chip b {
+  font-family: var(--font-label);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink);
+}
+
+/* ---------- pillar cards ---------- */
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.pillarShot {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.pillarBody {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+/* Name and dose read as one spec line. They wrap to two only once the cards stack,
+   where there is no width left to hold them together. */
+.pillarHead {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pillarName {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+.pillarDose {
+  font-family: var(--font-label);
+  /* Sized so the longest of the three, the B vitamins and PEAK ATP line, still sits
+     beside its name on one line in a three column card. */
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink-60);
+}
+
+/* Names the tick list under it, since Fuel's are study outcomes and the other two
+   cards list what the ingredient supports. */
+.pillarTicksLabel {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink-60);
+}
+
+.pillarCopy {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.ticks {
+  list-style: none;
+  margin: auto 0 0;
+  padding: var(--space-4) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ticks li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+}
+
+.tick {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sky);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+/* ---------- mechanism ---------- */
+
+.mechanism {
+  background: var(--surface-sunk);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.splitShot {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-image);
+  display: block;
+}
+
+.mechBlock + .mechBlock {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.mechName {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-label);
+  font-size: var(--size-body);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* ---------- comparison ---------- */
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.compareUs,
+.compareThem {
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  border: 1px solid var(--border-hairline);
+}
+
+.compareUs {
+  /* Sprout tint deepening down the card, so our column reads green against the flat
+     grey of theirs. The darkest stop still carries black body text at 11:1. */
+  background: linear-gradient(165deg, #EEF3FB 0%, var(--sky-tint) 42%, #C9D9F2 100%);
+  border-color: var(--ink);
+}
+
+.compareThem {
+  background: var(--surface-sunk);
+}
+
+.compareHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.compareShot {
+  width: 72px;
+  height: auto;
+  display: block;
+}
+
+.compareTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--size-h4);
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+}
+
+.cross {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink-20);
+  color: var(--ink-80);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+/* ---------- quotes ---------- */
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.quote {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: var(--sun);
+}
+
+.quoteText {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.quoteWho {
+  margin: auto 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--size-meta);
+  font-weight: 700;
+}
+
+.verified {
+  color: var(--ink-60);
+  font-weight: 500;
+}
+
+/* ---------- offer ---------- */
+
+/* Same gradient as the hero, so the page opens and closes its buying moments on
+   the same ground. A flat yellow block sat badly against a green pack and against
+   the white gallery and card on top of it. */
+.offer {
+  background: linear-gradient(168deg, #F2F9EE 0%, var(--sky-tint) 46%, var(--sun-tint) 100%);
+  border-block: 1px solid var(--border-hairline);
+  /* The header is sticky, so an anchor landing flush at the top would sit under
+     it. Clears the 64px bar with a little air. */
+  scroll-margin-top: 80px;
+}
+
+.offerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.offerShot {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-image);
+  background: var(--white);
+}
+
+.offerCard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+.priceNow {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+}
+
+.priceUnit {
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--ink-60);
+}
+
+.priceWas {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink-60);
+  text-decoration: line-through;
+  letter-spacing: -0.02em;
+}
+
+.plans {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+.plan {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 64px;
+  text-align: left;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-button);
+  border: 2px solid var(--border-hairline);
+  background: var(--surface-card);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.planOn {
+  border-color: var(--ink);
+  background: linear-gradient(135deg, #EEF3FB 0%, var(--sky-tint) 55%, #CFDEF5 100%);
+}
+
+.radio {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--ink-60);
+  display: grid;
+  place-items: center;
+}
+
+.planOn .radio {
+  border-color: var(--ink);
+}
+
+.radio span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.planText {
+  flex: 1;
+  min-width: 0;
+}
+
+.planName {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 800;
+}
+
+.planSub {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
+.planPrice {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: var(--size-h4);
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+}
+
+/* Sits directly under the buy button: the standing term restated at the moment of
+   the decision, then the three things people check before pressing it. */
+.autoApplied {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-size: var(--size-body);
+  font-weight: 800;
+  color: var(--status-success);
+  text-align: center;
+}
+
+.autoTick {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--status-success);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.termsLine {
+  margin: var(--space-2) 0 0;
+  text-align: center;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
+.trustRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--ink-80);
+}
+
+/* ---------- ugc strip ---------- */
+
+/* Used inside the offer column, where two shots sit under the pack. */
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 45%), 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+}
+
+.stripShot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* The social row runs edge to edge and scrolls on its own. The track holds the
+   same set twice and travels exactly half its width, so the loop has no seam. */
+.ugc {
+  margin-top: var(--space-8);
+  overflow: hidden;
+}
+
+.ugcTrack {
+  display: flex;
+  width: max-content;
+  animation: ugcScroll 64s linear infinite;
+}
+
+/* Spacing lives on the tile, not as a track gap: a gap would add one extra
+   space between the two halves and the loop would jump every pass. */
+.ugcShot {
+  flex: none;
+  width: clamp(220px, 26vw, 340px);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  margin-right: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+@keyframes ugcScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Reading a face is the point, so the loop stops under a pointer. */
+.ugc:hover .ugcTrack {
+  animation-play-state: paused;
+}
+
+/* The global reduced-motion rule caps iterations at one, which would strand this
+   track halfway. Stop it where it starts instead and let the row be scrolled. */
+@media (prefers-reduced-motion: reduce) {
+  .ugc {
+    overflow-x: auto;
+  }
+
+  .ugcTrack {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ---------- is / is not ---------- */
+
+/* stretch, not start: the two lists rarely run to the same number of lines and
+   uneven card bottoms read as a mistake rather than as content. */
+.isGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+  align-items: stretch;
+}
+
+.isCard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+}
+
+/* The lists sit at the top of their card and the slack falls to the bottom, so
+   the two columns start on the same line as each other. */
+.isCard .ticks {
+  margin-top: 0;
+  margin-bottom: auto;
+}
+
+.isTitle {
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--size-h4);
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+}
+
+.isShot {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius-image);
+  display: block;
+}
+
+/* ---------- expect ---------- */
+
+.expect {
+  /* Deep versions of the brand hues (ink into sky into sprout) rather than flat ink.
+     All three stops sit above 8:1 against white, so the list copy is unaffected. */
+  background: linear-gradient(135deg, var(--ink) 0%, #16325C 48%, #1B4A37 100%);
+  color: var(--text-inverse);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+}
+
+.expectBody {
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+}
+
+/* The photo column sets the height of the row, so the list opens out to fill what
+   is left rather than bunching under the heading. */
+.expectBody .ticks {
+  flex: 1;
+  justify-content: space-between;
+}
+
+.expectBody .h2 {
+  color: var(--white);
+}
+
+.expectBody .ticks li {
+  color: var(--white);
+}
+
+.expectShot {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- three benefits ---------- */
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-8);
+  text-align: center;
+}
+
+.benefitIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--border-hairline);
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-4);
+}
+
+.benefitName {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-label);
+  font-size: var(--size-body);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* ---------- closing banner ---------- */
+
+.banner {
+  position: relative;
+  isolation: isolate;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bannerShot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Flat scrim, not a gradient: the system does not use them, and a solid tint at
+   this opacity already clears contrast on the lightest part of the photo. */
+.bannerScrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 13, 12, 0.62);
+  z-index: -1;
+}
+
+.bannerTitle {
+  margin: 0;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: clamp(var(--size-h2-m), 7vw, var(--size-display));
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.bannerBody {
+  margin: var(--space-5) auto 0;
+  max-width: 46ch;
+  color: var(--white);
+  font-size: var(--size-body);
+  font-weight: 500;
+  line-height: var(--leading-body);
+}
+
+/* ---------- reviews ---------- */
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin-inline: auto;
+  margin-top: var(--space-8);
+}
+
+.review {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* Nothing follows the last one, so its rule would just hang under the section. */
+.review:last-child {
+  border-bottom: 0;
+}
+
+.reviewWho {
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-80);
+}
+
+.reviewName {
+  display: block;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.reviewTitle {
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: var(--size-body);
+  font-weight: 800;
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  background: var(--sky-tint);
+  border-top: 1px solid var(--border-hairline);
+  padding-top: var(--space-16);
+  overflow: hidden;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-10);
+  padding-bottom: var(--space-12);
+}
+
+.footerCol h3 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+.footerCol ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footerCol a {
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-80);
+  text-decoration: none;
+}
+
+.footerCol a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* The oversized wordmark that closes the page, bled to the gutters. */
+.footerMark {
+  display: block;
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 900;
+  /* Sized to fill the gutters without spilling past them. SUNNYCELLS is ten
+     characters of heavy Outfit at -0.05em, which measures about 6.1em wide, so
+     the viewport factor has to stay under 100/6.1. 19vw overflowed by 194px at
+     1280 and the footer's overflow:hidden ate the final S. */
+  font-size: clamp(40px, 16vw, 300px);
+  letter-spacing: -0.05em;
+  line-height: 0.82;
+  text-align: center;
+  color: var(--ink);
+  padding-bottom: var(--space-4);
+}
+
+.legal {
+  border-top: 1px solid var(--border-hairline);
+  padding-block: var(--space-6);
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+  text-align: center;
+  line-height: var(--leading-body);
+}
+
+@media (min-width: 900px) {
+  .wrap {
+    padding-inline: var(--space-8);
+  }
+}
+
+/* Link CTAs. Button is a <button> only, so anchors get the same look here rather
+   than nesting interactive elements. 12px corners and a 56px target, per the system. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-button);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  font-family: var(--font-text);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.cta:hover {
+  background: var(--action-primary-bg-press);
+}
+
+.ctaAccent {
+  background: var(--action-accent-bg);
+  color: var(--action-accent-fg);
+}
+
+.ctaAccent:hover {
+  background: var(--action-accent-bg-press);
+}
+
+.ctaSm {
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  font-size: 17px;
+}
+
+/* The hero has to put its button on screen on the smallest phone we support, so
+   the vertical rhythm compresses below 720px tall rather than the type shrinking.
+   Body copy stays at its 20px floor either way. */
+@media (max-height: 720px) and (max-width: 700px) {
+  .hero {
+    padding-block: var(--space-5) var(--space-4);
+  }
+
+  .heroBody {
+    margin-top: var(--space-4);
+  }
+
+  .heroActions {
+    margin-top: var(--space-5);
+  }
+
+  .heroNote {
+    margin-top: var(--space-4);
+  }
+}
+
+/* ---------- product gallery ---------- */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* The buy column is far taller than the gallery, so once they sit side by side the
+   images follow rather than scrolling away and leaving a column of nothing. Below
+   that they stack, where sticky would trap the images over the copy. */
+@media (min-width: 900px) {
+  .gallery {
+    position: sticky;
+    top: 88px;
+  }
+}
+
+.galleryStage {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-image);
+  overflow: hidden;
+}
+
+.galleryShot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+}
+
+.galleryNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border-hairline);
+  background: var(--white);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.galleryNav:hover {
+  background: var(--sun-tint);
+}
+
+.galleryPrev { left: var(--space-3); }
+.galleryNext { right: var(--space-3); }
+
+.galleryCount {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-xs);
+  padding: 6px 12px;
+  font-size: var(--size-meta);
+  font-weight: 700;
+}
+
+/* Scrolls rather than shrinks: seven thumbnails squeezed into a phone width would
+   leave each one too small to tell apart. */
+.thumbs {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  scrollbar-width: thin;
+}
+
+.thumb {
+  flex: none;
+  width: 84px;
+  height: 84px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border-hairline);
+  background: var(--white);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.thumbOn {
+  border-color: var(--ink);
+}
+
+.thumbShot {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ---------- checkout ---------- */
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  font-size: var(--size-meta);
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.checkoutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field > label {
+  font-size: var(--size-meta);
+  font-weight: 700;
+}
+
+.field input,
+.field select {
+  min-height: 56px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-input);
+  border: 1px solid var(--border-input);
+  background: var(--white);
+  font: inherit;
+  font-size: var(--size-body);
+  color: var(--ink);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"] {
+  border-color: var(--status-danger, #B3261E);
+  border-width: 2px;
+}
+
+.fieldError {
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--status-danger, #B3261E);
+}
+
+.shipDone {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-sunk);
+}
+
+.editLink {
+  flex: none;
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-button);
+  background: transparent;
+  font: inherit;
+  font-size: var(--size-meta);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.summary {
+  background: linear-gradient(160deg, var(--summary-a, #EEF3FB) 0%, var(--sky-tint) 45%, var(--summary-b, #CFDEF5) 100%);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+}
+
+/* The rail is always open on a wide screen, so the toggle only exists below 900px,
+   where the summary moves above the form and starts collapsed. */
+.summaryToggle {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .summary {
+    order: -1;
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .summaryToggle {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    min-height: 56px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .summaryToggle > span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--size-meta);
+    font-weight: 800;
+  }
+
+  .summaryToggle > strong {
+    justify-self: end;
+    font-family: var(--font-display);
+    font-size: 22px;
+  }
+
+  .chevronUp {
+    transform: rotate(180deg);
+  }
+
+  .summaryTitle {
+    display: none;
+  }
+
+  .summaryBody {
+    display: none;
+  }
+
+  .summaryBodyOpen {
+    display: block;
+  }
+}
+
+.lineItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.lineShot {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+}
+
+.lineIcon {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+}
+
+.lineText {
+  flex: 1;
+  min-width: 0;
+}
+
+.lineName {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 800;
+}
+
+.lineNote {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+  line-height: var(--leading-body);
+}
+
+.linePrice {
+  flex: none;
+  font-size: var(--size-body);
+  font-weight: 800;
+  text-align: right;
+}
+
+.linePrice s {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 600;
+  color: var(--ink-60);
+}
+
+.totals {
+  margin: var(--space-5) 0 var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.totals div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--size-meta);
+  font-weight: 600;
+}
+
+.totals dd {
+  margin: 0;
+}
+
+.saving {
+  color: var(--status-success);
+  font-weight: 800;
+}
+
+.totalRow {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.totalRow dt {
+  font-size: var(--size-body);
+  font-weight: 800;
+}
+
+.totalRow dd {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+}
+
+/* ---------- denser buy box ---------- */
+
+.offerTop {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.offerTerms {
+  font-size: var(--size-meta);
+  font-weight: 700;
+  color: var(--ink-80);
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.ratingScore {
+  font-size: var(--size-meta);
+  font-weight: 800;
+}
+
+.subhead {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+  color: var(--ink);
+}
+
+/* Tighter leading than body copy. These blocks sit above the price, and every line
+   they save is a line of the plan picker that clears the fold. 17px is the floor the
+   system uses for supporting copy; the reader here is 35 to 60, so the words came
+   down rather than the type. */
+.offerBody {
+  margin: var(--space-2) 0 0;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: 1.42;
+  color: var(--ink-80);
+}
+
+.servingNote {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--surface-sunk);
+  border-radius: var(--radius-card);
+}
+
+.servingTitle {
+  margin: 0 0 var(--space-1);
+  font-size: var(--size-meta);
+  font-weight: 800;
+}
+
+/* Faces then the link, so the row reads as people before it reads as navigation. */
+.reviewLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  margin-top: var(--space-4);
+  font-size: var(--size-meta);
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.reviewLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.avatars {
+  display: flex;
+}
+
+/* Overlapped, with a ring in the card colour so each face stays separate. */
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--surface-card);
+}
+
+.avatar + .avatar {
+  margin-left: -12px;
+}
+
+.savePill {
+  background: var(--sky-tint);
+  border: 1px solid var(--sky);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: var(--size-meta);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.included {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.included li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--size-meta);
+  font-weight: 600;
+}
+
+.planName {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.planTag {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-xs);
+  padding: 3px 8px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+/* The subscription terms, on the page rather than buried behind a link. This is
+   the slot a countdown or a stock meter would occupy on other sites; the system
+   does not run either, so it holds something true instead. */
+.worksBox {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+}
+
+.worksTitle {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--size-meta);
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+}
+
+.worksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.worksList li {
+  position: relative;
+  padding-left: var(--space-5);
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
+.worksList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.pullQuote {
+  display: flex;
+  gap: var(--space-4);
+  margin: var(--space-6) 0 0;
+  padding: var(--space-5);
+  background: var(--surface-sunk);
+  border-radius: var(--radius-card);
+}
+
+.quoteAvatar {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+/* ---------- mobile sticky buy bar ---------- */
+
+.stickyBar {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .stickyBar {
+    position: fixed;
+    right: var(--space-3);
+    bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+    left: var(--space-3);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-height: 72px;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-card);
+    background: var(--ink);
+    color: var(--white);
+    box-shadow: 0 12px 30px rgba(13, 13, 12, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + var(--space-6)));
+    transition: opacity var(--duration-fast, 160ms) ease, transform var(--duration-fast, 160ms) ease;
+  }
+
+  .stickyBarOn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Small enough that the name, the price and a 48px tap target still fit across a
+     360px phone without the text column wrapping. */
+  .stickyShot {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: var(--radius-xs);
+    background: var(--white);
+  }
+
+  .stickyText {
+    display: flex;
+    /* Takes the free space so the name sits against the thumb and the button keeps
+       its own edge, rather than the three items spreading across the bar. */
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.25;
+    min-width: 0;
+  }
+
+  .stickyText strong {
+    font-size: var(--size-meta);
+    font-weight: 800;
+  }
+
+  .stickyText span {
+    /* Small enough to hold the price and the standing offer on one line beside a
+       48px tap target on a 390px phone. */
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: var(--ink-20);
+  }
+
+  .stickyCta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding-inline: var(--space-5);
+    border-radius: var(--radius-button);
+    background: var(--action-accent-bg);
+    color: var(--action-accent-fg);
+    font-size: var(--size-meta);
+    font-weight: 800;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- photo placeholders ----------
+   No photography was supplied for this SKU. Flat colour blocks with a typographic
+   mark stand in, the same convention the ui_kits use where a cutout is missing.
+   Swap these for real photography (product shot, lifestyle, ingredient close-ups)
+   before this page takes traffic. */
+.placeholder {
+  background: linear-gradient(155deg, var(--sky-tint) 0%, var(--white) 100%);
+  border: 1px dashed var(--sky-press);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-60);
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-mono);
+  text-align: center;
+  padding: var(--space-4);
+}
+
+/* ---------- bundle cards ----------
+   The reference's three quantity tiles: image on top, a savings badge overhanging
+   the corner, name and price below. A grid of equal cards, not a stacked list of
+   rows, which is the shape that actually reads as "the reference" rather than as
+   a generic plan picker. */
+.bundleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.bundleCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2) var(--space-3);
+  background: var(--white);
+  border: 2px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  text-align: center;
+}
+
+.bundleCardOn {
+  border-color: var(--sky);
+  background: var(--sky-tint);
+}
+
+.bundleBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 10px;
+  border-radius: var(--radius-xs);
+  background: var(--sky);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+  white-space: nowrap;
+}
+
+.bundleShot {
+  width: 100%;
+  height: 84px;
+  border-radius: var(--radius-xs);
+}
+
+.bundleName {
+  font-size: var(--size-meta);
+  font-weight: 700;
+}
+
+.bundlePrice {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.bundleWas {
+  font-size: var(--size-meta);
+  color: var(--ink-60);
+  text-decoration: line-through;
+}
+
+/* ---------- comparison table ----------
+   The reference runs this as one table (our column of checks beside their column
+   of crosses, both against the same row labels), not two separate cards. That
+   single-table shape is one of the most recognisable things about the page. */
+.compareTable {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.compareTableHead {
+  display: contents;
+}
+
+.compareTableHead span {
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-mono);
+  text-align: center;
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--border-hairline);
+}
+
+.compareTableRow {
+  display: contents;
+}
+
+.compareTableRow span:first-child {
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: var(--size-body);
+}
+
+.compareTableRow span:not(:first-child) {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* ---------- ingredient list ----------
+   The reference's dashed-connector ingredient list: a circular thumbnail, a
+   dashed line, the name. Simplified to a circle and a name, stacked beside a
+   product shot, since there is no ingredient photography to run through the
+   connector line itself. */
+.ingredientList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.ingredientItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ingredientDot {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--sky-tint);
+  border: 1px solid var(--sky);
+  display: grid;
+  place-items: center;
+}
+
+.ingredientName {
+  display: block;
+  font-family: var(--font-label);
+  font-weight: 800;
+  font-size: var(--size-body);
+  letter-spacing: var(--tracking-mono);
+}
+
+.ingredientDose {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
+/* ---------- supplied graphics ----------
+   Real photography and pre-built marketing graphics exist for this SKU, unlike
+   Clear Mind. These sit full width in their own section rather than behind the
+   .placeholder treatment. */
+.imageBanner {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-image);
+  margin-inline: auto;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.photoGridShot {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-image);
+}
+
+/* ---------- dark band ----------
+   The reference's "why trust us" strip and FAQ both sit on the same deep green
+   field, not on white. One class, reused by both sections. */
+.darkBand {
+  background: linear-gradient(160deg, var(--ink) 0%, #0F3A22 100%);
+  color: var(--white);
+}
+
+.darkBand .h2,
+.darkBand .eyebrow {
+  color: var(--white);
+}
+
+.darkBand .benefitIcon {
+  border-color: rgba(255, 255, 255, 0.35);
+}
