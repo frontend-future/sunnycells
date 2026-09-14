@@ -36,9 +36,9 @@ export type Reason = { n: number; title: string; body: string; photo: string; al
  * Copy as supplied, with two corrections that are factual rather than editorial.
  *
  *   L-THEANINE IS NOT IN SC-25. The supplied text named it twice. It is an Outty
- *   ingredient, from the competitor page in lib/products/outty.ts, and naming an
- *   ingredient the pack does not contain is the one thing on a supplement page that
- *   is indefensible. Replaced with what is actually in the sachet and does the job
+ *   ingredient, from the competitor's own page, and naming an ingredient the pack
+ *   does not contain is the one thing on a supplement page that is indefensible.
+ *   Replaced with what is actually in the sachet and does the job
  *   described: magnesium glycinate and pantothenic acid.
  *
  *   "grass-fed gelatin" and "real fruit juice" are not on our label either. The label

@@ -70,14 +70,10 @@ const GROUPS = [
       p === "/advertorials/cortisol-collagen-matrix",
   ],
   ["BeetRoot+ Chews", (p) => p.startsWith("/lander/beetroot")],
-  ["Hormone Harmony", (p) => p.startsWith("/hormone-harmony")],
   /* Quiz-only funnel, no dedicated /products page of its own. */
   ["Creatine + Collagen + Electrolytes", (p) => p.startsWith("/quiz/aging") || p === "/aging/7-warning-signs"],
   /* Quiz-only funnel too; shares the diet quiz's own checkout screen. */
   ["Metabolic Morning Blend", (p) => p.startsWith("/quiz/diet")],
-  /* A layout clone of a competitor's page, built for internal review. Not a
-     Sunnycells product, kept in its own group rather than folded into one. */
-  ["Outty (competitor review clone, not a Sunnycells product)", (p) => p.startsWith("/pages/pre-sub") || p.startsWith("/pages/sub")],
   ["Site", (p) => p === "/"],
 ];
 

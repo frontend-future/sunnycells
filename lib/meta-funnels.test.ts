@@ -35,7 +35,6 @@ test("everything else stays on the original dataset", () => {
     "/",
     "/quiz/diet",
     "/quiz/diet/results/checkout",
-    "/hormone-harmony",
     "/quiz/energydrinks",
     "/quiz/agingskin",
     "/aging-something-else",

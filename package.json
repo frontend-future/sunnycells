@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "generate:fal": "node scripts/generate-hormone-fal-images.mjs",
     "urls": "node scripts/list-urls.mjs",
     "start": "next start",
     "lint": "eslint",
