@@ -530,6 +530,13 @@
   .offerHeadDesktop {
     display: none;
   }
+
+  /* This margin exists to clear the desktop head block above it. With that
+     block hidden on mobile, the price row is the card's first visible line,
+     and the margin becomes dead air stacked on the card's own top padding. */
+  .priceRow {
+    margin-top: 0;
+  }
 }
 
 .offerShot {
