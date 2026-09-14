@@ -88,24 +88,16 @@ export const PILLARS = [
   },
 ] as const;
 
-/** Read side by side against what the category normally sells. */
-export const COMPARISON = {
-  us: [
-    "Clinically studied citicoline at a stated dose",
-    "Supports focus at the cellular level, not just stimulation",
-    "Bacopa monnieri for memory over weeks of use",
-    "L-theanine for calm, jitter-free attention",
-    "Zero caffeine. Zero crash. Zero dependency.",
-    "Built for daily, long term use",
-  ],
-  them: [
-    "150 to 300 mg of caffeine doing the work",
-    "Proprietary blend hiding how little is in it",
-    "A spike, then a crash worse than the one you started with",
-    "Jitters, racing heart, trouble sleeping",
-    "Buy again whenever you notice you ran out",
-  ],
-} as const;
+/** One row per trait, checked for us and crossed for the category default, the
+    same list read against both columns rather than two different lists. */
+export const COMPARISON = [
+  "Clinically studied, stimulant free actives",
+  "Citicoline, bacopa and l-theanine at stated doses",
+  "No caffeine, no jitters, no crash",
+  "Third party tested, every batch",
+  "Vegan friendly capsules",
+  "Fulfilled in the USA",
+] as const;
 
 export const IS = [
   "A daily cognitive support formula",

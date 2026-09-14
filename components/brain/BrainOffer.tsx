@@ -106,9 +106,14 @@ export function BrainOffer() {
               ))}
             </ul>
 
-            <div className={styles.plans} role="radiogroup" aria-label="Choose your supply">
+            {/* Three cards in a row, a badge overhanging the top edge, a placeholder
+                pack shot on top: the reference's bundle tiles, not a stacked list of
+                plan rows. Still cadence, not a one-time quantity, per the brand's
+                subscriptions-only rule. */}
+            <div className={styles.bundleGrid} role="radiogroup" aria-label="Choose your supply">
               {PLANS.map((p) => {
                 const on = p.id === chosen.id;
+                const pctOff = Math.round((1 - p.price / p.compareAt) * 100);
                 return (
                   <button
                     key={p.id}
@@ -116,17 +121,18 @@ export function BrainOffer() {
                     role="radio"
                     aria-checked={on}
                     onClick={() => setChosen(p)}
-                    className={`${styles.plan} ${on ? styles.planOn : ""}`}
+                    className={`${styles.bundleCard} ${on ? styles.bundleCardOn : ""}`}
                   >
-                    <span className={styles.radio} aria-hidden="true">{on && <span />}</span>
-                    <span className={styles.planText}>
-                      <span className={styles.planName}>
-                        {p.name}
-                        {p.best && <span className={styles.planTag}>Most popular</span>}
-                      </span>
-                      <span className={styles.planSub}>{p.sub}</span>
+                    {p.best && <span className={styles.bundleBadge}>Most popular</span>}
+                    <span className={`${styles.bundleShot} ${styles.placeholder}`} style={{ fontSize: 9, padding: 2 }}>
+                      {p.months}mo
                     </span>
-                    <span className={styles.planPrice}>${p.price * p.months}</span>
+                    <span className={styles.bundleName}>{p.name}</span>
+                    <span>
+                      <span className={styles.bundlePrice}>${p.price}</span>
+                      <span className={styles.bundleWas}> ${p.compareAt}</span>
+                    </span>
+                    <span className={styles.lineNote}>{pctOff}% off</span>
                   </button>
                 );
               })}

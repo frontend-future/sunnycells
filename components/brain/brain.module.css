@@ -12,11 +12,11 @@
 
 .page {
   /* Every call to action on this product, on the page and through checkout, runs the
-     one blue gradient. Rebinding the action tokens here means the shared Button, the
+     one green gradient. Rebinding the action tokens here means the shared Button, the
      link CTAs and the phone bar all read from the same pair, and nothing outside this
      page changes. */
-  --action-primary-bg: linear-gradient(135deg, var(--sky) 0%, var(--sky-press) 100%);
-  --action-primary-bg-press: linear-gradient(135deg, var(--sky-press) 0%, #5A84C2 100%);
+  --action-primary-bg: linear-gradient(135deg, var(--sprout) 0%, var(--sprout-press) 100%);
+  --action-primary-bg-press: linear-gradient(135deg, var(--sprout-press) 0%, #4E9A55 100%);
   --action-primary-fg: var(--ink);
   --action-accent-bg: var(--action-primary-bg);
   --action-accent-bg-press: var(--action-primary-bg-press);
@@ -103,7 +103,7 @@
    tints that already exist in the palette and a narrow value range, so it reads as
    light falling across a block rather than as a colour effect. */
 .hero {
-  background: linear-gradient(168deg, #EEF3FB 0%, var(--sky-tint) 46%, var(--sun-tint) 100%);
+  background: linear-gradient(168deg, #F2F9EE 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
   border-bottom: 1px solid var(--border-hairline);
   padding-block: var(--space-12) var(--space-8);
 }
@@ -312,7 +312,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--sky);
+  background: var(--sprout);
   color: var(--ink);
   display: flex;
   align-items: center;
@@ -371,9 +371,9 @@
 }
 
 .compareUs {
-  /* Sky tint deepening down the card, so our column reads blue against the flat
+  /* Sprout tint deepening down the card, so our column reads green against the flat
      grey of theirs. The darkest stop still carries black body text at 11:1. */
-  background: linear-gradient(165deg, #EEF3FB 0%, var(--sky-tint) 42%, #C9D9F2 100%);
+  background: linear-gradient(165deg, #F1FAF2 0%, var(--sprout-tint) 42%, #BFE3C3 100%);
   border-color: var(--ink);
 }
 
@@ -465,10 +465,10 @@
 /* ---------- offer ---------- */
 
 /* Same gradient as the hero, so the page opens and closes its buying moments on
-   the same ground. A flat yellow block sat badly against a blue pack and against
+   the same ground. A flat yellow block sat badly against a green pack and against
    the white gallery and card on top of it. */
 .offer {
-  background: linear-gradient(168deg, #EEF3FB 0%, var(--sky-tint) 46%, var(--sun-tint) 100%);
+  background: linear-gradient(168deg, #F2F9EE 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
   border-block: 1px solid var(--border-hairline);
   /* The header is sticky, so an anchor landing flush at the top would sit under
      it. Clears the 64px bar with a little air. */
@@ -553,7 +553,7 @@
 
 .planOn {
   border-color: var(--ink);
-  background: linear-gradient(135deg, #EEF3FB 0%, var(--sky-tint) 55%, #CFDEF5 100%);
+  background: linear-gradient(135deg, #F1FAF2 0%, var(--sprout-tint) 55%, #C6E8C9 100%);
 }
 
 .radio {
@@ -768,9 +768,9 @@
 /* ---------- expect ---------- */
 
 .expect {
-  /* Deep versions of the brand hue (ink into two shades of navy) rather than flat ink.
+  /* Deep versions of the brand hues (ink into sky into sprout) rather than flat ink.
      All three stops sit above 8:1 against white, so the list copy is unaffected. */
-  background: linear-gradient(135deg, var(--ink) 0%, #16325C 48%, #0F2A52 100%);
+  background: linear-gradient(135deg, var(--ink) 0%, #16325C 48%, #1B4A37 100%);
   color: var(--text-inverse);
   border-radius: var(--radius-card);
   overflow: hidden;
@@ -928,7 +928,7 @@
 /* ---------- footer ---------- */
 
 .footer {
-  background: var(--sky-tint);
+  background: var(--sprout-tint);
   border-top: 1px solid var(--border-hairline);
   padding-top: var(--space-16);
   overflow: hidden;
@@ -1270,7 +1270,7 @@
 }
 
 .summary {
-  background: linear-gradient(160deg, var(--summary-a, #F1FAF2) 0%, var(--sky-tint) 45%, var(--summary-b, #CFDEF5) 100%);
+  background: linear-gradient(160deg, var(--summary-a, #F1FAF2) 0%, var(--sprout-tint) 45%, var(--summary-b, #C6E8C9) 100%);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-card);
   padding: var(--space-8);
@@ -1535,8 +1535,8 @@
 }
 
 .savePill {
-  background: var(--sky-tint);
-  border: 1px solid var(--sky);
+  background: var(--sprout-tint);
+  border: 1px solid var(--sprout);
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   font-size: var(--size-meta);
@@ -1742,8 +1742,8 @@
    Swap these for real photography (product shot, lifestyle, ingredient close-ups)
    before this page takes traffic. */
 .placeholder {
-  background: linear-gradient(155deg, var(--sky-tint) 0%, var(--white) 100%);
-  border: 1px dashed var(--sky-press);
+  background: linear-gradient(155deg, var(--sprout-tint) 0%, var(--white) 100%);
+  border: 1px dashed var(--sprout-press);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1754,4 +1754,134 @@
   letter-spacing: var(--tracking-mono);
   text-align: center;
   padding: var(--space-4);
+}
+
+/* ---------- bundle cards ----------
+   The reference's three quantity tiles: image on top, a savings badge overhanging
+   the corner, name and price below. A grid of equal cards, not a stacked list of
+   rows, which is the shape that actually reads as "the reference" rather than as
+   a generic plan picker. */
+.bundleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.bundleCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2) var(--space-3);
+  background: var(--white);
+  border: 2px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  text-align: center;
+}
+
+.bundleCardOn {
+  border-color: var(--sprout);
+  background: var(--sprout-tint);
+}
+
+.bundleBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 10px;
+  border-radius: var(--radius-xs);
+  background: var(--sprout);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-mono);
+  white-space: nowrap;
+}
+
+.bundleShot {
+  width: 100%;
+  height: 84px;
+  border-radius: var(--radius-xs);
+}
+
+.bundleName {
+  font-size: var(--size-meta);
+  font-weight: 700;
+}
+
+.bundlePrice {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.bundleWas {
+  font-size: var(--size-meta);
+  color: var(--ink-60);
+  text-decoration: line-through;
+}
+
+/* ---------- comparison table ----------
+   The reference runs this as one table (our column of checks beside their column
+   of crosses, both against the same row labels), not two separate cards. That
+   single-table shape is one of the most recognisable things about the page. */
+.compareTable {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.compareTableHead {
+  display: contents;
+}
+
+.compareTableHead span {
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-mono);
+  text-align: center;
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--border-hairline);
+}
+
+.compareTableRow {
+  display: contents;
+}
+
+.compareTableRow span:first-child {
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: var(--size-body);
+}
+
+.compareTableRow span:not(:first-child) {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* ---------- dark band ----------
+   The reference's "why trust us" strip and FAQ both sit on the same deep green
+   field, not on white. One class, reused by both sections. */
+.darkBand {
+  background: linear-gradient(160deg, var(--ink) 0%, #0F3A22 100%);
+  color: var(--white);
+}
+
+.darkBand .h2,
+.darkBand .eyebrow {
+  color: var(--white);
+}
+
+.darkBand .benefitIcon {
+  border-color: rgba(255, 255, 255, 0.35);
 }

@@ -42,7 +42,7 @@ export function BrainStickyBar() {
       <span
         className={styles.stickyShot}
         aria-hidden="true"
-        style={{ background: "var(--sky-tint)", border: "1px solid var(--sky)" }}
+        style={{ background: "var(--sprout-tint)", border: "1px solid var(--sprout)" }}
       />
       <span className={styles.stickyText}>
         <strong>{PRODUCT.name}</strong>

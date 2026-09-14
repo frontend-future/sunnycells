@@ -230,36 +230,19 @@ export function BrainPage() {
           </p>
         </div>
 
-        <div className={styles.compare}>
-          <div className={styles.compareUs}>
-            <div className={styles.compareHead}>
-              <Placeholder label="" className={styles.compareShot} style={{ height: 72, fontSize: 10, padding: 0 }} />
-              <h3 className={styles.compareTitle}>{PRODUCT.name}</h3>
-            </div>
-            <ul className={styles.ticks}>
-              {COMPARISON.us.map((t) => (
-                <li key={t}>
-                  <Tick />
-                  {t}
-                </li>
-              ))}
-            </ul>
+        <div className={styles.compareTable}>
+          <div className={styles.compareTableHead}>
+            <span />
+            <span>{PRODUCT.name}</span>
+            <span>Other brands</span>
           </div>
-
-          <div className={styles.compareThem}>
-            <div className={styles.compareHead}>
-              <Placeholder label="" className={styles.compareShot} style={{ height: 72, fontSize: 10, padding: 0 }} />
-              <h3 className={styles.compareTitle}>Other focus products</h3>
+          {COMPARISON.map((t) => (
+            <div className={styles.compareTableRow} key={t}>
+              <span>{t}</span>
+              <span><Tick /></span>
+              <span><Cross /></span>
             </div>
-            <ul className={styles.ticks}>
-              {COMPARISON.them.map((t) => (
-                <li key={t}>
-                  <Cross />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -289,7 +272,7 @@ export function BrainPage() {
       <BrainStickyBar />
 
       {/* ---------- why trust ---------- */}
-      <section className={styles.sectionTight} aria-labelledby="trust-title">
+      <section className={`${styles.sectionTight} ${styles.darkBand}`} aria-labelledby="trust-title">
         <div className={`${styles.wrap} ${styles.centered}`}>
           <h2 className={styles.h2} id="trust-title">
             Why trust {PRODUCT.name}?
