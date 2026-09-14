@@ -125,34 +125,6 @@ export const EXPERTS = [
   },
 ] as const;
 
-export const STUDIES = [
-  {
-    title: "Acetyl-L-carnitine and mild cognitive impairment",
-    sub: "Meta-analysis of double-blind, randomized trials",
-    blurb: "Findings suggest acetyl-L-carnitine may support symptoms of mild cognitive impairment and brain health in aging adults.",
-  },
-  {
-    title: "Acetyl-L-carnitine with alpha lipoic acid",
-    sub: "Clinical study on cognitive performance",
-    blurb: "Supplementing with both actives together is associated with support for memory, attention and overall mental clarity.",
-  },
-  {
-    title: "Phosphatidylserine and memory",
-    sub: "Randomized, double-blind, placebo-controlled trial",
-    blurb: "Phosphatidylserine has been shown to support cognitive function and memory in older adults with mild cognitive impairment.",
-  },
-  {
-    title: "Ginkgo biloba and cognitive function",
-    sub: "Double-blind, placebo-controlled study",
-    blurb: "Research suggests ginkgo biloba may help support attention and emotional balance.",
-  },
-  {
-    title: "Huperzine A and neuroprotection",
-    sub: "Pharmacological review",
-    blurb: "Huperzine A has demonstrated potential for supporting memory and protecting brain cells, particularly around age-related cognitive change.",
-  },
-] as const;
-
 export const TIMELINE = [
   {
     when: "Day 1",

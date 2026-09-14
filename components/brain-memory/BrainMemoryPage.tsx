@@ -4,7 +4,7 @@ import { Icon } from "@/components/core/Icon";
 import { Wordmark } from "@/components/core/Wordmark";
 import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import {
-  BENEFITS, EXPERTS, FAQ, INGREDIENTS, PRODUCT, STUDIES, TIMELINE,
+  BENEFITS, EXPERTS, FAQ, INGREDIENTS, PRODUCT, TIMELINE,
 } from "@/lib/products/brain-memory";
 import { BrainMemoryCta } from "./BrainMemoryCta";
 import { BrainMemoryOffer } from "./BrainMemoryOffer";
@@ -124,26 +124,6 @@ export function BrainMemoryPage() {
             height={1024}
             className={styles.splitShot}
           />
-        </div>
-      </section>
-
-      {/* ---------- clinical research ---------- */}
-      <section className={styles.mechanism} aria-labelledby="studies-title">
-        <div className={`${styles.wrap} ${styles.section}`}>
-          <div className={styles.centered}>
-            <h2 className={styles.h2} id="studies-title">
-              Supported by clinical research
-            </h2>
-          </div>
-          <div className={styles.quotes}>
-            {STUDIES.map((s) => (
-              <div className={styles.quote} key={s.title}>
-                <p className={styles.pillarTicksLabel} style={{ margin: 0 }}>{s.sub}</p>
-                <h3 className={styles.reviewTitle} style={{ margin: 0 }}>{s.title}</h3>
-                <p className={styles.quoteText}>{s.blurb}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
