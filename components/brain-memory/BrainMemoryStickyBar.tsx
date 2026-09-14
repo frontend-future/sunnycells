@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { PRODUCT, SHIPPING_PRICE } from "@/lib/products/brain-memory";
+import { Icon } from "@/components/core/Icon";
+import { PRODUCT, RATING } from "@/lib/products/brain-memory";
 import styles from "./brain-memory.module.css";
 
 /**
@@ -47,7 +48,14 @@ export function BrainMemoryStickyBar() {
       />
       <span className={styles.stickyText}>
         <strong>{PRODUCT.name}</strong>
-        <span>Free first bottle &middot; ${SHIPPING_PRICE} shipping today</span>
+        <span className={styles.stickyRating}>
+          <span className={styles.stickyStars} aria-hidden="true">
+            {Array.from({ length: 5 }, (_, i) => (
+              <Icon key={i} name="star" size={11} fill="var(--sun)" strokeWidth={0} />
+            ))}
+          </span>
+          {RATING.score}/5 &middot; {RATING.count.toLocaleString("en-US")} reviews
+        </span>
       </span>
       <a href="#buy" className={styles.stickyCta} tabIndex={shown ? 0 : -1}>
         Try it now

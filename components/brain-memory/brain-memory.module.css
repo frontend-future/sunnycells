@@ -1767,15 +1767,26 @@
     font-weight: 800;
   }
 
-  .stickyText span {
-    /* Small enough to hold the price and the standing offer on one line beside a
-       48px tap target on a 390px phone. */
+  /* Stars plus the score, small enough to hold on one line beside a 48px tap
+     target on a 390px phone. Targeted classes rather than a bare descendant
+     span selector, since the stars are their own nested span now too. */
+  .stickyRating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-size: 13px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 600;
     color: var(--ink-20);
+  }
+
+  .stickyStars {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    flex: none;
   }
 
   .stickyCta {

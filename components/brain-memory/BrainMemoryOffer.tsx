@@ -86,7 +86,7 @@ export function BrainMemoryOffer() {
             <div className={styles.priceRow}>
               <span className={styles.priceNow}>First Month Free</span>
               <span className={styles.priceWas}>${PLAN.compareAt}</span>
-              <span className={styles.savePill}>Save ${PLAN.compareAt}</span>
+              <span className={styles.savePill}>Save ${PLAN.compareAt}, Just Cover Shipping</span>
             </div>
 
             <figure className={styles.pullQuote}>
