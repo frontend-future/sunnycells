@@ -111,7 +111,7 @@ export function BrainMemoryOffer() {
             </ul>
 
             <Button fullWidth variant="accent" size="lg" onClick={buy} style={{ marginTop: "var(--space-6)" }}>
-              Try it now
+              Rush my bottle
             </Button>
 
             <p className={styles.autoApplied}>
