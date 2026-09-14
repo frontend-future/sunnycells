@@ -89,16 +89,6 @@ export function BrainMemoryOffer() {
               <span className={styles.savePill}>Save ${PLAN.compareAt}, Just Cover Shipping</span>
             </div>
 
-            <figure className={styles.pullQuote}>
-              <div>
-                <Stars />
-                <blockquote className={styles.lineNote}>{quote.body}</blockquote>
-                <figcaption className={styles.quoteWho}>
-                  {quote.name} <span className={styles.verified}>Verified buyer</span>
-                </figcaption>
-              </div>
-            </figure>
-
             <ul className={styles.included}>
               {INCLUDED.map((i) => (
                 <li key={i.label}>
@@ -123,6 +113,16 @@ export function BrainMemoryOffer() {
             <p className={styles.termsLine}>
               {PLAN.sub}. Cancel anytime.
             </p>
+
+            <figure className={styles.pullQuote}>
+              <div>
+                <Stars />
+                <blockquote className={styles.lineNote}>{quote.body}</blockquote>
+                <figcaption className={styles.quoteWho}>
+                  {quote.name} <span className={styles.verified}>Verified buyer</span>
+                </figcaption>
+              </div>
+            </figure>
 
             <div style={{ marginTop: "var(--space-6)" }}>
               <Accordion items={QUICK_INFO.map((q) => ({ title: q.title, body: q.body }))} />
