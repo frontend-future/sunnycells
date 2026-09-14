@@ -107,18 +107,21 @@ export const EXPERTS = [
       "This is one of the more complete brain formulas I have reviewed. Six actives, each at a dose the research actually used, and nothing here relies on a stimulant to feel like it is working.",
     name: "Dr. Elena Cross",
     role: "Integrative physician",
+    image: "/product/brain-memory/experts/expert-1.webp",
   },
   {
     quote:
       "The combination of phosphatidylserine with acetyl-L-carnitine is well supported for supporting memory and attention over consistent use, not just a single dose.",
     name: "Priya Nakamura, PhD",
     role: "Nutrition scientist",
+    image: "/product/brain-memory/experts/expert-2.webp",
   },
   {
     quote:
       "Patients ask me for a stimulant-free option for daily focus more than almost anything else. This formula is built around exactly that question.",
     name: "Dr. Marcus Reyes",
     role: "Psychiatrist",
+    image: "/product/brain-memory/experts/expert-3.webp",
   },
 ] as const;
 

@@ -158,6 +158,13 @@ export function BrainMemoryPage() {
         <div className={styles.quotes}>
           {EXPERTS.map((e) => (
             <figure className={styles.quote} key={e.name}>
+              <Image
+                src={e.image}
+                alt={`${e.name}, ${e.role}, holding a bottle of ${PRODUCT.name}`}
+                width={88}
+                height={88}
+                style={{ width: 88, height: 88, borderRadius: "50%", objectFit: "cover" }}
+              />
               <blockquote className={styles.quoteText}>&ldquo;{e.quote}&rdquo;</blockquote>
               <figcaption className={styles.quoteWho}>
                 {e.name} <span className={styles.verified}>{e.role}</span>
