@@ -125,16 +125,6 @@ export function BrainMemoryPage() {
             className={styles.splitShot}
           />
         </div>
-
-        <div className={styles.pillars} style={{ marginTop: "var(--space-12)" }}>
-          {INGREDIENTS.map((ing) => (
-            <article className={styles.isCard} key={ing.key}>
-              <h3 className={styles.pillarName}>{ing.name}</h3>
-              <p className={styles.pillarDose} style={{ display: "block", margin: "4px 0 12px" }}>{ing.dose}</p>
-              <p className={styles.pillarCopy}>{ing.copy}</p>
-            </article>
-          ))}
-        </div>
       </section>
 
       {/* ---------- clinical research ---------- */}

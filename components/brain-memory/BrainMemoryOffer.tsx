@@ -8,7 +8,7 @@ import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
   DESCRIPTION, INCLUDED, PLAN, PRODUCT, QUICK_INFO, RATING,
-  REVIEWS, SERVING_NOTE, SHIPPING_PRICE, SUBHEAD, CART_ID,
+  REVIEWS, SHIPPING_PRICE, SUBHEAD, CART_ID,
 } from "@/lib/products/brain-memory";
 import { BrainMemoryGallery } from "./BrainMemoryGallery";
 import styles from "./brain-memory.module.css";
@@ -96,11 +96,6 @@ export function BrainMemoryOffer() {
             <p className={styles.subhead}>{SUBHEAD}</p>
             <p className={styles.offerBody}>{DESCRIPTION}</p>
 
-            <div className={styles.servingNote}>
-              <h3 className={styles.servingTitle}>{SERVING_NOTE.title}</h3>
-              <p className={styles.lineNote}>{SERVING_NOTE.body}</p>
-            </div>
-
             <a className={styles.reviewLink} href="#reviews-title">
               <Stars />
               Read their reviews
@@ -127,7 +122,7 @@ export function BrainMemoryOffer() {
               ))}
             </ul>
 
-            <Button fullWidth variant="accent" size="lg" onClick={buy}>
+            <Button fullWidth variant="accent" size="lg" onClick={buy} style={{ marginTop: "var(--space-6)" }}>
               Claim my free bottle
             </Button>
 
