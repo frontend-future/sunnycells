@@ -99,35 +99,6 @@ export const COMPARISON = [
   "Fulfilled in the USA",
 ] as const;
 
-export const IS = [
-  "A daily cognitive support formula",
-  "Built around clinically studied ingredients",
-  "Designed for consistent, sustainable use",
-  "Non stimulant, working at the cellular level",
-] as const;
-
-export const IS_NOT = [
-  "A caffeine hit",
-  "A study drug or prescription stimulant",
-  "A crash and burn energy pill",
-  "A replacement for sleep or medical care",
-  "A prescription medication",
-] as const;
-
-export const EXPECT = [
-  "A morning that starts clear without needing a second coffee",
-  "Fewer moments of losing your train of thought",
-  "Steadier attention through a long day of screens",
-  "Improved recall when you need to remember something",
-  "No jitters, no racing heart, no crash at three",
-] as const;
-
-export const BENEFITS = [
-  { icon: "shield-check", name: "Third party tested", copy: "Every batch tested for identity, potency and heavy metals." },
-  { icon: "repeat", name: "One capsule a day", copy: "Two capsules with breakfast. No powder, no mixing, no taste." },
-  { icon: "zap-off", name: "Stimulant free", copy: "No caffeine, no jitters, no afternoon crash to plan around." },
-] as const;
-
 /* PLACEHOLDER reviews. Voice is ours, the people are not real. */
 export const QUOTES = [
   {
@@ -276,4 +247,41 @@ export const HOW_IT_WORKS = [
   "After that it repeats on the cadence you picked, at the same price.",
   "Change the date, skip a delivery, or cancel from your account.",
   "No lock in, no fee for stopping, no phone call.",
+] as const;
+
+/** The short icon row above the gallery: three claims, not a headline. */
+export const INTRO_BADGES = [
+  { icon: "dna", label: "Clinically studied actives" },
+  { icon: "zap-off", label: "No caffeine, no crash" },
+  { icon: "check", label: "Two capsules, once a day" },
+] as const;
+
+/** "The natural way to restore balance" style grid: four short claims, icon plus name. */
+export const RESTORE = [
+  { icon: "dna", name: "Supports steady focus", copy: "Citicoline and bacopa work over hours and weeks, not minutes." },
+  { icon: "zap-off", name: "Gentle, not jittery", copy: "No caffeine, so there is no wired feeling and no crash to plan around." },
+  { icon: "check", name: "Capsules, not powder", copy: "Two capsules with breakfast. Nothing to mix, no taste to manage." },
+  { icon: "shield-check", name: "Third party tested", copy: "Every batch is tested for identity, potency and heavy metals." },
+] as const;
+
+/** Five short reasons, image-card shaped like the pillar cards. */
+export const REASONS = [
+  { name: "Backed by human trials", copy: "Citicoline and bacopa are studied at the amounts used in this formula." },
+  { name: "No jitters, no crash", copy: "Zero caffeine or stimulants, so there is nothing to come down from." },
+  { name: "Two capsules a day", copy: "Add them to breakfast. Nothing to mix, brew or measure." },
+  { name: "Save on every refill", copy: "Subscribe for a lower price per bottle, with no lock in." },
+  { name: "Third party tested", copy: "Every batch checked for identity, potency and heavy metals." },
+] as const;
+
+/** The three collapsible rows under the buy button: description, how to use, shipping. */
+export const QUICK_INFO = [
+  { title: "Product description", body: DESCRIPTION },
+  {
+    title: "How do I take it?",
+    body: "Two capsules once a day, with food. Most people take it with breakfast. Consistency matters more than timing, since bacopa's memory effects build over weeks.",
+  },
+  {
+    title: "Shipping, returns & guarantee",
+    body: "Free shipping on every order. Most orders arrive within 3 to 5 business days. If you do not notice a difference, you are covered by a 30 day money back guarantee.",
+  },
 ] as const;

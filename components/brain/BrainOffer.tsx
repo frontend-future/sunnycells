@@ -7,8 +7,9 @@ import { Icon } from "@/components/core/Icon";
 import { OfferFlag } from "@/components/core/OfferFlag";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
+import { Accordion } from "@/components/navigation/Accordion";
 import {
-  DESCRIPTION, INCLUDED, PLANS, PRODUCT, QUOTES,
+  DESCRIPTION, INCLUDED, PLANS, PRODUCT, QUICK_INFO, QUOTES,
   RATING, SERVING_NOTE, SUBHEAD, CART_ID, type Plan,
 } from "@/lib/products/brain";
 import { BrainGallery } from "./BrainGallery";
@@ -45,7 +46,7 @@ export function BrainOffer() {
   const saving = (chosen.compareAt - chosen.price) * chosen.months;
 
   return (
-    <section className={styles.offer} id="buy" aria-labelledby="offer-title">
+    <section className={styles.offer} id="buy" aria-labelledby="hero-title">
       <div className={`${styles.wrap} ${styles.section}`}>
         <div className={styles.offerGrid}>
           <BrainGallery />
@@ -58,7 +59,7 @@ export function BrainOffer() {
               <span className={styles.offerTerms}>Free shipping &middot; Cancel anytime</span>
             </div>
 
-            <h2 className={styles.h2} id="offer-title">
+            <h2 className={styles.h2} id="hero-title">
               {PRODUCT.name}
             </h2>
 
@@ -163,6 +164,10 @@ export function BrainOffer() {
                 </figcaption>
               </div>
             </figure>
+
+            <div style={{ marginTop: "var(--space-6)" }}>
+              <Accordion items={QUICK_INFO.map((q) => ({ title: q.title, body: q.body }))} />
+            </div>
           </div>
         </div>
       </div>

@@ -1869,6 +1869,50 @@
   border-bottom: 1px solid var(--border-hairline);
 }
 
+/* ---------- ingredient list ----------
+   The reference's dashed-connector ingredient list: a circular thumbnail, a
+   dashed line, the name. Simplified to a circle and a name, stacked beside a
+   product shot, since there is no ingredient photography to run through the
+   connector line itself. */
+.ingredientList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.ingredientItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ingredientDot {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--sprout-tint);
+  border: 1px solid var(--sprout);
+  display: grid;
+  place-items: center;
+}
+
+.ingredientName {
+  display: block;
+  font-family: var(--font-label);
+  font-weight: 800;
+  font-size: var(--size-body);
+  letter-spacing: var(--tracking-mono);
+}
+
+.ingredientDose {
+  display: block;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
 /* ---------- dark band ----------
    The reference's "why trust us" strip and FAQ both sit on the same deep green
    field, not on white. One class, reused by both sections. */
