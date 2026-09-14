@@ -511,6 +511,18 @@
 }
 
 @media (max-width: 899px) {
+  /* The section's own space-20 top/bottom padding is a desktop amount; on a
+     phone it reads as a dead gap under the sticky nav before the title, and
+     another one before the gallery. Cut both, and tighten the grid's row gap
+     so the head block, gallery and card sit closer together in the stack. */
+  .offer .section {
+    padding-block: var(--space-5) var(--space-10);
+  }
+
+  .offerGrid {
+    gap: var(--space-5);
+  }
+
   .offerHeadMobile {
     display: block;
   }

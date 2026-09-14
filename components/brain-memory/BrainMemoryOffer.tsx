@@ -81,6 +81,14 @@ export function BrainMemoryOffer() {
               <p className={styles.subhead}>{SUBHEAD}</p>
             </div>
 
+            {/* First bottle reads as free against the regular $49 price, with the
+                dollar value of that saving stated beside it. */}
+            <div className={styles.priceRow}>
+              <span className={styles.priceNow}>First Month Free</span>
+              <span className={styles.priceWas}>${PLAN.compareAt}</span>
+              <span className={styles.savePill}>Save ${PLAN.compareAt}</span>
+            </div>
+
             <figure className={styles.pullQuote}>
               <div>
                 <Stars />
@@ -90,14 +98,6 @@ export function BrainMemoryOffer() {
                 </figcaption>
               </div>
             </figure>
-
-            {/* First bottle reads as free against the regular $49 price, with the
-                dollar value of that saving stated beside it. */}
-            <div className={styles.priceRow}>
-              <span className={styles.priceNow}>First Month Free</span>
-              <span className={styles.priceWas}>${PLAN.compareAt}</span>
-              <span className={styles.savePill}>Save ${PLAN.compareAt}</span>
-            </div>
 
             <ul className={styles.included}>
               {INCLUDED.map((i) => (
