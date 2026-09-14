@@ -60,7 +60,6 @@ const QUIZ_CONFIGS = { energy: "energy", aging: "aging", calm: "calm", cortisol:
  */
 const GROUPS = [
   ["Brain & Memory Power Boost", (p) => p.startsWith("/products/brain-memory")],
-  ["Clear Mind", (p) => p.startsWith("/products/brain") && !p.startsWith("/products/brain-memory")],
   ["Even Energy", (p) => p.startsWith("/products/even-energy") || p.startsWith("/quiz/energy")],
   ["Anytime Calm", (p) => p.startsWith("/products/anytime-calm") || p.startsWith("/quiz/calm")],
   ["Daily Reds", (p) => p.startsWith("/products/daily-reds")],
