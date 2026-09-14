@@ -24,6 +24,10 @@ type NotifyPayload = {
   /** Which entry point wrote into the shared cart: the quiz funnel or one of the
       listicles selling the same product. Absent for an older client. */
   lander?: string;
+  /** The product this checkout is for. This route is shared across every product's
+      checkout, and "plan" alone (e.g. "3 month supply") does not say which one.
+      Absent for an older client. */
+  product?: string;
 };
 
 async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
@@ -43,7 +47,8 @@ async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
   const html = `
     <div style="font-family: sans-serif; font-size: 14px; color: #0D0D0C; line-height: 1.6;">
       <h2 style="margin: 0 0 12px;">${stage.title}</h2>
-      <p><strong>Plan:</strong> ${escapeHtml(plan)}<br>
+      <p>${p.product ? `<strong>Product:</strong> ${escapeHtml(p.product)}<br>` : ""}
+      <strong>Plan:</strong> ${escapeHtml(plan)}<br>
       <strong>Total:</strong> $${total}</p>
       <p><strong>Name:</strong> ${escapeHtml(name)}<br>
       <strong>Email:</strong> ${escapeHtml(shipping.email)}<br>
@@ -78,7 +83,7 @@ async function sendSlack(p: NotifyPayload, name: string): Promise<Result> {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${stage.title}*\n*Plan:* ${plan}\n*Total:* $${total}\n*Name:* ${name}\n*Email:* ${shipping.email}\n*Phone:* ${shipping.phone || "—"}\n*Shipping:* ${address}`,
+        text: `*${stage.title}*\n${p.product ? `*Product:* ${p.product}\n` : ""}*Plan:* ${plan}\n*Total:* $${total}\n*Name:* ${name}\n*Email:* ${shipping.email}\n*Phone:* ${shipping.phone || "—"}\n*Shipping:* ${address}`,
       },
     },
     {

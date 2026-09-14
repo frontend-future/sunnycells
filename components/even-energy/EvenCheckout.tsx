@@ -39,12 +39,13 @@ function notifyAttempt(
   plan: string,
   total: number,
   stage: "payment" | "purchase",
-  lander?: string,
+  lander: string | undefined,
+  product: string,
 ) {
   fetch("/api/notify-purchase", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ shipping, plan, total, stage, lander }),
+    body: JSON.stringify({ shipping, plan, total, stage, lander, product }),
   }).catch((err) => console.error("[even] notify-purchase failed", err));
 }
 
@@ -164,6 +165,7 @@ export function EvenCheckout({
       order.total,
       "payment",
       answers.lander,
+      product.name,
     );
     setPhase("payment");
   };
@@ -183,6 +185,7 @@ export function EvenCheckout({
       order.total,
       "purchase",
       answers.lander,
+      product.name,
     );
     if (bought.current) return;
     bought.current = true;
