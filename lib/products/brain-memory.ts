@@ -52,12 +52,6 @@ export const PLAN: Plan = {
 
 export const SHIPPING_PRICE = 10;
 
-export const INTRO_BADGES = [
-  { icon: "dna", label: "Six research backed actives" },
-  { icon: "shield-check", label: "Third party tested" },
-  { icon: "check", label: "Four capsules, once a day" },
-] as const;
-
 /** Six actives, in the order the supplement facts panel lists them. */
 export const INGREDIENTS = [
   {

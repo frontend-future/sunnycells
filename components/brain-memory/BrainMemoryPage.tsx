@@ -4,7 +4,7 @@ import { Icon } from "@/components/core/Icon";
 import { Wordmark } from "@/components/core/Wordmark";
 import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import {
-  BENEFITS, COMPARISON, EXPERTS, FAQ, INGREDIENTS, INTRO_BADGES, PRODUCT, STUDIES, TIMELINE,
+  BENEFITS, COMPARISON, EXPERTS, FAQ, INGREDIENTS, PRODUCT, STUDIES, TIMELINE,
 } from "@/lib/products/brain-memory";
 import { BrainMemoryCta } from "./BrainMemoryCta";
 import { BrainMemoryOffer } from "./BrainMemoryOffer";
@@ -43,18 +43,6 @@ export function BrainMemoryPage() {
           <BrainMemoryCta size="sm">Try it now</BrainMemoryCta>
         </div>
       </header>
-
-      {/* ---------- icon badge row ---------- */}
-      <div className={styles.wrap} style={{ paddingTop: "var(--space-6)" }}>
-        <div className={styles.trustRow} style={{ borderTop: 0, marginTop: 0, paddingTop: 0 }}>
-          {INTRO_BADGES.map((b) => (
-            <span className={styles.trustItem} key={b.label}>
-              <Icon name={b.icon} size={18} strokeWidth={2} />
-              {b.label}
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* ---------- gallery + buy box ---------- */}
       <BrainMemoryOffer />
