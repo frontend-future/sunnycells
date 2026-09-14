@@ -1913,6 +1913,83 @@
   color: var(--ink-60);
 }
 
+/* ---------- timeline ----------
+   Week by week, drawn as an actual timeline: a numbered node per stage,
+   connected by a rail down the left, rather than a bulleted list standing in
+   for one. The node runs the same blue gradient as the primary action, so the
+   sequence reads as this product's own rather than a generic component. */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+  margin: var(--space-10) auto 0;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: var(--space-5);
+}
+
+.timelineRail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timelineDot {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky) 0%, var(--sky-press) 100%);
+  color: var(--white);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  box-shadow: 0 0 0 6px var(--sky-tint);
+}
+
+.timelineLine {
+  flex: 1;
+  width: 3px;
+  min-height: 40px;
+  margin: var(--space-2) 0;
+  background: var(--sky-tint);
+  border-radius: 2px;
+}
+
+.timelineCard {
+  padding-bottom: var(--space-8);
+}
+
+.timelineWhen {
+  margin: 0 0 4px;
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-mono);
+  color: var(--sky-press);
+}
+
+.timelineTitle {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--size-h4);
+  font-weight: 900;
+  letter-spacing: var(--tracking-heading);
+}
+
+.timelineCopy {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  color: var(--ink-80);
+}
+
 /* ---------- supplied graphics ----------
    Real photography and pre-built marketing graphics exist for this SKU, unlike
    Clear Mind. These sit full width in their own section rather than behind the

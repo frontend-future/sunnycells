@@ -15,6 +15,7 @@ const SLIDES = [
   { src: "/product/brain-memory/05-facts.png", alt: "The Brain & Memory Power Boost supplement facts panel" },
   { src: "/product/brain-memory/checklist.png", alt: "Backed by real research: sharper thinking, clearer focus, better memory" },
   { src: "/product/brain-memory/advantage.png", alt: "The Sunnycells advantage: doctor-formulated, 30 day guarantee, six research backed ingredients, easy capsule format, daily cognitive support, compared with other supplements offering none of these" },
+  { src: "/product/brain-memory/guarantee.png", alt: "30 day money back guarantee: your order is covered by our return policy" },
 ];
 
 export function BrainMemoryGallery() {

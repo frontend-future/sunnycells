@@ -204,27 +204,21 @@ export function BrainMemoryPage() {
             What to expect, week by week
           </h2>
         </div>
-        <div className={styles.worksBox} style={{ maxWidth: 640, marginInline: "auto", marginTop: "var(--space-8)" }}>
-          <ul className={styles.worksList}>
-            {TIMELINE.map((t) => (
-              <li key={t.when}>
-                <strong>{t.when}, {t.title}.</strong> {t.copy}
-              </li>
-            ))}
-          </ul>
+        <div className={styles.timeline}>
+          {TIMELINE.map((t, i) => (
+            <div className={styles.timelineItem} key={t.when}>
+              <div className={styles.timelineRail} aria-hidden="true">
+                <span className={styles.timelineDot}>{i + 1}</span>
+                {i < TIMELINE.length - 1 && <span className={styles.timelineLine} />}
+              </div>
+              <div className={styles.timelineCard}>
+                <p className={styles.timelineWhen}>{t.when}</p>
+                <h3 className={styles.timelineTitle}>{t.title}</h3>
+                <p className={styles.timelineCopy}>{t.copy}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-
-      {/* ---------- guarantee ---------- */}
-      <section className={`${styles.wrap} ${styles.sectionTight} ${styles.centered}`} aria-label="30 day money back guarantee">
-        <Image
-          src="/product/brain-memory/guarantee.png"
-          alt="30 day money back guarantee: your order is covered by our return policy"
-          width={1024}
-          height={1024}
-          className={styles.imageBanner}
-          style={{ maxWidth: 420 }}
-        />
       </section>
 
       <BrainMemoryReviews />
