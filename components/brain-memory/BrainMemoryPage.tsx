@@ -4,7 +4,7 @@ import { Icon } from "@/components/core/Icon";
 import { Wordmark } from "@/components/core/Wordmark";
 import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import {
-  BENEFITS, COMPARISON, EXPERTS, FAQ, INGREDIENTS, PRODUCT, STUDIES, TIMELINE,
+  BENEFITS, EXPERTS, FAQ, INGREDIENTS, PRODUCT, STUDIES, TIMELINE,
 } from "@/lib/products/brain-memory";
 import { BrainMemoryCta } from "./BrainMemoryCta";
 import { BrainMemoryOffer } from "./BrainMemoryOffer";
@@ -17,14 +17,6 @@ const FOOTER = [
   { head: "About", links: ["Our standard", "Ingredients", "Science"] },
   { head: "Help", links: ["Contact", "Shipping", "Returns", "FAQ"] },
 ];
-
-function Tick() {
-  return (
-    <span className={styles.tick} aria-hidden="true">
-      <Icon name="check" size={13} strokeWidth={3.5} />
-    </span>
-  );
-}
 
 export function BrainMemoryPage() {
   return (
@@ -203,26 +195,6 @@ export function BrainMemoryPage() {
             className={styles.photoGridShot}
           />
         </div>
-      </section>
-
-      {/* ---------- advantage ---------- */}
-      <section className={`${styles.wrap} ${styles.section}`} aria-label="The Sunnycells advantage">
-        <Image
-          src="/product/brain-memory/advantage.png"
-          alt="The Sunnycells advantage: doctor-formulated, 30 day guarantee, six research backed ingredients, easy capsule format, daily cognitive support, compared with other supplements offering none of these"
-          width={1024}
-          height={1024}
-          className={styles.imageBanner}
-          style={{ maxWidth: 560 }}
-        />
-        <ul className={styles.included} style={{ maxWidth: 480, marginInline: "auto", marginTop: "var(--space-8)" }}>
-          {COMPARISON.map((c) => (
-            <li key={c}>
-              <Tick />
-              {c}
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* ---------- what to expect ---------- */}

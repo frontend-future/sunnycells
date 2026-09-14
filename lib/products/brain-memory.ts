@@ -236,14 +236,6 @@ export const REVIEWS = [
   },
 ] as const;
 
-export const COMPARISON = [
-  "Six research backed actives, at stated doses",
-  "Third party tested, every batch",
-  "No stimulants, no jitters",
-  "Simple capsule format, four a day",
-  "30 day money back guarantee",
-] as const;
-
 /** The three collapsible rows under the buy button. */
 export const QUICK_INFO = [
   {
