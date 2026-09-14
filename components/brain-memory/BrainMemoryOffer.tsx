@@ -1,17 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Accordion } from "@/components/navigation/Accordion";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
-import { OfferFlag } from "@/components/core/OfferFlag";
 import { writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import {
-  DESCRIPTION, INCLUDED, PLANS, PRODUCT, QUICK_INFO, RATING,
-  REVIEWS, SERVING_NOTE, SUBHEAD, CART_ID, type Plan,
+  DESCRIPTION, INCLUDED, PLAN, PRODUCT, QUICK_INFO, RATING,
+  REVIEWS, SERVING_NOTE, SHIPPING_PRICE, SUBHEAD, CART_ID,
 } from "@/lib/products/brain-memory";
 import { BrainMemoryGallery } from "./BrainMemoryGallery";
 import styles from "./brain-memory.module.css";
@@ -26,23 +23,50 @@ function Stars() {
   );
 }
 
+/** Not OfferFlag: that component is the brand's standing 50% off percentage
+    offer specifically. This product runs a different mechanic (a free first
+    bottle, shipping only due today), so it gets its own badge rather than
+    borrowing one whose copy says something else. */
+function FreeMonthFlag() {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        height: 32,
+        padding: "0 12px",
+        background: "var(--ink)",
+        color: "var(--white)",
+        borderRadius: "var(--radius-xs)",
+        fontFamily: "var(--font-text)",
+        fontWeight: 800,
+        fontSize: "var(--size-meta)",
+        letterSpacing: "var(--tracking-caps)",
+        textTransform: "uppercase",
+        lineHeight: 1,
+        whiteSpace: "nowrap",
+      }}
+    >
+      First month free
+    </span>
+  );
+}
+
 export function BrainMemoryOffer() {
   const router = useRouter();
-  const [chosen, setChosen] = useState<Plan>(PLANS.find((p) => p.best) ?? PLANS[0]);
 
   const buy = () => {
-    writeAnswer(CART_ID, "plan", chosen.id);
+    writeAnswer(CART_ID, "plan", PLAN.id);
     trackMetaEvent("InitiateCheckout", {
       currency: "USD",
-      value: chosen.price * chosen.months,
-      content_ids: [chosen.id],
+      value: SHIPPING_PRICE,
+      content_ids: [PLAN.id],
       content_type: "product",
-      content_name: `${PRODUCT.name} ${chosen.name}`,
+      content_name: PRODUCT.name,
     });
     router.push("/products/brain-memory/checkout");
   };
 
-  const saving = (chosen.compareAt - chosen.price) * chosen.months;
   const quote = REVIEWS[0];
 
   return (
@@ -53,8 +77,8 @@ export function BrainMemoryOffer() {
 
           <div className={styles.offerCard}>
             <div className={styles.offerTop}>
-              <OfferFlag size="sm" />
-              <span className={styles.offerTerms}>Free shipping &middot; Cancel anytime</span>
+              <FreeMonthFlag />
+              <span className={styles.offerTerms}>Just pay ${SHIPPING_PRICE} shipping &middot; Cancel anytime</span>
             </div>
 
             <h2 className={styles.h2} id="hero-title">
@@ -83,11 +107,13 @@ export function BrainMemoryOffer() {
               <Icon name="chevron-right" size={18} strokeWidth={2.5} />
             </a>
 
+            {/* First bottle reads as free against the regular $49 price, with the
+                $10 shipping charge stated plainly right beside it rather than
+                folded into a number that looks like the product's price. */}
             <div className={styles.priceRow}>
-              <span className={styles.priceNow}>${chosen.price}</span>
-              {chosen.months > 1 && <span className={styles.priceUnit}>/bottle</span>}
-              <span className={styles.priceWas}>${chosen.compareAt * chosen.months}</span>
-              <span className={styles.savePill}>Save ${saving}</span>
+              <span className={styles.priceNow}>Free</span>
+              <span className={styles.priceWas}>${PLAN.compareAt}</span>
+              <span className={styles.savePill}>+ ${SHIPPING_PRICE} shipping today</span>
             </div>
 
             <ul className={styles.included}>
@@ -101,51 +127,18 @@ export function BrainMemoryOffer() {
               ))}
             </ul>
 
-            <div className={styles.bundleGrid} role="radiogroup" aria-label="Choose your supply">
-              {PLANS.map((p) => {
-                const on = p.id === chosen.id;
-                const pctOff = Math.round((1 - p.price / p.compareAt) * 100);
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={on}
-                    onClick={() => setChosen(p)}
-                    className={`${styles.bundleCard} ${on ? styles.bundleCardOn : ""}`}
-                  >
-                    {p.best && <span className={styles.bundleBadge}>Most popular</span>}
-                    <Image
-                      src="/product/brain-memory/01-hero-split.png"
-                      alt=""
-                      width={120}
-                      height={120}
-                      className={styles.bundleShot}
-                      style={{ objectFit: "cover" }}
-                    />
-                    <span className={styles.bundleName}>{p.name}</span>
-                    <span>
-                      <span className={styles.bundlePrice}>${p.price}</span>
-                      <span className={styles.bundleWas}> ${p.compareAt}</span>
-                    </span>
-                    <span className={styles.lineNote}>{pctOff}% off</span>
-                  </button>
-                );
-              })}
-            </div>
-
             <Button fullWidth variant="accent" size="lg" onClick={buy}>
-              Try it now
+              Claim my free bottle
             </Button>
 
             <p className={styles.autoApplied}>
               <span className={styles.autoTick} aria-hidden="true">
                 <Icon name="check" size={13} strokeWidth={3.5} />
               </span>
-              50% off auto-applied today
+              First bottle free &mdash; just pay ${SHIPPING_PRICE} shipping today
             </p>
             <p className={styles.termsLine}>
-              Free shipping &nbsp;|&nbsp; {chosen.sub} &nbsp;|&nbsp; Cancel anytime
+              {PLAN.sub}. Cancel anytime.
             </p>
 
             <figure className={styles.pullQuote}>

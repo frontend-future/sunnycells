@@ -31,7 +31,7 @@ export function BrainMemoryPage() {
     <div className={styles.page}>
       <AnnouncementMarquee
         terms={[
-          { strong: "Free shipping", rest: "on all orders" },
+          { strong: "First bottle free", rest: "just pay shipping" },
           { strong: "30 day", rest: "money back guarantee" },
           { strong: "Skip or cancel", rest: "anytime" },
         ]}

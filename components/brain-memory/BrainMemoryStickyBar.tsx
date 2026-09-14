@@ -2,10 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { PLANS, PRODUCT } from "@/lib/products/brain-memory";
+import { PRODUCT, SHIPPING_PRICE } from "@/lib/products/brain-memory";
 import styles from "./brain-memory.module.css";
-
-const best = PLANS.find((p) => p.best) ?? PLANS[0];
 
 /**
  * Keeps the price and the action on screen once the buy box has scrolled away.
@@ -49,10 +47,10 @@ export function BrainMemoryStickyBar() {
       />
       <span className={styles.stickyText}>
         <strong>{PRODUCT.name}</strong>
-        <span>${best.price}/bottle &middot; 50% off first order</span>
+        <span>Free first bottle &middot; ${SHIPPING_PRICE} shipping today</span>
       </span>
       <a href="#buy" className={styles.stickyCta} tabIndex={shown ? 0 : -1}>
-        Try it now
+        Claim it free
       </a>
     </div>
   );

@@ -1,5 +1,5 @@
 /**
- * SC-31 Brain & Memory Power Boost: all page copy in one file, kept out of the
+ * Brain & Memory Power Boost: all page copy in one file, kept out of the
  * components the way every other product on this site does.
  *
  * SUBSTITUTION FLAG: the reference this was cloned from attributed its "expert
@@ -34,11 +34,23 @@ export type Plan = {
   best?: boolean;
 };
 
-export const PLANS: Plan[] = [
-  { id: "b1", months: 1, name: "1 month supply", sub: "Delivered fresh monthly", price: 30, compareAt: 60 },
-  { id: "b3", months: 3, name: "3 month supply", sub: "Delivered every 3 months", price: 27, compareAt: 60, best: true },
-  { id: "b6", months: 6, name: "6 month supply", sub: "Delivered every 6 months", price: 24, compareAt: 60 },
-];
+/**
+ * One offer, not a quantity ladder: the first bottle is free, only shipping is
+ * charged today, and the subscription renews monthly at the regular price after
+ * that. `price` here is what is charged for the PRODUCT today (0); the $10
+ * shipping charge is its own line in buildOrder below, and `compareAt` is the
+ * regular price the subscription renews at.
+ */
+export const PLAN: Plan = {
+  id: "trial",
+  months: 1,
+  name: PRODUCT.name,
+  sub: "Then $49 every month after your free first bottle, delivered automatically",
+  price: 0,
+  compareAt: 49,
+};
+
+export const SHIPPING_PRICE = 10;
 
 export const INTRO_BADGES = [
   { icon: "dna", label: "Six research backed actives" },
@@ -250,12 +262,15 @@ export const QUICK_INFO = [
   },
   {
     title: "Shipping, returns & guarantee",
-    body: "Free shipping on every order. If you do not notice a difference, you are covered by a 30 day money back guarantee.",
+    body: "Your first bottle is free. You pay $10 shipping today, then $49 every month after that, shipped automatically. Cancel anytime. If you do not notice a difference, you are covered by a 30 day money back guarantee.",
   },
 ] as const;
 
-export function planById(id: string | undefined): Plan {
-  return PLANS.find((p) => p.id === id) ?? PLANS.find((p) => p.best) ?? PLANS[0];
+/** No picker, so this always resolves to the one offer. Kept as a function so
+    the checkout, which calls buildOrder(planId), does not need to change shape
+    for a product with nothing to choose between. */
+export function planById(): Plan {
+  return PLAN;
 }
 
 export type OrderLine = {
@@ -275,28 +290,36 @@ export type Order = {
   total: number;
 };
 
-export function buildOrder(planId: string | undefined): Order {
-  const plan = planById(planId);
-  const now = plan.price * plan.months;
-  const list = plan.compareAt * plan.months;
-  const bottles = `${plan.months} ${plan.months === 1 ? "bottle" : "bottles"}`;
-
+/**
+ * The free-trial order: the product itself is free, shipping is $10, and that
+ * $10 is the only thing charged today. `listTotal` is the regular $49 the
+ * subscription renews at, so "your saving" reads as the value of the free
+ * bottle rather than as a discount on shipping.
+ */
+export function buildOrder(): Order {
   return {
-    plan,
+    plan: PLAN,
     lines: [
       {
         id: "product",
         name: `${PRODUCT.name}, ${PRODUCT.form.toLowerCase()}`,
-        note: `${bottles}. ${plan.sub}.`,
-        was: list,
-        now,
+        note: "First bottle free.",
+        was: PLAN.compareAt,
+        now: 0,
         image: "/product/brain-memory/01-hero-split.png",
       },
-      { id: "shipping", name: "Shipping", note: "Free on every order", was: null, now: 0, image: null },
+      {
+        id: "shipping",
+        name: "Shipping",
+        note: "Charged today",
+        was: null,
+        now: SHIPPING_PRICE,
+        image: null,
+      },
     ],
-    listTotal: list,
-    discount: list - now,
-    total: now,
+    listTotal: PLAN.compareAt,
+    discount: PLAN.compareAt - SHIPPING_PRICE,
+    total: SHIPPING_PRICE,
   };
 }
 
@@ -311,7 +334,7 @@ export const SERVING_NOTE = {
 } as const;
 
 export const INCLUDED = [
-  { icon: "truck", label: "Free shipping on every order" },
+  { icon: "truck", label: "$10 shipping, charged today" },
   { icon: "shield-check", label: "30 day money back guarantee" },
   { icon: "repeat", label: "Skip or cancel in two clicks" },
 ] as const;
