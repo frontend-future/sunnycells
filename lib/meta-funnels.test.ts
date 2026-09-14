@@ -49,7 +49,9 @@ test("the revitalize funnel reports into the original cortisol dataset", () => {
   assert.equal(funnelForPath("/products/revitalize"), "revitalize");
   assert.equal(funnelForPath("/products/revitalize/checkout"), "revitalize");
   assert.equal(funnelForPath("/revitalize/10-reasons"), "revitalize");
-  assert.equal(funnelForPath("/revitalize/3pm-crash"), "revitalize");
+  /* /revitalize/3pm-crash doesn't exist as a route anymore (removed), but the
+     prefix check must still cover anything else added under /revitalize later. */
+  assert.equal(funnelForPath("/revitalize/anything-else"), "revitalize");
   assert.equal(PIXEL_IDS.revitalize, PIXEL_IDS.default);
 });
 
