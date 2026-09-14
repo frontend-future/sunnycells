@@ -10,11 +10,19 @@ export type AccordionProps = HTMLAttributes<HTMLDivElement> & {
   items: AccordionItem[];
   defaultOpen?: number;
   style?: CSSProperties;
+  /** "dark" for a dark-band section (white title, translucent white body and
+      rules). These are inline styles, so a CSS ancestor class like .darkBand
+      cannot override them; this is the actual override. */
+  tone?: "light" | "dark";
 };
 
 /* The panel stays mounted and collapses via grid-template-rows 0fr to 1fr, so it
    animates to its natural height without any measurement or fixed max-height. */
-export function Accordion({ items, defaultOpen = -1, style, ...rest }: AccordionProps) {
+export function Accordion({ items, defaultOpen = -1, style, tone = "light", ...rest }: AccordionProps) {
+  const dark = tone === "dark";
+  const ruleColor = dark ? "rgba(255, 255, 255, 0.3)" : "var(--border-hairline)";
+  const titleColor = dark ? "var(--white)" : "var(--ink)";
+  const bodyColor = dark ? "rgba(255, 255, 255, 0.85)" : "var(--ink-80)";
   const [open, setOpen] = useState(defaultOpen);
   /* Panel ids are namespaced per instance. Two accordions on one page were both
      emitting sc-acc-0 upward, so the second one's aria-controls pointed at the first
@@ -33,12 +41,12 @@ export function Accordion({ items, defaultOpen = -1, style, ...rest }: Accordion
   const ease = instant ? "0ms" : "var(--duration-base) var(--ease-standard)";
 
   return (
-    <div {...rest} style={{ borderTop: "1px solid var(--border-hairline)", ...style }}>
+    <div {...rest} style={{ borderTop: `1px solid ${ruleColor}`, ...style }}>
       {items.map((it, i) => {
         const on = open === i;
         const panelId = `sc-acc-${uid}-${i}`;
         return (
-          <div key={it.title} style={{ borderBottom: "1px solid var(--border-hairline)" }}>
+          <div key={it.title} style={{ borderBottom: `1px solid ${ruleColor}` }}>
             <button
               type="button"
               aria-expanded={on}
@@ -60,7 +68,7 @@ export function Accordion({ items, defaultOpen = -1, style, ...rest }: Accordion
                 fontFamily: "var(--font-text)",
                 fontSize: "var(--size-body-lg)",
                 fontWeight: 700,
-                color: "var(--ink)",
+                color: titleColor,
               }}
             >
               <span>{it.title}</span>
@@ -92,7 +100,7 @@ export function Accordion({ items, defaultOpen = -1, style, ...rest }: Accordion
                     padding: "0 0 22px",
                     fontSize: "var(--size-body)",
                     lineHeight: "var(--leading-body)",
-                    color: "var(--ink-80)",
+                    color: bodyColor,
                     maxWidth: 620,
                   }}
                 >

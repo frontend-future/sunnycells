@@ -265,7 +265,7 @@ export function BrainMemoryPage() {
           </h2>
         </div>
         <div style={{ maxWidth: 720, margin: "var(--space-8) auto 0" }}>
-          <Accordion items={FAQ.map((f) => ({ title: f.title, body: f.body }))} />
+          <Accordion items={FAQ.map((f) => ({ title: f.title, body: f.body }))} tone="dark" />
         </div>
       </section>
 
