@@ -43,6 +43,14 @@ test("the without curve drifts down rather than climbing", () => {
   assert.ok(withoutCurve(1) < 0, "a full 90 days without a change should read as a decline");
 });
 
+test("the without curve never runs off the bottom of the chart", () => {
+  /* ProjectionChart pads the y axis by 12% of the start-to-target gap above and below,
+     so a compare curve steeper than -0.12 at t=1 draws below the axis whatever
+     clarityNow() returns. This mirrors that formula directly rather than picking one
+     start/target pair, so it still catches a regression if NOW_BAND changes later. */
+  assert.ok(withoutCurve(1) > -0.12, `withoutCurve(1) = ${withoutCurve(1)}, past the chart's -0.12 floor`);
+});
+
 test("age is computed from a complete date of birth and null otherwise", () => {
   assert.equal(ageFromAnswers({}), null);
   assert.equal(ageFromAnswers({ dobMonth: "6", dobDay: "15" }), null);

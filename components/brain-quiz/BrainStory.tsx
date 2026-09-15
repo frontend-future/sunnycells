@@ -30,6 +30,7 @@ const STORIES = {
     name: "Carol",
     they: "she",
     her: "her",
+    image: "/quiz/brain/story-carol.webp",
     points: [
       { lead: "Carol stopped losing her train of thought mid-sentence", rest: ", something she had quietly written off as just getting older." },
       { lead: "The afternoon fog that used to slow her whole day", rest: " came in lighter and left sooner, most days barely at all." },
@@ -40,6 +41,7 @@ const STORIES = {
     name: "Robert",
     they: "he",
     her: "his",
+    image: "/quiz/brain/story-robert.webp",
     points: [
       { lead: "Robert stopped losing his train of thought mid-sentence", rest: ", something he had quietly written off as just getting older." },
       { lead: "The afternoon fog that used to slow his whole day", rest: " came in lighter and left sooner, most days barely at all." },
@@ -48,7 +50,7 @@ const STORIES = {
   },
 } as const;
 
-const WEEKS = 6;
+const WEEKS = 12;
 const QUOTE = "I stopped introducing myself with an apology for forgetting names";
 
 export function BrainStory() {
@@ -104,10 +106,10 @@ export function BrainStory() {
       </h1>
 
       <Image
-        src="/product/brain-memory/experts/expert-1.webp"
+        src={s.image}
         alt={`${s.name} holding a bottle of ${PRODUCT.name}`}
         width={800}
-        height={800}
+        height={1097}
         style={{
           width: "auto",
           maxWidth: "100%",
@@ -125,7 +127,7 @@ export function BrainStory() {
       </p>
 
       <p style={{ margin: "var(--space-6) 0 var(--space-5)", fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>
-        Over {WEEKS} weeks of four capsules a day, {s.they} noticed significant changes:
+        Over {WEEKS} weeks, {s.they} noticed significant changes:
       </p>
 
       <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>

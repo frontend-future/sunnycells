@@ -54,8 +54,11 @@ export const CLARITY_HORIZON_DAYS = 90;
 /* Where "now" sits on a 0 to 100 mental clarity index, and where the plan is drawn to
    by day 90. Same banded technique as every other funnel's now/after gauge: never
    starts at the very bottom, since a profile that reads as total fog measured nothing
-   real, and never claims total clarity either. */
-const NOW_BAND: [number, number] = [22, 40];
+   real, and never claims total clarity either. Raised off the true floor a bit further
+   than the other funnels' bands: this is the one screen that also draws a second,
+   declining curve below the start point, and a start sitting right at the bottom of
+   the chart left that curve nowhere to go but off the axis. */
+const NOW_BAND: [number, number] = [30, 48];
 const AFTER = 84;
 
 function clarityNow(a: Answers): number {
@@ -87,9 +90,14 @@ export function clarityProjection(a: Answers): ClarityProjection {
 
 /* Continued decline without doing anything about it: a slow downward drift, not a
    cliff. Returned as a fraction of the gap the plan line covers, same contract as the
-   diet funnel's dieting curve and the energy funnel's caffeine curve. */
+   diet funnel's dieting curve and the energy funnel's caffeine curve.
+   Capped well inside ProjectionChart's own vertical padding (12% of the start-to-target
+   gap, above and below), which is fixed by the chart regardless of where NOW_BAND
+   places the start: past compare(1) = -0.12 this curve runs off the bottom of the
+   axis. -0.08 leaves real margin either side of that line rather than sitting on it,
+   at any start point clarityNow() can return. */
 export function withoutCurve(t: number): number {
-  return -0.3 * t;
+  return -0.08 * t;
 }
 
 /* Fast early then flattening, matching every other funnel's projection curve rather

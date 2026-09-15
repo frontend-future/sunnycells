@@ -93,10 +93,6 @@ export function BrainBenefits() {
         ))}
       </ol>
 
-      <p style={{ margin: "var(--space-10) 0 0", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", textAlign: "center" }}>
-        Stimulant-free, {PRODUCT.capsulesPerServing} capsules a day, {PRODUCT.servings} servings per bottle.
-      </p>
-
       <StickyCta>
         <NextButton href="/quiz/brain/results/story">Continue</NextButton>
       </StickyCta>
