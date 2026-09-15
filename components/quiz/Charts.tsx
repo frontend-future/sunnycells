@@ -160,12 +160,21 @@ export function ProjectionChart({
   format,
   planLabel = "With Metabolic Morning Blend",
   compareLabel = "With dieting alone",
+  /* var(--series-diet) everywhere except a caller that wants the comparison line to
+     read as a warning rather than a neutral second series. */
+  compareColor = "var(--series-diet)",
   ariaNoun = "weight",
   compare = dietLoss,
   /* Every caller so far has run an eight week window, which is where this default
      comes from. A funnel on a different horizon (the brain quiz's ninety days) passes
      its own, rather than the corner reading a number nobody chose for it. */
   horizonDays = HORIZON_DAYS,
+  /* Fraction of |start - target| added below the lower of the two and above the
+     higher, both 0.12 by default. A caller whose compare curve needs real room to
+     decline below the start point (rather than a token nod at one, which is all the
+     default leaves) passes a bigger padBelow; nothing else changes. */
+  padBelow = 0.12,
+  padAbove = 0.12,
 }: {
   p: Projection;
   startLabel: string;
@@ -173,9 +182,12 @@ export function ProjectionChart({
   format?: (value: number) => string;
   planLabel?: string;
   compareLabel?: string;
+  compareColor?: string;
   ariaNoun?: string;
   compare?: (t: number) => number;
   horizonDays?: number;
+  padBelow?: number;
+  padAbove?: number;
 }) {
   /* A 400 unit box, not 640: the SVG scales to its container, so a wide viewBox
      shrinks the type inside it. At 400 the labels land near their nominal size on a
@@ -191,9 +203,8 @@ export function ProjectionChart({
      series travels. Weight starts high and falls; good hours start low and climb.
      Deriving the window from min and max rather than from start and target is what
      keeps the second case from drawing upside down. */
-  const pad = Math.abs(toLose) * 0.12;
-  const lo = Math.min(p.start, p.target) - pad;
-  const hi = Math.max(p.start, p.target) + pad;
+  const lo = Math.min(p.start, p.target) - Math.abs(toLose) * padBelow;
+  const hi = Math.max(p.start, p.target) + Math.abs(toLose) * padAbove;
   const x = (t: number) => padX + t * (W - padX * 2);
   const y = (lb: number) => padT + (1 - (lb - lo) / (hi - lo)) * (H - padT - padB);
 
@@ -251,7 +262,7 @@ export function ProjectionChart({
         <g clipPath="url(#sc-plan-reveal)">
           <path d={area} fill="url(#sc-plan-fill)" />
           {/* Dashed, so the two series differ by more than hue. */}
-          <path d={diet} fill="none" stroke="var(--series-diet)" strokeWidth={2.5} strokeDasharray="7 5" strokeLinecap="round" />
+          <path d={diet} fill="none" stroke={compareColor} strokeWidth={2.5} strokeDasharray="7 5" strokeLinecap="round" />
           <path d={plan} fill="none" stroke="var(--series-plan)" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
         </g>
 
@@ -294,7 +305,7 @@ export function ProjectionChart({
       >
         {[
           { label: planLabel, color: "var(--series-plan)", dash: undefined },
-          { label: compareLabel, color: "var(--series-diet)", dash: "9 7" },
+          { label: compareLabel, color: compareColor, dash: "9 7" },
         ].map((k) => (
           <span key={k.label} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 600 }}>
             <svg width={26} height={10} aria-hidden="true" style={{ flex: "none" }}>

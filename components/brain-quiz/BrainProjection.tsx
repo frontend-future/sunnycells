@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/core/Card";
 import { brainQuiz } from "@/lib/quiz/brain";
-import { CLARITY_HORIZON_DAYS, clarityProjection, withoutCurve } from "@/lib/quiz/brainAssessment";
+import { CLARITY_HORIZON_DAYS, CLARITY_PAD_BELOW, clarityProjection, withoutCurve } from "@/lib/quiz/brainAssessment";
 import { useAnswers } from "@/lib/quiz/store";
 import { ageFromAnswers } from "@/lib/quiz/types";
 import { ProjectionChart } from "@/components/quiz/Charts";
@@ -38,7 +38,7 @@ export function BrainProjection() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        {ready ? `What 90 days of mental clarity could look like, by ${dayMonthYear(addDays(CLARITY_HORIZON_DAYS))}` : "Your mental clarity timeline"}
+        {ready ? `Here's what your mental clarity could look like by ${dayMonthYear(addDays(CLARITY_HORIZON_DAYS))}` : "Your mental clarity timeline"}
       </h1>
 
       {ready ? (
@@ -50,12 +50,14 @@ export function BrainProjection() {
             p={p}
             startLabel={monthYear(new Date())}
             endLabel={monthYear(addDays(CLARITY_HORIZON_DAYS))}
-            format={(v) => `${Math.round(v)}/100`}
+            format={(v) => (v >= (p.start + p.target) / 2 ? "High" : "Low")}
             planLabel="With Brain & Memory Power Boost"
             compareLabel="Without a change"
+            compareColor="var(--status-error)"
             ariaNoun="mental clarity"
             compare={withoutCurve}
             horizonDays={CLARITY_HORIZON_DAYS}
+            padBelow={CLARITY_PAD_BELOW}
           />
         </Card>
       ) : null}
@@ -64,11 +66,11 @@ export function BrainProjection() {
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           Left alone, the three causes behind cognitive decline, energy decline in brain
           cells, inflammation, and reduced blood flow, tend to compound rather than level
-          off. That is the dashed line above.
+          off.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          Addressing all three at once, rather than just one, is why the solid line
-          climbs instead of drifting down.
+          Addressing all three at once, rather than just one, is how you can experience
+          lasting improvements over time.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           This is an illustration of a trend, not a promise about your result.{" "}

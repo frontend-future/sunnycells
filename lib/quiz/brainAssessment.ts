@@ -61,6 +61,15 @@ export const CLARITY_HORIZON_DAYS = 90;
 const NOW_BAND: [number, number] = [30, 48];
 const AFTER = 84;
 
+/* How far below the start point ProjectionChart's y axis extends, as a fraction of
+   the start-to-target gap. The chart defaults to 0.12, which puts the start point
+   right near the bottom, barely any room for the second curve to decline into. This
+   funnel wants that curve visible and the start point sitting around the middle of
+   the chart, so it passes a much bigger fraction: solved from the chart's own
+   fraction-from-bottom formula, padBelow / (1 + padBelow + padAbove), for roughly
+   0.5 at the default padAbove of 0.12. */
+export const CLARITY_PAD_BELOW = 0.85;
+
 function clarityNow(a: Answers): number {
   const rows = brainRows(a);
   const avgDisruption = rows.reduce((sum, r) => sum + r.you, 0) / rows.length;
@@ -88,16 +97,15 @@ export function clarityProjection(a: Answers): ClarityProjection {
   return { weeks, points, start, target, unit: "lb" };
 }
 
-/* Continued decline without doing anything about it: a slow downward drift, not a
-   cliff. Returned as a fraction of the gap the plan line covers, same contract as the
-   diet funnel's dieting curve and the energy funnel's caffeine curve.
-   Capped well inside ProjectionChart's own vertical padding (12% of the start-to-target
-   gap, above and below), which is fixed by the chart regardless of where NOW_BAND
-   places the start: past compare(1) = -0.12 this curve runs off the bottom of the
-   axis. -0.08 leaves real margin either side of that line rather than sitting on it,
-   at any start point clarityNow() can return. */
+/* Continued decline without doing anything about it. Returned as a fraction of the
+   gap the plan line covers, same contract as the diet funnel's dieting curve and the
+   energy funnel's caffeine curve. ProjectionChart draws this curve down to
+   compare(1) = -CLARITY_PAD_BELOW before it runs off the bottom of the axis
+   (see CLARITY_PAD_BELOW above); -0.5 stays well clear of that at any start point
+   clarityNow() can return, while still reading as a real decline rather than a flat
+   line. */
 export function withoutCurve(t: number): number {
-  return -0.08 * t;
+  return -0.5 * t;
 }
 
 /* Fast early then flattening, matching every other funnel's projection curve rather

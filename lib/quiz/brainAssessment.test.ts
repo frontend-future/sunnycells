@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { brainRows, clarityProjection, withoutCurve } from "./brainAssessment.ts";
+import { brainRows, CLARITY_PAD_BELOW, clarityProjection, withoutCurve } from "./brainAssessment.ts";
 import { ageFromAnswers } from "./types.ts";
 import type { Answers } from "./assessment.ts";
 
@@ -44,11 +44,15 @@ test("the without curve drifts down rather than climbing", () => {
 });
 
 test("the without curve never runs off the bottom of the chart", () => {
-  /* ProjectionChart pads the y axis by 12% of the start-to-target gap above and below,
-     so a compare curve steeper than -0.12 at t=1 draws below the axis whatever
-     clarityNow() returns. This mirrors that formula directly rather than picking one
-     start/target pair, so it still catches a regression if NOW_BAND changes later. */
-  assert.ok(withoutCurve(1) > -0.12, `withoutCurve(1) = ${withoutCurve(1)}, past the chart's -0.12 floor`);
+  /* BrainProjection passes CLARITY_PAD_BELOW as ProjectionChart's padBelow, so a
+     compare curve steeper than -CLARITY_PAD_BELOW at t=1 draws below the axis
+     whatever clarityNow() returns. This mirrors that formula directly rather than
+     picking one start/target pair, so it still catches a regression if NOW_BAND or
+     CLARITY_PAD_BELOW changes later. */
+  assert.ok(
+    withoutCurve(1) > -CLARITY_PAD_BELOW,
+    `withoutCurve(1) = ${withoutCurve(1)}, past the chart's -${CLARITY_PAD_BELOW} floor`,
+  );
 });
 
 test("age is computed from a complete date of birth and null otherwise", () => {
