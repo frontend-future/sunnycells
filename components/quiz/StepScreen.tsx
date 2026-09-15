@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
@@ -64,11 +65,20 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
   if (step.kind === "info") {
     return (
       <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
+        {step.image ? (
+          <Image
+            src={step.image.src}
+            alt={step.image.alt}
+            width={176}
+            height={176}
+            style={{ width: 88, height: 88, borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
+          />
+        ) : null}
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>{step.body}</p>
         {step.bullets ? (
           <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-            {step.bullets.map((b) => (
-              <li key={b} style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
+            {step.bullets.map((b, i) => (
+              <li key={i} style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
                 {step.bulletIcon === "check" ? (
                   /* Sun on an ink disc, not a bare sun tick. --sun on the --shell step
                      background is 1.4:1, so a loose yellow stroke would barely be
@@ -93,7 +103,12 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
                 ) : (
                   <span aria-hidden="true" style={{ flex: "none", width: 8, height: 8, marginTop: 11, borderRadius: "50%", background: "var(--ink)" }} />
                 )}
-                {b}
+                {typeof b === "string" ? b : (
+                  <span>
+                    <strong style={{ fontWeight: 800, textDecoration: "underline" }}>{b.strong}</strong>
+                    {b.rest}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

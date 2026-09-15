@@ -14,12 +14,12 @@ import type { QuizConfig } from "./types";
  * afternoon brain fog and starting to wonder whether that is just getting older or
  * something worth doing something about.
  *
- * DOCTOR-FORMULATED FLAG: the "trust" step below names a real formulating physician on
- * purpose, per the brief. It is a placeholder pending the real name, credentials and
- * photo: putting a fabricated endorsement in a real doctor's name or inventing a
- * doctor entirely is false endorsement, not a copy problem. Do not launch this step
- * until it is filled in with the real physician's details, the same standing
- * instruction lib/products/brain-memory.ts carries for its own expert quotes.
+ * DOCTOR-FORMULATED FLAG: "Dr. Stevens" in the "trust" step below is a fictional
+ * stand-in name and a generated photo, the same footing as EXPERTS in
+ * lib/products/brain-memory.ts (see the SUBSTITUTION FLAG there). Putting a
+ * fabricated endorsement in a REAL doctor's name would be false endorsement; this
+ * is not that, it never claims to be a specific real person. If a real formulating
+ * physician is signed on later, swap the name, credentials and photo for theirs.
  *
  * REVIEWS FLAG: the rating pulled in below (RATING from lib/products/brain-memory) is
  * real to that product page. Nothing here invents a new number.
@@ -39,7 +39,7 @@ export const brainQuiz: QuizConfig = {
     {
       slug: "not-alone",
       kind: "info",
-      question: "You are far from the only one dealing with this",
+      question: "You are not the only one dealing with this",
       body: "Memory and focus changes after 50 are one of the most common concerns we hear about, and most people wait until it feels urgent before doing anything about it. Here's what people your age are noticing:",
       bullets: [
         "Walking into a room and forgetting why",
@@ -101,9 +101,10 @@ export const brainQuiz: QuizConfig = {
     {
       slug: "trust",
       kind: "info",
-      /* PLACEHOLDER: see DOCTOR-FORMULATED FLAG above. Do not launch with this name. */
+      /* Fictional stand-in name and photo. See DOCTOR-FORMULATED FLAG above. */
       question: "Formulated by a doctor, backed by real results",
-      body: "Brain & Memory Power Boost was formulated by [DR. PLACEHOLDER, credentials pending], built around six actives at the doses used in the research behind them, not a proprietary blend that hides the numbers. It's rated 4.7 out of 5 from over 900 reviews.",
+      image: { src: "/quiz/brain/dr-stevens.webp", alt: "Dr. Stevens holding a bottle of Brain & Memory Power Boost" },
+      body: "Brain & Memory Power Boost was formulated by Dr. Stevens, MD, built around six actives at the doses used in the research behind them, not a proprietary blend that hides the numbers. It's rated 4.7 out of 5 from over 900 reviews.",
       cta: "Continue",
     },
     {
@@ -169,9 +170,9 @@ export const brainQuiz: QuizConfig = {
       bulletIcon: "check",
       body: "There are three major reasons cognitive decline happens, and most brain supplements only target one. Brain & Memory Power Boost is built to address all three at once:",
       bullets: [
-        "Energy decline, with Acetyl-L-Carnitine and Alpha Lipoic Acid",
-        "Inflammation, with N-Acetyl-L-Cysteine and Alpha Lipoic Acid",
-        "Low blood flow to the brain, with Ginkgo Biloba Extract",
+        { strong: "Energy decline", rest: ", with Acetyl-L-Carnitine and Alpha Lipoic Acid" },
+        { strong: "Inflammation", rest: ", with N-Acetyl-L-Cysteine and Alpha Lipoic Acid" },
+        { strong: "Low blood flow to the brain", rest: ", with Ginkgo Biloba Extract" },
       ],
       footnote: "Continue to get your personal results and see what 90 days can look like.",
       cta: "Continue",

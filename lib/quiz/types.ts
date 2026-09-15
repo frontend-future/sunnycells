@@ -11,7 +11,9 @@ export type Step =
       kind: "info";
       question: string;
       body: string;
-      bullets?: string[];
+      /** A plain bullet, or one with a leading run of text set bold and underlined
+          (the cause name in a causes-and-actives list, say), the rest plain. */
+      bullets?: (string | { strong: string; rest: string })[];
       /** Marker for each bullet. Defaults to a dot. Use "check" only where the list
           is benefits: a tick beside a symptom reads as a good thing. */
       bulletIcon?: "check";
@@ -19,6 +21,9 @@ export type Step =
       footnote?: string;
       /** Centres the question under the wordmark, for the brand-statement screen. */
       brandHeading?: boolean;
+      /** A small round portrait above the body, for a screen naming a specific
+          person (a formulating physician, say). */
+      image?: { src: string; alt: string };
       cta: string;
     }
   | { slug: string; kind: "height"; question: string }

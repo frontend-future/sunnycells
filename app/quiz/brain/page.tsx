@@ -84,7 +84,7 @@ export default function BrainQuizLandingPage() {
               textWrap: "balance",
             }}
           >
-            <span style={{ fontWeight: 600 }}>Find out what&apos;s behind the memory lapses and brain fog with </span>
+            <span style={{ fontWeight: 600 }}>Clear brain fog &amp; sharpen your mind with </span>
             <span style={{ fontWeight: 900 }}>{PRODUCT.name}</span>
           </h1>
 
@@ -97,8 +97,8 @@ export default function BrainQuizLandingPage() {
               textWrap: "pretty",
             }}
           >
-            Twenty questions, about two minutes. See what&apos;s likely going on and what 90
-            days of a stimulant-free, doctor-formulated routine could look like.
+            A stimulant-free, doctor-formulated routine can support sharper recall, less
+            brain fog, and steadier mental clarity in as little as 90 days.
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>
