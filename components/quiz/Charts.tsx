@@ -162,6 +162,10 @@ export function ProjectionChart({
   compareLabel = "With dieting alone",
   ariaNoun = "weight",
   compare = dietLoss,
+  /* Every caller so far has run an eight week window, which is where this default
+     comes from. A funnel on a different horizon (the brain quiz's ninety days) passes
+     its own, rather than the corner reading a number nobody chose for it. */
+  horizonDays = HORIZON_DAYS,
 }: {
   p: Projection;
   startLabel: string;
@@ -171,6 +175,7 @@ export function ProjectionChart({
   compareLabel?: string;
   ariaNoun?: string;
   compare?: (t: number) => number;
+  horizonDays?: number;
 }) {
   /* A 400 unit box, not 640: the SVG scales to its container, so a wide viewBox
      shrinks the type inside it. At 400 the labels land near their nominal size on a
@@ -272,7 +277,7 @@ export function ProjectionChart({
           <div style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{startLabel}</div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Day {HORIZON_DAYS}+</div>
+          <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Day {horizonDays}+</div>
           <div style={{ fontSize: "var(--size-body)", fontWeight: 700 }}>{endLabel}</div>
         </div>
       </div>

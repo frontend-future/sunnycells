@@ -24,6 +24,14 @@ export type Step =
   | { slug: string; kind: "height"; question: string }
   | {
       slug: string;
+      kind: "dob";
+      question: string;
+      /** The innocuous line under the fields explaining why we ask for a birth date
+          instead of just an age, e.g. "To us, age is just a number, but it helps us...". */
+      reason: string;
+    }
+  | {
+      slug: string;
       kind: "number";
       question: string;
       /** Where the value is stored, so later screens can read it by a stable name. */
@@ -61,6 +69,22 @@ export type QuizConfig = {
   resultsPath: string;
   steps: Step[];
 };
+
+/** Whole years from a stored dob, as of today. Null if the three fields are not all
+    there yet, so a screen mid-fill never shows a nonsense age. */
+export function ageFromAnswers(answers: Record<string, string>): number | null {
+  const month = Number(answers.dobMonth);
+  const day = Number(answers.dobDay);
+  const year = Number(answers.dobYear);
+  if (!month || !day || !year) return null;
+
+  const today = new Date();
+  let age = today.getFullYear() - year;
+  const beforeBirthday =
+    today.getMonth() + 1 < month || (today.getMonth() + 1 === month && today.getDate() < day);
+  if (beforeBirthday) age -= 1;
+  return age;
+}
 
 export function stepIndex(config: QuizConfig, slug: string): number {
   return config.steps.findIndex((s) => s.slug === slug);
@@ -100,6 +124,12 @@ export function buildAnswersPayload(
         if (answers.heightCm) out[step.question] = `${answers.heightCm} cm`;
       } else if (answers.heightFeet) {
         out[step.question] = `${answers.heightFeet} ft ${answers.heightInches ?? 0} in`;
+      }
+    } else if (step.kind === "dob") {
+      const age = ageFromAnswers(answers);
+      if (answers.dobMonth && answers.dobDay && answers.dobYear) {
+        out[step.question] =
+          `${answers.dobMonth}/${answers.dobDay}/${answers.dobYear}` + (age != null ? ` (age ${age})` : "");
       }
     }
   }

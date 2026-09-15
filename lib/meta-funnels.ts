@@ -20,10 +20,10 @@ const PATHS: [Funnel, string[]][] = [
   ["reds", ["/products/daily-reds"]],
   ["revitalize", ["/products/revitalize", "/revitalize"]],
   ["calm", ["/products/anytime-calm", "/quiz/calm"]],
-  /* Brain & Memory Power Boost only. This does not touch /products/brain (Clear
-     Mind, SC-27): that path has no "/" right after "brain", so the prefix check
-     below never matches it against this entry. */
-  ["brain", ["/products/brain-memory"]],
+  /* Brain & Memory Power Boost, product page and its own quiz funnel. This does not
+     touch /products/brain (Clear Mind, SC-27): that path has no "/" right after
+     "brain", so the prefix check below never matches it against this entry. */
+  ["brain", ["/products/brain-memory", "/quiz/brain"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {

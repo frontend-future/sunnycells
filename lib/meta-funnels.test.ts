@@ -58,6 +58,9 @@ test("the revitalize funnel reports into the original cortisol dataset", () => {
 test("brain and memory power boost reports to its own dataset", () => {
   assert.equal(funnelForPath("/products/brain-memory"), "brain");
   assert.equal(funnelForPath("/products/brain-memory/checkout"), "brain");
+  assert.equal(funnelForPath("/quiz/brain"), "brain");
+  assert.equal(funnelForPath("/quiz/brain/dob"), "brain");
+  assert.equal(funnelForPath("/quiz/brain/results/checkout"), "brain");
   /* /products/brain doesn't exist as a route (Clear Mind, SC-27, was removed),
      but the prefix check must still not treat it as a match for this funnel
      if something is ever added there again. */

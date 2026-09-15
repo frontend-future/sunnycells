@@ -114,6 +114,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
 
   if (step.kind === "height") return <HeightBody answers={answers} set={set} go={go} />;
   if (step.kind === "number") return <NumberBody step={step} answers={answers} set={set} go={go} />;
+  if (step.kind === "dob") return <DobBody step={step} answers={answers} set={set} go={go} />;
   return <EmailBody step={step} config={config} answers={answers} set={set} go={go} />;
 }
 
@@ -298,6 +299,49 @@ function NumberBody({
         ) : null}
       </div>
       {error ? <FieldError>{error}</FieldError> : null}
+      <StickyCta>
+        <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
+          Continue
+        </Button>
+      </StickyCta>
+    </form>
+  );
+}
+
+function DobBody({
+  step, answers, set, go,
+}: { step: Extract<Step, { kind: "dob" }>; answers: Answers; set: Setter; go: () => void }) {
+  const [month, setMonth] = useState(answers.dobMonth || "");
+  const [day, setDay] = useState(answers.dobDay || "");
+  const [year, setYear] = useState(answers.dobYear || "");
+  const [error, setError] = useState("");
+
+  const submit = () => {
+    const m = Number(month);
+    const d = Number(day);
+    const y = Number(year);
+    const thisYear = new Date().getFullYear();
+    if (!m || m < 1 || m > 12 || !d || d < 1 || d > 31 || !y || y < thisYear - 110 || y > thisYear - 13) {
+      setError("We need a full birth date, month, day and year.");
+      return;
+    }
+    set("dobMonth", String(m));
+    set("dobDay", String(d));
+    set("dobYear", String(y));
+    go();
+  };
+
+  return (
+    <form noValidate onSubmit={(e) => { e.preventDefault(); submit(); }} style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1.3fr", gap: "var(--space-4)" }}>
+        <Input label="Month" type="number" inputMode="numeric" placeholder="MM" value={month} onChange={(e) => { setMonth(e.target.value); setError(""); }} />
+        <Input label="Day" type="number" inputMode="numeric" placeholder="DD" value={day} onChange={(e) => { setDay(e.target.value); setError(""); }} />
+        <Input label="Year" type="number" inputMode="numeric" placeholder="YYYY" value={year} onChange={(e) => { setYear(e.target.value); setError(""); }} />
+      </div>
+      {error ? <FieldError>{error}</FieldError> : null}
+      <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.45 }}>
+        {step.reason}
+      </p>
       <StickyCta>
         <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
           Continue
