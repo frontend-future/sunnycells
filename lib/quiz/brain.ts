@@ -186,7 +186,7 @@ export const brainQuiz: QuizConfig = {
       placeholder: "Your email address",
       privacy: "We don't send spam or share email addresses. We respect your privacy.",
       cta: "Unlock my results",
-      badge: "SAVE UP TO 79%",
+      badge: "SAVE UP TO 79% TODAY",
     },
   ],
 };
