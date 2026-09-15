@@ -3,6 +3,7 @@ import test from "node:test";
 import { funnelStepFor } from "./funnel.ts";
 import { dietQuiz } from "../quiz/diet.ts";
 import { cortisolQuiz } from "../quiz/cortisol.ts";
+import { brainQuiz } from "../quiz/brain.ts";
 
 test("the landing page is step 0, because gender is answered there", async () => {
   const s = await funnelStepFor("/quiz/diet");
@@ -49,6 +50,18 @@ test("cortisol has no story screen, so plans sits one place earlier", async () =
   assert.equal(await funnelStepFor("/quiz/cortisol/results/story"), null);
   const plans = await funnelStepFor("/quiz/cortisol/results/plans");
   assert.equal(plans?.index, cortisolQuiz.steps.length + 5);
+});
+
+test("the brain funnel is numbered independently and its results include a story screen", async () => {
+  const first = await funnelStepFor(`/quiz/brain/${brainQuiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "brain", index: 1, slug: brainQuiz.steps[0].slug, stage: "question" });
+
+  const story = await funnelStepFor("/quiz/brain/results/story");
+  assert.equal(story?.index, brainQuiz.steps.length + 5);
+  const plans = await funnelStepFor("/quiz/brain/results/plans");
+  assert.equal(plans?.index, brainQuiz.steps.length + 6);
+  const checkout = await funnelStepFor("/quiz/brain/results/checkout");
+  assert.equal(checkout?.index, brainQuiz.steps.length + 7);
 });
 
 test("pages outside a funnel are not steps", async () => {
