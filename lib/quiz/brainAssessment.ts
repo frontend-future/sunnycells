@@ -97,15 +97,17 @@ export function clarityProjection(a: Answers): ClarityProjection {
   return { weeks, points, start, target, unit: "lb" };
 }
 
-/* Continued decline without doing anything about it. Returned as a fraction of the
-   gap the plan line covers, same contract as the diet funnel's dieting curve and the
-   energy funnel's caffeine curve. ProjectionChart draws this curve down to
-   compare(1) = -CLARITY_PAD_BELOW before it runs off the bottom of the axis
-   (see CLARITY_PAD_BELOW above); -0.5 stays well clear of that at any start point
+/* Continued decline without doing anything about it: nearly flat at first, then
+   tapering off harder as the weeks go by, rather than a straight line down from day
+   one. Squaring t is what gives it that slow-start shape. Returned as a fraction of
+   the gap the plan line covers, same contract as the diet funnel's dieting curve and
+   the energy funnel's caffeine curve. ProjectionChart draws this curve down to
+   compare(1) = -CLARITY_PAD_BELOW before it runs off the bottom of the axis (see
+   CLARITY_PAD_BELOW above); -0.5 at t=1 stays well clear of that at any start point
    clarityNow() can return, while still reading as a real decline rather than a flat
    line. */
 export function withoutCurve(t: number): number {
-  return -0.5 * t;
+  return -0.5 * t * t;
 }
 
 /* Fast early then flattening, matching every other funnel's projection curve rather
