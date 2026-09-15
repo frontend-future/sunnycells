@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { Accordion } from "@/components/navigation/Accordion";
+import { Badge } from "@/components/core/Badge";
 import { Icon } from "@/components/core/Icon";
 import { Wordmark } from "@/components/core/Wordmark";
 import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
+import { OfferCountdown } from "@/components/quiz/OfferCountdown";
 import {
   BENEFITS, EXPERTS, FAQ, INGREDIENTS, PRODUCT, TIMELINE,
 } from "@/lib/products/brain-memory";
@@ -21,6 +23,31 @@ const FOOTER = [
 export function BrainMemoryPage() {
   return (
     <div className={styles.page}>
+      {/* Offer bar, same treatment as the quiz's plans screen: sun with ink on it,
+          the one pairing the brand allows on yellow, and the one timer the brand
+          runs at all (see OfferCountdown). */}
+      <div
+        style={{
+          background: "var(--sun)",
+          color: "var(--ink)",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "var(--space-3) var(--space-6)",
+          padding: "8px var(--page-gutter-mobile)",
+          fontSize: "var(--size-meta)",
+          fontWeight: 700,
+          letterSpacing: "var(--tracking-caps)",
+          textTransform: "uppercase",
+        }}
+      >
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-3)" }}>
+          Limited time offer <Badge tone="ink">First bottle free</Badge>
+          <OfferCountdown />
+        </span>
+      </div>
+
       <AnnouncementMarquee
         terms={[
           { strong: "First bottle free", rest: "just cover shipping" },
