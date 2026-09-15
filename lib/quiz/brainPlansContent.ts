@@ -64,7 +64,7 @@ export const BRAIN_CAROUSEL: CarouselContent = {
 export const BRAIN_PLANS_CONTENT: PlansContent = {
   quizId: "brain",
   productName: "Brain & Memory Power Boost",
-  offer: { label: "Limited time offer", badge: "first bottle free", countdown: true },
+  offer: { label: "Limited time offer", badge: "up to 60% off", countdown: true },
   hero: {
     title: "Doctor-formulated nootropic",
     lede: "SUNNYCELLS Brain & Memory Power Boost is built to sharpen focus, memory and mental clarity, without a stimulant.",
@@ -118,7 +118,7 @@ export const BRAIN_PLANS_CONTENT: PlansContent = {
     "Formulated by a doctor",
     "No added sugar, gluten or dairy",
     "30 day money back guarantee",
-    "First bottle free",
+    "Free shipping on every order",
   ],
   faqs: [
     { title: "How do I take Brain & Memory Power Boost?", body: "Take 4 capsules daily with food. Ask a nutritionally informed physician before taking more than the labeled amount." },
