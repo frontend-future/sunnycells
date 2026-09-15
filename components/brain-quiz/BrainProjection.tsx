@@ -4,7 +4,6 @@ import { Card } from "@/components/core/Card";
 import { brainQuiz } from "@/lib/quiz/brain";
 import { CLARITY_HORIZON_DAYS, CLARITY_PAD_BELOW, clarityProjection, withoutCurve } from "@/lib/quiz/brainAssessment";
 import { useAnswers } from "@/lib/quiz/store";
-import { ageFromAnswers } from "@/lib/quiz/types";
 import { ProjectionChart } from "@/components/quiz/Charts";
 import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell } from "@/components/quiz/ResultsShell";
@@ -71,15 +70,6 @@ export function BrainProjection() {
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           Addressing all three at once, rather than just one, is how you can experience
           lasting improvements over time.
-        </p>
-        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          This is an illustration of a trend, not a promise about your result.{" "}
-          {ready && ageFromAnswers(answers) != null ? (
-            <strong style={{ fontWeight: 800 }}>
-              We matched you against people with a similar profile
-              ({answers.gender === "Male" ? "male" : "female"}, {ageFromAnswers(answers)} years old).
-            </strong>
-          ) : null}
         </p>
       </div>
 
