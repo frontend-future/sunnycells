@@ -22,6 +22,19 @@ const DEFAULT_POUCH = "/product/metabolic-morning-blend.png";
  * its own so it can show a different product through the same slides rather than a
  * gallery of photographs, which is a different kind of thing entirely.
  */
+/** blend and blendAmount are optional: a formula with no proprietary blend (every
+    active dosed and printed on its own row) leaves them out, and the supplement
+    facts slide renders without that footer row rather than claiming a blend that
+    does not exist. */
+export type Facts = {
+  serving: string;
+  perContainer: string;
+  rows: readonly (readonly string[])[];
+  blend?: string;
+  blendAmount?: string;
+  other: string;
+};
+
 export type CarouselContent = {
   benefitsTitle: string;
   benefits: readonly string[];
@@ -33,7 +46,7 @@ export type CarouselContent = {
   servingBody: string;
   servingFigures: readonly (readonly [string, string])[];
   seals: readonly { src: string; label: string }[];
-  facts: typeof SUPPLEMENT_FACTS;
+  facts: Facts;
   socialPhotos: readonly [string, string];
 };
 
@@ -317,12 +330,14 @@ export function HeroCarousel({
                 ))}
               </tbody>
             </table>
-            <div style={{ borderTop: "3px solid var(--ink)", paddingTop: 6, marginTop: 4 }}>
-              <strong>Proprietary blend</strong>{" "}
-              <span style={{ float: "right" }}>{content.facts.blendAmount}</span>
-              <div style={{ color: "var(--ink-80)", clear: "both" }}>{content.facts.blend}</div>
-            </div>
-            <div style={{ marginTop: 8, color: "var(--ink-60)" }}>
+            {content.facts.blend ? (
+              <div style={{ borderTop: "3px solid var(--ink)", paddingTop: 6, marginTop: 4 }}>
+                <strong>Proprietary blend</strong>{" "}
+                <span style={{ float: "right" }}>{content.facts.blendAmount}</span>
+                <div style={{ color: "var(--ink-80)", clear: "both" }}>{content.facts.blend}</div>
+              </div>
+            ) : null}
+            <div style={{ marginTop: 8, paddingTop: content.facts.blend ? 0 : 6, borderTop: content.facts.blend ? undefined : "3px solid var(--ink)", color: "var(--ink-60)" }}>
               Other ingredients: {content.facts.other}
             </div>
           </div>
