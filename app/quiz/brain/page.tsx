@@ -38,14 +38,9 @@ export default function BrainQuizLandingPage() {
         ]}
       />
 
-      <div style={{ position: "relative", background: "var(--white)" }}>
-        <div
-          aria-hidden="true"
-          style={{ position: "absolute", inset: "0 0 34% 0", background: "var(--sky-tint)" }}
-        />
+      <div style={{ position: "relative", background: "var(--sky-tint)" }}>
         <div
           style={{
-            position: "relative",
             width: "100%",
             maxWidth: "var(--page-max)",
             margin: "0 auto",
@@ -53,22 +48,27 @@ export default function BrainQuizLandingPage() {
           }}
         >
           <Wordmark size={26} />
-          <Image
-            src="/product/brain-memory/01-hero-split.png"
-            alt={`${PRODUCT.name}, a bottle of ${PRODUCT.netWeight}`}
-            width={1024}
-            height={768}
-            priority
+          {/* Generated stock-style photo, not a real customer: no name or quote is
+              attached to it, unlike the story screen's placeholder testimonial. */}
+          <div
             style={{
-              display: "block",
-              width: "100%",
               maxWidth: 560,
-              height: "auto",
-              maxHeight: "min(21vh, 300px)",
-              objectFit: "contain",
-              margin: "0 auto",
+              margin: "var(--space-4) auto 0",
+              aspectRatio: "4 / 3",
+              maxHeight: "min(34vh, 340px)",
+              borderRadius: "var(--radius-card)",
+              overflow: "hidden",
             }}
-          />
+          >
+            <Image
+              src="/quiz/brain/hero-couple.webp"
+              alt={`A couple smiling and holding a bottle of ${PRODUCT.name}`}
+              width={1200}
+              height={876}
+              priority
+              style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
         </div>
       </div>
 
