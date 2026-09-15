@@ -69,9 +69,9 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
           <Image
             src={step.image.src}
             alt={step.image.alt}
-            width={176}
-            height={176}
-            style={{ width: 88, height: 88, borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
+            width={320}
+            height={320}
+            style={{ width: 160, height: 160, borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
           />
         ) : null}
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>{step.body}</p>

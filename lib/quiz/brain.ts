@@ -39,8 +39,8 @@ export const brainQuiz: QuizConfig = {
     {
       slug: "not-alone",
       kind: "info",
-      question: "You are not the only one dealing with this",
-      body: "Memory and focus changes after 50 are one of the most common concerns we hear about, and most people wait until it feels urgent before doing anything about it. Here's what people your age are noticing:",
+      question: "You are not alone",
+      body: "Memory and focus change as we age, and most people wait until it feels urgent before doing anything about it. Here's what many people your age start to notice:",
       bullets: [
         "Walking into a room and forgetting why",
         "Losing a word that's right on the tip of your tongue",
