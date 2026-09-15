@@ -124,7 +124,7 @@ export function BrainStory() {
       </ul>
 
       <StickyCta>
-        <NextButton href="/quiz/brain/results/plans">Continue</NextButton>
+        <NextButton href="/products/brain-memory">Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

@@ -52,16 +52,16 @@ test("cortisol has no story screen, so plans sits one place earlier", async () =
   assert.equal(plans?.index, cortisolQuiz.steps.length + 5);
 });
 
-test("the brain funnel is numbered independently and its results include a story screen", async () => {
+test("the brain funnel is numbered independently and ends at its story screen", async () => {
   const first = await funnelStepFor(`/quiz/brain/${brainQuiz.steps[0].slug}`);
   assert.deepEqual(first, { quiz: "brain", index: 1, slug: brainQuiz.steps[0].slug, stage: "question" });
 
+  /* Story hands off to /products/brain-memory, outside /quiz/brain entirely, so
+     there is no plans or checkout screen in this funnel to number. */
   const story = await funnelStepFor("/quiz/brain/results/story");
   assert.equal(story?.index, brainQuiz.steps.length + 5);
-  const plans = await funnelStepFor("/quiz/brain/results/plans");
-  assert.equal(plans?.index, brainQuiz.steps.length + 6);
-  const checkout = await funnelStepFor("/quiz/brain/results/checkout");
-  assert.equal(checkout?.index, brainQuiz.steps.length + 7);
+  assert.equal(await funnelStepFor("/quiz/brain/results/plans"), null);
+  assert.equal(await funnelStepFor("/quiz/brain/results/checkout"), null);
 });
 
 test("pages outside a funnel are not steps", async () => {

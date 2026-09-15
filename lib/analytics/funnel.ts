@@ -27,7 +27,10 @@ const RESULTS: Record<string, string[]> = {
   energy: ["analyzing", "summary", "projection", "caffeine", "benefits", "story", "plans", "checkout"],
   cortisol: ["analyzing", "summary", "projection", "benefits", "plans", "checkout"],
   calm: ["analyzing", "summary", "projection", "benefits", "plans", "checkout"],
-  brain: ["analyzing", "summary", "projection", "benefits", "story", "plans", "checkout"],
+  /* No plans or checkout screens of its own: the story screen hands off straight to
+     /products/brain-memory, outside the /quiz/brain path entirely, so this funnel's
+     numbering ends where the handoff happens rather than at steps that don't exist. */
+  brain: ["analyzing", "summary", "projection", "benefits", "story"],
 };
 
 /* Slugs come from the configs so a renamed step cannot silently fall out of the
