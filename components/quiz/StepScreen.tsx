@@ -31,6 +31,8 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
     <QuizChrome step={index + 1} total={config.steps.length} backHref={prevHref(config, index)}>
       {step.kind === "info" && step.brandHeading ? (
         <BrandHeading>{step.question}</BrandHeading>
+      ) : step.kind === "info" && step.emphasize ? (
+        <EmphasizedHeading>{step.question}</EmphasizedHeading>
       ) : step.kind === "email" ? (
         <CentredHeading question={step.question} subhead={step.subhead} />
       ) : (
@@ -151,6 +153,26 @@ function BrandHeading({ children }: { children: string }) {
       <Wordmark size="1.35em" style={{ display: "block", marginBottom: "0.15em" }} />
       {children.replace(/\syou$/, " ")}
       <span style={{ fontWeight: 900 }}>you</span>
+    </h1>
+  );
+}
+
+/** Centred, bolder and a size up from the default question heading, for an info
+    screen that needs to land harder than a regular question. */
+function EmphasizedHeading({ children }: { children: string }) {
+  return (
+    <h1
+      style={{
+        margin: "0 0 var(--space-6)",
+        textAlign: "center",
+        fontFamily: "var(--font-display)",
+        fontSize: "clamp(var(--size-h3), 8vw, var(--size-h1))",
+        fontWeight: 900,
+        letterSpacing: "var(--tracking-heading)",
+        lineHeight: "var(--leading-snug)",
+      }}
+    >
+      {children}
     </h1>
   );
 }

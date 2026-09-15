@@ -21,6 +21,9 @@ export type Step =
       footnote?: string;
       /** Centres the question under the wordmark, for the brand-statement screen. */
       brandHeading?: boolean;
+      /** Centres, bolds and enlarges the question, for a title screen that needs to
+          hit harder than a regular question heading but isn't the brand statement. */
+      emphasize?: boolean;
       /** A small round portrait above the body, for a screen naming a specific
           person (a formulating physician, say). */
       image?: { src: string; alt: string };

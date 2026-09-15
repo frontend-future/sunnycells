@@ -40,6 +40,7 @@ export const brainQuiz: QuizConfig = {
       slug: "not-alone",
       kind: "info",
       question: "You are not alone",
+      emphasize: true,
       body: "Memory and focus change as we age, and most people wait until it feels urgent before doing anything about it. Here's what many people your age start to notice:",
       bullets: [
         "Walking into a room and forgetting why",
