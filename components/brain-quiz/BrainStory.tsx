@@ -67,7 +67,7 @@ export function BrainStory() {
           lineHeight: "var(--leading-snug)",
         }}
       >
-        {PRODUCT.name} helped {s.name} feel sharper again in {WEEKS} weeks.
+        {PRODUCT.name} helped {s.name} feel sharper again.
       </h1>
 
       <Image
