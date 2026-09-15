@@ -1,14 +1,11 @@
 "use client";
 
-import { useRef } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
-import { trackMetaEvent } from "@/lib/meta";
-import { CART_ID, PLAN, PRODUCT } from "@/lib/products/brain-memory";
+import { PRODUCT } from "@/lib/products/brain-memory";
 import { brainQuiz } from "@/lib/quiz/brain";
-import { readAnswers, useAnswers, writeAnswer } from "@/lib/quiz/store";
+import { useAnswers } from "@/lib/quiz/store";
+import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell } from "@/components/quiz/ResultsShell";
 import { StickyCta } from "@/components/quiz/StickyCta";
 
@@ -54,40 +51,8 @@ const WEEKS = 12;
 const QUOTE = "I stopped introducing myself with an apology for forgetting names";
 
 export function BrainStory() {
-  const router = useRouter();
   const { answers } = useAnswers(brainQuiz.id);
   const s = answers.gender === "Male" ? STORIES.male : STORIES.female;
-
-  /* One click, one event. Nothing unmounts this button between the tap and the route
-     change, so a double tap would otherwise fire InitiateCheckout twice with two event
-     ids, which Meta cannot dedupe. A ref, not state: state would not have updated
-     before the second click in the same tick. */
-  const chosen = useRef(false);
-
-  const continueToCheckout = () => {
-    if (chosen.current) return;
-    chosen.current = true;
-    /* Written into the product's own cart, not the quiz store, because the checkout
-       that receives it reads from there. Brain & Memory Power Boost has one plan, so
-       there is no ladder to choose from, unlike the diet or calm funnels. */
-    writeAnswer(CART_ID, "plan", PLAN.id);
-    /* So the purchase-attempt notification can say which funnel sent them. */
-    writeAnswer(CART_ID, "lander", "quiz");
-    trackMetaEvent(
-      "InitiateCheckout",
-      {
-        currency: "USD",
-        value: PLAN.compareAt,
-        content_ids: [PLAN.id],
-        content_type: "product",
-        content_name: PRODUCT.name,
-      },
-      /* The quiz captured an email several steps back. Passing it here is what lets
-         Meta match this event to a person rather than a cookie. */
-      { email: readAnswers(brainQuiz.id).email },
-    );
-    router.push("/quiz/brain/results/checkout");
-  };
 
   return (
     <ResultsShell>
@@ -159,9 +124,7 @@ export function BrainStory() {
       </ul>
 
       <StickyCta>
-        <Button size="lg" fullWidth iconRight="arrow-right" onClick={continueToCheckout}>
-          Continue
-        </Button>
+        <NextButton href="/quiz/brain/results/plans">Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

@@ -23,11 +23,23 @@ function Stars() {
   );
 }
 
-export function BrainMemoryOffer() {
+export function BrainMemoryOffer({
+  checkoutHref = "/products/brain-memory/checkout",
+  lander,
+}: {
+  /** Where this buy box's CTA sends her. The quiz's results/plans screen reuses
+      this exact component, pointed at its own checkout instead of the product
+      page's, so the two never share a cart-store lander tag by accident. */
+  checkoutHref?: string;
+  /** Tags the purchase-attempt notification with which entry point sent her.
+      Unset on the product page itself, same as every other product's offer box. */
+  lander?: string;
+} = {}) {
   const router = useRouter();
 
   const buy = () => {
     writeAnswer(CART_ID, "plan", PLAN.id);
+    if (lander) writeAnswer(CART_ID, "lander", lander);
     trackMetaEvent("InitiateCheckout", {
       currency: "USD",
       value: SHIPPING_PRICE,
@@ -35,7 +47,7 @@ export function BrainMemoryOffer() {
       content_type: "product",
       content_name: PRODUCT.name,
     });
-    router.push("/products/brain-memory/checkout");
+    router.push(checkoutHref);
   };
 
   const quote = REVIEWS[0];
