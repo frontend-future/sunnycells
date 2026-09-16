@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PlansOfferBar, PlansScreen } from "@/components/quiz/PlansScreen";
 import { BrainPlanCards } from "@/components/brain-quiz/BrainPlanCards";
 import { BrainV3OfferBand } from "@/components/brain-quiz/v3/BrainV3OfferBand";
@@ -15,38 +14,32 @@ export default function BrainV3PlansPage() {
   return (
     <>
       <PlansOfferBar content={BRAIN_PLANS_CONTENT} />
-      <BrainV3OfferBand />
+      {/* The plan card sits beside the recommendation on desktop, inside the same
+          dark band, rather than being repeated further down the page: no second
+          copy of it in PlansScreen's own "Plans" section (plansSlot below), and no
+          standalone product shot in the hero (heroMedia below) competing with it. */}
+      <BrainV3OfferBand
+        planCard={
+          <BrainPlanCards
+            key="plan-cards"
+            destinationHref={DESTINATION}
+            ctaLabel="Continue with my plan"
+            plans={BRAIN_PLANS_V3}
+            quizId={brainV3Quiz.id}
+            layout="featured"
+          />
+        }
+      />
+      {/* Not an empty fragment for plansSlot/heroMedia below: with nothing to
+          serialize, one gets normalized away across the server/client boundary
+          and PlansScreen's own ?? falls back to its default (the diet funnel's
+          carousel and cards). A real, if invisible, element survives that trip. */}
       <PlansScreen
         content={BRAIN_PLANS_CONTENT}
         destinationHref={DESTINATION}
         planCtaLabel="Continue with my plan"
-        plansSlot={<BrainPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Continue with my plan" plans={BRAIN_PLANS_V3} quizId={brainV3Quiz.id} layout="featured" />}
-        heroMedia={
-          /* A plain static shot, not the sliding info carousel every other funnel's
-             hero uses: the same ground (benefits, stats, supplement facts) is
-             already covered further down this page, in its own dedicated sections. */
-          <div
-            key="hero-image"
-            style={{
-              background: "var(--sun-tint)",
-              borderRadius: "var(--radius-card)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: 380,
-              padding: "var(--space-8)",
-            }}
-          >
-            <Image
-              src="/quiz/brain/bottle-3-transparent.webp"
-              alt="Brain & Memory Power Boost, 3 month supply"
-              width={800}
-              height={660}
-              style={{ width: "100%", maxWidth: 320, height: "auto" }}
-              priority
-            />
-          </div>
-        }
+        plansSlot={<span aria-hidden="true" style={{ display: "none" }} />}
+        heroMedia={<span aria-hidden="true" style={{ display: "none" }} />}
         hideTopOfferBar
       />
     </>

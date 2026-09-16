@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Badge } from "@/components/core/Badge";
 import { Icon } from "@/components/core/Icon";
 import { brainV3Quiz } from "@/lib/quiz/brainV3";
@@ -17,7 +18,7 @@ import { useAnswers } from "@/lib/quiz/store";
    findings rather than one repeated colour. */
 const TAG_TONES = ["zest", "sky", "sprout", "error"] as const;
 
-export function BrainV3OfferBand() {
+export function BrainV3OfferBand({ planCard }: { planCard?: ReactNode }) {
   const { answers, ready } = useAnswers(brainV3Quiz.id);
   if (!ready) return null;
 
@@ -29,55 +30,71 @@ export function BrainV3OfferBand() {
 
   return (
     <div style={{ background: "var(--ink)", color: "var(--white)", padding: "var(--space-10) var(--page-gutter-mobile) var(--space-12)" }}>
-      <div style={{ maxWidth: 720, margin: "0 auto" }}>
-        <Badge tone="zest">Our recommendation</Badge>
+      <div
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto",
+          display: "grid",
+          /* Sits beside the plan card on desktop, stacks above it on a phone: the
+             440 floor is what keeps two ~500px columns from being forced onto a
+             360px screen, same trick the diet hero uses for its own two columns. */
+          gridTemplateColumns: planCard ? "repeat(auto-fit, minmax(min(440px, 100%), 1fr))" : undefined,
+          gap: "var(--space-10)",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <Badge tone="zest">Our recommendation</Badge>
 
-        <h1
-          style={{
-            margin: "var(--space-4) 0 var(--space-5)",
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(var(--size-h4), 6.5vw, var(--size-h1))",
-            fontWeight: 900,
-            letterSpacing: "var(--tracking-heading)",
-            lineHeight: "var(--leading-snug)",
-          }}
-        >
-          Your plan is ready. It needs <span style={{ color: "var(--sprout)" }}>3 months</span> to work.
-        </h1>
+          <h1
+            style={{
+              margin: "var(--space-4) 0 var(--space-5)",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(var(--size-h4), 6.5vw, var(--size-h1))",
+              fontWeight: 900,
+              letterSpacing: "var(--tracking-heading)",
+              lineHeight: "var(--leading-snug)",
+            }}
+          >
+            Your plan is ready. It needs <span style={{ color: "var(--sprout)" }}>3 months</span> to work.
+          </h1>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)", marginBottom: "var(--space-6)" }}>
-          {tags.map((t, i) => (
-            <Badge key={t} tone={TAG_TONES[i % TAG_TONES.length]}>{t}</Badge>
-          ))}
-        </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)", marginBottom: "var(--space-6)" }}>
+            {tags.map((t, i) => (
+              <Badge key={t} tone={TAG_TONES[i % TAG_TONES.length]}>{t}</Badge>
+            ))}
+          </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "var(--space-5)",
-            background: "var(--white)",
-            color: "var(--ink)",
-            border: "1px solid var(--border-hairline)",
-            borderRadius: "var(--radius-xl)",
-            padding: "var(--space-5) var(--space-6)",
-          }}
-        >
-          <div>
-            <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Brain age today</div>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 36, color: "var(--status-error)" }}>
-              {age.brain}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "var(--space-5)",
+              background: "var(--white)",
+              color: "var(--ink)",
+              border: "1px solid var(--border-hairline)",
+              borderRadius: "var(--radius-xl)",
+              padding: "var(--space-5) var(--space-6)",
+            }}
+          >
+            <div>
+              <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Brain age today</div>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 36, color: "var(--status-error)" }}>
+                {age.brain}
+              </div>
+            </div>
+            <Icon name="arrow-right" size={24} style={{ color: "var(--ink-40)", flex: "none" }} />
+            <div>
+              <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Your target</div>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 36, color: "var(--status-success)" }}>
+                {target}
+              </div>
             </div>
           </div>
-          <Icon name="arrow-right" size={24} style={{ color: "var(--ink-40)", flex: "none" }} />
-          <div>
-            <div style={{ fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Your target</div>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 36, color: "var(--status-success)" }}>
-              {target}
-            </div>
-          </div>
         </div>
+
+        {planCard}
       </div>
     </div>
   );

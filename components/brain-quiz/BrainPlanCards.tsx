@@ -35,6 +35,11 @@ function PlanCard({
         gap: "var(--space-4)",
         padding: "var(--space-6) var(--space-5) var(--space-5)",
         background: on ? "var(--sky-tint)" : "var(--white)",
+        /* However dark the page around it gets (the v3 offer band's own ink
+           background, say), this card is always its own light surface, so its
+           text needs its own colour rather than inheriting white off a page
+           that has gone dark around it. */
+        color: "var(--ink)",
         border: `2px solid ${on ? "var(--ink)" : "var(--border-hairline)"}`,
         borderRadius: "var(--radius-card)",
         transition: "background var(--duration-fast) var(--ease-standard)",
