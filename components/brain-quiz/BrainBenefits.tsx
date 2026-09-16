@@ -31,7 +31,9 @@ function doseLine(keys: readonly string[]) {
     .join(" and ");
 }
 
-export function BrainBenefits() {
+export function BrainBenefits({
+  nextHref = "/quiz/brain/results/story",
+}: { nextHref?: string } = {}) {
   return (
     <ResultsShell>
       <h1
@@ -94,7 +96,7 @@ export function BrainBenefits() {
       </ol>
 
       <StickyCta>
-        <NextButton href="/quiz/brain/results/story">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

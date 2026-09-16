@@ -50,8 +50,11 @@ const STORIES = {
 const WEEKS = 12;
 const QUOTE = "I stopped introducing myself with an apology for forgetting names";
 
-export function BrainStory() {
-  const { answers } = useAnswers(brainQuiz.id);
+export function BrainStory({
+  quizId = brainQuiz.id,
+  nextHref = "/products/brain-memory",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers } = useAnswers(quizId);
   const s = answers.gender === "Male" ? STORIES.male : STORIES.female;
 
   return (
@@ -124,7 +127,7 @@ export function BrainStory() {
       </ul>
 
       <StickyCta>
-        <NextButton href="/products/brain-memory">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

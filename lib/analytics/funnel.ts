@@ -31,6 +31,10 @@ const RESULTS: Record<string, string[]> = {
      /products/brain-memory, outside the /quiz/brain path entirely, so this funnel's
      numbering ends where the handoff happens rather than at steps that don't exist. */
   brain: ["analyzing", "summary", "projection", "benefits", "story"],
+  /* A deep clone of the original brain quiz, question for question, but its story
+     screen hands off to its own plans and checkout (the paid ladder) instead of
+     exiting to /products/brain-memory. */
+  "brain/v2": ["analyzing", "summary", "projection", "benefits", "story", "plans", "checkout"],
   /* The brain age quiz, /quiz/brain/v3: its own results flow, ending in the same
      paid ladder and checkout v2's plans page also uses. */
   "brain/v3": [
@@ -45,18 +49,20 @@ let ORDER: Record<string, string[]> | null = null;
 
 async function order(): Promise<Record<string, string[]>> {
   if (ORDER) return ORDER;
-  const [{ dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }, { brainV3Quiz }] =
-    await Promise.all([
-      import("../quiz/diet.ts"),
-      import("../quiz/aging.ts"),
-      import("../quiz/energy.ts"),
-      import("../quiz/cortisol.ts"),
-      import("../quiz/calm.ts"),
-      import("../quiz/brain.ts"),
-      import("../quiz/brainV3.ts"),
-    ]);
+  const [
+    { dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }, { brainV2Quiz }, { brainV3Quiz },
+  ] = await Promise.all([
+    import("../quiz/diet.ts"),
+    import("../quiz/aging.ts"),
+    import("../quiz/energy.ts"),
+    import("../quiz/cortisol.ts"),
+    import("../quiz/calm.ts"),
+    import("../quiz/brain.ts"),
+    import("../quiz/brainV2.ts"),
+    import("../quiz/brainV3.ts"),
+  ]);
   ORDER = {};
-  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz, brainV3Quiz]) {
+  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz, brainV2Quiz, brainV3Quiz]) {
     /* The URL, not the config's own id: brainV3Quiz.id is "brain-v3" for
        sessionStorage namespacing, but it lives at /quiz/brain/v3, and that path is
        what a pageview actually reports. */

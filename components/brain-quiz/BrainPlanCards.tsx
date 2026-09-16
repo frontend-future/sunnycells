@@ -24,10 +24,15 @@ export function BrainPlanCards({
   destinationHref = "/quiz/brain/v2/results/checkout",
   ctaLabel = "Try now",
   plans = BRAIN_PLANS,
+  /* Whichever quiz's email capture actually fed this page: the original quiz, its
+     v2 clone, or the brain age quiz all keep their own answers, so the one to read
+     back here has to be told rather than assumed. */
+  quizId = brainQuiz.id,
 }: {
   destinationHref?: string;
   ctaLabel?: string;
   plans?: Plan[];
+  quizId?: string;
 }) {
   const router = useRouter();
   const [hover, setHover] = useState("");
@@ -54,7 +59,7 @@ export function BrainPlanCards({
       },
       /* The quiz captured an email several steps back. Passing it here is what
          lets Meta match this event to a person rather than a cookie. */
-      { email: readAnswers(brainQuiz.id).email },
+      { email: readAnswers(quizId).email },
     );
     router.push(destinationHref);
   };

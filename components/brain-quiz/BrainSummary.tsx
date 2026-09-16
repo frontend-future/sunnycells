@@ -18,8 +18,11 @@ function verdict(rows: Row[]): string {
   return "holding up better than most";
 }
 
-export function BrainSummary() {
-  const { answers, ready } = useAnswers(brainQuiz.id);
+export function BrainSummary({
+  quizId = brainQuiz.id,
+  nextHref = "/quiz/brain/results/projection",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers, ready } = useAnswers(quizId);
   const rows = brainRows(answers);
   const women = answers.gender !== "Male";
 
@@ -75,7 +78,7 @@ export function BrainSummary() {
       </div>
 
       <StickyCta>
-        <NextButton href="/quiz/brain/results/projection">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

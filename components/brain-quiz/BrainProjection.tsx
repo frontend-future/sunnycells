@@ -21,8 +21,11 @@ const addDays = (days: number) => {
 const dayMonthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
-export function BrainProjection() {
-  const { answers, ready } = useAnswers(brainQuiz.id);
+export function BrainProjection({
+  quizId = brainQuiz.id,
+  nextHref = "/quiz/brain/results/benefits",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers, ready } = useAnswers(quizId);
   const p = clarityProjection(answers);
 
   return (
@@ -74,7 +77,7 @@ export function BrainProjection() {
       </div>
 
       <StickyCta>
-        <NextButton href="/quiz/brain/results/benefits">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );
