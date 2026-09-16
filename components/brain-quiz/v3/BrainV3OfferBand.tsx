@@ -15,8 +15,39 @@ import { useAnswers } from "@/lib/quiz/store";
  * about a diagnosis that was never actually made.
  */
 /* Rotated through the tags in order, so the band reads as a spread of distinct
-   findings rather than one repeated colour. */
-const TAG_TONES = ["zest", "sky", "sprout", "error"] as const;
+   findings rather than one repeated colour. Each is the brand's own hex, split
+   into a low-alpha fill and a full-strength border/text, since the token sheet
+   only ships light tints (built for a white surface) and full-strength solids
+   (too loud at this size) — nothing muted enough to sit quietly on ink. */
+const TAGS = [
+  { fill: "rgba(255,122,26,0.16)", ring: "rgba(255,122,26,0.55)", text: "#FF9D52" },
+  { fill: "rgba(140,176,232,0.18)", ring: "rgba(140,176,232,0.55)", text: "#AEC7EF" },
+  { fill: "rgba(121,196,126,0.18)", ring: "rgba(121,196,126,0.55)", text: "#9CD8A0" },
+  { fill: "rgba(179,45,24,0.18)", ring: "rgba(179,45,24,0.55)", text: "#E5876F" },
+] as const;
+
+function Tag({ children, tone }: { children: ReactNode; tone: (typeof TAGS)[number] }) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        height: 34,
+        padding: "0 16px",
+        background: tone.fill,
+        border: `1px solid ${tone.ring}`,
+        borderRadius: "var(--radius-pill)",
+        color: tone.text,
+        fontFamily: "var(--font-text)",
+        fontSize: "var(--size-meta)",
+        fontWeight: 600,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
 
 export function BrainV3OfferBand({ planCard }: { planCard?: ReactNode }) {
   const { answers, ready } = useAnswers(brainV3Quiz.id);
@@ -44,7 +75,7 @@ export function BrainV3OfferBand({ planCard }: { planCard?: ReactNode }) {
         }}
       >
         <div>
-          <Badge tone="zest">Our recommendation</Badge>
+          <Badge tone="zest" style={{ borderRadius: "var(--radius-pill)" }}>Our recommendation</Badge>
 
           <h1
             style={{
@@ -59,9 +90,9 @@ export function BrainV3OfferBand({ planCard }: { planCard?: ReactNode }) {
             Your plan is ready. It needs <span style={{ color: "var(--sprout)" }}>3 months</span> to work.
           </h1>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)", marginBottom: "var(--space-6)" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-3)", marginBottom: "var(--space-7)" }}>
             {tags.map((t, i) => (
-              <Badge key={t} tone={TAG_TONES[i % TAG_TONES.length]}>{t}</Badge>
+              <Tag key={t} tone={TAGS[i % TAGS.length]}>{t}</Tag>
             ))}
           </div>
 
@@ -73,9 +104,9 @@ export function BrainV3OfferBand({ planCard }: { planCard?: ReactNode }) {
               gap: "var(--space-5)",
               background: "var(--white)",
               color: "var(--ink)",
-              border: "1px solid var(--border-hairline)",
               borderRadius: "var(--radius-xl)",
               padding: "var(--space-5) var(--space-6)",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.35)",
             }}
           >
             <div>

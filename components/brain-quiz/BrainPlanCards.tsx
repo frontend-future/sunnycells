@@ -14,10 +14,14 @@ import { readAnswers, writeAnswer } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 
 function PlanCard({
-  p, big = false, hover, onHover, ctaLabel, onChoose,
+  p, big = false, bordered = true, hover, onHover, ctaLabel, onChoose,
 }: {
   p: Plan;
   big?: boolean;
+  /** Off for the featured big card: its own wrapper in BrainPlanCards already
+      draws one continuous border and banner around it, and a second border
+      here just drew a stray ring with a gap between the two. */
+  bordered?: boolean;
   hover: string;
   onHover: (id: string) => void;
   ctaLabel: string;
@@ -33,15 +37,15 @@ function PlanCard({
         display: "flex",
         flexDirection: "column",
         gap: "var(--space-4)",
-        padding: "var(--space-6) var(--space-5) var(--space-5)",
+        padding: big ? "var(--space-7) var(--space-6) var(--space-6)" : "var(--space-6) var(--space-5) var(--space-5)",
         background: on ? "var(--sky-tint)" : "var(--white)",
         /* However dark the page around it gets (the v3 offer band's own ink
            background, say), this card is always its own light surface, so its
            text needs its own colour rather than inheriting white off a page
            that has gone dark around it. */
         color: "var(--ink)",
-        border: `2px solid ${on ? "var(--ink)" : "var(--border-hairline)"}`,
-        borderRadius: "var(--radius-card)",
+        border: bordered ? `2px solid ${on ? "var(--ink)" : "var(--border-hairline)"}` : undefined,
+        borderRadius: bordered ? "var(--radius-card)" : undefined,
         transition: "background var(--duration-fast) var(--ease-standard)",
       }}
     >
@@ -110,7 +114,10 @@ function PlanCard({
       </ul>
 
       <div style={{ marginTop: "auto", paddingTop: "var(--space-3)" }}>
-        <Button fullWidth variant={p.best ? "primary" : "outline"} onClick={() => onChoose(p)}>
+        {/* The featured big card gets the brand's green fill, tying it to the
+            green "3 months" and green checkmarks already on this same card,
+            rather than the plain black every other plan button uses. */}
+        <Button fullWidth variant={big ? "sprout" : p.best ? "primary" : "outline"} onClick={() => onChoose(p)}>
           {ctaLabel}
         </Button>
         <div style={{ marginTop: "var(--space-3)", textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
@@ -185,23 +192,34 @@ export function BrainPlanCards({
 
     return (
       <div style={{ maxWidth: 420, margin: "0 auto" }}>
+        {/* One continuous border and shadow around the banner and the card
+            together, rather than a border on each: two borders with a gap
+            between them read as a layout glitch, not a frame. overflow:hidden
+            is what lets the banner's square top corners sit flush inside the
+            card's own rounded ones. */}
         <div
           style={{
-            textAlign: "center",
-            background: "var(--zest)",
-            color: "var(--white)",
-            fontSize: "var(--size-meta)",
-            fontWeight: 700,
-            letterSpacing: "var(--tracking-caps)",
-            textTransform: "uppercase",
-            padding: "var(--space-3)",
-            borderRadius: "var(--radius-card) var(--radius-card) 0 0",
+            border: "2px solid var(--zest)",
+            borderRadius: "var(--radius-card)",
+            overflow: "hidden",
+            boxShadow: "0 24px 48px rgba(0,0,0,0.4)",
           }}
         >
-          Your recommended plan
-        </div>
-        <div style={{ border: "2px solid var(--zest)", borderTop: "none", borderRadius: "0 0 var(--radius-card) var(--radius-card)", padding: 2 }}>
-          <PlanCard p={best} big hover={hover} onHover={setHover} ctaLabel={ctaLabel} onChoose={choose} />
+          <div
+            style={{
+              textAlign: "center",
+              background: "var(--zest)",
+              color: "var(--white)",
+              fontSize: "var(--size-meta)",
+              fontWeight: 700,
+              letterSpacing: "var(--tracking-caps)",
+              textTransform: "uppercase",
+              padding: "var(--space-3)",
+            }}
+          >
+            Your recommended plan
+          </div>
+          <PlanCard p={best} big bordered={false} hover={hover} onHover={setHover} ctaLabel={ctaLabel} onChoose={choose} />
         </div>
 
         {rest.length > 0 ? (
