@@ -180,8 +180,11 @@ export type PlansContent = {
   plansNote: { badge: string; body: string };
   quickBenefits: { lead: string; strong: string }[];
   /** `illustration` is a path. `slug` alone means the gendered pair under
-      /illustrations, which only the diet funnel has drawn. */
-  pillars: { slug: string; title: string; body: string; illustration?: string }[];
+      /illustrations, which only the diet funnel has drawn. `illustrationFit`
+      defaults to "cover" (the wide lifestyle photos most funnels use); a square
+      product shot needs "contain" in a taller box instead, or cover crops most
+      of it away. */
+  pillars: { slug: string; title: string; body: string; illustration?: string; illustrationFit?: "cover" | "contain" }[];
   /** `photo` overrides the gendered story photograph beside the headline review, which
       only the diet funnel has shot. Optional as a whole: a funnel with no collected
       customers leaves it out and the section does not render, rather than being made

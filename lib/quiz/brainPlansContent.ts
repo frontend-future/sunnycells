@@ -70,7 +70,9 @@ export const BRAIN_PLANS_CONTENT: PlansContent = {
     lede: "SUNNYCELLS Brain & Memory Power Boost is built to sharpen focus, memory and mental clarity, without a stimulant.",
     points: ["Supports memory and recall", "Supports focus and mental clarity", "Supports healthy blood flow to the brain"],
   },
-  productImage: "/product/brain-memory/01-hero-split.png",
+  /* A plain cutout, not the hero-split composite with the benefits panel baked in:
+     the comparison table and sticky bar both just need the bottle. */
+  productImage: "/quiz/brain/bottle-1-cutout.webp",
   plansTitle: "Let the formula do the work",
   plansNote: {
     badge: "12",
@@ -82,10 +84,12 @@ export const BRAIN_PLANS_CONTENT: PlansContent = {
     { lead: "Reinforces antioxidant defenses by ", strong: "week 8" },
     { lead: "Supports steadier recall and stamina by ", strong: "week 12" },
   ],
+  /* "contain" in a taller box, not the default "cover": these are square product
+     photos, and cropping one to a 150px-tall wide rectangle cut off most of it. */
   pillars: [
-    { slug: "circulation", title: "Supports circulation", body: "Ginkgo biloba extract is one of the most studied herbal extracts for supporting healthy blood flow, including to the brain.", illustration: "/product/brain-memory/04-pour.png" },
-    { slug: "memory", title: "Supports memory", body: "Phosphatidylserine and acetyl-L-carnitine support short and long term memory with consistent daily use.", illustration: "/product/brain-memory/checklist.png" },
-    { slug: "focus", title: "Supports focus", body: "Built around six research-backed actives at studied doses, to support focus and mental clarity without any stimulant.", illustration: "/product/brain-memory/02-natural-way.png" },
+    { slug: "circulation", title: "Supports circulation", body: "Ginkgo biloba extract is one of the most studied herbal extracts for supporting healthy blood flow, including to the brain.", illustration: "/product/brain-memory/04-pour.png", illustrationFit: "contain" },
+    { slug: "memory", title: "Supports memory", body: "Phosphatidylserine and acetyl-L-carnitine support short and long term memory with consistent daily use.", illustration: "/product/brain-memory/checklist.png", illustrationFit: "contain" },
+    { slug: "focus", title: "Supports focus", body: "Built around six research-backed actives at studied doses, to support focus and mental clarity without any stimulant.", illustration: "/product/brain-memory/02-natural-way.png", illustrationFit: "contain" },
   ],
   headlineReview: {
     name: "Dan B.",

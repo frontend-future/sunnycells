@@ -136,46 +136,12 @@ function Tick() {
   );
 }
 
-export function PlansScreen({
-  destinationHref = "/quiz/diet/results/checkout",
-  planCtaLabel = "Try now",
-  optimizedImages = false,
-  content = DIET_PLANS_CONTENT,
-  plansSlot,
-  heroMedia,
-}: {
-  destinationHref?: string;
-  planCtaLabel?: string;
-  optimizedImages?: boolean;
-  /** Every word and picture on the page. The layout below is the same for both funnels. */
-  content?: PlansContent;
-  /** The plan cards. A funnel passes its own so the page does not need to know which
-      catalogue or cart it is selling out of. */
-  plansSlot?: React.ReactNode;
-  /** The hero's right hand column. */
-  heroMedia?: React.ReactNode;
-}) {
-  const { answers } = useAnswers(content.quizId);
-  const set = answers.gender === "Male" ? "male" : "female";
-  const productImage = optimizedImages
-    ? content.productImage.replace(/\.png$/, ".webp")
-    : content.productImage;
-
+/** The sun offer bar and its scrolling marquee of terms, exported on its own so a
+    page that needs it above some other section (a dark recommendation band, say)
+    can render it there directly instead of wherever PlansScreen would put it. */
+export function PlansOfferBar({ content }: { content: PlansContent }) {
   return (
-    <div
-      style={{
-        background: "var(--surface-page)",
-        ...(content.accent
-          ? {
-              ["--action-accent-bg" as string]: content.accent.bg,
-              ["--action-accent-bg-press" as string]: content.accent.press,
-              ["--action-accent-fg" as string]: "var(--ink)",
-            }
-          : {}),
-      }}
-    >
-      {/* Offer bar. The countdown is the brand's one timer, called out in
-          OfferCountdown. Sun with ink on it, the only pairing allowed on yellow. */}
+    <>
       <div
         style={{
           background: "var(--sun)",
@@ -205,6 +171,55 @@ export function PlansScreen({
           { strong: "Skip or cancel", rest: "anytime" },
         ]}
       />
+    </>
+  );
+}
+
+export function PlansScreen({
+  destinationHref = "/quiz/diet/results/checkout",
+  planCtaLabel = "Try now",
+  optimizedImages = false,
+  content = DIET_PLANS_CONTENT,
+  plansSlot,
+  heroMedia,
+  /** Skips the built-in offer bar and marquee, for a page that already rendered
+      PlansOfferBar itself somewhere earlier (above its own hero section, say). */
+  hideTopOfferBar = false,
+}: {
+  destinationHref?: string;
+  planCtaLabel?: string;
+  optimizedImages?: boolean;
+  /** Every word and picture on the page. The layout below is the same for both funnels. */
+  content?: PlansContent;
+  /** The plan cards. A funnel passes its own so the page does not need to know which
+      catalogue or cart it is selling out of. */
+  plansSlot?: React.ReactNode;
+  /** The hero's right hand column. */
+  heroMedia?: React.ReactNode;
+  hideTopOfferBar?: boolean;
+}) {
+  const { answers } = useAnswers(content.quizId);
+  const set = answers.gender === "Male" ? "male" : "female";
+  const productImage = optimizedImages
+    ? content.productImage.replace(/\.png$/, ".webp")
+    : content.productImage;
+
+  return (
+    <div
+      style={{
+        background: "var(--surface-page)",
+        ...(content.accent
+          ? {
+              ["--action-accent-bg" as string]: content.accent.bg,
+              ["--action-accent-bg-press" as string]: content.accent.press,
+              ["--action-accent-fg" as string]: "var(--ink)",
+            }
+          : {}),
+      }}
+    >
+      {/* Offer bar. The countdown is the brand's one timer, called out in
+          OfferCountdown. Sun with ink on it, the only pairing allowed on yellow. */}
+      {hideTopOfferBar ? null : <PlansOfferBar content={content} />}
 
       {/* Hero */}
       <section style={{ padding: "var(--space-8) var(--page-gutter-mobile) var(--space-12)" }}>
@@ -458,8 +473,8 @@ export function PlansScreen({
                 height={320}
                 style={{
                   width: p.illustration ? "100%" : 130,
-                  height: p.illustration ? 150 : 130,
-                  objectFit: p.illustration ? "cover" : "contain",
+                  height: p.illustration ? (p.illustrationFit === "contain" ? 220 : 150) : 130,
+                  objectFit: p.illustration ? p.illustrationFit ?? "cover" : "contain",
                   borderRadius: p.illustration ? "var(--radius-md)" : undefined,
                   margin: "0 auto var(--space-6)",
                 }}
