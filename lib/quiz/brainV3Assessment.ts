@@ -6,6 +6,7 @@
  */
 import { ageFromAnswers } from "./types";
 import type { Answers } from "./assessment";
+import { PRODUCT } from "@/lib/products/brain-memory";
 
 const multiSelections = (a: Answers, slug: string, noneLabel: string): number => {
   if (!a[slug]) return 0;
@@ -139,15 +140,20 @@ export function brainV3Rows(a: Answers) {
 /** Which of her own selected symptoms map to which active, so this screen reads
     back her actual answers rather than showing the same reveal to everyone. Each
     concern names the real mechanism, not a restated symptom. */
+const boostsCellularEnergy = `${PRODUCT.name} boosts cellular energy with Acetyl-L-Carnitine`;
+const supportsBloodFlow = `${PRODUCT.name} supports healthy blood flow with Ginkgo Biloba Extract`;
+const boostsAntioxidantDefense = `${PRODUCT.name} boosts antioxidant defense with N-Acetyl-L-Cysteine and Alpha Lipoic Acid`;
+const supportsMemory = `${PRODUCT.name} supports memory and recall with Phosphatidylserine and Huperzine A`;
+
 const CONCERN_MAP: { slug: "symptoms" | "daily-issues"; match: string; answer: string }[] = [
-  { slug: "symptoms", match: "Brain fog or fatigue", answer: "Cellular energy support with Acetyl-L-Carnitine" },
-  { slug: "symptoms", match: "Trouble finding words", answer: "Healthy blood flow with Ginkgo Biloba Extract" },
-  { slug: "symptoms", match: "Losing focus easily", answer: "Antioxidant defense with N-Acetyl-L-Cysteine and Alpha Lipoic Acid" },
-  { slug: "symptoms", match: "Trouble following conversations", answer: "Healthy blood flow with Ginkgo Biloba Extract" },
-  { slug: "symptoms", match: "Forgetting names or appointments", answer: "Memory support with Phosphatidylserine and Huperzine A" },
-  { slug: "daily-issues", match: "Forgetting where I put things", answer: "Memory support with Phosphatidylserine and Huperzine A" },
-  { slug: "daily-issues", match: "Low energy or motivation", answer: "Cellular energy support with Acetyl-L-Carnitine" },
-  { slug: "daily-issues", match: "Mood swings or irritability", answer: "Antioxidant defense with N-Acetyl-L-Cysteine and Alpha Lipoic Acid" },
+  { slug: "symptoms", match: "Brain fog or fatigue", answer: boostsCellularEnergy },
+  { slug: "symptoms", match: "Trouble finding words", answer: supportsBloodFlow },
+  { slug: "symptoms", match: "Losing focus easily", answer: boostsAntioxidantDefense },
+  { slug: "symptoms", match: "Trouble following conversations", answer: supportsBloodFlow },
+  { slug: "symptoms", match: "Forgetting names or appointments", answer: supportsMemory },
+  { slug: "daily-issues", match: "Forgetting where I put things", answer: supportsMemory },
+  { slug: "daily-issues", match: "Low energy or motivation", answer: boostsCellularEnergy },
+  { slug: "daily-issues", match: "Mood swings or irritability", answer: boostsAntioxidantDefense },
 ];
 
 export function concernsAddressed(a: Answers): { concern: string; answer: string }[] {
@@ -163,7 +169,7 @@ export function concernsAddressed(a: Answers): { concern: string; answer: string
   /* Nobody left with an empty reveal: a quiz answered entirely with "none of the
      above" still gets the formula's own headline mechanism. */
   if (rows.length === 0) {
-    rows.push({ concern: "Keeping your mind sharp as you age", answer: "All six actives, working together" });
+    rows.push({ concern: "Keeping your mind sharp as you age", answer: `${PRODUCT.name} brings all six actives together to work on this` });
   }
   return rows.slice(0, 4);
 }
