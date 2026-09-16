@@ -1,65 +1,10 @@
-/** Everything the v3 plans page says for Brain & Memory Power Boost, the brain
-    quiz's own copy and pictures poured into the same layout the diet funnel's
-    plans page uses. See PlansContent and CarouselContent for what each field
-    controls; the structure itself lives in PlansScreen and HeroCarousel. */
-import type { CarouselContent, Facts } from "@/components/quiz/HeroCarousel";
+/** Everything the v2/v3 plans pages say for Brain & Memory Power Boost, the
+    brain quiz's own copy poured into the same layout the diet funnel's plans
+    page uses. The hero itself reuses BrainMemoryGallery's real product photos
+    rather than a carousel built from this content, so see PlansContent for
+    what each field here controls. */
 import type { PlansContent } from "./plansContent";
 import { INGREDIENTS } from "@/lib/products/brain-memory";
-
-const BRAIN_FACTS: Facts = {
-  serving: "4 capsules",
-  perContainer: "30",
-  /* No %DV column value exists for these actives, so each row uses the dagger a
-     real supplement facts panel uses for "Daily Value not established", rather
-     than a number invented to fill the cell. */
-  rows: INGREDIENTS.map((i) => [i.name, i.dose, "†"]),
-  /* No blend and no blendAmount: every active here is dosed and printed on its
-     own row, which is the whole point of the "not a proprietary blend" claim
-     the product makes elsewhere. Leaving both unset is what tells the carousel
-     to skip that footer row instead of rendering an empty or invented one. */
-  other: "Hypromellose (capsule), rice flour, magnesium stearate, silicon dioxide",
-};
-
-export const BRAIN_CAROUSEL: CarouselContent = {
-  benefitsTitle: "Benefits of the actives in Brain & Memory Power Boost",
-  benefits: [
-    "Sharper memory and recall",
-    "Supports mental clarity",
-    "Supports healthy blood flow",
-    "Stimulant-free focus",
-    "Supports antioxidant defenses",
-    "Supports cognitive resilience",
-  ],
-  stats: [
-    { figure: "4.7/5", body: "average rating from 914 verified reviews" },
-    { figure: "87%", body: "of surveyed users said they noticed sharper focus*" },
-    { figure: "91%", body: "of surveyed users said they would recommend it*" },
-  ],
-  statsNote: "*Based on an internal survey of past customers",
-  attributesTitle: "Stimulant-free, doctor-formulated support",
-  attributes: [
-    { icon: "zap-off", label: "Stimulant-free" },
-    { icon: "wheat-off", label: "Gluten-free" },
-    { icon: "droplet", label: "No added sugar" },
-    { icon: "leaf", label: "Dairy-free" },
-    { icon: "shield-check", label: "No artificial colors" },
-    { icon: "check", label: "No proprietary blends" },
-  ],
-  servingTitle: "Take 4 capsules",
-  servingBody: "Daily with food. Consistency matters most, since the fuller effect builds over about 12 weeks.",
-  servingFigures: [["30", "day supply"], ["4", "capsules per serving"]],
-  seals: [
-    { src: "/badges/third-party-tested.webp", label: "Third party tested" },
-    { src: "/badges/heavy-metal-tested.webp", label: "Heavy metal tested" },
-    { src: "/badges/money-back.png", label: "Money back guarantee" },
-    { src: "/badges/made-in-usa.png", label: "Made in the USA" },
-  ],
-  facts: BRAIN_FACTS,
-  /* Fixed rather than gendered, same reasoning the diet carousel documents: this
-     panel is showing a range of people using it, so a mix says more than a match
-     to whoever is reading. */
-  socialPhotos: ["/quiz/brain/story-robert.webp", "/quiz/brain/story-carol.webp"],
-};
 
 export const BRAIN_PLANS_CONTENT: PlansContent = {
   quizId: "brain",
