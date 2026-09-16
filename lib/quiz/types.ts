@@ -8,6 +8,16 @@ export type Step =
   | { slug: string; kind: "single"; question: string; options: string[] }
   | {
       slug: string;
+      kind: "multi";
+      question: string;
+      /** "Select all that apply". Answer stores as the chosen options joined with
+          "|", since a single string is all the store holds and none of these
+          option sets contain that character. */
+      options: string[];
+      cta?: string;
+    }
+  | {
+      slug: string;
       kind: "info";
       question: string;
       body: string;
@@ -124,6 +134,8 @@ export function buildAnswersPayload(
   for (const step of config.steps) {
     if (step.kind === "single") {
       if (answers[step.slug]) out[step.question] = answers[step.slug];
+    } else if (step.kind === "multi") {
+      if (answers[step.slug]) out[step.question] = answers[step.slug].split("|").join(", ");
     } else if (step.kind === "number") {
       const value = answers[step.key];
       if (value) out[step.question] = `${value} ${answers[step.key + "Unit"] ?? ""}`.trim();

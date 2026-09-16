@@ -20,15 +20,18 @@ const THEME = {
 } as React.CSSProperties;
 
 /**
- * Checkout for the paid 1/3/6 month ladder on /quiz/brain/v2/results/plans. Kept
- * on its own cart (BRAIN_LADDER_CART_ID), separate from the real product's own
- * checkout, which only ever knows how to build the free-trial order and would
- * show the wrong total for whichever plan was actually picked here.
+ * Checkout for the paid 1/3/6 month ladder, shared by both /quiz/brain/v2 and
+ * /quiz/brain/v3's plans pages. Kept on its own cart (BRAIN_LADDER_CART_ID),
+ * separate from the real product's own checkout, which only ever knows how to
+ * build the free-trial order and would show the wrong total for whichever plan
+ * was actually picked here.
  */
-export function BrainLadderCheckout() {
+export function BrainLadderCheckout({
+  backHref = "/quiz/brain/v2/results/plans",
+}: { backHref?: string } = {}) {
   return (
     <EvenCheckout
-      backHref="/quiz/brain/v2/results/plans"
+      backHref={backHref}
       backLabel={`Back to ${PRODUCT.name}`}
       product={{ name: PRODUCT.name, cartId: BRAIN_LADDER_CART_ID, buildOrder: buildBrainLadderOrder, guaranteeDays: 30 }}
       theme={THEME}

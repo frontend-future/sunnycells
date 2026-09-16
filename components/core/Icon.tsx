@@ -3,8 +3,8 @@
 import {
   ArrowLeft, ArrowRight, BookOpen, Check, ChevronDown, ChevronLeft, ChevronRight, Dna, Droplet,
   FileText, Flag, Leaf,
-  Mars, Menu, Minus, Percent, Plus, Repeat, Search, ShieldCheck, ShoppingBag, Star, Truck, User,
-  Venus, WheatOff, X, ZapOff,
+  Mars, Menu, Minus, Percent, Plus, Repeat, Search, ShieldCheck, ShoppingBag, Star, TriangleAlert,
+  Truck, User, Venus, WheatOff, X, ZapOff,
 } from "lucide-react";
 import type { CSSProperties } from "react";
 
@@ -34,6 +34,7 @@ const ICONS = {
   "shield-check": ShieldCheck,
   "shopping-bag": ShoppingBag,
   star: Star,
+  "triangle-alert": TriangleAlert,
   truck: Truck,
   user: User,
   venus: Venus,

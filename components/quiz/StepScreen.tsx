@@ -64,6 +64,8 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
     );
   }
 
+  if (step.kind === "multi") return <MultiBody step={step} answers={answers} set={set} go={go} />;
+
   if (step.kind === "info") {
     return (
       <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
@@ -293,6 +295,45 @@ function HeightBody({ answers, set, go }: { answers: Answers; set: Setter; go: (
         </Button>
       </StickyCta>
     </form>
+  );
+}
+
+/** "Select all that apply": toggles rather than advances, so it needs its own
+    Continue rather than firing on the first tap. */
+function MultiBody({
+  step, answers, set, go,
+}: { step: Extract<Step, { kind: "multi" }>; answers: Answers; set: Setter; go: () => void }) {
+  const [selected, setSelected] = useState<string[]>(() =>
+    answers[step.slug] ? answers[step.slug].split("|") : [],
+  );
+
+  const toggle = (o: string) =>
+    setSelected((cur) => (cur.includes(o) ? cur.filter((x) => x !== o) : [...cur, o]));
+
+  const submit = () => {
+    set(step.slug, selected.join("|"));
+    go();
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+        {step.options.map((o) => (
+          <OptionButton
+            key={o}
+            label={o}
+            selected={selected.includes(o)}
+            icon={selected.includes(o) ? "check" : null}
+            onClick={() => toggle(o)}
+          />
+        ))}
+      </div>
+      <StickyCta>
+        <Button size="lg" fullWidth iconRight="arrow-right" disabled={selected.length === 0} onClick={submit}>
+          {step.cta ?? "Continue"}
+        </Button>
+      </StickyCta>
+    </div>
   );
 }
 

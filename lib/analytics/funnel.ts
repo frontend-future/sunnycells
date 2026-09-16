@@ -31,6 +31,11 @@ const RESULTS: Record<string, string[]> = {
      /products/brain-memory, outside the /quiz/brain path entirely, so this funnel's
      numbering ends where the handoff happens rather than at steps that don't exist. */
   brain: ["analyzing", "summary", "projection", "benefits", "story"],
+  /* The brain age quiz, /quiz/brain/v3: its own results flow, ending in the same
+     paid ladder and checkout v2's plans page also uses. */
+  "brain/v3": [
+    "analyzing", "summary", "brain-age", "trajectory", "energy", "concerns", "benefits", "story", "plans", "checkout",
+  ],
 };
 
 /* Slugs come from the configs so a renamed step cannot silently fall out of the
@@ -40,7 +45,7 @@ let ORDER: Record<string, string[]> | null = null;
 
 async function order(): Promise<Record<string, string[]>> {
   if (ORDER) return ORDER;
-  const [{ dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }] =
+  const [{ dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }, { brainV3Quiz }] =
     await Promise.all([
       import("../quiz/diet.ts"),
       import("../quiz/aging.ts"),
@@ -48,18 +53,25 @@ async function order(): Promise<Record<string, string[]>> {
       import("../quiz/cortisol.ts"),
       import("../quiz/calm.ts"),
       import("../quiz/brain.ts"),
+      import("../quiz/brainV3.ts"),
     ]);
   ORDER = {};
-  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz]) {
-    const id = q.id;
-    ORDER[id] = ["", ...q.steps.map((s) => s.slug), ...(RESULTS[id] ?? []).map((r) => `results/${r}`)];
+  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz, brainV3Quiz]) {
+    /* The URL, not the config's own id: brainV3Quiz.id is "brain-v3" for
+       sessionStorage namespacing, but it lives at /quiz/brain/v3, and that path is
+       what a pageview actually reports. */
+    const key = q.basePath.replace(/^\/quiz\//, "");
+    ORDER[key] = ["", ...q.steps.map((s) => s.slug), ...(RESULTS[key] ?? []).map((r) => `results/${r}`)];
   }
   return ORDER;
 }
 
-/** Null for anything that is not part of a funnel, which is most of the site. */
+/** Null for anything that is not part of a funnel, which is most of the site.
+    The quiz group also accepts one nested /v<N> segment, for a funnel with more
+    than one built variant (a second plans page, a whole second question set)
+    living under the same product, e.g. /quiz/brain/v3/results/plans. */
 export async function funnelStepFor(pathname: string): Promise<FunnelStep | null> {
-  const m = /^\/quiz\/([a-z]+)(?:\/(.+))?$/.exec(pathname.replace(/\/$/, ""));
+  const m = /^\/quiz\/([a-z]+(?:\/v\d+)?)(?:\/(.+))?$/.exec(pathname.replace(/\/$/, ""));
   if (!m) return null;
   const [, quiz, rest = ""] = m;
   const list = (await order())[quiz];
