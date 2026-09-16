@@ -103,7 +103,7 @@ export const brainV3Quiz: QuizConfig = {
       kind: "info",
       question: "We got you",
       emphasize: true,
-      image: { src: "/quiz/brain/dr-stevens.webp", alt: "A doctor holding a bottle of Brain & Memory Power Boost" },
+      image: { src: "/quiz/brain/dr-stevens.webp", alt: "A doctor holding a bottle of Brain & Memory Power Boost", size: 130 },
       body: "That's definitely something we can help with. Brain & Memory Power Boost is built around six research-backed actives:",
       bullets: [
         { strong: "Cellular energy support", rest: ", with Acetyl-L-Carnitine" },
@@ -164,6 +164,7 @@ export const brainV3Quiz: QuizConfig = {
       placeholder: "Your email address",
       privacy: "We don't send spam or share email addresses. We respect your privacy.",
       cta: "Unlock my results",
+      badge: "Sale up to 58% off",
     },
   ],
 };

@@ -71,7 +71,7 @@ export function BrainV3Age() {
       </p>
 
       <StickyCta>
-        <NextButton href="/quiz/brain/v3/results/trajectory">See what 90 days could look like</NextButton>
+        <NextButton href="/quiz/brain/v3/results/trajectory">Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

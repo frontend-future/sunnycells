@@ -35,8 +35,9 @@ export type Step =
           hit harder than a regular question heading but isn't the brand statement. */
       emphasize?: boolean;
       /** A small round portrait above the body, for a screen naming a specific
-          person (a formulating physician, say). */
-      image?: { src: string; alt: string };
+          person (a formulating physician, say). `size` overrides the default
+          420px width when a screen needs the portrait smaller. */
+      image?: { src: string; alt: string; size?: number };
       cta: string;
     }
   | { slug: string; kind: "height"; question: string }

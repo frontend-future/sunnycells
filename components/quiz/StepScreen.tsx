@@ -75,7 +75,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
             alt={step.image.alt}
             width={600}
             height={600}
-            style={{ width: 420, maxWidth: "70%", height: "auto", aspectRatio: "1 / 1", borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
+            style={{ width: step.image.size ?? 420, maxWidth: "70%", height: "auto", aspectRatio: "1 / 1", borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
           />
         ) : null}
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>{step.body}</p>
