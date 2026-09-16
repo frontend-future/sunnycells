@@ -32,12 +32,7 @@ export function BrainV3Benefits() {
         {PRODUCT.name} is built to support your brain&apos;s energy, defenses and circulation
       </h1>
 
-      <p style={{ margin: "0 0 var(--space-8)", textAlign: "center", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-        Six actives, each dosed and printed on the label, not folded into a proprietary blend. Take{" "}
-        {PRODUCT.capsulesPerServing} capsules daily with food.
-      </p>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", marginBottom: "var(--space-10)" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", margin: "var(--space-8) 0 var(--space-10)" }}>
         {TIMELINE.map((t, i) => (
           <div key={t.when} style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start" }}>
             <span

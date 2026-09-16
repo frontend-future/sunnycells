@@ -43,8 +43,10 @@ export type Step =
       /** A portrait or product shot above the body, for a screen naming a specific
           person (a formulating physician, say) or reinforcing the product itself.
           `size` overrides the default 420px width. On an `invert` screen this
-          renders uncropped rather than in the usual round frame. */
-      image?: { src: string; alt: string; size?: number };
+          renders uncropped rather than in the usual round frame, unless `frame`
+          is "card": a slightly rotated, drop-shadowed rounded photo, for a UGC
+          shot rather than a cut-out product render. */
+      image?: { src: string; alt: string; size?: number; frame?: "card" };
       cta: string;
     }
   | { slug: string; kind: "height"; question: string }

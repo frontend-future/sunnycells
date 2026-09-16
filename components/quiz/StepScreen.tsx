@@ -72,20 +72,39 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
     return (
       <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
         {step.image ? (
-          <Image
-            src={step.image.src}
-            alt={step.image.alt}
-            width={500}
-            height={500}
-            style={{
-              width: step.image.size ?? 260,
-              maxWidth: "80%",
-              height: "auto",
-              objectFit: "contain",
-              margin: "0 auto",
-              filter: "drop-shadow(0 24px 28px rgba(0,0,0,0.35))",
-            }}
-          />
+          step.image.frame === "card" ? (
+            <Image
+              src={step.image.src}
+              alt={step.image.alt}
+              width={500}
+              height={500}
+              style={{
+                width: step.image.size ?? 260,
+                maxWidth: "70%",
+                aspectRatio: "1 / 1",
+                objectFit: "cover",
+                margin: "0 auto",
+                borderRadius: "var(--radius-xl)",
+                transform: "rotate(-4deg)",
+                boxShadow: "0 20px 32px rgba(0,0,0,0.45)",
+              }}
+            />
+          ) : (
+            <Image
+              src={step.image.src}
+              alt={step.image.alt}
+              width={500}
+              height={500}
+              style={{
+                width: step.image.size ?? 260,
+                maxWidth: "80%",
+                height: "auto",
+                objectFit: "contain",
+                margin: "0 auto",
+                filter: "drop-shadow(0 24px 28px rgba(0,0,0,0.35))",
+              }}
+            />
+          )
         ) : null}
 
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
