@@ -98,7 +98,6 @@ export const BRAIN_PLANS_CONTENT: PlansContent = {
     { name: "Richard A.", photo: "/quiz/brain/review-richard.webp", title: "This really helped me get back to myself", body: "I am now able to get back to the way I used to think. This is a wonderful product and I notice the difference every day." },
     { name: "Mary W.", photo: "/quiz/brain/review-mary.webp", title: "The ingredients matched what I researched", body: "This has many of the ingredients I had already seen research for when it comes to memory. Glad to find them together in one formula." },
     { name: "Floyd B.", photo: "/quiz/brain/review-floyd.webp", title: "More energy and clarity", body: "I seem to have more energy and clarity since I started taking it. Still a little early to say for sure, but I believe this is going to be very good." },
-    { name: "Dayle N.", photo: "/quiz/brain/review-dayle.webp", title: "Years of consistent use", body: "I have been using it for years and it really helps me stay sharp." },
   ],
   ingredientsTitle: "The science behind the six actives in Brain & Memory Power Boost",
   /* Where each active actually comes from, not the same product shot six times:
@@ -118,9 +117,11 @@ export const BRAIN_PLANS_CONTENT: PlansContent = {
     }[i.key],
     points: [[i.copy, `Dosed at ${i.dose} per serving, printed on the label rather than folded into a proprietary blend.`]] as [string, string][],
   })),
+  /* "contain" in a taller box, same fix as the pillars above: these are square
+     product photos too, and the default cover crop was cutting them off. */
   howItWorks: [
-    { img: "step-capsules", title: "Take 4 capsules", body: "With food, once a day. No stimulant, so it sits alongside coffee or anything else you already take.", illustration: "/product/brain-memory/04-pour.png" },
-    { img: "step-results", title: "Feel the difference build", body: "Cell energy and antioxidant support start from day one. The fuller effect on memory and focus builds over about 12 weeks.", illustration: "/product/brain-memory/checklist.png" },
+    { img: "step-capsules", title: "Take 4 capsules", body: "With food, once a day. No stimulant, so it sits alongside coffee or anything else you already take.", illustration: "/product/brain-memory/04-pour.png", illustrationFit: "contain" },
+    { img: "step-results", title: "Feel the difference build", body: "Cell energy and antioxidant support start from day one. The fuller effect on memory and focus builds over about 12 weeks.", illustration: "/product/brain-memory/checklist.png", illustrationFit: "contain" },
   ],
   comparisonNote: "Compared to a typical unbranded brain supplement",
   comparison: [

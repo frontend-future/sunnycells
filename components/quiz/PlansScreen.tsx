@@ -679,8 +679,8 @@ export function PlansScreen({
                 height={320}
                 style={{
                   width: s.illustration ? "100%" : 130,
-                  height: s.illustration ? 170 : 130,
-                  objectFit: s.illustration ? "cover" : "contain",
+                  height: s.illustration ? (s.illustrationFit === "contain" ? 240 : 170) : 130,
+                  objectFit: s.illustration ? s.illustrationFit ?? "cover" : "contain",
                   borderRadius: s.illustration ? "var(--radius-md)" : undefined,
                   margin: "0 auto",
                 }}

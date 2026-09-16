@@ -193,7 +193,9 @@ export type PlansContent = {
   reviews: { name: string; photo: string; title: string; body: string }[];
   ingredientsTitle: string;
   ingredients: { slug: string; title: string; image?: string; points: [string, string][] }[];
-  howItWorks: { img: string; title: string; body: string; illustration?: string }[];
+  /** Same "contain" escape hatch as pillars: a square product shot needs a taller
+      box and no crop, or the default "cover" cuts most of it away. */
+  howItWorks: { img: string; title: string; body: string; illustration?: string; illustrationFit?: "cover" | "contain" }[];
   comparisonNote: string;
   comparison: string[];
   faqs: { title: string; body: string }[];
