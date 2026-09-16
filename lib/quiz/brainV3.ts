@@ -102,6 +102,8 @@ export const brainV3Quiz: QuizConfig = {
       slug: "reinforcement",
       kind: "info",
       question: "We got you",
+      emphasize: true,
+      image: { src: "/quiz/brain/dr-stevens.webp", alt: "A doctor holding a bottle of Brain & Memory Power Boost" },
       body: "That's definitely something we can help with. Brain & Memory Power Boost is built around six research-backed actives:",
       bullets: [
         { strong: "Cellular energy support", rest: ", with Acetyl-L-Carnitine" },
