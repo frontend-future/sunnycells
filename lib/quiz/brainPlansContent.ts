@@ -11,7 +11,7 @@ export const BRAIN_PLANS_CONTENT: PlansContent = {
   productName: "Brain & Memory Power Boost",
   offer: { label: "Limited time offer", badge: "up to 60% off", countdown: true },
   hero: {
-    title: "Doctor-formulated nootropic",
+    title: "Feel as sharp as you used to",
     lede: "SUNNYCELLS Brain & Memory Power Boost is built to sharpen focus, memory and mental clarity, without a stimulant.",
     points: ["Supports memory and recall", "Supports focus and mental clarity", "Supports healthy blood flow to the brain"],
   },
