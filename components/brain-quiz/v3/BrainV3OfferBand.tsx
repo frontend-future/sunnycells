@@ -13,6 +13,10 @@ import { useAnswers } from "@/lib/quiz/store";
  * here without a complete quiz (no age, no target), rather than showing a band
  * about a diagnosis that was never actually made.
  */
+/* Rotated through the tags in order, so the band reads as a spread of distinct
+   findings rather than one repeated colour. */
+const TAG_TONES = ["zest", "sky", "sprout", "error"] as const;
+
 export function BrainV3OfferBand() {
   const { answers, ready } = useAnswers(brainV3Quiz.id);
   if (!ready) return null;
@@ -24,33 +28,37 @@ export function BrainV3OfferBand() {
   const tags = offerTags(answers);
 
   return (
-    <div style={{ background: "var(--sky-tint)", padding: "var(--space-8) var(--page-gutter-mobile)" }}>
-      <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+    <div style={{ background: "var(--ink)", color: "var(--white)", padding: "var(--space-10) var(--page-gutter-mobile) var(--space-12)" }}>
+      <div style={{ maxWidth: 720, margin: "0 auto" }}>
+        <Badge tone="zest">Our recommendation</Badge>
+
         <h1
           style={{
-            margin: "0 0 var(--space-5)",
+            margin: "var(--space-4) 0 var(--space-5)",
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(var(--size-h4), 6vw, var(--size-h2))",
+            fontSize: "clamp(var(--size-h4), 6.5vw, var(--size-h1))",
             fontWeight: 900,
             letterSpacing: "var(--tracking-heading)",
             lineHeight: "var(--leading-snug)",
           }}
         >
-          Your plan is ready. It needs 12 weeks to work.
+          Your plan is ready. It needs <span style={{ color: "var(--sprout)" }}>3 months</span> to work.
         </h1>
 
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "var(--space-2)", marginBottom: "var(--space-6)" }}>
-          {tags.map((t) => (
-            <Badge key={t} tone="ink">{t}</Badge>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)", marginBottom: "var(--space-6)" }}>
+          {tags.map((t, i) => (
+            <Badge key={t} tone={TAG_TONES[i % TAG_TONES.length]}>{t}</Badge>
           ))}
         </div>
 
         <div
           style={{
-            display: "inline-flex",
+            display: "flex",
             alignItems: "center",
+            justifyContent: "space-between",
             gap: "var(--space-5)",
             background: "var(--white)",
+            color: "var(--ink)",
             border: "1px solid var(--border-hairline)",
             borderRadius: "var(--radius-xl)",
             padding: "var(--space-5) var(--space-6)",

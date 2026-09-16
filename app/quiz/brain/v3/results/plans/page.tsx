@@ -19,7 +19,7 @@ export default function BrainV3PlansPage() {
         content={BRAIN_PLANS_CONTENT}
         destinationHref={DESTINATION}
         planCtaLabel="Continue with my plan"
-        plansSlot={<BrainPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Continue with my plan" plans={BRAIN_PLANS_V3} quizId={brainV3Quiz.id} />}
+        plansSlot={<BrainPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Continue with my plan" plans={BRAIN_PLANS_V3} quizId={brainV3Quiz.id} layout="featured" />}
         heroMedia={<HeroCarousel key="hero-carousel" content={BRAIN_CAROUSEL} pouchSrc="/product/brain-memory/01-hero-split.png" />}
       />
     </>
