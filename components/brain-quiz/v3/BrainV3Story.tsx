@@ -7,14 +7,15 @@ import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell } from "@/components/quiz/ResultsShell";
 import { StickyCta } from "@/components/quiz/StickyCta";
 
-/* Real reviews from lib/products/brain-memory.ts, with the same photos the v2
-   plans page's reviews grid uses, so the same face never appears under two
+/* Real customer reviews, condensed to their most potent line. Own set of photos
+   (review-mary-a, review-sheila, review-patricia, review-dwight) rather than the
+   ones the v2 plans page reuses, so the same face never appears under two
    different names anywhere on the site. */
 const REVIEWS = [
-  { name: "Richard A.", photo: "/quiz/brain/review-richard.webp", quote: "This really helped me get back to myself." },
-  { name: "Mary W.", photo: "/quiz/brain/review-mary.webp", quote: "The ingredients matched what I researched." },
-  { name: "Floyd B.", photo: "/quiz/brain/review-floyd.webp", quote: "More energy and clarity." },
-  { name: "Dayle N.", photo: "/quiz/brain/review-dayle.webp", quote: "Years of consistent use." },
+  { name: "Mary A.", photo: "/quiz/brain/review-mary-a.webp", quote: "It helps me think clearly and improves my memory. I still practice pediatrics, and the product is excellent." },
+  { name: "Sheila R.", photo: "/quiz/brain/review-sheila.webp", quote: "I really can tell a difference at work. I feel sharp and on top of my game." },
+  { name: "Dwight P.", photo: "/quiz/brain/review-dwight.webp", quote: "My brain function does seem to be significantly sharper with this supplement." },
+  { name: "Patricia L.", photo: "/quiz/brain/review-patricia.webp", quote: "I have ADD and need something to keep me focused. Thankfully, I found this to help with handling it." },
 ] as const;
 
 export function BrainV3Story() {
