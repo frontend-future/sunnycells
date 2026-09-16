@@ -91,23 +91,31 @@ export const BRAIN_PLANS_CONTENT: PlansContent = {
     { slug: "memory", title: "Supports memory", body: "Phosphatidylserine and acetyl-L-carnitine support short and long term memory with consistent daily use.", illustration: "/product/brain-memory/checklist.png", illustrationFit: "contain" },
     { slug: "focus", title: "Supports focus", body: "Built around six research-backed actives at studied doses, to support focus and mental clarity without any stimulant.", illustration: "/product/brain-memory/02-natural-way.png", illustrationFit: "contain" },
   ],
-  headlineReview: {
-    name: "Dan B.",
-    title: "My memory has improved",
-    body: "I have been using it for two months and I have noticed I can remember more numbers and details than before.",
-    photo: "/quiz/brain/review-dan.webp",
-  },
+  /* No standalone headline review: Dan sits in the grid below with everyone else
+     instead of getting his own section. */
   reviews: [
+    { name: "Dan B.", photo: "/quiz/brain/review-dan.webp", title: "My memory has improved", body: "I have been using it for two months and I have noticed I can remember more numbers and details than before." },
     { name: "Richard A.", photo: "/quiz/brain/review-richard.webp", title: "This really helped me get back to myself", body: "I am now able to get back to the way I used to think. This is a wonderful product and I notice the difference every day." },
     { name: "Mary W.", photo: "/quiz/brain/review-mary.webp", title: "The ingredients matched what I researched", body: "This has many of the ingredients I had already seen research for when it comes to memory. Glad to find them together in one formula." },
     { name: "Floyd B.", photo: "/quiz/brain/review-floyd.webp", title: "More energy and clarity", body: "I seem to have more energy and clarity since I started taking it. Still a little early to say for sure, but I believe this is going to be very good." },
     { name: "Dayle N.", photo: "/quiz/brain/review-dayle.webp", title: "Years of consistent use", body: "I have been using it for years and it really helps me stay sharp." },
   ],
   ingredientsTitle: "The science behind the six actives in Brain & Memory Power Boost",
+  /* Where each active actually comes from, not the same product shot six times:
+     an amino acid abundant in red meat, a precursor found in eggs, antioxidants
+     from leafy greens, an extract from the Ginkgo tree, a phospholipid sourced
+     from sunflower lecithin, and a compound from Chinese club moss. */
   ingredients: INGREDIENTS.map((i) => ({
     slug: i.key,
     title: `${i.name} (${i.dose})`,
-    image: "/product/brain-memory/03-ingredients-tan.png",
+    image: {
+      alc: "/ingredients/acetyl-l-carnitine.webp",
+      nac: "/ingredients/n-acetyl-l-cysteine.webp",
+      ala: "/ingredients/alpha-lipoic-acid.webp",
+      ginkgo: "/ingredients/ginkgo-biloba.webp",
+      ps: "/ingredients/phosphatidylserine.jpg",
+      huperzine: "/ingredients/huperzine-a.webp",
+    }[i.key],
     points: [[i.copy, `Dosed at ${i.dose} per serving, printed on the label rather than folded into a proprietary blend.`]] as [string, string][],
   })),
   howItWorks: [
