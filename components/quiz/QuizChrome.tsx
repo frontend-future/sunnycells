@@ -8,16 +8,19 @@ import { Wordmark } from "@/components/core/Wordmark";
 /** Header and progress rail shared by every question screen. The progress rail is
     black on a hairline track: structure comes from ink, not from a colour bar. */
 export function QuizChrome({
-  step, total, backHref, children,
+  step, total, backHref, invert, children,
 }: {
   step: number;
   total: number;
   backHref: string;
+  /** Dark full-bleed variant for a single reassurance screen. The header stays
+      white either way, so back/progress/logo never need their own dark styling. */
+  invert?: boolean;
   children: ReactNode;
 }) {
   const pct = Math.round((step / total) * 100);
   return (
-    <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", background: "var(--surface-sunk)" }}>
+    <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", background: invert ? "var(--ink)" : "var(--surface-sunk)" }}>
       <header style={{ background: "var(--white)", borderBottom: "1px solid var(--border-hairline)" }}>
         <div
           style={{
@@ -89,6 +92,8 @@ export function QuizChrome({
           padding: "var(--space-6) var(--page-gutter-mobile) var(--space-6)",
           display: "flex",
           flexDirection: "column",
+          background: invert ? "var(--ink)" : undefined,
+          color: invert ? "var(--white)" : undefined,
         }}
       >
         {children}

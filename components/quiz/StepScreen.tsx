@@ -27,9 +27,11 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
     go();
   };
 
+  const invert = step.kind === "info" && step.invert;
+
   return (
-    <QuizChrome step={index + 1} total={config.steps.length} backHref={prevHref(config, index)}>
-      {step.kind === "info" && step.brandHeading ? (
+    <QuizChrome step={index + 1} total={config.steps.length} backHref={prevHref(config, index)} invert={invert}>
+      {invert ? null : step.kind === "info" && step.brandHeading ? (
         <BrandHeading>{step.question}</BrandHeading>
       ) : step.kind === "info" && step.emphasize ? (
         <EmphasizedHeading>{step.question}</EmphasizedHeading>
@@ -65,6 +67,75 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
   }
 
   if (step.kind === "multi") return <MultiBody step={step} answers={answers} set={set} go={go} />;
+
+  if (step.kind === "info" && step.invert) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
+        {step.image ? (
+          <Image
+            src={step.image.src}
+            alt={step.image.alt}
+            width={500}
+            height={500}
+            style={{
+              width: step.image.size ?? 260,
+              maxWidth: "80%",
+              height: "auto",
+              objectFit: "contain",
+              margin: "0 auto",
+              filter: "drop-shadow(0 24px 28px rgba(0,0,0,0.35))",
+            }}
+          />
+        ) : null}
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+          <h1
+            style={{
+              margin: 0,
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(var(--size-h4), 7vw, var(--size-h1))",
+              fontWeight: 900,
+              letterSpacing: "var(--tracking-heading)",
+              lineHeight: "var(--leading-snug)",
+            }}
+          >
+            {step.question}
+          </h1>
+          <p style={{ margin: 0, fontSize: "var(--size-body-lg)", fontWeight: 700, lineHeight: "var(--leading-body)" }}>
+            {step.body}
+          </p>
+        </div>
+
+        {step.bullets ? (
+          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+            {step.bullets.map((b, i) => (
+              <li key={i} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start", fontSize: "var(--size-body)", lineHeight: 1.4 }}>
+                <Icon name="check" size={20} strokeWidth={2.5} style={{ flex: "none", marginTop: 2 }} />
+                {typeof b === "string" ? b : (
+                  <span>
+                    <strong style={{ fontWeight: 800 }}>{b.strong}</strong>
+                    {b.rest}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
+        {step.footnote ? (
+          <p style={{ margin: 0, fontSize: "var(--size-body)", fontWeight: 800 }}>{step.footnote}</p>
+        ) : null}
+
+        <StickyCta>
+          {/* Primary's fill is ink, invisible on this screen's own ink background,
+              so this is the one CTA in the quiz that takes the accent fill instead. */}
+          <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" onClick={go}>
+            {step.cta}
+          </Button>
+        </StickyCta>
+      </div>
+    );
+  }
 
   if (step.kind === "info") {
     return (

@@ -32,11 +32,18 @@ export type Step =
       /** Centres the question under the wordmark, for the brand-statement screen. */
       brandHeading?: boolean;
       /** Centres, bolds and enlarges the question, for a title screen that needs to
-          hit harder than a regular question heading but isn't the brand statement. */
+          hit harder than a regular question heading but isn't the brand statement.
+          Ignored when `invert` is set: that layout has its own heading treatment. */
       emphasize?: boolean;
-      /** A small round portrait above the body, for a screen naming a specific
-          person (a formulating physician, say). `size` overrides the default
-          420px width when a screen needs the portrait smaller. */
+      /** Dark, full-bleed reassurance screen (ink background, white text, the
+          product floating above the headline) instead of the default light info
+          layout. For a "we've got you" screen right after a run of symptom
+          questions, mirroring the reveal-and-reassure pattern competitors use. */
+      invert?: boolean;
+      /** A portrait or product shot above the body, for a screen naming a specific
+          person (a formulating physician, say) or reinforcing the product itself.
+          `size` overrides the default 420px width. On an `invert` screen this
+          renders uncropped rather than in the usual round frame. */
       image?: { src: string; alt: string; size?: number };
       cta: string;
     }
