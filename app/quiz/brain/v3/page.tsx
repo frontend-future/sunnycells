@@ -33,21 +33,23 @@ export default function BrainV3LandingPage() {
       <div style={{ position: "relative", background: "var(--sky-tint)" }}>
         <div style={{ width: "100%", maxWidth: "var(--page-max)", margin: "0 auto", padding: "var(--space-4) var(--page-gutter-mobile) 0" }}>
           <Wordmark size={26} />
+          {/* Generated stock-style photo, not a real customer: no name or quote is
+              attached to it, unlike the story screen's placeholder testimonial. */}
           <div
             style={{
               maxWidth: 560,
               margin: "var(--space-4) auto 0",
               aspectRatio: "4 / 3",
-              maxHeight: "min(30vh, 320px)",
+              maxHeight: "min(34vh, 340px)",
               borderRadius: "var(--radius-card)",
               overflow: "hidden",
             }}
           >
             <Image
-              src="/product/brain-memory/01-hero-split.png"
-              alt={`${PRODUCT.name}, a bottle of ${PRODUCT.netWeight}`}
-              width={1024}
-              height={768}
+              src="/quiz/brain/hero-couple.webp"
+              alt={`A couple smiling and holding a bottle of ${PRODUCT.name}`}
+              width={1200}
+              height={876}
               priority
               style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -61,35 +63,24 @@ export default function BrainV3LandingPage() {
             style={{
               margin: 0,
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(var(--size-h3), 7.6vw, var(--size-h1))",
-              fontWeight: 900,
+              fontSize: "clamp(var(--size-h3), 8.2vw, var(--size-h1))",
               letterSpacing: "var(--tracking-heading)",
               lineHeight: "var(--leading-snug)",
               textWrap: "balance",
             }}
           >
-            No matter how many tricks you try, the forgetfulness comes back.
+            <span style={{ fontWeight: 600 }}>Clear brain fog &amp; sharpen your mind with </span>
+            <span style={{ fontWeight: 900 }}>{PRODUCT.name}</span>
           </h1>
 
           <p style={{ maxWidth: 480, margin: "var(--space-4) auto 0", fontSize: "var(--size-body)", lineHeight: 1.45, textWrap: "pretty" }}>
-            That&apos;s because your brain is running low on the energy it needs, and tricks don&apos;t fix that.
+            A stimulant-free, doctor-formulated routine can support sharper recall, less
+            brain fog, and steadier mental clarity in as little as 90 days.
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>
             <RatingPill value={RATING.score} count={RATING.count} />
           </div>
-
-          <p
-            style={{
-              margin: "var(--space-6) 0 0",
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "var(--size-h4)",
-              letterSpacing: "var(--tracking-heading)",
-            }}
-          >
-            Find out your brain age
-          </p>
 
           <StartChoice
             config={brainV3Quiz}
