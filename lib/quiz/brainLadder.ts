@@ -51,13 +51,6 @@ export const BRAIN_PLANS: Plan[] = [
 export const brainPlanById = (id: string | undefined) =>
   BRAIN_PLANS.find((p) => p.id === id) ?? BRAIN_PLANS.find((p) => p.best) ?? BRAIN_PLANS[0];
 
-/** Same three plans, same prices, for the brain age quiz's offer page
-    (/quiz/brain/v3/results/plans): the 3 month plan is flagged as the length her
-    own quiz results call for, not just the one most people pick. */
-export const BRAIN_PLANS_V3: Plan[] = BRAIN_PLANS.map((p) =>
-  p.id === "b3" ? { ...p, flag: "Recommended for you" } : p,
-);
-
 /** Bottles, not pouches. Otherwise the same shape as planBullets in lib/quiz/plans.ts. */
 export function brainPlanBullets(plan: Plan): string[] {
   const bottles = plan.months;

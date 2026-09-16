@@ -177,27 +177,3 @@ export function concernsAddressed(a: Answers): { concern: string; answer: string
 function easeOut(t: number) {
   return 1 - Math.pow(1 - t, 1.7);
 }
-
-/** Short tags for the offer page's progress band, built from her own answers
-    rather than shown the same to everyone. Falls back to the formula's own three
-    causes if nothing matched, so the band is never empty. */
-export function offerTags(a: Answers): string[] {
-  const symptoms = a.symptoms?.split("|") ?? [];
-  const dailyIssues = a["daily-issues"]?.split("|") ?? [];
-  const tags: string[] = [];
-
-  if (symptoms.includes("Brain fog or fatigue") || dailyIssues.includes("Low energy or motivation")) {
-    tags.push("Low cognitive energy");
-  }
-  if (symptoms.includes("Trouble following conversations") || symptoms.includes("Trouble finding words")) {
-    tags.push("Poor blood flow");
-  }
-  if (dailyIssues.includes("Mood swings or irritability")) {
-    tags.push("Oxidative stress");
-  }
-  if (a["exercise-status"] === "Not really") {
-    tags.push("Low activity");
-  }
-
-  return tags.length ? tags.slice(0, 4) : ["Low cognitive energy", "Poor blood flow", "Oxidative stress"];
-}

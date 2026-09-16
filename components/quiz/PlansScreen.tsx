@@ -136,10 +136,9 @@ function Tick() {
   );
 }
 
-/** The sun offer bar and its scrolling marquee of terms, exported on its own so a
-    page that needs it above some other section (a dark recommendation band, say)
-    can render it there directly instead of wherever PlansScreen would put it. */
-export function PlansOfferBar({ content }: { content: PlansContent }) {
+/** The sun offer bar and its scrolling marquee of terms, factored out of the main
+    render only to keep that function shorter. */
+function PlansOfferBar({ content }: { content: PlansContent }) {
   return (
     <>
       <div
@@ -182,9 +181,6 @@ export function PlansScreen({
   content = DIET_PLANS_CONTENT,
   plansSlot,
   heroMedia,
-  /** Skips the built-in offer bar and marquee, for a page that already rendered
-      PlansOfferBar itself somewhere earlier (above its own hero section, say). */
-  hideTopOfferBar = false,
 }: {
   destinationHref?: string;
   planCtaLabel?: string;
@@ -196,7 +192,6 @@ export function PlansScreen({
   plansSlot?: React.ReactNode;
   /** The hero's right hand column. */
   heroMedia?: React.ReactNode;
-  hideTopOfferBar?: boolean;
 }) {
   const { answers } = useAnswers(content.quizId);
   const set = answers.gender === "Male" ? "male" : "female";
@@ -219,7 +214,7 @@ export function PlansScreen({
     >
       {/* Offer bar. The countdown is the brand's one timer, called out in
           OfferCountdown. Sun with ink on it, the only pairing allowed on yellow. */}
-      {hideTopOfferBar ? null : <PlansOfferBar content={content} />}
+      <PlansOfferBar content={content} />
 
       {/* Hero */}
       <section style={{ padding: "var(--space-8) var(--page-gutter-mobile) var(--space-12)" }}>
