@@ -76,3 +76,11 @@ test("the itch quiz reports to its own dataset", () => {
   /* No product page of its own yet, and a lookalike path must not match. */
   assert.equal(funnelForPath("/quiz/itchy-something-else"), "default");
 });
+
+test("the joint quiz shares the itch quiz's dog-supplement dataset on purpose", () => {
+  assert.equal(funnelForPath("/quiz/joint"), "itch");
+  assert.equal(funnelForPath("/quiz/joint/goals"), "itch");
+  assert.equal(funnelForPath("/quiz/joint/results/plans"), "itch");
+  assert.equal(funnelForPath("/quiz/joint/results/checkout"), "itch");
+  assert.equal(funnelForPath("/quiz/jointy-something-else"), "default");
+});

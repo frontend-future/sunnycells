@@ -41,6 +41,7 @@ const RESULTS: Record<string, string[]> = {
     "analyzing", "summary", "brain-age", "trajectory", "energy", "concerns", "benefits", "story", "plans", "checkout",
   ],
   itch: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
+  joint: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
 };
 
 /* Slugs come from the configs so a renamed step cannot silently fall out of the
@@ -51,7 +52,7 @@ let ORDER: Record<string, string[]> | null = null;
 async function order(): Promise<Record<string, string[]>> {
   if (ORDER) return ORDER;
   const [
-    { dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }, { brainV2Quiz }, { brainV3Quiz }, { itchQuiz },
+    { dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }, { brainV2Quiz }, { brainV3Quiz }, { itchQuiz }, { jointQuiz },
   ] = await Promise.all([
     import("../quiz/diet.ts"),
     import("../quiz/aging.ts"),
@@ -62,9 +63,10 @@ async function order(): Promise<Record<string, string[]>> {
     import("../quiz/brainV2.ts"),
     import("../quiz/brainV3.ts"),
     import("../quiz/itch.ts"),
+    import("../quiz/joint.ts"),
   ]);
   ORDER = {};
-  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz, brainV2Quiz, brainV3Quiz, itchQuiz]) {
+  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz, brainV2Quiz, brainV3Quiz, itchQuiz, jointQuiz]) {
     /* The URL, not the config's own id: brainV3Quiz.id is "brain-v3" for
        sessionStorage namespacing, but it lives at /quiz/brain/v3, and that path is
        what a pageview actually reports. */

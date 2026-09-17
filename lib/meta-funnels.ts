@@ -24,8 +24,12 @@ const PATHS: [Funnel, string[]][] = [
      touch /products/brain (Clear Mind, SC-27): that path has no "/" right after
      "brain", so the prefix check below never matches it against this entry. */
   ["brain", ["/products/brain-memory", "/quiz/brain"]],
-  /* SC-01 Daily Chews, its own quiz funnel and no product page of its own yet. */
-  ["itch", ["/quiz/itch"]],
+  /* The shared dog-supplement dataset: SC-01 Daily Chews (itch) and SC-02 Hip &
+     Joint Chews (joint) are different quizzes but the same audience (dog owners)
+     and the same pixel, so /quiz/joint reports into the "itch" dataset on purpose
+     rather than getting a cold dataset of its own. Neither has a product page of
+     its own yet. */
+  ["itch", ["/quiz/itch", "/quiz/joint"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {
