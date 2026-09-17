@@ -59,9 +59,18 @@ export const ITCH_PLANS_CONTENT: PlansContent = {
     body: r.body,
   })),
   ingredientsTitle: "The science behind the actives in SC-01 Daily Chews",
+  /* Where each active actually comes from: a flavonoid found in onions and apples,
+     omega-3s from fish oil, zinc and vitamin E from seeds and nuts, and a probiotic
+     blend of the same live cultures found in plain yogurt. */
   ingredients: INGREDIENTS.map((i) => ({
     slug: i.key,
     title: `${i.name} (${i.dose})`,
+    image: {
+      quercetin: "/ingredients/quercetin.webp",
+      omega3: "/ingredients/omega-3-fish-oil.webp",
+      "zinc-e": "/ingredients/zinc-vitamin-e.webp",
+      probiotics: "/ingredients/probiotic-blend.webp",
+    }[i.key],
     points: [[i.copy, `Dosed at ${i.dose} per serving, printed on the label rather than folded into a proprietary blend.`]] as [string, string][],
   })),
   howItWorks: [
