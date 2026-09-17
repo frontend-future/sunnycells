@@ -67,3 +67,12 @@ test("brain and memory power boost reports to its own dataset", () => {
   assert.equal(funnelForPath("/products/brain"), "default");
   assert.equal(funnelForPath("/products/brain/checkout"), "default");
 });
+
+test("the itch quiz reports to its own dataset", () => {
+  assert.equal(funnelForPath("/quiz/itch"), "itch");
+  assert.equal(funnelForPath("/quiz/itch/goals"), "itch");
+  assert.equal(funnelForPath("/quiz/itch/results/plans"), "itch");
+  assert.equal(funnelForPath("/quiz/itch/results/checkout"), "itch");
+  /* No product page of its own yet, and a lookalike path must not match. */
+  assert.equal(funnelForPath("/quiz/itchy-something-else"), "default");
+});

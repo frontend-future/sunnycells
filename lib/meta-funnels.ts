@@ -5,7 +5,7 @@
  * exactly one, so an event never lands in two datasets and no funnel's attribution is
  * polluted by another's traffic.
  */
-export type Funnel = "energy" | "aging" | "reds" | "revitalize" | "calm" | "brain" | "default";
+export type Funnel = "energy" | "aging" | "reds" | "revitalize" | "calm" | "brain" | "itch" | "default";
 
 /* Energy is the Even Energy product page with its checkout plus the energy quiz.
    Aging is the collagen quiz plus the /aging advertorials that feed it. Anything
@@ -24,6 +24,8 @@ const PATHS: [Funnel, string[]][] = [
      touch /products/brain (Clear Mind, SC-27): that path has no "/" right after
      "brain", so the prefix check below never matches it against this entry. */
   ["brain", ["/products/brain-memory", "/quiz/brain"]],
+  /* SC-01 Daily Chews, its own quiz funnel and no product page of its own yet. */
+  ["itch", ["/quiz/itch"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {
@@ -50,5 +52,6 @@ export const PIXEL_IDS: Record<Funnel, string | undefined> = {
   revitalize: process.env.NEXT_PUBLIC_META_PIXEL_ID,
   calm: process.env.NEXT_PUBLIC_META_PIXEL_ID_CALM,
   brain: process.env.NEXT_PUBLIC_META_PIXEL_ID_BRAIN,
+  itch: process.env.NEXT_PUBLIC_META_PIXEL_ID_ITCH,
   default: process.env.NEXT_PUBLIC_META_PIXEL_ID,
 };
