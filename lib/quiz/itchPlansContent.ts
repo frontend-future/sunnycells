@@ -9,7 +9,7 @@ export const ITCH_PLANS_CONTENT: PlansContent = {
   productName: "SC-01 Daily Chews",
   offer: { label: "Limited time offer", badge: "up to 60% off", countdown: true },
   hero: {
-    title: "Calm the itch, naturally",
+    title: "Stop the itching for good",
     lede: "SC-01 Daily Chews are made to calm the histamine response behind your dog's scratching, licking, and skin irritation.",
     points: ["Helps stop the scratching, licking, and chewing", "Supports healthy skin and a healthy coat", "Calms irritation from allergies, naturally"],
   },
@@ -45,7 +45,19 @@ export const ITCH_PLANS_CONTENT: PlansContent = {
       illustration: "/quiz/itch/benefit-hotspots.webp",
     },
   ],
-  reviews: REVIEWS.map((r) => ({ name: r.name, photo: "/quiz/itch/story-sarah.webp", title: r.title, body: r.body })),
+  /* Each reviewer's own photo, not one photo reused four times: the dog breed
+     and the owner's gender both match who's actually named in the quote. */
+  reviews: REVIEWS.map((r) => ({
+    name: r.name,
+    photo: {
+      "Sarah T.": "/quiz/itch/story-sarah.webp",
+      "Marcus D.": "/quiz/itch/review-marcus.webp",
+      "Priya N.": "/quiz/itch/review-priya.webp",
+      "Ellie B.": "/quiz/itch/review-ellie.webp",
+    }[r.name] ?? "/quiz/itch/story-sarah.webp",
+    title: r.title,
+    body: r.body,
+  })),
   ingredientsTitle: "The science behind the actives in SC-01 Daily Chews",
   ingredients: INGREDIENTS.map((i) => ({
     slug: i.key,
