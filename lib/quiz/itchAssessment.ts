@@ -34,6 +34,17 @@ const DURATION_SCORE: Record<string, number> = {
   "Over a year": 90,
 };
 
+/* Every marker lands at the top of the yellow band or into red: the floor is
+   above green, so no answer puts a marker there, same convention the diet
+   funnel's own assessment rows use (see toScale there) and for the same
+   reason: six bars that can read all-clear are telling her the quiz did not
+   find anything, which undersells a dog who is visibly struggling. Raw
+   severity still moves the marker within that range, so an answer that does
+   not indicate the problem sits at the floor (high yellow) while one that
+   does clears into red quickly. */
+const FLOOR = 66;
+const toScale = (raw: number, ceiling: number) => clamp(FLOOR + (clamp(raw) / 100) * (ceiling - FLOOR));
+
 /** The six parameters on the summary screen, in the order they're shown. */
 export function itchRows(a: Answers): Row[] {
   const frequency = FREQUENCY_SCORE[a.frequency] ?? 40;
@@ -44,25 +55,25 @@ export function itchRows(a: Answers): Row[] {
   return [
     /* The root-cause row, a composite of how often and how long, same role
        "Cortisol level" plays on the diet funnel's own summary. */
-    { label: "Histamine response", you: clamp(frequency * 0.55 + duration * 0.45) },
+    { label: "Histamine response", you: toScale(frequency * 0.55 + duration * 0.45, 96) },
     {
       label: "Skin irritation",
-      you: clamp((has(a, "visible-signs", "Red or irritated skin") || has(a, "visible-signs", "Scabs or hot spots") ? 78 : 26) + signCount * 4),
+      you: toScale((has(a, "visible-signs", "Red or irritated skin") || has(a, "visible-signs", "Scabs or hot spots") ? 78 : 26) + signCount * 4, 94),
     },
-    { label: "Itch-scratch cycle", you: clamp(frequency) },
-    { label: "Coat and hair loss", you: clamp(has(a, "visible-signs", "Bald patches or thinning fur") ? 80 : 24) },
-    { label: "Allergy trigger exposure", you: clamp(24 + triggerCount * 22) },
-    { label: "Sleep disruption", you: clamp(a.frequency === "Mostly at night" ? 82 : frequency * 0.4) },
+    { label: "Itch-scratch cycle", you: toScale(frequency, 92) },
+    { label: "Coat and hair loss", you: toScale(has(a, "visible-signs", "Bald patches or thinning fur") ? 80 : 24, 90) },
+    { label: "Allergy trigger exposure", you: toScale(24 + triggerCount * 22, 88) },
+    { label: "Sleep disruption", you: toScale(a.frequency === "Mostly at night" ? 82 : frequency * 0.4, 85) },
   ];
 }
 
-/** "higher than normal", "a little above normal", or "on the high side of
-    normal": reads the answers back rather than assuming every dog lands in
-    the same place. Mirrors verdict() on the diet funnel's own summary. */
+/** "higher than normal", "above average", or "on the high side of normal":
+    reads the answers back rather than assuming every dog lands in the same
+    place. Mirrors verdict() on the diet funnel's own summary. */
 export function itchVerdict(rows: Row[]): string {
-  const high = rows.filter((r) => r.you >= 67).length;
+  const high = rows.filter((r) => r.you >= 71).length;
   if (high >= 4) return "higher than normal";
-  if (high >= 1) return "a little above normal";
+  if (high >= 1) return "above average";
   return "on the high side of normal";
 }
 

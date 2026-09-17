@@ -52,22 +52,60 @@ export default function ItchQuizLandingPage() {
           }}
         >
           <Wordmark size={26} />
-          <Image
-            src="/quiz/itch/bottle-1.webp"
-            alt="SC-01 Daily Chews, a jar of soft chews for dog skin and coat health"
-            width={800}
-            height={800}
-            priority
+          {/* Before/after rather than a plain product shot: the transformation
+              itself is the pitch, and it pays off the ad's own "why is my dog
+              itching" hook before she's answered a single question. */}
+          <div
             style={{
-              display: "block",
-              width: "100%",
-              maxWidth: 360,
-              height: "auto",
-              maxHeight: "min(21vh, 300px)",
-              objectFit: "contain",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "var(--space-2)",
+              maxWidth: 420,
               margin: "0 auto",
+              paddingBottom: "var(--space-4)",
             }}
-          />
+          >
+            {[
+              { src: "/quiz/itch/hero-before.webp", alt: "A dog scratching itself, uncomfortable and itchy", label: "Before" },
+              { src: "/quiz/itch/hero-after.webp", alt: "A calm, happy dog resting beside a jar of SC-01 Daily Chews", label: "After" },
+            ].map((s) => (
+              <div key={s.label} style={{ position: "relative" }}>
+                <Image
+                  src={s.src}
+                  alt={s.alt}
+                  width={700}
+                  height={700}
+                  priority
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    aspectRatio: "1 / 1",
+                    height: "auto",
+                    maxHeight: "min(24vh, 260px)",
+                    objectFit: "cover",
+                    borderRadius: "var(--radius-card)",
+                  }}
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "var(--space-2)",
+                    left: "var(--space-2)",
+                    padding: "3px 10px",
+                    background: "var(--ink)",
+                    color: "var(--white)",
+                    borderRadius: "var(--radius-pill)",
+                    fontFamily: "var(--font-label)",
+                    fontSize: "var(--size-meta)",
+                    fontWeight: 600,
+                    letterSpacing: "var(--tracking-mono)",
+                  }}
+                >
+                  {s.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -102,6 +140,16 @@ export default function ItchQuizLandingPage() {
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>
             <RatingPill value={RATING.score} count={RATING.count} />
           </div>
+
+          <p
+            style={{
+              margin: "var(--space-6) 0 0",
+              fontSize: "var(--size-body)",
+              fontWeight: 700,
+            }}
+          >
+            What gender is your dog?
+          </p>
 
           <StartChoice
             config={itchQuiz}

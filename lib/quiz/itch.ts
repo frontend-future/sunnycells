@@ -39,7 +39,6 @@ export const itchQuiz: QuizConfig = {
       slug: "dog-size",
       kind: "single",
       question: "How big is {name}?",
-      reason: "So we can tailor the right dose for their size.",
       options: ["Small (under 20 lbs)", "Medium (20-50 lbs)", "Large (50-90 lbs)", "Extra large (90+ lbs)"],
     },
     {
@@ -115,7 +114,6 @@ export const itchQuiz: QuizConfig = {
       slug: "fears",
       kind: "multi",
       question: "The thing I'm most afraid of is...",
-      reason: "The reason we ask is so we know exactly how to help {name}.",
       options: [
         "This turning into a bigger skin infection",
         "Expensive vet bills that keep adding up",
@@ -128,7 +126,6 @@ export const itchQuiz: QuizConfig = {
       slug: "cost-so-far",
       kind: "single",
       question: "Roughly how much have you already spent trying to fix this?",
-      reason: "So we can show you what you could be saving instead.",
       options: ["Under $50", "$50 to $200", "$200 to $500", "Over $500"],
     },
 
