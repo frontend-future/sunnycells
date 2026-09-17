@@ -351,7 +351,24 @@ function Marker({ at, label, animation }: { at: number; label: string; animation
         animation,
       }}
     >
-      <span style={{ fontSize: "var(--size-meta)", fontWeight: 700, lineHeight: "20px", whiteSpace: "nowrap" }}>
+      {/* Capped and truncated, not just nowrap: a long custom label (a full
+          product name, say) at a marker near the middle of the track has
+          nothing stopping it running into its neighbour otherwise, since the
+          two markers know nothing about each other's width. 180px keeps both
+          clear of the other in every case this component is actually asked
+          to draw, and is comfortably past the ~130px even the short default
+          labels need, so it never truncates one of those. */}
+      <span
+        style={{
+          maxWidth: 180,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          fontSize: "var(--size-meta)",
+          fontWeight: 700,
+          lineHeight: "20px",
+          whiteSpace: "nowrap",
+        }}
+      >
         {label}
       </span>
       <span
@@ -369,8 +386,13 @@ function Marker({ at, label, animation }: { at: number; label: string; animation
   );
 }
 
-/** Where her metabolism sits now, and where the plan puts it. */
-export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: string }) {
+/** Where her metabolism sits now, and where the plan puts it. `labels` swaps
+    the four band names for a quiz plotting something other than metabolism
+    (an itch quiz's "Very itchy" to "Very comfortable" track, say); the ramp,
+    the animation and the layout are all the same either way. */
+export function MetabolismGauge({
+  m, afterLabel, labels = RATE_LABELS,
+}: { m: Metabolism; afterLabel: string; labels?: readonly string[] }) {
   /* The plan marker starts where she is now and travels, so the screen shows the move
      rather than just its endpoint. The keyframes carry her own numbers, which is why
      they are emitted here instead of living in globals.css. Under reduced motion the
@@ -381,6 +403,10 @@ export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: 
     18% { left: ${m.now}%; opacity: 1; }
     100% { left: ${m.after}%; opacity: 1; }
   }`;
+
+  /* Which of the four bands a position falls in, same rule rateLabel() uses,
+     duplicated rather than imported since that one is fixed to RATE_LABELS. */
+  const bandOf = (pct: number) => labels[Math.min(labels.length - 1, Math.floor((pct / 100) * labels.length))];
 
   return (
     <div>
@@ -406,37 +432,40 @@ export function MetabolismGauge({ m, afterLabel }: { m: Metabolism; afterLabel: 
           animation: `sc-reveal-x ${BAR_MS}ms var(--ease-standard) both`,
         }}
         role="img"
-        aria-label={`Metabolism now: ${RATE_LABELS[1]}. With the plan: ${RATE_LABELS[3]}`}
+        aria-label={`Now: ${bandOf(m.now)}. With the plan: ${bandOf(m.after)}`}
       >
-        {RATE_LABELS.map((l, i) => (
+        {labels.map((l, i) => (
           <span
             key={l}
             style={{
               flex: 1,
               height: 14,
               backgroundImage: RATE_RAMP,
-              backgroundSize: `${RATE_LABELS.length * 100}% 100%`,
-              backgroundPosition: `${(i / (RATE_LABELS.length - 1)) * 100}% 0`,
+              backgroundSize: `${labels.length * 100}% 100%`,
+              backgroundPosition: `${(i / (labels.length - 1)) * 100}% 0`,
               borderRadius:
                 i === 0 ? "var(--radius-pill) 0 0 var(--radius-pill)"
-                : i === RATE_LABELS.length - 1 ? "0 var(--radius-pill) var(--radius-pill) 0"
+                : i === labels.length - 1 ? "0 var(--radius-pill) var(--radius-pill) 0"
                 : 2,
             }}
           />
         ))}
       </div>
 
-      <div style={{ display: "flex", marginTop: "var(--space-2)" }}>
-        {RATE_LABELS.map((l, i) => (
+      <div style={{ display: "flex", gap: 4, marginTop: "var(--space-2)" }}>
+        {labels.map((l, i) => (
           <span
             key={l}
             style={{
               flex: 1,
+              minWidth: 0,
               /* The end labels pull to the outside edges rather than centring in a
                  quarter-width column, which is what made "Very slow" wrap on a 375px
-                 screen. The inner two stay centred under their bands. */
-              textAlign: i === 0 ? "left" : i === RATE_LABELS.length - 1 ? "right" : "center",
-              whiteSpace: "nowrap",
+                 screen. The inner two stay centred under their bands. A longer custom
+                 label set (an itch quiz's "Very comfortable", say) still wraps to a
+                 second line rather than running into its neighbour, now that there is
+                 a gap between columns instead of relying on nowrap to keep them apart. */
+              textAlign: i === 0 ? "left" : i === labels.length - 1 ? "right" : "center",
               fontSize: "var(--size-meta)",
               color: "var(--ink-60)",
             }}

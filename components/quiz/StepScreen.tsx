@@ -10,16 +10,19 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
-import { buildAnswersPayload, nextHref, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
+import { buildAnswersPayload, nextHref, personalizeStep, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
 import { QuizChrome, QuizQuestion } from "./QuizChrome";
 
 /** Renders any step of any quiz. Everything it needs comes from the config. */
 export function StepScreen({ config, index }: { config: QuizConfig; index: number }) {
-  const step = config.steps[index];
-  const router = useRouter();
   const { answers, set } = useAnswers(config.id);
+  /* "dog-name" only ever exists on quizzes that ask it (the itch quiz's own
+     personalization step); every other quiz's copy has no "{name}" in it, so
+     this substitution is a no-op for them. */
+  const step = personalizeStep(config.steps[index], answers["dog-name"]?.trim() || "your dog");
+  const router = useRouter();
   const go = () => router.push(nextHref(config, index));
 
   const answer = (value: string) => {
@@ -62,6 +65,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
         {step.options.map((o) => (
           <OptionButton key={o} label={o} selected={answers[step.slug] === o} onClick={() => answer(o)} />
         ))}
+        {step.reason ? <ReasonNote>{step.reason}</ReasonNote> : null}
       </div>
     );
   }
@@ -221,6 +225,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
     );
   }
 
+  if (step.kind === "text") return <TextBody step={step} answers={answers} set={set} go={go} />;
   if (step.kind === "height") return <HeightBody answers={answers} set={set} go={go} />;
   if (step.kind === "number") return <NumberBody step={step} answers={answers} set={set} go={go} />;
   if (step.kind === "dob") return <DobBody step={step} answers={answers} set={set} go={go} />;
@@ -292,6 +297,16 @@ function CentredHeading({ question, subhead }: { question: string; subhead: stri
   );
 }
 
+/** The compliance line under an option list: why the question is being asked,
+    for the ones that feel invasive enough to want an answer to that. */
+function ReasonNote({ children }: { children: string }) {
+  return (
+    <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.45 }}>
+      {children}
+    </p>
+  );
+}
+
 function FieldError({ children }: { children: string }) {
   return <div style={{ fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--status-error)" }}>{children}</div>;
 }
@@ -333,6 +348,43 @@ function UnitSwitch({ units, value, onChange }: { units: readonly string[]; valu
         );
       })}
     </div>
+  );
+}
+
+/** A single free-text field, for something an option list cannot enumerate (a
+    name). Trimmed and required: an empty answer would otherwise interpolate as
+    a blank into every later screen that reads it back. */
+function TextBody({
+  step, answers, set, go,
+}: { step: Extract<Step, { kind: "text" }>; answers: Answers; set: Setter; go: () => void }) {
+  const [value, setValue] = useState(answers[step.slug] || "");
+  const [error, setError] = useState("");
+
+  const submit = () => {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      setError("Go ahead and fill this one in so we can use it in your results.");
+      return;
+    }
+    set(step.slug, trimmed);
+    go();
+  };
+
+  return (
+    <form noValidate onSubmit={(e) => { e.preventDefault(); submit(); }} style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
+      <Input
+        type="text"
+        placeholder={step.placeholder}
+        value={value}
+        onChange={(e) => { setValue(e.target.value); setError(""); }}
+      />
+      {error ? <FieldError>{error}</FieldError> : null}
+      <StickyCta>
+        <Button size="lg" fullWidth type="submit" iconRight="arrow-right">
+          Continue
+        </Button>
+      </StickyCta>
+    </form>
   );
 }
 
@@ -417,6 +469,7 @@ function MultiBody({
             onClick={() => toggle(o)}
           />
         ))}
+        {step.reason ? <ReasonNote>{step.reason}</ReasonNote> : null}
       </div>
       <StickyCta>
         <Button size="lg" fullWidth iconRight="arrow-right" disabled={selected.length === 0} onClick={submit}>

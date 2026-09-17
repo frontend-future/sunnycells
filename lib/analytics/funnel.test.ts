@@ -6,6 +6,7 @@ import { cortisolQuiz } from "../quiz/cortisol.ts";
 import { brainQuiz } from "../quiz/brain.ts";
 import { brainV2Quiz } from "../quiz/brainV2.ts";
 import { brainV3Quiz } from "../quiz/brainV3.ts";
+import { itchQuiz } from "../quiz/itch.ts";
 
 test("the landing page is step 0, because gender is answered there", async () => {
   const s = await funnelStepFor("/quiz/diet");
@@ -97,6 +98,18 @@ test("a quiz can live under a /v<N> segment, numbered independently of the unver
   const v1First = await funnelStepFor(`/quiz/brain/${brainQuiz.steps[0].slug}`);
   assert.equal(v1First?.quiz, "brain");
   assert.equal(v1First?.index, 1);
+});
+
+test("the itch quiz is numbered independently and ends at its own plans and checkout", async () => {
+  const first = await funnelStepFor(`/quiz/itch/${itchQuiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "itch", index: 1, slug: itchQuiz.steps[0].slug, stage: "question" });
+
+  const story = await funnelStepFor("/quiz/itch/results/story");
+  assert.equal(story?.index, itchQuiz.steps.length + 6);
+  const plans = await funnelStepFor("/quiz/itch/results/plans");
+  assert.equal(plans?.index, itchQuiz.steps.length + 7);
+  const checkout = await funnelStepFor("/quiz/itch/results/checkout");
+  assert.equal(checkout?.index, itchQuiz.steps.length + 8);
 });
 
 test("pages outside a funnel are not steps", async () => {

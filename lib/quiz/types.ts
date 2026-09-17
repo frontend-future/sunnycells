@@ -5,7 +5,16 @@
  */
 
 export type Step =
-  | { slug: string; kind: "single"; question: string; options: string[] }
+  | {
+      slug: string;
+      kind: "single";
+      question: string;
+      options: string[];
+      /** Small compliance line under the options, the same idea as `dob`'s
+          `reason`: an ask that feels invasive (spend, a fear) lands better with
+          one sentence on why it's being asked. */
+      reason?: string;
+    }
   | {
       slug: string;
       kind: "multi";
@@ -15,6 +24,7 @@ export type Step =
           option sets contain that character. */
       options: string[];
       cta?: string;
+      reason?: string;
     }
   | {
       slug: string;
@@ -50,6 +60,12 @@ export type Step =
       cta: string;
     }
   | { slug: string; kind: "height"; question: string }
+  | {
+      slug: string;
+      kind: "text";
+      question: string;
+      placeholder: string;
+    }
   | {
       slug: string;
       kind: "dob";
@@ -114,6 +130,40 @@ export function ageFromAnswers(answers: Record<string, string>): number | null {
   return age;
 }
 
+/** Swaps a literal "{name}" placeholder for an answer collected earlier in the
+    same quiz (a pet's name, say), or `fallback` if she has not reached that
+    step yet. A quiz that never writes "{name}" into its own copy is untouched:
+    replacing a substring that is not there is a no-op. */
+function personalize(text: string, name: string): string {
+  return text.includes("{name}") ? text.split("{name}").join(name) : text;
+}
+
+/** Applies `personalize` to every string field a step can show, so a question
+    written once with "{name}" in it reads correctly wherever the engine quotes
+    it back to her, without every screen doing its own find-and-replace. */
+export function personalizeStep(step: Step, name: string): Step {
+  const p = (s: string) => personalize(s, name);
+  switch (step.kind) {
+    case "single":
+    case "multi":
+      return { ...step, question: p(step.question), options: step.options.map(p), reason: step.reason ? p(step.reason) : step.reason };
+    case "info":
+      return {
+        ...step,
+        question: p(step.question),
+        body: p(step.body),
+        footnote: step.footnote ? p(step.footnote) : step.footnote,
+        bullets: step.bullets?.map((b) => (typeof b === "string" ? p(b) : { strong: p(b.strong), rest: p(b.rest) })),
+      };
+    case "email":
+      return { ...step, question: p(step.question), subhead: p(step.subhead), placeholder: p(step.placeholder), cta: p(step.cta), badge: step.badge ? p(step.badge) : step.badge };
+    case "text":
+      return { ...step, question: p(step.question), placeholder: p(step.placeholder) };
+    default:
+      return step;
+  }
+}
+
 export function stepIndex(config: QuizConfig, slug: string): number {
   return config.steps.findIndex((s) => s.slug === slug);
 }
@@ -149,6 +199,8 @@ export function buildAnswersPayload(
     } else if (step.kind === "number") {
       const value = answers[step.key];
       if (value) out[step.question] = `${value} ${answers[step.key + "Unit"] ?? ""}`.trim();
+    } else if (step.kind === "text") {
+      if (answers[step.slug]) out[step.question] = answers[step.slug];
     } else if (step.kind === "height") {
       if (answers.heightUnit === "cm") {
         if (answers.heightCm) out[step.question] = `${answers.heightCm} cm`;
