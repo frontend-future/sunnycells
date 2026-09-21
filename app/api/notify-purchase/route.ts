@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml, FROM_NAME, NOTIFY_TO_EMAIL, postToSlack, type Result } from "@/lib/notify";
-import { landerTag } from "@/lib/notify-lander";
+import { landerLabel, landerTag } from "@/lib/notify-lander";
 import { stageFor, type Stage } from "@/lib/notify-stage";
 
 type Shipping = {
@@ -48,6 +48,7 @@ async function sendEmail(p: NotifyPayload, name: string): Promise<Result> {
     <div style="font-family: sans-serif; font-size: 14px; color: #0D0D0C; line-height: 1.6;">
       <h2 style="margin: 0 0 12px;">${stage.title}</h2>
       <p>${p.product ? `<strong>Product:</strong> ${escapeHtml(p.product)}<br>` : ""}
+      ${landerLabel(p.lander) ? `<strong>Funnel:</strong> ${escapeHtml(landerLabel(p.lander)!)}<br>` : ""}
       <strong>Plan:</strong> ${escapeHtml(plan)}<br>
       <strong>Total:</strong> $${total}</p>
       <p><strong>Name:</strong> ${escapeHtml(name)}<br>
@@ -83,7 +84,7 @@ async function sendSlack(p: NotifyPayload, name: string): Promise<Result> {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${stage.title}*\n${p.product ? `*Product:* ${p.product}\n` : ""}*Plan:* ${plan}\n*Total:* $${total}\n*Name:* ${name}\n*Email:* ${shipping.email}\n*Phone:* ${shipping.phone || "—"}\n*Shipping:* ${address}`,
+        text: `*${stage.title}*\n${p.product ? `*Product:* ${p.product}\n` : ""}${landerLabel(p.lander) ? `*Funnel:* ${landerLabel(p.lander)}\n` : ""}*Plan:* ${plan}\n*Total:* $${total}\n*Name:* ${name}\n*Email:* ${shipping.email}\n*Phone:* ${shipping.phone || "—"}\n*Shipping:* ${address}`,
       },
     },
     {

@@ -9,11 +9,21 @@ const LANDER_LABEL: Record<string, string> = {
   quiz: "Quiz",
   postpartum: "Postpartum",
   melatonin: "Melatonin",
+  /* itch v1 and v2 share one cart (ITCH_CART_ID), so this is the only signal
+     that says which of the two quizzes a checkout notification came from. */
+  "itch-v1": "Itch v1",
+  "itch-v2": "Itch v2",
 };
 
-/** Missing or unrecognised just adds nothing, rather than printing "[undefined]" or
-    failing on a lander this file does not know about yet. */
+/** Missing or unrecognised resolves to nothing (subject tag) or the raw code
+    (body line), rather than printing "[undefined]" or failing on a lander
+    this file does not know about yet. */
+export function landerLabel(lander?: string): string | null {
+  if (!lander) return null;
+  return LANDER_LABEL[lander] ?? lander;
+}
+
 export function landerTag(lander?: string): string {
-  if (!lander) return "";
-  return ` [${LANDER_LABEL[lander] ?? lander}]`;
+  const label = landerLabel(lander);
+  return label ? ` [${label}]` : "";
 }

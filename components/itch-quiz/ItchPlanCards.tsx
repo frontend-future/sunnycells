@@ -24,11 +24,17 @@ export function ItchPlanCards({
   ctaLabel = "Try now",
   plans = ITCH_PLANS,
   quizId = itchQuiz.id,
+  /* v1 and v2 share ITCH_CART_ID (one active checkout per browser, same
+     convention brainV2Quiz/brainV3Quiz share BRAIN_LADDER_CART_ID), so this
+     is the only thing in the cart that says which funnel a Reached payment
+     or Purchase attempt notification actually came from. */
+  lander = "itch-v1",
 }: {
   destinationHref?: string;
   ctaLabel?: string;
   plans?: Plan[];
   quizId?: string;
+  lander?: string;
 }) {
   const router = useRouter();
   const [hover, setHover] = useState("");
@@ -44,6 +50,7 @@ export function ItchPlanCards({
     writeAnswer(ITCH_CART_ID, "plan", p.id);
     writeAnswer(ITCH_CART_ID, "planPrice", String(p.price));
     writeAnswer(ITCH_CART_ID, "planMonths", String(p.months));
+    writeAnswer(ITCH_CART_ID, "lander", lander);
     trackMetaEvent(
       "InitiateCheckout",
       {

@@ -86,7 +86,7 @@ export function ItchV2Checkout({
     fetch("/api/notify-purchase", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ shipping, plan: plan.label, total: order.total, stage, product: PRODUCT.name }),
+      body: JSON.stringify({ shipping, plan: plan.label, total: order.total, stage, product: PRODUCT.name, lander: cart.lander }),
     })
       .then((res) => {
         if (!res.ok) console.error("[itch-v2-checkout] notify-purchase returned", res.status);

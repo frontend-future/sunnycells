@@ -15,7 +15,7 @@ export default function ItchPlansV2Page() {
       content={ITCH_PLANS_CONTENT}
       destinationHref={DESTINATION}
       planCtaLabel="Try now"
-      plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" quizId={itchV2Quiz.id} />}
+      plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" quizId={itchV2Quiz.id} lander="itch-v2" />}
       heroMedia={
         <div
           key="hero-image"
