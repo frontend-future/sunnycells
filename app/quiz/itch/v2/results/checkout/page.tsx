@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ItchCheckout } from "@/components/itch-quiz/ItchCheckout";
+import { ItchV2Checkout } from "@/components/itch-quiz/ItchV2Checkout";
 
 export const metadata: Metadata = { title: "Shipping details | SUNNYCELLS" };
 
 export default function CheckoutPage() {
-  return <ItchCheckout backHref="/quiz/itch/v2/results/plans" />;
+  return <ItchV2Checkout backHref="/quiz/itch/v2/results/plans" />;
 }
