@@ -11,8 +11,11 @@ import { useAnswers } from "@/lib/quiz/store";
 
 const COMFORT_LABELS = ["Very itchy", "Itchy", "Comfortable", "Very comfortable"] as const;
 
-export function ItchComfort() {
-  const { answers, ready } = useAnswers(itchQuiz.id);
+export function ItchComfort({
+  quizId = itchQuiz.id,
+  nextHref = "/quiz/itch/results/benefits",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers, ready } = useAnswers(quizId);
   const name = dogName(answers);
   const c = comfort(answers);
 
@@ -65,7 +68,7 @@ export function ItchComfort() {
       </div>
 
       <StickyCta>
-        <NextButton href="/quiz/itch/results/benefits">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

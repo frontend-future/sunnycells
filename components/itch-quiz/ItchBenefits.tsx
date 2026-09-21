@@ -48,8 +48,11 @@ const ATTRIBUTES: { icon: IconName; label: string }[] = [
   { icon: "flag", label: "Made in the USA" },
 ];
 
-export function ItchBenefits() {
-  const { answers } = useAnswers(itchQuiz.id);
+export function ItchBenefits({
+  quizId = itchQuiz.id,
+  nextHref = "/quiz/itch/results/story",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers } = useAnswers(quizId);
   const name = dogName(answers);
 
   return (
@@ -141,7 +144,7 @@ export function ItchBenefits() {
       </ul>
 
       <StickyCta>
-        <NextButton href="/quiz/itch/results/story">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

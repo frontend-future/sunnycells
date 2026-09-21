@@ -8,8 +8,11 @@ import { itchQuiz } from "@/lib/quiz/itch";
 import { dogName, itchRows, itchVerdict } from "@/lib/quiz/itchAssessment";
 import { useAnswers } from "@/lib/quiz/store";
 
-export function ItchSummary() {
-  const { answers, ready } = useAnswers(itchQuiz.id);
+export function ItchSummary({
+  quizId = itchQuiz.id,
+  nextHref = "/quiz/itch/results/projection",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers, ready } = useAnswers(quizId);
   const rows = itchRows(answers);
   const name = dogName(answers);
 
@@ -62,7 +65,7 @@ export function ItchSummary() {
       </div>
 
       <StickyCta>
-        <NextButton href="/quiz/itch/results/projection">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

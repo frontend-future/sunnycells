@@ -22,8 +22,11 @@ const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "long", ye
    not as a curve that happens to be worse than the plan. */
 const untreated = (t: number) => 0.08 * t;
 
-export function ItchProjection() {
-  const { answers, ready } = useAnswers(itchQuiz.id);
+export function ItchProjection({
+  quizId = itchQuiz.id,
+  nextHref = "/quiz/itch/results/comfort",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers, ready } = useAnswers(quizId);
   const name = dogName(answers);
   const p = itchProjection(answers);
   const format = (value: number) => highLow(value, p.start, p.target);
@@ -83,7 +86,7 @@ export function ItchProjection() {
       </div>
 
       <StickyCta>
-        <NextButton href="/quiz/itch/results/comfort">Continue</NextButton>
+        <NextButton href={nextHref}>Continue</NextButton>
       </StickyCta>
     </ResultsShell>
   );

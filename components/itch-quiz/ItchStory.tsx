@@ -34,8 +34,11 @@ const POINTS = [
   { lead: "The hot spots and bald patches cleared up completely", rest: `. ${OWNER_NAME} had tried three different vet-prescribed treatments before this, but nothing worked until they addressed the root cause.` },
 ];
 
-export function ItchStory() {
-  const { answers } = useAnswers(itchQuiz.id);
+export function ItchStory({
+  quizId = itchQuiz.id,
+  nextHref = "/quiz/itch/results/plans",
+}: { quizId?: string; nextHref?: string } = {}) {
+  const { answers } = useAnswers(quizId);
   /* Her own dog's name is read only so the CTA below can speak to her
      directly; the story itself is about a different dog, same reasoning
      BrainPlanCards documents for why a testimonial names a stock example
@@ -113,7 +116,7 @@ export function ItchStory() {
       </ul>
 
       <StickyCta>
-        <NextButton href="/quiz/itch/results/plans">
+        <NextButton href={nextHref}>
           {name !== "your dog" ? `See ${name}'s plan` : "Continue"}
         </NextButton>
       </StickyCta>
