@@ -690,7 +690,7 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
                       />
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
                         <Input
-                          label="Expiration date (MM / YY)"
+                          label="Expiration date"
                           inputMode="numeric"
                           autoComplete="cc-exp"
                           placeholder="MM / YY"
