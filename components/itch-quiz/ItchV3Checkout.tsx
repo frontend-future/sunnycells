@@ -260,6 +260,44 @@ function CompleteOrderButton({ onClick, disabled, working }: { onClick: () => vo
   );
 }
 
+/**
+ * FICTIONAL QUOTE. Same footing as EXPERTS in lib/products/brain-memory.ts: the
+ * voice is written for SC-01 Daily Chews, the vet is not a real, consenting
+ * reviewer. No photo, same reasoning Wordmark gives for shipping no logo file
+ * rather than a placeholder someone might mistake for the real thing. Replace
+ * both the quote and the name before launch, with a name only if she is real
+ * and has actually agreed to it.
+ */
+function VetTrustQuote() {
+  return (
+    <div style={{ marginTop: "var(--space-6)", background: "var(--white)", border: "1px solid var(--border-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-5)", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <div>
+        <p style={{ margin: "0 0 var(--space-2)", fontSize: "var(--size-meta)", fontWeight: 700, color: "var(--ink-60)" }}>Vet reviewed</p>
+        <blockquote style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "var(--size-body-lg)", lineHeight: 1.3 }}>
+          &ldquo;As a vet, I want dogs off the itch-scratch cycle for good, not just quieter for a
+          few hours. Quercetin and omega-3 at doses this consistent is exactly what I look for
+          in a daily chew.&rdquo;
+        </blockquote>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}>
+        <span
+          aria-hidden="true"
+          style={{
+            flex: "none", width: 56, height: 56, borderRadius: "50%", background: "var(--sprout-tint)",
+            display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink)",
+          }}
+        >
+          <Icon name="user" size={26} />
+        </span>
+        <div>
+          <p style={{ margin: 0, fontSize: "var(--size-body)", fontWeight: 700 }}>Dr. Maya Chen</p>
+          <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>DVM, Veterinary Consultant</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Divider() {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "var(--space-4)", margin: "var(--space-6) 0" }}>
@@ -406,10 +444,8 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
       <Header />
 
       <div className="sc-checkout" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 var(--page-gutter-mobile) var(--space-16)" }}>
-        <aside
-          className="sc-checkout-summary"
-          style={{ background: "var(--surface-sunk)", border: "1px solid var(--border-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-5)", margin: "var(--space-6) 0" }}
-        >
+        <aside className="sc-checkout-summary" style={{ margin: "var(--space-6) 0" }}>
+        <div style={{ background: "var(--surface-sunk)", border: "1px solid var(--border-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-5)" }}>
           <button
             type="button"
             className="sc-summary-toggle"
@@ -510,6 +546,9 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
               30 day money back guarantee
             </div>
           </div>
+        </div>
+
+        <VetTrustQuote />
         </aside>
 
         <main style={{ paddingTop: "var(--space-6)" }}>
