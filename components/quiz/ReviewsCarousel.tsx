@@ -6,7 +6,7 @@ import { IconButton } from "@/components/core/IconButton";
 
 export type Review = { name: string; rating: number; title: string; body: string };
 
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 5000;
 
 /** Wraps at both ends, so the arrows and the timer both treat the reviews as a
     loop rather than stopping dead at the first or last card. */
