@@ -263,10 +263,9 @@ function CompleteOrderButton({ onClick, disabled, working }: { onClick: () => vo
 /**
  * FICTIONAL QUOTE. Same footing as EXPERTS in lib/products/brain-memory.ts: the
  * voice is written for SC-01 Daily Chews, the vet is not a real, consenting
- * reviewer. No photo, same reasoning Wordmark gives for shipping no logo file
- * rather than a placeholder someone might mistake for the real thing. Replace
- * both the quote and the name before launch, with a name only if she is real
- * and has actually agreed to it.
+ * reviewer, and the photo (public/quiz/itch/vet-maya-chen.webp) is AI-generated,
+ * not a real person. Replace the quote, name, and photo before launch, with a
+ * name and likeness only if she is real and has actually agreed to it.
  */
 function VetTrustQuote() {
   return (
@@ -276,18 +275,23 @@ function VetTrustQuote() {
         <blockquote style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "var(--size-body-lg)", lineHeight: 1.3 }}>
           &ldquo;As a vet, I want dogs off the itch-scratch cycle for good, not just quieter for a
           few hours. Quercetin and omega-3 at doses this consistent is exactly what I look for
-          in a daily chew.&rdquo;
+          to fix the root cause.&rdquo;
         </blockquote>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}>
         <span
-          aria-hidden="true"
           style={{
-            flex: "none", width: 56, height: 56, borderRadius: "50%", background: "var(--sprout-tint)",
-            display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink)",
+            flex: "none", width: 56, height: 56, borderRadius: "50%", overflow: "hidden",
+            background: "var(--sprout-tint)", position: "relative", display: "block",
           }}
         >
-          <Icon name="user" size={26} />
+          <Image
+            src="/quiz/itch/vet-maya-chen.webp"
+            alt="Dr. Maya Chen"
+            width={112}
+            height={112}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
         </span>
         <div>
           <p style={{ margin: 0, fontSize: "var(--size-body)", fontWeight: 700 }}>Dr. Maya Chen</p>
