@@ -6,17 +6,21 @@ export type StarRatingProps = HTMLAttributes<HTMLDivElement> & {
   count?: number;
   size?: number;
   showValue?: boolean;
+  /** Filled-star colour. Defaults to --ink: an icon never carries an accent
+      colour on its own, except where a caller explicitly asks for one (a review
+      card quoting a gold five-star rating, say). */
+  color?: string;
   style?: CSSProperties;
 };
 
 /** Lucide stars, never a unicode dingbat. The rating is the only decimal in the
     system, and review counts are comma grouped: 12,480 reviews. */
 export function StarRating({
-  value = 0, count, size = 20, showValue = false, style, ...rest
+  value = 0, count, size = 20, showValue = false, color = "var(--ink)", style, ...rest
 }: StarRatingProps) {
   const pct = Math.max(0, Math.min(100, (value / 5) * 100));
-  const row = (color: string, solid: boolean) => (
-    <span style={{ display: "flex", gap: 2, color }}>
+  const row = (rowColor: string, solid: boolean) => (
+    <span style={{ display: "flex", gap: 2, color: rowColor }}>
       {[0, 1, 2, 3, 4].map((i) => (
         <Icon key={i} name="star" size={size} fill={solid ? "currentColor" : "none"} />
       ))}
@@ -33,7 +37,7 @@ export function StarRating({
       <span style={{ position: "relative", display: "inline-flex" }} aria-hidden="true">
         {row("var(--ink-20)", false)}
         <span style={{ position: "absolute", inset: 0, width: pct + "%", overflow: "hidden" }}>
-          {row("var(--ink)", true)}
+          {row(color, true)}
         </span>
       </span>
       {showValue ? (
