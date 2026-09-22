@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/core/Icon";
 import { ResultsShell, ResultsHeading } from "./ResultsShell";
+import { ReviewsCarousel, type Review } from "./ReviewsCarousel";
 
 const LINES = [
   "Evaluating your answers…",
@@ -13,25 +14,31 @@ const LINES = [
 ];
 
 const STEP_MS = 900;
+/* Reviews need time to actually read, so a run that's showing them takes each
+   step at triple length instead of racing through at the plain run's pace. */
+const STEP_MS_WITH_REVIEWS = 2700;
 const HOLD_MS = 500;
-/* The bar fills across the whole run in one linear sweep, so it never jumps a
-   quarter at a time. The ticks land on top of it, they do not drive it. */
-const TOTAL_MS = LINES.length * STEP_MS + HOLD_MS;
 
 /** `nextHref` is where the run hands off. Defaults to the diet funnel's summary, so
-    the existing route file stays a one-liner. */
-export function Analyzing({ nextHref = "/quiz/diet/results/summary" }: { nextHref?: string } = {}) {
+    the existing route file stays a one-liner. `reviews`, when passed, slows the run
+    down to a readable pace and shows a swipeable review carousel underneath it. */
+export function Analyzing({
+  nextHref = "/quiz/diet/results/summary",
+  reviews,
+}: { nextHref?: string; reviews?: readonly Review[] } = {}) {
   const router = useRouter();
   const [done, setDone] = useState(0);
+  const stepMs = reviews ? STEP_MS_WITH_REVIEWS : STEP_MS;
+  const totalMs = LINES.length * stepMs + HOLD_MS;
 
   useEffect(() => {
     if (done >= LINES.length) {
       const t = setTimeout(() => router.replace(nextHref), HOLD_MS);
       return () => clearTimeout(t);
     }
-    const t = setTimeout(() => setDone((d) => d + 1), STEP_MS);
+    const t = setTimeout(() => setDone((d) => d + 1), stepMs);
     return () => clearTimeout(t);
-  }, [done, router, nextHref]);
+  }, [done, router, nextHref, stepMs]);
 
   return (
     <ResultsShell>
@@ -60,7 +67,7 @@ export function Analyzing({ nextHref = "/quiz/diet/results/summary" }: { nextHre
             background: "var(--sun)",
             border: "2px solid var(--ink)",
             borderRadius: "var(--radius-pill)",
-            animation: `sc-reveal-x ${TOTAL_MS}ms linear forwards`,
+            animation: `sc-reveal-x ${totalMs}ms linear forwards`,
           }}
         />
       </div>
@@ -95,6 +102,8 @@ export function Analyzing({ nextHref = "/quiz/diet/results/summary" }: { nextHre
           );
         })}
       </ul>
+
+      {reviews ? <ReviewsCarousel reviews={reviews} /> : null}
     </ResultsShell>
   );
 }
