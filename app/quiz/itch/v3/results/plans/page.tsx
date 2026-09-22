@@ -3,6 +3,7 @@ import Image from "next/image";
 import { PlansScreen } from "@/components/quiz/PlansScreen";
 import { ItchPlanCards } from "@/components/itch-quiz/ItchPlanCards";
 import { ITCH_PLANS_CONTENT } from "@/lib/quiz/itchPlansContent";
+import { ITCH_V3_PLANS } from "@/lib/quiz/itchLadder";
 import { itchV3Quiz } from "@/lib/quiz/itchV3";
 
 export const metadata: Metadata = { title: "Your plan | SUNNYCELLS" };
@@ -15,7 +16,16 @@ export default function ItchPlansV3Page() {
       content={ITCH_PLANS_CONTENT}
       destinationHref={DESTINATION}
       planCtaLabel="Try now"
-      plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" quizId={itchV3Quiz.id} lander="itch-v3" />}
+      plansSlot={
+        <ItchPlanCards
+          key="plan-cards"
+          destinationHref={DESTINATION}
+          ctaLabel="Try now"
+          quizId={itchV3Quiz.id}
+          lander="itch-v3"
+          plans={ITCH_V3_PLANS}
+        />
+      }
       heroMedia={
         <div
           key="hero-image"
@@ -30,10 +40,10 @@ export default function ItchPlansV3Page() {
           }}
         >
           <Image
-            src="/quiz/itch/bottle-1.webp"
+            src="/quiz/itch/v3/bottle-1.webp"
             alt="SC-01 Daily Chews, a jar of soft chews for dog skin and coat health"
             width={800}
-            height={800}
+            height={588}
             style={{ width: "100%", maxWidth: 320, height: "auto" }}
             priority
           />

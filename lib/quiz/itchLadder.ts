@@ -46,6 +46,16 @@ export const ITCH_PLANS: Plan[] = [
   },
 ];
 
+/**
+ * /quiz/itch/v3's own jar photography, relabeled to say "SC-01 Daily Chews" rather
+ * than "Multivitamin" (the shared bottle-*.webp images v1 and v2 still use). Same
+ * plans, prices, and copy as ITCH_PLANS, just pointed at the v3 image set.
+ */
+export const ITCH_V3_PLANS: Plan[] = ITCH_PLANS.map((p) => ({
+  ...p,
+  image: p.image.replace("/quiz/itch/", "/quiz/itch/v3/"),
+}));
+
 export const itchPlanById = (id: string | undefined) =>
   ITCH_PLANS.find((p) => p.id === id) ?? ITCH_PLANS.find((p) => p.best) ?? ITCH_PLANS[0];
 
