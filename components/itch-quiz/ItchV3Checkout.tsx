@@ -39,6 +39,11 @@ const money = (n: number) => `$${n}`;
  * rating count (RATING, lib/products/dog-itch.ts), not a fabricated number. Swap
  * for the supplied graphic when it lands; the layout slot stays the same.
  */
+/* Total customers, not the review count RATING.count tracks elsewhere (the
+   plans page's RatingPill shows "662 reviews") -- a bigger, distinct metric for
+   this page's social proof line. */
+const CHECKOUT_CUSTOMER_COUNT = 6782;
+
 function SocialProofBadge() {
   const avatars = ["review-marcus.webp", "review-priya.webp", "review-ellie.webp"];
   return (
@@ -63,7 +68,7 @@ function SocialProofBadge() {
         ))}
       </span>
       <span style={{ fontFamily: "var(--font-label)", fontSize: "var(--size-meta)", fontWeight: 600, letterSpacing: "var(--tracking-mono)", color: "var(--ink-80)" }}>
-        {RATING.score.toFixed(1)}★ from {RATING.count.toLocaleString("en-US")}+ happy dog owners
+        {RATING.score.toFixed(1)}★ from {CHECKOUT_CUSTOMER_COUNT.toLocaleString("en-US")}+ happy dog owners
       </span>
     </div>
   );
@@ -90,12 +95,6 @@ function Header() {
           ))}
         </div>
       </div>
-      <span
-        aria-hidden="true"
-        style={{ position: "absolute", right: "var(--page-gutter-mobile)", top: "50%", transform: "translateY(-50%)", display: "flex", color: "var(--ink)" }}
-      >
-        <Icon name="shopping-bag" size={22} />
-      </span>
     </header>
   );
 }
@@ -469,16 +468,16 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
             </ul>
 
             <div style={{ marginTop: "var(--space-5)", paddingTop: "var(--space-4)", borderTop: "1px solid var(--border-hairline)" }}>
-              <span
+              <div
                 style={{
-                  display: "inline-flex", alignItems: "center", gap: 6, height: 32, padding: "0 12px",
+                  padding: "10px 14px", textAlign: "center",
                   background: "var(--sun)", color: "var(--ink)", borderRadius: "var(--radius-xs)",
                   fontFamily: "var(--font-text)", fontWeight: 800, fontSize: "var(--size-meta)",
-                  letterSpacing: "var(--tracking-caps)", textTransform: "uppercase",
+                  letterSpacing: "var(--tracking-caps)", textTransform: "uppercase", lineHeight: 1.4,
                 }}
               >
                 50% off first order · auto-applied
-              </span>
+              </div>
             </div>
 
             <div style={{ marginTop: "var(--space-5)", paddingTop: "var(--space-4)", borderTop: "1px solid var(--border-hairline)", display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
