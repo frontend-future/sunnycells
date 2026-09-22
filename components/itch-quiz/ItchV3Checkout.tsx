@@ -249,7 +249,7 @@ function CompleteOrderButton({ onClick, disabled, working }: { onClick: () => vo
       onMouseLeave={() => setDown(false)}
     >
       <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(22px, 6vw, 30px)", letterSpacing: "-0.01em", textTransform: "uppercase", lineHeight: 1.05 }}>
-        {working ? "Working" : "Complete order!"}
+        {working ? "Working" : "Secure my order"}
       </span>
       {!working ? (
         <span style={{ fontFamily: "var(--font-text)", fontWeight: 700, fontSize: "var(--size-meta)", letterSpacing: "0.02em", textTransform: "uppercase" }}>
@@ -706,7 +706,7 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
               </div>
 
               <p style={{ margin: "var(--space-6) 0 var(--space-4)", fontSize: "var(--size-meta)", lineHeight: 1.5, color: "var(--ink-60)" }}>
-                By clicking &quot;Complete order&quot; you agree to SUNNYCELLS&apos;s Terms of Sale
+                By clicking &quot;Secure my order&quot; you agree to SUNNYCELLS&apos;s Terms of Sale
                 and Privacy Policy. You will be enrolled in a subscription and billed on a
                 recurring basis at the price and frequency shown in the order summary above,
                 excluding your first order&apos;s introductory discount. You can cancel anytime
