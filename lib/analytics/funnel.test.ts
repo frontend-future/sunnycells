@@ -8,6 +8,7 @@ import { brainV2Quiz } from "../quiz/brainV2.ts";
 import { brainV3Quiz } from "../quiz/brainV3.ts";
 import { itchQuiz } from "../quiz/itch.ts";
 import { itchV2Quiz } from "../quiz/itchV2.ts";
+import { itchV3Quiz } from "../quiz/itchV3.ts";
 import { jointQuiz } from "../quiz/joint.ts";
 
 test("the landing page is step 0, because gender is answered there", async () => {
@@ -126,6 +127,20 @@ test("the itch v2 quiz is numbered independently of the original itch quiz", asy
   /* Same step count and slugs as the original (a deep clone), but a distinct
      funnel key, so the two never get summed together in one chart. */
   assert.equal(itchV2Quiz.steps.length, itchQuiz.steps.length);
+});
+
+test("the itch v3 quiz is numbered independently of the original itch quiz and v2", async () => {
+  const first = await funnelStepFor(`/quiz/itch/v3/${itchV3Quiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "itch/v3", index: 1, slug: itchV3Quiz.steps[0].slug, stage: "question" });
+
+  const plans = await funnelStepFor("/quiz/itch/v3/results/plans");
+  assert.equal(plans?.index, itchV3Quiz.steps.length + 7);
+  const checkout = await funnelStepFor("/quiz/itch/v3/results/checkout");
+  assert.equal(checkout?.index, itchV3Quiz.steps.length + 8);
+
+  /* Same step count and slugs as the original (a deep clone), but a distinct
+     funnel key, so the two never get summed together in one chart. */
+  assert.equal(itchV3Quiz.steps.length, itchQuiz.steps.length);
 });
 
 test("the joint quiz is numbered independently and ends at its own plans and checkout", async () => {
