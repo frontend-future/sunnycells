@@ -443,6 +443,20 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
     <div style={{ ...THEME, minHeight: "100dvh", background: "var(--surface-page)" }}>
       <Header />
 
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "var(--space-4) var(--page-gutter-mobile) 0" }}>
+        <Link
+          href={backHref}
+          style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2)", minHeight: "var(--tap-min)", color: "var(--ink)", fontSize: "var(--size-body)", fontWeight: 600, textDecoration: "none" }}
+        >
+          <Icon name="chevron-left" size={22} />
+          Back
+        </Link>
+
+        <div style={{ marginTop: "var(--space-4)" }}>
+          <ReservedBanner />
+        </div>
+      </div>
+
       <div className="sc-checkout" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 var(--page-gutter-mobile) var(--space-16)" }}>
         <aside className="sc-checkout-summary" style={{ margin: "var(--space-6) 0" }}>
         <div style={{ background: "var(--surface-sunk)", border: "1px solid var(--border-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-5)" }}>
@@ -552,18 +566,6 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
         </aside>
 
         <main style={{ paddingTop: "var(--space-6)" }}>
-          <Link
-            href={backHref}
-            style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2)", minHeight: "var(--tap-min)", color: "var(--ink)", fontSize: "var(--size-body)", fontWeight: 600, textDecoration: "none" }}
-          >
-            <Icon name="chevron-left" size={22} />
-            Back
-          </Link>
-
-          <div style={{ margin: "var(--space-4) 0 var(--space-6)" }}>
-            <ReservedBanner />
-          </div>
-
           {expressPhase === "idle" ? (
             <ExpressCheckout onChoose={chooseExpress} />
           ) : expressPhase === "working" ? (
