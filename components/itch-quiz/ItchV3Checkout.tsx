@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
@@ -211,6 +210,54 @@ function ExpressCheckout({ onChoose }: { onChoose: (provider: string) => void })
         .
       </p>
     </div>
+  );
+}
+
+/**
+ * The order submit button: two lines, the second a risk-reversal line under the
+ * primary label, big enough to be its own headline. Not the shared Button
+ * component: that one is built for a single line of uniform-size label, and this
+ * page's own CTA needs two sizes stacked, so it gets its own small button here
+ * instead of stretching Button's contract to fit one caller.
+ */
+function CompleteOrderButton({ onClick, disabled, working }: { onClick: () => void; disabled?: boolean; working?: boolean }) {
+  const [down, setDown] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      style={{
+        appearance: "none",
+        width: "100%",
+        minHeight: 96,
+        border: 0,
+        borderRadius: "var(--radius-button)",
+        background: disabled ? "var(--action-disabled-bg)" : "var(--action-accent-bg)",
+        color: disabled ? "var(--action-disabled-fg)" : "var(--action-accent-fg)",
+        padding: "var(--space-4) var(--space-5)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 6,
+        cursor: disabled ? "not-allowed" : "pointer",
+        transform: down && !disabled ? "scale(var(--press-scale))" : "none",
+        transition: "background var(--duration-fast) var(--ease-standard), transform var(--duration-instant) var(--ease-standard)",
+      }}
+      onMouseDown={() => setDown(true)}
+      onMouseUp={() => setDown(false)}
+      onMouseLeave={() => setDown(false)}
+    >
+      <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(22px, 6vw, 30px)", letterSpacing: "-0.01em", textTransform: "uppercase", lineHeight: 1.05 }}>
+        {working ? "Working" : "Complete order!"}
+      </span>
+      {!working ? (
+        <span style={{ fontFamily: "var(--font-text)", fontWeight: 700, fontSize: "var(--size-meta)", letterSpacing: "0.02em", textTransform: "uppercase" }}>
+          Try it risk free · 30 day money-back guarantee
+        </span>
+      ) : null}
+    </button>
   );
 }
 
@@ -660,7 +707,7 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
               </div>
 
               <p style={{ margin: "var(--space-6) 0 var(--space-4)", fontSize: "var(--size-meta)", lineHeight: 1.5, color: "var(--ink-60)" }}>
-                By clicking &quot;Secure My Order&quot; you agree to SUNNYCELLS&apos;s Terms of Sale
+                By clicking &quot;Complete order&quot; you agree to SUNNYCELLS&apos;s Terms of Sale
                 and Privacy Policy. You will be enrolled in a subscription and billed on a
                 recurring basis at the price and frequency shown in the order summary above,
                 excluding your first order&apos;s introductory discount. You can cancel anytime
@@ -668,9 +715,7 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
                 support@sunnycells.com.
               </p>
 
-              <Button size="lg" fullWidth variant="accent" onClick={submitOrder} disabled={cardPhase === "working"}>
-                {cardPhase === "working" ? "Working" : "Secure My Order"}
-              </Button>
+              <CompleteOrderButton onClick={submitOrder} disabled={cardPhase === "working"} working={cardPhase === "working"} />
               {cardPhase === "working" ? (
                 <div style={{ marginTop: "var(--space-3)", display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--space-3)", fontSize: "var(--size-meta)", color: "var(--ink-60)" }} aria-live="polite">
                   <span aria-hidden="true" style={{ width: 18, height: 18, borderRadius: "50%", border: "3px solid var(--ink-20)", borderTopColor: "var(--ink)", display: "inline-block", animation: "sc-spin 700ms linear infinite" }} />
