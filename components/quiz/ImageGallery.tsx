@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
-import { IconButton } from "@/components/core/IconButton";
 
 export type GalleryImage = { src: string; alt: string };
 
@@ -11,8 +10,13 @@ export type GalleryImage = { src: string; alt: string };
  * CSS in globals.css: thumbnails run in a row below the image on a phone, and
  * move to a right-hand rail from 900px. The main image is a native horizontal
  * scroll-snap track, so a touch swipe or a trackpad's horizontal scroll both
- * change the active slide with no extra gesture handling; the arrows and
- * thumbnails just call the same go() a swipe would land on.
+ * change the active slide with no extra gesture handling -- no arrow buttons,
+ * a thumbnail tap is the only other way to jump slides.
+ *
+ * `alignSelf: "start"` on the root: PlansScreen's own hero grid centers its two
+ * columns vertically, and this gallery (image plus thumbnail rail) runs taller
+ * than the text column beside it, so centering left a large gap above and below
+ * the shorter column instead of both starting flush at the top.
  */
 export function ImageGallery({ images }: { images: readonly GalleryImage[] }) {
   const track = useRef<HTMLDivElement>(null);
@@ -38,8 +42,8 @@ export function ImageGallery({ images }: { images: readonly GalleryImage[] }) {
   };
 
   return (
-    <div className="sc-gallery">
-      <div className="sc-gallery-main" style={{ position: "relative" }}>
+    <div className="sc-gallery" style={{ alignSelf: "start" }}>
+      <div className="sc-gallery-main">
         <div
           ref={track}
           onScroll={onScroll}
@@ -65,25 +69,6 @@ export function ImageGallery({ images }: { images: readonly GalleryImage[] }) {
             </div>
           ))}
         </div>
-
-        <span style={{ position: "absolute", left: "var(--space-3)", top: "50%", transform: "translateY(-50%)" }}>
-          <IconButton
-            icon="chevron-left"
-            label="Previous image"
-            size="sm"
-            onClick={() => go(at - 1)}
-            style={{ background: "var(--white)", boxShadow: "var(--shadow-raised)" }}
-          />
-        </span>
-        <span style={{ position: "absolute", right: "var(--space-3)", top: "50%", transform: "translateY(-50%)" }}>
-          <IconButton
-            icon="chevron-right"
-            label="Next image"
-            size="sm"
-            onClick={() => go(at + 1)}
-            style={{ background: "var(--white)", boxShadow: "var(--shadow-raised)" }}
-          />
-        </span>
       </div>
 
       <div className="sc-gallery-thumbs">
