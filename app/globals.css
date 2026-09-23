@@ -187,13 +187,20 @@ body {
     flex: 1 1 auto;
     min-width: 0;
   }
+  /* Height comes from --gallery-rail-height, measured off the real main image
+     by ImageGallery (a fixed max-height here does not track a narrower image,
+     and flex stretch pulls the image's own box up to match the rail's
+     content height instead of the other way around -- see the component's
+     own comment). Falls back to a fixed height before the first measurement,
+     rather than "auto", so the rail does not flash at full unclipped height
+     for one frame. */
   .sc-gallery-thumbs {
     flex: none;
     flex-direction: column;
     width: 96px;
+    height: var(--gallery-rail-height, 400px);
     overflow-x: visible;
     overflow-y: auto;
-    max-height: 560px;
   }
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type GalleryImage = { src: string; alt: string };
 
@@ -17,12 +17,30 @@ export type GalleryImage = { src: string; alt: string };
  * columns vertically, and this gallery (image plus thumbnail rail) runs taller
  * than the text column beside it, so centering left a large gap above and below
  * the shorter column instead of both starting flush at the top.
+ *
+ * The rail's height (--gallery-rail-height, consumed only in the desktop rule
+ * in globals.css) is measured off the main image rather than left to flexbox
+ * stretch: stretch takes the MAX of every item's own content height, so an
+ * unclipped rail wanting more room than the image is tall would win and pull
+ * the image's own box up to match it, opening the exact gap this is fixing,
+ * just moved inside the image's box instead of removed. Measuring the real
+ * image height and handing the rail exactly that (scrolling internally for
+ * whatever does not fit) is what makes the two actually match.
  */
 export function ImageGallery({ images }: { images: readonly GalleryImage[] }) {
   const track = useRef<HTMLDivElement>(null);
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [at, setAt] = useState(0);
+  const [railHeight, setRailHeight] = useState<number | null>(null);
   const count = images.length;
+
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => setRailHeight(entries[0].contentRect.height));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const go = useCallback(
     (i: number) => {
@@ -42,7 +60,10 @@ export function ImageGallery({ images }: { images: readonly GalleryImage[] }) {
   };
 
   return (
-    <div className="sc-gallery" style={{ alignSelf: "start" }}>
+    <div
+      className="sc-gallery"
+      style={{ alignSelf: "start", ...(railHeight ? { ["--gallery-rail-height" as string]: `${railHeight}px` } : {}) }}
+    >
       <div className="sc-gallery-main">
         <div
           ref={track}
