@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { Icon } from "@/components/core/Icon";
+import { Icon, type IconName } from "@/components/core/Icon";
 import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { Select } from "@/components/forms/Select";
@@ -12,7 +12,7 @@ import { CardBrandMark } from "@/components/quiz/CardBrandMark";
 import { OutOfStockNotice } from "@/components/quiz/OutOfStockNotice";
 import { PRODUCT, RATING } from "@/lib/products/dog-itch";
 import { ITCH_CART_ID, itchPlanById } from "@/lib/quiz/itchLadder";
-import { buildItchOrderV3 } from "@/lib/quiz/itchOrderV3";
+import { buildItchOrderV3, ITCH_V3_BONUSES } from "@/lib/quiz/itchOrderV3";
 import { itchV3Quiz } from "@/lib/quiz/itchV3";
 import { US_STATES } from "@/lib/quiz/order";
 import { brandOf, cvcOk, expiryOk, formatCardNumber, formatExpiry, luhnOk } from "@/lib/quiz/card";
@@ -32,6 +32,11 @@ const THEME = {
 } as React.CSSProperties;
 
 const money = (n: number) => `$${n}`;
+
+/** Icon fallback for a bonus line with no image (only "Free shipping" today). */
+const BONUS_ICON: Record<string, IconName> = Object.fromEntries(
+  ITCH_V3_BONUSES.map((b) => [b.id, b.icon as IconName]),
+);
 
 /**
  * SOCIAL PROOF HEADER GRAPHIC: a placeholder built from the three review photos
@@ -169,6 +174,18 @@ function ExpressButton({
   );
 }
 
+/* Simplified apple mark, same "approximated, not official artwork" footing as
+   the rest of these brand buttons -- swap for Apple's own Pay button asset
+   (their Human Interface Guidelines require using their supplied mark, not a
+   hand-drawn one) before launch. */
+function AppleMark() {
+  return (
+    <svg width="17" height="20" viewBox="0 0 17 20" fill="currentColor" aria-hidden="true">
+      <path d="M13.9 10.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.9-3-.9-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7 1.4 0 1.8.7 3 .7 1.2 0 2-1.1 2.7-2.2.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.4-.9-2.4-3.8zM11.6 3.8c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6 1 .1 1.9-.5 2.5-1.2z" />
+    </svg>
+  );
+}
+
 function ExpressCheckout({ onChoose }: { onChoose: (provider: string) => void }) {
   return (
     <div>
@@ -195,6 +212,15 @@ function ExpressCheckout({ onChoose }: { onChoose: (provider: string) => void })
                 <span style={{ color: "#34A853" }}>l</span>
                 <span style={{ color: "#EA4335" }}>e</span>
               </span>
+              Pay
+            </span>
+          </ExpressButton>
+          <ExpressButton bg="#008CFF" fg="#fff" label="Check out with Venmo" onClick={() => onChoose("Venmo")}>
+            <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontStyle: "italic", fontSize: 20, letterSpacing: "-0.01em" }}>venmo</span>
+          </ExpressButton>
+          <ExpressButton bg="#000" fg="#fff" label="Check out with Apple Pay" onClick={() => onChoose("Apple Pay")}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 18, fontWeight: 600 }}>
+              <AppleMark />
               Pay
             </span>
           </ExpressButton>
@@ -504,7 +530,7 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
                     {l.image ? (
                       <Image src={l.image} alt="" width={240} height={240} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
                     ) : (
-                      <Icon name="file-text" size={22} />
+                      <Icon name={BONUS_ICON[l.id] ?? "file-text"} size={22} />
                     )}
                   </span>
                   <span style={{ flex: 1, minWidth: 0 }}>
@@ -644,8 +670,25 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
               <h2 style={{ margin: "var(--space-8) 0 var(--space-4)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
                 Shipping method
               </h2>
-              <div style={{ padding: "var(--space-4)", background: "var(--surface-sunk)", borderRadius: "var(--radius-card)", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-                Enter your shipping address to view available shipping methods.
+              <div
+                style={{
+                  border: "1px solid var(--border-hairline)",
+                  borderRadius: "var(--radius-card)",
+                  padding: "var(--space-4)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "var(--space-4)",
+                }}
+              >
+                <span style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
+                  <input type="radio" checked readOnly aria-label="Priority shipping" style={{ width: 18, height: 18, accentColor: "var(--sprout)" }} />
+                  <span>
+                    <span style={{ display: "block", fontSize: "var(--size-body)", fontWeight: 700 }}>Priority shipping</span>
+                    <span style={{ display: "block", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>Free 3-5 day priority US shipping</span>
+                  </span>
+                </span>
+                <span style={{ fontSize: "var(--size-body)", fontWeight: 800, color: "var(--status-success)" }}>Free</span>
               </div>
 
               <h2 style={{ margin: "var(--space-8) 0 var(--space-2)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
