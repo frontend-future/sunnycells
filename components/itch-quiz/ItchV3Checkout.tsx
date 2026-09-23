@@ -341,8 +341,8 @@ function Divider() {
 type Field = { key: string; label: string; auto: string; half?: boolean; required?: boolean; missing?: string };
 
 const CONTACT_FIELDS: Field[] = [
-  { key: "firstName", label: "First name", auto: "given-name", half: true, required: true, missing: "We need a first name for the parcel." },
-  { key: "lastName", label: "Last name", auto: "family-name", half: true, required: true, missing: "We need a last name for the parcel." },
+  { key: "firstName", label: "First name", auto: "given-name", half: true, required: true, missing: "We need a first name for your order." },
+  { key: "lastName", label: "Last name", auto: "family-name", half: true, required: true, missing: "We need a last name for your order." },
 ];
 
 const DELIVERY_FIELDS: Field[] = [
@@ -365,8 +365,6 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
   const [f, setF] = useState<Record<string, string>>({ phone: "+1" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [emailNews, setEmailNews] = useState(true);
-  const [billingSame, setBillingSame] = useState(true);
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "paypal">("card");
 
   const [expressPhase, setExpressPhase] = useState<"idle" | "working" | "failed">("idle");
   const [expressProvider, setExpressProvider] = useState("");
@@ -468,10 +466,6 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
   const brand = brandOf(cardFields.number);
 
   const submitOrder = () => {
-    if (paymentMethod === "paypal") {
-      chooseExpress("PayPal");
-      return;
-    }
 
     const next: Record<string, string> = { ...contactErrors() };
     for (const x of DELIVERY_FIELDS) if (x.required && !f[x.key]?.trim()) next[x.key] = x.missing!;
@@ -732,82 +726,61 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
                 <OutOfStockNotice onRetry={() => setCardPhase("idle")} />
               ) : (
                 <div style={{ border: "1px solid var(--border-hairline)", borderRadius: "var(--radius-card)", overflow: "hidden" }}>
-                  <label
+                  <div
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-4)",
-                      padding: "var(--space-4) var(--space-5)", cursor: "pointer",
-                      borderBottom: paymentMethod === "card" ? "1px solid var(--border-hairline)" : 0,
-                      background: paymentMethod === "card" ? "var(--surface-sunk)" : "transparent",
+                      padding: "var(--space-4) var(--space-5)",
+                      borderBottom: "1px solid var(--border-hairline)",
+                      background: "var(--surface-sunk)",
                     }}
                   >
-                    <span style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-body)", fontWeight: 800 }}>
-                      <input type="radio" name="pm" checked={paymentMethod === "card"} onChange={() => setPaymentMethod("card")} style={{ width: 18, height: 18, accentColor: "var(--sprout)" }} />
-                      Credit card
-                    </span>
+                    <span style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>Credit card</span>
                     <span style={{ display: "flex", gap: 4 }}>
                       {(["visa", "mastercard", "amex"] as const).map((b) => (
                         <CardBrandMark key={b} brand={b} height={22} />
                       ))}
                     </span>
-                  </label>
+                  </div>
 
-                  {paymentMethod === "card" ? (
-                    <div style={{ padding: "var(--space-5)", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+                  <div style={{ padding: "var(--space-5)", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+                    <Input
+                      label="Card number"
+                      inputMode="numeric"
+                      autoComplete="cc-number"
+                      placeholder="1234 1234 1234 1234"
+                      suffix={brand ? <CardBrandMark brand={brand} height={28} /> : undefined}
+                      value={cardFields.number}
+                      error={errors.cardNumber || undefined}
+                      onChange={(e) => { setCardFields((c) => ({ ...c, number: formatCardNumber(e.target.value) })); setErrors((x) => ({ ...x, cardNumber: "" })); }}
+                    />
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
                       <Input
-                        label="Card number"
+                        label="Expiration date"
                         inputMode="numeric"
-                        autoComplete="cc-number"
-                        placeholder="1234 1234 1234 1234"
-                        suffix={brand ? <CardBrandMark brand={brand} height={28} /> : undefined}
-                        value={cardFields.number}
-                        error={errors.cardNumber || undefined}
-                        onChange={(e) => { setCardFields((c) => ({ ...c, number: formatCardNumber(e.target.value) })); setErrors((x) => ({ ...x, cardNumber: "" })); }}
+                        autoComplete="cc-exp"
+                        placeholder="MM / YY"
+                        value={cardFields.expiry}
+                        error={errors.cardExpiry || undefined}
+                        onChange={(e) => { setCardFields((c) => ({ ...c, expiry: formatExpiry(e.target.value) })); setErrors((x) => ({ ...x, cardExpiry: "" })); }}
                       />
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
-                        <Input
-                          label="Expiration date"
-                          inputMode="numeric"
-                          autoComplete="cc-exp"
-                          placeholder="MM / YY"
-                          value={cardFields.expiry}
-                          error={errors.cardExpiry || undefined}
-                          onChange={(e) => { setCardFields((c) => ({ ...c, expiry: formatExpiry(e.target.value) })); setErrors((x) => ({ ...x, cardExpiry: "" })); }}
-                        />
-                        <Input
-                          label={brand === "amex" ? "Security code (4 digits)" : "Security code"}
-                          inputMode="numeric"
-                          autoComplete="cc-csc"
-                          placeholder={brand === "amex" ? "1234" : "123"}
-                          value={cardFields.cvc}
-                          error={errors.cardCvc || undefined}
-                          onChange={(e) => { setCardFields((c) => ({ ...c, cvc: (e.target.value.match(/\d/g) ?? []).join("").slice(0, 4) })); setErrors((x) => ({ ...x, cardCvc: "" })); }}
-                        />
-                      </div>
                       <Input
-                        label="Name on card"
-                        autoComplete="cc-name"
-                        value={cardFields.name}
-                        error={errors.cardName || undefined}
-                        onChange={(e) => { setCardFields((c) => ({ ...c, name: e.target.value })); setErrors((x) => ({ ...x, cardName: "" })); }}
+                        label={brand === "amex" ? "Security code (4 digits)" : "Security code"}
+                        inputMode="numeric"
+                        autoComplete="cc-csc"
+                        placeholder={brand === "amex" ? "1234" : "123"}
+                        value={cardFields.cvc}
+                        error={errors.cardCvc || undefined}
+                        onChange={(e) => { setCardFields((c) => ({ ...c, cvc: (e.target.value.match(/\d/g) ?? []).join("").slice(0, 4) })); setErrors((x) => ({ ...x, cardCvc: "" })); }}
                       />
-                      <label style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 500 }}>
-                        <input type="checkbox" checked={billingSame} onChange={(e) => setBillingSame(e.target.checked)} style={{ width: 18, height: 18, accentColor: "var(--sprout)" }} />
-                        Use shipping address as billing address
-                      </label>
                     </div>
-                  ) : null}
-
-                  <label
-                    style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-4)", padding: "var(--space-4) var(--space-5)", cursor: "pointer", borderTop: "1px solid var(--border-hairline)" }}
-                  >
-                    <span style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-body)", fontWeight: 800 }}>
-                      <input type="radio" name="pm" checked={paymentMethod === "paypal"} onChange={() => setPaymentMethod("paypal")} style={{ width: 18, height: 18, accentColor: "var(--sprout)" }} />
-                      PayPal
-                    </span>
-                    <span style={{ fontWeight: 900, fontStyle: "italic", color: "#003087" }}>
-                      Pay<span style={{ color: "#009cde" }}>Pal</span>
-                    </span>
-                  </label>
+                    <Input
+                      label="Name on card"
+                      autoComplete="cc-name"
+                      value={cardFields.name}
+                      error={errors.cardName || undefined}
+                      onChange={(e) => { setCardFields((c) => ({ ...c, name: e.target.value })); setErrors((x) => ({ ...x, cardName: "" })); }}
+                    />
+                  </div>
                 </div>
               )}
 
