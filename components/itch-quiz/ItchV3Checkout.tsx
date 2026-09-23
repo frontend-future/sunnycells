@@ -736,7 +736,7 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
                   >
                     <span style={{ fontSize: "var(--size-body)", fontWeight: 800 }}>Credit card</span>
                     <span style={{ display: "flex", gap: 4 }}>
-                      {(["visa", "mastercard", "amex"] as const).map((b) => (
+                      {(["visa", "mastercard", "amex", "discover"] as const).map((b) => (
                         <CardBrandMark key={b} brand={b} height={22} />
                       ))}
                     </span>
@@ -783,20 +783,6 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
                   </div>
                 </div>
               )}
-
-              <div style={{ marginTop: "var(--space-6)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-4)" }}>
-                <div style={{ fontSize: "var(--size-meta)" }}>
-                  <div style={{ fontWeight: 700 }}>Save my information for a faster checkout</div>
-                  <div style={{ color: "var(--ink-60)", marginTop: 2 }}>
-                    By paying, you agree to create a Shop account subject to Shop&apos;s{" "}
-                    <Link href="#" style={{ color: "var(--ink-60)", textDecoration: "underline" }}>Terms</Link> and{" "}
-                    <Link href="#" style={{ color: "var(--ink-60)", textDecoration: "underline" }}>Privacy Policy</Link>.
-                  </div>
-                </div>
-                <Link href="#" style={{ flex: "none", fontSize: "var(--size-meta)", fontWeight: 700, color: "var(--sprout-press)", textDecoration: "none" }}>
-                  Not now
-                </Link>
-              </div>
 
               <p style={{ margin: "var(--space-6) 0 var(--space-4)", fontSize: "var(--size-meta)", lineHeight: 1.5, color: "var(--ink-60)" }}>
                 By clicking &quot;Secure my order&quot; you agree to SUNNYCELLS&apos;s Terms of Sale
