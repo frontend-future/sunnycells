@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PlansScreen } from "@/components/quiz/PlansScreen";
-import { ImageCarousel, type CarouselImage } from "@/components/quiz/ImageCarousel";
+import { ImageGallery, type GalleryImage } from "@/components/quiz/ImageGallery";
 import { ItchPlanCards } from "@/components/itch-quiz/ItchPlanCards";
 import { ITCH_PLANS_CONTENT } from "@/lib/quiz/itchPlansContent";
 import { ITCH_V3_PLANS } from "@/lib/quiz/itchLadder";
@@ -13,7 +13,7 @@ const DESTINATION = "/quiz/itch/v3/results/checkout";
 /* In file-name-number order (there is no 06): the product hero, what's
    included, the week-by-week timeline, key actives, the benefits photo, how
    to use it, and the "replaces 4 products" comparison. */
-const HERO_IMAGES: CarouselImage[] = [
+const HERO_IMAGES: GalleryImage[] = [
   { src: "/quiz/itch/v3/hero-carousel-01.webp", alt: "SC-01 Daily Chews jar with key benefits: calms itching, healthier coat, fewer hot spots, vet-formulated, no steroids" },
   { src: "/quiz/itch/v3/hero-carousel-02.webp", alt: "What's included: SC-01 Daily Chews plus free shipping, a USA bandana, an airtight storage canister, and a first 30 days dog health guide" },
   { src: "/quiz/itch/v3/hero-carousel-03.webp", alt: "What to expect after starting SC-01 Daily Chews: less scratching by week 2, skin recovering by week 4, coat and comfort by week 8" },
@@ -39,7 +39,7 @@ export default function ItchPlansV3Page() {
           plans={ITCH_V3_PLANS}
         />
       }
-      heroMedia={<ImageCarousel key="hero-carousel" images={HERO_IMAGES} />}
+      heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}
     />
   );
 }

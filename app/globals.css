@@ -160,6 +160,43 @@ body {
   to { opacity: 1; }
 }
 
+/* Image gallery: a big active image with a thumbnail strip. Thumbnails run in a
+   row below the image on a phone, and move to a right-hand rail once there is
+   room for the image and the rail side by side, rather than stacking under a
+   narrower image. */
+.sc-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sc-gallery-thumbs {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: var(--space-3);
+  scrollbar-width: none;
+}
+
+@media (min-width: 900px) {
+  .sc-gallery {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .sc-gallery-main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .sc-gallery-thumbs {
+    flex: none;
+    flex-direction: column;
+    width: 96px;
+    overflow-x: visible;
+    overflow-y: auto;
+    max-height: 560px;
+  }
+}
+
 /* Checkout: one column on a phone with a collapsible summary above the form, two
    columns from 900px with the summary parked in a sticky right rail and always open.
    This lives here rather than inline because it needs a media query. */
