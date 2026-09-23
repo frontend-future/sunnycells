@@ -160,10 +160,9 @@ body {
   to { opacity: 1; }
 }
 
-/* Image gallery: a big active image with a thumbnail strip. Thumbnails run in a
-   row below the image on a phone, and move to a right-hand rail once there is
-   room for the image and the rail side by side, rather than stacking under a
-   narrower image. */
+/* Image gallery: a big active image with a thumbnail strip in a row below it,
+   same on a phone and on desktop, so the image is never squeezed to share
+   height with a side rail. */
 .sc-gallery {
   display: flex;
   flex-direction: column;
@@ -176,32 +175,6 @@ body {
   overflow-x: auto;
   gap: var(--space-3);
   scrollbar-width: none;
-}
-
-@media (min-width: 900px) {
-  .sc-gallery {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-  .sc-gallery-main {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-  /* Height comes from --gallery-rail-height, measured off the real main image
-     by ImageGallery (a fixed max-height here does not track a narrower image,
-     and flex stretch pulls the image's own box up to match the rail's
-     content height instead of the other way around -- see the component's
-     own comment). Falls back to a fixed height before the first measurement,
-     rather than "auto", so the rail does not flash at full unclipped height
-     for one frame. */
-  .sc-gallery-thumbs {
-    flex: none;
-    flex-direction: column;
-    width: 96px;
-    height: var(--gallery-rail-height, 400px);
-    overflow-x: visible;
-    overflow-y: auto;
-  }
 }
 
 /* Checkout: one column on a phone with a collapsible summary above the form, two
