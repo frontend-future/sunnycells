@@ -340,9 +340,12 @@ function Divider() {
 
 type Field = { key: string; label: string; auto: string; half?: boolean; required?: boolean; missing?: string };
 
-const DELIVERY_FIELDS: Field[] = [
-  { key: "firstName", label: "First name (optional)", auto: "given-name", half: true },
+const CONTACT_FIELDS: Field[] = [
+  { key: "firstName", label: "First name", auto: "given-name", half: true, required: true, missing: "We need a first name for the parcel." },
   { key: "lastName", label: "Last name", auto: "family-name", half: true, required: true, missing: "We need a last name for the parcel." },
+];
+
+const DELIVERY_FIELDS: Field[] = [
   { key: "line1", label: "Address", auto: "address-line1", required: true, missing: "We need a street address to deliver to." },
   { key: "line2", label: "Apartment, suite, etc. (optional)", auto: "address-line2" },
   { key: "city", label: "City", auto: "address-level2", half: true, required: true, missing: "We need a town or city." },
@@ -367,12 +370,14 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
 
   const [expressPhase, setExpressPhase] = useState<"idle" | "working" | "failed">("idle");
   const [expressProvider, setExpressProvider] = useState("");
+  const [expressBlocked, setExpressBlocked] = useState(false);
   const [cardPhase, setCardPhase] = useState<"idle" | "working" | "failed">("idle");
   const [openSummary, setOpenSummary] = useState(false);
 
   const set = (k: string, v: string) => {
     setF((p) => ({ ...p, [k]: v }));
     setErrors((e) => ({ ...e, [k]: "" }));
+    setExpressBlocked(false);
   };
 
   const email = () => (f.email ?? quizAnswers.email ?? "").trim();
@@ -434,7 +439,25 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
     notifyAttempt();
   };
 
+  /* Shared by both checkout paths: express buttons need a name and email to
+     send the receipt/notification to before they can claim a purchase, same
+     as the full form eventually requires -- just enforced earlier here. */
+  const contactErrors = (): Record<string, string> => {
+    const next: Record<string, string> = {};
+    for (const x of CONTACT_FIELDS) if (x.required && !f[x.key]?.trim()) next[x.key] = x.missing!;
+    if (!email()) next.email = "We need an email address to send your receipt.";
+    else if (!EMAIL.test(email())) next.email = "That address is missing an @ or a domain.";
+    return next;
+  };
+
   const chooseExpress = (provider: string) => {
+    const next = contactErrors();
+    if (Object.keys(next).length) {
+      setErrors((e) => ({ ...e, ...next }));
+      setExpressBlocked(true);
+      return;
+    }
+    setExpressBlocked(false);
     setExpressProvider(provider);
     setExpressPhase("working");
     bought();
@@ -450,11 +473,9 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
       return;
     }
 
-    const next: Record<string, string> = {};
+    const next: Record<string, string> = { ...contactErrors() };
     for (const x of DELIVERY_FIELDS) if (x.required && !f[x.key]?.trim()) next[x.key] = x.missing!;
     if (!f.state?.trim()) next.state = "Choose a state so we can work out delivery.";
-    if (!email()) next.email = "We need an email address to send your receipt.";
-    else if (!EMAIL.test(email())) next.email = "That address is missing an @ or a domain.";
 
     if (!cardFields.name.trim()) next.cardName = "We need the name printed on the card.";
     if (!luhnOk(cardFields.number)) next.cardNumber = "Check the card number, a digit looks wrong.";
@@ -596,50 +617,61 @@ export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { b
         </aside>
 
         <main style={{ paddingTop: "var(--space-6)" }}>
-          {expressPhase === "idle" ? (
-            <ExpressCheckout onChoose={chooseExpress} />
-          ) : expressPhase === "working" ? (
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--space-3)", padding: "var(--space-8) 0", fontSize: "var(--size-body)", fontWeight: 600, color: "var(--ink-60)" }} aria-live="polite">
-              <span
-                aria-hidden="true"
-                style={{ width: 22, height: 22, borderRadius: "50%", border: "3px solid var(--ink-20)", borderTopColor: "var(--ink)", display: "inline-block", animation: "sc-spin 700ms linear infinite" }}
-              />
-              Redirecting to {expressProvider}
-            </div>
-          ) : (
-            <OutOfStockNotice onRetry={() => setExpressPhase("idle")} />
-          )}
+          <h2 style={{ margin: "0 0 var(--space-4)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
+            Contact
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+            {CONTACT_FIELDS.map((x) => (
+              <Input key={x.key} label={x.label} autoComplete={x.auto} value={f[x.key] || ""} error={errors[x.key] || undefined} onChange={(e) => set(x.key, e.target.value)} />
+            ))}
+          </div>
+          <div style={{ marginTop: "var(--space-4)" }}>
+            <Input
+              label="Email"
+              type="email"
+              autoComplete="email"
+              value={f.email ?? quizAnswers.email ?? ""}
+              error={errors.email || undefined}
+              onChange={(e) => set("email", e.target.value)}
+            />
+          </div>
+          <label style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", marginTop: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 500 }}>
+            <input type="checkbox" checked={emailNews} onChange={(e) => setEmailNews(e.target.checked)} style={{ width: 18, height: 18, accentColor: "var(--sprout)" }} />
+            Email me with news and offers
+          </label>
+
+          <div style={{ marginTop: "var(--space-6)" }}>
+            {expressPhase === "idle" ? (
+              <>
+                {expressBlocked ? (
+                  <p role="alert" style={{ margin: "0 0 var(--space-3)", textAlign: "center", fontSize: "var(--size-meta)", fontWeight: 700, color: "var(--status-error)" }}>
+                    Add your name and email above to use express checkout.
+                  </p>
+                ) : null}
+                <ExpressCheckout onChoose={chooseExpress} />
+              </>
+            ) : expressPhase === "working" ? (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--space-3)", padding: "var(--space-8) 0", fontSize: "var(--size-body)", fontWeight: 600, color: "var(--ink-60)" }} aria-live="polite">
+                <span
+                  aria-hidden="true"
+                  style={{ width: 22, height: 22, borderRadius: "50%", border: "3px solid var(--ink-20)", borderTopColor: "var(--ink)", display: "inline-block", animation: "sc-spin 700ms linear infinite" }}
+                />
+                Redirecting to {expressProvider}
+              </div>
+            ) : (
+              <OutOfStockNotice onRetry={() => setExpressPhase("idle")} />
+            )}
+          </div>
 
           {expressPhase === "idle" ? (
             <>
               <Divider />
 
               <h2 style={{ margin: "0 0 var(--space-4)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
-                Contact
-              </h2>
-              <Input
-                label="Email"
-                type="email"
-                autoComplete="email"
-                value={f.email ?? quizAnswers.email ?? ""}
-                error={errors.email || undefined}
-                onChange={(e) => set("email", e.target.value)}
-              />
-              <label style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", marginTop: "var(--space-3)", fontSize: "var(--size-meta)", fontWeight: 500 }}>
-                <input type="checkbox" checked={emailNews} onChange={(e) => setEmailNews(e.target.checked)} style={{ width: 18, height: 18, accentColor: "var(--sprout)" }} />
-                Email me with news and offers
-              </label>
-
-              <h2 style={{ margin: "var(--space-8) 0 var(--space-4)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)" }}>
                 Delivery
               </h2>
               <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--space-4)" }}>
                 <Input label="Country/Region" value="United States (free shipping)" readOnly disabled />
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
-                  {DELIVERY_FIELDS.filter((x) => ["firstName", "lastName"].includes(x.key)).map((x) => (
-                    <Input key={x.key} label={x.label} autoComplete={x.auto} value={f[x.key] || ""} error={errors[x.key] || undefined} onChange={(e) => set(x.key, e.target.value)} />
-                  ))}
-                </div>
                 <Input
                   label="Address"
                   autoComplete="address-line1"
