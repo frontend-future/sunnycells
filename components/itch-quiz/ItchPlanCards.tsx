@@ -31,6 +31,7 @@ export function ItchPlanCards({
      or Purchase attempt notification actually came from. */
   lander = "itch-v1",
   onChoose,
+  fz = false,
 }: {
   destinationHref?: string;
   ctaLabel?: string;
@@ -40,6 +41,10 @@ export function ItchPlanCards({
   /** Replaces the route change to destinationHref, for a funnel that hands off to an
       external checkout. Resolve false to let the shopper pick again. */
   onChoose?: () => Promise<boolean>;
+  /** Friday Zoomies styling for the cards and buttons: cobalt outlines, a rounder card,
+      cobalt pill buttons and a pill flag. Reads the theme's --cobalt variables, so it
+      only makes sense inside that wrapper. */
+  fz?: boolean;
 }) {
   const router = useRouter();
   const { productName } = useBrand();
@@ -99,14 +104,35 @@ export function ItchPlanCards({
               gap: "var(--space-4)",
               padding: "var(--space-6) var(--space-5) var(--space-5)",
               background: on ? "var(--sprout-tint)" : "var(--white)",
-              border: `2px solid ${on ? "var(--ink)" : "var(--border-hairline)"}`,
+              border: fz
+                ? `${p.best ? 3 : 2}px solid ${on ? "var(--cobalt)" : "var(--ink-20)"}`
+                : `2px solid ${on ? "var(--ink)" : "var(--border-hairline)"}`,
               borderRadius: "var(--radius-card)",
+              boxShadow: fz && p.best ? "0 16px 36px rgba(47, 95, 208, 0.22)" : undefined,
               transition: "background var(--duration-fast) var(--ease-standard)",
             }}
           >
             {p.flag ? (
               <div style={{ position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)" }}>
-                <Badge tone={p.best ? "ink" : "sun"}>{p.flag}</Badge>
+                {fz ? (
+                  <span
+                    style={{
+                      display: "inline-block",
+                      padding: "6px 16px",
+                      borderRadius: "var(--radius-pill)",
+                      background: p.best ? "var(--cobalt)" : "var(--sun)",
+                      color: p.best ? "#FFFFFF" : "var(--midnight)",
+                      fontFamily: "var(--font-text)",
+                      fontSize: 15,
+                      fontWeight: 800,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {p.flag}
+                  </span>
+                ) : (
+                  <Badge tone={p.best ? "ink" : "sun"}>{p.flag}</Badge>
+                )}
               </div>
             ) : null}
 
@@ -126,7 +152,7 @@ export function ItchPlanCards({
             />
 
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "var(--space-3)", flexWrap: "wrap" }}>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", lineHeight: 1 }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 40, letterSpacing: "var(--tracking-display)", lineHeight: 1, color: fz ? "var(--cobalt)" : undefined }}>
                 ${p.price}
                 {p.months > 1 && (
                   <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-meta)", fontWeight: 600, color: "var(--ink-60)", letterSpacing: 0 }}>
@@ -143,13 +169,13 @@ export function ItchPlanCards({
                 aria-hidden="true"
                 style={{
                   flex: "none", width: 20, height: 20, borderRadius: "50%",
-                  background: "var(--status-success)", color: "var(--white)",
+                  background: fz ? "var(--cobalt)" : "var(--status-success)", color: "var(--white)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}
               >
                 <Icon name="check" size={13} strokeWidth={3.5} />
               </span>
-              <span style={{ fontSize: "var(--size-meta)", fontWeight: 800, color: "var(--status-success)" }}>
+              <span style={{ fontSize: "var(--size-meta)", fontWeight: 800, color: fz ? "var(--cobalt)" : "var(--status-success)" }}>
                 50% off auto-applied today
               </span>
             </div>
@@ -163,7 +189,23 @@ export function ItchPlanCards({
             </ul>
 
             <div style={{ marginTop: "auto", paddingTop: "var(--space-3)" }}>
-              <Button fullWidth variant={p.best ? "primary" : "outline"} onClick={() => choose(p)}>
+              <Button
+                fullWidth
+                variant={fz || p.best ? "primary" : "outline"}
+                style={
+                  fz
+                    ? {
+                        minHeight: 58,
+                        fontSize: 20,
+                        letterSpacing: "0.01em",
+                        boxShadow: p.best
+                          ? "0 10px 24px rgba(47, 95, 208, 0.4), 0 4px 0 var(--cobalt-press)"
+                          : "0 4px 0 var(--cobalt-press)",
+                      }
+                    : undefined
+                }
+                onClick={() => choose(p)}
+              >
                 {ctaLabel}
               </Button>
               <div style={{ marginTop: "var(--space-3)", textAlign: "center", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>

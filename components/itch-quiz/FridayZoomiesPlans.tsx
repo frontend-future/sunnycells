@@ -56,7 +56,7 @@ export function FridayZoomiesPlans() {
       onHeroCtaClick={heroCheckout}
       heroCtaStyle={HERO_CTA}
       stickyBuyButton
-      plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" plans={FZ_PLANS} quizId={itchFridayZoomiesQuiz.id} lander="fridayzoomies" onChoose={goToCheckout} />}
+      plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" plans={FZ_PLANS} quizId={itchFridayZoomiesQuiz.id} lander="fridayzoomies" onChoose={goToCheckout} fz />}
       heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}
     />
   );
