@@ -14,6 +14,7 @@ import type { Plan } from "./plans";
 export const FZ_PRODUCT_NAME = "Inside-Out Itch Bundle";
 export const FZ_JAR = "/quiz/fridayzoomies/jar.webp";
 const FZ_STORY_DOG = "/quiz/fridayzoomies/story-dog-crop.webp";
+const PLANS_DIR = "/quiz/fridayzoomies/plans";
 
 export const FZ_BRAND: Brand = {
   name: "Friday Zoomies",
@@ -35,10 +36,29 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   productName: FZ_PRODUCT_NAME,
   hero: { ...ITCH_PLANS_CONTENT.hero, lede: swap(ITCH_PLANS_CONTENT.hero.lede) },
   productImage: FZ_JAR,
-  /* The reviewer photo that held an SC-01 jar becomes the cropped dog. */
-  reviews: ITCH_PLANS_CONTENT.reviews.map((r) =>
-    r.photo === "/quiz/itch/story-sarah.webp" ? { ...r, photo: FZ_STORY_DOG } : r,
-  ),
+  squareImages: true,
+  testingBadges: [`${PLANS_DIR}/badge-tested.webp`, `${PLANS_DIR}/badge-metals.webp`],
+  competitorImage: `${PLANS_DIR}/tub-generic.webp`,
+  /* Illustrated 1:1 tiles in the brand palette replace the stock photography, which
+     showed other brands' jars. Reviewers are shown as their dogs, not as people. */
+  pillars: ITCH_PLANS_CONTENT.pillars.map((p) => ({
+    ...p,
+    illustration: `${PLANS_DIR}/${{ "less-itching": "pillar-itch", "healthier-coat": "pillar-coat", "fewer-hot-spots": "pillar-spots" }[p.slug]}.webp`,
+    illustrationFit: undefined,
+  })),
+  reviews: ITCH_PLANS_CONTENT.reviews.map((r) => ({
+    ...r,
+    photo: `${PLANS_DIR}/${{ "Sarah T.": "rev-cooper", "Marcus D.": "rev-marcus", "Priya N.": "rev-priya", "Ellie B.": "rev-ellie" }[r.name]}.webp`,
+  })),
+  ingredients: ITCH_PLANS_CONTENT.ingredients.map((i) => ({
+    ...i,
+    image: `${PLANS_DIR}/${{ quercetin: "ing-quercetin", omega3: "ing-omega3", "zinc-e": "ing-zinc-e", probiotics: "ing-probiotic" }[i.slug]}.webp`,
+  })),
+  howItWorks: ITCH_PLANS_CONTENT.howItWorks.map((h, n) => ({
+    ...h,
+    illustration: `${PLANS_DIR}/${["how-chew", "how-results"][n]}.webp`,
+    illustrationFit: undefined,
+  })),
   ingredientsTitle: swap(ITCH_PLANS_CONTENT.ingredientsTitle),
   faqs: ITCH_PLANS_CONTENT.faqs.map((f) => ({ title: swap(f.title), body: swap(f.body) })),
   accent: { bg: "var(--sun)", press: "var(--sun-press)" },

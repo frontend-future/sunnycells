@@ -202,6 +202,13 @@ export type PlansContent = {
   /** The raised column behind our side of the comparison table. Defaults to the
       brand yellow the diet funnel uses. */
   tint?: string;
+  /** Every picture in the pillars, reviews, ingredients and how-it-works sections is a
+      1:1 image. They render as squares at a fixed aspect ratio rather than being cropped
+      into the wide boxes the stock photography was shot for. */
+  squareImages?: boolean;
+  /** Replace the two testing seals and the competitor tub in the comparison table. */
+  testingBadges?: [string, string];
+  competitorImage?: string;
   /** Rebinds the accent button tokens, so a funnel's buttons match its product. */
   accent?: { bg: string; press: string };
 };

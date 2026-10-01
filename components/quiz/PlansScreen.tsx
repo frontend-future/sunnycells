@@ -477,7 +477,8 @@ export function PlansScreen({
                 height={320}
                 style={{
                   width: p.illustration ? "100%" : 130,
-                  height: p.illustration ? (p.illustrationFit === "contain" ? 220 : 150) : 130,
+                  height: content.squareImages ? "auto" : p.illustration ? (p.illustrationFit === "contain" ? 220 : 150) : 130,
+                  aspectRatio: content.squareImages ? "1 / 1" : undefined,
                   objectFit: p.illustration ? p.illustrationFit ?? "cover" : "contain",
                   borderRadius: p.illustration ? "var(--radius-md)" : undefined,
                   margin: "0 auto var(--space-6)",
@@ -642,11 +643,13 @@ export function PlansScreen({
                     src={ing.image ?? `/ingredients/${ing.slug}.jpg`}
                     alt=""
                     width={800}
-                    height={450}
+                    height={content.squareImages ? 800 : 450}
                     style={{
                       width: "100%",
+                      maxWidth: content.squareImages ? 360 : undefined,
                       height: "auto",
                       display: "block",
+                      marginInline: "auto",
                       borderRadius: "var(--radius-md)",
                       marginBottom: "var(--space-5)",
                     }}
@@ -683,7 +686,8 @@ export function PlansScreen({
                 height={320}
                 style={{
                   width: s.illustration ? "100%" : 130,
-                  height: s.illustration ? (s.illustrationFit === "contain" ? 240 : 170) : 130,
+                  height: content.squareImages ? "auto" : s.illustration ? (s.illustrationFit === "contain" ? 240 : 170) : 130,
+                  aspectRatio: content.squareImages ? "1 / 1" : undefined,
                   objectFit: s.illustration ? s.illustrationFit ?? "cover" : "contain",
                   borderRadius: s.illustration ? "var(--radius-md)" : undefined,
                   margin: "0 auto",
@@ -761,7 +765,7 @@ export function PlansScreen({
 
             <div style={{ padding: "var(--space-4) var(--space-2) var(--space-3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Image
-                src="/product/generic-tub.png"
+                src={content.competitorImage ?? "/product/generic-tub.png"}
                 alt="An unbranded competitor tub"
                 width={320}
                 height={320}
@@ -811,14 +815,14 @@ export function PlansScreen({
       {/* Testing */}
       <Section title="Pioneering world leading quality standards and testing">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
-          {TESTING.map((t) => (
+          {TESTING.map((t, n) => (
             <div key={t.title}>
               <Image
-                src={t.badge}
+                src={content.testingBadges?.[n] ?? t.badge}
                 alt=""
                 width={256}
                 height={255}
-                style={{ width: 104, height: "auto", margin: "0 auto", display: "block" }}
+                style={{ width: 104, height: "auto", margin: "0 auto", display: "block", borderRadius: content.testingBadges ? "var(--radius-md)" : undefined }}
               />
               <h3 style={{ margin: "var(--space-4) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800 }}>{t.title}</h3>
               <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.5 }}>
