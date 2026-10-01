@@ -30,12 +30,16 @@ export function ItchPlanCards({
      is the only thing in the cart that says which funnel a Reached payment
      or Purchase attempt notification actually came from. */
   lander = "itch-v1",
+  onChoose,
 }: {
   destinationHref?: string;
   ctaLabel?: string;
   plans?: Plan[];
   quizId?: string;
   lander?: string;
+  /** Replaces the route change to destinationHref, for a funnel that hands off to an
+      external checkout. Resolve false to let the shopper pick again. */
+  onChoose?: () => Promise<boolean>;
 }) {
   const router = useRouter();
   const { productName } = useBrand();
@@ -66,7 +70,10 @@ export function ItchPlanCards({
          lets Meta match this event to a person rather than a cookie. */
       { email: readAnswers(quizId).email },
     );
-    router.push(destinationHref);
+    if (!onChoose) return router.push(destinationHref);
+    onChoose().then((ok) => {
+      if (!ok) chosen.current = false;
+    });
   };
 
   return (

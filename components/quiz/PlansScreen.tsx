@@ -180,6 +180,7 @@ export function PlansScreen({
   planCtaLabel = "Try now",
   heroCtaLabel = "Get it now",
   heroTitleClassName,
+  onHeroCtaClick,
   optimizedImages = false,
   content = DIET_PLANS_CONTENT,
   plansSlot,
@@ -191,6 +192,8 @@ export function PlansScreen({
   heroCtaLabel?: string;
   /** Lets a funnel restyle the hero headline, e.g. opt out of a theme's casing. */
   heroTitleClassName?: string;
+  /** Replaces the hero button's scroll to the plans, e.g. to go straight to checkout. */
+  onHeroCtaClick?: () => void;
   optimizedImages?: boolean;
   /** Every word and picture on the page. The layout below is the same for both funnels. */
   content?: PlansContent;
@@ -271,7 +274,7 @@ export function PlansScreen({
               <Button
                 size="lg"
                 fullWidth
-                onClick={() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={onHeroCtaClick ?? (() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }))}
               >
                 {heroCtaLabel}
               </Button>
