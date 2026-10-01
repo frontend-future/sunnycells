@@ -10,7 +10,7 @@ import styles from "./plans-sticky.module.css";
  * prices would be a bar asking them to choose a plan they have not been offered yet.
  */
 export function PlansStickyBar({
-  image, offer, terms = "Cancel anytime", targetId = "plans",
+  image, offer, terms = "Cancel anytime", targetId = "plans", buy,
 }: {
   image: string;
   /** The offer, not the product name. A name long enough to matter, and the brand has
@@ -23,6 +23,9 @@ export function PlansStickyBar({
       Free shipping is already on the marquee at the top of the page. */
   terms?: string;
   targetId?: string;
+  /** Swaps the whole bar for one full-width buy button, for a funnel whose hero button
+      already carries the offer. Same visibility rules. */
+  buy?: { label: string; onClick: () => void; style?: React.CSSProperties };
 }) {
   const [seen, setSeen] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
@@ -44,6 +47,15 @@ export function PlansStickyBar({
   }, [targetId]);
 
   const shown = seen && !onScreen;
+
+  if (buy)
+    return (
+      <div className={`${styles.bar} ${styles.buyBar} ${shown ? styles.on : ""}`} aria-hidden={!shown}>
+        <button type="button" className={styles.buy} style={buy.style} tabIndex={shown ? 0 : -1} onClick={buy.onClick}>
+          {buy.label}
+        </button>
+      </div>
+    );
 
   return (
     <div className={`${styles.bar} ${shown ? styles.on : ""}`} aria-hidden={!shown}>

@@ -51,10 +51,11 @@ export function FridayZoomiesPlans() {
       content={FZ_PLANS_CONTENT}
       destinationHref={DESTINATION}
       planCtaLabel="Try now"
-      heroTitleClassName={styles.sentence}
+      heroTitleClassName={`${styles.sentence} ${styles.heroTitle}`}
       heroCtaLabel="Save 50% + Free Shipping"
       onHeroCtaClick={heroCheckout}
       heroCtaStyle={HERO_CTA}
+      stickyBuyButton
       plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" plans={FZ_PLANS} quizId={itchFridayZoomiesQuiz.id} lander="fridayzoomies" onChoose={goToCheckout} />}
       heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}
     />

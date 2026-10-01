@@ -92,4 +92,28 @@
     white-space: nowrap;
     cursor: pointer;
   }
+
+  /* The buy-button-only bar: the page's accent colour fills the bar so it stands off
+     the page, and the button inside is the primary action colour. */
+  .buyBar {
+    min-height: 0;
+    padding: var(--space-2);
+    background: var(--sun);
+    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.04), 0 12px 30px rgba(20, 33, 61, 0.35);
+  }
+
+  .buy {
+    width: 100%;
+    min-height: 60px;
+    border: 0;
+    border-radius: var(--radius-button);
+    background: var(--action-primary-bg);
+    color: var(--action-primary-fg);
+    font-family: var(--font-text);
+    font-size: clamp(16px, 5.2vw, 22px);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+  }
 }

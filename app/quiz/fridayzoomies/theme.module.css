@@ -85,3 +85,11 @@
 .theme :is(h1, h2, h3) {
   font-weight: 800 !important;
 }
+
+/* The plans page headline is the first thing read, so it outsizes every other heading. */
+.heroTitle {
+  font-size: clamp(38px, 11.5vw, 64px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.04em !important;
+  font-weight: 800 !important;
+}

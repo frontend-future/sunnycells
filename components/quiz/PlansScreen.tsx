@@ -182,6 +182,7 @@ export function PlansScreen({
   heroTitleClassName,
   onHeroCtaClick,
   heroCtaStyle,
+  stickyBuyButton,
   optimizedImages = false,
   content = DIET_PLANS_CONTENT,
   plansSlot,
@@ -196,6 +197,8 @@ export function PlansScreen({
   /** Replaces the hero button's scroll to the plans, e.g. to go straight to checkout. */
   onHeroCtaClick?: () => void;
   heroCtaStyle?: React.CSSProperties;
+  /** The mobile sticky bar becomes the hero button, label and click included. */
+  stickyBuyButton?: boolean;
   optimizedImages?: boolean;
   /** Every word and picture on the page. The layout below is the same for both funnels. */
   content?: PlansContent;
@@ -839,7 +842,19 @@ export function PlansScreen({
         </div>
       </Section>
 
-      <PlansStickyBar image={productImage} offer={content.offer.badge} />
+      <PlansStickyBar
+        image={productImage}
+        offer={content.offer.badge}
+        buy={
+          stickyBuyButton
+            ? {
+                label: heroCtaLabel,
+                style: heroCtaStyle,
+                onClick: onHeroCtaClick ?? (() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })),
+              }
+            : undefined
+        }
+      />
 
       {/* FAQ */}
       <Section title="Frequently asked questions by our customers" tone="shell">
