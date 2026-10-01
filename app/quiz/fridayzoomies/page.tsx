@@ -50,13 +50,13 @@ export default function FridayZoomiesLandingPage() {
             width: "100%",
             maxWidth: "var(--page-max)",
             margin: "0 auto",
-            padding: "var(--space-4) var(--page-gutter-mobile) 0",
+            padding: "var(--space-3) var(--page-gutter-mobile) 0",
           }}
         >
-          <Wordmark size={26} style={{ display: "block", margin: "0 auto" }} />
+          <Wordmark size={24} style={{ display: "block", margin: "0 auto" }} />
           {/* The jar's own sky blue ground sits straight on the page's sky panel, so the
               product reads as the answer to the hook before a question is asked. */}
-          <div style={{ maxWidth: 420, margin: "var(--space-4) auto 0", paddingBottom: "var(--space-4)" }}>
+          <div style={{ maxWidth: "min(300px, 26dvh)", margin: "var(--space-2) auto 0", paddingBottom: "var(--space-3)" }}>
             <Image
               src="/quiz/fridayzoomies/hero-freebies.webp"
               alt={`${FZ_PRODUCT_NAME} jar plus free gifts: soothing wipes, a USA bandana, a mystery gift and free shipping`}
@@ -70,13 +70,13 @@ export default function FridayZoomiesLandingPage() {
       </div>
 
       <main style={{ width: "100%", maxWidth: 720, margin: "0 auto", padding: "0 var(--page-gutter-mobile)" }}>
-        <div style={{ textAlign: "center", paddingTop: "var(--space-6)" }}>
+        <div style={{ textAlign: "center", paddingTop: "var(--space-3)" }}>
           <h1
             className={styles.sentence}
             style={{
               margin: 0,
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(var(--size-h3), 8.2vw, var(--size-h1))",
+              fontSize: "clamp(var(--size-h3), 7.6vw, var(--size-h1))",
               letterSpacing: "var(--tracking-heading)",
               lineHeight: "var(--leading-snug)",
               textWrap: "balance",
@@ -88,9 +88,9 @@ export default function FridayZoomiesLandingPage() {
           <p
             style={{
               maxWidth: 480,
-              margin: "var(--space-4) auto 0",
+              margin: "var(--space-2) auto 0",
               fontSize: "var(--size-body)",
-              lineHeight: 1.45,
+              lineHeight: 1.35,
               textWrap: "pretty",
             }}
           >
@@ -98,13 +98,13 @@ export default function FridayZoomiesLandingPage() {
             licking, and skin irritation, and what to do about it.
           </p>
 
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-4)" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--space-3)" }}>
             <RatingPill value={RATING.score} count={RATING.count} />
           </div>
 
           <p
             style={{
-              margin: "var(--space-6) 0 0",
+              margin: "var(--space-4) 0 0",
               fontSize: "var(--size-body)",
               fontWeight: 700,
             }}
@@ -115,6 +115,7 @@ export default function FridayZoomiesLandingPage() {
           <StartChoice
             config={itchFridayZoomiesQuiz}
             field="gender"
+            marginTop="var(--space-3)"
             options={[
               { label: "Male", icon: "mars" },
               { label: "Female", icon: "venus", variant: "accent" },

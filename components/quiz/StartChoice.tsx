@@ -11,11 +11,13 @@ export type StartOption = { label: string; variant?: ButtonVariant; icon?: IconN
 /** The first question, answered on the landing page so the first tap starts the quiz
     instead of loading another screen. Any quiz can use it: pass its own options. */
 export function StartChoice({
-  config, field, options,
+  config, field, options, marginTop = "var(--space-6)",
 }: {
   config: QuizConfig;
   field: string;
   options: StartOption[];
+  /** Space above the buttons, for a landing page that needs them higher. */
+  marginTop?: string;
 }) {
   const router = useRouter();
   const pick = (value: string) => {
@@ -29,7 +31,7 @@ export function StartChoice({
         gridTemplateColumns: `repeat(${options.length}, 1fr)`,
         gap: "var(--space-4)",
         maxWidth: 460,
-        margin: "var(--space-6) auto 0",
+        margin: `${marginTop} auto 0`,
       }}
     >
       {options.map((o) => (
