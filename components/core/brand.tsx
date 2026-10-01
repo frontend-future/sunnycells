@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
+import { ITCH_PRODUCT, renameProduct } from "@/lib/brandCopy";
 
 /**
  * Lets one funnel re-skin the shared quiz screens without forking them. Colours,
@@ -11,7 +12,7 @@ import { createContext, useContext, type ReactNode } from "react";
  */
 export type Brand = {
   name: string;
-  /** What the shared copy calls the product, swapped in for DEFAULT_PRODUCT. */
+  /** What the shared copy calls the product, swapped in for the SC-01 name. */
   productName: string;
   /** Replaces the typeset wordmark. */
   logo?: { src: string; alt: string };
@@ -19,9 +20,7 @@ export type Brand = {
   storyImage?: string;
 };
 
-export const DEFAULT_PRODUCT = "SC-01 Daily Chews";
-
-const SUNNYCELLS: Brand = { name: "SUNNYCELLS", productName: DEFAULT_PRODUCT };
+const SUNNYCELLS: Brand = { name: "SUNNYCELLS", productName: ITCH_PRODUCT };
 
 const BrandContext = createContext<Brand>(SUNNYCELLS);
 
@@ -32,5 +31,5 @@ export const BrandProvider = ({ brand, children }: { brand: Brand; children: Rea
 /** The brand, plus `t` to rewrite a string that names the default product. */
 export function useBrand() {
   const brand = useContext(BrandContext);
-  return { ...brand, t: (s: string) => s.replaceAll(DEFAULT_PRODUCT, brand.productName) };
+  return { ...brand, t: (s: string) => renameProduct(s, brand.productName) };
 }

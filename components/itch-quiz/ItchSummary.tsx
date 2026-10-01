@@ -14,7 +14,7 @@ export function ItchSummary({
   nextHref = "/quiz/itch/results/projection",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers, ready } = useAnswers(quizId);
-  const { productName } = useBrand();
+  const { t } = useBrand();
   const rows = itchRows(answers);
   const name = dogName(answers);
 
@@ -56,13 +56,13 @@ export function ItchSummary({
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           Based on your answers, {name} seems like a perfect candidate who{" "}
           <strong style={{ fontWeight: 800 }}>
-            could benefit from {productName} to calm the itching and support healthy
+            could benefit from {t("SC-01 Daily Chews")} to calm the itching and support healthy
             skin.
           </strong>
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>
           Similar dogs to {name} showed their first signs of relief within the first
-          week of using {productName}.
+          week of using {t("SC-01 Daily Chews")}.
         </p>
       </div>
 

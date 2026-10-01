@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/core/Button";
 import { Badge } from "@/components/core/Badge";
 import { Icon } from "@/components/core/Icon";
+import { useBrand } from "@/components/core/brand";
 import { PRODUCT } from "@/lib/products/dog-itch";
 import { ITCH_CART_ID, ITCH_PLANS, itchPlanBullets } from "@/lib/quiz/itchLadder";
 import type { Plan } from "@/lib/quiz/plans";
@@ -37,6 +38,7 @@ export function ItchPlanCards({
   lander?: string;
 }) {
   const router = useRouter();
+  const { productName } = useBrand();
   const [hover, setHover] = useState("");
 
   /* One click, one event, same guard PlanCards uses: nothing unmounts the card
@@ -110,7 +112,7 @@ export function ItchPlanCards({
                 3 and 6, one jar for the monthly plan. */}
             <Image
               src={p.image}
-              alt={`${p.months} ${p.months === 1 ? "jar" : "jars"} of ${PRODUCT.name}`}
+              alt={`${p.months} ${p.months === 1 ? "jar" : "jars"} of ${productName}`}
               width={1200}
               height={900}
               style={{ width: "100%", height: "auto", maxHeight: 150, objectFit: "contain" }}

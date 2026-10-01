@@ -5,16 +5,13 @@
  * ladder), so the two never quote different numbers for the same thing.
  */
 import type { Brand } from "@/components/core/brand";
+import { renameProduct } from "@/lib/brandCopy";
 import { ITCH_PLANS, ITCH_CART_ID, buildItchOrder, type ItchOrder } from "./itchLadder";
 import { ITCH_PLANS_CONTENT } from "./itchPlansContent";
 import type { PlansContent } from "./plansContent";
 import type { Plan } from "./plans";
 
-/* The name the shared itch copy uses. Not imported from components/core/brand: that is
-   a client module, and a constant crossing into a server file arrives as a reference. */
-const ITCH_PRODUCT_NAME = "SC-01 Daily Chews";
-
-export const FZ_PRODUCT_NAME = "Friday Zoomies Daily Chews";
+export const FZ_PRODUCT_NAME = "Inside-Out Itch Bundle";
 export const FZ_JAR = "/quiz/fridayzoomies/jar.webp";
 const FZ_STORY_DOG = "/quiz/fridayzoomies/story-dog-crop.webp";
 
@@ -31,7 +28,7 @@ export { ITCH_CART_ID as FZ_CART_ID };
    1, 3 and 6 jar plans do not yet show a different quantity. */
 export const FZ_PLANS: Plan[] = ITCH_PLANS.map((p) => ({ ...p, image: FZ_JAR }));
 
-const swap = (s: string) => s.replaceAll(ITCH_PRODUCT_NAME, FZ_PRODUCT_NAME);
+const swap = (s: string) => renameProduct(s, FZ_PRODUCT_NAME);
 
 export const FZ_PLANS_CONTENT: PlansContent = {
   ...ITCH_PLANS_CONTENT,
@@ -55,7 +52,7 @@ export function buildFzOrder(planId: string | undefined): ItchOrder {
     ...o,
     lines: o.lines.map((l) =>
       l.id === "product"
-        ? { ...l, name: l.name.replace(ITCH_PRODUCT_NAME, FZ_PRODUCT_NAME), image: FZ_JAR }
+        ? { ...l, name: `${FZ_PRODUCT_NAME}, ${l.name.split(", ")[1]}`, image: FZ_JAR }
         : l.id === "shipping"
           ? { ...l, image: "/quiz/fridayzoomies/free-shipping.webp" }
           : l,

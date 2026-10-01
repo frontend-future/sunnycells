@@ -28,7 +28,7 @@ export function ItchProjection({
   nextHref = "/quiz/itch/results/comfort",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers, ready } = useAnswers(quizId);
-  const { productName } = useBrand();
+  const { t } = useBrand();
   const name = dogName(answers);
   const p = itchProjection(answers);
   const format = (value: number) => highLow(value, p.start, p.target);
@@ -58,7 +58,7 @@ export function ItchProjection({
             startLabel={monthYear(new Date())}
             endLabel={monthYear(addDays(56))}
             format={format}
-            planLabel={`With ${productName}`}
+            planLabel={t("With SC-01 Daily Chews")}
             compareLabel="Left untreated"
             compareColor="var(--status-error)"
             compare={untreated}
@@ -81,7 +81,7 @@ export function ItchProjection({
           turns one hot spot into three.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          If you start giving {name} {productName}, we estimate their itching will go
+          If you start giving {name} {t("SC-01 Daily Chews")}, we estimate their itching will go
           from high to low within the first 2 weeks. We matched this against dogs with a
           similar profile (size, age, and current scratching frequency).
         </p>

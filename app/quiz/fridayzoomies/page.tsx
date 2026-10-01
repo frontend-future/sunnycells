@@ -7,6 +7,7 @@ import { RatingPill } from "@/components/quiz/RatingPill";
 import { StartChoice } from "@/components/quiz/StartChoice";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { RATING } from "@/lib/products/dog-itch";
+import styles from "./theme.module.css";
 import { FZ_JAR, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 
 export const metadata: Metadata = {
@@ -78,6 +79,7 @@ export default function FridayZoomiesLandingPage() {
       <main style={{ width: "100%", maxWidth: 720, margin: "0 auto", padding: "0 var(--page-gutter-mobile)" }}>
         <div style={{ textAlign: "center", paddingTop: "var(--space-6)" }}>
           <h1
+            className={styles.sentence}
             style={{
               margin: 0,
               fontFamily: "var(--font-display)",

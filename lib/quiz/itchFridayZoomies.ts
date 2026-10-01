@@ -1,4 +1,5 @@
 import { itchQuiz } from "./itch.ts";
+import { renameProduct } from "../brandCopy.ts";
 import type { QuizConfig } from "./types.ts";
 
 /**
@@ -8,8 +9,7 @@ import type { QuizConfig } from "./types.ts";
  * original. Same pattern as itchV2Quiz. The only copy that changes is the product
  * name on the reinforcement screen.
  */
-const PRODUCT = "SC-01 Daily Chews";
-const FZ_PRODUCT = "Friday Zoomies Daily Chews";
+const FZ_PRODUCT = "Inside-Out Itch Bundle";
 
 export const itchFridayZoomiesQuiz: QuizConfig = {
   ...itchQuiz,
@@ -18,7 +18,7 @@ export const itchFridayZoomiesQuiz: QuizConfig = {
   resultsPath: "/quiz/fridayzoomies/results/analyzing",
   steps: itchQuiz.steps.map((s) =>
     s.kind === "info"
-      ? { ...s, body: s.body?.replaceAll(PRODUCT, FZ_PRODUCT), footnote: s.footnote?.replaceAll(PRODUCT, FZ_PRODUCT) }
+      ? { ...s, body: renameProduct(s.body, FZ_PRODUCT), footnote: s.footnote && renameProduct(s.footnote, FZ_PRODUCT) }
       : s,
   ),
 };

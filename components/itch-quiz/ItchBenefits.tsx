@@ -54,7 +54,7 @@ export function ItchBenefits({
   nextHref = "/quiz/itch/results/story",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers } = useAnswers(quizId);
-  const { productName, t } = useBrand();
+  const { t } = useBrand();
   const name = dogName(answers);
 
   return (
@@ -70,7 +70,7 @@ export function ItchBenefits({
           lineHeight: "var(--leading-snug)",
         }}
       >
-        {productName} are made to calm the histamine response behind {name}&apos;s
+        {t("SC-01 Daily Chews are")} made to calm the histamine response behind {name}&apos;s
         itching.
       </h1>
 
