@@ -10,14 +10,14 @@
 const ENDPOINT = "https://fridayzoomies.myshopify.com/api/2026-07/graphql.json";
 const STOREFRONT_TOKEN = "aa048768e839f6c468c7d0cee13c3c0f";
 const LINES = [
+  /* The freebies: $0 one-time products with no selling plan, so they ride along in the
+     same cart. Soothing Wipes, Mystery Gift, Fast USA Shipping, Bandana. */
+  { merchandiseId: "gid://shopify/ProductVariant/50538941612102", quantity: 1 },
+  { merchandiseId: "gid://shopify/ProductVariant/50538860150854", quantity: 1 },
+  { merchandiseId: "gid://shopify/ProductVariant/50538818535494", quantity: 1 },
+  { merchandiseId: "gid://shopify/ProductVariant/50538801856582", quantity: 1 },
   /* The subscription, on its selling plan. */
   { merchandiseId: "gid://shopify/ProductVariant/50538190831686", sellingPlanId: "gid://shopify/SellingPlan/6965690438", quantity: 1 },
-  /* The freebies: $0 one-time products with no selling plan, so they ride along in the
-     same cart. Bandana, Fast USA Shipping, Mystery Gift, Soothing Wipes. */
-  { merchandiseId: "gid://shopify/ProductVariant/50538801856582", quantity: 1 },
-  { merchandiseId: "gid://shopify/ProductVariant/50538818535494", quantity: 1 },
-  { merchandiseId: "gid://shopify/ProductVariant/50538860150854", quantity: 1 },
-  { merchandiseId: "gid://shopify/ProductVariant/50538941612102", quantity: 1 },
 ];
 const DISCOUNT_CODE = "FIRST50";
 
