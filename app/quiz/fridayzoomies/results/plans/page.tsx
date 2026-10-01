@@ -26,6 +26,7 @@ export default function FridayZoomiesPlansPage() {
       content={FZ_PLANS_CONTENT}
       destinationHref={DESTINATION}
       planCtaLabel="Try now"
+      heroCtaLabel="Save 50% + Free Shipping"
       plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" plans={FZ_PLANS} quizId={itchFridayZoomiesQuiz.id} lander="fridayzoomies" />}
       heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}
     />

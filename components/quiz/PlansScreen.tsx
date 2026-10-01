@@ -178,6 +178,7 @@ function PlansOfferBar({ content }: { content: PlansContent }) {
 export function PlansScreen({
   destinationHref = "/quiz/diet/results/checkout",
   planCtaLabel = "Try now",
+  heroCtaLabel = "Get it now",
   optimizedImages = false,
   content = DIET_PLANS_CONTENT,
   plansSlot,
@@ -185,6 +186,8 @@ export function PlansScreen({
 }: {
   destinationHref?: string;
   planCtaLabel?: string;
+  /** The button under the hero bullets, which scrolls to the plans. */
+  heroCtaLabel?: string;
   optimizedImages?: boolean;
   /** Every word and picture on the page. The layout below is the same for both funnels. */
   content?: PlansContent;
@@ -266,7 +269,7 @@ export function PlansScreen({
                 fullWidth
                 onClick={() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Get it now
+                {heroCtaLabel}
               </Button>
 
               {/* The shipping line as a badge rather than a note under the button, so it
