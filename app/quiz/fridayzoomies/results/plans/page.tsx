@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PlansScreen } from "@/components/quiz/PlansScreen";
 import { ImageGallery, type GalleryImage } from "@/components/quiz/ImageGallery";
+import styles from "../../theme.module.css";
 import { ItchPlanCards } from "@/components/itch-quiz/ItchPlanCards";
 import { FZ_JAR, FZ_PLANS, FZ_PLANS_CONTENT, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
@@ -26,6 +27,7 @@ export default function FridayZoomiesPlansPage() {
       content={FZ_PLANS_CONTENT}
       destinationHref={DESTINATION}
       planCtaLabel="Try now"
+      heroTitleClassName={styles.sentence}
       heroCtaLabel="Save 50% + Free Shipping"
       plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" plans={FZ_PLANS} quizId={itchFridayZoomiesQuiz.id} lander="fridayzoomies" />}
       heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}

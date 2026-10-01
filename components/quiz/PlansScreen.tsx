@@ -179,6 +179,7 @@ export function PlansScreen({
   destinationHref = "/quiz/diet/results/checkout",
   planCtaLabel = "Try now",
   heroCtaLabel = "Get it now",
+  heroTitleClassName,
   optimizedImages = false,
   content = DIET_PLANS_CONTENT,
   plansSlot,
@@ -188,6 +189,8 @@ export function PlansScreen({
   planCtaLabel?: string;
   /** The button under the hero bullets, which scrolls to the plans. */
   heroCtaLabel?: string;
+  /** Lets a funnel restyle the hero headline, e.g. opt out of a theme's casing. */
+  heroTitleClassName?: string;
   optimizedImages?: boolean;
   /** Every word and picture on the page. The layout below is the same for both funnels. */
   content?: PlansContent;
@@ -239,6 +242,7 @@ export function PlansScreen({
         >
           <div>
             <h1
+              className={heroTitleClassName}
               style={{
                 margin: 0,
                 fontFamily: "var(--font-display)",
