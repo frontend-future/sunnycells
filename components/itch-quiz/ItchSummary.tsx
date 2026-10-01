@@ -4,6 +4,7 @@ import { AssessmentChart } from "@/components/quiz/Charts";
 import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell } from "@/components/quiz/ResultsShell";
 import { StickyCta } from "@/components/quiz/StickyCta";
+import { useBrand } from "@/components/core/brand";
 import { itchQuiz } from "@/lib/quiz/itch";
 import { dogName, itchRows, itchVerdict } from "@/lib/quiz/itchAssessment";
 import { useAnswers } from "@/lib/quiz/store";
@@ -13,6 +14,7 @@ export function ItchSummary({
   nextHref = "/quiz/itch/results/projection",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers, ready } = useAnswers(quizId);
+  const { productName } = useBrand();
   const rows = itchRows(answers);
   const name = dogName(answers);
 
@@ -54,13 +56,13 @@ export function ItchSummary({
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           Based on your answers, {name} seems like a perfect candidate who{" "}
           <strong style={{ fontWeight: 800 }}>
-            could benefit from SC-01 Daily Chews to calm the itching and support healthy
+            could benefit from {productName} to calm the itching and support healthy
             skin.
           </strong>
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>
           Similar dogs to {name} showed their first signs of relief within the first
-          week of using SC-01 Daily Chews.
+          week of using {productName}.
         </p>
       </div>
 

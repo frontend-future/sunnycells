@@ -5,6 +5,7 @@ import { MetabolismGauge } from "@/components/quiz/Charts";
 import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell } from "@/components/quiz/ResultsShell";
 import { StickyCta } from "@/components/quiz/StickyCta";
+import { useBrand } from "@/components/core/brand";
 import { itchQuiz } from "@/lib/quiz/itch";
 import { comfort, dogName } from "@/lib/quiz/itchAssessment";
 import { useAnswers } from "@/lib/quiz/store";
@@ -16,6 +17,7 @@ export function ItchComfort({
   nextHref = "/quiz/itch/results/benefits",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers, ready } = useAnswers(quizId);
+  const { productName } = useBrand();
   const name = dogName(answers);
   const c = comfort(answers);
 
@@ -53,7 +55,7 @@ export function ItchComfort({
           Due to a heightened histamine response, {name}&apos;s skin stays irritated, which
           is what keeps the itch-scratch cycle going.
         </p>
-        <MetabolismGauge m={c} afterLabel="With SC-01 Daily Chews" labels={COMFORT_LABELS} />
+        <MetabolismGauge m={c} afterLabel={`With ${productName}`} labels={COMFORT_LABELS} />
       </Card>
 
       <div style={{ marginTop: "var(--space-8)", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
@@ -62,7 +64,7 @@ export function ItchComfort({
           scratching no matter what you try.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          However, <strong style={{ fontWeight: 800 }}>SC-01 Daily Chews</strong> is made
+          However, <strong style={{ fontWeight: 800 }}>{productName}</strong> is made
           to calm exactly that.
         </p>
       </div>

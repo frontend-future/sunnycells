@@ -7,9 +7,10 @@ import { RatingPill } from "@/components/quiz/RatingPill";
 import { StartChoice } from "@/components/quiz/StartChoice";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { RATING } from "@/lib/products/dog-itch";
+import { FZ_JAR, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 
 export const metadata: Metadata = {
-  title: "Dog itch quiz | SUNNYCELLS",
+  title: "Dog itch quiz",
   description: "A couple minutes of questions to find out why your dog is itching, and what to do about it.",
 };
 
@@ -37,7 +38,7 @@ export default function FridayZoomiesLandingPage() {
         ]}
       />
 
-      <div style={{ position: "relative", background: "var(--white)" }}>
+      <div style={{ position: "relative", background: "var(--surface-sunk)" }}>
         <div
           aria-hidden="true"
           style={{ position: "absolute", inset: "0 0 34% 0", background: "var(--sprout-tint)" }}
@@ -51,60 +52,25 @@ export default function FridayZoomiesLandingPage() {
             padding: "var(--space-4) var(--page-gutter-mobile) 0",
           }}
         >
-          <Wordmark size={26} />
-          {/* Before/after rather than a plain product shot: the transformation
-              itself is the pitch, and it pays off the ad's own "why is my dog
-              itching" hook before she's answered a single question. */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "var(--space-2)",
-              maxWidth: 420,
-              margin: "0 auto",
-              paddingBottom: "var(--space-4)",
-            }}
-          >
-            {[
-              { src: "/quiz/itch/hero-before.webp", alt: "A dog scratching itself, uncomfortable and itchy", label: "Before" },
-              { src: "/quiz/itch/hero-after.webp", alt: "A calm, happy dog resting beside a jar of SC-01 Daily Chews", label: "After" },
-            ].map((s) => (
-              <div key={s.label} style={{ position: "relative" }}>
-                <Image
-                  src={s.src}
-                  alt={s.alt}
-                  width={700}
-                  height={700}
-                  priority
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    aspectRatio: "1 / 1",
-                    height: "auto",
-                    maxHeight: "min(24vh, 260px)",
-                    objectFit: "cover",
-                    borderRadius: "var(--radius-card)",
-                  }}
-                />
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "var(--space-2)",
-                    left: "var(--space-2)",
-                    padding: "3px 10px",
-                    background: "var(--ink)",
-                    color: "var(--white)",
-                    borderRadius: "var(--radius-pill)",
-                    fontFamily: "var(--font-label)",
-                    fontSize: "var(--size-meta)",
-                    fontWeight: 600,
-                    letterSpacing: "var(--tracking-mono)",
-                  }}
-                >
-                  {s.label}
-                </span>
-              </div>
-            ))}
+          <Wordmark size={26} style={{ display: "block", margin: "0 auto" }} />
+          {/* The jar's own sky blue ground sits straight on the page's sky panel, so the
+              product reads as the answer to the hook before a question is asked. */}
+          <div style={{ maxWidth: 360, margin: "var(--space-4) auto 0", paddingBottom: "var(--space-4)" }}>
+            <Image
+              src={FZ_JAR}
+              alt={`${FZ_PRODUCT_NAME}, a jar of soft chews for itch relief, joint support and gut health`}
+              width={900}
+              height={900}
+              priority
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+                maxHeight: "min(34vh, 360px)",
+                objectFit: "cover",
+                borderRadius: "var(--radius-card)",
+              }}
+            />
           </div>
         </div>
       </div>
@@ -166,7 +132,7 @@ export default function FridayZoomiesLandingPage() {
         <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
           <Wordmark size={22} tone="ink" style={{ opacity: 0.35 }} />
           <p style={{ margin: "var(--space-6) 0 var(--space-6)", fontSize: "var(--size-meta)", color: "var(--ink-80)" }}>
-            Copyright © 2026 SUNNYCELLS. All rights reserved.
+            Copyright © 2026 Friday Zoomies. All rights reserved.
           </p>
           {FOOTER_LINKS.map((row, i) => (
             <div key={i} style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0 var(--space-6)" }}>

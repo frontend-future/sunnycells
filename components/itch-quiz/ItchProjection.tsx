@@ -5,6 +5,7 @@ import { ProjectionChart } from "@/components/quiz/Charts";
 import { NextButton } from "@/components/quiz/NextButton";
 import { ResultsShell } from "@/components/quiz/ResultsShell";
 import { StickyCta } from "@/components/quiz/StickyCta";
+import { useBrand } from "@/components/core/brand";
 import { itchQuiz } from "@/lib/quiz/itch";
 import { dogName, highLow, itchProjection } from "@/lib/quiz/itchAssessment";
 import { useAnswers } from "@/lib/quiz/store";
@@ -27,6 +28,7 @@ export function ItchProjection({
   nextHref = "/quiz/itch/results/comfort",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers, ready } = useAnswers(quizId);
+  const { productName } = useBrand();
   const name = dogName(answers);
   const p = itchProjection(answers);
   const format = (value: number) => highLow(value, p.start, p.target);
@@ -56,7 +58,7 @@ export function ItchProjection({
             startLabel={monthYear(new Date())}
             endLabel={monthYear(addDays(56))}
             format={format}
-            planLabel="With SC-01 Daily Chews"
+            planLabel={`With ${productName}`}
             compareLabel="Left untreated"
             compareColor="var(--status-error)"
             compare={untreated}
@@ -79,7 +81,7 @@ export function ItchProjection({
           turns one hot spot into three.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          If you start giving {name} SC-01 Daily Chews, we estimate their itching will go
+          If you start giving {name} {productName}, we estimate their itching will go
           from high to low within the first 2 weeks. We matched this against dogs with a
           similar profile (size, age, and current scratching frequency).
         </p>

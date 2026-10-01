@@ -16,7 +16,7 @@
      link CTAs and the phone bar all read from the same pair, and nothing outside this
      page changes. */
   --action-primary-bg: linear-gradient(135deg, var(--sprout) 0%, var(--sprout-press) 100%);
-  --action-primary-bg-press: linear-gradient(135deg, var(--sprout-press) 0%, #4E9A55 100%);
+  --action-primary-bg-press: linear-gradient(135deg, var(--sprout-press) 0%, var(--press-end, #4E9A55) 100%);
   --action-primary-fg: var(--ink);
   --action-accent-bg: var(--action-primary-bg);
   --action-accent-bg-press: var(--action-primary-bg-press);
@@ -103,7 +103,7 @@
    tints that already exist in the palette and a narrow value range, so it reads as
    light falling across a block rather than as a colour effect. */
 .hero {
-  background: linear-gradient(168deg, #F2F9EE 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
+  background: linear-gradient(168deg, var(--summary-a, #F2F9EE) 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
   border-bottom: 1px solid var(--border-hairline);
   padding-block: var(--space-12) var(--space-8);
 }
@@ -373,7 +373,7 @@
 .compareUs {
   /* Sprout tint deepening down the card, so our column reads green against the flat
      grey of theirs. The darkest stop still carries black body text at 11:1. */
-  background: linear-gradient(165deg, #F1FAF2 0%, var(--sprout-tint) 42%, #BFE3C3 100%);
+  background: linear-gradient(165deg, var(--summary-a, #F1FAF2) 0%, var(--sprout-tint) 42%, var(--summary-b, #BFE3C3) 100%);
   border-color: var(--ink);
 }
 
@@ -468,7 +468,7 @@
    the same ground. A flat yellow block sat badly against a green pack and against
    the white gallery and card on top of it. */
 .offer {
-  background: linear-gradient(168deg, #F2F9EE 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
+  background: linear-gradient(168deg, var(--summary-a, #F2F9EE) 0%, var(--sprout-tint) 46%, var(--sun-tint) 100%);
   border-block: 1px solid var(--border-hairline);
   /* The header is sticky, so an anchor landing flush at the top would sit under
      it. Clears the 64px bar with a little air. */
@@ -553,7 +553,7 @@
 
 .planOn {
   border-color: var(--ink);
-  background: linear-gradient(135deg, #F1FAF2 0%, var(--sprout-tint) 55%, #C6E8C9 100%);
+  background: linear-gradient(135deg, var(--summary-a, #F1FAF2) 0%, var(--sprout-tint) 55%, var(--summary-b, #C6E8C9) 100%);
 }
 
 .radio {
@@ -770,7 +770,7 @@
 .expect {
   /* Deep versions of the brand hues (ink into sky into sprout) rather than flat ink.
      All three stops sit above 8:1 against white, so the list copy is unaffected. */
-  background: linear-gradient(135deg, var(--ink) 0%, #16325C 48%, #1B4A37 100%);
+  background: linear-gradient(135deg, var(--ink) 0%, #16325C 48%, var(--deep-end, #1B4A37) 100%);
   color: var(--text-inverse);
   border-radius: var(--radius-card);
   overflow: hidden;

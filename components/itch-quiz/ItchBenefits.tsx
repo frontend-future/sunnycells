@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Icon, type IconName } from "@/components/core/Icon";
+import { useBrand } from "@/components/core/brand";
 import { itchQuiz } from "@/lib/quiz/itch";
 import { dogName } from "@/lib/quiz/itchAssessment";
 import { NextButton } from "@/components/quiz/NextButton";
@@ -53,6 +54,7 @@ export function ItchBenefits({
   nextHref = "/quiz/itch/results/story",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers } = useAnswers(quizId);
+  const { productName, t } = useBrand();
   const name = dogName(answers);
 
   return (
@@ -68,7 +70,7 @@ export function ItchBenefits({
           lineHeight: "var(--leading-snug)",
         }}
       >
-        SC-01 Daily Chews are made to calm the histamine response behind {name}&apos;s
+        {productName} are made to calm the histamine response behind {name}&apos;s
         itching.
       </h1>
 
@@ -102,7 +104,7 @@ export function ItchBenefits({
                 {i + 1}. {b.title}
               </h2>
               <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
-                {b.body.replace("{name}", name)}
+                {t(b.body).replace("{name}", name)}
               </p>
             </div>
           </li>

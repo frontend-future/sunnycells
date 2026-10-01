@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Icon } from "@/components/core/Icon";
+import { useBrand } from "@/components/core/brand";
 import { itchQuiz } from "@/lib/quiz/itch";
 import { dogName } from "@/lib/quiz/itchAssessment";
 import { NextButton } from "@/components/quiz/NextButton";
@@ -39,6 +40,7 @@ export function ItchStory({
   nextHref = "/quiz/itch/results/plans",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers } = useAnswers(quizId);
+  const { productName, storyImage = "/quiz/itch/story-sarah.webp" } = useBrand();
   /* Her own dog's name is read only so the CTA below can speak to her
      directly; the story itself is about a different dog, same reasoning
      BrainPlanCards documents for why a testimonial names a stock example
@@ -58,12 +60,12 @@ export function ItchStory({
           lineHeight: "var(--leading-snug)",
         }}
       >
-        SC-01 Daily Chews helped {STORY_DOG_NAME} stop scratching in {WEEKS} weeks.
+        {productName} helped {STORY_DOG_NAME} stop scratching in {WEEKS} weeks.
       </h1>
 
       <Image
-        src="/quiz/itch/story-sarah.webp"
-        alt={`${OWNER_NAME} holding a jar of SC-01 Daily Chews next to ${STORY_DOG_NAME}, her happy, healthy-looking dog`}
+        src={storyImage}
+        alt={`${OWNER_NAME} holding a jar of ${productName} next to ${STORY_DOG_NAME}, her happy, healthy-looking dog`}
         width={1080}
         height={1480}
         style={{
@@ -83,7 +85,7 @@ export function ItchStory({
       </p>
 
       <p style={{ margin: "var(--space-6) 0 var(--space-5)", fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>
-        Over {WEEKS} weeks of giving {STORY_DOG_NAME} SC-01 Daily Chews, {OWNER_NAME} noticed
+        Over {WEEKS} weeks of giving {STORY_DOG_NAME} {productName}, {OWNER_NAME} noticed
         significant changes:
       </p>
 

@@ -1,0 +1,82 @@
+/* Friday Zoomies' Cloud Day palette and type, as overrides of the shared tokens.
+   Scoped to this wrapper, so no other funnel moves. Every shared quiz screen reads
+   these same variable names, which is what lets them re-skin without being forked. */
+.theme {
+  --cobalt: #2F5FD0;
+  --cobalt-press: #254DB0;
+  --midnight: #14213D;
+  --cloud: #F4F2EC;
+
+  /* Ink is midnight navy, never black. */
+  --ink: var(--midnight);
+  --ink-80: #2E3A55;
+  --ink-60: #5C6675;
+  --ink-40: #9AA3B2;
+  --ink-20: #DAD6CB;
+  --ink-10: #E8E5DC;
+  --shell: var(--cloud);
+
+  /* Sunshine is the CTA. */
+  --sun: #FFC845;
+  --sun-press: #EDB22C;
+  --sun-tint: #FFF1C7;
+
+  /* The itch funnel's product-family accent was sprout green. Here it is Clear Sky,
+     so every tinted panel and chart bar behind the product reads as sky. */
+  --sprout: #8EC5F2;
+  --sprout-press: #6FB0E8;
+  --sprout-tint: #E3F0FB;
+  --sky: #8EC5F2;
+  --sky-press: #6FB0E8;
+  --sky-tint: #E3F0FB;
+  --zest: #F2785C;
+  --zest-press: #E0614A;
+  --zest-tint: #FDE4DD;
+
+  --surface-sunk: var(--cloud);
+  --border-hairline: var(--ink-20);
+  --text-link: var(--cobalt);
+
+  --action-primary-bg: var(--cobalt);
+  --action-primary-bg-press: var(--cobalt-press);
+  --action-primary-fg: #FFFFFF;
+  --action-accent-bg: var(--sun);
+  --action-accent-bg-press: var(--sun-press);
+  --action-accent-fg: var(--midnight);
+
+  /* The checkout order summary card reads these for its gradient ends. */
+  --summary-a: #F4F9FE;
+  --summary-b: #BFDDF6;
+  --deep-end: #2F5FD0;
+  --press-end: #254DB0;
+
+  --status-info-bg: var(--midnight);
+
+  /* Friday Zoomies is rounder than the house system: pill buttons, 24px cards. */
+  --radius-button: 999px;
+  --radius-input: 14px;
+  --radius-card: 24px;
+  --radius-image: 20px;
+  --radius-sheet: 28px;
+
+  --font-display: var(--font-bricolage), "Avenir Next", "Trebuchet MS", sans-serif;
+  --tracking-heading: -0.035em;
+
+  background: var(--cloud);
+  color: var(--ink);
+  min-height: 100dvh;
+}
+
+/* Headlines are lowercase, and nothing else is all caps. Inline styles and the
+   shared modules set text-transform on buttons, badges and labels, hence the
+   !important. The heading rule is more specific, so it wins where they overlap. */
+.theme * {
+  text-transform: none !important;
+}
+.theme :is(h1, h2, h3),
+.theme :is(h1, h2, h3) * {
+  text-transform: lowercase !important;
+}
+.theme :is(h1, h2, h3) {
+  font-weight: 800 !important;
+}

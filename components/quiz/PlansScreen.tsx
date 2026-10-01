@@ -9,6 +9,7 @@ import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { StarRating } from "@/components/commerce/StarRating";
 import { Wordmark } from "@/components/core/Wordmark";
+import { useBrand } from "@/components/core/brand";
 import { useAnswers } from "@/lib/quiz/store";
 import { DIET_PLANS_CONTENT, type PlansContent } from "@/lib/quiz/plansContent";
 import { AnnouncementMarquee } from "./AnnouncementMarquee";
@@ -193,6 +194,7 @@ export function PlansScreen({
   /** The hero's right hand column. */
   heroMedia?: React.ReactNode;
 }) {
+  const { name: brandName } = useBrand();
   const { answers } = useAnswers(content.quizId);
   const set = answers.gender === "Male" ? "male" : "female";
   const productImage = optimizedImages
@@ -838,7 +840,7 @@ export function PlansScreen({
             Results vary from person to person.
           </p>
           <p style={{ margin: "var(--space-4) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
-            Copyright © 2026 SUNNYCELLS. All rights reserved.
+            Copyright © 2026 {brandName}. All rights reserved.
           </p>
         </div>
       </footer>
