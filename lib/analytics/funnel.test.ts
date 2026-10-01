@@ -161,3 +161,12 @@ test("pages outside a funnel are not steps", async () => {
     assert.equal(await funnelStepFor(p), null, p);
   }
 });
+
+test("funnelStepFor numbers the fridayzoomies clone like the original itch quiz", async () => {
+  const { itchFridayZoomiesQuiz } = await import("../quiz/itchFridayZoomies.ts");
+  const first = await funnelStepFor(`/quiz/fridayzoomies/${itchFridayZoomiesQuiz.steps[0].slug}`);
+  assert.equal(first?.quiz, "fridayzoomies");
+  const checkout = await funnelStepFor("/quiz/fridayzoomies/results/checkout");
+  assert.equal(checkout?.index, itchFridayZoomiesQuiz.steps.length + 8);
+  assert.equal(itchFridayZoomiesQuiz.steps.length, itchQuiz.steps.length);
+});

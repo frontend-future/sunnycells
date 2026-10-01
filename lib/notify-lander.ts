@@ -14,6 +14,7 @@ const LANDER_LABEL: Record<string, string> = {
   "itch-v1": "Itch v1",
   "itch-v2": "Itch v2",
   "itch-v3": "Itch v3",
+  fridayzoomies: "Friday Zoomies",
 };
 
 /** Missing or unrecognised resolves to nothing (subject tag) or the raw code
