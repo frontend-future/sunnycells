@@ -8,7 +8,7 @@ import { StartChoice } from "@/components/quiz/StartChoice";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { RATING } from "@/lib/products/dog-itch";
 import styles from "./theme.module.css";
-import { FZ_JAR, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
+import { FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 
 export const metadata: Metadata = {
   title: "Dog itch quiz",
@@ -56,21 +56,14 @@ export default function FridayZoomiesLandingPage() {
           <Wordmark size={26} style={{ display: "block", margin: "0 auto" }} />
           {/* The jar's own sky blue ground sits straight on the page's sky panel, so the
               product reads as the answer to the hook before a question is asked. */}
-          <div style={{ maxWidth: 360, margin: "var(--space-4) auto 0", paddingBottom: "var(--space-4)" }}>
+          <div style={{ maxWidth: 420, margin: "var(--space-4) auto 0", paddingBottom: "var(--space-4)" }}>
             <Image
-              src={FZ_JAR}
-              alt={`${FZ_PRODUCT_NAME}, a jar of soft chews for itch relief, joint support and gut health`}
-              width={900}
-              height={900}
+              src="/quiz/fridayzoomies/hero-freebies.webp"
+              alt={`${FZ_PRODUCT_NAME} jar plus free gifts: soothing wipes, a USA bandana, a mystery gift and free shipping`}
+              width={1000}
+              height={1000}
               priority
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-                maxHeight: "min(34vh, 360px)",
-                objectFit: "cover",
-                borderRadius: "var(--radius-card)",
-              }}
+              style={{ display: "block", width: "100%", height: "auto", borderRadius: "var(--radius-card)" }}
             />
           </div>
         </div>
