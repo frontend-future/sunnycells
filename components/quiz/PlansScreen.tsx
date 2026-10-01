@@ -181,6 +181,7 @@ export function PlansScreen({
   heroCtaLabel = "Get it now",
   heroTitleClassName,
   onHeroCtaClick,
+  heroCtaStyle,
   optimizedImages = false,
   content = DIET_PLANS_CONTENT,
   plansSlot,
@@ -194,6 +195,7 @@ export function PlansScreen({
   heroTitleClassName?: string;
   /** Replaces the hero button's scroll to the plans, e.g. to go straight to checkout. */
   onHeroCtaClick?: () => void;
+  heroCtaStyle?: React.CSSProperties;
   optimizedImages?: boolean;
   /** Every word and picture on the page. The layout below is the same for both funnels. */
   content?: PlansContent;
@@ -274,6 +276,7 @@ export function PlansScreen({
               <Button
                 size="lg"
                 fullWidth
+                style={heroCtaStyle}
                 onClick={onHeroCtaClick ?? (() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }))}
               >
                 {heroCtaLabel}

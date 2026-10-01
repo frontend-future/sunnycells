@@ -35,6 +35,16 @@ const heroCheckout = () => {
   void goToCheckout();
 };
 
+/* Lifted off the page with a blue glow and a hard lower edge, and a bigger label that
+   scales with the viewport so it stays on one line down to a 320px phone. */
+const HERO_CTA: React.CSSProperties = {
+  fontSize: "clamp(16px, 5.2vw, 24px)",
+  letterSpacing: "0.01em",
+  whiteSpace: "nowrap",
+  minHeight: 64,
+  boxShadow: "0 12px 28px rgba(47, 95, 208, 0.45), 0 4px 0 var(--cobalt-press)",
+};
+
 export function FridayZoomiesPlans() {
   return (
     <PlansScreen
@@ -44,6 +54,7 @@ export function FridayZoomiesPlans() {
       heroTitleClassName={styles.sentence}
       heroCtaLabel="Save 50% + Free Shipping"
       onHeroCtaClick={heroCheckout}
+      heroCtaStyle={HERO_CTA}
       plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" plans={FZ_PLANS} quizId={itchFridayZoomiesQuiz.id} lander="fridayzoomies" onChoose={goToCheckout} />}
       heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}
     />
