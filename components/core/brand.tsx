@@ -18,6 +18,8 @@ export type Brand = {
   logo?: { src: string; alt: string };
   /** The results story screen's photo, for a funnel whose own product shot differs. */
   storyImage?: string;
+  /** Alt text for it, when the photo is not the default owner-with-a-jar shot. */
+  storyAlt?: string;
 };
 
 const SUNNYCELLS: Brand = { name: "SUNNYCELLS", productName: ITCH_PRODUCT };

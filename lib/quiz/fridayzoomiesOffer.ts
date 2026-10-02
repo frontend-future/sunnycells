@@ -13,7 +13,7 @@ import type { Plan } from "./plans";
 
 export const FZ_PRODUCT_NAME = "Inside-Out Itch Bundle";
 export const FZ_JAR = "/quiz/fridayzoomies/jar.webp";
-const FZ_STORY_DOG = "/quiz/fridayzoomies/story-dog-crop.webp";
+const FZ_STORY_DOG = "/quiz/fridayzoomies/story-cooper.webp";
 const PLANS_DIR = "/quiz/fridayzoomies/plans";
 
 export const FZ_BRAND: Brand = {
@@ -21,6 +21,7 @@ export const FZ_BRAND: Brand = {
   productName: FZ_PRODUCT_NAME,
   logo: { src: "/brand/fridayzoomies/logo-oneline.png", alt: "Friday Zoomies" },
   storyImage: FZ_STORY_DOG,
+  storyAlt: "Cooper, a fluffy white dog, sitting on a porch with his eyes closed and licking his nose, happy and relaxed",
 };
 
 export { ITCH_CART_ID as FZ_CART_ID };
