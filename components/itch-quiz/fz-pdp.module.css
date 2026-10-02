@@ -335,13 +335,10 @@
   align-items: center;
 }
 .trustDot {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--midnight);
+  object-fit: cover;
 }
 .acc {
   border-top: 1px solid #DCD8CD;
@@ -506,8 +503,8 @@
     font-size: 13px;
   }
   .trustDot {
-    width: 36px;
-    height: 36px;
+    width: 46px;
+    height: 46px;
   }
   .accBtn {
     padding: 18px 0;

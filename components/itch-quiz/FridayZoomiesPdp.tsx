@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
-import { Icon, type IconName } from "@/components/core/Icon";
+import { Icon } from "@/components/core/Icon";
 import { INGREDIENTS } from "@/lib/products/dog-itch";
 import { FZ_PLANS, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
@@ -27,10 +27,10 @@ const GIFTS = [
   { src: `${DIR}/gift-shipping.webp`, name: "Free shipping" },
 ];
 
-const TRUST: { label: string; icon: IconName; bg: string }[] = [
-  { label: "Vet-formulated", icon: "shield-check", bg: "var(--sun)" },
-  { label: "Third-party tested", icon: "search", bg: "var(--sky)" },
-  { label: "Based in the USA", icon: "flag", bg: "var(--zest)" },
+const TRUST = [
+  { label: "Vet-formulated", src: `${DIR}/trust-vet.webp` },
+  { label: "Third-party tested", src: `${DIR}/trust-tested.webp` },
+  { label: "Based in the USA", src: `${DIR}/trust-usa.webp` },
 ];
 
 const CHECKS = [
@@ -266,9 +266,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
           <ul className={styles.trust}>
             {TRUST.map((t) => (
               <li key={t.label}>
-                <span className={styles.trustDot} style={{ background: t.bg }} aria-hidden="true">
-                  <Icon name={t.icon} size={18} />
-                </span>
+                <Image className={styles.trustDot} src={t.src} alt="" width={96} height={96} />
                 {t.label}
               </li>
             ))}
