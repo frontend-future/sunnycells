@@ -26,7 +26,13 @@ const untreated = (t: number) => 0.08 * t;
 export function ItchProjection({
   quizId = itchQuiz.id,
   nextHref = "/quiz/itch/results/comfort",
-}: { quizId?: string; nextHref?: string } = {}) {
+  greatlyReduced = false,
+}: {
+  quizId?: string;
+  nextHref?: string;
+  /** "Greatly relieve" / "greatly reduced" wording in place of the High to Low framing. */
+  greatlyReduced?: boolean;
+} = {}) {
   const { answers, ready } = useAnswers(quizId);
   const { t } = useBrand();
   const name = dogName(answers);
@@ -45,7 +51,11 @@ export function ItchProjection({
           lineHeight: "var(--leading-snug)",
         }}
       >
-        {ready ? `${name}'s itching can go from High to Low by ${dayMonth(addDays(14))}` : "Your dog's itching timeline"}
+        {ready
+          ? greatlyReduced
+            ? `You can greatly relieve ${name}'s itching by ${dayMonth(addDays(14))}`
+            : `${name}'s itching can go from High to Low by ${dayMonth(addDays(14))}`
+          : "Your dog's itching timeline"}
       </h1>
 
       {ready ? (
@@ -81,8 +91,8 @@ export function ItchProjection({
           turns one hot spot into three.
         </p>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          If you start giving {name} {t("SC-01 Daily Chews")}, we estimate their itching will go
-          from high to low within the first 2 weeks. We matched this against dogs with a
+          If you start giving {name} {t("SC-01 Daily Chews")}, we estimate their itching will{" "}
+          {greatlyReduced ? "be greatly reduced" : "go from high to low"} within the first 2 weeks. We matched this against dogs with a
           similar profile (size, age, and current scratching frequency).
         </p>
       </div>

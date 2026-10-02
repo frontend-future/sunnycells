@@ -5,5 +5,5 @@ import { ItchProjection } from "@/components/itch-quiz/ItchProjection";
 export const metadata: Metadata = { title: "Your dog's itch timeline" };
 
 export default function ProjectionPage() {
-  return <ItchProjection quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/fridayzoomies/results/comfort" />;
+  return <ItchProjection quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/fridayzoomies/results/comfort" greatlyReduced />;
 }
