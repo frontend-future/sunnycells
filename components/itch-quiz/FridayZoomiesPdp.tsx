@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
+import { FridayZoomiesLabelDrawer } from "@/components/itch-quiz/FridayZoomiesLabelDrawer";
 import { INGREDIENTS } from "@/lib/products/dog-itch";
 import { FZ_PLANS, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
@@ -70,7 +71,8 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
   const [at, setAt] = useState(0);
   const [open, setOpen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const ingredientsRef = useRef<HTMLButtonElement>(null);
+  const [labelOpen, setLabelOpen] = useState(false);
+  const closeLabel = useCallback(() => setLabelOpen(false), []);
 
   const start = async () => {
     if (busy) return;
@@ -79,11 +81,6 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
     /* A resolved false is a failed checkout, so let them tap again. Anything else is
        a redirect already under way, so the button stays down. */
     if (ok === false) setBusy(false);
-  };
-
-  const showLabel = () => {
-    setOpen("ingredients");
-    ingredientsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   const sections = [
@@ -166,7 +163,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
             </div>
           ) : null}
         </div>
-        <button type="button" className={styles.label} onClick={showLabel}>
+        <button type="button" className={styles.label} onClick={() => setLabelOpen(true)}>
           View Nutrition Label
         </button>
 
@@ -277,7 +274,6 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
               <div key={s.id}>
                 <button
                   type="button"
-                  ref={s.id === "ingredients" ? ingredientsRef : undefined}
                   className={styles.accBtn}
                   aria-expanded={open === s.id}
                   aria-controls={`pdp-${s.id}`}
@@ -296,6 +292,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
           </div>
         </div>
       </div>
+      {labelOpen ? <FridayZoomiesLabelDrawer onClose={closeLabel} /> : null}
     </section>
   );
 }
