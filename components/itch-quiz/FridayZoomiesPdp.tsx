@@ -224,9 +224,17 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
               fullWidth
               onClick={start}
               disabled={busy}
-              style={{ fontSize: 18, fontWeight: 800, minHeight: 60, boxShadow: "0 10px 24px rgba(47, 95, 208, 0.4), 0 4px 0 var(--cobalt-press)" }}
+              style={{
+                fontSize: "clamp(20px, 5.8vw, 24px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "0.01em",
+                minHeight: 68,
+                paddingBlock: 12,
+                boxShadow: "0 10px 24px rgba(47, 95, 208, 0.4), 0 4px 0 var(--cobalt-press)",
+              }}
             >
-              Start Now
+              {ready && name ? `Start ${titleCase(name)}'s Routine` : "Start Now"}
             </Button>
             <div className={styles.ctaNote}>
               <span className={styles.ctaOff}>50% off auto-applied today</span>
