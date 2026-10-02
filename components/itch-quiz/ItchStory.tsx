@@ -40,7 +40,7 @@ export function ItchStory({
   nextHref = "/quiz/itch/results/plans",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers } = useAnswers(quizId);
-  const { t, storyImage = "/quiz/itch/story-sarah.webp", storyAlt } = useBrand();
+  const { t, storyImage = "/quiz/itch/story-sarah.webp", storyAlt, storyQuote = QUOTE } = useBrand();
   /* Her own dog's name is read only so the CTA below can speak to her
      directly; the story itself is about a different dog, same reasoning
      BrainPlanCards documents for why a testimonial names a stock example
@@ -81,7 +81,7 @@ export function ItchStory({
       />
 
       <p style={{ margin: "var(--space-5) 0 0", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-        <em>&ldquo;{QUOTE}&rdquo;</em> says {OWNER_NAME}, {STORY_DOG_NAME}&apos;s owner.
+        <em>&ldquo;{storyQuote}&rdquo;</em> says {OWNER_NAME}, {STORY_DOG_NAME}&apos;s owner.
       </p>
 
       <p style={{ margin: "var(--space-6) 0 var(--space-5)", fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>

@@ -20,6 +20,8 @@ export type Brand = {
   storyImage?: string;
   /** Alt text for it, when the photo is not the default owner-with-a-jar shot. */
   storyAlt?: string;
+  /** The testimonial quote on the results story screen. */
+  storyQuote?: string;
 };
 
 const SUNNYCELLS: Brand = { name: "SUNNYCELLS", productName: ITCH_PRODUCT };
