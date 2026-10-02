@@ -172,7 +172,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
             style={{ width: step.image.size ?? 420, maxWidth: "70%", height: "auto", aspectRatio: "1 / 1", borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
           />
         ) : null}
-        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>{step.body}</p>
+        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", whiteSpace: "pre-line" }}>{step.body}</p>
         {step.bullets ? (
           <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
             {step.bullets.map((b, i) => (
