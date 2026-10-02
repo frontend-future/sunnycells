@@ -185,8 +185,8 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
           </ul>
           <div className={styles.vet}>
             <span className={styles.vetStack} aria-hidden="true">
-              {[1, 2, 3].map((n) => (
-                <Image key={n} src={`${DIR}/vet-${n}.webp`} alt="" width={80} height={80} />
+              {["vet-1", "vet-2", "vet-3-centered"].map((f) => (
+                <Image key={f} src={`${DIR}/${f}.webp`} alt="" width={80} height={80} />
               ))}
             </span>
             Veterinarian recommended ingredients
