@@ -184,8 +184,10 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
             ))}
           </ul>
           <div className={styles.vet}>
-            <span className={styles.vetIcon} aria-hidden="true">
-              <Icon name="shield-check" size={20} />
+            <span className={styles.vetStack} aria-hidden="true">
+              {[1, 2, 3].map((n) => (
+                <Image key={n} src={`${DIR}/vet-${n}.webp`} alt="" width={80} height={80} />
+              ))}
             </span>
             Veterinarian recommended ingredients
           </div>
