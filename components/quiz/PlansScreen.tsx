@@ -186,6 +186,7 @@ export function PlansScreen({
   optimizedImages = false,
   content = DIET_PLANS_CONTENT,
   plansSlot,
+  plansSection,
   heroMedia,
 }: {
   destinationHref?: string;
@@ -205,6 +206,8 @@ export function PlansScreen({
   /** The plan cards. A funnel passes its own so the page does not need to know which
       catalogue or cart it is selling out of. */
   plansSlot?: React.ReactNode;
+  /** Replaces the whole plans section (title, note, cards, trust row) with the funnel's own block. It should carry id="plans" so the sticky bar can find it. */
+  plansSection?: React.ReactNode;
   /** The hero's right hand column. */
   heroMedia?: React.ReactNode;
 }) {
@@ -345,6 +348,7 @@ export function PlansScreen({
       </section>
 
       {/* Plans */}
+      {plansSection ?? (
       <Section id="plans" title={content.plansTitle} tone="shell">
         {/* Sits above the cards, where it is an argument for the longer supply rather
             than a line of small print underneath one. */}
@@ -441,6 +445,7 @@ export function PlansScreen({
           ))}
         </div>
       </Section>
+      )}
 
       {/* Quick benefits */}
       <Section>

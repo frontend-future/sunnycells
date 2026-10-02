@@ -1,0 +1,459 @@
+/* The Friday Zoomies product block on the plans page. One component, two layouts:
+   a phone stacks image, thumbnails, then the buy column; from 960px up the thumbnails
+   run down the left and the buy column sits beside the image. Colours and the display
+   face come from the funnel's theme variables. */
+.pdp {
+  background: var(--cloud);
+  padding: 0;
+  font-family: var(--font-text), "Figtree", sans-serif;
+  color: var(--midnight);
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "main" "thumbs" "label" "buy";
+  gap: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 14px 18px 28px;
+}
+.thumbs {
+  display: flex;
+  gap: 8px;
+  grid-area: thumbs;
+}
+.thumb {
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #8EC5F2;
+  cursor: pointer;
+  line-height: 0;
+}
+.thumbOn {
+  border-color: var(--cobalt);
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.main {
+  grid-area: main;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #8EC5F2;
+}
+.main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.save {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--midnight);
+  padding: 12px 16px;
+  border-radius: 0 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.saveTop {
+  font: 800 15px/1 var(--font-text), "Figtree", sans-serif;
+  color: var(--sun);
+}
+.saveBig {
+  font: 800 40px/0.95 var(--font-display);
+  color: var(--sun);
+  letter-spacing: -0.03em;
+}
+.saveGift {
+  font: 700 15px/1 var(--font-text), "Figtree", sans-serif;
+  color: var(--cloud);
+}
+.label {
+  grid-area: label;
+  margin-top: -6px;
+  border: 1.5px solid var(--midnight);
+  border-radius: 999px;
+  padding: 13px;
+  background: transparent;
+  color: var(--midnight);
+  font: 700 14px/1 var(--font-text), "Figtree", sans-serif;
+  cursor: pointer;
+}
+.buy {
+  grid-area: buy;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.rating {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font: 600 13px/1 var(--font-text), "Figtree", sans-serif;
+}
+.stars {
+  color: #E8A33C;
+  letter-spacing: 2px;
+}
+.rate {
+  text-decoration: underline;
+}
+.title {
+  margin: 0;
+  text-wrap: balance;
+  font: 800 34px/0.98 var(--font-display);
+  color: var(--cobalt);
+  letter-spacing: -0.035em;
+}
+.priceRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.price {
+  font: 800 28px/1 var(--font-display);
+}
+.was {
+  font: 500 17px/1 var(--font-text), "Figtree", sans-serif;
+  color: var(--ink-60);
+  text-decoration: line-through;
+}
+.off {
+  background: var(--sun);
+  font: 800 12px/1 var(--font-text), "Figtree", sans-serif;
+  padding: 6px 9px;
+  border-radius: 6px;
+}
+.lede {
+  margin: 0;
+  font: 700 16px/1.4 var(--font-text), "Figtree", sans-serif;
+}
+.checks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font: 500 15px/1.35 var(--font-text), "Figtree", sans-serif;
+}
+.checks li {
+  display: flex;
+  gap: 10px;
+}
+.tick {
+  color: var(--cobalt);
+  font-weight: 800;
+}
+.rule {
+  height: 1px;
+  background: #DCD8CD;
+  border: 0;
+  margin: 0;
+}
+.vet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 11px 14px;
+  font: 800 14px/1.3 var(--font-text), "Figtree", sans-serif;
+}
+.vetIcon {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #DAD6CB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.routine {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: #8EC5F2;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.routineTitle {
+  margin: 0;
+  font: 800 18px/1.05 var(--font-display);
+  letter-spacing: -0.01em;
+}
+.routineSub {
+  font: 500 14px/1.3 var(--font-text), "Figtree", sans-serif;
+}
+.gifts {
+  border: 2px solid var(--cobalt);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+}
+.giftsHead {
+  background: var(--cobalt);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+}
+.giftsHeadText {
+  font: 800 14px/1 var(--font-text), "Figtree", sans-serif;
+  color: var(--cloud);
+}
+.giftsCount {
+  background: var(--sun);
+  font: 800 11px/1 var(--font-text), "Figtree", sans-serif;
+  padding: 5px 8px;
+  border-radius: 999px;
+}
+.giftsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 16px 10px 12px;
+}
+.gift {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  position: relative;
+}
+.giftImg {
+  width: 100%;
+  max-width: 68px;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  background: #8EC5F2;
+  overflow: hidden;
+  line-height: 0;
+}
+.giftImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.free {
+  position: absolute;
+  top: -7px;
+  background: var(--midnight);
+  color: var(--sun);
+  font: 800 9px/1 var(--font-text), "Figtree", sans-serif;
+  padding: 4px 6px;
+  border-radius: 999px;
+}
+.giftName {
+  font: 700 12px/1.2 var(--font-text), "Figtree", sans-serif;
+  text-align: center;
+}
+.cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ctaNote {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ctaOff {
+  font: 800 15px/1 var(--font-text), "Figtree", sans-serif;
+  color: var(--cobalt);
+}
+.ctaTerms {
+  font: 500 12px/1.4 var(--font-text), "Figtree", sans-serif;
+  color: #4A5263;
+}
+.trust {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+  font: 600 12px/1.3 var(--font-text), "Figtree", sans-serif;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.trust li {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: center;
+}
+.trustDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--midnight);
+}
+.acc {
+  border-top: 1px solid #DCD8CD;
+}
+.accBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #DCD8CD;
+  color: var(--midnight);
+  font: 800 16px/1 var(--font-text), "Figtree", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.accBody {
+  padding: 4px 0 18px;
+  border-bottom: 1px solid #DCD8CD;
+  font: 500 15px/1.5 var(--font-text), "Figtree", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.accBody p {
+  margin: 0;
+}
+
+@media (min-width: 960px) {
+  .grid {
+    max-width: 1200px;
+    grid-template-columns: 76px minmax(0, 1fr) minmax(380px, 460px);
+    grid-template-areas: "thumbs main buy" "thumbs label buy";
+    grid-template-rows: auto 1fr;
+    gap: 12px 20px;
+    padding: 32px;
+    align-items: start;
+  }
+  .thumbs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .thumb {
+    flex: none;
+    width: 76px;
+    height: 76px;
+    border-radius: 12px;
+  }
+  .main {
+    border-radius: 24px;
+  }
+  .save {
+    padding: 18px 22px;
+    border-radius: 0 20px 0 0;
+  }
+  .saveTop {
+    font-size: 18px;
+  }
+  .saveBig {
+    font-size: 52px;
+  }
+  .saveGift {
+    font-size: 18px;
+  }
+  .label {
+    margin-top: 0;
+    padding: 14px;
+    align-self: start;
+  }
+  .buy {
+    gap: 18px;
+  }
+  .rating {
+    font-size: 14px;
+  }
+  .title {
+    font-size: 42px;
+    line-height: 0.95;
+  }
+  .price {
+    font-size: 34px;
+  }
+  .was {
+    font-size: 20px;
+  }
+  .off {
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+  .lede {
+    font-size: 17px;
+  }
+  .checks {
+    gap: 9px;
+  }
+  .vet {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .vetIcon {
+    width: 34px;
+    height: 34px;
+  }
+  .routine {
+    padding: 14px 16px;
+  }
+  .giftsHead {
+    padding: 11px 16px;
+  }
+  .giftsHeadText {
+    font-size: 15px;
+  }
+  .giftsCount {
+    font-size: 12px;
+    padding: 6px 9px;
+  }
+  .giftsGrid {
+    gap: 8px;
+    padding: 18px 14px 14px;
+  }
+  .giftImg {
+    max-width: 92px;
+    border-radius: 12px;
+  }
+  .free {
+    top: -6px;
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+  .giftName {
+    font-size: 13px;
+  }
+  .cta {
+    gap: 10px;
+  }
+  .ctaOff {
+    font-size: 16px;
+  }
+  .ctaTerms {
+    font-size: 14px;
+  }
+  .trust {
+    font-size: 13px;
+  }
+  .trustDot {
+    width: 36px;
+    height: 36px;
+  }
+  .accBtn {
+    padding: 18px 0;
+  }
+}

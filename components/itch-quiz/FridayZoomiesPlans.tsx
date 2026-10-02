@@ -3,7 +3,7 @@
 import { PlansScreen } from "@/components/quiz/PlansScreen";
 import { ImageGallery, type GalleryImage } from "@/components/quiz/ImageGallery";
 import styles from "@/app/quiz/fridayzoomies/theme.module.css";
-import { ItchPlanCards } from "@/components/itch-quiz/ItchPlanCards";
+import { FridayZoomiesPdp } from "@/components/itch-quiz/FridayZoomiesPdp";
 import { FZ_PLANS, FZ_PLANS_CONTENT, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { readAnswers } from "@/lib/quiz/store";
@@ -21,16 +21,25 @@ const HERO_IMAGES: GalleryImage[] = [
   { src: "/quiz/fridayzoomies/gift-shipping.webp", alt: "Free shipping" },
 ];
 
-/* The hero button has no plan chosen, so it reports the most popular one, same as the
-   card it sits above, then goes straight to Shopify. */
-const heroCheckout = () => {
-  const p = FZ_PLANS.find((x) => x.best) ?? FZ_PLANS[0];
+/* There is one box on offer, the $25 first month, so both buttons report that one. */
+const trackCheckout = () => {
+  const p = FZ_PLANS[0];
   trackMetaEvent(
     "InitiateCheckout",
     { currency: "USD", value: p.price * p.months, content_ids: [p.id], content_type: "product", content_name: `${FZ_PRODUCT_NAME} ${p.label}` },
     { email: readAnswers(itchFridayZoomiesQuiz.id).email },
   );
+};
+
+const heroCheckout = () => {
+  trackCheckout();
   void goToCheckout();
+};
+
+/* The product block's button waits on Shopify so it can re-arm if the cart fails. */
+const goToCheckoutTracked = () => {
+  trackCheckout();
+  return goToCheckout();
 };
 
 /* Lifted off the page with a blue glow and a hard lower edge, and a bigger label that
@@ -54,7 +63,7 @@ export function FridayZoomiesPlans() {
       onHeroCtaClick={heroCheckout}
       heroCtaStyle={HERO_CTA}
       stickyBuyButton
-      plansSlot={<ItchPlanCards key="plan-cards" destinationHref={DESTINATION} ctaLabel="Try now" plans={FZ_PLANS} quizId={itchFridayZoomiesQuiz.id} lander="fridayzoomies" onChoose={goToCheckout} fz />}
+      plansSection={<FridayZoomiesPdp key="pdp" onStart={goToCheckoutTracked} />}
       heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}
     />
   );
