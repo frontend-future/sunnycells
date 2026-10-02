@@ -22,6 +22,8 @@ export type Brand = {
   storyAlt?: string;
   /** The testimonial quote on the results story screen. */
   storyQuote?: string;
+  /** First name of the owner the story screen quotes. */
+  storyOwner?: string;
 };
 
 const SUNNYCELLS: Brand = { name: "SUNNYCELLS", productName: ITCH_PRODUCT };

@@ -23,6 +23,7 @@ export const FZ_BRAND: Brand = {
   storyImage: FZ_STORY_DOG,
   storyQuote:
     "It got so bad that at one point we talked about putting him down. I'm so glad we didn't. It only took a week for his itching to start turning around, and by week three it was gone",
+  storyOwner: "Jake",
   storyAlt: "Cooper, a fluffy white dog, sitting on a porch with his eyes closed and licking his nose, happy and relaxed",
 };
 

@@ -30,9 +30,9 @@ const WEEKS = 3;
 const QUOTE = "I finally stopped feeling helpless watching him suffer";
 
 const POINTS = [
-  { lead: `${STORY_DOG_NAME} stopped scratching within ${WEEKS} weeks`, rest: `, which meant ${OWNER_NAME} could finally let him sleep in the bedroom again without being kept up all night.` },
+  { lead: `${STORY_DOG_NAME} stopped scratching within ${WEEKS} weeks`, rest: `, which meant {owner} could finally let him sleep in the bedroom again without being kept up all night.` },
   { lead: `As his skin calmed down, ${STORY_DOG_NAME}'s energy came back`, rest: ". He was excited for walks again instead of stopping every few minutes to scratch." },
-  { lead: "The hot spots and bald patches cleared up completely", rest: `. ${OWNER_NAME} had tried three different vet-prescribed treatments before this, but nothing worked until they addressed the root cause.` },
+  { lead: "The hot spots and bald patches cleared up completely", rest: `. {owner} had tried three different vet-prescribed treatments before this, but nothing worked until they addressed the root cause.` },
 ];
 
 export function ItchStory({
@@ -40,7 +40,7 @@ export function ItchStory({
   nextHref = "/quiz/itch/results/plans",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers } = useAnswers(quizId);
-  const { t, storyImage = "/quiz/itch/story-sarah.webp", storyAlt, storyQuote = QUOTE } = useBrand();
+  const { t, storyImage = "/quiz/itch/story-sarah.webp", storyAlt, storyQuote = QUOTE, storyOwner = OWNER_NAME } = useBrand();
   /* Her own dog's name is read only so the CTA below can speak to her
      directly; the story itself is about a different dog, same reasoning
      BrainPlanCards documents for why a testimonial names a stock example
@@ -81,11 +81,11 @@ export function ItchStory({
       />
 
       <p style={{ margin: "var(--space-5) 0 0", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-        <em>&ldquo;{storyQuote}&rdquo;</em> says {OWNER_NAME}, {STORY_DOG_NAME}&apos;s owner.
+        <em>&ldquo;{storyQuote}&rdquo;</em> says {storyOwner}, {STORY_DOG_NAME}&apos;s owner.
       </p>
 
       <p style={{ margin: "var(--space-6) 0 var(--space-5)", fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>
-        Over {WEEKS} weeks of giving {STORY_DOG_NAME} {t("SC-01 Daily Chews")}, {OWNER_NAME} noticed
+        Over {WEEKS} weeks of giving {STORY_DOG_NAME} {t("SC-01 Daily Chews")}, {storyOwner} noticed
         significant changes:
       </p>
 
@@ -111,7 +111,7 @@ export function ItchStory({
             </span>
             <span style={{ fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
               <strong style={{ fontWeight: 800 }}>{p.lead}</strong>
-              {p.rest}
+              {p.rest.replace("{owner}", storyOwner)}
             </span>
           </li>
         ))}
