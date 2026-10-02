@@ -90,12 +90,11 @@ export function ItchProjection({
               Breaking that cycle takes two things. The daily chew calms the histamine response
               from the inside, which is what keeps the itch from coming back. Soothing Wipes
               calm irritated skin on contact, so {name} stops scratching sooner and the skin gets
-              a chance to heal. Once it does, there&apos;s nothing new to scratch, which is
-              usually what turns one hot spot into three.
+              a chance to heal.
             </p>
             <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-              When you start giving {name} {t("SC-01 Daily Chews")}, we estimate their itching
-              will be greatly reduced within the first 2 weeks. The wipes ease flare-ups
+              When you start giving {name} {t("SC-01 Daily Chews")}, <strong>we estimate their itching
+              will be greatly reduced within the first 2 weeks.</strong> The wipes ease flare-ups
               immediately, and the chews resolve the issue at the source. We matched this
               against dogs with a similar profile (size, age, and current scratching frequency).
             </p>
