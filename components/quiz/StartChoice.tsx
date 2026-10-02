@@ -11,13 +11,15 @@ export type StartOption = { label: string; variant?: ButtonVariant; icon?: IconN
 /** The first question, answered on the landing page so the first tap starts the quiz
     instead of loading another screen. Any quiz can use it: pass its own options. */
 export function StartChoice({
-  config, field, options, marginTop = "var(--space-6)",
+  config, field, options, marginTop = "var(--space-6)", shadow,
 }: {
   config: QuizConfig;
   field: string;
   options: StartOption[];
   /** Space above the buttons, for a landing page that needs them higher. */
   marginTop?: string;
+  /** Drop shadow behind each button. */
+  shadow?: string;
 }) {
   const router = useRouter();
   const pick = (value: string) => {
@@ -43,7 +45,7 @@ export function StartChoice({
           onClick={() => pick(o.label)}
           /* The lg size pads 36px a side, which overflows a 2-up grid on a 390px
              screen. Height still carries the tap target, so the padding can go. */
-          style={{ padding: "0 var(--space-4)", minWidth: 0 }}
+          style={{ padding: "0 var(--space-4)", minWidth: 0, boxShadow: shadow }}
         >
           {o.label}
         </Button>

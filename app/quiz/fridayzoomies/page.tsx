@@ -116,6 +116,7 @@ export default function FridayZoomiesLandingPage() {
             config={itchFridayZoomiesQuiz}
             field="gender"
             marginTop="var(--space-3)"
+            shadow="0 10px 24px rgba(20, 30, 60, 0.28), 0 3px 6px rgba(20, 30, 60, 0.18)"
             options={[
               { label: "Male", icon: "mars" },
               { label: "Female", icon: "venus", variant: "accent" },
