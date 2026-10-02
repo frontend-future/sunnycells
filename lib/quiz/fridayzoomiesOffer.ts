@@ -54,6 +54,9 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   squareImages: true,
   testingBadges: [`${PLANS_DIR}/badge-tested.webp`, `${PLANS_DIR}/badge-metals.webp`],
   provenLabel: "Clinically proven ingredients",
+  reviewsTitle: "Thousands of happy pups",
+  reviewsSub: "Read what dog parents around the world say.",
+  faqTitle: "Frequently asked questions by our dog parents",
   usaLabel: "SUNNYCELLS is based in the USA",
   competitorImage: `${PLANS_DIR}/tub-generic.webp`,
   /* Illustrated 1:1 tiles in the brand palette replace the stock photography, which

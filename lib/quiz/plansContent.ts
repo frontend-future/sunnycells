@@ -215,6 +215,11 @@ export type PlansContent = {
   usaLabel?: string;
   /** Replaces the "Scientifically proven" trust badge text. */
   provenLabel?: string;
+  /** Headings that default to "Thousands of happy clients", "Read what customers around the
+      world say." and "Frequently asked questions by our customers". */
+  reviewsTitle?: string;
+  reviewsSub?: string;
+  faqTitle?: string;
   /** Rebinds the accent button tokens, so a funnel's buttons match its product. */
   accent?: { bg: string; press: string };
 };

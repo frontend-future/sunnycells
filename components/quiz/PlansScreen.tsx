@@ -591,7 +591,7 @@ export function PlansScreen({
 
       {/* Reviews */}
       {content.reviews.length > 0 ? (
-      <Section wide title="Thousands of happy clients" sub="Read what customers around the world say.">
+      <Section wide title={content.reviewsTitle ?? "Thousands of happy clients"} sub={content.reviewsSub ?? "Read what customers around the world say."}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(250px, 100%), 1fr))", gap: "var(--space-5)" }}>
           {content.reviews.map((r) => (
             <div
@@ -877,7 +877,7 @@ export function PlansScreen({
       />
 
       {/* FAQ */}
-      <Section title="Frequently asked questions by our customers" tone="shell">
+      <Section title={content.faqTitle ?? "Frequently asked questions by our customers"} tone="shell">
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <Accordion items={content.faqs} />
         </div>
