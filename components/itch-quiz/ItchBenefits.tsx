@@ -52,7 +52,8 @@ const ATTRIBUTES: { icon: IconName; label: string }[] = [
 export function ItchBenefits({
   quizId = itchQuiz.id,
   nextHref = "/quiz/itch/results/story",
-}: { quizId?: string; nextHref?: string } = {}) {
+  usaLabel = "Made in the USA",
+}: { quizId?: string; nextHref?: string; usaLabel?: string } = {}) {
   const { answers } = useAnswers(quizId);
   const { t } = useBrand();
   const name = dogName(answers);
@@ -122,7 +123,7 @@ export function ItchBenefits({
           gap: "var(--space-5) var(--space-4)",
         }}
       >
-        {ATTRIBUTES.map((a) => (
+        {ATTRIBUTES.map((a) => (a.icon === "flag" ? { ...a, label: usaLabel } : a)).map((a) => (
           <li key={a.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-2)", width: 92 }}>
             <span
               style={{
