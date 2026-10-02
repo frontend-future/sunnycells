@@ -111,6 +111,8 @@ export type QuizConfig = {
   basePath: string;
   /** Where the last step hands off, e.g. "/quiz/diet/results/analyzing". */
   resultsPath: string;
+  /** Capitalise each word of the dog's name when a step quotes it back ("max" becomes "Max"). */
+  titleCaseName?: boolean;
   steps: Step[];
 };
 

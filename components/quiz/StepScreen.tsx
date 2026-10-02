@@ -21,7 +21,11 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
   /* "dog-name" only ever exists on quizzes that ask it (the itch quiz's own
      personalization step); every other quiz's copy has no "{name}" in it, so
      this substitution is a no-op for them. */
-  const step = personalizeStep(config.steps[index], answers["dog-name"]?.trim() || "your dog");
+  const rawName = answers["dog-name"]?.trim() || "your dog";
+  const step = personalizeStep(
+    config.steps[index],
+    config.titleCaseName && answers["dog-name"]?.trim() ? rawName.replace(/(^|\s)(\S)/g, (_, sp, c) => sp + c.toUpperCase()) : rawName,
+  );
   const router = useRouter();
   const go = () => router.push(nextHref(config, index));
 

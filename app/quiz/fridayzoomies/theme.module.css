@@ -67,15 +67,10 @@
   min-height: 100dvh;
 }
 
-/* Headlines are lowercase, and nothing else is all caps. Inline styles and the
-   shared modules set text-transform on buttons, badges and labels, hence the
-   !important. The heading rule is more specific, so it wins where they overlap. */
+/* Nothing is all caps. Inline styles and the shared modules set text-transform on
+   buttons, badges and labels, hence the !important. */
 .theme * {
   text-transform: none !important;
-}
-.theme :is(h1, h2, h3),
-.theme :is(h1, h2, h3) * {
-  text-transform: lowercase !important;
 }
 /* Opt-out for a headline that reads better in sentence case. */
 .theme .sentence,

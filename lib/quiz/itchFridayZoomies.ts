@@ -16,6 +16,7 @@ export const itchFridayZoomiesQuiz: QuizConfig = {
   id: "itch-fridayzoomies",
   basePath: "/quiz/fridayzoomies",
   resultsPath: "/quiz/fridayzoomies/results/analyzing",
+  titleCaseName: true,
   steps: itchQuiz.steps.map((s) =>
     s.slug === "reinforcement" && s.kind === "info"
       ? {
