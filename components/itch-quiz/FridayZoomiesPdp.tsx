@@ -119,7 +119,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
     },
     {
       id: "shipping",
-      title: "Shipping & subscription",
+      title: "Shipping & membership",
       body: (
         <>
           <p>
