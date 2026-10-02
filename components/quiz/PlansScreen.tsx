@@ -414,7 +414,7 @@ export function PlansScreen({
                 {"flag" in t ? <UsaFlag size={26} /> : <Icon name={t.icon} size={24} />}
               </span>
               <span style={{ display: "block", marginTop: "var(--space-3)", fontSize: "var(--size-meta)", lineHeight: 1.3 }}>
-                <BrandText>{"flag" in t && content.usaLabel ? content.usaLabel : t.label}</BrandText>
+                <BrandText>{"flag" in t ? content.usaLabel ?? t.label : t.icon === "book-open" ? content.provenLabel ?? t.label : t.label}</BrandText>
               </span>
             </div>
           ))}
