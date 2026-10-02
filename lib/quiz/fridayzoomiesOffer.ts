@@ -34,7 +34,7 @@ const swap = (s: string) => renameProduct(s, FZ_PRODUCT_NAME);
 export const FZ_PLANS_CONTENT: PlansContent = {
   ...ITCH_PLANS_CONTENT,
   productName: FZ_PRODUCT_NAME,
-  hero: { ...ITCH_PLANS_CONTENT.hero, lede: swap(ITCH_PLANS_CONTENT.hero.lede) },
+  hero: { ...ITCH_PLANS_CONTENT.hero, underline: "for good", lede: swap(ITCH_PLANS_CONTENT.hero.lede) },
   productImage: FZ_JAR,
   squareImages: true,
   testingBadges: [`${PLANS_DIR}/badge-tested.webp`, `${PLANS_DIR}/badge-metals.webp`],

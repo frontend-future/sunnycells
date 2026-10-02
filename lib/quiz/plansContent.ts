@@ -172,7 +172,8 @@ export type PlansContent = {
   productName: string;
   /** Right hand side of the offer bar. No countdown where a funnel has no deadline. */
   offer: { label: string; badge: string; countdown: boolean };
-  hero: { title: string; lede: string; points: string[] };
+  /** `underline` is a phrase inside `title` to set underlined, if any. */
+  hero: { title: string; underline?: string; lede: string; points: string[] };
   /** Product shot for the hero, the comparison table, and the plan cards. */
   productImage: string;
   plansTitle: string;

@@ -262,7 +262,18 @@ export function PlansScreen({
                 lineHeight: "var(--leading-snug)",
               }}
             >
-              {content.hero.title}
+              {content.hero.underline && content.hero.title.includes(content.hero.underline)
+                ? content.hero.title.split(content.hero.underline).flatMap((part, i) => [
+                    ...(i > 0
+                      ? [
+                          <span key={i} style={{ textDecoration: "underline", textDecorationThickness: "0.07em", textUnderlineOffset: "0.12em" }}>
+                            {content.hero.underline}
+                          </span>,
+                        ]
+                      : []),
+                    part,
+                  ])
+                : content.hero.title}
             </h1>
             <p style={{ margin: "var(--space-4) 0 var(--space-6)", fontSize: "var(--size-body-lg)", lineHeight: 1.35 }}>
               <BrandText>{content.hero.lede}</BrandText>
