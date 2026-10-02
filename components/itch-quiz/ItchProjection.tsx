@@ -30,7 +30,7 @@ export function ItchProjection({
 }: {
   quizId?: string;
   nextHref?: string;
-  /** "Greatly relieve" / "greatly reduced" wording in place of the High to Low framing. */
+  /** Friday Zoomies copy: "greatly relieve" headline and a two-sided (wipes + chew) explanation, in place of the High to Low framing. */
   greatlyReduced?: boolean;
 } = {}) {
   const { answers, ready } = useAnswers(quizId);
@@ -84,17 +84,37 @@ export function ItchProjection({
           dust, or a new food, it releases histamine. That&apos;s what turns a normal itch
           into a nonstop scratch-lick-chew cycle, often without any obvious trigger.
         </p>
-        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          One of the biggest benefits of calming that histamine response is breaking the
-          itch-scratch cycle itself. Once the skin gets a chance to stop being irritated,
-          it also stops giving {name} something new to scratch, which is usually what
-          turns one hot spot into three.
-        </p>
-        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          If you start giving {name} {t("SC-01 Daily Chews")}, we estimate their itching will{" "}
-          {greatlyReduced ? "be greatly reduced" : "go from high to low"} within the first 2 weeks. We matched this against dogs with a
-          similar profile (size, age, and current scratching frequency).
-        </p>
+        {greatlyReduced ? (
+          <>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              Breaking that cycle takes two things. The daily chew calms the histamine response
+              from the inside, which is what keeps the itch from coming back. Soothing Wipes
+              calm irritated skin on contact, so {name} stops scratching sooner and the skin gets
+              a chance to heal. Once it does, there&apos;s nothing new to scratch, which is
+              usually what turns one hot spot into three.
+            </p>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              When you start giving {name} {t("SC-01 Daily Chews")}, we estimate their itching
+              will be greatly reduced within the first 2 weeks. The wipes ease flare-ups
+              immediately, and the chews resolve the issue at the source. We matched this
+              against dogs with a similar profile (size, age, and current scratching frequency).
+            </p>
+          </>
+        ) : (
+          <>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              One of the biggest benefits of calming that histamine response is breaking the
+              itch-scratch cycle itself. Once the skin gets a chance to stop being irritated,
+              it also stops giving {name} something new to scratch, which is usually what
+              turns one hot spot into three.
+            </p>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              If you start giving {name} {t("SC-01 Daily Chews")}, we estimate their itching will go
+              from high to low within the first 2 weeks. We matched this against dogs with a
+              similar profile (size, age, and current scratching frequency).
+            </p>
+          </>
+        )}
       </div>
 
       <StickyCta>
