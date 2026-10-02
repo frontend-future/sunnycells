@@ -12,7 +12,8 @@ import { useAnswers } from "@/lib/quiz/store";
 export function ItchSummary({
   quizId = itchQuiz.id,
   nextHref = "/quiz/itch/results/projection",
-}: { quizId?: string; nextHref?: string } = {}) {
+  lede = "because of the following parameters:",
+}: { quizId?: string; nextHref?: string; lede?: string } = {}) {
   const { answers, ready } = useAnswers(quizId);
   const { t } = useBrand();
   const rows = itchRows(answers);
@@ -42,7 +43,7 @@ export function ItchSummary({
         >
           {ready ? itchVerdict(rows) : " "}
         </span>{" "}
-        because of the following parameters:
+        {lede}
       </h1>
 
       <AssessmentChart rows={rows} />
