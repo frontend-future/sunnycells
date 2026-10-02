@@ -282,7 +282,11 @@ export function PlansScreen({
               {content.hero.points.map((h) => (
                 <li key={h} style={{ display: "flex", gap: "var(--space-3)", alignItems: "center", fontSize: "var(--size-body)" }}>
                   <Tick />
-                  {h}
+                  <span>
+                    {h.split(/\*\*(.+?)\*\*/).map((part, i) =>
+                      i % 2 ? <strong key={i} style={{ fontWeight: 800 }}>{part}</strong> : part,
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>
