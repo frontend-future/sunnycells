@@ -1,7 +1,7 @@
 "use client";
 
 import { PlansScreen } from "@/components/quiz/PlansScreen";
-import { ImageGallery, type GalleryImage } from "@/components/quiz/ImageGallery";
+import Image from "next/image";
 import styles from "@/app/quiz/fridayzoomies/theme.module.css";
 import { FridayZoomiesPdp } from "@/components/itch-quiz/FridayZoomiesPdp";
 import { FZ_PLANS, FZ_PLANS_CONTENT, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
@@ -11,15 +11,6 @@ import { trackMetaEvent } from "@/lib/meta";
 import { goToCheckout } from "@/lib/shopify/fridayzoomies";
 
 const DESTINATION = "/quiz/fridayzoomies/results/checkout";
-
-/* The freebies shot from the start page, then each gift on its own. */
-const HERO_IMAGES: GalleryImage[] = [
-  { src: "/quiz/fridayzoomies/hero-freebies.webp", alt: "The jar plus free gifts: soothing wipes, a USA bandana, a mystery gift and free shipping" },
-  { src: "/quiz/fridayzoomies/gift-wipes.webp", alt: "Free soothing wipes" },
-  { src: "/quiz/fridayzoomies/gift-bandana.webp", alt: "Free USA bandana" },
-  { src: "/quiz/fridayzoomies/gift-mystery.webp", alt: "Free mystery gift" },
-  { src: "/quiz/fridayzoomies/gift-shipping.webp", alt: "Free shipping" },
-];
 
 /* There is one box on offer, the $25 first month, so both buttons report that one. */
 const trackCheckout = () => {
@@ -58,7 +49,18 @@ export function FridayZoomiesPlans() {
       heroCtaStyle={HERO_CTA}
       stickyBuyButton
       plansSection={<FridayZoomiesPdp key="pdp" onStart={goToCheckoutTracked} />}
-      heroMedia={<ImageGallery key="hero-gallery" images={HERO_IMAGES} />}
+      heroMedia={
+        <Image
+          key="hero-photo"
+          src="/quiz/fridayzoomies/hero-pyrenees.webp"
+          alt="A fluffy white Great Pyrenees lying in the grass, sniffing a tub of Friday Zoomies daily chews"
+          width={1000}
+          height={1000}
+          priority
+          sizes="(min-width: 960px) 520px, 92vw"
+          style={{ width: "100%", height: "auto", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "var(--radius-card)", alignSelf: "start" }}
+        />
+      }
     />
   );
 }
