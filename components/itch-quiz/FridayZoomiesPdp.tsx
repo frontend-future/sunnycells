@@ -170,7 +170,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
           <div className={styles.priceRow}>
             <span className={styles.price}>${plan.price}</span>
             <span className={styles.was}>${plan.compareAt}</span>
-            <span className={styles.off}>50% OFF FIRST BOX</span>
+            <span className={styles.off}>50% OFF TODAY</span>
           </div>
           <p className={styles.lede}>
             Stop the itching for good. Calms the histamine response behind the scratching, licking and skin irritation.
