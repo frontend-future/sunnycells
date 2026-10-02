@@ -210,6 +210,9 @@ export type PlansContent = {
   /** Replace the two testing seals and the competitor tub in the comparison table. */
   testingBadges?: [string, string];
   competitorImage?: string;
+  /** Replaces the "SUNNYCELLS is made in the USA" trust badge text. SUNNYCELLS in the
+      string renders as the brand. */
+  usaLabel?: string;
   /** Rebinds the accent button tokens, so a funnel's buttons match its product. */
   accent?: { bg: string; press: string };
 };
