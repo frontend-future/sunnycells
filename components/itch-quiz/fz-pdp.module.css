@@ -8,6 +8,19 @@
   font-family: var(--font-text), "Figtree", sans-serif;
   color: var(--midnight);
 }
+.birthday {
+  margin: 0 auto;
+  padding: 28px 18px 0;
+  max-width: 1200px;
+  text-align: center;
+  font: 800 clamp(26px, 7.4vw, 32px)/1.05 var(--font-display);
+  letter-spacing: -0.035em;
+  color: var(--cobalt);
+}
+.birthday span {
+  display: block;
+  text-wrap: balance;
+}
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -340,6 +353,11 @@
 }
 
 @media (min-width: 960px) {
+  .birthday {
+    padding: 40px 32px 0;
+    font-size: 46px;
+    line-height: 1;
+  }
   .grid {
     max-width: 1200px;
     grid-template-columns: 76px minmax(0, 1fr) minmax(380px, 460px);

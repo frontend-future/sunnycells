@@ -127,6 +127,10 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
 
   return (
     <section id="plans" className={styles.pdp}>
+      <h2 className={styles.birthday}>
+        <span>It’s Our Birthday!</span>
+        <span>We Lowered Our Prices to Celebrate.</span>
+      </h2>
       <div className={styles.grid}>
         <div className={styles.thumbs}>
           {IMAGES.map((img, i) => (
