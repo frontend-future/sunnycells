@@ -82,6 +82,19 @@ export function itchVerdict(rows: Row[]): string {
     diet funnel's slow-to-fast metabolism track. */
 export type Comfort = { now: number; after: number };
 
+const TRIED: Record<string, string> = {
+  "Flea and tick prevention": "flea and tick prevention",
+  "Special shampoo": "a special shampoo",
+  "Diet change": "a diet change",
+  "Vet visit or medication": "a vet visit or medication",
+};
+
+/** What she said she already tried, in the words a sentence needs ("a special shampoo").
+    Empty when she tried nothing or skipped the question. */
+export function triedItems(a: Answers): string[] {
+  return (a["tried-before"]?.split("|") ?? []).map((o) => TRIED[o]).filter(Boolean);
+}
+
 export function comfort(a: Answers): Comfort {
   const rows = itchRows(a);
   const severity = rows.reduce((sum, r) => sum + r.you, 0) / rows.length;

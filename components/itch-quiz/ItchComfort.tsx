@@ -7,7 +7,7 @@ import { ResultsShell } from "@/components/quiz/ResultsShell";
 import { StickyCta } from "@/components/quiz/StickyCta";
 import { useBrand } from "@/components/core/brand";
 import { itchQuiz } from "@/lib/quiz/itch";
-import { comfort, dogName } from "@/lib/quiz/itchAssessment";
+import { comfort, dogName, triedItems } from "@/lib/quiz/itchAssessment";
 import { useAnswers } from "@/lib/quiz/store";
 
 const COMFORT_LABELS = ["Very itchy", "Itchy", "Comfortable", "Very comfortable"] as const;
@@ -15,11 +15,18 @@ const COMFORT_LABELS = ["Very itchy", "Itchy", "Comfortable", "Very comfortable"
 export function ItchComfort({
   quizId = itchQuiz.id,
   nextHref = "/quiz/itch/results/benefits",
-}: { quizId?: string; nextHref?: string } = {}) {
+  bothSides = false,
+}: {
+  quizId?: string;
+  nextHref?: string;
+  /** Friday Zoomies copy: topicals and ingestibles are both needed, opening on what she already tried. */
+  bothSides?: boolean;
+} = {}) {
   const { answers, ready } = useAnswers(quizId);
   const { t } = useBrand();
   const name = dogName(answers);
   const c = comfort(answers);
+  const tried = triedItems(answers);
 
   return (
     <ResultsShell>
@@ -59,14 +66,43 @@ export function ItchComfort({
       </Card>
 
       <div style={{ marginTop: "var(--space-8)", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          Due to an overactive histamine response, it&apos;s normal for {name} to keep
-          scratching no matter what you try.
-        </p>
-        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-          However, <strong style={{ fontWeight: 800 }}>{t("SC-01 Daily Chews")}</strong> is made
-          to calm exactly that.
-        </p>
+        {bothSides ? (
+          <>
+            {tried.length ? (
+              <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+                You&apos;ve already tried{" "}
+                {tried.length === 1 ? tried[0] : `${tried.slice(0, -1).join(", ")} and ${tried[tried.length - 1]}`}.{" "}
+                {tried.length === 1
+                  ? "It helps with part of the problem, but it doesn't cover all of it."
+                  : "Each one helps with part of the problem, but none of them cover all of it."}
+              </p>
+            ) : null}
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              Due to an overactive histamine response, it&apos;s normal for {name} to keep
+              scratching no matter what you try. Topicals like shampoos, sprays, and creams only
+              calm the skin&apos;s surface, so the itch returns as soon as they wear off.
+              Ingestibles like diet changes and supplements work on the cause, but they take weeks
+              to build, and {name} keeps scratching in the meantime.
+            </p>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              That&apos;s why <strong style={{ fontWeight: 800 }}>{t("SC-01 Daily Chews")}</strong>{" "}
+              does both. Soothing Wipes calm irritated skin right away, and the daily chew works
+              on the root cause from the inside. You need the topical for relief today and the
+              ingestible for the fix that lasts.
+            </p>
+          </>
+        ) : (
+          <>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              Due to an overactive histamine response, it&apos;s normal for {name} to keep
+              scratching no matter what you try.
+            </p>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              However, <strong style={{ fontWeight: 800 }}>{t("SC-01 Daily Chews")}</strong> is made
+              to calm exactly that.
+            </p>
+          </>
+        )}
       </div>
 
       <StickyCta>
