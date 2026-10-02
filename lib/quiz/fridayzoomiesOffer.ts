@@ -57,6 +57,10 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   })),
   howItWorks: ITCH_PLANS_CONTENT.howItWorks.map((h, n) => ({
     ...h,
+    ...(n === 1 && {
+      title: "The scratching eases off first",
+      body: "Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily chews before you judge it.",
+    }),
     illustration: `${PLANS_DIR}/${["how-chew", "how-results"][n]}.webp`,
     illustrationFit: undefined,
   })),
