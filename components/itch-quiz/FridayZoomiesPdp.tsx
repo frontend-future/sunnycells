@@ -116,8 +116,10 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
       title: "Shipping & subscription",
       body: (
         <>
-          <p>Free shipping on your first order. Your bundle ships every 4 weeks, and you can skip or cancel anytime.</p>
-          <p>50% off your first box is applied automatically at checkout: ${plan.price} for the first box, then ${plan.compareAt}.</p>
+          <p>
+            Free shipping on your first order. Your bundle ships every 4 weeks, and you can skip or cancel anytime. Questions? Email{" "}
+            <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
+          </p>
         </>
       ),
     },

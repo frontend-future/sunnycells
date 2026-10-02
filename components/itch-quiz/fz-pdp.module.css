@@ -333,6 +333,11 @@
 .accBody p {
   margin: 0;
 }
+.accBody a {
+  color: var(--cobalt);
+  font-weight: 700;
+  text-decoration: underline;
+}
 
 @media (min-width: 960px) {
   .grid {
