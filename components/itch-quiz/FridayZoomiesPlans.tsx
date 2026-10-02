@@ -31,11 +31,6 @@ const trackCheckout = () => {
   );
 };
 
-const heroCheckout = () => {
-  trackCheckout();
-  void goToCheckout();
-};
-
 /* The product block's button waits on Shopify so it can re-arm if the cart fails. */
 const goToCheckoutTracked = () => {
   trackCheckout();
@@ -60,7 +55,6 @@ export function FridayZoomiesPlans() {
       planCtaLabel="Try now"
       heroTitleClassName={`${styles.sentence} ${styles.heroTitle}`}
       heroCtaLabel="Save 50% + Free Shipping"
-      onHeroCtaClick={heroCheckout}
       heroCtaStyle={HERO_CTA}
       stickyBuyButton
       plansSection={<FridayZoomiesPdp key="pdp" onStart={goToCheckoutTracked} />}
