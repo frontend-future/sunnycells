@@ -248,8 +248,8 @@ function BrandHeading({ children }: { children: string }) {
       }}
     >
       <Wordmark size="1.35em" style={{ display: "block", marginBottom: "0.15em" }} />
-      {children.replace(/\syou$/, " ")}
-      <span style={{ fontWeight: 900 }}>you</span>
+      {children.replace(/\S+$/, "")}
+      <span style={{ fontWeight: 900 }}>{children.match(/\S+$/)?.[0]}</span>
     </h1>
   );
 }

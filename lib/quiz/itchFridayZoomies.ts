@@ -20,6 +20,7 @@ export const itchFridayZoomiesQuiz: QuizConfig = {
     s.slug === "reinforcement" && s.kind === "info"
       ? {
           ...s,
+          question: "is made for {name}",
           /* Sells the bundle as two jobs: the wipes for relief today, the chew for the
              cause. Written for this funnel only, so itch v1 keeps its own copy. */
           body: `The ${FZ_PRODUCT} works from both sides, so {name} gets relief today and a fix that lasts. Soothing Wipes calm irritated skin on contact. The daily chew works from the inside, with natural ingredients, no steroids, and a taste dogs love. Together they will:`,
