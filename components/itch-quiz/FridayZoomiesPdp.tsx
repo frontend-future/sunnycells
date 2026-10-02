@@ -47,6 +47,15 @@ const titleCase = (s: string) => s.replace(/(^|\s)(\S)/g, (_, sp: string, c: str
 
 const plan = FZ_PLANS[0];
 
+/* "October 2nd": today's date with its ordinal, read on the client so the server's
+   clock and timezone never disagree with the shopper's. */
+function todayLabel() {
+  const d = new Date();
+  const n = d.getDate();
+  const suffix = n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] ?? "th";
+  return `${d.toLocaleDateString("en-US", { month: "long" })} ${n}${suffix}`;
+}
+
 /**
  * The plans page's product block, replacing the 1, 3 and 6 month cards: gallery, price,
  * the dog's own routine card, the free gifts, one button, and the detail accordions.
@@ -162,6 +171,16 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
         </button>
 
         <div className={styles.buy}>
+          {ready ? (
+            <div className={styles.urgency}>
+              <svg className={styles.urgencyIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="8" width="18" height="4" rx="1" />
+                <path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+                <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
+              </svg>
+              <span>Order by {todayLabel()} for 50% Off With Free Gifts!</span>
+            </div>
+          ) : null}
           <div className={styles.rating}>
             <span className={styles.stars} aria-hidden="true">★★★★★</span>
             <span className={styles.rate}>4.8 · 2,140 reviews</span>
