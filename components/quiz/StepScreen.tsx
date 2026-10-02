@@ -15,6 +15,15 @@ import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
 import { QuizChrome, QuizQuestion } from "./QuizChrome";
 
+/** **bold** and __underline__ markers in a copy string, for a body that needs emphasis. */
+function emphasis(text: string) {
+  return text.split(/(\*\*.+?\*\*|__.+?__)/).map((part, i) =>
+    part.startsWith("**") ? <strong key={i} style={{ fontWeight: 800 }}>{part.slice(2, -2)}</strong>
+    : part.startsWith("__") ? <u key={i} style={{ textDecorationThickness: "0.08em", textUnderlineOffset: "0.15em" }}>{part.slice(2, -2)}</u>
+    : part,
+  );
+}
+
 /** Renders any step of any quiz. Everything it needs comes from the config. */
 export function StepScreen({ config, index }: { config: QuizConfig; index: number }) {
   const { answers, set } = useAnswers(config.id);
@@ -176,7 +185,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
             style={{ width: step.image.size ?? 420, maxWidth: "70%", height: "auto", aspectRatio: "1 / 1", borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
           />
         ) : null}
-        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", whiteSpace: "pre-line" }}>{step.body}</p>
+        <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", whiteSpace: "pre-line" }}>{emphasis(step.body)}</p>
         {step.bullets ? (
           <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
             {step.bullets.map((b, i) => (

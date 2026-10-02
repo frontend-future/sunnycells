@@ -24,12 +24,19 @@ export const itchFridayZoomiesQuiz: QuizConfig = {
           question: "is made for {name}",
           /* Sells the bundle as two jobs: the wipes for relief today, the chew for the
              cause. Written for this funnel only, so itch v1 keeps its own copy. */
-          body: `The ${FZ_PRODUCT} works from two sides, because itching has two problems: the flare-up on the skin right now, and what keeps causing it.
+          /* **bold** and __underline__ are drawn by StepScreen's info body. */
+          body: `The ${FZ_PRODUCT} works from **two sides**, because itching has two problems: the __flare-up on the skin right now__, and __what keeps causing it__.
 
-Relief today: Soothing Wipes calm irritated skin on contact, so {name} can settle down while the chews get to work.
+**Relief today:** Soothing Wipes calm irritated skin __on contact__, so {name} can settle down while the chews get to work.
 
-Fixes it at the source: The daily chew supports the skin barrier and the body's response to allergens from the inside, which is what keeps the itch from coming back. It's made from natural ingredients with no steroids, and dogs love the taste.`,
-          bullets: undefined,
+**Fixes it at the source:** The daily chew supports the skin barrier and the body's response to allergens __from the inside__, which is what keeps the itch from coming back. It's made from natural ingredients with no steroids, and dogs love the taste.
+
+Together they will:`,
+          bullets: [
+            "Calm the scratching, licking, and chewing sooner",
+            "Support healthy skin and a healthy coat for the long haul",
+            "Ease allergy irritation without steroids",
+          ],
           footnote: "Continue to see {name}'s personal results.",
         }
       : s.kind === "info"
