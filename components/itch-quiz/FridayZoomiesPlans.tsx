@@ -60,6 +60,10 @@ export function FridayZoomiesPlans() {
             sizes="(min-width: 960px) 520px, 92vw"
             style={{ width: "100%", height: "auto", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "var(--radius-card)", alignSelf: "start" }}
           />
+          <div className={styles.heroRating}>
+            <span className={styles.heroStars} aria-hidden="true">★★★★★</span>
+            <span><strong>4.8 stars</strong> · 2,140 reviews</span>
+          </div>
         </div>
       }
     />

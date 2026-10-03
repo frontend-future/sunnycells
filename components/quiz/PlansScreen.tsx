@@ -143,6 +143,7 @@ function PlansOfferBar({ content }: { content: PlansContent }) {
   return (
     <>
       <div
+        className="sc-offer-main"
         style={{
           background: "var(--sun)",
           color: "var(--ink)",
@@ -164,13 +165,15 @@ function PlansOfferBar({ content }: { content: PlansContent }) {
         </span>
       </div>
 
-      <AnnouncementMarquee
-        terms={[
-          { strong: "Free shipping", rest: "on all orders" },
-          { strong: "30 day", rest: "money back guarantee" },
-          { strong: "Skip or cancel", rest: "anytime" },
-        ]}
-      />
+      <div className="sc-offer-marquee">
+        <AnnouncementMarquee
+          terms={[
+            { strong: "Free shipping", rest: "on all orders" },
+            { strong: "30 day", rest: "money back guarantee" },
+            { strong: "Skip or cancel", rest: "anytime" },
+          ]}
+        />
+      </div>
     </>
   );
 }
@@ -236,7 +239,7 @@ export function PlansScreen({
       <PlansOfferBar content={content} />
 
       {/* Hero */}
-      <section style={{ padding: "var(--space-8) var(--page-gutter-mobile) var(--space-12)" }}>
+      <section className="sc-hero" style={{ padding: "var(--space-8) var(--page-gutter-mobile) var(--space-12)" }}>
         <div
           style={{
             maxWidth: 960,
@@ -278,10 +281,10 @@ export function PlansScreen({
                   ])
                 : content.hero.title}
             </h1>
-            <p style={{ margin: "var(--space-4) 0 var(--space-6)", fontSize: "var(--size-body-lg)", lineHeight: 1.35 }}>
+            <p className="sc-hero-lede" style={{ margin: "var(--space-4) 0 var(--space-6)", fontSize: "var(--size-body-lg)", lineHeight: 1.35 }}>
               <BrandText>{content.hero.lede}</BrandText>
             </p>
-            <ul style={{ margin: "0 0 var(--space-6)", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+            <ul className="sc-hero-points" style={{ margin: "0 0 var(--space-6)", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
               {content.hero.points.map((h) => (
                 <li key={h} style={{ display: "flex", gap: "var(--space-3)", alignItems: "center", fontSize: "var(--size-body)" }}>
                   <Tick />
@@ -306,6 +309,7 @@ export function PlansScreen({
               {/* The shipping line as a badge rather than a note under the button, so it
                   reads as a term of the offer instead of small print. */}
               <span
+                className="sc-hero-ship"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
