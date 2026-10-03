@@ -74,15 +74,28 @@ export const FZ_PLANS_CONTENT: PlansContent = {
     ...i,
     image: `${PLANS_DIR}/${{ quercetin: "ing-quercetin", omega3: "ing-omega3", "zinc-e": "ing-zinc-e", probiotics: "ing-probiotic" }[i.slug]}.webp`,
   })),
-  howItWorks: ITCH_PLANS_CONTENT.howItWorks.map((h, n) => ({
-    ...h,
-    ...(n === 1 && {
-      title: "The scratching eases off first",
-      body: "Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily chews before you judge it.",
-    }),
-    illustration: `${PLANS_DIR}/${["how-chew", "how-results"][n]}.webp`,
-    illustrationFit: undefined,
-  })),
+  /* Spray first for relief today, the chew for the cause, then the result. The chew
+     dose depends on the dog's weight, so the copy points at the label, not a number. */
+  howItWorks: [
+    {
+      img: "step-spray",
+      title: "Spray for quick relief",
+      body: "Spritz the Itch Spray on any itchy or irritated spot. It calms the skin right away, so your dog can settle down while the chews get to work.",
+      illustration: `${PLANS_DIR}/how-spray.webp`,
+    },
+    {
+      img: "step-chew",
+      title: "Give the daily chew for lasting relief",
+      body: "Give the daily chew amount for your dog's weight, with or without food. It works on the root cause from the inside, so it takes a few weeks to build.",
+      illustration: `${PLANS_DIR}/how-chew.webp`,
+    },
+    {
+      img: "step-results",
+      title: "Enjoy lasting relief",
+      body: "Most dogs scratch less by week two. As the chews keep working, skin and coat keep improving, and the itching stops for good.",
+      illustration: `${PLANS_DIR}/how-results.webp`,
+    },
+  ],
   ingredientsTitle: swap(ITCH_PLANS_CONTENT.ingredientsTitle),
   faqs: ITCH_PLANS_CONTENT.faqs.map((f) => ({ title: swap(f.title), body: swap(f.body) })),
   accent: { bg: "var(--sun)", press: "var(--sun-press)" },

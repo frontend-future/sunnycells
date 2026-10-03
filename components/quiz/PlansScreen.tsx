@@ -705,7 +705,7 @@ export function PlansScreen({
 
       {/* How it works */}
       <Section title="How does it work?">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: 720, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: content.howItWorks.length > 2 ? 1000 : 720, margin: "0 auto" }}>
           {content.howItWorks.map((s) => (
             <div key={s.img} style={{ textAlign: "center" }}>
               <Image
