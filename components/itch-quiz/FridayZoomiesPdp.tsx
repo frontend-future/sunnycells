@@ -15,10 +15,12 @@ const DIR = "/quiz/fridayzoomies";
 
 const IMAGES = [
   { src: `${DIR}/hero-freebies-spray-5.webp`, alt: "The daily chew jar plus free gifts: the itch spray, a USA bandana, a mystery gift and free shipping" },
-  { src: `${DIR}/gift-spray.webp`, alt: "Free itch spray" },
-  { src: `${DIR}/gift-bandana.webp`, alt: "Free USA bandana" },
-  { src: `${DIR}/gift-mystery.webp`, alt: "Free mystery gift" },
-  { src: `${DIR}/gift-shipping.webp`, alt: "Free shipping" },
+  { src: `${DIR}/pdp/instant-relief.webp`, alt: "The itch spray: instant relief that soothes on contact, calms the scratch cycle and gives skin time to heal" },
+  { src: `${DIR}/pdp/long-lasting-relief.webp`, alt: "The daily chew: long-lasting relief that treats the root cause, not just the symptoms" },
+  { src: `${DIR}/pdp/what-to-expect.webp`, alt: "What to expect: immediate relief on day 1, less itching and spraying by day 14, calmer skin by day 30" },
+  { src: `${DIR}/pdp/vet-spray.webp`, alt: "A veterinarian on the itch spray's chlorhexidine and aloe vera" },
+  { src: `${DIR}/pdp/vet-chew.webp`, alt: "A veterinarian on the daily chew's quercetin and omega-3s" },
+  { src: `${DIR}/pdp/guarantee.webp`, alt: "90-day guarantee: if the itching hasn't improved, a full refund" },
 ];
 
 const GIFTS = [
