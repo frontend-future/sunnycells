@@ -129,6 +129,16 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
         </>
       ),
     },
+    {
+      id: "guarantee",
+      title: "90-day guarantee",
+      body: (
+        <p>
+          Try the bundle for 90 days. If your dog's itching hasn't improved, email{" "}
+          <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a> and we'll refund your order.
+        </p>
+      ),
+    },
   ];
 
   return (
