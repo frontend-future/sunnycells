@@ -155,8 +155,8 @@
     display: none;
   }
   .theme :global(.sc-hero-points) {
-    margin: 16px 0 20px !important;
-    gap: 9px !important;
+    margin: 18px 0 22px !important;
+    gap: 14px !important;
   }
   .theme :global(.sc-hero-assurance) {
     margin-top: 4px;
@@ -184,5 +184,9 @@
 @media (max-width: 720px) and (max-height: 700px) {
   .heroMedia img {
     aspect-ratio: 16 / 9 !important;
+  }
+  .theme :global(.sc-hero-points) {
+    margin: 14px 0 18px !important;
+    gap: 10px !important;
   }
 }
