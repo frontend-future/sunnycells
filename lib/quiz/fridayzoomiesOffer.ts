@@ -66,10 +66,14 @@ export const FZ_PLANS_CONTENT: PlansContent = {
     illustration: `${PLANS_DIR}/${{ "less-itching": "pillar-itch", "healthier-coat": "pillar-coat", "fewer-hot-spots": "pillar-spots" }[p.slug]}.webp`,
     illustrationFit: undefined,
   })),
-  reviews: ITCH_PLANS_CONTENT.reviews.map((r) => ({
-    ...r,
-    photo: `${PLANS_DIR}/${{ "Sarah T.": "rev-cooper", "Marcus D.": "rev-marcus", "Priya N.": "rev-priya", "Ellie B.": "rev-ellie" }[r.name]}.webp`,
-  })),
+  /* Four different dogs in four different, ordinary places, shot to look like quick phone
+     photos rather than a set. The names and photos are placeholders, like the rest. */
+  reviews: [
+    { name: "Jenna R.", photo: `${PLANS_DIR}/rev-jenna.webp`, title: "Biscuit finally stopped scratching", body: ITCH_PLANS_CONTENT.reviews[0].body },
+    { name: "Dave M.", photo: `${PLANS_DIR}/rev-dave.webp`, title: "No more hot spots", body: ITCH_PLANS_CONTENT.reviews[1].body },
+    { name: "Aaliyah P.", photo: `${PLANS_DIR}/rev-aaliyah.webp`, title: "Coat looks so much better", body: ITCH_PLANS_CONTENT.reviews[2].body },
+    { name: "Lisa K.", photo: `${PLANS_DIR}/rev-lisa.webp`, title: "Worth it for the sleep alone", body: ITCH_PLANS_CONTENT.reviews[3].body },
+  ],
   ingredients: ITCH_PLANS_CONTENT.ingredients.map((i) => ({
     ...i,
     image: `${PLANS_DIR}/${{ quercetin: "ing-quercetin", omega3: "ing-omega3", "zinc-e": "ing-zinc-e", probiotics: "ing-probiotic" }[i.slug]}.webp`,
