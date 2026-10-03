@@ -162,7 +162,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
     },
     {
       id: "guarantee",
-      title: "90-day guarantee",
+      title: "Our 90-day Guarantee",
       body: (
         <p>
           Try the bundle for 90 days. If your dog's itching hasn't improved, email{" "}
