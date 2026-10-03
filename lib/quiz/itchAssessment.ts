@@ -85,6 +85,8 @@ export type Comfort = { now: number; after: number };
 const TRIED: Record<string, string> = {
   "Flea and tick prevention": "flea and tick prevention",
   "Special shampoo": "a special shampoo",
+  "Anti-itch spray or cream": "an anti-itch spray or cream",
+  "Supplement or chew": "a supplement or chew",
   "Diet change": "a diet change",
   "Vet visit or medication": "a vet visit or medication",
 };

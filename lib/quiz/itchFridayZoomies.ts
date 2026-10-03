@@ -39,6 +39,21 @@ Together they will:`,
           ],
           footnote: "Continue to see {name}'s personal results.",
         }
+      : s.slug === "tried-before" && s.kind === "multi"
+      ? {
+          ...s,
+          /* Adds the two things the bundle's argument turns on: a spray or cream (relief that
+             only treats the surface) and a supplement or chew (the cause, but slow). */
+          options: [
+            "Flea and tick prevention",
+            "Special shampoo",
+            "Anti-itch spray or cream",
+            "Diet change",
+            "Supplement or chew",
+            "Vet visit or medication",
+            "Nothing yet",
+          ],
+        }
       : s.kind === "info"
       ? { ...s, body: renameProduct(s.body, FZ_PRODUCT).replace("daily multivitamin", "daily chew"), footnote: s.footnote && renameProduct(s.footnote, FZ_PRODUCT) }
       : s,
