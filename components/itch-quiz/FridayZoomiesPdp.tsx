@@ -22,7 +22,7 @@ const IMAGES = [
 ];
 
 const GIFTS = [
-  { src: `${DIR}/gift-wipes.webp`, name: "Itch wipes" },
+  { src: `${DIR}/gift-spray.webp`, name: "Itch spray" },
   { src: `${DIR}/gift-bandana.webp`, name: "USA bandana" },
   { src: `${DIR}/gift-mystery.webp`, name: "Mystery gift" },
   { src: `${DIR}/gift-shipping.webp`, name: "Free shipping" },
