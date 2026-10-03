@@ -90,7 +90,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
       body: (
         <>
           <p>Itching has two problems: the flare-up on the skin right now, and what keeps causing it.</p>
-          <p>Soothing Wipes calm irritated skin on contact. The daily chew calms the histamine response from the inside, which is what keeps the itch from coming back.</p>
+          <p>The Itch Spray calms irritated skin on contact. The daily chew calms the histamine response from the inside, which is what keeps the itch from coming back.</p>
         </>
       ),
     },
@@ -112,7 +112,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
       title: "How to use",
       body: (
         <>
-          <p>Give 1 chew daily, with or without food. Use the Soothing Wipes on irritated skin for relief between chews.</p>
+          <p>Give 1 chew daily, with or without food. Spritz the Itch Spray on irritated skin for relief between chews.</p>
           <p>Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily chews before you judge it.</p>
         </>
       ),

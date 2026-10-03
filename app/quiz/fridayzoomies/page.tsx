@@ -58,8 +58,8 @@ export default function FridayZoomiesLandingPage() {
               product reads as the answer to the hook before a question is asked. */}
           <div style={{ maxWidth: "min(320px, calc(27dvh + max(0px, 100dvh - 740px) * 0.25))", margin: "var(--space-2) auto 0", paddingBottom: "var(--space-3)" }}>
             <Image
-              src="/quiz/fridayzoomies/hero-freebies.webp"
-              alt={`${FZ_PRODUCT_NAME} jar plus free gifts: soothing wipes, a USA bandana, a mystery gift and free shipping`}
+              src="/quiz/fridayzoomies/hero-freebies-spray-5.webp"
+              alt={`${FZ_PRODUCT_NAME} jar plus free gifts: the itch spray, a USA bandana, a mystery gift and free shipping`}
               width={1000}
               height={1000}
               priority

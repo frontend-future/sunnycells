@@ -38,14 +38,14 @@ const swap = (s: string) => renameProduct(s, FZ_PRODUCT_NAME);
 export const FZ_PLANS_CONTENT: PlansContent = {
   ...ITCH_PLANS_CONTENT,
   productName: FZ_PRODUCT_NAME,
-  /* The hero sells the bundle as two jobs, the wipes for relief today and the chew for
+  /* The hero sells the bundle as two jobs, the spray for relief today and the chew for
      the cause. **bold** in a point is drawn by PlansScreen. */
   hero: {
     ...ITCH_PLANS_CONTENT.hero,
     underline: "for good",
-    lede: "Soothing Wipes calm irritated skin right away. The daily chew works from the inside on the histamine response behind your dog's scratching, licking, and skin irritation.",
+    lede: "The Itch Spray calms irritated skin right away. The daily chew works from the inside on the histamine response behind your dog's scratching, licking, and skin irritation.",
     points: [
-      "**Relief today:** wipes calm irritated skin on contact",
+      "**Relief today:** the spray calms irritated skin on contact",
       "**Fixes it at the source:** the chew calms the histamine response from the inside",
       "**Supports healthy skin and a healthy coat** for the long haul",
     ],

@@ -30,7 +30,7 @@ export function ItchProjection({
 }: {
   quizId?: string;
   nextHref?: string;
-  /** Friday Zoomies copy: "greatly relieve" headline and a two-sided (wipes + chew) explanation, in place of the High to Low framing. */
+  /** Friday Zoomies copy: "greatly relieve" headline and a two-sided (spray + chew) explanation, in place of the High to Low framing. */
   greatlyReduced?: boolean;
 } = {}) {
   const { answers, ready } = useAnswers(quizId);
@@ -88,13 +88,13 @@ export function ItchProjection({
           <>
             <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
               Breaking that cycle takes two things. The daily chew calms the histamine response
-              from the inside, which is what keeps the itch from coming back. Soothing Wipes
-              calm irritated skin on contact, so {name} stops scratching sooner and the skin gets
+              from the inside, which is what keeps the itch from coming back. The Itch Spray
+              calms irritated skin on contact, so {name} stops scratching sooner and the skin gets
               a chance to heal.
             </p>
             <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
               When you start giving {name} {t("SC-01 Daily Chews")}, <strong>we estimate their itching
-              will be greatly reduced within the first 2 weeks.</strong> The wipes ease flare-ups
+              will be greatly reduced within the first 2 weeks.</strong> The spray eases flare-ups
               immediately, and the chews resolve the issue at the source. We matched this
               against dogs with a similar profile (size, age, and current scratching frequency).
             </p>

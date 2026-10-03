@@ -86,7 +86,7 @@ export function ItchComfort({
             </p>
             <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
               That&apos;s why <strong style={{ fontWeight: 800 }}>{t("SC-01 Daily Chews")}</strong>{" "}
-              does both. Soothing Wipes calm irritated skin right away, and the daily chew works
+              does both. The Itch Spray calms irritated skin right away, and the daily chew works
               on the root cause from the inside. You need the topical for relief today and the
               ingestible for the fix that lasts.
             </p>

@@ -11,7 +11,8 @@ const ENDPOINT = "https://fridayzoomies.myshopify.com/api/2026-07/graphql.json";
 const STOREFRONT_TOKEN = "aa048768e839f6c468c7d0cee13c3c0f";
 const LINES = [
   /* The freebies: $0 one-time products with no selling plan, so they ride along in the
-     same cart. Soothing Wipes, Mystery Gift, Fast USA Shipping, Bandana. */
+     same cart. Itch spray, Mystery Gift, Fast USA Shipping, Bandana. The first line is still the
+     Soothing Wipes variant until the spray product exists in Shopify. */
   { merchandiseId: "gid://shopify/ProductVariant/50538941612102", quantity: 1 },
   { merchandiseId: "gid://shopify/ProductVariant/50538860150854", quantity: 1 },
   { merchandiseId: "gid://shopify/ProductVariant/50538818535494", quantity: 1 },
