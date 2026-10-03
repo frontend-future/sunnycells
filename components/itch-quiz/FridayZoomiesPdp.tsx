@@ -14,7 +14,7 @@ import styles from "./fz-pdp.module.css";
 const DIR = "/quiz/fridayzoomies";
 
 const IMAGES = [
-  { src: `${DIR}/hero-freebies-spray.webp`, alt: "The daily chew jar plus free gifts: the itch spray, a USA bandana, a mystery gift and free shipping" },
+  { src: `${DIR}/hero-freebies-spray-2.webp`, alt: "The daily chew jar plus free gifts: the itch spray, a USA bandana, a mystery gift and free shipping" },
   { src: `${DIR}/gift-wipes.webp`, alt: "Free soothing wipes" },
   { src: `${DIR}/gift-bandana.webp`, alt: "Free USA bandana" },
   { src: `${DIR}/gift-mystery.webp`, alt: "Free mystery gift" },
