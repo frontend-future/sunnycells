@@ -133,7 +133,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: 14px;
     font: 600 14px/1 var(--font-text), "Figtree", sans-serif;
     color: var(--midnight);
   }
@@ -155,8 +155,11 @@
     display: none;
   }
   .theme :global(.sc-hero-points) {
-    margin: 12px 0 16px !important;
-    gap: 7px !important;
+    margin: 16px 0 20px !important;
+    gap: 9px !important;
+  }
+  .theme :global(.sc-hero-assurance) {
+    margin-top: 4px;
   }
   .theme :global(.sc-hero-points) li {
     font-size: clamp(16px, 4.7vw, 20px) !important;
