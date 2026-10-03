@@ -169,7 +169,7 @@ function PlansOfferBar({ content }: { content: PlansContent }) {
         <AnnouncementMarquee
           terms={[
             { strong: "Free shipping", rest: "on all orders" },
-            { strong: "30 day", rest: "money back guarantee" },
+            { strong: content.guaranteeLength ?? "30 day", rest: "money back guarantee" },
             { strong: "Skip or cancel", rest: "anytime" },
           ]}
         />

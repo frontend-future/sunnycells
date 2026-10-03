@@ -38,6 +38,10 @@ const swap = (s: string) => renameProduct(s, FZ_PRODUCT_NAME);
 export const FZ_PLANS_CONTENT: PlansContent = {
   ...ITCH_PLANS_CONTENT,
   productName: FZ_PRODUCT_NAME,
+  /* One standing 50% offer and a 90 day guarantee, matching the plans block below. */
+  offer: { ...ITCH_PLANS_CONTENT.offer, badge: "up to 50% off" },
+  guaranteeLength: "90 day",
+  comparison: ITCH_PLANS_CONTENT.comparison.map((c) => c.replace("30 day", "90 day")),
   /* The hero sells the bundle as two jobs, the spray for relief today and the chew for
      the cause. **bold** in a point is drawn by PlansScreen. */
   hero: {
