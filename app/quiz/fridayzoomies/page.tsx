@@ -8,7 +8,6 @@ import { StartChoice } from "@/components/quiz/StartChoice";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { RATING } from "@/lib/products/dog-itch";
 import styles from "./theme.module.css";
-import { FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 
 export const metadata: Metadata = {
   title: "Dog itch quiz",
@@ -58,8 +57,8 @@ export default function FridayZoomiesLandingPage() {
               product reads as the answer to the hook before a question is asked. */}
           <div style={{ maxWidth: "min(320px, calc(27dvh + max(0px, 100dvh - 740px) * 0.25))", margin: "var(--space-2) auto 0", paddingBottom: "var(--space-3)" }}>
             <Image
-              src="/quiz/fridayzoomies/hero-freebies-spray-5.webp"
-              alt={`${FZ_PRODUCT_NAME} jar plus free gifts: the itch spray, a USA bandana, a mystery gift and free shipping`}
+              src="/quiz/fridayzoomies/hero-chew-spray.webp"
+              alt="A fluffy white Great Pyrenees lying in the grass next to Friday Zoomies daily chews and itch spray"
               width={1000}
               height={1000}
               priority
