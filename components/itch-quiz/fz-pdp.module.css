@@ -517,3 +517,27 @@
   .vetLong { display: none; }
   .vetShort { display: inline; }
 }
+
+.ingTabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 0 14px;
+  padding: 4px;
+  border: 1.5px solid #C9CCD3;
+  border-radius: 999px;
+}
+.ingTab {
+  flex: 1;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: 800 16px/1 inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+.ingTabOn {
+  background: var(--midnight);
+  color: #fff;
+}

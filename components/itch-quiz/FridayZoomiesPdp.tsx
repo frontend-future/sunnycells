@@ -57,6 +57,43 @@ function todayLabel() {
   return `${d.toLocaleDateString("en-US", { month: "long" })} ${n}${suffix}`;
 }
 
+/** Chew ingredients first, with a toggle to the Itch Spray's. */
+function IngredientsTabs() {
+  const [tab, setTab] = useState<"chew" | "spray">("chew");
+  return (
+    <>
+      <div className={styles.ingTabs} role="tablist" aria-label="Product">
+        {(["chew", "spray"] as const).map((k) => (
+          <button
+            key={k}
+            type="button"
+            role="tab"
+            aria-selected={tab === k}
+            className={`${styles.ingTab} ${tab === k ? styles.ingTabOn : ""}`}
+            onClick={() => setTab(k)}
+          >
+            {k === "chew" ? "Daily Chew" : "Itch Spray"}
+          </button>
+        ))}
+      </div>
+      {tab === "chew" ? (
+        INGREDIENTS.map((i) => (
+          <p key={i.key}>
+            <strong>{i.name} ({i.dose}).</strong> {i.copy}
+          </p>
+        ))
+      ) : (
+        <>
+          <p><strong>Chlorhexidine Gluconate (0.5%).</strong> The active ingredient. Disinfects and deodorizes irritated skin.</p>
+          <p><strong>Keratin.</strong> Supports the natural protective layer of the coat.</p>
+          <p><strong>Aloe Vera.</strong> Restores moisture to dry, irritated skin.</p>
+          <p style={{ fontSize: "0.85em" }}>Other ingredients: Purified Water, Glycerin USP, Polysorbate 20, Fragrance.</p>
+        </>
+      )}
+    </>
+  );
+}
+
 /**
  * The plans page's product block, replacing the 1, 3 and 6 month cards: gallery, price,
  * the dog's own routine card, the free gifts, one button, and the detail accordions.
@@ -98,13 +135,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
       id: "ingredients",
       title: "Ingredients",
       body: (
-        <>
-          {INGREDIENTS.map((i) => (
-            <p key={i.key}>
-              <strong>{i.name} ({i.dose}).</strong> {i.copy}
-            </p>
-          ))}
-        </>
+        <IngredientsTabs />
       ),
     },
     {
