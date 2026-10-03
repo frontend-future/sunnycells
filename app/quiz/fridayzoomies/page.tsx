@@ -55,7 +55,7 @@ export default function FridayZoomiesLandingPage() {
           <Wordmark size={24} style={{ display: "block", margin: "0 auto" }} />
           {/* The jar's own sky blue ground sits straight on the page's sky panel, so the
               product reads as the answer to the hook before a question is asked. */}
-          <div style={{ maxWidth: "min(320px, calc(27dvh + max(0px, 100dvh - 740px) * 0.25))", margin: "var(--space-2) auto 0", paddingBottom: "var(--space-3)" }}>
+          <div style={{ maxWidth: "min(320px, calc(25.5dvh + max(0px, 100dvh - 740px) * 0.25))", margin: "var(--space-4) auto 0", paddingBottom: "var(--space-3)" }}>
             <Image
               src="/quiz/fridayzoomies/hero-chew-spray.webp"
               alt="A fluffy white Great Pyrenees lying in the grass next to Friday Zoomies daily chews and itch spray"
