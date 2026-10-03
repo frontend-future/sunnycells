@@ -79,19 +79,19 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   howItWorks: [
     {
       img: "step-spray",
-      title: "Spray for quick relief",
+      title: "1. Spray for quick relief",
       body: "Spritz the Itch Spray on any itchy or irritated spot. It calms the skin right away, so your dog can settle down while the chews get to work.",
       illustration: `${PLANS_DIR}/how-spray.webp`,
     },
     {
       img: "step-chew",
-      title: "Give the daily chew for lasting relief",
+      title: "2. Give the daily chew for lasting relief",
       body: "Give the daily chew amount for your dog's weight, with or without food. It works on the root cause from the inside, so it takes a few weeks to build.",
       illustration: `${PLANS_DIR}/how-chew.webp`,
     },
     {
       img: "step-results",
-      title: "Enjoy lasting relief",
+      title: "3. Enjoy lasting relief",
       body: "Most dogs scratch less by week two. As the chews keep working, skin and coat keep improving, and the itching stops for good.",
       illustration: `${PLANS_DIR}/how-results.webp`,
     },
