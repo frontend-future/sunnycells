@@ -118,9 +118,6 @@
   .theme :global(.sc-offer-main) > span {
     gap: 8px !important;
   }
-  .theme :global(.sc-offer-marquee) {
-    display: none;
-  }
   .theme :global(.sc-hero) {
     padding: 12px 16px 28px !important;
   }
@@ -174,9 +171,9 @@
   }
 }
 
-/* Short phones (SE size) get a wider, shorter photo so the button still clears the fold. */
+/* Short phones (SE size) get a wider, shorter photo so the button still clears the fold with the strip back. */
 @media (max-width: 720px) and (max-height: 700px) {
   .heroMedia img {
-    aspect-ratio: 3 / 2 !important;
+    aspect-ratio: 16 / 9 !important;
   }
 }
