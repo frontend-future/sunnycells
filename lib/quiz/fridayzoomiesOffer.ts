@@ -39,10 +39,16 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   ...ITCH_PLANS_CONTENT,
   productName: FZ_PRODUCT_NAME,
   /* One standing 50% offer and a 90 day guarantee, matching the plans block below. */
-  offer: { ...ITCH_PLANS_CONTENT.offer, badge: "up to 50% off" },
+  offer: { ...ITCH_PLANS_CONTENT.offer, badge: "up to 50% off", countdown: false },
+  shippingTerm: "on your first order",
   guaranteeLength: "90 day",
   heroAssurance: { text: "Try It Risk-Free For 90 Days", underlined: "Risk-Free For 90 Days" },
-  comparison: ITCH_PLANS_CONTENT.comparison.map((c) => c.replace("30 day", "90 day")),
+  comparison: ITCH_PLANS_CONTENT.comparison.map((c) =>
+    c
+      .replace("30 day", "90 day")
+      .replace("Four research-backed actives", "Five research-backed actives")
+      .replace("Free shipping on every order", "Free shipping on your first order"),
+  ),
   /* The hero sells the bundle as two jobs, the spray for relief today and the chew for
      the cause. No lede: three short proof points under the headline. **bold** in a point is drawn by PlansScreen. */
   hero: {
@@ -106,7 +112,13 @@ export const FZ_PLANS_CONTENT: PlansContent = {
     },
   ],
   ingredientsTitle: swap(ITCH_PLANS_CONTENT.ingredientsTitle),
-  faqs: ITCH_PLANS_CONTENT.faqs.map((f) => ({ title: swap(f.title), body: swap(f.body) })),
+  faqs: ITCH_PLANS_CONTENT.faqs.map((f) => ({
+    title: swap(f.title),
+    /* The label prints five actives (zinc and vitamin E are separate lines), not four. */
+    body: f.title.startsWith("What is the formulation")
+      ? "Five active ingredients in the chew (Quercetin, Omega-3 Fish Oil, Zinc, Vitamin E, Probiotic Blend), each printed with its dose rather than hidden inside a proprietary blend."
+      : swap(f.body),
+  })),
   accent: { bg: "var(--sun)", press: "var(--sun-press)" },
 };
 

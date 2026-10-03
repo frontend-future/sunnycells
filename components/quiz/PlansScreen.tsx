@@ -168,7 +168,7 @@ function PlansOfferBar({ content }: { content: PlansContent }) {
       <div className="sc-offer-marquee">
         <AnnouncementMarquee
           terms={[
-            { strong: "Free shipping", rest: "on all orders" },
+            { strong: "Free shipping", rest: content.shippingTerm ?? "on all orders" },
             { strong: content.guaranteeLength ?? "30 day", rest: "money back guarantee" },
             { strong: "Skip or cancel", rest: "anytime" },
           ]}
@@ -882,7 +882,8 @@ export function PlansScreen({
               />
               <h3 style={{ margin: "var(--space-4) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800 }}>{t.title}</h3>
               <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.5 }}>
-                <BrandText>{t.body}</BrandText>
+                {/* A themed brand has no wordmark to draw, so its name goes in as plain text. */}
+                {brandName === "SUNNYCELLS" ? <BrandText>{t.body}</BrandText> : t.body.replace("SUNNYCELLS", brandName)}
               </p>
             </div>
           ))}

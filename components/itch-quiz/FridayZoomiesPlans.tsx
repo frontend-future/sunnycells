@@ -2,6 +2,7 @@
 
 import { PlansScreen } from "@/components/quiz/PlansScreen";
 import Image from "next/image";
+import { RATING } from "@/lib/products/dog-itch";
 import styles from "@/app/quiz/fridayzoomies/theme.module.css";
 import { FridayZoomiesPdp } from "@/components/itch-quiz/FridayZoomiesPdp";
 import { FZ_PLANS, FZ_PLANS_CONTENT, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
@@ -62,7 +63,7 @@ export function FridayZoomiesPlans() {
           />
           <div className={styles.heroRating}>
             <span className={styles.heroStars} aria-hidden="true">★★★★★</span>
-            <span><strong>4.8 stars</strong> · 2,140 reviews</span>
+            <span><strong>{RATING.score} stars</strong> · {RATING.count} reviews</span>
           </div>
         </div>
       }

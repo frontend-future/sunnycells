@@ -32,8 +32,8 @@ export default function FridayZoomiesLandingPage() {
     <>
       <AnnouncementMarquee
         terms={[
-          { strong: "Free shipping", rest: "on all orders" },
-          { strong: "30 day", rest: "money back guarantee" },
+          { strong: "Free shipping", rest: "on your first order" },
+          { strong: "90 day", rest: "money back guarantee" },
           { strong: "Skip or cancel", rest: "anytime" },
         ]}
       />

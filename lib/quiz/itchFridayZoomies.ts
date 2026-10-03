@@ -54,6 +54,8 @@ Together they will:`,
             "Nothing yet",
           ],
         }
+      : s.slug === "email" && s.kind === "email"
+      ? { ...s, badge: "Sale up to 50% off" }
       : s.kind === "info"
       ? { ...s, body: renameProduct(s.body, FZ_PRODUCT).replace("daily multivitamin", "daily chew"), footnote: s.footnote && renameProduct(s.footnote, FZ_PRODUCT) }
       : s,

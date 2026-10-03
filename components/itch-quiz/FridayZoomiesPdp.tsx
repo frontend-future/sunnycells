@@ -5,7 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { FridayZoomiesLabelDrawer } from "@/components/itch-quiz/FridayZoomiesLabelDrawer";
-import { INGREDIENTS } from "@/lib/products/dog-itch";
+import { INGREDIENTS, RATING } from "@/lib/products/dog-itch";
 import { FZ_PLANS, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
@@ -234,7 +234,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
           ) : null}
           <div className={styles.rating}>
             <span className={styles.stars} aria-hidden="true">★★★★★</span>
-            <span className={styles.rate}>4.8 · 2,140 reviews</span>
+            <span className={styles.rate}>{RATING.score} · {RATING.count} reviews</span>
           </div>
           <h2 className={styles.title}>{FZ_PRODUCT_NAME}</h2>
           <div className={styles.priceRow}>
