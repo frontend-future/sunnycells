@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/core/Icon";
 import { PRODUCT } from "@/lib/products/dog-itch";
 import styles from "./fz-label.module.css";
@@ -15,9 +15,13 @@ const ROWS = [
   ["Probiotic Blend", "1 billion CFU"],
 ];
 
+/* Spray panel. Chlorhexidine is the active; the rest are the base, in descending order by weight. */
+const SPRAY_BASE = "Purified Water, Glycerin USP, Polysorbate 20, Fragrance";
+
 /** The Supplement Facts panel, opened from "View Nutrition Label". */
 export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [tab, setTab] = useState<"chew" | "spray">("chew");
 
   /* Locks the page behind it, closes on Escape, and hands focus back to whatever
      opened it. */
@@ -45,7 +49,50 @@ export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
             <Icon name="x" size={24} />
           </button>
         </div>
+        <div className={styles.tabs} role="tablist" aria-label="Product">
+          {(["chew", "spray"] as const).map((k) => (
+            <button
+              key={k}
+              type="button"
+              role="tab"
+              aria-selected={tab === k}
+              className={`${styles.tab} ${tab === k ? styles.tabOn : ""}`}
+              onClick={() => setTab(k)}
+            >
+              {k === "chew" ? "Daily Chew" : "Itch Spray"}
+            </button>
+          ))}
+        </div>
         <div className={styles.scroll}>
+          {tab === "spray" ? (
+            <>
+              <h3 className={styles.title}>Product Facts</h3>
+              <div className={styles.bar}>
+                <span>Active Ingredient</span>
+                <span>Amount</span>
+              </div>
+              <table className={styles.table}>
+                <tbody>
+                  <tr><td>Chlorhexidine Gluconate</td><td>0.5%</td></tr>
+                </tbody>
+              </table>
+              <div className={styles.bar}>
+                <span>Key Ingredients</span>
+              </div>
+              <table className={styles.table}>
+                <tbody>
+                  <tr><td>Keratin</td><td>Supports the hair&apos;s protective layer</td></tr>
+                  <tr><td>Aloe Vera</td><td>Restores moisture</td></tr>
+                </tbody>
+              </table>
+              <ul className={styles.notes}>
+                <li><strong>Other ingredients:</strong> {SPRAY_BASE}.</li>
+                <li>For topical use on dogs only. Do not let your dog lick the area until it is dry.</li>
+                <li>Avoid contact with eyes. If irritation occurs, stop use and ask your vet.</li>
+              </ul>
+            </>
+          ) : (
+            <>
           <h3 className={styles.title}>Supplement Facts</h3>
           <div className={styles.serving}>
             <span><strong>Serving Size:</strong> {PRODUCT.chewsPerServing} Soft Chew</span>
@@ -71,6 +118,8 @@ export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
             <li>No corn, wheat, or soy.</li>
             <li>Give 1 chew daily. Ask your vet before giving more than the labeled amount.</li>
           </ul>
+            </>
+          )}
         </div>
       </div>
     </>
