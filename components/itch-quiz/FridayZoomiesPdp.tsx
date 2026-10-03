@@ -205,7 +205,8 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
                 <Image key={f} src={`${DIR}/${f}.webp`} alt="" width={80} height={80} />
               ))}
             </span>
-            Veterinarian recommended ingredients
+            <span className={styles.vetLong}>Veterinarian recommended ingredients</span>
+            <span className={styles.vetShort}>Vet-recommended ingredients</span>
           </div>
           <hr className={styles.rule} />
 
