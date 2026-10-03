@@ -50,16 +50,17 @@ export function FridayZoomiesPlans() {
       stickyBuyButton
       plansSection={<FridayZoomiesPdp key="pdp" onStart={goToCheckoutTracked} />}
       heroMedia={
-        <Image
-          key="hero-photo"
-          src="/quiz/fridayzoomies/hero-pyrenees.webp"
-          alt="A fluffy white Great Pyrenees lying in the grass, sniffing a tub of Friday Zoomies daily chews"
-          width={1000}
-          height={1000}
-          priority
-          sizes="(min-width: 960px) 520px, 92vw"
-          style={{ width: "100%", height: "auto", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "var(--radius-card)", alignSelf: "start" }}
-        />
+        <div key="hero-photo" className={styles.heroMedia}>
+          <Image
+            src="/quiz/fridayzoomies/hero-pyrenees.webp"
+            alt="A fluffy white Great Pyrenees lying in the grass, sniffing a tub of Friday Zoomies daily chews"
+            width={1000}
+            height={1000}
+            priority
+            sizes="(min-width: 960px) 520px, 92vw"
+            style={{ width: "100%", height: "auto", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "var(--radius-card)", alignSelf: "start" }}
+          />
+        </div>
       }
     />
   );

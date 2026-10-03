@@ -88,3 +88,14 @@
   letter-spacing: -0.04em !important;
   font-weight: 800 !important;
 }
+
+/* On a phone the hero photo leads, above the headline. From the width where the hero
+   splits into two columns it goes back to sitting beside the text. */
+.heroMedia {
+  order: -1;
+}
+@media (min-width: 952px) {
+  .heroMedia {
+    order: 0;
+  }
+}
