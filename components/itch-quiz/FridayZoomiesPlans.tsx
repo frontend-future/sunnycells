@@ -52,8 +52,8 @@ export function FridayZoomiesPlans() {
       heroMedia={
         <div key="hero-photo" className={styles.heroMedia}>
           <Image
-            src="/quiz/fridayzoomies/hero-pyrenees.webp"
-            alt="A fluffy white Great Pyrenees lying in the grass, sniffing a tub of Friday Zoomies daily chews"
+            src="/quiz/fridayzoomies/hero-chew-spray.webp"
+            alt="A fluffy white Great Pyrenees lying in the grass next to Friday Zoomies daily chews and itch spray"
             width={1000}
             height={1000}
             priority
