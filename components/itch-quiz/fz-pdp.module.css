@@ -56,6 +56,7 @@
   object-fit: cover;
 }
 .main {
+  touch-action: pan-y;
   grid-area: main;
   position: relative;
   aspect-ratio: 1 / 1;

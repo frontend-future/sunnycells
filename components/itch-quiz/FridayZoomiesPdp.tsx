@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { FridayZoomiesLabelDrawer } from "@/components/itch-quiz/FridayZoomiesLabelDrawer";
@@ -108,6 +108,7 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
   const name = answers["dog-name"]?.trim();
   const size = answers["dog-size"]?.trim();
   const [at, setAt] = useState(0);
+  const touchX = useRef<number | null>(null);
   const [open, setOpen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [labelOpen, setLabelOpen] = useState(false);
@@ -196,7 +197,17 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
           ))}
         </div>
 
-        <div className={styles.main}>
+        <div
+          className={styles.main}
+          onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+          onTouchEnd={(e) => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            touchX.current = null;
+            /* A horizontal drag of 40px or more steps one image; shorter ones are taps or scrolls. */
+            if (Math.abs(dx) >= 40) setAt((n) => Math.min(IMAGES.length - 1, Math.max(0, n + (dx < 0 ? 1 : -1))));
+          }}
+        >
           <Image key={IMAGES[at].src} src={IMAGES[at].src} alt={IMAGES[at].alt} width={900} height={900} priority={at === 0} sizes="(min-width: 960px) 560px, 92vw" />
           {at === 0 ? (
             <div className={styles.save}>
