@@ -43,15 +43,15 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   guaranteeLength: "90 day",
   comparison: ITCH_PLANS_CONTENT.comparison.map((c) => c.replace("30 day", "90 day")),
   /* The hero sells the bundle as two jobs, the spray for relief today and the chew for
-     the cause. **bold** in a point is drawn by PlansScreen. */
+     the cause. No lede: three short proof points under the headline. **bold** in a point is drawn by PlansScreen. */
   hero: {
     ...ITCH_PLANS_CONTENT.hero,
     underline: "for good",
-    lede: "The Itch Spray calms irritated skin right away. The daily chew works from the inside on the histamine response behind your dog's scratching, licking, and skin irritation.",
+    lede: "",
     points: [
-      "**Relief today:** the spray calms irritated skin on contact",
-      "**Fixes it at the source:** the chew calms the histamine response from the inside",
-      "**Supports healthy skin and a healthy coat** for the long haul",
+      "Provides Immediate & Lasting Relief",
+      "Proven Vet-Recommended Formulas",
+      "3rd Party & Clinically Tested",
     ],
   },
   productImage: FZ_JAR,

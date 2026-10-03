@@ -281,10 +281,12 @@ export function PlansScreen({
                   ])
                 : content.hero.title}
             </h1>
-            <p className="sc-hero-lede" style={{ margin: "var(--space-4) 0 var(--space-6)", fontSize: "var(--size-body-lg)", lineHeight: 1.35 }}>
-              <BrandText>{content.hero.lede}</BrandText>
-            </p>
-            <ul className="sc-hero-points" style={{ margin: "0 0 var(--space-6)", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+            {content.hero.lede ? (
+              <p className="sc-hero-lede" style={{ margin: "var(--space-4) 0 var(--space-6)", fontSize: "var(--size-body-lg)", lineHeight: 1.35 }}>
+                <BrandText>{content.hero.lede}</BrandText>
+              </p>
+            ) : null}
+            <ul className="sc-hero-points" style={{ margin: content.hero.lede ? "0 0 var(--space-6)" : "var(--space-5) 0 var(--space-6)", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
               {content.hero.points.map((h) => (
                 <li key={h} style={{ display: "flex", gap: "var(--space-3)", alignItems: "center", fontSize: "var(--size-body)" }}>
                   <Tick />
