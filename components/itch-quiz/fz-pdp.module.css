@@ -105,6 +105,7 @@
 }
 .buy {
   grid-area: buy;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -172,18 +173,21 @@
   margin: 0;
   font: 700 16px/1.4 var(--font-text), "Figtree", sans-serif;
 }
+/* The text scales with the column so the longest bullet always fits on one line: about
+   21.6em wide, plus the 22px tick and gap. Capped at 19px on a wide column. */
 .checks {
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font: 500 15px/1.35 var(--font-text), "Figtree", sans-serif;
+  gap: 9px;
+  font: 500 min(19px, max(12px, calc((100cqw - 22px) / 21.6)))/1.35 var(--font-text), "Figtree", sans-serif;
 }
 .checks li {
   display: flex;
   gap: 10px;
+  white-space: nowrap;
 }
 .tick {
   color: var(--cobalt);
@@ -446,9 +450,6 @@
   }
   .lede {
     font-size: 17px;
-  }
-  .checks {
-    gap: 9px;
   }
   .vet {
     padding: 12px 16px;
