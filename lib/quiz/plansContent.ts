@@ -219,6 +219,8 @@ export type PlansContent = {
       world say." and "Frequently asked questions by our customers". */
   reviewsTitle?: string;
   reviewsSub?: string;
+  /** Replaces the "Order now / shipped for free" pill under the hero button with a check and one line, `underlined` set underlined. */
+  heroAssurance?: { text: string; underlined: string };
   /** Length of the money back guarantee in the announcement strip. Defaults to "30 day". */
   guaranteeLength?: string;
   faqTitle?: string;

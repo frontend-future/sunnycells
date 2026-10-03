@@ -308,6 +308,25 @@ export function PlansScreen({
                 {heroCtaLabel}
               </Button>
 
+              {content.heroAssurance ? (
+                <span
+                  className="sc-hero-assurance"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--size-body)", fontWeight: 800 }}
+                >
+                  <span
+                    aria-hidden="true"
+                    style={{ flex: "none", width: 26, height: 26, borderRadius: "50%", background: "var(--ink)", color: "var(--sun)", display: "flex", alignItems: "center", justifyContent: "center" }}
+                  >
+                    <Icon name="check" size={16} strokeWidth={3.5} />
+                  </span>
+                  <span>
+                    {content.heroAssurance.text.split(content.heroAssurance.underlined)[0]}
+                    <span style={{ textDecoration: "underline", textUnderlineOffset: 3 }}>{content.heroAssurance.underlined}</span>
+                    {content.heroAssurance.text.split(content.heroAssurance.underlined)[1]}
+                  </span>
+                </span>
+              ) : (
+              <>
               {/* The shipping line as a badge rather than a note under the button, so it
                   reads as a term of the offer instead of small print. */}
               <span
@@ -346,6 +365,8 @@ export function PlansScreen({
                   </span>
                 </span>
               </span>
+              </>
+              )}
             </div>
           </div>
 
