@@ -1,5 +1,5 @@
 /**
- * Scoring for the itch quiz (/quiz/itch). Everything here is a screening score
+ * Scoring for the itch quiz (/quiz/itch-old). Everything here is a screening score
  * built from self-reported symptoms, not a measurement: nothing in a
  * questionnaire substitutes for a vet exam, and the copy on the results pages
  * says so.

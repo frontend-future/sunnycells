@@ -1,5 +1,5 @@
 /**
- * The paid 1/3/6 month ladder for /quiz/itch/results/plans: same structure and
+ * The paid 1/3/6 month ladder for /quiz/itch-old/results/plans: same structure and
  * the same prices as the diet funnel's own PLANS (lib/quiz/plans.ts) and the
  * brain quiz's own ladder, just for jars of chews instead of pouches or
  * bottles. Kept in its own cart (ITCH_CART_ID) so it never touches another
@@ -47,7 +47,7 @@ export const ITCH_PLANS: Plan[] = [
 ];
 
 /**
- * /quiz/itch/v3's own jar photography, relabeled to say "SC-01 Daily Chews" rather
+ * /quiz/itch-old/v3's own jar photography, relabeled to say "SC-01 Daily Chews" rather
  * than "Multivitamin" (the shared bottle-*.webp images v1 and v2 still use). Same
  * plans, prices, and copy as ITCH_PLANS, just pointed at the v3 image set.
  */

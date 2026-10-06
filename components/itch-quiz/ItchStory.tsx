@@ -37,7 +37,7 @@ const POINTS = [
 
 export function ItchStory({
   quizId = itchQuiz.id,
-  nextHref = "/quiz/itch/results/plans",
+  nextHref = "/quiz/itch-old/results/plans",
 }: { quizId?: string; nextHref?: string } = {}) {
   const { answers } = useAnswers(quizId);
   const { t, storyImage = "/quiz/itch/story-sarah.webp", storyAlt, storyQuote = QUOTE, storyOwner = OWNER_NAME } = useBrand();

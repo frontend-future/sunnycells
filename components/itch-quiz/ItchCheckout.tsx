@@ -23,7 +23,7 @@ const THEME = {
  * whichever plan was actually picked here.
  */
 export function ItchCheckout({
-  backHref = "/quiz/itch/results/plans",
+  backHref = "/quiz/itch-old/results/plans",
 }: { backHref?: string } = {}) {
   return (
     <EvenCheckout

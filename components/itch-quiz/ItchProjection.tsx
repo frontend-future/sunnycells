@@ -25,7 +25,7 @@ const untreated = (t: number) => 0.08 * t;
 
 export function ItchProjection({
   quizId = itchQuiz.id,
-  nextHref = "/quiz/itch/results/comfort",
+  nextHref = "/quiz/itch-old/results/comfort",
   greatlyReduced = false,
 }: {
   quizId?: string;

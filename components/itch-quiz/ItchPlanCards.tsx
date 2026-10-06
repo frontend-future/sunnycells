@@ -21,7 +21,7 @@ import { trackMetaEvent } from "@/lib/meta";
  * same reasoning BrainPlanCards documents.
  */
 export function ItchPlanCards({
-  destinationHref = "/quiz/itch/results/checkout",
+  destinationHref = "/quiz/itch-old/results/checkout",
   ctaLabel = "Try now",
   plans = ITCH_PLANS,
   quizId = itchQuiz.id,

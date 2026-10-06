@@ -60,7 +60,7 @@ const BONUS_ICON: Record<string, IconName> = Object.fromEntries(
 );
 
 export function ItchV2Checkout({
-  backHref = "/quiz/itch/v2/results/plans",
+  backHref = "/quiz/itch-old/v2/results/plans",
   continueLabel = "Continue",
 }: {
   backHref?: string;

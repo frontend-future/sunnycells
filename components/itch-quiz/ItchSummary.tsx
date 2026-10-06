@@ -11,7 +11,7 @@ import { useAnswers } from "@/lib/quiz/store";
 
 export function ItchSummary({
   quizId = itchQuiz.id,
-  nextHref = "/quiz/itch/results/projection",
+  nextHref = "/quiz/itch-old/results/projection",
   lede = "because of the following parameters:",
 }: { quizId?: string; nextHref?: string; lede?: string } = {}) {
   const { answers, ready } = useAnswers(quizId);

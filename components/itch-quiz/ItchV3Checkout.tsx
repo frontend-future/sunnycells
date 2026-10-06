@@ -355,7 +355,7 @@ const DELIVERY_FIELDS: Field[] = [
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-export function ItchV3Checkout({ backHref = "/quiz/itch/v3/results/plans" }: { backHref?: string } = {}) {
+export function ItchV3Checkout({ backHref = "/quiz/itch-old/v3/results/plans" }: { backHref?: string } = {}) {
   const { answers: cart, ready } = useAnswers(ITCH_CART_ID);
   const { answers: quizAnswers } = useAnswers(itchV3Quiz.id);
   const plan = itchPlanById(cart.plan);

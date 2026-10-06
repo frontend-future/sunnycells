@@ -14,7 +14,7 @@ const COMFORT_LABELS = ["Very itchy", "Itchy", "Comfortable", "Very comfortable"
 
 export function ItchComfort({
   quizId = itchQuiz.id,
-  nextHref = "/quiz/itch/results/benefits",
+  nextHref = "/quiz/itch-old/results/benefits",
   bothSides = false,
 }: {
   quizId?: string;

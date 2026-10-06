@@ -51,7 +51,7 @@ const ATTRIBUTES: { icon: IconName; label: string }[] = [
 
 export function ItchBenefits({
   quizId = itchQuiz.id,
-  nextHref = "/quiz/itch/results/story",
+  nextHref = "/quiz/itch-old/results/story",
   usaLabel = "Made in the USA",
 }: { quizId?: string; nextHref?: string; usaLabel?: string } = {}) {
   const { answers } = useAnswers(quizId);

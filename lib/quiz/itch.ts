@@ -1,7 +1,7 @@
 import type { QuizConfig } from "./types";
 
 /**
- * The itch quiz, /quiz/itch, for SC-01 Daily Chews (lib/products/dog-itch.ts).
+ * The itch quiz, /quiz/itch-old, for SC-01 Daily Chews (lib/products/dog-itch.ts).
  * Built around the positive -> neutral -> negative functional-question arc:
  * the first third is towards language about what she wants for her dog, the
  * middle third is observational questions about the dog itself (a dog cannot
@@ -14,8 +14,8 @@ import type { QuizConfig } from "./types";
  */
 export const itchQuiz: QuizConfig = {
   id: "itch",
-  basePath: "/quiz/itch",
-  resultsPath: "/quiz/itch/results/analyzing",
+  basePath: "/quiz/itch-old",
+  resultsPath: "/quiz/itch-old/results/analyzing",
   steps: [
     /* ---------- positive third ---------- */
     {

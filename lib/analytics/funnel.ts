@@ -40,13 +40,13 @@ const RESULTS: Record<string, string[]> = {
   "brain/v3": [
     "analyzing", "summary", "brain-age", "trajectory", "energy", "concerns", "benefits", "story", "plans", "checkout",
   ],
-  itch: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
-  /* A deep clone of the original itch quiz, question for question, at /quiz/itch/v2.
+  "itch-old": ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
+  /* A deep clone of the original itch quiz, question for question, at /quiz/itch-old/v2.
      Same results flow as the original. */
-  "itch/v2": ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
+  "itch-old/v2": ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
   /* A second deep clone of the original itch quiz, question for question, at
-     /quiz/itch/v3. Same results flow as the original and v2. */
-  "itch/v3": ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
+     /quiz/itch-old/v3. Same results flow as the original and v2. */
+  "itch-old/v3": ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
   /* A deep clone of the original itch quiz at /quiz/fridayzoomies. Same results flow. */
   fridayzoomies: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
   joint: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
@@ -92,7 +92,7 @@ async function order(): Promise<Record<string, string[]>> {
     than one built variant (a second plans page, a whole second question set)
     living under the same product, e.g. /quiz/brain/v3/results/plans. */
 export async function funnelStepFor(pathname: string): Promise<FunnelStep | null> {
-  const m = /^\/quiz\/([a-z]+(?:\/v\d+)?)(?:\/(.+))?$/.exec(pathname.replace(/\/$/, ""));
+  const m = /^\/quiz\/([a-z]+(?:-[a-z]+)*(?:\/v\d+)?)(?:\/(.+))?$/.exec(pathname.replace(/\/$/, ""));
   if (!m) return null;
   const [, quiz, rest = ""] = m;
   const list = (await order())[quiz];

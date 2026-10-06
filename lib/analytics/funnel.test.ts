@@ -104,24 +104,24 @@ test("a quiz can live under a /v<N> segment, numbered independently of the unver
 });
 
 test("the itch quiz is numbered independently and ends at its own plans and checkout", async () => {
-  const first = await funnelStepFor(`/quiz/itch/${itchQuiz.steps[0].slug}`);
-  assert.deepEqual(first, { quiz: "itch", index: 1, slug: itchQuiz.steps[0].slug, stage: "question" });
+  const first = await funnelStepFor(`/quiz/itch-old/${itchQuiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "itch-old", index: 1, slug: itchQuiz.steps[0].slug, stage: "question" });
 
-  const story = await funnelStepFor("/quiz/itch/results/story");
+  const story = await funnelStepFor("/quiz/itch-old/results/story");
   assert.equal(story?.index, itchQuiz.steps.length + 6);
-  const plans = await funnelStepFor("/quiz/itch/results/plans");
+  const plans = await funnelStepFor("/quiz/itch-old/results/plans");
   assert.equal(plans?.index, itchQuiz.steps.length + 7);
-  const checkout = await funnelStepFor("/quiz/itch/results/checkout");
+  const checkout = await funnelStepFor("/quiz/itch-old/results/checkout");
   assert.equal(checkout?.index, itchQuiz.steps.length + 8);
 });
 
 test("the itch v2 quiz is numbered independently of the original itch quiz", async () => {
-  const first = await funnelStepFor(`/quiz/itch/v2/${itchV2Quiz.steps[0].slug}`);
-  assert.deepEqual(first, { quiz: "itch/v2", index: 1, slug: itchV2Quiz.steps[0].slug, stage: "question" });
+  const first = await funnelStepFor(`/quiz/itch-old/v2/${itchV2Quiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "itch-old/v2", index: 1, slug: itchV2Quiz.steps[0].slug, stage: "question" });
 
-  const plans = await funnelStepFor("/quiz/itch/v2/results/plans");
+  const plans = await funnelStepFor("/quiz/itch-old/v2/results/plans");
   assert.equal(plans?.index, itchV2Quiz.steps.length + 7);
-  const checkout = await funnelStepFor("/quiz/itch/v2/results/checkout");
+  const checkout = await funnelStepFor("/quiz/itch-old/v2/results/checkout");
   assert.equal(checkout?.index, itchV2Quiz.steps.length + 8);
 
   /* Same step count and slugs as the original (a deep clone), but a distinct
@@ -130,12 +130,12 @@ test("the itch v2 quiz is numbered independently of the original itch quiz", asy
 });
 
 test("the itch v3 quiz is numbered independently of the original itch quiz and v2", async () => {
-  const first = await funnelStepFor(`/quiz/itch/v3/${itchV3Quiz.steps[0].slug}`);
-  assert.deepEqual(first, { quiz: "itch/v3", index: 1, slug: itchV3Quiz.steps[0].slug, stage: "question" });
+  const first = await funnelStepFor(`/quiz/itch-old/v3/${itchV3Quiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "itch-old/v3", index: 1, slug: itchV3Quiz.steps[0].slug, stage: "question" });
 
-  const plans = await funnelStepFor("/quiz/itch/v3/results/plans");
+  const plans = await funnelStepFor("/quiz/itch-old/v3/results/plans");
   assert.equal(plans?.index, itchV3Quiz.steps.length + 7);
-  const checkout = await funnelStepFor("/quiz/itch/v3/results/checkout");
+  const checkout = await funnelStepFor("/quiz/itch-old/v3/results/checkout");
   assert.equal(checkout?.index, itchV3Quiz.steps.length + 8);
 
   /* Same step count and slugs as the original (a deep clone), but a distinct

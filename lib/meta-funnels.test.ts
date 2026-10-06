@@ -70,6 +70,8 @@ test("brain and memory power boost reports to its own dataset", () => {
 
 test("the itch quiz reports to its own dataset", () => {
   assert.equal(funnelForPath("/quiz/itch"), "itch");
+  assert.equal(funnelForPath("/quiz/itch-old"), "itch");
+  assert.equal(funnelForPath("/quiz/itch-old/v2/results/plans"), "itch");
   assert.equal(funnelForPath("/quiz/itch/goals"), "itch");
   assert.equal(funnelForPath("/quiz/itch/results/plans"), "itch");
   assert.equal(funnelForPath("/quiz/itch/results/checkout"), "itch");
