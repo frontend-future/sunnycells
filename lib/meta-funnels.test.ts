@@ -76,7 +76,7 @@ test("the itch quiz reports to its own dataset", () => {
   assert.equal(funnelForPath("/quiz/itch/results/plans"), "itch");
   assert.equal(funnelForPath("/quiz/itch/results/checkout"), "itch");
   /* No product page of its own yet, and a lookalike path must not match. */
-  assert.equal(funnelForPath("/quiz/fridayzoomies/results/plans"), "itch");
+  assert.equal(funnelForPath("/quiz/itch/results/plans"), "itch");
   assert.equal(funnelForPath("/quiz/itchy-something-else"), "default");
 });
 

@@ -3,7 +3,7 @@
 import { PlansScreen } from "@/components/quiz/PlansScreen";
 import Image from "next/image";
 import { RATING } from "@/lib/products/dog-itch";
-import styles from "@/app/quiz/fridayzoomies/theme.module.css";
+import styles from "@/app/quiz/itch/theme.module.css";
 import { FridayZoomiesPdp } from "@/components/itch-quiz/FridayZoomiesPdp";
 import { FZ_PLANS, FZ_PLANS_CONTENT, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
@@ -11,7 +11,7 @@ import { readAnswers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import { goToCheckout } from "@/lib/shopify/fridayzoomies";
 
-const DESTINATION = "/quiz/fridayzoomies/results/checkout";
+const DESTINATION = "/quiz/itch/results/checkout";
 
 /* There is one box on offer, the $25 first month, so both buttons report that one. */
 const trackCheckout = () => {

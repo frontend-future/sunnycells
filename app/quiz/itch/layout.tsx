@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: { default: "Friday Zoomies", template: "%s | Friday Zoomies" },
 };
 
-export default function FridayZoomiesLayout({ children }: LayoutProps<"/quiz/fridayzoomies">) {
+export default function FridayZoomiesLayout({ children }: LayoutProps<"/quiz/itch">) {
   return (
     <BrandProvider brand={FZ_BRAND}>
       <div className={`${styles.theme} ${bricolage.variable}`}>{children}</div>

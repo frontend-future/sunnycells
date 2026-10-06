@@ -5,5 +5,5 @@ import { ItchSummary } from "@/components/itch-quiz/ItchSummary";
 export const metadata: Metadata = { title: "Your dog's itch assessment" };
 
 export default function SummaryPage() {
-  return <ItchSummary quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/fridayzoomies/results/projection" lede="because of the following:" />;
+  return <ItchSummary quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/results/projection" lede="because of the following:" />;
 }

@@ -29,7 +29,7 @@ const PATHS: [Funnel, string[]][] = [
      and the same pixel, so /quiz/joint reports into the "itch" dataset on purpose
      rather than getting a cold dataset of its own. Neither has a product page of
      its own yet. */
-  ["itch", ["/quiz/itch", "/quiz/itch-old", "/quiz/fridayzoomies", "/quiz/joint"]],
+  ["itch", ["/quiz/itch", "/quiz/itch-old", "/quiz/joint"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {

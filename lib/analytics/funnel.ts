@@ -47,8 +47,8 @@ const RESULTS: Record<string, string[]> = {
   /* A second deep clone of the original itch quiz, question for question, at
      /quiz/itch-old/v3. Same results flow as the original and v2. */
   "itch-old/v3": ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
-  /* A deep clone of the original itch quiz at /quiz/fridayzoomies. Same results flow. */
-  fridayzoomies: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
+  /* A deep clone of the original itch quiz at /quiz/itch (the Friday Zoomies funnel, now the live itch quiz). Same results flow. */
+  itch: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
   joint: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
 };
 

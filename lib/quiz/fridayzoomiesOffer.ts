@@ -1,5 +1,5 @@
 /**
- * Everything the /quiz/fridayzoomies funnel sells, in Friday Zoomies' words and
+ * Everything the /quiz/itch funnel sells, in Friday Zoomies' words and
  * pictures: the jar, the plans, the order, the plans page copy. The prices, the
  * plan structure and the copy's claims are the itch quiz's own (same cart, same
  * ladder), so the two never quote different numbers for the same thing.

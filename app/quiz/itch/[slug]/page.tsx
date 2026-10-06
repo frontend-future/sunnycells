@@ -11,7 +11,7 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
-export default async function QuizStepPage({ params }: PageProps<"/quiz/fridayzoomies/[slug]">) {
+export default async function QuizStepPage({ params }: PageProps<"/quiz/itch/[slug]">) {
   const { slug } = await params;
   const index = stepIndex(config, slug);
   if (index < 0) notFound();
