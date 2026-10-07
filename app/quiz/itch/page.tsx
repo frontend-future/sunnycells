@@ -10,7 +10,6 @@ import { RATING } from "@/lib/products/dog-itch";
 import styles from "./theme.module.css";
 
 export const metadata: Metadata = {
-  title: "Dog itch quiz",
   description: "A couple minutes of questions to find out why your dog is itching, and what to do about it.",
 };
 

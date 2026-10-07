@@ -13,7 +13,7 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Friday Zoomies", template: "%s | Friday Zoomies" },
+  title: "Friday Zoomies | Discover Why Your Dog Is Itching",
 };
 
 export default function FridayZoomiesLayout({ children }: LayoutProps<"/quiz/itch">) {

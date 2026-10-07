@@ -1,7 +1,5 @@
-import type { Metadata } from "next";
 import { Analyzing } from "@/components/quiz/Analyzing";
 
-export const metadata: Metadata = { title: "Reading your answers" };
 
 export default function AnalyzingPage() {
   return <Analyzing nextHref="/quiz/itch/results/summary" />;
