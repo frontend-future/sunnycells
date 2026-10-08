@@ -5,7 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { FridayZoomiesLabelDrawer } from "@/components/itch-quiz/FridayZoomiesLabelDrawer";
-import { INGREDIENTS, RATING } from "@/lib/products/dog-itch";
+import { CHEW_ACTIVES, CHEW_DOSING, CHEW_OTHER, CHEW_SERVING, RATING } from "@/lib/products/dog-itch";
 import { FZ_PLANS, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
@@ -19,7 +19,7 @@ const IMAGES = [
   { src: `${DIR}/pdp/long-lasting-relief.webp`, alt: "The daily chew: long-lasting relief that treats the root cause, not just the symptoms" },
   { src: `${DIR}/pdp/what-to-expect.webp`, alt: "What to expect: immediate relief on day 1, less itching and spraying by day 14, calmer skin by day 30" },
   { src: `${DIR}/pdp/vet-spray.webp`, alt: "A veterinarian on the itch spray" },
-  { src: `${DIR}/pdp/vet-chew.webp`, alt: "A veterinarian on the daily chew's quercetin and omega-3s" },
+  { src: `${DIR}/pdp/vet-chew.webp`, alt: "A veterinarian on the daily chew's quercetin and salmon oil" },
   { src: `${DIR}/pdp/guarantee.webp`, alt: "90-day guarantee: if the itching hasn't improved, a full refund" },
 ];
 
@@ -79,11 +79,15 @@ function IngredientsTabs() {
         ))}
       </div>
       {tab === "chew" ? (
-        INGREDIENTS.map((i) => (
-          <p key={i.key}>
-            <strong>{i.name} ({i.dose}).</strong> {i.copy}
-          </p>
-        ))
+        <>
+          <p style={{ fontSize: "0.85em" }}>Per serving of {CHEW_SERVING}.</p>
+          {CHEW_ACTIVES.map((i) => (
+            <p key={i.name}>
+              <strong>{i.name} ({i.dose}).</strong> {i.copy}
+            </p>
+          ))}
+          <p style={{ fontSize: "0.85em" }}>Other ingredients: {CHEW_OTHER}.</p>
+        </>
       ) : (
         <>
           <p><strong>Aloe barbadensis extract.</strong> Soothes and hydrates irritated, itchy skin and gives a mild cooling effect.</p>
@@ -148,7 +152,12 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
       title: "How to use",
       body: (
         <>
-          <p>Give 1 chew daily, with or without food.</p>
+          <p>Give the daily chew amount for your dog's weight, with or without food:</p>
+          <ul>
+            {CHEW_DOSING.map(([wt, n]) => (
+              <li key={wt}>{wt}: {n}</li>
+            ))}
+          </ul>
           <p>Itch Spray: spray your dog from the back of the ears to the tail, carefully avoiding the eyes. Massage into the coat. Repeat as necessary. Can be used on wet or dry fur. For external use only.</p>
           <p>Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily chews before you judge it.</p>
         </>

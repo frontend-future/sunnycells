@@ -114,9 +114,9 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   ingredientsTitle: swap(ITCH_PLANS_CONTENT.ingredientsTitle),
   faqs: ITCH_PLANS_CONTENT.faqs.map((f) => ({
     title: swap(f.title),
-    /* The label prints five actives (zinc and vitamin E are separate lines), not four. */
+    /* The label prints eight actives, each with its dose. */
     body: f.title.startsWith("What is the formulation")
-      ? "Five active ingredients in the chew (Quercetin, Omega-3 Fish Oil, Zinc, Vitamin E, Probiotic Blend), each printed with its dose rather than hidden inside a proprietary blend."
+      ? "Eight active ingredients in the chew (bovine colostrum, wild Alaskan salmon oil, quercetin, vitamin C, bromelain, zinc, vitamin E and a six-strain probiotic blend), each printed with its dose rather than hidden inside a proprietary blend."
       : swap(f.body),
   })),
   accent: { bg: "var(--sun)", press: "var(--sun-press)" },

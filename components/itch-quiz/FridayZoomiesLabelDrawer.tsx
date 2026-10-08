@@ -2,18 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/core/Icon";
-import { PRODUCT } from "@/lib/products/dog-itch";
+import { CHEW_ACTIVES, CHEW_DOSING, CHEW_OTHER, CHEW_SERVING, PRODUCT } from "@/lib/products/dog-itch";
 import styles from "./fz-label.module.css";
-
-/* Amounts per chew, from the product record. Daily Values are not set for dogs, so the
-   %DV column carries the asterisk and its footnote rather than a made-up percentage. */
-const ROWS = [
-  ["Quercetin", "50 mg"],
-  ["Omega-3 Fish Oil", "150 mg"],
-  ["Zinc", "10 mg"],
-  ["Vitamin E", "15 IU"],
-  ["Probiotic Blend", "1 billion CFU"],
-];
 
 /* Spray panel: the five actives with what each does, then the base as fine print. */
 const SPRAY_ACTIVES = [
@@ -93,8 +83,8 @@ export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
             <>
           <h3 className={styles.title}>Supplement Facts</h3>
           <div className={styles.serving}>
-            <span><strong>Serving Size:</strong> {PRODUCT.chewsPerServing} Soft Chew</span>
-            <span><strong>Servings Per Container:</strong> {PRODUCT.servings}</span>
+            <span><strong>Serving Size:</strong> {CHEW_SERVING}</span>
+            <span><strong>Soft Chews Per Container:</strong> {PRODUCT.servings}</span>
           </div>
           <div className={styles.bar}>
             <span>Amount Per Serving</span>
@@ -102,10 +92,10 @@ export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
           </div>
           <table className={styles.table}>
             <tbody>
-              {ROWS.map(([name, amount]) => (
+              {CHEW_ACTIVES.map(({ name, dose }) => (
                 <tr key={name}>
                   <td>{name}</td>
-                  <td>{amount}</td>
+                  <td>{dose}</td>
                   <td>*</td>
                 </tr>
               ))}
@@ -113,8 +103,11 @@ export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
           </table>
           <ul className={styles.notes}>
             <li>* Daily Value not established for dogs.</li>
-            <li>No corn, wheat, or soy.</li>
-            <li>Give 1 chew daily. Ask your vet before giving more than the labeled amount.</li>
+            <li><strong>Other ingredients:</strong> {CHEW_OTHER}.</li>
+            <li>
+              <strong>Daily amount by weight:</strong>{" "}
+              {CHEW_DOSING.map(([wt, n]) => `${wt}: ${n}`).join(". ")}. With or without food.
+            </li>
           </ul>
             </>
           )}

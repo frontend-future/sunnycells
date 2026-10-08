@@ -46,6 +46,28 @@ export const INGREDIENTS = [
   },
 ] as const;
 
+/** The Friday Zoomies chew label: eight actives, amounts per serving of 2 soft chews (4 g). */
+export const CHEW_SERVING = "2 Soft Chews (4 g)";
+export const CHEW_ACTIVES = [
+  { name: "Bovine colostrum 20%", dose: "200 mg", copy: "Supplies immunoglobulins and other immune factors that help balance an overreactive immune response to allergens." },
+  { name: "Wild Alaskan salmon oil", dose: "200 mg", copy: "A source of omega-3s (EPA/DHA) that supports the skin barrier and a healthy inflammatory response, for less dry, itchy skin and a shinier coat." },
+  { name: "Quercetin dihydrate", dose: "100 mg", copy: "A plant flavonoid that helps stabilize mast cells and support normal histamine levels, often called \"nature's antihistamine.\"" },
+  { name: "Vitamin C (ascorbic acid)", dose: "40 mg", copy: "An antioxidant that supports immune function and works alongside quercetin." },
+  { name: "Bromelain", dose: "40 mg", copy: "A pineapple enzyme that improves quercetin absorption and supports a healthy inflammatory response." },
+  { name: "Zinc", dose: "2 mg", copy: "An essential mineral for skin repair, coat quality, and normal immune function." },
+  { name: "Vitamin E (d-alpha tocopheryl acetate)", dose: "10 IU", copy: "A fat-soluble antioxidant that protects skin cells from oxidative stress and complements the omega-3s." },
+  { name: "Six-probiotic blend", dose: "500 million CFU", copy: "L. plantarum, L. acidophilus, L. casei, B. bifidum, L. lactis, L. fermentum. Supports gut health, where much of the immune system lives, helping temper allergic responses." },
+] as const;
+export const CHEW_OTHER = "Oat flour, natural fish flavor, lecithin, glycerin, sunflower oil (high oleic), natural flavor oil, natural antioxidant (mixed tocopherols, rosemary extract)";
+/** Soft chews per day by body weight. */
+export const CHEW_DOSING = [
+  ["Under 10 lbs", "1 soft chew"],
+  ["10 to 30 lbs", "2 soft chews"],
+  ["31 to 60 lbs", "3 soft chews"],
+  ["61 to 90 lbs", "4 soft chews"],
+  ["Over 90 lbs", "5 soft chews"],
+] as const;
+
 export const RATING = { score: 4.8, count: 662 } as const;
 
 export const TIMELINE = [
