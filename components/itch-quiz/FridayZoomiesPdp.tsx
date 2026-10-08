@@ -18,7 +18,7 @@ const IMAGES = [
   { src: `${DIR}/pdp/instant-relief.webp`, alt: "The itch spray: instant relief that soothes on contact, calms the scratch cycle and gives skin time to heal" },
   { src: `${DIR}/pdp/long-lasting-relief.webp`, alt: "The daily chew: long-lasting relief that treats the root cause, not just the symptoms" },
   { src: `${DIR}/pdp/what-to-expect.webp`, alt: "What to expect: immediate relief on day 1, less itching and spraying by day 14, calmer skin by day 30" },
-  { src: `${DIR}/pdp/vet-spray.webp`, alt: "A veterinarian on the itch spray" },
+  { src: `${DIR}/pdp/vet-spray.webp`, alt: "A veterinarian on the itch spray's aloe and chamomile" },
   { src: `${DIR}/pdp/vet-chew.webp`, alt: "A veterinarian on the daily chew's quercetin and salmon oil" },
   { src: `${DIR}/pdp/guarantee.webp`, alt: "90-day guarantee: if the itching hasn't improved, a full refund" },
 ];
