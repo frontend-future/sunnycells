@@ -210,6 +210,9 @@ export type PlansContent = {
   /** Replace the two testing seals and the competitor tub in the comparison table. */
   testingBadges?: [string, string];
   competitorImage?: string;
+  /** Replaces the product picture over our column of the comparison table. Shot on pure
+      white, so it is multiplied into the column tint. */
+  comparisonImage?: string;
   /** Replaces the "SUNNYCELLS is made in the USA" trust badge text. SUNNYCELLS in the
       string renders as the brand. */
   usaLabel?: string;

@@ -811,11 +811,15 @@ export function PlansScreen({
               }}
             >
               <Image
-                src={productImage}
+                src={content.comparisonImage ?? productImage}
                 alt={content.productName}
                 width={2400}
                 height={1792}
-                style={{ width: "100%", height: "auto", maxHeight: 88, objectFit: "contain" }}
+                style={
+                  content.comparisonImage
+                    ? { width: 80, maxWidth: "none", height: "auto", flexShrink: 0, mixBlendMode: "multiply" }
+                    : { width: "100%", height: "auto", maxHeight: 88, objectFit: "contain" }
+                }
               />
             </div>
 

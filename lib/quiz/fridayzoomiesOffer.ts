@@ -55,12 +55,16 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   shippingTerm: "on your first order",
   guaranteeLength: "90 day",
   heroAssurance: { text: "Try It Risk-Free For 90 Days", underlined: "Risk-Free For 90 Days" },
-  comparison: ITCH_PLANS_CONTENT.comparison.map((c) =>
-    c
-      .replace("30 day", "90 day")
-      .replace("Four research-backed actives", "Eight research-backed actives")
-      .replace("Free shipping on every order", "Free shipping on your first order"),
-  ),
+  comparison: [
+    "Eight chew actives, every dose printed on the label",
+    "Itch spray with aloe, chamomile and peppermint",
+    "Quercetin paired with bromelain for absorption",
+    "Daily amount set by your dog's weight",
+    "No proprietary blend",
+    "No steroids",
+    "90 day money back guarantee",
+    "Free shipping on your first order",
+  ],
   /* The hero sells the bundle as two jobs, the spray for relief today and the chew for
      the cause. No lede: three short proof points under the headline. **bold** in a point is drawn by PlansScreen. */
   hero: {
@@ -74,6 +78,7 @@ export const FZ_PLANS_CONTENT: PlansContent = {
     ],
   },
   productImage: FZ_JAR,
+  comparisonImage: `${PLANS_DIR}/bundle-pair.webp`,
   squareImages: true,
   testingBadges: [`${PLANS_DIR}/badge-tested.webp`, `${PLANS_DIR}/badge-metals.webp`],
   provenLabel: "Clinically proven ingredients",
@@ -108,7 +113,7 @@ export const FZ_PLANS_CONTENT: PlansContent = {
     })),
     {
       slug: "itch-spray",
-      title: "Itch Spray: aloe, chamomile, peppermint, silk and sodium bicarbonate",
+      title: "Aloe, Chamomile, Peppermint, Silk and Sodium Bicarbonate",
       image: `${PLANS_DIR}/ing-spray.webp`,
       points: SPRAY_ACTIVES.map(([n, d]) => [n, d]) as [string, string][],
     },
