@@ -10,6 +10,18 @@ import { ITCH_PLANS, ITCH_CART_ID, buildItchOrder, type ItchOrder } from "./itch
 import { ITCH_PLANS_CONTENT } from "./itchPlansContent";
 import type { PlansContent } from "./plansContent";
 import type { Plan } from "./plans";
+import { CHEW_ACTIVES, CHEW_SERVING, SPRAY_ACTIVES } from "@/lib/products/dog-itch";
+
+const CHEW_IMAGES: Record<string, string> = {
+  "Bovine colostrum 20%": "ing-colostrum",
+  "Wild Alaskan salmon oil": "ing-omega3",
+  "Quercetin dihydrate": "ing-quercetin",
+  "Vitamin C (ascorbic acid)": "ing-vitamin-c",
+  Bromelain: "ing-bromelain",
+  Zinc: "ing-zinc-e",
+  "Vitamin E (d-alpha tocopheryl acetate)": "ing-zinc-e",
+  "Six-probiotic blend": "ing-probiotic",
+};
 
 export const FZ_PRODUCT_NAME = "Inside-Out Itch Bundle";
 export const FZ_JAR = "/quiz/fridayzoomies/jar.webp";
@@ -46,7 +58,7 @@ export const FZ_PLANS_CONTENT: PlansContent = {
   comparison: ITCH_PLANS_CONTENT.comparison.map((c) =>
     c
       .replace("30 day", "90 day")
-      .replace("Four research-backed actives", "Five research-backed actives")
+      .replace("Four research-backed actives", "Eight research-backed actives")
       .replace("Free shipping on every order", "Free shipping on your first order"),
   ),
   /* The hero sells the bundle as two jobs, the spray for relief today and the chew for
@@ -85,10 +97,22 @@ export const FZ_PLANS_CONTENT: PlansContent = {
     { name: "Aaliyah P.", photo: `${PLANS_DIR}/rev-aaliyah.webp`, title: "Coat looks so much better", body: ITCH_PLANS_CONTENT.reviews[2].body },
     { name: "Lisa K.", photo: `${PLANS_DIR}/rev-lisa.webp`, title: "Worth it for the sleep alone", body: ITCH_PLANS_CONTENT.reviews[3].body },
   ],
-  ingredients: ITCH_PLANS_CONTENT.ingredients.map((i) => ({
-    ...i,
-    image: `${PLANS_DIR}/${{ quercetin: "ing-quercetin", omega3: "ing-omega3", "zinc-e": "ing-zinc-e", probiotics: "ing-probiotic" }[i.slug]}.webp`,
-  })),
+  /* The eight chew actives, then the spray's. Zinc and vitamin E share a picture, as they
+     always have. */
+  ingredients: [
+    ...CHEW_ACTIVES.map((i) => ({
+      slug: i.name,
+      title: `${i.name} (${i.dose})`,
+      image: `${PLANS_DIR}/${CHEW_IMAGES[i.name]}.webp`,
+      points: [[i.copy, `Dosed at ${i.dose} per serving of ${CHEW_SERVING}, printed on the label rather than folded into a proprietary blend.`]] as [string, string][],
+    })),
+    {
+      slug: "itch-spray",
+      title: "Itch Spray: aloe, chamomile, peppermint, silk and sodium bicarbonate",
+      image: `${PLANS_DIR}/ing-spray.webp`,
+      points: SPRAY_ACTIVES.map(([n, d]) => [n, d]) as [string, string][],
+    },
+  ],
   /* Spray first for relief today, the chew for the cause, then the result. The chew
      dose depends on the dog's weight, so the copy points at the label, not a number. */
   howItWorks: [

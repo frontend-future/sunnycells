@@ -59,6 +59,14 @@ export const CHEW_ACTIVES = [
   { name: "Six-probiotic blend", dose: "500 million CFU", copy: "L. plantarum, L. acidophilus, L. casei, B. bifidum, L. lactis, L. fermentum. Supports gut health, where much of the immune system lives, helping temper allergic responses." },
 ] as const;
 export const CHEW_OTHER = "Oat flour, natural fish flavor, lecithin, glycerin, sunflower oil (high oleic), natural flavor oil, natural antioxidant (mixed tocopherols, rosemary extract)";
+/** The Itch Spray's five actives, each with what it does. */
+export const SPRAY_ACTIVES = [
+  ["Aloe barbadensis extract", "Soothes and hydrates irritated, itchy skin and gives a mild cooling effect."],
+  ["Sodium bicarbonate", "Neutralizes odor and calms itch by buffering skin pH."],
+  ["Hydrolyzed silk", "Small silk proteins that bind to hair and skin, leaving the coat softer, shinier, and better moisturized."],
+  ["Chamomile extract", "A botanical with calming, anti-redness properties that helps settle inflamed or sensitive skin."],
+  ["Peppermint oil", "Provides a cooling sensation that distracts from itch, plus a fresh scent."],
+] as const;
 /** Soft chews per day by body weight. */
 export const CHEW_DOSING = [
   ["Under 10 lbs", "1 soft chew"],
