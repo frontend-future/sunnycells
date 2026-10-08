@@ -19,7 +19,7 @@ const CHEW_IMAGES: Record<string, string> = {
   "Vitamin C (ascorbic acid)": "ing-vitamin-c",
   Bromelain: "ing-bromelain",
   Zinc: "ing-zinc-e",
-  "Vitamin E (d-alpha tocopheryl acetate)": "ing-zinc-e",
+  "Vitamin E (d-alpha tocopheryl acetate)": "ing-vitamin-e",
   "Six-probiotic blend": "ing-probiotic",
 };
 
@@ -102,8 +102,7 @@ export const FZ_PLANS_CONTENT: PlansContent = {
     { name: "Aaliyah P.", photo: `${PLANS_DIR}/rev-aaliyah.webp`, title: "Coat looks so much better", body: ITCH_PLANS_CONTENT.reviews[2].body },
     { name: "Lisa K.", photo: `${PLANS_DIR}/rev-lisa.webp`, title: "Worth it for the sleep alone", body: ITCH_PLANS_CONTENT.reviews[3].body },
   ],
-  /* The eight chew actives, then the spray's. Zinc and vitamin E share a picture, as they
-     always have. */
+  /* The eight chew actives, then the spray's. */
   ingredients: [
     ...CHEW_ACTIVES.map((i) => ({
       slug: i.name,
