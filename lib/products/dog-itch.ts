@@ -13,9 +13,9 @@ export const PRODUCT = {
   sku: "SC-01",
   name: "SC-01 Daily Chews",
   form: "Soft chews",
-  servings: 60,
+  servings: 70,
   chewsPerServing: 1,
-  netWeight: "60 chews",
+  netWeight: "70 chews",
 } as const;
 
 /** Four actives, in the order the results pages introduce them. */
