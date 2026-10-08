@@ -15,8 +15,15 @@ const ROWS = [
   ["Probiotic Blend", "1 billion CFU"],
 ];
 
-/* Spray panel. Chlorhexidine is the active; the rest are the base, in descending order by weight. */
-const SPRAY_BASE = "Purified Water, Glycerin USP, Polysorbate 20, Fragrance";
+/* Spray panel: the five actives with what each does, then the base as fine print. */
+const SPRAY_ACTIVES = [
+  ["Aloe barbadensis extract", "Soothes and hydrates irritated, itchy skin and gives a mild cooling effect"],
+  ["Sodium bicarbonate", "Neutralizes odor and calms itch by buffering skin pH"],
+  ["Hydrolyzed silk", "Small silk proteins that bind to hair and skin, leaving the coat softer, shinier, and better moisturized"],
+  ["Chamomile extract", "A botanical with calming, anti-redness properties that helps settle inflamed or sensitive skin"],
+  ["Peppermint oil", "Provides a cooling sensation that distracts from itch, plus a fresh scent"],
+];
+const SPRAY_BASE = "Water, Polysorbate 20, Glycerin, Fragrance, Sodium Benzoate, Disodium EDTA, Butanediol";
 
 /** The Supplement Facts panel, opened from "View Nutrition Label". */
 export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
@@ -68,27 +75,18 @@ export function FridayZoomiesLabelDrawer({ onClose }: { onClose: () => void }) {
             <>
               <h3 className={styles.title}>Product Facts</h3>
               <div className={styles.bar}>
-                <span>Active Ingredient</span>
-                <span>Amount</span>
-              </div>
-              <table className={styles.table}>
-                <tbody>
-                  <tr><td>Chlorhexidine Gluconate</td><td>0.5%</td></tr>
-                </tbody>
-              </table>
-              <div className={styles.bar}>
                 <span>Key Ingredients</span>
               </div>
               <table className={styles.table}>
                 <tbody>
-                  <tr><td>Keratin</td><td>Supports the hair&apos;s protective layer</td></tr>
-                  <tr><td>Aloe Vera</td><td>Restores moisture</td></tr>
+                  {SPRAY_ACTIVES.map(([name, what]) => (
+                    <tr key={name}><td>{name}</td><td>{what}</td></tr>
+                  ))}
                 </tbody>
               </table>
               <ul className={styles.notes}>
                 <li><strong>Other ingredients:</strong> {SPRAY_BASE}.</li>
-                <li>For topical use on dogs only. Do not let your dog lick the area until it is dry.</li>
-                <li>Avoid contact with eyes. If irritation occurs, stop use and ask your vet.</li>
+                <li>Spray dog from back of ears to tail, carefully avoiding eyes. Massage into coat. Repeat as necessary. Can be used on wet or dry fur. For external use only.</li>
               </ul>
             </>
           ) : (

@@ -18,7 +18,7 @@ const IMAGES = [
   { src: `${DIR}/pdp/instant-relief.webp`, alt: "The itch spray: instant relief that soothes on contact, calms the scratch cycle and gives skin time to heal" },
   { src: `${DIR}/pdp/long-lasting-relief.webp`, alt: "The daily chew: long-lasting relief that treats the root cause, not just the symptoms" },
   { src: `${DIR}/pdp/what-to-expect.webp`, alt: "What to expect: immediate relief on day 1, less itching and spraying by day 14, calmer skin by day 30" },
-  { src: `${DIR}/pdp/vet-spray.webp`, alt: "A veterinarian on the itch spray's chlorhexidine and aloe vera" },
+  { src: `${DIR}/pdp/vet-spray.webp`, alt: "A veterinarian on the itch spray" },
   { src: `${DIR}/pdp/vet-chew.webp`, alt: "A veterinarian on the daily chew's quercetin and omega-3s" },
   { src: `${DIR}/pdp/guarantee.webp`, alt: "90-day guarantee: if the itching hasn't improved, a full refund" },
 ];
@@ -86,10 +86,12 @@ function IngredientsTabs() {
         ))
       ) : (
         <>
-          <p><strong>Chlorhexidine Gluconate (0.5%).</strong> The active ingredient. Disinfects and deodorizes irritated skin.</p>
-          <p><strong>Keratin.</strong> Supports the natural protective layer of the coat.</p>
-          <p><strong>Aloe Vera.</strong> Restores moisture to dry, irritated skin.</p>
-          <p style={{ fontSize: "0.85em" }}>Other ingredients: Purified Water, Glycerin USP, Polysorbate 20, Fragrance.</p>
+          <p><strong>Aloe barbadensis extract.</strong> Soothes and hydrates irritated, itchy skin and gives a mild cooling effect.</p>
+          <p><strong>Sodium bicarbonate.</strong> Neutralizes odor and calms itch by buffering skin pH.</p>
+          <p><strong>Hydrolyzed silk.</strong> Small silk proteins that bind to hair and skin, leaving the coat softer, shinier, and better moisturized.</p>
+          <p><strong>Chamomile extract.</strong> A botanical with calming, anti-redness properties that helps settle inflamed or sensitive skin.</p>
+          <p><strong>Peppermint oil.</strong> Provides a cooling sensation that distracts from itch, plus a fresh scent.</p>
+          <p style={{ fontSize: "0.85em" }}>Other ingredients: Water, Polysorbate 20, Glycerin, Fragrance, Sodium Benzoate, Disodium EDTA, Butanediol.</p>
         </>
       )}
     </>
@@ -146,7 +148,8 @@ export function FridayZoomiesPdp({ onStart }: { onStart: () => Promise<boolean> 
       title: "How to use",
       body: (
         <>
-          <p>Give 1 chew daily, with or without food. Spritz the Itch Spray on irritated skin for relief between chews.</p>
+          <p>Give 1 chew daily, with or without food.</p>
+          <p>Itch Spray: spray your dog from the back of the ears to the tail, carefully avoiding the eyes. Massage into the coat. Repeat as necessary. Can be used on wet or dry fur. For external use only.</p>
           <p>Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily chews before you judge it.</p>
         </>
       ),
