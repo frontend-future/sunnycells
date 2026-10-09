@@ -5,29 +5,10 @@ import Image from "next/image";
 import { RATING } from "@/lib/products/dog-itch";
 import styles from "@/app/quiz/itch/theme.module.css";
 import { FridayZoomiesPdp } from "@/components/itch-quiz/FridayZoomiesPdp";
-import { FZ_PLANS, FZ_PLANS_CONTENT, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
-import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
-import { readAnswers } from "@/lib/quiz/store";
-import { trackMetaEvent } from "@/lib/meta";
+import { FZ_PLANS_CONTENT } from "@/lib/quiz/fridayzoomiesOffer";
 import { goToCheckout } from "@/lib/shopify/fridayzoomies";
 
 const DESTINATION = "/quiz/itch/results/checkout";
-
-/* There is one box on offer, the $25 first month, so both buttons report that one. */
-const trackCheckout = () => {
-  const p = FZ_PLANS[0];
-  trackMetaEvent(
-    "InitiateCheckout",
-    { currency: "USD", value: p.price * p.months, content_ids: [p.id], content_type: "product", content_name: `${FZ_PRODUCT_NAME} ${p.label}` },
-    { email: readAnswers(itchFridayZoomiesQuiz.id).email },
-  );
-};
-
-/* The product block's button waits on Shopify so it can re-arm if the cart fails. */
-const goToCheckoutTracked = () => {
-  trackCheckout();
-  return goToCheckout();
-};
 
 /* Lifted off the page with a blue glow and a hard lower edge, and a bigger label that
    scales with the viewport so it stays on one line down to a 320px phone. */
@@ -49,7 +30,7 @@ export function FridayZoomiesPlans() {
       heroCtaLabel="Save 50% + Free Shipping"
       heroCtaStyle={HERO_CTA}
       stickyBuyButton
-      plansSection={<FridayZoomiesPdp key="pdp" onStart={goToCheckoutTracked} />}
+      plansSection={<FridayZoomiesPdp key="pdp" onStart={goToCheckout} />}
       heroMedia={
         <div key="hero-photo" className={styles.heroMedia}>
           <Image
