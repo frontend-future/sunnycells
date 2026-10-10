@@ -95,6 +95,7 @@ function Checkout() {
   const elements = useElements();
   const formRef = useRef<HTMLFormElement>(null);
   const [busy, setBusy] = useState(false);
+  const [wallets, setWallets] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [sameBilling, setSameBilling] = useState(true);
@@ -171,8 +172,9 @@ function Checkout() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1.6" /><rect x="11.1" y="10.5" width="1.8" height="6.5" rx="0.9" fill="currentColor" /><circle cx="12" cy="7.6" r="1.1" fill="currentColor" /></svg>
             <span>Due to high demand your order is reserved for: <strong>{hold}</strong> minutes</span>
           </div>
-          <p className={s.express}>Express checkout</p>
+          {wallets ? <p className={s.express}>Express checkout</p> : null}
           <ExpressCheckoutElement
+            onReady={(e) => setWallets(!!e.availablePaymentMethods)}
             options={{ buttonHeight: 52, emailRequired: true, phoneNumberRequired: true, shippingAddressRequired: true, allowedShippingCountries: ["US"], shippingRates: [{ id: "free", displayName: "Free shipping", amount: 0 }] }}
             onShippingAddressChange={(e) => e.resolve({ shippingRates: [{ id: "free", displayName: "Free shipping", amount: 0 }] })}
             onConfirm={(e) => {
@@ -182,7 +184,7 @@ function Checkout() {
               pay({ email: e.billingDetails?.email ?? "", name, phone: e.billingDetails?.phone ?? undefined, shipping: addr, billing: addr });
             }}
           />
-          <div className={s.or}>or pay by card</div>
+          {wallets ? <div className={s.or}>or pay by card</div> : null}
 
           <h2 className={s.h} style={{ marginTop: 14 }}>Contact information</h2>
           <input className={s.input} type="email" name="email" placeholder="Email *" aria-label="Email" autoComplete="email" inputMode="email" required />
