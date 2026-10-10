@@ -148,7 +148,7 @@ export function FzCheckoutPage() {
           {!sameBilling ? (<><h2 className={s.h} style={{ marginTop: 0 }}>Billing address</h2><Address prefix="bill-" /></>) : null}
 
           <div style={{ marginTop: 20 }}>
-            <Button type="submit" size="lg" fullWidth variant="accent" price={FIRST}>Pay now</Button>
+            <Button type="submit" size="lg" fullWidth variant="accent">Pay now</Button>
           </div>
           <p className={s.fine}>
             By clicking “Pay now,” you agree to Friday Zoomies’{" "}
