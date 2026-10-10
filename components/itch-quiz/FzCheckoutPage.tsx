@@ -33,6 +33,20 @@ const readAddress = (fd: FormData, p: string): Addr => ({
   state: field(fd, `${p}state`), postal_code: field(fd, `${p}zip`), country: "US",
 });
 
+function TrustBlocks({ className }: { className: string }) {
+  return (
+    <div className={`${s.trust} ${className}`}>
+      {TRUST.map((t) => (
+        <div className={s.trustItem} key={t.title}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`${CHECKOUT}/${t.icon}.webp`} alt="" />
+          <div><h3 className={s.trustTitle}>{t.title}</h3><p className={s.trustDesc}>{t.body}</p></div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const Chevron = () => (
   <svg width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m1 1 6 6 6-6" /></svg>
 );
@@ -203,6 +217,7 @@ function Checkout() {
             excluding your first order’s introductory discount. You can cancel anytime before your next billing date by
             emailing <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
           </p>
+          <TrustBlocks className={s.trustBottom} />
         </form>
 
         <aside className={s.aside} aria-label="Order summary">
@@ -240,15 +255,7 @@ function Checkout() {
               <div className={s.recurring}><span>{formatPrice(FIRST)} first month, then {formatPrice(PRICE)} every 4 weeks</span></div>
             </div>
           </div>
-          <div className={s.trust}>
-            {TRUST.map((t) => (
-              <div className={s.trustItem} key={t.title}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CHECKOUT}/${t.icon}.webp`} alt="" />
-                <div><h3 className={s.trustTitle}>{t.title}</h3><p className={s.trustDesc}>{t.body}</p></div>
-              </div>
-            ))}
-          </div>
+          <TrustBlocks className={s.trustSide} />
         </aside>
       </div>
     </div>
