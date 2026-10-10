@@ -16,10 +16,10 @@ const IMG = "/quiz/fridayzoomies";
 const CHECKOUT = `${IMG}/checkout`;
 const LINES = [
   { name: FZ_PRODUCT_NAME, sub: "Deliver every 4 weeks", image: FZ_JAR, price: formatPrice(PRICE), now: formatPrice(FIRST) },
-  { name: "USA Doggie Bandana", image: `${IMG}/gift-bandana.webp` },
-  { name: "Fast USA Shipping", image: `${IMG}/gift-shipping.webp` },
-  { name: "Mystery Gift", image: `${IMG}/gift-mystery.webp` },
   { name: "Itch Spray", image: `${IMG}/gift-spray.webp` },
+  { name: "USA Doggie Bandana", image: `${IMG}/gift-bandana.webp` },
+  { name: "Mystery Gift", image: `${IMG}/gift-mystery.webp` },
+  { name: "Fast USA Shipping", image: `${IMG}/gift-shipping.webp` },
 ];
 const TRUST = [
   { icon: "icon-guarantee", title: "90-Day Money Back Guarantee", body: "Itching not improved within 90 days? Full refund." },
