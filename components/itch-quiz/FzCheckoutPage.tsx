@@ -15,7 +15,7 @@ const FIRST = firstOrderPrice(PRICE);
 const IMG = "/quiz/fridayzoomies";
 const CHECKOUT = `${IMG}/checkout`;
 const LINES = [
-  { name: FZ_PRODUCT_NAME, sub: "Deliver every 4 weeks", image: FZ_JAR, price: formatPrice(PRICE) },
+  { name: FZ_PRODUCT_NAME, sub: "Deliver every 4 weeks", image: FZ_JAR, price: formatPrice(PRICE), now: formatPrice(FIRST) },
   { name: "USA Doggie Bandana", image: `${IMG}/gift-bandana.webp` },
   { name: "Fast USA Shipping", image: `${IMG}/gift-shipping.webp` },
   { name: "Mystery Gift", image: `${IMG}/gift-mystery.webp` },
@@ -174,7 +174,9 @@ export function FzCheckoutPage() {
                   <span className={s.qty}>1</span>
                 </div>
                 <div className={s.lineName}>{l.name}{l.sub ? <span className={s.lineSub}>{l.sub}</span> : null}</div>
-                <div className={`${s.linePrice} ${l.price ? "" : s.free}`}>{l.price ?? "FREE"}</div>
+                <div className={`${s.linePrice} ${l.price ? "" : s.free}`}>
+                  {l.now ? <><del className={s.was}>{l.price}</del> {l.now}</> : l.price ?? "FREE"}
+                </div>
               </div>
             ))}
 
