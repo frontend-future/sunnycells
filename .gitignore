@@ -46,3 +46,8 @@ ads/out/
 shot-*.png
 .ymx-carousel-tmp/
 .beetroot-raw/
+
+# scratch output and reference images, not part of the app
+.ads-tmp/
+.carousel-tmp/
+uploads/

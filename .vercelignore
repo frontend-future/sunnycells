@@ -1,0 +1,9 @@
+# tooling and scratch, not needed to build or serve the site
+ads/
+scripts/
+scratch_fal/
+.ads-tmp/
+.carousel-tmp/
+uploads/
+.ymx-carousel-tmp/
+.beetroot-raw/
