@@ -93,6 +93,24 @@ function Checkout() {
   const [wallets, setWallets] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [code, setCode] = useState("");
+  const [promo, setPromo] = useState<{ code: string; total: number; discount: number } | null>(null);
+  const [promoMsg, setPromoMsg] = useState<string | null>(null);
+  const first = promo ? promo.total / 100 : FIRST;
+  const off = PRICE - first;
+
+  /* The summary and the payment sheet follow the code, so what they see is what they pay. */
+  useEffect(() => { elements?.update({ amount: Math.round(first * 100) }); }, [elements, first]);
+
+  const applyCode = async () => {
+    if (!code.trim()) return;
+    setPromoMsg(null);
+    const res = await fetch("/api/fz/promo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code }) });
+    const data = await res.json();
+    if (!res.ok) { setPromoMsg(data.error || "That code is not valid."); return; }
+    setPromo(data);
+    setCode("");
+  };
   const [sameBilling, setSameBilling] = useState(true);
 
   /* Collects the payment details, has the server create the subscription, then confirms it. The
@@ -124,7 +142,7 @@ function Checkout() {
       const res = await fetch("/api/fz/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: who.email, name: who.name, phone: who.phone, shipping: who.shipping }),
+        body: JSON.stringify({ email: who.email, name: who.name, phone: who.phone, shipping: who.shipping, promoCode: promo?.code }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "We could not start your order. Try again.");
@@ -216,7 +234,7 @@ function Checkout() {
         <aside className={s.aside} aria-label="Order summary">
           <button type="button" className={`${s.bar} ${open ? s.barOpen : ""}`} aria-expanded={open} onClick={() => setOpen(!open)}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>Order summary <Chevron /></span>
-            <span className={s.barTotal}>{formatPrice(FIRST)}</span>
+            <span className={s.barTotal}>{formatPrice(first)}</span>
           </button>
           <div className={`${s.panel} ${open ? s.panelOpen : ""}`}>
             {LINES.map((l) => (
@@ -228,24 +246,25 @@ function Checkout() {
                 </div>
                 <div className={s.lineName}>{l.name}{l.sub ? <span className={s.lineSub}>{l.sub}</span> : null}</div>
                 <div className={`${s.linePrice} ${l.price ? "" : s.free}`}>
-                  {l.now ? <><del className={s.was}>{l.price}</del> {l.now}</> : l.price ?? "FREE"}
+                  {l.now ? <><del className={s.was}>{l.price}</del> {formatPrice(first)}</> : l.price ?? "FREE"}
                 </div>
               </div>
             ))}
 
-            <form className={s.coupon} onSubmit={(e) => e.preventDefault()}>
-              <input className={s.input} placeholder="Discount code" aria-label="Discount code" />
+            <form className={s.coupon} onSubmit={(e) => { e.preventDefault(); applyCode(); }}>
+              <input className={s.input} placeholder="Discount code" aria-label="Discount code" value={code} onChange={(e) => setCode(e.target.value)} />
               <Button type="submit" variant="outline" size="md">Apply</Button>
             </form>
-            <span className={s.applied}>FIRST50 · 50% off your first order</span>
+            {promoMsg ? <p role="alert" className={s.err} style={{ margin: "0 0 12px" }}>{promoMsg}</p> : null}
+            <span className={s.applied}>{promo ? `${promo.code} applied` : "FIRST50 · 50% off your first order"}</span>
             <div className={s.guarantee}><img src={`${CHECKOUT}/icon-guarantee.webp`} alt="" />90 day guarantee</div>
 
             <div className={s.totals}>
               <div><span>Subtotal · 5 items</span><span>{formatPrice(PRICE)}</span></div>
-              <div><span>First order discount</span><span>−{formatPrice(PRICE - FIRST)}</span></div>
+              <div><span>First order discount</span><span>−{formatPrice(off)}</span></div>
               <div><span>Shipping</span><span className={s.free}>FREE</span></div>
-              <div className={s.grand}><span>Total</span><span>{formatPrice(FIRST)}</span></div>
-              <div className={s.recurring}><span>{formatPrice(FIRST)} first month, then {formatPrice(PRICE)} every 4 weeks</span></div>
+              <div className={s.grand}><span>Total</span><span>{formatPrice(first)}</span></div>
+              <div className={s.recurring}><span>{formatPrice(first)} first month, then {formatPrice(PRICE)} every 4 weeks</span></div>
             </div>
           </div>
           <TrustBlocks className={s.trustSide} />

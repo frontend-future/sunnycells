@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
+import { quotePromo } from "@/lib/stripe/promo";
 
 /* Friday Zoomies checkout. Creates the customer and the Inside-Out Itch Bundle subscription
    (STRIPE_FZ_PRICE_ID, every 4 weeks) with the FIRST50 promotion code attached, left
@@ -10,6 +11,7 @@ type Body = {
   email?: string;
   name?: string;
   phone?: string;
+  promoCode?: string;
   shipping?: { line1?: string; line2?: string; city?: string; state?: string; postal_code?: string; country?: string };
 };
 
@@ -40,6 +42,13 @@ export async function POST(req: Request) {
     const phone = text(b.phone) || undefined;
 
     const st = stripe();
+    /* A typed code replaces the standing FIRST50; an unknown one stops the order. */
+    let promotion = promoId;
+    if (text(b.promoCode)) {
+      const q = await quotePromo(text(b.promoCode), 5000);
+      if (!q) return NextResponse.json({ error: "That discount code is not valid." }, { status: 400 });
+      promotion = q.id;
+    }
     /* A returning email reuses its customer so one dog parent is not three records. */
     const existing = (await st.customers.list({ email, limit: 1 })).data[0];
     const customer = existing
@@ -49,7 +58,7 @@ export async function POST(req: Request) {
     const sub = await st.subscriptions.create({
       customer: customer.id,
       items: [{ price: priceId }],
-      ...(promoId ? { discounts: [{ promotion_code: promoId }] } : {}),
+      ...(promotion ? { discounts: [{ promotion_code: promotion }] } : {}),
       payment_behavior: "default_incomplete",
       payment_settings: { save_default_payment_method: "on_subscription" },
       metadata: { funnel: "fridayzoomies", gifts: "itch-spray,usa-doggie-bandana,mystery-gift,fast-usa-shipping" },
