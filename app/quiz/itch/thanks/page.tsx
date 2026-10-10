@@ -41,7 +41,7 @@ export default function ThanksPage() {
             <div className={s.line} key={l.name}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={l.image} alt="" />
-              <div className={s.lineName}>{l.name}{l.sub ? <span className={s.sub}>{l.sub}</span> : null}</div>
+              <div className={s.lineName}>{l.name}</div>
               <div className={s.price}>{l.now ? <><del>{l.price}</del> {l.now}</> : <span className={s.free}>FREE</span>}</div>
             </div>
           ))}
