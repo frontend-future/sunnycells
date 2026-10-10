@@ -1,4 +1,3 @@
-import { RATING } from "@/lib/products/dog-itch";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { LINES } from "@/lib/quiz/fzOrder";
 import { Confetti } from "./Confetti";
@@ -49,7 +48,15 @@ export default function ThanksPage() {
         </section>
 
         <section className={s.guarantee}>
-          <strong>90-day money back guarantee.</strong> Itching not improved? Full refund. {RATING.count} dog owners have rated us {RATING.score} stars.
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/quiz/fridayzoomies/checkout/badge-90.webp" alt="" />
+          <div>
+            <h2 className={s.h2}>90-Day Itch-Free Guarantee</h2>
+            <p className={s.body}>
+              Not seeing results after 90 days? Contact us at <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a> and
+              we&apos;ll take care of you.
+            </p>
+          </div>
         </section>
       </main>
     </div>

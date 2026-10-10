@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import s from "./thanks.module.css";
 
 const COLORS = ["#2F5FD0", "#FFC845", "#8EC5F2", "#FFC845", "#2F5FD0"];
-const COUNT = 90;
+const COUNT = 70;
 
 type Piece = { left: number; size: number; delay: number; dur: number; color: string; drift: number; round: boolean };
 
-/* One burst of blue and yellow confetti falling the full height of the screen, then it
-   removes itself. Pieces are random, so they are made after mount to keep the server and
+/* Blue and yellow confetti raining down the full height of the screen, on a loop. Pieces are random, so they are made after mount to keep the server and
    client markup identical. Skipped for people who ask for reduced motion. */
 export function Confetti() {
   const [pieces, setPieces] = useState<Piece[]>([]);
@@ -27,8 +26,6 @@ export function Confetti() {
         round: Math.random() < 0.3,
       })),
     );
-    const t = setTimeout(() => setPieces([]), 8500);
-    return () => clearTimeout(t);
   }, []);
 
   if (!pieces.length) return null;

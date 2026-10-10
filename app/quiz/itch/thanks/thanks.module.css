@@ -21,10 +21,14 @@
 .free { color: var(--cobalt); }
 .note { margin: 14px 0 0; padding-top: 14px; border-top: 1px solid var(--ink-20); font-size: 16px; font-weight: 500; line-height: 1.5; color: var(--ink-80); }
 .note a { color: var(--cobalt); }
-.guarantee { background: var(--sky-tint); border-radius: var(--radius-card); padding: 18px 20px; font-size: 18px; font-weight: 500; line-height: 1.45; text-align: center; }
+.guarantee { display: flex; align-items: center; gap: 16px; background: var(--sky-tint); border-radius: var(--radius-card); padding: 18px 20px; }
+.guarantee img { flex: none; width: 88px; height: 88px; object-fit: contain; }
+.guarantee .h2 { margin: 0 0 4px; }
+.guarantee .body { font-size: 18px; }
+.guarantee a { color: var(--cobalt); font-weight: 700; }
 
 .confetti { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 50; }
-.piece { position: absolute; top: -24px; opacity: 0; animation-name: fall; animation-timing-function: linear; animation-fill-mode: forwards; }
+.piece { position: absolute; top: -24px; opacity: 0; animation-name: fall; animation-timing-function: linear; animation-iteration-count: infinite; }
 @keyframes fall {
   0% { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg); }
   90% { opacity: 1; }
