@@ -88,3 +88,4 @@ select.input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .hold svg { flex: none; }
 .hold strong { font-variant-numeric: tabular-nums; }
 .was { font-weight: 500; color: var(--ink-60); margin-right: 4px; }
+.err { color: #B0392A; font-size: 16px; font-weight: 600; margin: 12px 0 0; }
