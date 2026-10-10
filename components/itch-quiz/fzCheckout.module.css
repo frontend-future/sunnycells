@@ -11,7 +11,7 @@
 
 .grid { display: flex; flex-direction: column-reverse; max-width: 1100px; margin: 0 auto; }
 .main { padding: 20px var(--page-gutter-mobile, 16px) 40px; }
-.aside { background: var(--shell); padding: 0 var(--page-gutter-mobile, 16px); }
+.aside { background: var(--shell); padding: 0 var(--page-gutter-mobile, 16px) 12px; }
 @media (min-width: 900px) {
   .grid { flex-direction: row; align-items: flex-start; }
   .main { flex: 1 1 58%; padding: 24px 32px 56px 16px; }

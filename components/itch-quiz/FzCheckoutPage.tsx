@@ -194,16 +194,15 @@ export function FzCheckoutPage() {
               <div className={s.grand}><span>Total</span><span>{formatPrice(FIRST)}</span></div>
               <div className={s.recurring}><span>{formatPrice(FIRST)} first month, then {formatPrice(PRICE)} every 4 weeks</span></div>
             </div>
-
-            <div className={s.trust}>
-              {TRUST.map((t) => (
-                <div className={s.trustItem} key={t.title}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`${CHECKOUT}/${t.icon}.webp`} alt="" />
-                  <div><h3 className={s.trustTitle}>{t.title}</h3><p className={s.trustDesc}>{t.body}</p></div>
-                </div>
-              ))}
-            </div>
+          </div>
+          <div className={s.trust}>
+            {TRUST.map((t) => (
+              <div className={s.trustItem} key={t.title}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${CHECKOUT}/${t.icon}.webp`} alt="" />
+                <div><h3 className={s.trustTitle}>{t.title}</h3><p className={s.trustDesc}>{t.body}</p></div>
+              </div>
+            ))}
           </div>
         </aside>
       </div>
