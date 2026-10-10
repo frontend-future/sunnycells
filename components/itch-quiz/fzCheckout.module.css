@@ -84,3 +84,6 @@ select.input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .fine { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--ink-60); margin-top: 14px; }
 .fine a { color: var(--cobalt); }
 @media (max-width: 480px) { .brands { display: none; } }
+.hold { display: flex; align-items: center; gap: 12px; background: var(--zest-tint); border: 1px solid #F3C9BE; border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--ink); }
+.hold svg { flex: none; }
+.hold strong { font-variant-numeric: tabular-nums; }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { RATING } from "@/lib/products/dog-itch";
 import { firstOrderPrice, formatPrice } from "@/lib/price";
@@ -51,7 +51,29 @@ function Address({ prefix }: { prefix: string }) {
   );
 }
 
+const HOLD_SECONDS = 10 * 60;
+
+/* Seconds left on the order hold. The deadline lives in sessionStorage so a refresh does not
+   restart it; it stops at 0:00 and nothing happens. */
+function useHold() {
+  const [left, setLeft] = useState(HOLD_SECONDS);
+  useEffect(() => {
+    let end = Date.now() + HOLD_SECONDS * 1000;
+    try {
+      const saved = Number(sessionStorage.getItem("fz-hold-end"));
+      if (saved) end = saved;
+      else sessionStorage.setItem("fz-hold-end", String(end));
+    } catch {}
+    const tick = () => setLeft(Math.max(0, Math.round((end - Date.now()) / 1000)));
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
+}
+
 export function FzCheckoutPage() {
+  const hold = useHold();
   const [open, setOpen] = useState(false);
   const [method, setMethod] = useState<"card" | "paypal">("card");
   const [sameBilling, setSameBilling] = useState(true);
@@ -74,6 +96,10 @@ export function FzCheckoutPage() {
 
       <div className={s.grid}>
         <form className={s.main} onSubmit={(e) => e.preventDefault()}>
+          <div className={s.hold} role="timer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1.6" /><rect x="11.1" y="10.5" width="1.8" height="6.5" rx="0.9" fill="currentColor" /><circle cx="12" cy="7.6" r="1.1" fill="currentColor" /></svg>
+            <span>Due to high demand your order is reserved for: <strong>{hold}</strong> minutes</span>
+          </div>
           <p className={s.express}>Express checkout</p>
           <div className={s.expressRow}>
             <button type="button" className={`${s.pay} ${s.apple}`}>Apple Pay</button>
