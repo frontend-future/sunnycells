@@ -55,6 +55,10 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
   const input = useRef<HTMLInputElement>(null);
   const token = useRef<unknown>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  /* Bumped on every pick and every keystroke so a lookup that comes back late is dropped, and
+     set while we fill the form so our own writes are not mistaken for typing. */
+  const seq = useRef(0);
+  const filling = useRef(false);
   const [items, setItems] = useState<Prediction[]>([]);
   const [active, setActive] = useState(-1);
 
@@ -63,7 +67,9 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
   const close = () => { setItems([]); setActive(-1); };
 
   const lookup = (text: string) => {
+    if (filling.current) return;
     clearTimeout(timer.current);
+    const mine = ++seq.current;
     if (text.trim().length < 3) return close();
     timer.current = setTimeout(async () => {
       const places = await loadPlaces();
@@ -71,6 +77,7 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
       token.current ??= new places.AutocompleteSessionToken();
       try {
         const { suggestions } = await places.AutocompleteSuggestion.fetchAutocompleteSuggestions({ input: text, includedRegionCodes: ["us"], sessionToken: token.current });
+        if (mine !== seq.current) return;
         setItems(suggestions.map((x) => x.placePrediction).filter((p): p is Prediction => !!p).slice(0, 5));
         setActive(-1);
       } catch { close(); }
@@ -78,6 +85,8 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
   };
 
   const pick = async (p: Prediction) => {
+    clearTimeout(timer.current);
+    seq.current++;
     close();
     const place = p.toPlace();
     await place.fetchFields({ fields: ["addressComponents"] });
@@ -85,6 +94,7 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
     const c = place.addressComponents ?? [];
     const root = wrap.current?.closest("form, [data-address-root]") as HTMLElement | null;
     if (!root) return;
+    filling.current = true;
     const num = part(c, "street_number");
     const street = [num, part(c, "route")].filter(Boolean).join(" ");
     setField(root, `${prefix}address`, street || p.mainText?.text || p.text.text);
@@ -93,6 +103,7 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
     setField(root, `${prefix}zip`, part(c, "postal_code"));
     const unit = part(c, "subpremise");
     if (unit) setField(root, `${prefix}address2`, `Unit ${unit}`);
+    filling.current = false;
     root.querySelector<HTMLInputElement>(`[name="${prefix}address2"]`)?.focus();
   };
 
