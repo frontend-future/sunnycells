@@ -8,6 +8,8 @@ import { RATING } from "@/lib/products/dog-itch";
 import { formatPrice } from "@/lib/price";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { FIRST, IMG, LINES, PRICE } from "@/lib/quiz/fzOrder";
+import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
+import { useAnswers } from "@/lib/quiz/store";
 import s from "./fzCheckout.module.css";
 
 const CHECKOUT = `${IMG}/checkout`;
@@ -94,6 +96,11 @@ function Checkout() {
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [code, setCode] = useState("");
+  /* The quiz already asked for an email, so start the field with it. They can still change it. */
+  const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
+  const [email, setEmail] = useState("");
+  const quizEmail = answers.email?.trim();
+  useEffect(() => { if (quizEmail) setEmail((cur) => cur || quizEmail); }, [quizEmail]);
   const [promo, setPromo] = useState<{ code: string; total: number; discount: number } | null>(null);
   const [promoMsg, setPromoMsg] = useState<string | null>(null);
   const first = promo ? promo.total / 100 : FIRST;
@@ -173,7 +180,7 @@ function Checkout() {
           <li><img src={`${CHECKOUT}/icon-guarantee.webp`} alt="" />90-Day Guarantee</li>
           <li><img src={`${CHECKOUT}/icon-shipping.webp`} alt="" />Free US shipping</li>
           <li>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#2F9E62" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm-1 14-3.5-3.5 1.4-1.4L11 13.2l4.1-4.1 1.4 1.4L11 16Z" /></svg>
+            <img src={`${CHECKOUT}/icon-secure.webp`} alt="" />
             Secure checkout
           </li>
         </ul>
@@ -200,7 +207,7 @@ function Checkout() {
           {wallets ? <div className={s.or}>or pay by card</div> : null}
 
           <h2 className={s.h} style={{ marginTop: 14 }}>Contact information</h2>
-          <input className={s.input} type="email" name="email" placeholder="Email *" aria-label="Email" autoComplete="email" inputMode="email" required />
+          <input className={s.input} type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email *" aria-label="Email" autoComplete="email" inputMode="email" required />
 
           <h2 className={s.h}>Shipping information</h2>
           <Address prefix="ship-" />
