@@ -215,7 +215,7 @@ function Checkout() {
 
           <h2 className={s.h}>Secure checkout</h2>
           <p className={s.sub}>All transactions are secure and encrypted</p>
-          <PaymentElement options={{ terms: { card: "never" }, fields: { billingDetails: { name: "never", email: "never", address: "never", phone: "never" } }, layout: { type: "accordion", defaultCollapsed: false, radios: "always", spacedAccordionItems: true } }} />
+          <PaymentElement options={{ terms: { card: "never" }, fields: { billingDetails: { name: "never", email: "never", address: "never", phone: "auto" } }, layout: { type: "accordion", defaultCollapsed: false, radios: "always", spacedAccordionItems: true } }} />
 
           <label className={s.check}>
             <input type="checkbox" checked={sameBilling} onChange={(e) => setSameBilling(e.target.checked)} />
