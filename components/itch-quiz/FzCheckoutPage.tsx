@@ -72,20 +72,13 @@ function Address({ prefix }: { prefix: string }) {
 
 const HOLD_SECONDS = 10 * 60;
 
-/* Seconds left on the order hold. The deadline lives in sessionStorage so a refresh does not
-   restart it; it stops at 0:00 and nothing happens. */
+/* Seconds left on the order hold. Starts over on every page load: nothing is remembered. It
+   stops at 0:00 and nothing happens. */
 function useHold() {
   const [left, setLeft] = useState(HOLD_SECONDS);
   useEffect(() => {
-    let end = Date.now() + HOLD_SECONDS * 1000;
-    try {
-      const saved = Number(sessionStorage.getItem("fz-hold-end"));
-      if (saved) end = saved;
-      else sessionStorage.setItem("fz-hold-end", String(end));
-    } catch {}
-    const tick = () => setLeft(Math.max(0, Math.round((end - Date.now()) / 1000)));
-    tick();
-    const id = setInterval(tick, 1000);
+    const end = Date.now() + HOLD_SECONDS * 1000;
+    const id = setInterval(() => setLeft(Math.max(0, Math.round((end - Date.now()) / 1000))), 1000);
     return () => clearInterval(id);
   }, []);
   return `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
