@@ -5,24 +5,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, ExpressCheckoutElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Button } from "@/components/core/Button";
 import { RATING } from "@/lib/products/dog-itch";
-import { firstOrderPrice, formatPrice } from "@/lib/price";
-import { FZ_BRAND, FZ_JAR, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
+import { formatPrice } from "@/lib/price";
+import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
+import { FIRST, IMG, LINES, PRICE } from "@/lib/quiz/fzOrder";
 import s from "./fzCheckout.module.css";
 
-/* Same cart the Shopify checkout builds (lib/shopify/fridayzoomies.ts): the bundle on its
-   subscription, four $0 gifts, and FIRST50. This page is the standalone shell for the
-   Stripe checkout that replaces it. */
-const PRICE = 50;
-const FIRST = firstOrderPrice(PRICE);
-const IMG = "/quiz/fridayzoomies";
 const CHECKOUT = `${IMG}/checkout`;
-const LINES = [
-  { name: FZ_PRODUCT_NAME, sub: "Deliver every 4 weeks", image: FZ_JAR, price: formatPrice(PRICE), now: formatPrice(FIRST) },
-  { name: "Itch Spray", image: `${IMG}/gift-spray.webp` },
-  { name: "USA Doggie Bandana", image: `${IMG}/gift-bandana.webp` },
-  { name: "Mystery Gift", image: `${IMG}/gift-mystery.webp` },
-  { name: "Fast USA Shipping", image: `${IMG}/gift-shipping.webp` },
-];
 const TRUST = [
   { icon: "icon-guarantee", title: "90-Day Money Back Guarantee", body: "Itching not improved within 90 days? Full refund." },
   { icon: "icon-shipping", title: "Free shipping and returns", body: "Shipping is on us, and so is the return if you are not completely satisfied." },
