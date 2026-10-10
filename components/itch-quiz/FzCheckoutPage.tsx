@@ -10,6 +10,7 @@ import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { FIRST, IMG, LINES, PRICE } from "@/lib/quiz/fzOrder";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
+import { AddressSuggest } from "./AddressSuggest";
 import s from "./fzCheckout.module.css";
 
 const CHECKOUT = `${IMG}/checkout`;
@@ -70,7 +71,7 @@ function Address({ prefix }: { prefix: string }) {
       <select className={`${s.input} ${s.full}`} name={f("country")} aria-label="Country" defaultValue="US"><option value="US">United States</option></select>
       <input className={`${s.input} ${s.half}`} name={f("first")} placeholder="First name *" aria-label="First name" autoComplete="given-name" required />
       <input className={`${s.input} ${s.half}`} name={f("last")} placeholder="Last name *" aria-label="Last name" autoComplete="family-name" required />
-      <input className={`${s.input} ${s.full}`} name={f("address")} placeholder="Address *" aria-label="Address" autoComplete="address-line1" required />
+      <AddressSuggest prefix={prefix} className={s.full} />
       <input className={`${s.input} ${s.full}`} name={f("address2")} placeholder="Apartment, suite, etc. (optional)" aria-label="Apartment, suite, etc." autoComplete="address-line2" />
       <input className={`${s.input} ${s.third}`} name={f("city")} placeholder="City *" aria-label="City" autoComplete="address-level2" required />
       <select className={`${s.input} ${s.third}`} name={f("state")} aria-label="State" defaultValue="" autoComplete="address-level1" required>
