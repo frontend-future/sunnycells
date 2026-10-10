@@ -26,6 +26,10 @@ export async function POST(req: Request) {
   const email = text(b.email);
   const name = text(b.name);
   const s = b.shipping ?? {};
+  const digits = text(b.phone).replace(/\D/g, "");
+  if (digits.length < 10) {
+    return NextResponse.json({ error: "Add a phone number so we can text you about your order." }, { status: 400 });
+  }
   if (!/^\S+@\S+\.\S+$/.test(email) || !name || !text(s.line1) || !text(s.city) || !text(s.state) || !text(s.postal_code)) {
     return NextResponse.json({ error: "Check your email and shipping address." }, { status: 400 });
   }
@@ -39,7 +43,8 @@ export async function POST(req: Request) {
       postal_code: text(s.postal_code),
       country: text(s.country) || "US",
     };
-    const phone = text(b.phone) || undefined;
+    /* Stored as E.164 whatever the format typed: +16787358452. */
+    const phone = digits.length === 10 ? `+1${digits}` : `+${digits}`;
 
     const st = stripe();
     /* A typed code replaces the standing FIRST50; an unknown one stops the order. */

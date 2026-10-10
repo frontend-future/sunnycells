@@ -29,6 +29,16 @@ const APPEARANCE = {
 type Addr = { line1: string; line2?: string; city: string; state: string; postal_code: string; country: string };
 type Buyer = { email: string; name: string; phone?: string; shipping: Addr; billing: Addr };
 
+/* (678) 735-8452 as they type. A leading country code 1 is dropped, and it stops at 10 digits. */
+const formatPhone = (raw: string) => {
+  let d = raw.replace(/\D/g, "");
+  if (d.length > 10 && d.startsWith("1")) d = d.slice(1);
+  d = d.slice(0, 10);
+  if (d.length < 4) return d;
+  if (d.length < 7) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+};
+
 const field = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim();
 const readAddress = (fd: FormData, p: string): Addr => ({
   line1: field(fd, `${p}address`), line2: field(fd, `${p}address2`) || undefined, city: field(fd, `${p}city`),
@@ -99,6 +109,7 @@ function Checkout() {
   /* The quiz already asked for an email, so start the field with it. They can still change it. */
   const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const quizEmail = answers.email?.trim();
   useEffect(() => { if (quizEmail) setEmail((cur) => cur || quizEmail); }, [quizEmail]);
   const [promo, setPromo] = useState<{ code: string; total: number; discount: number } | null>(null);
@@ -220,7 +231,7 @@ function Checkout() {
 
           <h2 className={s.h}>Shipping information</h2>
           <Address prefix="ship-" />
-          <input className={s.input} style={{ marginTop: 12 }} type="tel" name="phone" placeholder="Phone (optional)" aria-label="Phone" autoComplete="tel" inputMode="tel" />
+          <input className={s.input} style={{ marginTop: 12 }} type="tel" name="phone" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} placeholder="Phone *" aria-label="Phone" autoComplete="tel" inputMode="tel" required pattern="(\D*\d){10,}\D*" title="Enter a 10 digit phone number" />
 
           <h2 className={s.h}>Secure checkout</h2>
           <p className={s.sub}>All transactions are secure and encrypted</p>
