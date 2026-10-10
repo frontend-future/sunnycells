@@ -7,7 +7,7 @@ import s from "./thanks.module.css";
 const STEPS = [
   { when: "Within 24 hours", title: "A text from our team", body: "Look out for a text from us. Reply to it and we will send you a freebie." },
   { when: "Within 48 hours", title: "Your order ships", body: "Your Inside-Out Itch Bundle and free gifts leave our warehouse." },
-  { when: "Within 5 business days", title: "It arrives", body: "Free shipping to your door, with the Itch Spray, bandana and mystery gift in the box." },
+  { when: "Within 5 business days of shipping", title: "It arrives", body: "Free shipping to your door, with the Itch Spray, bandana and mystery gift in the box." },
 ];
 
 export default function ThanksPage() {
