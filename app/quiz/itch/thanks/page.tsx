@@ -1,6 +1,7 @@
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { LINES } from "@/lib/quiz/fzOrder";
 import { Confetti } from "./Confetti";
+import { PurchaseTracker } from "./PurchaseTracker";
 import s from "./thanks.module.css";
 
 const STEPS = [
@@ -13,6 +14,7 @@ export default function ThanksPage() {
   return (
     <div className={s.page}>
       <Confetti />
+      <PurchaseTracker />
       <header className={s.header}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className={s.logo} src={FZ_BRAND.logo?.src} alt="Friday Zoomies" />

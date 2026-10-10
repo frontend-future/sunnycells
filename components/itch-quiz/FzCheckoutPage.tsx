@@ -154,6 +154,15 @@ function Checkout() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "We could not start your order. Try again.");
 
+      /* Who is buying, kept for the thank you page's Purchase event so Meta can match it. */
+      try {
+        const [firstName, ...rest] = who.name.split(" ");
+        sessionStorage.setItem("fz-buyer", JSON.stringify({
+          email: who.email, phone: who.phone, firstName, lastName: rest.join(" ") || undefined,
+          city: who.shipping.city, state: who.shipping.state, zip: who.shipping.postal_code, country: "us",
+        }));
+      } catch {}
+
       const { error: confirmError } = await stripe.confirmPayment({
         elements,
         clientSecret: data.clientSecret,
