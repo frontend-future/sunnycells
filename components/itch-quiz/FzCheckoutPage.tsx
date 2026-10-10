@@ -162,7 +162,7 @@ function Checkout() {
           <li><img src={`${CHECKOUT}/icon-guarantee.webp`} alt="" />90-Day Guarantee</li>
           <li><img src={`${CHECKOUT}/icon-shipping.webp`} alt="" />Free US shipping</li>
           <li>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm-1 14-3.5-3.5 1.4-1.4L11 13.2l4.1-4.1 1.4 1.4L11 16Z" /></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#2F9E62" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm-1 14-3.5-3.5 1.4-1.4L11 13.2l4.1-4.1 1.4 1.4L11 16Z" /></svg>
             Secure checkout
           </li>
         </ul>
