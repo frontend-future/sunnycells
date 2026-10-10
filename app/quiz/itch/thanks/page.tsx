@@ -1,7 +1,6 @@
 import { RATING } from "@/lib/products/dog-itch";
-import { formatPrice } from "@/lib/price";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
-import { FIRST, LINES, PRICE } from "@/lib/quiz/fzOrder";
+import { LINES } from "@/lib/quiz/fzOrder";
 import s from "./thanks.module.css";
 
 const STEPS = [
@@ -45,10 +44,6 @@ export default function ThanksPage() {
               <div className={s.price}>{l.now ? <><del>{l.price}</del> {l.now}</> : <span className={s.free}>FREE</span>}</div>
             </div>
           ))}
-          <p className={s.note}>
-            {formatPrice(FIRST)} today, then {formatPrice(PRICE)} every 4 weeks. Cancel anytime before your next billing date
-            by emailing <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
-          </p>
         </section>
 
         <section className={s.guarantee}>
