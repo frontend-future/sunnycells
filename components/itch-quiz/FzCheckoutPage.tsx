@@ -208,12 +208,12 @@ function Checkout() {
             {error ? <p role="alert" className={s.err}>{error}</p> : null}
           </div>
           <p className={s.fine}>
-            By clicking “Pay now,” you agree to Friday Zoomies’{" "}
+            By clicking “Pay Now,” you agree to Friday Zoomies’{" "}
             <a href="https://fridayzoomies.com/policies/terms-of-service">Terms of Sale</a> and{" "}
             <a href="https://fridayzoomies.com/policies/privacy-policy">Privacy Policy</a>. You will be enrolled in a
-            subscription and billed every 4 weeks at {formatPrice(PRICE)}, excluding your first order’s 50% off. You can
-            cancel anytime before your next billing date by emailing{" "}
-            <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
+            subscription and billed on a recurring basis at the price and frequency shown in the order summary above,
+            excluding your first order’s introductory discount. You can cancel anytime before your next billing date by
+            emailing <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
           </p>
         </form>
 
