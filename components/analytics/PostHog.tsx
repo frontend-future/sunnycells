@@ -13,7 +13,7 @@ let counted: string | null = null;
 
 /* Session replay runs on these two screens only: the product page and the checkout, to see
    where people stall. Everything else in the funnel stays unrecorded. */
-const REPLAY_PATHS = ["/quiz/itch/results/plans", "/quiz/itch/checkout"];
+const REPLAY_PATHS = ["/quiz/itch/results/plans", "/quiz/itch/checkout", "/quiz/itch/thanks"];
 
 /**
  * PostHog, configured for one job: seeing where people fall out of the quiz.
