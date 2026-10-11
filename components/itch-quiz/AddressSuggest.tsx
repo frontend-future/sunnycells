@@ -134,7 +134,7 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
         onBlur={() => setTimeout(close, 150)}
       />
       {items.length > 0 ? (
-        <ul id={`${prefix}suggest`} role="listbox" className={s.suggest}>
+        <ul id={`${prefix}suggest`} role="listbox" className={`${s.suggest} ph-no-capture`}>
           {items.map((p, i) => (
             <li
               key={p.text.text}

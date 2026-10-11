@@ -11,6 +11,10 @@ import { funnelStepFor } from "@/lib/analytics/funnel";
 let started = false;
 let counted: string | null = null;
 
+/* Session replay runs on these two screens only: the product page and the checkout, to see
+   where people stall. Everything else in the funnel stays unrecorded. */
+const REPLAY_PATHS = ["/quiz/itch/results/plans", "/quiz/itch/checkout"];
+
 /**
  * PostHog, configured for one job: seeing where people fall out of the quiz.
  *
@@ -18,9 +22,11 @@ let counted: string | null = null;
  *
  *   autocapture        off. Clicks and inputs across the whole site would swamp the
  *                      free tier and none of it answers the question being asked.
- *   session_recording  off. The funnel ends on a checkout where people type names,
- *                      addresses and card details. Not recording it is simpler than
- *                      masking it correctly.
+ *   session_recording  off by default, started by hand on REPLAY_PATHS only. Every input
+ *                      is masked (names, emails, phones, addresses), the address
+ *                      suggestion list is blocked, and Stripe's card fields sit in a
+ *                      cross-origin iframe the recorder cannot see. Stopped on every
+ *                      other path, so the thank you page is never recorded.
  *   person_profiles    identified_only, and nothing ever calls identify, so events
  *                      stay anonymous. No email reaches PostHog.
  *   capture_pageview   off, because it does not fire on App Router client navigation.
@@ -50,12 +56,16 @@ export function PostHogAnalytics() {
            instead of two and buy nothing the dropoff curve does not already show. */
         capture_pageleave: false,
         disable_session_recording: true,
+        session_recording: { maskAllInputs: true },
         /* Nothing here reads a flag, and leaving this on costs a POST to /flags on
            every single page view. */
         advanced_disable_feature_flags: true,
         person_profiles: "identified_only",
       });
     }
+
+    if (REPLAY_PATHS.includes(pathname)) posthog.startSessionRecording();
+    else posthog.stopSessionRecording();
 
     if (counted === pathname) return;
     counted = pathname;
