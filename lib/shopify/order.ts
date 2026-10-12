@@ -58,8 +58,8 @@ export async function createOrder(o: OrderInput): Promise<{ id: string; name: st
     shippingAddress: address,
     billingAddress: address,
     lineItems: [
-      { variantId: BUNDLE, quantity: 1, priceSet: money(o.price) },
-      ...(o.first ? GIFTS.map((variantId) => ({ variantId, quantity: 1, priceSet: money(0) })) : []),
+      { variantId: BUNDLE, quantity: 1, requiresShipping: true, priceSet: money(o.price) },
+      ...(o.first ? GIFTS.map((variantId) => ({ variantId, quantity: 1, requiresShipping: true, priceSet: money(0) })) : []),
     ],
     shippingLines: [{ title: "Standard shipping", code: "FREE", priceSet: money(0) }],
     ...(o.discount > 0 ? { discountCode: { itemFixedDiscountCode: { code: o.discountLabel, amountSet: money(o.discount) } } } : {}),
