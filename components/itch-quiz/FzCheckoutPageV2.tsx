@@ -113,6 +113,9 @@ function Address({ prefix, beside }: { prefix: string; beside?: ReactNode }) {
   );
 }
 
+/* Bigger than the stock large button, in title case instead of its usual capitals. */
+const PAY_STYLE = { fontSize: 24, textTransform: "none", letterSpacing: "0.01em", padding: "24px 12px", minHeight: 80, borderRadius: 12 } as const;
+
 const HOLD_SECONDS = 7 * 60;
 
 /* Seconds left on the order hold. Starts over on every page load: nothing is remembered. It
@@ -346,11 +349,11 @@ function Checkout() {
               {!sameBilling ? (<><h2 className={s.h} style={{ marginTop: 0 }}>Billing address</h2><div className={s.fields}><Address prefix="bill-" /></div></>) : null}
 
               <div style={{ marginTop: 20 }}>
-                <Button type="submit" size="lg" fullWidth variant="accent" disabled={!stripe || busy} iconLeft={busy ? undefined : "shield-check"}>{busy ? "Processing…" : "Submit secure payment"}</Button>
+                <Button type="submit" size="lg" fullWidth variant="accent" disabled={!stripe || busy} iconLeft={busy ? undefined : "shield-check"} style={PAY_STYLE}>{busy ? "Processing…" : "Submit Secure Payment"}</Button>
                 {error ? <p role="alert" className={s.err}>{error}</p> : null}
               </div>
               <p className={s.fine}>
-                By clicking “Submit secure payment,” you agree to Friday Zoomies’{" "}
+                By clicking “Submit Secure Payment,” you agree to Friday Zoomies’{" "}
                 <a href="https://fridayzoomies.com/policies/terms-of-service">Terms of Sale</a> and{" "}
                 <a href="https://fridayzoomies.com/policies/privacy-policy">Privacy Policy</a>. You will be enrolled in a
                 subscription and billed on a recurring basis at the price and frequency shown in the order summary above,
