@@ -135,6 +135,8 @@ function Checkout() {
   const [busy, setBusy] = useState(false);
   /* Step one passed. Payment is mounted only while this is true. */
   const [ready, setReady] = useState(false);
+  /* One line of what they entered, shown in place of the fields once they continue. */
+  const [shipTo, setShipTo] = useState("");
   const [wallets, setWallets] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -202,9 +204,15 @@ function Checkout() {
   const unlock = () => {
     const form = formRef.current;
     if (!form || !check(false)) return;
-    notify(new FormData(form));
+    const fd = new FormData(form);
+    notify(fd);
+    const a = readAddress(fd, "ship-");
+    setShipTo(`${field(fd, "ship-first")} ${field(fd, "ship-last")}, ${[a.line1, a.line2, a.city].filter(Boolean).join(", ")}, ${a.state} ${a.postal_code}`);
     setReady(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const edit = () => { setReady(false); setWallets(false); };
 
   /* Collects the payment details, has the server create the subscription, then confirms it. The
      wallet buttons pay with the contact and shipping already on the form. */
@@ -294,13 +302,24 @@ function Checkout() {
             <span>Due to high demand your order is reserved for: <strong>{hold}</strong> minutes</span>
           </div>
 
-          <div className={s.fields} style={{ marginTop: 14 }}>
+          {/* Hidden, not unmounted: the payment step reads these inputs back from the form. */}
+          <div className={s.fields} style={{ marginTop: 14, display: ready ? "none" : undefined }}>
             <Address
               prefix="ship-"
               beside={<Field cls={s.half} label="Phone" name="phone" type="tel" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} inputMode="tel" autoComplete="tel" />}
             />
             <Field cls={s.full} label="Email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} inputMode="email" autoComplete="email" />
           </div>
+
+          {ready ? (
+            <div className={s.shipDone}>
+              <div>
+                <span className={s.shipLbl}>Shipping to</span>
+                <p className={s.shipTxt}>{shipTo}</p>
+              </div>
+              <button type="button" className={s.edit} onClick={edit}>Edit</button>
+            </div>
+          ) : null}
 
           {!ready ? (
             <div style={{ marginTop: 20 }}>
