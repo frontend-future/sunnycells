@@ -50,7 +50,7 @@ const part = (c: Component[], type: string, short = false) => {
   return hit ? (short ? hit.shortText : hit.longText) : "";
 };
 
-export function AddressSuggest({ prefix, className }: { prefix: string; className: string }) {
+export function AddressSuggest({ prefix, className, id, placeholder = "Address *" }: { prefix: string; className: string; id?: string; placeholder?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
   const token = useRef<unknown>(null);
@@ -119,9 +119,10 @@ export function AddressSuggest({ prefix, className }: { prefix: string; classNam
     <div ref={wrap} className={`${className} ${s.suggestWrap}`}>
       <input
         ref={input}
+        id={id}
         className={s.input}
         name={`${prefix}address`}
-        placeholder="Address *"
+        placeholder={placeholder}
         aria-label="Address"
         autoComplete="address-line1"
         role="combobox"

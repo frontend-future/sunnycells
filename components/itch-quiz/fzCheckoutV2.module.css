@@ -62,7 +62,7 @@
 .h { font-family: var(--font-display); font-size: 22px; font-weight: 800; margin: 26px 0 12px; }
 .fields { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
 .full { grid-column: span 6; } .half { grid-column: span 3; } .third { grid-column: span 2; }
-@media (max-width: 480px) { .third { grid-column: span 6; } .half { grid-column: span 6; } }
+@media (max-width: 480px) { .third { grid-column: span 6; } }
 .input { width: 100%; height: 54px; border: 1px solid var(--ink-20); border-radius: var(--radius-input); background: #fff; padding: 0 16px; font: inherit; font-size: 17px; font-weight: 500; color: var(--ink); appearance: none; }
 .input::placeholder { color: var(--ink-60); }
 .input:focus { outline: none; border-color: var(--cobalt); box-shadow: 0 0 0 2px var(--cobalt); }
@@ -104,3 +104,7 @@ select.input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://ww
 
 /* Fields the step-one check rejected. Set from the form by name, so it also reaches the address inputs. */
 .page :global([aria-invalid="true"]) { border-color: #B0392A; box-shadow: 0 0 0 1px #B0392A; }
+
+/* Label above each box, as in the old itch checkout. */
+.fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.lbl { font-size: 15px; font-weight: 700; }

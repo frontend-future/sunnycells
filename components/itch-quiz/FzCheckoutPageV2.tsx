@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentProps, type ReactNode } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, ExpressCheckoutElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Button } from "@/components/core/Button";
@@ -8,6 +8,7 @@ import { RATING } from "@/lib/products/dog-itch";
 import { formatPrice } from "@/lib/price";
 import { FZ_BRAND, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { FIRST, IMG, LINES, PRICE } from "@/lib/quiz/fzOrder";
+import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
 import { AddressSuggest } from "./AddressSuggest";
@@ -33,16 +34,6 @@ const APPEARANCE = {
 
 type Addr = { line1: string; line2?: string; city: string; state: string; postal_code: string; country: string };
 
-/* (678) 735-8452 as they type. A leading country code 1 is dropped, and it stops at 10 digits. */
-const formatPhone = (raw: string) => {
-  let d = raw.replace(/\D/g, "");
-  if (d.length > 10 && d.startsWith("1")) d = d.slice(1);
-  d = d.slice(0, 10);
-  if (d.length < 4) return d;
-  if (d.length < 7) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
-  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
-};
-
 const field = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim();
 const readAddress = (fd: FormData, p: string): Addr => ({
   line1: field(fd, `${p}address`), line2: field(fd, `${p}address2`) || undefined, city: field(fd, `${p}city`),
@@ -62,7 +53,7 @@ function invalidFields(fd: FormData, billing: boolean): string[] {
     for (const k of ["first", "last", "address", "city", "state"]) if (!field(fd, p + k)) bad.push(p + k);
     if (!/^\d{5}(-\d{4})?$/.test(field(fd, `${p}zip`))) bad.push(`${p}zip`);
   }
-  if (field(fd, "phone").replace(/\D/g, "").length !== 10) bad.push("phone");
+  if (!phoneOk(field(fd, "phone"))) bad.push("phone");
   return bad;
 }
 const labelOf = (name: string) => (name.startsWith("bill-") ? "billing " : "") + LABEL[name.replace(/^(ship|bill)-/, "")];
@@ -85,26 +76,44 @@ const Chevron = () => (
   <svg width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m1 1 6 6 6-6" /></svg>
 );
 
-function Address({ prefix }: { prefix: string }) {
-  const f = (n: string) => `${prefix}${n}`;
+/* A labelled box, laid out like the old itch checkout: label above, no placeholder. */
+function Field({ label, name, cls, ...rest }: { label: string; name: string; cls: string } & ComponentProps<"input">) {
+  const id = `ck-${name}`;
   return (
-    <div className={s.fields}>
-      <select className={`${s.input} ${s.full}`} name={f("country")} aria-label="Country" defaultValue="US"><option value="US">United States</option></select>
-      <input className={`${s.input} ${s.half}`} name={f("first")} placeholder="First name *" aria-label="First name" autoComplete="given-name" required />
-      <input className={`${s.input} ${s.half}`} name={f("last")} placeholder="Last name *" aria-label="Last name" autoComplete="family-name" required />
-      <AddressSuggest prefix={prefix} className={s.full} />
-      <input className={`${s.input} ${s.full}`} name={f("address2")} placeholder="Apartment, suite, etc. (optional)" aria-label="Apartment, suite, etc." autoComplete="address-line2" />
-      <input className={`${s.input} ${s.third}`} name={f("city")} placeholder="City *" aria-label="City" autoComplete="address-level2" required />
-      <select className={`${s.input} ${s.third}`} name={f("state")} aria-label="State" defaultValue="" autoComplete="address-level1" required>
-        <option value="" disabled>State</option>
-        {STATES.map((st) => <option key={st}>{st}</option>)}
-      </select>
-      <input className={`${s.input} ${s.third}`} name={f("zip")} placeholder="Postal code *" aria-label="Postal code" inputMode="numeric" autoComplete="postal-code" required />
+    <div className={`${s.fld} ${cls}`}>
+      <label className={s.lbl} htmlFor={id}>{label}</label>
+      <input id={id} className={s.input} name={name} {...rest} />
     </div>
   );
 }
 
-const HOLD_SECONDS = 10 * 60;
+/* First and last name, address lines, city and state, then zip with whatever sits beside it. */
+function Address({ prefix, beside }: { prefix: string; beside?: ReactNode }) {
+  const f = (n: string) => `${prefix}${n}`;
+  return (
+    <>
+      <Field cls={s.half} label="First name" name={f("first")} autoComplete="given-name" />
+      <Field cls={s.half} label="Last name" name={f("last")} autoComplete="family-name" />
+      <div className={`${s.fld} ${s.full}`}>
+        <label className={s.lbl} htmlFor={`ck-${f("address")}`}>Address line 1</label>
+        <AddressSuggest prefix={prefix} className="" id={`ck-${f("address")}`} placeholder="" />
+      </div>
+      <Field cls={s.full} label="Address line 2" name={f("address2")} autoComplete="address-line2" />
+      <Field cls={s.half} label="Town or city" name={f("city")} autoComplete="address-level2" />
+      <div className={`${s.fld} ${s.half}`}>
+        <label className={s.lbl} htmlFor={`ck-${f("state")}`}>State</label>
+        <select id={`ck-${f("state")}`} className={s.input} name={f("state")} defaultValue="" autoComplete="address-level1">
+          <option value="">Choose</option>
+          {STATES.map((st) => <option key={st}>{st}</option>)}
+        </select>
+      </div>
+      <Field cls={s.half} label="Zip code" name={f("zip")} inputMode="numeric" autoComplete="postal-code" />
+      {beside}
+    </>
+  );
+}
+
+const HOLD_SECONDS = 7 * 60;
 
 /* Seconds left on the order hold. Starts over on every page load: nothing is remembered. It
    stops at 0:00 and nothing happens. */
@@ -133,7 +142,7 @@ function Checkout() {
   /* The quiz already asked for an email, so start the field with it. They can still change it. */
   const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+1");
   const quizEmail = answers.email?.trim();
   useEffect(() => { if (quizEmail) setEmail((cur) => cur || quizEmail); }, [quizEmail]);
   const [promo, setPromo] = useState<{ code: string; total: number; discount: number } | null>(null);
@@ -285,12 +294,13 @@ function Checkout() {
             <span>Due to high demand your order is reserved for: <strong>{hold}</strong> minutes</span>
           </div>
 
-          <h2 className={s.h} style={{ marginTop: 14 }}>Contact information</h2>
-          <input className={s.input} type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email *" aria-label="Email" autoComplete="email" inputMode="email" />
-
-          <h2 className={s.h}>Shipping information</h2>
-          <Address prefix="ship-" />
-          <input className={s.input} style={{ marginTop: 12 }} type="tel" name="phone" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} placeholder="Phone *" aria-label="Phone" autoComplete="tel" inputMode="tel" />
+          <div className={s.fields} style={{ marginTop: 14 }}>
+            <Address
+              prefix="ship-"
+              beside={<Field cls={s.half} label="Phone" name="phone" type="tel" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} inputMode="tel" autoComplete="tel" />}
+            />
+            <Field cls={s.full} label="Email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} inputMode="email" autoComplete="email" />
+          </div>
 
           {!ready ? (
             <div style={{ marginTop: 20 }}>
@@ -314,7 +324,7 @@ function Checkout() {
                 <input type="checkbox" checked={sameBilling} onChange={(e) => setSameBilling(e.target.checked)} />
                 Use shipping address as billing address
               </label>
-              {!sameBilling ? (<><h2 className={s.h} style={{ marginTop: 0 }}>Billing address</h2><Address prefix="bill-" /></>) : null}
+              {!sameBilling ? (<><h2 className={s.h} style={{ marginTop: 0 }}>Billing address</h2><div className={s.fields}><Address prefix="bill-" /></div></>) : null}
 
               <div style={{ marginTop: 20 }}>
                 <Button type="submit" size="lg" fullWidth variant="accent" disabled={!stripe || busy}>{busy ? "Processing…" : "Pay now"}</Button>
