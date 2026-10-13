@@ -13,6 +13,7 @@ import { AfterThread, OliverCover, OliverTop } from "./OliverThread";
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const STEPS = [
+  { when: "Today", title: "Your protocol review call", body: "Text Oliver and book 10 minutes. He'll explain how to use the spray and chews and what to watch for." },
   { when: "Within 48 hours", title: "Your order ships", body: "Your Inside-Out Itch Bundle and free gifts leave our warehouse." },
   { when: "Within 5 business days of shipping", title: "It arrives", body: "Free shipping to your door, with the Itch Spray, bandana and mystery gift in the box." },
 ];
