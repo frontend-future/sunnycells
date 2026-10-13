@@ -8,6 +8,8 @@ import m from "./mock.module.css";
 const OLIVER = "+12147736688";
 export const OLIVER_DISPLAY = "(214) 773-6688";
 const QUIZ_ID = "itch-fridayzoomies";
+/* The mock shows this name when it is opened without a quiz in the browser, so the page previews right. */
+const SAMPLE_DOG = "Bella";
 
 const titleCase = (s: string) => s.trim().replace(/(^|\s)(\S)/g, (_, sp, c) => sp + c.toUpperCase());
 
@@ -27,10 +29,11 @@ function useBuyerFirstName(): string {
 export function useOliverText() {
   const { answers } = useAnswers(QUIZ_ID);
   const first = useBuyerFirstName();
-  const dog = titleCase(answers["dog-name"] ?? "");
-  const dogName = dog || "your dog";
-  const possessive = dog ? `${dog}'s` : "your dog's";
-  const message = `Hi Oliver, ${first ? `it's ${first}. ` : ""}I'd like to book ${possessive} call.`;
+  const real = titleCase(answers["dog-name"] ?? "");
+  const dogName = real || SAMPLE_DOG;
+  const possessive = `${dogName}'s`;
+  /* The text is the buyer speaking, so with no name it says "my dog's", never "your dog's". */
+  const message = `Hi Oliver, ${first ? `it's ${first}. ` : ""}I'd like to book ${real ? `${real}'s` : "my dog's"} call.`;
   return { first, dogName, possessive, message, href: `sms:${OLIVER}?&body=${encodeURIComponent(message)}` };
 }
 
