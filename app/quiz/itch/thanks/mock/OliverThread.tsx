@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useAnswers } from "@/lib/quiz/store";
 import m from "./mock.module.css";
 
@@ -42,21 +42,55 @@ export function OliverAvatar({ className }: { className?: string }) {
   return <img className={className} src="/quiz/fridayzoomies/oliver.jpg" alt="Oliver" width={400} height={400} />;
 }
 
-/* Oliver's messages arrive one at a time, each after a typing indicator. All three bubbles hold their
-   place from the start, hidden until their turn, so the thread never changes height. The timing is
-   plain CSS (see mock.module.css), so there is no flash on load and reduced motion shows them at once. */
-const TIMING = [
-  { from: "0.8s", dur: "1.4s", at: "2.2s" },
-  { from: "2.2s", dur: "1.6s", at: "3.8s" },
-  { from: "3.8s", dur: "1.4s", at: "5.2s" },
-] as const;
+/* Oliver's messages arrive one at a time. A typing bubble shows at the bottom, beside his photo, and each
+   message replaces it there while the older ones move up. A hidden copy of the full thread holds the height,
+   so the section never changes size. */
+const STEPS = [
+  { at: 800, shown: 0, typing: true },
+  { at: 2200, shown: 1, typing: false },
+  { at: 2400, shown: 1, typing: true },
+  { at: 3800, shown: 2, typing: false },
+  { at: 4000, shown: 2, typing: true },
+  { at: 5200, shown: 3, typing: false },
+];
 
-function Msg({ i, last, children }: { i: 0 | 1 | 2; last?: boolean; children: React.ReactNode }) {
-  const t = TIMING[i];
+const calm = () => () => {};
+const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function useThreadStep(): { shown: number; typing: boolean } {
+  const reduced = useSyncExternalStore(calm, reducedMotion, () => false);
+  const [step, setStep] = useState({ shown: 0, typing: false });
+  useEffect(() => {
+    if (reduced) return;
+    const timers = STEPS.map((st) => setTimeout(() => setStep({ shown: st.shown, typing: st.typing }), st.at));
+    return () => timers.forEach(clearTimeout);
+  }, [reduced]);
+  return reduced ? { shown: 3, typing: false } : step;
+}
+
+function Thread({ messages }: { messages: React.ReactNode[] }) {
+  const { shown, typing } = useThreadStep();
+  const tail = typing ? -1 : shown - 1;
   return (
-    <div className={m.msg} style={{ ["--from" as string]: t.from, ["--dur" as string]: t.dur, ["--at" as string]: t.at }}>
-      <span className={m.typing} aria-hidden="true"><i /><i /><i /></span>
-      <p className={`${m.bubble} ${m.pop} ${last ? m.last : ""}`}>{children}</p>
+    <div className={m.stackWrap}>
+      {/* Reserves the final height, and carries the text for screen readers. */}
+      <div className={m.spacer}>
+        {messages.map((msg, i) => <p key={i} className={m.bubble}>{msg}</p>)}
+      </div>
+      <div className={m.stack} aria-hidden="true">
+        {messages.map((msg, i) => (
+          <div key={i} className={`${m.slot} ${shown > i ? m.on : ""}`}>
+            <div className={m.slotInner}>
+              <p className={`${m.bubble} ${tail === i ? m.last : ""}`}>{msg}</p>
+            </div>
+          </div>
+        ))}
+        <div className={`${m.slot} ${typing ? m.on : ""}`}>
+          <div className={m.slotInner}>
+            <span className={`${m.typing} ${m.last}`}><i /><i /><i /></span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -71,7 +105,7 @@ export function OliverTop({ qr }: { qr: string }) {
 
       <div className={m.top}>
         <div className={m.left}>
-          <h1 className={m.h1}>Do this now for the best results</h1>
+          <h1 className={m.h1}>Do this now for lasting itch relief</h1>
 
           <div className={m.hdr}>
             <OliverAvatar className={m.avLg} />
@@ -81,18 +115,16 @@ export function OliverTop({ qr }: { qr: string }) {
 
           <div className={m.thread}>
             <OliverAvatar className={m.avSm} />
-            <div className={m.col}>
-              <Msg i={0}>
-                {first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."} Thank you for trusting us with {dogName}.
-              </Msg>
-              <Msg i={1}>
-                I want {dogName} to stop the itching for good. So I&apos;ll spend <b>10 minutes</b> with you on the phone, hear
-                what {dogName}&apos;s been going through, and explain exactly how to use the spray and chews for best results.
-              </Msg>
-              <Msg i={2} last>
-                You&apos;ll know what to watch for, and we&apos;ll send an extra surprise for {dogName}.
-              </Msg>
-            </div>
+            <Thread
+              messages={[
+                <>{first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."} Thank you for trusting us with {dogName}.</>,
+                <>
+                  I want {dogName} to stop the itching for good. So I&apos;ll spend <b>10 minutes</b> with you on the phone, understand
+                  what {dogName}&apos;s been going through, and explain exactly how to use the spray and chews for lasting itch relief.
+                </>,
+                <>You&apos;ll know what to watch for, and we&apos;ll send an extra surprise for {dogName}.</>,
+              ]}
+            />
           </div>
 
           <a className={m.btn} href={href}>Text Oliver Now</a>
@@ -140,7 +172,7 @@ export function OliverCover() {
       <section className={m.card} aria-label="What we will cover">
         <h2 className={m.h2}>What we&apos;ll cover</h2>
         <ul className={m.checks}>
-          <li><span className={m.tick} aria-hidden="true" />How to use the spray and chews for best results</li>
+          <li><span className={m.tick} aria-hidden="true" />How to use the spray and chews for lasting itch relief</li>
           <li><span className={m.tick} aria-hidden="true" />What to watch for in the first 12 weeks</li>
           <li><span className={m.tick} aria-hidden="true" />What&apos;s helped {dogName} before, and what hasn&apos;t</li>
         </ul>
