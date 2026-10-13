@@ -102,6 +102,7 @@ async function sendSheet(payload: NotifyPayload): Promise<Result> {
       new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
       payload.email,
       payload.phone ?? "",
+      "", // Address: the quiz never asks, filled from the order later
       payload.quizId,
       ...SHEET_COLUMNS.map(([stem]) => find(stem)),
     ];
