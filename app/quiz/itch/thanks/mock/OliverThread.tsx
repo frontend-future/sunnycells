@@ -34,21 +34,9 @@ export function useOliverText() {
   return { first, dogName, possessive, message, href: `sms:${OLIVER}?&body=${encodeURIComponent(message)}` };
 }
 
-/* Stand-in until there is a real photo of Oliver. */
 export function OliverAvatar({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Oliver">
-      <rect width="100" height="100" fill="#C9D6EE" />
-      <path d="M10 100c2-22 18-34 40-34s38 12 40 34z" fill="#14213D" />
-      <path d="M40 66l10 12 10-12z" fill="#fff" />
-      <rect x="43" y="52" width="14" height="16" rx="6" fill="#E3B58F" />
-      <ellipse cx="50" cy="40" rx="17" ry="20" fill="#EBBF9A" />
-      <path d="M32 38c0-14 9-22 19-22 11 0 18 8 17 22-4-8-9-11-18-11-8 0-14 3-18 11z" fill="#5A3E2B" />
-      <circle cx="43.5" cy="42" r="2" fill="#2B2B2B" />
-      <circle cx="56.5" cy="42" r="2" fill="#2B2B2B" />
-      <path d="M42 50c4 5 12 5 16 0" stroke="#8A4B3A" strokeWidth="2.4" fill="none" strokeLinecap="round" />
-    </svg>
-  );
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img className={className} src="/quiz/fridayzoomies/oliver.jpg" alt="Oliver" width={400} height={400} />;
 }
 
 export function OliverTop({ qr }: { qr: string }) {
