@@ -127,7 +127,7 @@ export function OliverTop({ qr }: { qr: string }) {
     <>
       <div className={m.banner}>
         <p className={m.b1}>Your order is confirmed!</p>
-        <p className={m.b2}>Do this now for lasting itch relief</p>
+        <p className={m.b2}>One last step for lasting itch relief</p>
       </div>
 
       <div className={m.top}>
