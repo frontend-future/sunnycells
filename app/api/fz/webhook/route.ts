@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { stripe } from "@/lib/stripe/server";
 import { createOrder, findOrder } from "@/lib/shopify/order";
 import { sendAlert } from "@/lib/alert";
+import { recordOrderInSheet, sheetDates } from "@/lib/leads-sheet";
 
 export const maxDuration = 30;
 
@@ -77,6 +78,19 @@ export async function POST(req: Request) {
       `<p><strong>${invoice.billing_reason === "subscription_create" ? "New order" : "Renewal"} ${esc(order.name)}</strong> was created in Shopify.</p>
        <p>${esc(customer.shipping?.name ?? "")} · ${esc(customer.email)}<br>${esc(ship.line1 ?? "")} ${esc(ship.line2 ?? "")}, ${esc(ship.city ?? "")}, ${esc(ship.state ?? "")} ${esc(ship.postal_code ?? "")}</p>`,
     );
+    /* First orders only: renewals are the same customer, already in the sheet. */
+    if (invoice.billing_reason === "subscription_create" && event.livemode) {
+      await recordOrderInSheet({
+        email: customer.email,
+        name: customer.shipping?.name || customer.name || "",
+        phone: customer.shipping?.phone || customer.phone || "",
+        address: [ship.line1, ship.line2, [ship.city, [ship.state, ship.postal_code].filter(Boolean).join(" ")].filter(Boolean).join(", ")]
+          .filter(Boolean)
+          .join(", "),
+        orderName: order.name,
+        ...sheetDates(new Date()),
+      });
+    }
     return NextResponse.json({ order: order.name });
   } catch (e) {
     console.error("fz webhook", invoice.id, e);
