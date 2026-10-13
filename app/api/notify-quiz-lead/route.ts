@@ -66,6 +66,52 @@ async function sendSlack(payload: NotifyPayload): Promise<Result> {
   ]);
 }
 
+
+/* One row per Friday Zoomies lead in the Marketing Dashboard "Quiz Leads" tab, through a small Apps
+   Script web app. Answers come keyed by question text, so each column finds its answer by a stem
+   of the question; "All answers" keeps the whole set in case a question is reworded. */
+const SHEET_COLUMNS: [string, string][] = [
+  ["You want your dog to", "Goal"],
+  ["dog's name", "Dog name"],
+  ["Gender", "Gender"],
+  ["How big is", "Weight"],
+  ["How old is", "Age"],
+  ["scratch or lick the most", "Where it itches"],
+  ["How often does", "How often"],
+  ["noticed any of these", "Symptoms"],
+  ["ruled out fleas", "Fleas ruled out"],
+  ["get worse", "Worse when"],
+  ["already tried", "Tried"],
+  ["dealing with", "How long"],
+  ["makes me feel", "Feeling"],
+  ["already spent", "Spent so far"],
+  ["most afraid", "Main fear"],
+  ["help you most", "Wants"],
+];
+
+async function sendSheet(payload: NotifyPayload): Promise<Result> {
+  const url = process.env.LEADS_SHEET_URL;
+  const secret = process.env.LEADS_SHEET_SECRET;
+  if (!url || !secret || payload.quizId !== "itch-fridayzoomies") return { ok: true };
+
+  const entries = Object.entries(payload.answers);
+  const find = (stem: string) => entries.find(([q]) => q.toLowerCase().includes(stem.toLowerCase()))?.[1] ?? "";
+  const row = [
+    new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
+    payload.email,
+    payload.phone ?? "",
+    payload.quizId,
+    ...SHEET_COLUMNS.map(([stem]) => find(stem)),
+    entries.map(([q, a]) => `${q}: ${a}`).join("\n"),
+  ];
+  try {
+    const res = await fetch(url, { method: "POST", body: JSON.stringify({ secret, row }) });
+    return res.ok ? { ok: true } : { ok: false, error: `sheet returned ${res.status}` };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "sheet failed" };
+  }
+}
+
 export async function POST(request: Request) {
   let payload: NotifyPayload;
   try {
@@ -78,7 +124,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  /* Both go at once and neither is allowed to fail the other. */
-  const [email, slack] = await Promise.all([sendEmail(payload), sendSlack(payload)]);
-  return NextResponse.json({ email, slack });
+  /* All three go at once and none is allowed to fail the others. */
+  const [email, slack, sheet] = await Promise.all([sendEmail(payload), sendSlack(payload), sendSheet(payload)]);
+  return NextResponse.json({ email, slack, sheet });
 }
