@@ -2,14 +2,12 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { useAnswers } from "@/lib/quiz/store";
-import m from "./mock.module.css";
+import m from "./oliver.module.css";
 
 /* Oliver's number, in the form an sms: link wants. */
 const OLIVER = "+12147736688";
 export const OLIVER_DISPLAY = "(214) 773-6688";
 const QUIZ_ID = "itch-fridayzoomies";
-/* The mock shows this name when it is opened without a quiz in the browser, so the page previews right. */
-const SAMPLE_DOG = "Bella";
 
 const titleCase = (s: string) => s.trim().replace(/(^|\s)(\S)/g, (_, sp, c) => sp + c.toUpperCase());
 
@@ -25,12 +23,13 @@ function useBuyerFirstName(): string {
   try { return titleCase((JSON.parse(raw || "{}").firstName as string | undefined) ?? ""); } catch { return ""; }
 }
 
-/** Names from the quiz and checkout, with wording that still reads right when they are missing. */
-export function useOliverText() {
+/** Names from the quiz and checkout, with wording that still reads right when they are missing.
+    `sampleDog` is for a preview page opened without a quiz in the browser; the live page leaves it out. */
+export function useOliverText(sampleDog?: string) {
   const { answers } = useAnswers(QUIZ_ID);
   const first = useBuyerFirstName();
   const real = titleCase(answers["dog-name"] ?? "");
-  const dogName = real || SAMPLE_DOG;
+  const dogName = real || sampleDog || "your dog";
   const possessive = `${dogName}'s`;
   /* The text is the buyer speaking, so with no name it says "my dog's", never "your dog's". */
   const message = `Hi Oliver, ${first ? `it's ${first}. ` : ""}I'd like to book ${real ? `${real}'s` : "my dog's"} protocol review call.`;
@@ -130,8 +129,8 @@ function Thread({ messages }: { messages: React.ReactNode[] }) {
   );
 }
 
-export function OliverTop({ qr }: { qr: string }) {
-  const { first, dogName, their, message, href } = useOliverText();
+export function OliverTop({ qr, sampleDog }: { qr: string; sampleDog?: string }) {
+  const { first, dogName, their, message, href } = useOliverText(sampleDog);
   return (
     <>
       <div className={m.banner}>
@@ -147,7 +146,7 @@ export function OliverTop({ qr }: { qr: string }) {
             <p className={m.hdrRole}>Friday Zoomies customer care</p>
           </div>
 
-          <div className={m.thread}>
+          <div className={`${m.thread} ph-no-capture`}>
             <OliverAvatar className={m.avSm} />
             <Thread
               messages={[
@@ -168,7 +167,7 @@ export function OliverTop({ qr }: { qr: string }) {
             <p className={m.reply}><span className={m.dot} aria-hidden="true" />Oliver usually replies within an hour</p>
             <p className={m.number}>Or text <a className={m.tel} href={href}>{OLIVER_DISPLAY}</a> from your phone.</p>
 
-            <div className={m.outRow}><p className={m.out}>{message}</p></div>
+            <div className={`${m.outRow} ph-no-capture`}><p className={m.out}>{message}</p></div>
             <p className={m.outCap}>What you&apos;ll send. Press send.</p>
           </AfterThread>
         </div>
@@ -203,8 +202,8 @@ function GiftIcon({ className }: { className?: string }) {
   );
 }
 
-export function OliverCover() {
-  const { dogName, href } = useOliverText();
+export function OliverCover({ sampleDog }: { sampleDog?: string }) {
+  const { dogName, href } = useOliverText(sampleDog);
   return (
     <>
       <section className={m.card} aria-label="What we will cover">

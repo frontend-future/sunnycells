@@ -4,12 +4,12 @@ import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { LINES } from "@/lib/quiz/fzOrder";
 import { Confetti } from "../Confetti";
 import s from "../thanks.module.css";
-import m from "./mock.module.css";
-import { AfterThread, OliverCover, OliverTop } from "./OliverThread";
+import m from "../oliver.module.css";
+import { AfterThread, OliverCover, OliverTop } from "../OliverThread";
 
-/* A working draft of the thank you page, not linked from anywhere. The live page at
-   /quiz/itch/thanks is untouched. Left out on purpose: PurchaseTracker, so opening this
-   page never reports a Purchase to Meta. */
+/* A preview of the thank you page for design changes, not linked from anywhere. It shows a sample
+   dog name when no quiz is in the browser, and leaves out PurchaseTracker so opening it never
+   reports a Purchase to Meta. The live page at /quiz/itch/thanks is the same layout. */
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const STEPS = [
@@ -29,11 +29,11 @@ export default async function ThanksMockPage() {
         <img className={s.logo} src={FZ_BRAND.logo?.src} alt="Friday Zoomies" />
       </header>
 
-      <OliverTop qr={qr} />
+      <OliverTop qr={qr} sampleDog="Bella" />
 
       <main className={m.after}>
         <AfterThread>
-          <OliverCover />
+          <OliverCover sampleDog="Bella" />
 
           <h2 className={s.h2} style={{ marginTop: 32 }}>What happens next</h2>
           <ol className={s.steps}>
