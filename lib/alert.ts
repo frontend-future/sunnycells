@@ -8,7 +8,7 @@ export async function sendAlert(subject: string, html: string) {
   try {
     await new Resend(key).emails.send({
       from: `Friday Zoomies orders <notifications@${domain}>`,
-      to: process.env.NOTIFY_TO_EMAIL ?? "jake@ripleads.com",
+      to: [process.env.NOTIFY_TO_EMAIL ?? "jake@ripleads.com", "oliver.weir@mullinspartnersllc.com"],
       subject,
       html: `<div style="font-family:sans-serif;font-size:14px;line-height:1.6;color:#14213D">${html}</div>`,
     });
