@@ -43,17 +43,16 @@ export function OliverAvatar({ className }: { className?: string }) {
 }
 
 export function OliverTop({ qr }: { qr: string }) {
-  const { first, dogName, possessive, message, href } = useOliverText();
+  const { first, dogName, message, href } = useOliverText();
   return (
     <>
       <div className={m.banner}>
-        <p className={m.b1}>Your order is in</p>
-        <p className={m.b2}>Do this now for the best results</p>
+        <p className={m.b2}>Your order is confirmed!</p>
       </div>
 
       <div className={m.top}>
         <div className={m.left}>
-          <h1 className={m.h1}>Book {possessive} protocol review call</h1>
+          <h1 className={m.h1}>Do this now for the best results</h1>
 
           <div className={m.hdr}>
             <OliverAvatar className={m.avLg} />
@@ -77,7 +76,7 @@ export function OliverTop({ qr }: { qr: string }) {
 
           <a className={m.btn} href={href}>Text Oliver Now</a>
           <p className={m.reply}><span className={m.dot} aria-hidden="true" />Oliver usually replies within an hour</p>
-          <p className={m.number}>Or text <b>{OLIVER_DISPLAY}</b> from your phone.</p>
+          <p className={m.number}>Or text <a className={m.tel} href={href}>{OLIVER_DISPLAY}</a> from your phone.</p>
 
           <div className={m.outRow}><p className={m.out}>{message}</p></div>
           <p className={m.outCap}>What you&apos;ll send. Press send.</p>
@@ -87,7 +86,7 @@ export function OliverTop({ qr }: { qr: string }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={qr} alt="QR code that opens a text to Oliver" width={170} height={170} />
           <p className={m.qrTitle}>Scan to text Oliver</p>
-          <p className={m.qrSub}>Point your phone&apos;s camera here, or text {OLIVER_DISPLAY}.</p>
+          <p className={m.qrSub}>Point your phone&apos;s camera here, or text <a className={m.tel} href={href}>{OLIVER_DISPLAY}</a>.</p>
         </aside>
       </div>
     </>
