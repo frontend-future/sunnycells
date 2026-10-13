@@ -76,7 +76,6 @@ export function OliverTop({ qr }: { qr: string }) {
           </div>
 
           <a className={m.btn} href={href}>Text Oliver Now</a>
-          <p className={m.sub}>Opens your messages with the text ready to send.</p>
           <p className={m.reply}><span className={m.dot} aria-hidden="true" />Oliver usually replies within an hour</p>
           <p className={m.number}>Or text <b>{OLIVER_DISPLAY}</b> from your phone.</p>
 
