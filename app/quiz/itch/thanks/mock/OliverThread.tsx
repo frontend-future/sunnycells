@@ -151,8 +151,8 @@ export function OliverTop({ qr }: { qr: string }) {
             />
           </div>
 
-          <a className={m.btn} href={href}>Text Oliver Now</a>
           <AfterThread>
+            <a className={m.btn} href={href}>Text Oliver Now</a>
             <p className={m.reply}><span className={m.dot} aria-hidden="true" />Oliver usually replies within an hour</p>
             <p className={m.number}>Or text <a className={m.tel} href={href}>{OLIVER_DISPLAY}</a> from your phone.</p>
 
