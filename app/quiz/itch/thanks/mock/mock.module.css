@@ -85,7 +85,6 @@
 @media (min-width: 900px) {
   .top { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 36px; align-items: start; padding-top: 32px; }
   .left { max-width: none; margin: 0; }
-  .h1 { text-align: left; }
   .hdr { text-align: left; display: flex; gap: 14px; align-items: center; }
   .avLg { margin: 0; }
   .qr { display: block; background: #fff; border-radius: var(--radius-card); padding: 20px; text-align: center; position: sticky; top: 24px; }
