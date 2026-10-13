@@ -67,14 +67,23 @@ export function AfterThread({ children }: { children: React.ReactNode }) {
 /* Oliver's messages arrive one at a time. A typing bubble shows at the bottom, beside his photo, and each
    message replaces it there while the older ones move up. A hidden copy of the full thread holds the height,
    so the section never changes size. */
-const STEPS = [
-  { at: 1000, shown: 0, typing: true },
-  { at: 2800, shown: 1, typing: false },
-  { at: 3100, shown: 1, typing: true },
-  { at: 5200, shown: 2, typing: false },
-  { at: 5500, shown: 2, typing: true },
-  { at: 7400, shown: 3, typing: false },
-];
+/* How long the typing bubble shows before each message arrives, in ms. Longer messages type for longer. */
+const TYPING_MS = [900, 1100, 1200, 2000, 1500];
+const START_MS = 1000;
+const PAUSE_MS = 250;
+const TOTAL = TYPING_MS.length;
+
+const STEPS = (() => {
+  const steps: { at: number; shown: number; typing: boolean }[] = [];
+  let t = START_MS;
+  TYPING_MS.forEach((typingMs, i) => {
+    steps.push({ at: t, shown: i, typing: true });
+    t += typingMs;
+    steps.push({ at: t, shown: i + 1, typing: false });
+    t += PAUSE_MS;
+  });
+  return steps;
+})();
 
 const calm = () => () => {};
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -87,9 +96,9 @@ function useThreadStep(): { shown: number; typing: boolean } {
     const timers = STEPS.map((st) => setTimeout(() => setStep({ shown: st.shown, typing: st.typing }), st.at));
     return () => timers.forEach(clearTimeout);
   }, [reduced]);
-  const current = reduced ? { shown: 3, typing: false } : step;
+  const current = reduced ? { shown: TOTAL, typing: false } : step;
   useEffect(() => {
-    if (current.shown === 3) markThreadDone();
+    if (current.shown === TOTAL) markThreadDone();
   }, [current.shown]);
   return current;
 }
@@ -142,10 +151,12 @@ export function OliverTop({ qr }: { qr: string }) {
             <OliverAvatar className={m.avSm} />
             <Thread
               messages={[
-                <>{first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."} Thank you for trusting us with {dogName}.</>,
+                <>{first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."}</>,
+                <>Thank you for trusting us with {dogName}.</>,
+                <>We&apos;re gonna help {dogName} to stop {their} itching for good.</>,
                 <>
-                  We&apos;re gonna help {dogName} to stop {their} itching for good. So I&apos;d like to spend <b>10 minutes</b> with you on the phone, understand
-                  what {dogName}&apos;s been going through, and explain exactly how to use the spray and chews for lasting itch relief.
+                  So I&apos;d like to spend <b>10 minutes</b> with you on the phone, understand what {dogName}&apos;s been going
+                  through, and explain exactly how to use the spray and chews for lasting itch relief.
                 </>,
                 <>You&apos;ll know what to watch for, and we&apos;ll send an extra surprise for {dogName}.</>,
               ]}

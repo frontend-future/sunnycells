@@ -1,7 +1,8 @@
 /* The Oliver block for the thank you page mock. Colours come from the itch theme wrapper. */
 .banner { background: var(--cobalt); border-bottom: 4px solid var(--sun); text-align: center; padding: 16px 16px 20px; }
-.b1 { margin: 0; font-size: clamp(20px, 5.4vw, 26px); font-weight: 700; line-height: 1.2; color: #E3F0FB; }
-.b2 { margin: 6px 0 0; font-family: var(--font-display); font-size: clamp(26px, 7vw, 40px); font-weight: 800; line-height: 1.1; color: var(--sun); }
+.b1 { margin: 0; font-size: clamp(16px, 4.6vw, 22px); font-weight: 700; line-height: 1.2; color: #E3F0FB; }
+/* The line is about 16.7em wide, so the size follows the screen width and it always stays on one line. */
+.b2 { margin: 6px 0 0; white-space: nowrap; font-family: var(--font-display); font-size: clamp(15px, calc((100vw - 36px) / 17), 38px); font-weight: 800; line-height: 1.1; color: var(--sun); }
 
 .top { max-width: 920px; margin: 0 auto; padding: 24px 16px 0; display: block; }
 .left { max-width: 640px; margin: 0 auto; }
