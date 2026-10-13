@@ -42,6 +42,25 @@ export function OliverAvatar({ className }: { className?: string }) {
   return <img className={className} src="/quiz/fridayzoomies/oliver.jpg" alt="Oliver" width={400} height={400} />;
 }
 
+/* Oliver's messages arrive one at a time, each after a typing indicator. All three bubbles hold their
+   place from the start, hidden until their turn, so the thread never changes height. The timing is
+   plain CSS (see mock.module.css), so there is no flash on load and reduced motion shows them at once. */
+const TIMING = [
+  { from: "0.8s", dur: "1.4s", at: "2.2s" },
+  { from: "2.2s", dur: "1.6s", at: "3.8s" },
+  { from: "3.8s", dur: "1.4s", at: "5.2s" },
+] as const;
+
+function Msg({ i, last, children }: { i: 0 | 1 | 2; last?: boolean; children: React.ReactNode }) {
+  const t = TIMING[i];
+  return (
+    <div className={m.msg} style={{ ["--from" as string]: t.from, ["--dur" as string]: t.dur, ["--at" as string]: t.at }}>
+      <span className={m.typing} aria-hidden="true"><i /><i /><i /></span>
+      <p className={`${m.bubble} ${m.pop} ${last ? m.last : ""}`}>{children}</p>
+    </div>
+  );
+}
+
 export function OliverTop({ qr }: { qr: string }) {
   const { first, dogName, message, href } = useOliverText();
   return (
@@ -63,14 +82,16 @@ export function OliverTop({ qr }: { qr: string }) {
           <div className={m.thread}>
             <OliverAvatar className={m.avSm} />
             <div className={m.col}>
-              <p className={m.bubble}>{first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."} Thank you for trusting us with {dogName}.</p>
-              <p className={m.bubble}>
+              <Msg i={0}>
+                {first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."} Thank you for trusting us with {dogName}.
+              </Msg>
+              <Msg i={1}>
                 I want {dogName} to stop the itching for good. So I&apos;ll spend <b>10 minutes</b> with you on the phone, hear
                 what {dogName}&apos;s been going through, and explain exactly how to use the spray and chews for best results.
-              </p>
-              <p className={`${m.bubble} ${m.last}`}>
+              </Msg>
+              <Msg i={2} last>
                 You&apos;ll know what to watch for, and we&apos;ll send an extra surprise for {dogName}.
-              </p>
+              </Msg>
             </div>
           </div>
 
