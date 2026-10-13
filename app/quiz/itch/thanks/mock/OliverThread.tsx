@@ -34,7 +34,9 @@ export function useOliverText() {
   const possessive = `${dogName}'s`;
   /* The text is the buyer speaking, so with no name it says "my dog's", never "your dog's". */
   const message = `Hi Oliver, ${first ? `it's ${first}. ` : ""}I'd like to book ${real ? `${real}'s` : "my dog's"} protocol review call.`;
-  return { first, dogName, possessive, message, href: `sms:${OLIVER}?&body=${encodeURIComponent(message)}` };
+  /* "What gender is your dog?" is the first question of the quiz. With no answer it stays neutral. */
+  const their = answers.gender === "Male" ? "his" : answers.gender === "Female" ? "her" : "the";
+  return { first, dogName, their, possessive, message, href: `sms:${OLIVER}?&body=${encodeURIComponent(message)}` };
 }
 
 export function OliverAvatar({ className }: { className?: string }) {
@@ -120,7 +122,7 @@ function Thread({ messages }: { messages: React.ReactNode[] }) {
 }
 
 export function OliverTop({ qr }: { qr: string }) {
-  const { first, dogName, message, href } = useOliverText();
+  const { first, dogName, their, message, href } = useOliverText();
   return (
     <>
       <div className={m.banner}>
@@ -143,7 +145,7 @@ export function OliverTop({ qr }: { qr: string }) {
               messages={[
                 <>{first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."} Thank you for trusting us with {dogName}.</>,
                 <>
-                  I want {dogName} to stop the itching for good. So I&apos;ll spend <b>10 minutes</b> with you on the phone, understand
+                  I want {dogName} to stop {their} itching for good. So I&apos;d like to spend <b>10 minutes</b> with you on the phone, understand
                   what {dogName}&apos;s been going through, and explain exactly how to use the spray and chews for lasting itch relief.
                 </>,
                 <>You&apos;ll know what to watch for, and we&apos;ll send an extra surprise for {dogName}.</>,
