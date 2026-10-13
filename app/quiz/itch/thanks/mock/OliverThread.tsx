@@ -145,7 +145,7 @@ export function OliverTop({ qr }: { qr: string }) {
               messages={[
                 <>{first ? `Hi ${first}, it's Oliver.` : "Hi, it's Oliver."} Thank you for trusting us with {dogName}.</>,
                 <>
-                  I want {dogName} to stop {their} itching for good. So I&apos;d like to spend <b>10 minutes</b> with you on the phone, understand
+                  We&apos;re gonna help {dogName} to stop {their} itching for good. So I&apos;d like to spend <b>10 minutes</b> with you on the phone, understand
                   what {dogName}&apos;s been going through, and explain exactly how to use the spray and chews for lasting itch relief.
                 </>,
                 <>You&apos;ll know what to watch for, and we&apos;ll send an extra surprise for {dogName}.</>,
