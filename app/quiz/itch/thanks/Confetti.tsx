@@ -5,8 +5,8 @@ import s from "./thanks.module.css";
 
 const COLORS = ["#2F5FD0", "#FFC845", "#8EC5F2", "#FFC845", "#2F5FD0"];
 const COUNT = 70;
-const COUNT_ONCE = 120;
-const ONCE_MS = 5600;
+const COUNT_ONCE = 130;
+const ONCE_MS = 8800;
 
 type Piece = { left: number; size: number; delay: number; dur: number; color: string; drift: number; round: boolean };
 
@@ -21,9 +21,9 @@ export function Confetti({ once = false }: { once?: boolean }) {
       Array.from({ length: once ? COUNT_ONCE : COUNT }, (_, i) => ({
         left: Math.random() * 100,
         size: 8 + Math.random() * 8,
-        /* Once: pieces keep starting for the first 2.2 seconds and the last lands by about 5, then the layer goes. */
-        delay: once ? Math.random() * 2.2 : Math.random() * 2.5,
-        dur: once ? 2.6 + Math.random() * 0.4 : 3 + Math.random() * 2.5,
+        /* Once: pieces spray from the top for the first 3 seconds, each falls at its own speed, and the layer goes when the last has landed. */
+        delay: once ? Math.random() * 3 : Math.random() * 2.5,
+        dur: 3 + Math.random() * 2.5,
         color: COLORS[i % COLORS.length],
         drift: (Math.random() - 0.5) * 160,
         round: Math.random() < 0.3,
