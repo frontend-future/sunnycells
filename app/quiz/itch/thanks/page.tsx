@@ -1,8 +1,12 @@
+import type { Metadata } from "next";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { LINES } from "@/lib/quiz/fzOrder";
 import { Confetti } from "./Confetti";
 import { PurchaseTracker } from "./PurchaseTracker";
 import s from "./thanks.module.css";
+
+/* A thank you page is for the buyer, not for search. */
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const STEPS = [
   { when: "Within 24 hours", title: "A text from our team", body: "Look out for a text from us. Reply to it and we will send you a freebie." },

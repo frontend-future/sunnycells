@@ -22,7 +22,7 @@ export default async function ThanksMockPage() {
 
   return (
     <div className={s.page}>
-      <Confetti />
+      <Confetti once />
       <header className={s.header}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className={s.logo} src={FZ_BRAND.logo?.src} alt="Friday Zoomies" />

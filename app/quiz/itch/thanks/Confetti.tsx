@@ -5,28 +5,34 @@ import s from "./thanks.module.css";
 
 const COLORS = ["#2F5FD0", "#FFC845", "#8EC5F2", "#FFC845", "#2F5FD0"];
 const COUNT = 70;
+const COUNT_ONCE = 90;
+const ONCE_MS = 3800;
 
 type Piece = { left: number; size: number; delay: number; dur: number; color: string; drift: number; round: boolean };
 
-/* Blue and yellow confetti raining down the full height of the screen, on a loop. Pieces are random, so they are made after mount to keep the server and
+/* Blue and yellow confetti raining down the full height of the screen, on a loop, or once through with `once`. Pieces are random, so they are made after mount to keep the server and
    client markup identical. Skipped for people who ask for reduced motion. */
-export function Confetti() {
+export function Confetti({ once = false }: { once?: boolean }) {
   const [pieces, setPieces] = useState<Piece[]>([]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     setPieces(
-      Array.from({ length: COUNT }, (_, i) => ({
+      Array.from({ length: once ? COUNT_ONCE : COUNT }, (_, i) => ({
         left: Math.random() * 100,
         size: 8 + Math.random() * 8,
-        delay: Math.random() * 2.5,
-        dur: 3 + Math.random() * 2.5,
+        /* Once: every piece starts inside the first second and lands by about 3.5, then the layer goes. */
+        delay: once ? Math.random() * 1 : Math.random() * 2.5,
+        dur: once ? 2 + Math.random() * 0.5 : 3 + Math.random() * 2.5,
         color: COLORS[i % COLORS.length],
         drift: (Math.random() - 0.5) * 160,
         round: Math.random() < 0.3,
       })),
     );
-  }, []);
+    if (!once) return;
+    const done = setTimeout(() => setPieces([]), ONCE_MS);
+    return () => clearTimeout(done);
+  }, [once]);
 
   if (!pieces.length) return null;
   return (
@@ -43,6 +49,7 @@ export function Confetti() {
             background: p.color,
             animationDelay: `${p.delay}s`,
             animationDuration: `${p.dur}s`,
+            animationIterationCount: once ? 1 : undefined,
             ["--drift" as string]: `${p.drift}px`,
           }}
         />
