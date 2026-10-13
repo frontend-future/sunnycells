@@ -126,13 +126,12 @@ export function OliverTop({ qr }: { qr: string }) {
   return (
     <>
       <div className={m.banner}>
-        <p className={m.b2}>Your order is confirmed!</p>
+        <p className={m.b1}>Your order is confirmed!</p>
+        <p className={m.b2}>Do this now for lasting itch relief</p>
       </div>
 
       <div className={m.top}>
         <div className={m.left}>
-          <h1 className={m.h1}>Do this now for lasting itch relief</h1>
-
           <div className={m.hdr}>
             <OliverAvatar className={m.avLg} />
             <p className={m.hdrName}>Oliver</p>
