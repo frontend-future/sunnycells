@@ -57,7 +57,7 @@
 .tick::after { content: ""; position: absolute; left: 9px; top: 4px; width: 6px; height: 12px; border: solid #fff; border-width: 0 3px 3px 0; transform: rotate(45deg); }
 
 .gift { display: flex; gap: 14px; align-items: center; background: var(--sky-tint); border-radius: var(--radius-card); padding: 16px; margin: 0 0 20px; }
-.giftBox { flex: none; width: 64px; height: 64px; border-radius: 14px; background: #fff; border: 2px dashed var(--cobalt); display: grid; place-items: center; text-align: center; font-size: 13px; font-weight: 800; line-height: 1.1; color: var(--cobalt); }
+.giftBox { flex: none; width: 68px; height: 68px; padding: 6px; border-radius: 16px; background: #fff; }
 .giftBody { margin: 0; font-size: 18px; font-weight: 500; line-height: 1.4; color: var(--ink-80); }
 
 .after { max-width: 640px; margin: 0 auto; padding: 32px 16px 56px; }

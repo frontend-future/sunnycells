@@ -95,6 +95,25 @@ export function OliverTop({ qr }: { qr: string }) {
   );
 }
 
+/* A flat red and yellow gift box, drawn here so the card needs no image file. */
+function GiftIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="10" y="31" width="44" height="26" rx="3" fill="#D93B30"/>
+      <rect x="10" y="31" width="44" height="4" fill="#B52E26"/>
+      <rect x="6" y="22" width="52" height="11" rx="3" fill="#E5483A"/>
+      <rect x="6" y="29" width="52" height="4" rx="2" fill="#B52E26"/>
+      <rect x="27.5" y="22" width="9" height="35" fill="#FFC845"/>
+      <rect x="27.5" y="22" width="9" height="11" fill="#EDB22C"/>
+      <path d="M32 22C26 7 12 8 15 17c1.6 5 11 5 17 5z" fill="#FFC845"/>
+      <path d="M32 22C38 7 52 8 49 17c-1.6 5-11 5-17 5z" fill="#FFC845"/>
+      <path d="M32 22C28 14 21 13 20.5 16.5 20 19.5 26 21.5 32 22z" fill="#EDB22C"/>
+      <path d="M32 22C36 14 43 13 43.5 16.5 44 19.5 38 21.5 32 22z" fill="#EDB22C"/>
+      <rect x="28" y="19" width="8" height="7" rx="2.5" fill="#EDB22C"/>
+    </svg>
+  );
+}
+
 export function OliverCover() {
   const { dogName, href } = useOliverText();
   return (
@@ -109,7 +128,7 @@ export function OliverCover() {
       </section>
 
       <section className={m.gift} aria-label="Extra surprise">
-        <div className={m.giftBox} aria-hidden="true">extra<br />surprise</div>
+        <GiftIcon className={m.giftBox} />
         <div>
           <h2 className={m.h2}>An extra surprise for {dogName}</h2>
           <p className={m.giftBody}>It comes with the call, on top of what&apos;s already in your order.</p>
