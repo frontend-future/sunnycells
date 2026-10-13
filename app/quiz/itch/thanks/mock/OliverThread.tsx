@@ -33,7 +33,7 @@ export function useOliverText() {
   const dogName = real || SAMPLE_DOG;
   const possessive = `${dogName}'s`;
   /* The text is the buyer speaking, so with no name it says "my dog's", never "your dog's". */
-  const message = `Hi Oliver, ${first ? `it's ${first}. ` : ""}I'd like to book ${real ? `${real}'s` : "my dog's"} call.`;
+  const message = `Hi Oliver, ${first ? `it's ${first}. ` : ""}I'd like to book ${real ? `${real}'s` : "my dog's"} protocol review call.`;
   return { first, dogName, possessive, message, href: `sms:${OLIVER}?&body=${encodeURIComponent(message)}` };
 }
 
