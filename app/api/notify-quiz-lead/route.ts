@@ -69,7 +69,7 @@ async function sendSlack(payload: NotifyPayload): Promise<Result> {
 
 /* One row per Friday Zoomies lead in the Marketing Dashboard "Quiz Leads" tab, through a small Apps
    Script web app. Answers come keyed by question text, so each column finds its answer by a stem
-   of the question; "All answers" keeps the whole set in case a question is reworded. */
+   of the question. Rewording a question blanks that column until its stem is updated. */
 const SHEET_COLUMNS: [string, string][] = [
   ["You want your dog to", "Goal"],
   ["dog's name", "Dog name"],
@@ -94,18 +94,18 @@ async function sendSheet(payload: NotifyPayload): Promise<Result> {
   const secret = process.env.LEADS_SHEET_SECRET;
   if (!url || !secret || payload.quizId !== "itch-fridayzoomies") return { ok: true };
 
-  const entries = Object.entries(payload.answers);
-  const find = (stem: string) => entries.find(([q]) => q.toLowerCase().includes(stem.toLowerCase()))?.[1] ?? "";
-  const row = [
-    new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
-    payload.email,
-    payload.phone ?? "",
-    payload.quizId,
-    ...SHEET_COLUMNS.map(([stem]) => find(stem)),
-    entries.map(([q, a]) => `${q}: ${a}`).join("\n"),
-  ];
+  /* Building the row is inside the try as well: nothing about the sheet may throw out of here. */
   try {
-    const res = await fetch(url, { method: "POST", body: JSON.stringify({ secret, row }) });
+    const entries = Object.entries(payload.answers ?? {});
+    const find = (stem: string) => entries.find(([q]) => q.toLowerCase().includes(stem.toLowerCase()))?.[1] ?? "";
+    const row = [
+      new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
+      payload.email,
+      payload.phone ?? "",
+      payload.quizId,
+      ...SHEET_COLUMNS.map(([stem]) => find(stem)),
+    ];
+    const res = await fetch(url, { method: "POST", body: JSON.stringify({ secret, row }), signal: AbortSignal.timeout(8000) });
     return res.ok ? { ok: true } : { ok: false, error: `sheet returned ${res.status}` };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : "sheet failed" };
