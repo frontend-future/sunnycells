@@ -42,16 +42,36 @@ export function OliverAvatar({ className }: { className?: string }) {
   return <img className={className} src="/quiz/fridayzoomies/oliver.jpg" alt="Oliver" width={400} height={400} />;
 }
 
+/* Everything below the thread stays hidden until Oliver has sent all three messages, so the messages are
+   what gets read first. A module level flag, not context, because the page below is rendered by the server
+   and only needs to hear one thing: that the thread has finished. */
+let threadDone = false;
+const doneListeners = new Set<() => void>();
+function markThreadDone() {
+  if (threadDone) return;
+  threadDone = true;
+  doneListeners.forEach((l) => l());
+}
+function subscribeDone(cb: () => void) {
+  doneListeners.add(cb);
+  return () => { doneListeners.delete(cb); };
+}
+
+export function AfterThread({ children }: { children: React.ReactNode }) {
+  const done = useSyncExternalStore(subscribeDone, () => threadDone, () => false);
+  return <div className={done ? m.revealed : m.reveal}>{children}</div>;
+}
+
 /* Oliver's messages arrive one at a time. A typing bubble shows at the bottom, beside his photo, and each
    message replaces it there while the older ones move up. A hidden copy of the full thread holds the height,
    so the section never changes size. */
 const STEPS = [
-  { at: 800, shown: 0, typing: true },
-  { at: 2200, shown: 1, typing: false },
-  { at: 2400, shown: 1, typing: true },
-  { at: 3800, shown: 2, typing: false },
-  { at: 4000, shown: 2, typing: true },
-  { at: 5200, shown: 3, typing: false },
+  { at: 1000, shown: 0, typing: true },
+  { at: 2800, shown: 1, typing: false },
+  { at: 3100, shown: 1, typing: true },
+  { at: 5200, shown: 2, typing: false },
+  { at: 5500, shown: 2, typing: true },
+  { at: 7400, shown: 3, typing: false },
 ];
 
 const calm = () => () => {};
@@ -65,7 +85,11 @@ function useThreadStep(): { shown: number; typing: boolean } {
     const timers = STEPS.map((st) => setTimeout(() => setStep({ shown: st.shown, typing: st.typing }), st.at));
     return () => timers.forEach(clearTimeout);
   }, [reduced]);
-  return reduced ? { shown: 3, typing: false } : step;
+  const current = reduced ? { shown: 3, typing: false } : step;
+  useEffect(() => {
+    if (current.shown === 3) markThreadDone();
+  }, [current.shown]);
+  return current;
 }
 
 function Thread({ messages }: { messages: React.ReactNode[] }) {
@@ -128,11 +152,13 @@ export function OliverTop({ qr }: { qr: string }) {
           </div>
 
           <a className={m.btn} href={href}>Text Oliver Now</a>
-          <p className={m.reply}><span className={m.dot} aria-hidden="true" />Oliver usually replies within an hour</p>
-          <p className={m.number}>Or text <a className={m.tel} href={href}>{OLIVER_DISPLAY}</a> from your phone.</p>
+          <AfterThread>
+            <p className={m.reply}><span className={m.dot} aria-hidden="true" />Oliver usually replies within an hour</p>
+            <p className={m.number}>Or text <a className={m.tel} href={href}>{OLIVER_DISPLAY}</a> from your phone.</p>
 
-          <div className={m.outRow}><p className={m.out}>{message}</p></div>
-          <p className={m.outCap}>What you&apos;ll send. Press send.</p>
+            <div className={m.outRow}><p className={m.out}>{message}</p></div>
+            <p className={m.outCap}>What you&apos;ll send. Press send.</p>
+          </AfterThread>
         </div>
 
         <aside className={m.qr} aria-label="Text Oliver from your phone">
