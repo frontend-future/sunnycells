@@ -4,6 +4,7 @@ import { stripe } from "@/lib/stripe/server";
 import { createOrder, findOrder } from "@/lib/shopify/order";
 import { sendAlert } from "@/lib/alert";
 import { recordOrderInSheet, sheetDates } from "@/lib/leads-sheet";
+import { tagPurchaser } from "@/lib/loops";
 
 export const maxDuration = 30;
 
@@ -90,6 +91,18 @@ export async function POST(req: Request) {
         orderName: order.name,
         ...sheetDates(new Date()),
       });
+    }
+    /* Flag them in Loops so the quiz follow up emails stop. A miss emails the owner so it can be fixed by hand. */
+    if (invoice.billing_reason === "subscription_create" && event.livemode) {
+      const name = customer.shipping?.name || customer.name || "";
+      const tagged = await tagPurchaser({ email: customer.email, firstName: name.trim().split(/\s+/)[0], invoiceId: invoice.id!, orderName: order.name });
+      if (!tagged) {
+        await sendAlert(
+          `LOOPS TAG FAILED: ${customer.email}`,
+          `<p>${esc(customer.email)} bought (${esc(order.name)}) but was not flagged as a customer in Loops. Set <strong>isCustomer</strong> to true on that contact so they do not get the quiz follow up emails.</p>`,
+          { ownerOnly: true },
+        );
+      }
     }
     return NextResponse.json({ order: order.name });
   } catch (e) {
