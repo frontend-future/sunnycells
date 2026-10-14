@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { addLead } from "@/lib/loops";
+import { sendAlert } from "@/lib/alert";
 import { chunkLines, escapeHtml, FROM_NAME, NOTIFY_TO_EMAIL, postToSlack, type Result } from "@/lib/notify";
 
 type NotifyPayload = {
@@ -113,6 +115,20 @@ async function sendSheet(payload: NotifyPayload): Promise<Result> {
   }
 }
 
+/* Friday Zoomies leads only. A failure never reaches the visitor: it emails the owner so the lead can be added by hand. */
+async function sendLoops(payload: NotifyPayload): Promise<Result> {
+  if (payload.quizId !== "itch-fridayzoomies") return { ok: true };
+  const r = await addLead(payload);
+  if (!r.ok) {
+    await sendAlert(
+      `LOOPS LEAD FAILED: ${payload.email}`,
+      `<p>${escapeHtml(payload.email)} finished the Friday Zoomies quiz but was not added to Loops, so they will not get the follow up emails.</p><p>${escapeHtml(r.error)}</p>`,
+      { ownerOnly: true },
+    );
+  }
+  return r;
+}
+
 export async function POST(request: Request) {
   let payload: NotifyPayload;
   try {
@@ -125,7 +141,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  /* All three go at once and none is allowed to fail the others. */
-  const [email, slack, sheet] = await Promise.all([sendEmail(payload), sendSlack(payload), sendSheet(payload)]);
-  return NextResponse.json({ email, slack, sheet });
+  /* All four go at once and none is allowed to fail the others. */
+  const [email, slack, sheet, loops] = await Promise.all([sendEmail(payload), sendSlack(payload), sendSheet(payload), sendLoops(payload)]);
+  return NextResponse.json({ email, slack, sheet, loops });
 }
