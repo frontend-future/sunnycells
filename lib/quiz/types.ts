@@ -113,6 +113,9 @@ export type QuizConfig = {
   resultsPath: string;
   /** Capitalise each word of the dog's name when a step quotes it back ("max" becomes "Max"). */
   titleCaseName?: boolean;
+  /** Where someone who already finished this quiz should land when they come back to the
+      landing page. Setting it also makes the email step remember their answers on this device. */
+  returnToResults?: string;
   steps: Step[];
 };
 

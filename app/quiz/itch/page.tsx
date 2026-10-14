@@ -5,6 +5,7 @@ import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import { Wordmark } from "@/components/core/Wordmark";
 import { RatingPill } from "@/components/quiz/RatingPill";
 import { StartChoice } from "@/components/quiz/StartChoice";
+import { ReturningVisitorRedirect } from "@/components/quiz/ReturningVisitorRedirect";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { RATING } from "@/lib/products/dog-itch";
 import styles from "./theme.module.css";
@@ -29,6 +30,8 @@ const FOOTER_LINKS = [
 export default function FridayZoomiesLandingPage() {
   return (
     <>
+      {/* Anyone who already finished the quiz goes straight back to their plans. */}
+      <ReturningVisitorRedirect quizId={itchFridayZoomiesQuiz.id} to={itchFridayZoomiesQuiz.returnToResults!} />
       <AnnouncementMarquee
         terms={[
           { strong: "Free shipping", rest: "on your first order" },

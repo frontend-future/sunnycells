@@ -10,6 +10,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
+import { rememberCompleted } from "@/lib/quiz/completed";
 import { buildAnswersPayload, nextHref, personalizeStep, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
@@ -641,6 +642,7 @@ function EmailBody({
     if (sent.current) return;
     sent.current = true;
     set("email", trimmed);
+    if (config.returnToResults) rememberCompleted(config.id, { ...answers, email: trimmed });
     notifyLead(config, { ...answers, email: trimmed }, trimmed);
     trackMetaEvent("Lead", { content_name: config.id }, { email: trimmed });
     go();
