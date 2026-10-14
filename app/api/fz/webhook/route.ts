@@ -97,6 +97,7 @@ export async function POST(req: Request) {
     await sendAlert(
       `ORDER SYNC FAILED: ${invoice.id}`,
       `<p>Invoice <strong>${esc(invoice.id ?? "")}</strong> was paid in Stripe but the Shopify order was not created.</p><p>${esc(e instanceof Error ? e.message : String(e))}</p><p>Stripe will retry. If it keeps failing, create the order by hand.</p>`,
+      { ownerOnly: true },
     );
     return NextResponse.json({ error: "order sync failed" }, { status: 500 });
   }
