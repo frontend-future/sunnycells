@@ -116,8 +116,8 @@ function Address({ prefix, beside }: { prefix: string; beside?: ReactNode }) {
 /* Bigger than the stock large button, in title case instead of its usual capitals. */
 const PAY_STYLE = { fontSize: 28, textTransform: "none", letterSpacing: "0.01em", padding: "24px 12px", minHeight: 80, borderRadius: 12 } as const;
 
-/* Taller and larger than the stock large button, with squarer corners. */
-const CONTINUE_STYLE = { fontSize: 26, padding: "22px 12px", minHeight: 76, borderRadius: 6 } as const;
+/* Taller and larger than the stock large button, title case, squarer corners, drop shadow. */
+const CONTINUE_STYLE = { fontSize: 26, textTransform: "none", letterSpacing: "0.01em", padding: "22px 12px", minHeight: 76, borderRadius: 6, boxShadow: "0 6px 14px rgba(20, 33, 61, 0.28)" } as const;
 
 const HOLD_SECONDS = 7 * 60;
 
@@ -329,7 +329,7 @@ function Checkout() {
 
           {!ready ? (
             <div style={{ marginTop: 20 }}>
-              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}>Continue to payment</Button>
+              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}>Continue To Payment</Button>
               {error ? <p role="alert" className={s.err}>{error}</p> : null}
             </div>
           ) : (
