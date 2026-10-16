@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ComponentProps, type ReactNode } from
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, ExpressCheckoutElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Button } from "@/components/core/Button";
+import { Icon } from "@/components/core/Icon";
 import { RATING } from "@/lib/products/dog-itch";
 import { formatPrice } from "@/lib/price";
 import { FZ_BRAND, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
@@ -329,7 +330,7 @@ function Checkout() {
 
           {!ready ? (
             <div style={{ marginTop: 20 }}>
-              <Button type="submit" size="lg" fullWidth variant="accent" iconRight="arrow-right" style={CONTINUE_STYLE}>Continue To Payment</Button>
+              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}>Continue To Payment<Icon name="arrow-right" size={32} strokeWidth={3.5} style={{ marginLeft: 12, verticalAlign: "middle" }} /></Button>
               {error ? <p role="alert" className={s.err}>{error}</p> : null}
             </div>
           ) : (
