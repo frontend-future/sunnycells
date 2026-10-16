@@ -330,7 +330,7 @@ function Checkout() {
 
           {!ready ? (
             <div style={{ marginTop: 20 }}>
-              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}>Continue To Payment<Icon name="arrow-right" size={32} strokeWidth={3.5} style={{ marginLeft: 12, verticalAlign: "middle" }} /></Button>
+              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}><span style={{ display: "inline-flex", alignItems: "center", gap: 14, whiteSpace: "nowrap" }}>Continue To Payment<Icon name="arrow-right" size={32} strokeWidth={3.5} /></span></Button>
               {error ? <p role="alert" className={s.err}>{error}</p> : null}
             </div>
           ) : (
