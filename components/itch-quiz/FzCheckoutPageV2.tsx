@@ -329,7 +329,7 @@ function Checkout() {
 
           {!ready ? (
             <div style={{ marginTop: 20 }}>
-              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}>Continue To Payment</Button>
+              <Button type="submit" size="lg" fullWidth variant="accent" iconRight="arrow-right" style={CONTINUE_STYLE}>Continue To Payment</Button>
               {error ? <p role="alert" className={s.err}>{error}</p> : null}
             </div>
           ) : (
