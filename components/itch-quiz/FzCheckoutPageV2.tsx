@@ -118,7 +118,7 @@ function Address({ prefix, beside }: { prefix: string; beside?: ReactNode }) {
 const PAY_STYLE = { fontSize: 28, textTransform: "none", letterSpacing: "0.01em", padding: "24px 12px", minHeight: 80, borderRadius: 12 } as const;
 
 /* Taller and larger than the stock large button, title case, squarer corners, drop shadow. */
-const CONTINUE_STYLE = { fontSize: 32, textTransform: "none", letterSpacing: "0.01em", padding: "22px 12px", minHeight: 76, borderRadius: 6, boxShadow: "0 6px 14px rgba(20, 33, 61, 0.28)" } as const;
+const CONTINUE_STYLE = { fontSize: "clamp(22px, 6vw, 32px)", textTransform: "none", letterSpacing: "0.01em", padding: "22px 20px", minHeight: 76, borderRadius: 6, boxShadow: "0 6px 14px rgba(20, 33, 61, 0.28)" } as const;
 
 const HOLD_SECONDS = 7 * 60;
 
@@ -330,7 +330,7 @@ function Checkout() {
 
           {!ready ? (
             <div style={{ marginTop: 20 }}>
-              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}><span style={{ display: "inline-flex", alignItems: "center", gap: 14, whiteSpace: "nowrap" }}>Continue To Payment<Icon name="arrow-right" size={32} strokeWidth={3.5} /></span></Button>
+              <Button type="submit" size="lg" fullWidth variant="accent" style={CONTINUE_STYLE}><span style={{ display: "inline-flex", alignItems: "center", gap: 12, whiteSpace: "nowrap" }}>Continue To Payment<Icon name="arrow-right" size={28} strokeWidth={3.5} /></span></Button>
               {error ? <p role="alert" className={s.err}>{error}</p> : null}
             </div>
           ) : (
