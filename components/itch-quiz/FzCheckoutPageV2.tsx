@@ -115,7 +115,7 @@ function Address({ prefix, beside }: { prefix: string; beside?: ReactNode }) {
 }
 
 /* Bigger than the stock large button, in title case instead of its usual capitals. */
-const PAY_STYLE = { fontSize: "clamp(18px, 5.2vw, 28px)", textTransform: "none", letterSpacing: "0.01em", whiteSpace: "nowrap", padding: "24px 16px", minHeight: 80, borderRadius: 12 } as const;
+const PAY_STYLE = { fontSize: "clamp(18px, 5.2vw, 28px)", textTransform: "none", letterSpacing: "0.01em", whiteSpace: "nowrap", padding: "24px 16px", minHeight: 80, borderRadius: 12, boxShadow: "0 6px 14px rgba(20, 33, 61, 0.28)" } as const;
 
 /* Taller and larger than the stock large button, title case, squarer corners, drop shadow. */
 const CONTINUE_STYLE = { fontSize: "clamp(22px, 6vw, 32px)", textTransform: "none", letterSpacing: "0.01em", padding: "22px 20px", minHeight: 76, borderRadius: 6, boxShadow: "0 6px 14px rgba(20, 33, 61, 0.28)" } as const;
