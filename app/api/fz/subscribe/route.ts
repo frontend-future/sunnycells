@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
 import { quotePromo } from "@/lib/stripe/promo";
+import { markCheckoutStarted } from "@/lib/loops";
 
 /* Friday Zoomies checkout. Creates the customer and the Inside-Out Itch Bundle subscription
    (STRIPE_FZ_PRICE_ID, every 4 weeks) with the FIRST50 promotion code attached, left
@@ -73,6 +74,8 @@ export async function POST(req: Request) {
     const invoice = sub.latest_invoice;
     const clientSecret = typeof invoice === "object" && invoice ? invoice.confirmation_secret?.client_secret : undefined;
     if (!clientSecret) return NextResponse.json({ error: "Could not start the payment." }, { status: 502 });
+    /* Starts the cart abandon emails; the purchase webhook flips isCustomer, which ends them. */
+    await markCheckoutStarted(email);
     return NextResponse.json({ clientSecret, subscriptionId: sub.id });
   } catch (e) {
     console.error("fz subscribe", e);

@@ -78,3 +78,37 @@ export async function addLead(p: { email: string; quizId: string; answers: Recor
     return { ok: false, error: e instanceof Error ? e.message : "loops failed" };
   }
 }
+
+/** Called when someone submits checkout (they have given an email and address but may not pay).
+    Stores their saved-cart link on the contact and sends `checkoutStarted`, which starts the cart
+    abandon flow. The flow's audience filter reads isCustomer, so a buyer drops out. The link is
+    built from the quiz answers already on the contact, using the params PlansParamHydrator reads.
+    Never throws. */
+export async function markCheckoutStarted(emailIn: string): Promise<void> {
+  if (!process.env.LOOPS_API_KEY) return;
+  const email = emailIn.trim().toLowerCase();
+  try {
+    const res = await fetch(`${BASE}/contacts/find?email=${encodeURIComponent(email)}`, {
+      headers: { Authorization: `Bearer ${process.env.LOOPS_API_KEY}` },
+      signal: AbortSignal.timeout(8_000),
+    });
+    const c = res.ok ? ((await res.json()) as { dogName?: string; dogWeight?: string; dogGender?: string }[])[0] : undefined;
+    const q = new URLSearchParams();
+    if (c?.dogName) q.set("dog-name", c.dogName);
+    if (c?.dogWeight) q.set("dog-size", c.dogWeight);
+    if (c?.dogGender) q.set("gender", c.dogGender);
+    q.set("utm_source", "loops");
+    q.set("utm_medium", "email");
+    q.set("utm_campaign", "cart");
+    const cartLink = `https://offers.fridayzoomies.com/quiz/itch/results/plans?${q}`;
+    try {
+      await loops("/contacts/create", { email, cartLink, isCustomer: false, userGroup: "lead", source: "checkout" });
+    } catch (e) {
+      if ((e as { status?: number }).status !== 409) throw e;
+      await loops("/contacts/update", { email, cartLink });
+    }
+    await loops("/events/send", { email, eventName: "checkoutStarted" });
+  } catch (e) {
+    console.error("loops checkout", email, e);
+  }
+}
