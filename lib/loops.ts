@@ -112,3 +112,19 @@ export async function markCheckoutStarted(emailIn: string): Promise<void> {
     console.error("loops checkout", email, e);
   }
 }
+
+/** Stripe's `invoice.upcoming` fires a set number of days before a renewal charge (Stripe Dashboard,
+    Billing settings). Tells Loops with an `upcomingShipment` event so the pre-shipping email goes
+    out. The Stripe event id is the idempotency key, so a retry does not email twice. Never throws. */
+export async function notifyUpcomingShipment(p: { email: string; eventId: string; chargeDate: Date }): Promise<boolean> {
+  if (!process.env.LOOPS_API_KEY) return false;
+  const email = p.email.trim().toLowerCase();
+  try {
+    const chargeDate = p.chargeDate.toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/Chicago" });
+    await loops("/events/send", { email, eventName: "upcomingShipment", eventProperties: { chargeDate } }, { "Idempotency-Key": p.eventId });
+    return true;
+  } catch (e) {
+    console.error("loops upcoming", email, e);
+    return false;
+  }
+}

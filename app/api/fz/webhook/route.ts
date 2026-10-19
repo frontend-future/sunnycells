@@ -4,7 +4,7 @@ import { stripe } from "@/lib/stripe/server";
 import { createOrder, findOrder } from "@/lib/shopify/order";
 import { sendAlert } from "@/lib/alert";
 import { recordOrderInSheet, sheetDates } from "@/lib/leads-sheet";
-import { tagPurchaser } from "@/lib/loops";
+import { tagPurchaser, notifyUpcomingShipment } from "@/lib/loops";
 
 export const maxDuration = 30;
 
@@ -25,6 +25,17 @@ export async function POST(req: Request) {
     event = stripe().webhooks.constructEvent(await req.text(), sig, secret);
   } catch {
     return NextResponse.json({ error: "bad signature" }, { status: 400 });
+  }
+  /* A renewal charge is coming up: the Stripe setting sets how many days ahead. Loops sends the
+     pre-shipping email. Live Friday Zoomies renewals only. */
+  if (event.type === "invoice.upcoming") {
+    const up = event.data.object as Stripe.Invoice;
+    if (!event.livemode || up.parent?.subscription_details?.metadata?.funnel !== "fridayzoomies" || !up.customer_email) {
+      return NextResponse.json({ ignored: "not a live friday zoomies renewal" });
+    }
+    const when = up.next_payment_attempt ?? up.period_end;
+    const sent = await notifyUpcomingShipment({ email: up.customer_email, eventId: event.id, chargeDate: new Date(when * 1000) });
+    return NextResponse.json({ upcoming: sent });
   }
   if (event.type !== "invoice.paid") return NextResponse.json({ ignored: event.type });
 
