@@ -12,6 +12,7 @@ import { FIRST, IMG, LINES, PRICE } from "@/lib/quiz/fzOrder";
 import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
+import { identifyChargeblast } from "@/lib/chargeblast";
 import { AddressSuggest } from "./AddressSuggest";
 import s from "./fzCheckoutV2.module.css";
 
@@ -249,6 +250,8 @@ function Checkout() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "We could not start your order. Try again.");
+
+      identifyChargeblast(who.email);
 
       /* Who is buying, kept for the thank you page's Purchase event so Meta can match it. */
       try {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Figtree } from "next/font/google";
+import { Chargeblast } from "@/components/analytics/Chargeblast";
 import { MetaPixel } from "@/components/analytics/MetaPixel";
 import { PostHogAnalytics } from "@/components/analytics/PostHog";
 import "./globals.css";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <MetaPixel />
         <PostHogAnalytics />
+        <Chargeblast />
         {children}
       </body>
     </html>
