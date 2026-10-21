@@ -92,6 +92,9 @@ async function order(): Promise<Record<string, string[]>> {
     than one built variant (a second plans page, a whole second question set)
     living under the same product, e.g. /quiz/brain/v3/results/plans. */
 export async function funnelStepFor(pathname: string): Promise<FunnelStep | null> {
+  /* The two step checkout (checkout split test) is the same funnel step as the current checkout. Which one
+     a person saw is told apart by the checkout-split flag PostHog adds to every event. */
+  if (pathname.replace(/\/$/, "") === "/quiz/itch/v2/checkout") pathname = "/quiz/itch/checkout";
   const m = /^\/quiz\/([a-z]+(?:-[a-z]+)*(?:\/v\d+)?)(?:\/(.+))?$/.exec(pathname.replace(/\/$/, ""));
   if (!m) return null;
   const [, quiz, rest = ""] = m;
