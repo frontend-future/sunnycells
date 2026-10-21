@@ -75,19 +75,28 @@ export async function createOrder(o: OrderInput): Promise<{ id: string; name: st
     ],
   };
 
-  const d = await shopify<{ orderCreate: { order: { id: string; name: string } | null; userErrors: { field: string[]; message: string }[] } }>(
-    `mutation($order:OrderCreateOrderInput!,$options:OrderCreateOptionsInput){
-      orderCreate(order:$order, options:$options){ order{id name} userErrors{field message} }
-    }`,
-    {
-      order,
-      options: {
-        sendReceipt: o.notify ?? true,
-        sendFulfillmentReceipt: o.notify ?? true,
-        inventoryBehaviour: "DECREMENT_IGNORING_POLICY",
+  const run = (ord: typeof order) =>
+    shopify<{ orderCreate: { order: { id: string; name: string } | null; userErrors: { field: string[]; message: string }[] } }>(
+      `mutation($order:OrderCreateOrderInput!,$options:OrderCreateOptionsInput){
+        orderCreate(order:$order, options:$options){ order{id name} userErrors{field message} }
+      }`,
+      {
+        order: ord,
+        options: {
+          sendReceipt: o.notify ?? true,
+          sendFulfillmentReceipt: o.notify ?? true,
+          inventoryBehaviour: "DECREMENT_IGNORING_POLICY",
+        },
       },
-    },
-  );
+    );
+  let d = await run(order);
+  /* Shopify keeps a phone number on one customer only. Someone ordering again under a new email with the
+     same phone (a second address, a partner, a test) would fail the whole order and everything after it
+     (CRM row, Loops tag, alert). The phone stays on the order and the shipping address; only the new
+     customer record goes without it. */
+  if (!d.orderCreate.order && d.orderCreate.userErrors.some((e) => /phone number has already been taken/i.test(e.message))) {
+    d = await run({ ...order, customer: { toUpsert: { email: o.email, firstName, lastName, phone: undefined } } });
+  }
   const { order: made, userErrors } = d.orderCreate;
   if (!made) throw new Error(`Shopify orderCreate: ${userErrors.map((e) => `${e.field?.join(".")}: ${e.message}`).join("; ")}`);
   return made;
