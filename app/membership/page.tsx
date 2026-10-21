@@ -8,5 +8,5 @@ export default async function MembershipPage({ searchParams }: { searchParams: P
   if (!email) return <EmailForm expired={!!t} />;
   const m = await findMembership(email).catch(() => null);
   if (!m) return <EmailForm expired={false} />;
-  return <ManageFlow token={t!} dogName={m.dogName} nextBox={m.nextBox} boxes={m.boxes} paused={m.paused} cancelling={m.cancelling} hasDiscount={m.hasDiscount} endedAt={m.endedAt} />;
+  return <ManageFlow token={t!} dogName={m.dogName} nextBox={m.nextBox} paused={m.paused} cancelling={m.cancelling} hasDiscount={m.hasDiscount} endedAt={m.endedAt} />;
 }

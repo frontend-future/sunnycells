@@ -4,7 +4,7 @@ import { SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
 import Shell from "./Shell";
 import styles from "./membership.module.css";
 
-type Props = { token: string; dogName: string | null; nextBox: number | null; boxes: number; paused: boolean; cancelling: boolean; hasDiscount: boolean; endedAt: number | null };
+type Props = { token: string; dogName: string | null; nextBox: number | null; paused: boolean; cancelling: boolean; hasDiscount: boolean; endedAt: number | null };
 type Reason = "price" | "much" | "results" | "better" | "eat" | "other";
 type Screen = "home" | "why" | Reason | "confirm" | "done";
 
@@ -19,7 +19,7 @@ const REASONS: [Reason, string][] = [
 const PORTAL = "https://billing.stripe.com/p/login/cNi14nfrC9k11jCcER0sU00";
 const when = (s: number | null) => (s ? new Date(s * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/Chicago" }) : null);
 
-export default function ManageFlow({ token, dogName, nextBox, boxes, paused, cancelling, hasDiscount, endedAt }: Props) {
+export default function ManageFlow({ token, dogName, nextBox, paused, cancelling, hasDiscount, endedAt }: Props) {
   const dog = dogName ?? "your dog";
   const [screen, setScreen] = useState<Screen>("home");
   const [reason, setReason] = useState<Reason>("other");
@@ -51,7 +51,6 @@ export default function ManageFlow({ token, dogName, nextBox, boxes, paused, can
       <Shell eyebrow="Your membership" title={dogName ? `${dogName}'s membership is cancelled` : "Your membership is cancelled"}>
         <div className={styles.stats}>
           <div className={`${styles.stat} ${styles.statWide}`}><span className={styles.statLabel}>Cancelled on</span><span className={styles.statValue}>{when(endedAt)}</span></div>
-          <div className={`${styles.stat} ${styles.statWide}`}><span className={styles.statLabel}>Boxes received</span><span className={styles.statValue}>{boxes}</span></div>
         </div>
         <p>You won't be charged again. If you'd like to start back up, or something went wrong, we're happy to help.</p>
         <a className={styles.primary} href="mailto:support@fridayzoomies.com?subject=Restart%20my%20membership">Restart my membership</a>
@@ -67,11 +66,10 @@ export default function ManageFlow({ token, dogName, nextBox, boxes, paused, can
         ) : (
           <>
             <div className={styles.stats}>
-              <div className={`${styles.stat} ${styles.statWide}`}>
+              <div className={styles.stat}>
                 <span className={styles.statLabel}>{paused ? "Next box" : "Next box ships"}</span>
                 <span className={styles.statValue}>{paused ? "Skipped" : next ?? "Coming up"}</span>
               </div>
-              <div className={styles.stat}><span className={styles.statLabel}>Boxes so far</span><span className={styles.statValue}>{boxes}</span></div>
               <div className={styles.stat}><span className={styles.statLabel}>Ships every</span><span className={styles.statValue}>4 weeks</span></div>
             </div>
             <p>Consistency is what helps {dog} stop itching for good, so we'd rather help you change things than lose you. Pick what you need.</p>
