@@ -366,7 +366,7 @@ function Checkout() {
                 <Button type="submit" size="lg" fullWidth variant="accent" disabled={!stripe || busy} iconLeft={busy ? undefined : "shield-check"} style={PAY_STYLE}>{busy ? "Processing…" : "Submit Secure Payment"}</Button>
                 {error ? <p role="alert" className={s.err}>{error}</p> : null}
               </div>
-              <p className={s.fine} style={{ textAlign: "center" }}>
+              <p className={`${s.fine} ${s.finePay}`}>
                 By clicking “Submit Secure Payment,” you accept our <a href="https://fridayzoomies.com/policies/terms-of-service">Terms of Service</a>.
               </p>
             </>
