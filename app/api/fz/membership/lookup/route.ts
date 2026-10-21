@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { findMembership, notifyOwner, sendMagicLink } from "@/lib/membership";
 
-/* Takes an email and, if it has a Friday Zoomies membership, emails it a sign-in link. The reply is
-   the same either way, so the form cannot be used to check who is a customer. Read only. */
+/* Takes an email and, if it has a Friday Zoomies membership, emails it a sign-in link. The reply says
+   whether one was found, so the page can tell the visitor; it never returns any plan details. Read only. */
 export async function POST(req: Request) {
   const { email } = (await req.json().catch(() => ({}))) as { email?: string };
   const e = (email ?? "").trim();
@@ -21,5 +21,6 @@ export async function POST(req: Request) {
     sent = `failed: ${err instanceof Error ? err.message : "error"}`;
   }
   await notifyOwner("lookup", e, { "Membership found": found, "Link emailed": sent || "no", Action: "Nothing changed" });
-  return NextResponse.json({ ok: true });
+  if (sent.startsWith("failed")) return NextResponse.json({ error: "We found your membership but couldn't send the link. Try again, or email support@fridayzoomies.com." }, { status: 502 });
+  return NextResponse.json({ ok: true, found });
 }
