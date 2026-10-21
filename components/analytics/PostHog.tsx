@@ -57,9 +57,6 @@ export function PostHogAnalytics() {
         capture_pageleave: false,
         disable_session_recording: true,
         session_recording: { maskAllInputs: true },
-        /* Nothing here reads a flag, and leaving this on costs a POST to /flags on
-           every single page view. */
-        advanced_disable_feature_flags: true,
         person_profiles: "identified_only",
       });
     }
