@@ -19,13 +19,13 @@ export default function EmailForm({ expired }: { expired: boolean }) {
 
   if (state === "sent")
     return (
-      <Shell title="Check your email" done>
+      <Shell title="Check your email" photo="sent">
         <p>We found your membership. We just sent a login link to <strong>{email}</strong>.</p>
         <p className={styles.fine}>The link works for 30 minutes. Nothing there? Check spam, or email support@fridayzoomies.com and we'll sort it out.</p>
       </Shell>
     );
   return (
-    <Shell eyebrow="Your membership" title="Manage your membership" oneLine>
+    <Shell eyebrow="Your membership" title="Manage your membership" oneLine photo="email">
       {expired && <p className={styles.callout}>That link has expired. Enter your email and we'll send a fresh one.</p>}
       <p>Enter the email you ordered with and we'll send a login link to your plan.</p>
       <form className={styles.stack} onSubmit={submit}>

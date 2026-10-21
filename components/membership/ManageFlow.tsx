@@ -17,18 +17,6 @@ const REASONS: [Reason, string][] = [
   ["other", "Something else"],
 ];
 const PORTAL = "https://billing.stripe.com/p/login/cNi14nfrC9k11jCcER0sU00";
-/* A different vet and a different worried dog on every save screen, sat right under the headline. */
-const PHOTOS: Record<string, string> = {
-  price: "A veterinarian in a white coat resting a hand on a sad yellow Labrador",
-  much: "A veterinarian sitting on the floor beside a sad Golden Retriever",
-  results: "A veterinarian holding the paw of a worried pit bull on an exam table",
-  better: "A veterinarian with a gentle German Shepherd",
-  eat: "A veterinarian looking kindly at a sad little Shih Tzu mix",
-  other: "A veterinarian listening to a sad Boxer's heartbeat",
-};
-function Photo({ k }: { k: string }) {
-  return <img className={styles.photo} src={`/quiz/fridayzoomies/membership/vet-${k}.jpg`} alt={PHOTOS[k] ?? ""} width={960} height={720} />;
-}
 const when = (s: number | null) => (s ? new Date(s * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/Chicago" }) : null);
 
 export default function ManageFlow({ token, dogName, nextBox, paused, cancelling, hasDiscount, endedAt }: Props) {
@@ -39,7 +27,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [result, setResult] = useState({ title: "", body: "" });
+  const [result, setResult] = useState({ title: "", body: "", cancelled: false });
   const sub = (s: string) => s.replace("{dog}", dogName ?? "My dog");
 
   async function send(action: string, done: { title: string; body: string }, extra: { reason?: string; note?: string } = {}) {
@@ -50,18 +38,18 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
     setBusy(false);
     if (!res?.ok) return setError(data.error ?? "Something went wrong. Try again, or email support@fridayzoomies.com.");
     // Real changes say "done". Anything the team still applies by hand says the request is processed.
-    setResult(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "Our team will update your membership and confirm by email shortly." });
+    setResult({ cancelled: action === "cancel", ...(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "Our team will update your membership and confirm by email shortly." }) });
     setScreen("done");
   }
   const cancelLink = <button type="button" className={styles.link} onClick={() => setScreen("confirm")}>No thanks, continue to cancel</button>;
   const next = when(nextBox);
 
   if (screen === "done")
-    return <Shell title={result.title} done><p>{result.body}</p></Shell>;
+    return <Shell title={result.title} photo={result.cancelled ? "cancelled" : "kept"}><p>{result.body}</p></Shell>;
 
   if (endedAt)
     return (
-      <Shell eyebrow="Your membership" title={dogName ? `${dogName}'s membership is cancelled` : "Your membership is cancelled"}>
+      <Shell eyebrow="Your membership" photo="cancelled" title={dogName ? `${dogName}'s membership is cancelled` : "Your membership is cancelled"}>
         <div className={styles.stats}>
           <div className={`${styles.stat} ${styles.statWide}`}><span className={styles.statLabel}>Cancelled on</span><span className={styles.statValue}>{when(endedAt)}</span></div>
         </div>
@@ -73,7 +61,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
 
   if (screen === "home")
     return (
-      <Shell eyebrow="Your membership" title={dogName ? `Hi, here's ${dogName}'s membership` : "Here's your membership"}>
+      <Shell eyebrow="Your membership" photo="home" title={dogName ? `Hi, here's ${dogName}'s membership` : "Here's your membership"}>
         {cancelling ? (
           <p>Your membership is set to end after your current box. Want it back? Email support@fridayzoomies.com and we'll restart it.</p>
         ) : (
@@ -110,8 +98,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
 
   const R = { reason };
   const offer = (title: string, body: string[], buttons: [string, () => void][]) => (
-    <Shell eyebrow="Before you go" title={title} onBack={() => setScreen("why")} oneLine>
-      <Photo k={screen} />
+    <Shell eyebrow="Before you go" title={title} onBack={() => setScreen("why")} oneLine photo={screen}>
       <div className={styles.stack}>{body.map((p, i) => <p key={p} className={i === 1 && body.length > 2 ? styles.callout : undefined}>{p}</p>)}</div>
       <div className={styles.stack}>
         {buttons.map(([label, fn]) => <button type="button" key={label} className={styles.primary} disabled={busy} onClick={fn}>{busy ? "One moment" : label}</button>)}
@@ -138,8 +125,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
       [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", () => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge.` }, R)]]);
   if (screen === "other")
     return (
-      <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine onBack={() => setScreen("why")}>
-        <Photo k="other" />
+      <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine photo="other" onBack={() => setScreen("why")}>
         <p>A short note is plenty. A real person reads every one.</p>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="note">What's the reason?</label>
@@ -152,7 +138,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
     );
 
   return (
-    <Shell eyebrow="Last step" title="Confirm cancellation" oneLine onBack={() => setScreen("why")}>
+    <Shell eyebrow="Last step" title="Confirm cancellation" oneLine photo="confirm" onBack={() => setScreen("why")}>
       <p>Your membership will end after your current box. You won't be charged again, and anything already paid for will still ship.</p>
       <div className={styles.stack}>
         <button type="button" className={styles.primary} onClick={() => setScreen("home")}>Never mind, keep it</button>
