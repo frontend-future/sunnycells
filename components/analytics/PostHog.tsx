@@ -59,6 +59,9 @@ export function PostHogAnalytics() {
         session_recording: { maskAllInputs: true },
         person_profiles: "identified_only",
       });
+      /* Reachable from the browser console, the way PostHog's own snippet does it, so a split test variant can be
+         forced for checking: posthog.featureFlags.overrideFeatureFlags({ flags: { "checkout-split": "two-step" } }) */
+      (window as unknown as { posthog?: typeof posthog }).posthog = posthog;
     }
 
     if (REPLAY_PATHS.includes(pathname)) posthog.startSessionRecording();
