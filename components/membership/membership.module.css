@@ -109,3 +109,10 @@ textarea.input { min-height: 128px; resize: vertical; line-height: 1.45; }
 
 .card .redirect { font-size: 18px; color: var(--ink-60); text-align: center; }
 .redirect a { color: var(--cobalt); font-weight: 600; white-space: nowrap; }
+
+.risks { background: var(--zest-tint); border-radius: 20px; padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+.risks strong { font-family: var(--font-bricolage), sans-serif; font-weight: 800; font-size: 22px; line-height: 1.2; color: var(--zest); }
+.risks ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.risks li { display: flex; align-items: flex-start; gap: 12px; font-size: 20px; line-height: 1.4; color: var(--midnight); }
+.risks li::before { content: ""; flex: none; width: 26px; height: 26px; margin-top: 1px; border-radius: 50%; background: var(--zest) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='m2 2 8 8M10 2l-8 8'/%3E%3C/svg%3E") center / 12px no-repeat; }
+.risks li span { padding-top: 1px; }

@@ -48,3 +48,13 @@ export function Guarantee({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
+/* What is at stake: a warm red card with crossed items. */
+export function Risks({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className={styles.risks}>
+      <strong>{title}</strong>
+      <ul>{items.map((i) => <li key={i}><span>{i}</span></li>)}</ul>
+    </div>
+  );
+}

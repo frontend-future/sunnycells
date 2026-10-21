@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SAVE_OFFER_2_DOLLARS, SAVE_OFFER_2_MONTHS, SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
-import { Deal, Guarantee, Points, Steps, Timeline } from "./Blocks";
+import { Deal, Guarantee, Points, Risks, Steps, Timeline } from "./Blocks";
 import Redirect from "./Redirect";
 import Shell from "./Shell";
 import styles from "./membership.module.css";
@@ -166,13 +166,14 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
       </>
     ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from the Friday Zoomies care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: ty, body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")
-    return offer("That's great to hear", (
+    return offer(`Protect ${dogName ? `${dogName}'s` : "your dog's"} progress`, (
       <>
-        <p>{lead(`We're glad ${dog} is feeling better.`)}</p>
-        <Timeline items={[["First 90 days", "Daily chews build the relief"], ["After that", "Daily chews are maintenance and prevention"], ["The goal", "Keep issues at bay"]]} />
-        <p className={styles.callout}>Missed days can bring the itch back, so we'd keep the routine going.</p>
+        <p>{lead(`We're glad ${dog} is feeling better. That's what the daily chews built.`)}</p>
+        <Risks title="If the chews stop, the itch can come back" items={[`The scratching and 2am licking can start again`, `${Dog} can lose the comfort and relief they've finally had`, "All the progress so far can be lost"]} />
+        <Timeline items={[["First 90 days", "Daily chews build the relief"], ["After that", "Daily chews maintain it and prevent a flare up"]]} />
+        <p className={styles.callout}>Keeping {dog} on the daily chews is what keeps the itch away.</p>
       </>
-    ), [["Keep my membership", () => send("keep", { title: ty, body: `We'll keep ${dog}'s membership going.` }, R)], ["Switch me to every 8 weeks", every8[1]]]);
+    ), [[`Keep ${dog} comfortable`, () => send("keep", { title: ty, body: "" }, R)]]);
   if (screen === "eat")
     return offer("Let us help with that", (
       <>
