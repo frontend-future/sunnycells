@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
-import { Deal, Points, Steps, Timeline } from "./Blocks";
+import { Deal, Guarantee, Points, Steps, Timeline } from "./Blocks";
 import Shell from "./Shell";
 import styles from "./membership.module.css";
 
@@ -147,7 +147,8 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
     return offer("Let's talk it through", (
       <>
         <p>Itch relief builds over weeks, and it's easy to miss day to day.</p>
-        <Points items={[["Missed days", "can set progress back."], ["90 day guarantee.", `If ${dog} isn't doing better after a real try, we'll take care of you.`], ["Care team call.", "We'll go over how you're using the spray and chews."]]} />
+        <Guarantee>If {dog} isn't doing better after a real try, we'll take care of you.</Guarantee>
+        <Points items={[["Missed days", "can set progress back."], ["Care team call.", "We'll go over how you're using the spray and chews."]]} />
       </>
     ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from our care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: "Thank you", body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")

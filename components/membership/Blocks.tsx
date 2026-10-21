@@ -38,3 +38,13 @@ export function Timeline({ items }: { items: [string, string?][] }) {
     </ol>
   );
 }
+
+/* The 90 day badge beside the guarantee in one line. */
+export function Guarantee({ children }: { children: React.ReactNode }) {
+  return (
+    <div className={styles.guarantee}>
+      <img src="/quiz/fridayzoomies/checkout/badge-90.webp" alt="90 day guarantee" width={104} height={104} />
+      <div><strong>90 day guarantee</strong><span>{children}</span></div>
+    </div>
+  );
+}
