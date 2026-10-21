@@ -172,7 +172,7 @@ function Checkout() {
     setPromo(data);
     setCode("");
   };
-  const [sameBilling, setSameBilling] = useState(true);
+  const sameBilling = true; // the card is always billed to the shipping address
 
   /* Marks the failing fields, focuses the first, and says which ones in words. */
   const check = (billing: boolean) => {
@@ -349,24 +349,10 @@ function Checkout() {
               {wallets ? <div className={s.or}>or pay by card</div> : null}
               <PaymentElement options={{ terms: { card: "never" }, fields: { billingDetails: { name: "never", email: "never", address: "never", phone: "auto" } }, layout: { type: "accordion", defaultCollapsed: false, radios: "always", spacedAccordionItems: true } }} />
 
-              <label className={s.check}>
-                <input type="checkbox" checked={sameBilling} onChange={(e) => setSameBilling(e.target.checked)} />
-                Use shipping address as billing address
-              </label>
-              {!sameBilling ? (<><h2 className={s.h} style={{ marginTop: 0 }}>Billing address</h2><div className={s.fields}><Address prefix="bill-" /></div></>) : null}
-
               <div style={{ marginTop: 20 }}>
                 <Button type="submit" size="lg" fullWidth variant="accent" disabled={!stripe || busy} iconLeft={busy ? undefined : "shield-check"} style={PAY_STYLE}>{busy ? "Processing…" : "Submit Secure Payment"}</Button>
                 {error ? <p role="alert" className={s.err}>{error}</p> : null}
               </div>
-              <p className={s.fine}>
-                By clicking “Submit Secure Payment,” you agree to Friday Zoomies’{" "}
-                <a href="https://fridayzoomies.com/policies/terms-of-service">Terms of Sale</a> and{" "}
-                <a href="https://fridayzoomies.com/policies/privacy-policy">Privacy Policy</a>. You will be enrolled in a
-                subscription and billed on a recurring basis at the price and frequency shown in the order summary above,
-                excluding your first order’s introductory discount. You can cancel anytime before your next billing date by
-                emailing <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
-              </p>
             </>
           )}
           <TrustBlocks className={s.trustBottom} />
