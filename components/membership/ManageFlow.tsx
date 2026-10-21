@@ -146,19 +146,19 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
   if (screen === "results")
     return offer("Let's talk it through", (
       <>
-        <p>Itch relief builds over weeks, and it's easy to miss day to day.</p>
+        <p>Itch relief builds over the first 90 days, so be patient with the process.</p>
         <Guarantee>If {dog} isn't doing better after a real try, we'll take care of you.</Guarantee>
-        <Points items={[["Missed days", "can set progress back."], ["Care team call.", "We'll go over how you're using the spray and chews."]]} />
+        <Points items={[["Days 1 to 90:", "daily chews build the relief."], ["Missed days", "can set progress back."], ["Care team call.", "We'll go over how you're using the spray and chews."]]} />
       </>
     ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from our care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: "Thank you", body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")
     return offer("That's great to hear", (
       <>
         <p>We're glad {dog} is feeling better.</p>
-        <Points items={["Itch tends to come back when the routine stops", "Most people keep a lighter routine going"]} />
-        <Deal big="Every 8 weeks" line={`keeps ${dog} comfortable`} small="Half the cost over time" />
+        <Timeline items={[["First 90 days", "Daily chews build the relief"], ["After that", "Daily chews are maintenance and prevention"], ["The goal", "Keep issues at bay"]]} />
+        <p className={styles.callout}>Missed days can bring the itch back, so we'd keep the routine going.</p>
       </>
-    ), [["Switch me to every 8 weeks", every8[1]]]);
+    ), [["Keep my membership", () => send("keep", { title: "Thank you", body: `We'll keep ${dog}'s membership going.` }, R)], ["Switch me to every 8 weeks", every8[1]]]);
   if (screen === "eat")
     return offer("Let us help with that", (
       <>
