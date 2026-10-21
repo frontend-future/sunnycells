@@ -44,6 +44,7 @@ export type Membership = {
   paused: boolean;
   cancelling: boolean;
   hasDiscount: boolean;
+  endedAt: number | null; // unix seconds, set when the membership is cancelled
 };
 
 async function dogNameFor(email: string): Promise<string | null> {
@@ -61,29 +62,38 @@ async function dogNameFor(email: string): Promise<string | null> {
   }
 }
 
-/* READ ONLY. Finds the customer's live Friday Zoomies subscription by email. Other funnels'
+/* A live Friday Zoomies subscription wins; otherwise the most recently ended one, so a cancelled
+   customer sees "cancelled" instead of "not found". Abandoned checkouts (incomplete) never count. */
+export function pickSubscription(subs: Stripe.Subscription[]): Stripe.Subscription | undefined {
+  const fz = subs.filter((s) => s.metadata?.funnel === "fridayzoomies" && !s.status.startsWith("incomplete"));
+  const ended = (s: Stripe.Subscription) => s.ended_at ?? s.canceled_at ?? s.created;
+  return fz.find((s) => LIVE.includes(s.status)) ?? fz.sort((a, b) => ended(b) - ended(a))[0];
+}
+
+/* READ ONLY. Finds the customer's Friday Zoomies subscription by email. Other funnels'
    subscriptions on the same Stripe account are ignored. */
 export async function findMembership(emailIn: string): Promise<Membership | null> {
   const email = emailIn.trim();
   const st = stripe();
   for (const e of new Set([email, email.toLowerCase()])) {
     const customers = (await st.customers.list({ email: e, limit: 10 })).data;
-    for (const c of customers) {
-      const subs = (await st.subscriptions.list({ customer: c.id, status: "all", limit: 10 })).data;
-      const sub = subs.find((s) => s.metadata?.funnel === "fridayzoomies" && LIVE.includes(s.status));
-      if (!sub) continue;
-      const paid = await st.invoices.list({ subscription: sub.id, status: "paid", limit: 100 });
-      return {
-        id: sub.id,
-        email: e.toLowerCase(),
-        dogName: await dogNameFor(e),
-        nextBox: sub.items.data[0]?.current_period_end ?? null,
-        boxes: paid.data.length,
-        paused: !!sub.pause_collection,
-        cancelling: sub.cancel_at_period_end,
-        hasDiscount: sub.discounts.length > 0,
-      };
-    }
+    const all: Stripe.Subscription[] = [];
+    for (const c of customers) all.push(...(await st.subscriptions.list({ customer: c.id, status: "all", limit: 10 })).data);
+    const sub = pickSubscription(all);
+    if (!sub) continue;
+    const paid = await st.invoices.list({ subscription: sub.id, status: "paid", limit: 100 });
+    const live = LIVE.includes(sub.status);
+    return {
+      id: sub.id,
+      email: e.toLowerCase(),
+      dogName: await dogNameFor(e),
+      nextBox: live ? sub.items.data[0]?.current_period_end ?? null : null,
+      boxes: paid.data.length,
+      paused: !!sub.pause_collection,
+      cancelling: sub.cancel_at_period_end,
+      hasDiscount: sub.discounts.length > 0,
+      endedAt: live ? null : sub.ended_at ?? sub.canceled_at ?? sub.created,
+    };
   }
   return null;
 }
