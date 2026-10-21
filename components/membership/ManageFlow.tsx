@@ -152,7 +152,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
   if (screen === "much")
     return offer("No need to cancel for that", (
       <>
-        <p>{lead("Extra on the shelf? You have two easy options.")}</p>
+        <p>{lead(`Chews piling up on the shelf? Two ways to keep ${dog} covered without wasting a box.`)}</p>
         <Points items={[["Skip a box.", "We'll skip your next one."], ["Ship every 8 weeks.", "Instead of every 4."]]} />
         <p>{Dog} stays covered, and you stop paying for product you don't need yet.</p>
       </>
@@ -184,12 +184,12 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
   if (screen === "other")
     return (
       <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine photo="other" onBack={() => setScreen("why")}>
-        <p>{lead("A short note is plenty. A real person reads every one.")}</p>
+        <p>{lead(`Tell us what's going on with ${dogName ? `${dogName}'s` : "your dog's"} plan. A real person on the Friday Zoomies team reads every note, and if there's something we can fix for ${dog}, we want to.`)}</p>
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="note">What's the reason?</label>
-          <textarea id="note" className={styles.input} value={note} onChange={(e) => setNote(e.target.value)} maxLength={800} />
+          <label className={styles.label} htmlFor="note">What happened?</label>
+          <textarea id="note" className={styles.input} placeholder={`The price, the chews, the shipping, how ${dog} is doing. Anything helps.`} value={note} onChange={(e) => setNote(e.target.value)} maxLength={800} />
         </div>
-        <button type="button" className={styles.primary} disabled={busy} onClick={() => send("feedback", { title: ty, body: "We'll keep your membership going and read your note." }, { ...R, note })}>{busy ? "One moment" : "Send and keep my membership"}</button>
+        <button type="button" className={styles.primary} disabled={busy} onClick={() => send("feedback", { title: ty, body: "We'll keep your membership going and read your note." }, { ...R, note })}>{busy ? "One moment" : `Send and keep ${dogName ? `${dogName}'s` : "my"} membership`}</button>
         {error && <p className={styles.error} role="alert">{error}</p>}
         <button type="button" className={styles.link} onClick={() => setScreen("confirm")}>Send and continue to cancel</button>
       </Shell>
