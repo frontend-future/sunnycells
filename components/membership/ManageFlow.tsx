@@ -45,7 +45,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
     setBusy(false);
     if (!res?.ok) return setError(data.error ?? "Something went wrong. Try again, or email support@fridayzoomies.com.");
     // Real changes say "done". Anything the team still applies by hand says the request is processed.
-    setResult({ cancelled: action === "cancel", ...(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "Our team will update your membership and confirm by email shortly." }) });
+    setResult({ cancelled: action === "cancel", ...(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "The Friday Zoomies team will update your membership and confirm by email shortly." }) });
     setScreen("done");
   }
   const cancelLink = <button type="button" className={styles.link} onClick={() => setScreen("confirm")}>No thanks, continue to cancel</button>;
@@ -60,7 +60,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
         <div className={styles.stats}>
           <div className={`${styles.stat} ${styles.statWide}`}><span className={styles.statLabel}>Cancelled on</span><span className={styles.statValue}>{when(endedAt)}</span></div>
         </div>
-        <p>{lead("You won't be charged again. If you'd like to start back up, or something went wrong, we're happy to help.")}</p>
+        <p>{lead("You won't be charged again. If you'd like to restart your plan, or something went wrong, the Friday Zoomies team will sort it out.")}</p>
         <a className={styles.primary} href="mailto:support@fridayzoomies.com?subject=Restart%20my%20membership">Restart my membership</a>
         <a className={styles.secondary} href="mailto:support@fridayzoomies.com">Contact support</a>
       </Shell>
@@ -80,7 +80,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
               </div>
               <div className={styles.stat}><span className={styles.statLabel}>Ships every</span><span className={styles.statValue}>4 weeks</span></div>
             </div>
-            <p>{lead(`Consistency helps ${dog} stop itching for good. Pick what you need.`)}</p>
+            <p>{lead(`Consistency helps ${dog} stop itching for good. From here you can skip a box, update your address or card, or talk to the Friday Zoomies team.`)}</p>
             <div className={styles.stack}>
               {!paused && <button type="button" className={styles.primary} onClick={() => { setSkipFrom("home"); setScreen("skip"); }}>Skip my next box</button>}
               <a className={styles.secondary} href={PORTAL}>Update address or payment method</a>
@@ -111,7 +111,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
   if (screen === "why")
     return (
       <Shell eyebrow="Before you go" title="What's the reason?" oneLine onBack={() => setScreen("home")}>
-        <p>{lead("It takes ten seconds and it helps us make this better for other dogs.")}</p>
+        <p>{lead("Your answer takes ten seconds and tells the Friday Zoomies team what to fix for other dogs.")}</p>
         <div className={styles.stack}>
           {REASONS.map(([k, label]) => <button type="button" key={k} className={styles.option} onClick={() => { setReason(k); setScreen(k); }}>{sub(label)}</button>)}
         </div>
@@ -155,7 +155,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
         <Guarantee>If {dog} isn't doing better after a real try, we'll take care of you.</Guarantee>
         <Points items={[["Days 1 to 90:", "daily chews build the relief."], ["Missed days", "can set progress back."], ["Care team call.", "We'll go over how you're using the spray and chews."]]} />
       </>
-    ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from our care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: ty, body: `We'll keep ${dog}'s membership going.` }, R)]]);
+    ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from the Friday Zoomies care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: ty, body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")
     return offer("That's great to hear", (
       <>
@@ -170,7 +170,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
         <p>{lead("Some dogs are picky at first. Two easy tricks usually work.")}</p>
         <Steps items={["Mix the chew into a little wet food", "Or crumble it over dinner", "Still no luck? Our team will help you find a fix"]} />
       </>
-    ), [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", skip[1]]]);
+    ), [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from the Friday Zoomies team will email you shortly." }, R)], ["Skip my next box while I try", skip[1]]]);
   if (screen === "other")
     return (
       <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine photo="other" onBack={() => setScreen("why")}>
