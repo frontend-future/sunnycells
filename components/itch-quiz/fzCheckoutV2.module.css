@@ -114,3 +114,13 @@ select.input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .shipLbl { font-size: 15px; font-weight: 700; }
 .shipTxt { margin: 4px 0 0; font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--ink-80); }
 .edit { flex: none; min-height: 48px; padding: 0 4px; background: none; border: 0; font: inherit; font-size: 16px; font-weight: 700; color: var(--cobalt); text-decoration: underline; cursor: pointer; }
+
+/* Trust strip above the card fields on the two step checkout. */
+.secure { display: flex; align-items: center; gap: 12px; background: var(--ink-10); border-radius: 12px; padding: 16px 16px; margin-bottom: 16px; font-size: clamp(13.5px, 4vw, 18px); font-weight: 700; color: var(--ink-80); white-space: nowrap; }
+.secure svg { flex: none; }
+.badges { display: flex; justify-content: space-around; align-items: center; gap: 12px; margin-bottom: 18px; color: var(--ink-80); }
+.badge { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; line-height: 1.25; color: var(--ink-60); }
+.badge svg { flex: none; color: var(--ink-80); }
+.badge span { display: flex; flex-direction: column; }
+.badge strong { font-weight: 700; color: var(--ink-80); }
+@media (max-width: 380px) { .badge { font-size: 14px; } .badge svg { width: 28px; height: 28px; } }

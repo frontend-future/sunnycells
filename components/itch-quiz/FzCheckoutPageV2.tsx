@@ -339,7 +339,20 @@ function Checkout() {
           ) : (
             <>
               <h2 className={s.h}>Payment</h2>
-              <p className={s.sub}>All transactions are secure and encrypted</p>
+              <div className={s.secure}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
+                All transactions are secure and encrypted
+              </div>
+              <div className={s.badges}>
+                <span className={s.badge}>
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="4" y="10.5" width="16" height="10.5" rx="2" /><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" /></svg>
+                  <span>100% secure<strong>SSL encryption</strong></span>
+                </span>
+                <span className={s.badge}>
+                  <Icon name="shield-check" size={34} strokeWidth={2} />
+                  <span>Guaranteed<strong>safe checkout</strong></span>
+                </span>
+              </div>
               {wallets ? <p className={s.express}>Express checkout</p> : null}
               <ExpressCheckoutElement
                 onReady={(e) => setWallets(!!e.availablePaymentMethods)}
