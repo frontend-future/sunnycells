@@ -8,5 +8,15 @@ const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"], weight
 export const metadata: Metadata = { title: "Manage your membership | Friday Zoomies", robots: { index: false } };
 
 export default function MembershipLayout({ children }: { children: React.ReactNode }) {
-  return <div className={`${styles.page} ${bricolage.variable} ${figtree.variable}`}>{children}</div>;
+  return (
+    <div className={`${styles.page} ${bricolage.variable} ${figtree.variable}`}>
+      <header className={styles.header}>
+        <img className={styles.logo} src="/brand/fridayzoomies/logo-oneline.png" alt="Friday Zoomies" width={236} height={36} />
+      </header>
+      {children}
+      <p className={styles.footer}>
+        Questions? <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>
+      </p>
+    </div>
+  );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
+import Shell from "./Shell";
 import styles from "./membership.module.css";
 
 type Props = { token: string; dogName: string | null; nextBox: number | null; boxes: number; paused: boolean; cancelling: boolean; hasDiscount: boolean };
@@ -39,49 +40,60 @@ export default function ManageFlow({ token, dogName, nextBox, boxes, paused, can
     setResult(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "Our team will update your membership and confirm by email shortly." });
     setScreen("done");
   }
-  const cancelLink = <button className={styles.link} onClick={() => setScreen("confirm")}>No thanks, continue to cancel</button>;
+  const cancelLink = <button type="button" className={styles.link} onClick={() => setScreen("confirm")}>No thanks, continue to cancel</button>;
   const next = when(nextBox);
 
   if (screen === "done")
-    return <main className={styles.card}><h1>{result.title}</h1><p>{result.body}</p></main>;
+    return <Shell title={result.title} done><p>{result.body}</p></Shell>;
 
   if (screen === "home")
     return (
-      <main className={styles.card}>
-        <h1>Hi, here's {dog}'s membership</h1>
-        {cancelling ? <p>Your membership is set to end after your current box. Want it back? Email support@fridayzoomies.com and we'll restart it.</p> : (
+      <Shell eyebrow="Your membership" title={`Hi, here's ${dog}'s membership`}>
+        {cancelling ? (
+          <p>Your membership is set to end after your current box. Want it back? Email support@fridayzoomies.com and we'll restart it.</p>
+        ) : (
           <>
-            <p>{paused ? `${dog}'s next box is skipped.` : next ? `${dog}'s next box ships on ${next}.` : ""}{boxes > 0 ? ` So far you've received ${boxes} ${boxes === 1 ? "box" : "boxes"}.` : ""}</p>
+            <div className={styles.stats}>
+              <div className={`${styles.stat} ${styles.statWide}`}>
+                <span className={styles.statLabel}>{paused ? "Next box" : "Next box ships"}</span>
+                <span className={styles.statValue}>{paused ? "Skipped" : next ?? "Coming up"}</span>
+              </div>
+              <div className={styles.stat}><span className={styles.statLabel}>Boxes so far</span><span className={styles.statValue}>{boxes}</span></div>
+              <div className={styles.stat}><span className={styles.statLabel}>Ships every</span><span className={styles.statValue}>4 weeks</span></div>
+            </div>
             <p>Consistency is what helps {dog} stop itching for good, so we'd rather help you change things than lose you. Pick what you need.</p>
-            {!paused && <button className={styles.primary} disabled={busy} onClick={() => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge. Your plan picks back up the cycle after that.` })}>Skip my next box</button>}
-            <a className={styles.secondary} href={PORTAL}>Update address or payment method</a>
-            <a className={styles.secondary} href="mailto:support@fridayzoomies.com">Contact support</a>
-            <button className={styles.link} onClick={() => setScreen("why")}>I want to cancel my membership</button>
+            <div className={styles.stack}>
+              {!paused && <button type="button" className={styles.primary} disabled={busy} onClick={() => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge. Your plan picks back up the cycle after that.` })}>{busy ? "One moment" : "Skip my next box"}</button>}
+              <a className={styles.secondary} href={PORTAL}>Update address or payment method</a>
+              <a className={styles.secondary} href="mailto:support@fridayzoomies.com">Contact support</a>
+            </div>
+            {error && <p className={styles.error} role="alert">{error}</p>}
+            <button type="button" className={styles.link} onClick={() => setScreen("why")}>I want to cancel my membership</button>
           </>
         )}
-        {error && <p className={styles.note}>{error}</p>}
-      </main>
+      </Shell>
     );
 
   if (screen === "why")
     return (
-      <main className={styles.card}>
-        <h1>Before you go, what's the reason?</h1>
+      <Shell eyebrow="Before you go" title="What's the reason?" onBack={() => setScreen("home")}>
         <p>It takes ten seconds and it helps us make this better for other dogs.</p>
-        {REASONS.map(([k, label]) => <button key={k} className={styles.option} onClick={() => { setReason(k); setScreen(k); }}>{sub(label)}</button>)}
-        <button className={styles.link} onClick={() => setScreen("home")}>Back</button>
-      </main>
+        <div className={styles.stack}>
+          {REASONS.map(([k, label]) => <button type="button" key={k} className={styles.option} onClick={() => { setReason(k); setScreen(k); }}>{sub(label)}</button>)}
+        </div>
+      </Shell>
     );
 
   const R = { reason };
   const offer = (title: string, body: string[], buttons: [string, () => void][]) => (
-    <main className={styles.card}>
-      <h1>{title}</h1>
-      {body.map((p) => <p key={p}>{p}</p>)}
-      {buttons.map(([label, fn]) => <button key={label} className={styles.primary} disabled={busy} onClick={fn}>{label}</button>)}
+    <Shell eyebrow="Before you go" title={title} onBack={() => setScreen("why")}>
+      <div className={styles.stack}>{body.map((p, i) => <p key={p} className={i === 1 && body.length > 2 ? styles.callout : undefined}>{p}</p>)}</div>
+      <div className={styles.stack}>
+        {buttons.map(([label, fn]) => <button type="button" key={label} className={styles.primary} disabled={busy} onClick={fn}>{busy ? "One moment" : label}</button>)}
+      </div>
+      {error && <p className={styles.error} role="alert">{error}</p>}
       {cancelLink}
-      {error && <p className={styles.note}>{error}</p>}
-    </main>
+    </Shell>
   );
 
   if (screen === "price")
@@ -101,23 +113,26 @@ export default function ManageFlow({ token, dogName, nextBox, boxes, paused, can
       [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", () => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge.` }, R)]]);
   if (screen === "other")
     return (
-      <main className={styles.card}>
-        <h1>Tell us what's going on</h1>
+      <Shell eyebrow="Before you go" title="Tell us what's going on" onBack={() => setScreen("why")}>
         <p>A short note is plenty. A real person reads every one.</p>
-        <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={4} maxLength={800} />
-        <button className={styles.primary} disabled={busy} onClick={() => send("feedback", { title: "Thank you", body: "We'll keep your membership going and read your note." }, { ...R, note })}>Send and keep my membership</button>
-        <button className={styles.link} onClick={() => { setScreen("confirm"); }}>Send and continue to cancel</button>
-        {error && <p className={styles.note}>{error}</p>}
-      </main>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="note">What's the reason?</label>
+          <textarea id="note" className={styles.input} value={note} onChange={(e) => setNote(e.target.value)} maxLength={800} />
+        </div>
+        <button type="button" className={styles.primary} disabled={busy} onClick={() => send("feedback", { title: "Thank you", body: "We'll keep your membership going and read your note." }, { ...R, note })}>{busy ? "One moment" : "Send and keep my membership"}</button>
+        {error && <p className={styles.error} role="alert">{error}</p>}
+        <button type="button" className={styles.link} onClick={() => setScreen("confirm")}>Send and continue to cancel</button>
+      </Shell>
     );
 
   return (
-    <main className={styles.card}>
-      <h1>Confirm cancellation</h1>
+    <Shell eyebrow="Last step" title="Confirm cancellation" onBack={() => setScreen("why")}>
       <p>Your membership will end after your current box. You won't be charged again, and anything already paid for will still ship.</p>
-      <button className={styles.danger} disabled={busy} onClick={() => send("cancel", { title: "Your membership is cancelled", body: `Thank you for trying Friday Zoomies with ${dog}. You can restart any time by emailing support@fridayzoomies.com.` }, { ...R, note })}>Cancel my membership</button>
-      <button className={styles.primary} onClick={() => setScreen("home")}>Never mind, keep it</button>
-      {error && <p className={styles.note}>{error}</p>}
-    </main>
+      <div className={styles.stack}>
+        <button type="button" className={styles.primary} onClick={() => setScreen("home")}>Never mind, keep it</button>
+        <button type="button" className={styles.danger} disabled={busy} onClick={() => send("cancel", { title: "Your membership is cancelled", body: `Thank you for trying Friday Zoomies with ${dog}. You can restart any time by emailing support@fridayzoomies.com.` }, { ...R, note })}>{busy ? "One moment" : "Cancel my membership"}</button>
+      </div>
+      {error && <p className={styles.error} role="alert">{error}</p>}
+    </Shell>
   );
 }

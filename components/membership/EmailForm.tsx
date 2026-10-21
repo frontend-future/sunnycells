@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Shell from "./Shell";
 import styles from "./membership.module.css";
 
 export default function EmailForm({ expired }: { expired: boolean }) {
@@ -15,23 +16,23 @@ export default function EmailForm({ expired }: { expired: boolean }) {
 
   if (state === "sent")
     return (
-      <main className={styles.card}>
-        <h1>Check your email</h1>
-        <p>If there's a membership under {email}, we just sent a link to manage it.</p>
-        <p>It works for 30 minutes. Nothing there? Check spam, or contact support@fridayzoomies.com and we'll sort it out.</p>
-      </main>
+      <Shell title="Check your email" done>
+        <p>If there's a membership under <strong>{email}</strong>, we just sent a link to manage it.</p>
+        <p className={styles.fine}>The link works for 30 minutes. Nothing there? Check spam, or email support@fridayzoomies.com and we'll sort it out.</p>
+      </Shell>
     );
   return (
-    <main className={styles.card}>
-      <h1>Manage your membership</h1>
-      {expired && <p className={styles.note}>That link has expired. Enter your email and we'll send a fresh one.</p>}
+    <Shell eyebrow="Your membership" title="Manage your membership">
+      {expired && <p className={styles.callout}>That link has expired. Enter your email and we'll send a fresh one.</p>}
       <p>Enter the email you ordered with and we'll send you a link to your plan.</p>
-      <form onSubmit={submit}>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <button className={styles.primary} disabled={state === "busy"}>{state === "busy" ? "Sending" : "Email me my link"}</button>
-        {state === "error" && <p className={styles.note}>Something went wrong. Try again, or email support@fridayzoomies.com.</p>}
+      <form className={styles.stack} onSubmit={submit}>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="email">Email</label>
+          <input className={styles.input} id="email" type="email" required autoComplete="email" inputMode="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </div>
+        <button className={styles.primary} disabled={state === "busy"}>{state === "busy" ? "Sending your link" : "Email me my link"}</button>
+        {state === "error" && <p className={styles.error} role="alert">Something went wrong. Try again, or email support@fridayzoomies.com.</p>}
       </form>
-    </main>
+    </Shell>
   );
 }
