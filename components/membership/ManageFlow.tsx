@@ -27,7 +27,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState({ title: "", body: "" });
-  const sub = (s: string) => s.replace("{dog}", dog);
+  const sub = (s: string) => s.replace("{dog}", dogName ?? "My dog");
 
   async function send(action: string, done: { title: string; body: string }, extra: { reason?: string; note?: string } = {}) {
     setBusy(true);
