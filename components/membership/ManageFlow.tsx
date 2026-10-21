@@ -17,10 +17,23 @@ const REASONS: [Reason, string][] = [
   ["other", "Something else"],
 ];
 const PORTAL = "https://billing.stripe.com/p/login/cNi14nfrC9k11jCcER0sU00";
+/* A different vet and a different worried dog on every save screen, sat right under the headline. */
+const PHOTOS: Record<string, string> = {
+  price: "A veterinarian in a white coat resting a hand on a sad yellow Labrador",
+  much: "A veterinarian sitting on the floor beside a sad Golden Retriever",
+  results: "A veterinarian holding the paw of a worried pit bull on an exam table",
+  better: "A veterinarian with a gentle German Shepherd",
+  eat: "A veterinarian looking kindly at a sad little Shih Tzu mix",
+  other: "A veterinarian listening to a sad Boxer's heartbeat",
+};
+function Photo({ k }: { k: string }) {
+  return <img className={styles.photo} src={`/quiz/fridayzoomies/membership/vet-${k}.jpg`} alt={PHOTOS[k] ?? ""} width={960} height={720} />;
+}
 const when = (s: number | null) => (s ? new Date(s * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/Chicago" }) : null);
 
 export default function ManageFlow({ token, dogName, nextBox, paused, cancelling, hasDiscount, endedAt }: Props) {
   const dog = dogName ?? "your dog";
+  const Dog = dogName ?? "Your dog"; // for the start of a sentence
   const [screen, setScreen] = useState<Screen>("home");
   const [reason, setReason] = useState<Reason>("other");
   const [note, setNote] = useState("");
@@ -74,7 +87,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
             </div>
             <p>Consistency is what helps {dog} stop itching for good, so we'd rather help you change things than lose you. Pick what you need.</p>
             <div className={styles.stack}>
-              {!paused && <button type="button" className={styles.primary} disabled={busy} onClick={() => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge. Your plan picks back up the cycle after that.` })}>{busy ? "One moment" : "Skip my next box"}</button>}
+              {!paused && <button type="button" className={styles.primary} disabled={busy} onClick={() => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge. Your plan picks back up the cycle after that.` })}>{busy ? "One moment" : "Skip my next box"}</button>}
               <a className={styles.secondary} href={PORTAL}>Update address or payment method</a>
               <a className={styles.secondary} href="mailto:support@fridayzoomies.com">Contact support</a>
             </div>
@@ -98,6 +111,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
   const R = { reason };
   const offer = (title: string, body: string[], buttons: [string, () => void][]) => (
     <Shell eyebrow="Before you go" title={title} onBack={() => setScreen("why")} oneLine>
+      <Photo k={screen} />
       <div className={styles.stack}>{body.map((p, i) => <p key={p} className={i === 1 && body.length > 2 ? styles.callout : undefined}>{p}</p>)}</div>
       <div className={styles.stack}>
         {buttons.map(([label, fn]) => <button type="button" key={label} className={styles.primary} disabled={busy} onClick={fn}>{busy ? "One moment" : label}</button>)}
@@ -111,8 +125,8 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
     return offer("We can make it easier", [`We get it, and we'd rather keep ${dog} comfortable than lose you over price.`, `We can take $${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes, so they're $${50 - SAVE_OFFER_DOLLARS} each.`, `That keeps ${dog} on a steady routine while you decide.`],
       hasDiscount ? [] : [[`Yes, take $${SAVE_OFFER_DOLLARS} off my next ${SAVE_OFFER_MONTHS} boxes`, () => send("discount", { title: "Done", body: `$${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes. Nothing else changes.` }, R)]]);
   if (screen === "much")
-    return offer("No need to cancel for that", ["If you've got extra on the shelf, you can skip a box.", "We can skip your next one, or switch you to a box every 8 weeks instead of every 4.", `${dog} stays covered and you stop paying for product you don't need yet.`],
-      [["Skip my next box", () => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge.` }, R)], ["Ship every 8 weeks instead", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
+    return offer("No need to cancel for that", ["If you've got extra on the shelf, you can skip a box.", "We can skip your next one, or switch you to a box every 8 weeks instead of every 4.", `${Dog} stays covered and you stop paying for product you don't need yet.`],
+      [["Skip my next box", () => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge.` }, R)], ["Ship every 8 weeks instead", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
   if (screen === "results")
     return offer("Let's talk it through", ["Lasting itch relief builds over weeks, and it's easy to miss day to day. Skipped days can also set it back.", `You're covered by our 90 day guarantee. If ${dog} isn't doing better after a real try, we'll take care of you.`, "Want one of our care team to call you and go over how you're using the spray and chews?"],
       [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from our care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: "Thank you", body: `We'll keep ${dog}'s membership going.` }, R)]]);
@@ -121,10 +135,11 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
       [["Switch me to every 8 weeks", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
   if (screen === "eat")
     return offer("Let us help with that", ["Some dogs are picky at first, and a couple of easy tricks usually work.", "Mix the chew into a little wet food or crumble it over dinner.", "If that doesn't work, our team will personally help you find a fix."],
-      [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", () => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge.` }, R)]]);
+      [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", () => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge.` }, R)]]);
   if (screen === "other")
     return (
       <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine onBack={() => setScreen("why")}>
+        <Photo k="other" />
         <p>A short note is plenty. A real person reads every one.</p>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="note">What's the reason?</label>
