@@ -49,7 +49,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
 
   if (endedAt)
     return (
-      <Shell eyebrow="Your membership" photo="cancelled" title={dogName ? `${dogName}'s membership is cancelled` : "Your membership is cancelled"}>
+      <Shell eyebrow={dogName ? `${dogName}'s membership` : "Your membership"} photo="cancelled" title="Membership cancelled" oneLine>
         <div className={styles.stats}>
           <div className={`${styles.stat} ${styles.statWide}`}><span className={styles.statLabel}>Cancelled on</span><span className={styles.statValue}>{when(endedAt)}</span></div>
         </div>
@@ -61,7 +61,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
 
   if (screen === "home")
     return (
-      <Shell eyebrow="Your membership" photo="home" title={dogName ? `Hi, here's ${dogName}'s membership` : "Here's your membership"}>
+      <Shell eyebrow="Your membership" photo="home" title={dogName ? `Here's ${dogName}'s membership` : "Here's your membership"} oneLine>
         {cancelling ? (
           <p>Your membership is set to end after your current box. Want it back? Email support@fridayzoomies.com and we'll restart it.</p>
         ) : (
