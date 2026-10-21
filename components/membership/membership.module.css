@@ -28,7 +28,7 @@
 .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .stat { background: var(--sky-tint); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 2px; }
 .statLabel { font-size: 16px; font-weight: 600; color: var(--ink-60); }
-.statValue { font-family: var(--font-bricolage), sans-serif; font-weight: 800; font-size: 24px; line-height: 1.15; color: var(--midnight); }
+.statValue { white-space: nowrap; font-family: var(--font-bricolage), sans-serif; font-weight: 800; font-size: 22px; line-height: 1.15; color: var(--midnight); }
 .statWide { grid-column: 1 / -1; }
 
 .card .callout { color: var(--midnight); background: var(--sun-tint); border-radius: 16px; padding: 16px 18px; font-size: 20px; line-height: 1.5; color: var(--midnight); }

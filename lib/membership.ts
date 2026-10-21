@@ -39,6 +39,7 @@ export type Membership = {
   id: string;
   email: string;
   dogName: string | null;
+  firstName: string | null;
   nextBox: number | null; // unix seconds of the next charge
   boxes: number;
   paused: boolean;
@@ -62,6 +63,14 @@ async function dogNameFor(email: string): Promise<string | null> {
   }
 }
 
+/* "jake lundkovsky" and "CAROLYN HARVEY" both come back as a clean first name. Anything that does not look like a
+   name (an email, initials, digits) returns null and the page just skips the personal touch. */
+export function firstNameOf(full: string | null | undefined): string | null {
+  const t = (full ?? "").trim().split(/\s+/)[0] ?? "";
+  if (t.length < 2 || !/^[\p{L}'’-]+$/u.test(t)) return null;
+  return t === t.toUpperCase() || t === t.toLowerCase() ? t.charAt(0).toUpperCase() + t.slice(1).toLowerCase() : t;
+}
+
 /* A live Friday Zoomies subscription wins; otherwise the most recently ended one, so a cancelled
    customer sees "cancelled" instead of "not found". Abandoned checkouts (incomplete) never count. */
 export function pickSubscription(subs: Stripe.Subscription[]): Stripe.Subscription | undefined {
@@ -78,15 +87,22 @@ export async function findMembership(emailIn: string): Promise<Membership | null
   for (const e of new Set([email, email.toLowerCase()])) {
     const customers = (await st.customers.list({ email: e, limit: 10 })).data;
     const all: Stripe.Subscription[] = [];
-    for (const c of customers) all.push(...(await st.subscriptions.list({ customer: c.id, status: "all", limit: 10 })).data);
+    const owner = new Map<string, Stripe.Customer>();
+    for (const c of customers) {
+      const subs = (await st.subscriptions.list({ customer: c.id, status: "all", limit: 10 })).data;
+      for (const x of subs) owner.set(x.id, c);
+      all.push(...subs);
+    }
     const sub = pickSubscription(all);
     if (!sub) continue;
+    const cust = owner.get(sub.id);
     const paid = await st.invoices.list({ subscription: sub.id, status: "paid", limit: 100 });
     const live = LIVE.includes(sub.status);
     return {
       id: sub.id,
       email: e.toLowerCase(),
       dogName: await dogNameFor(e),
+      firstName: firstNameOf(cust?.shipping?.name || cust?.name),
       nextBox: live ? sub.items.data[0]?.current_period_end ?? null : null,
       boxes: paid.data.length,
       paused: !!sub.pause_collection,

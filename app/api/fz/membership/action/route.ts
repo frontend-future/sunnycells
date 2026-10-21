@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "We couldn't load your membership. Try again in a minute." }, { status: 502 });
   }
   if (!m) return NextResponse.json({ error: "We couldn't find your membership." }, { status: 404 });
-  const base = { Dog: m.dogName, "Subscription": m.id, Reason: reason, Note: note, "Boxes received": m.boxes };
+  const base = { Name: m.firstName, Dog: m.dogName, "Subscription": m.id, Reason: reason, Note: note, "Boxes received": m.boxes };
 
   if (REQUESTS[action]) {
     await notifyOwner(`request (${action})`, email, { ...base, Request: REQUESTS[action], "Stripe changed": "No, needs a human" });
