@@ -37,15 +37,15 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
   const ty = firstName ? `Thank you, ${firstName}` : "Thank you";
   const sub = (s: string) => s.replace("{dog}", dogName ?? "My dog");
 
-  async function send(action: string, done: { title: string; body: string }, extra: { reason?: string; note?: string } = {}) {
+  async function send(action: string, _unused: { title: string; body: string }, extra: { reason?: string; note?: string } = {}) {
     setBusy(true);
     setError("");
     const res = await fetch("/api/fz/membership/action", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ t: token, action, ...extra }) }).catch(() => null);
     const data = res ? await res.json().catch(() => ({})) : {};
     setBusy(false);
     if (!res?.ok) return setError(data.error ?? "Something went wrong. Try again, or email support@fridayzoomies.com.");
-    // Real changes say "done". Anything the team still applies by hand says the request is processed.
-    setResult({ cancelled: action === "cancel", ...(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "The Friday Zoomies team will update your membership and confirm by email shortly." }) });
+    // Every flow ends with the same plain confirmation, whatever was chosen.
+    setResult({ cancelled: action === "cancel", title: ty, body: "Your request has been submitted successfully." });
     setScreen("done");
   }
   /* Declining the first price offer shows a second, stronger one. Declining that goes to confirm. */
