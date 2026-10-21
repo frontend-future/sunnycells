@@ -9,7 +9,7 @@ export default function Shell({ eyebrow, title, onBack, children, done, oneLine 
         {done && <div className={styles.tick} aria-hidden />}
         <div className={styles.head}>
           {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
-          <h1 className={`${styles.title} ${oneLine ? styles.oneLine : ""}`}>{title}</h1>
+          <h1 className={`${styles.title} ${oneLine ? styles.oneLine : ""}`} style={oneLine ? ({ "--n": title.length } as React.CSSProperties) : undefined}>{title}</h1>
         </div>
         {children}
       </section>

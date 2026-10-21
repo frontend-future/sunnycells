@@ -20,8 +20,8 @@
 .card .eyebrow { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: .04em; color: var(--cobalt); }
 .title { margin: 0; font-family: var(--font-bricolage), "Avenir Next", sans-serif; font-weight: 800; font-size: clamp(28px, 7.5vw, 38px); line-height: 1.1; letter-spacing: -.01em; text-wrap: balance; }
 .lead, .card p { margin: 0; font-size: 20px; line-height: 1.5; color: var(--ink-80); }
-.oneLine { white-space: nowrap; font-size: clamp(18px, 6.2vw, 36px); }
-@media (max-width: 340px) { .oneLine { font-size: 5.6vw; } }
+/* One line at any width: the size follows the card's inner width and the headline's length (--n). */
+.oneLine { white-space: nowrap; font-size: clamp(16px, calc((100vw - 72px) / (var(--n) * 0.58)), 36px); }
 .stack { display: flex; flex-direction: column; gap: 12px; }
 .head { display: flex; flex-direction: column; gap: 12px; }
 

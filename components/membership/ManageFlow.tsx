@@ -87,7 +87,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
 
   if (screen === "why")
     return (
-      <Shell eyebrow="Before you go" title="What's the reason?" onBack={() => setScreen("home")}>
+      <Shell eyebrow="Before you go" title="What's the reason?" oneLine onBack={() => setScreen("home")}>
         <p>It takes ten seconds and it helps us make this better for other dogs.</p>
         <div className={styles.stack}>
           {REASONS.map(([k, label]) => <button type="button" key={k} className={styles.option} onClick={() => { setReason(k); setScreen(k); }}>{sub(label)}</button>)}
@@ -97,7 +97,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
 
   const R = { reason };
   const offer = (title: string, body: string[], buttons: [string, () => void][]) => (
-    <Shell eyebrow="Before you go" title={title} onBack={() => setScreen("why")}>
+    <Shell eyebrow="Before you go" title={title} onBack={() => setScreen("why")} oneLine>
       <div className={styles.stack}>{body.map((p, i) => <p key={p} className={i === 1 && body.length > 2 ? styles.callout : undefined}>{p}</p>)}</div>
       <div className={styles.stack}>
         {buttons.map(([label, fn]) => <button type="button" key={label} className={styles.primary} disabled={busy} onClick={fn}>{busy ? "One moment" : label}</button>)}
@@ -108,23 +108,23 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
   );
 
   if (screen === "price")
-    return offer("Let's make it easier on you", [`We get it, and we'd rather keep ${dog} comfortable than lose you over price.`, `We can take $${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes, so they're $${50 - SAVE_OFFER_DOLLARS} each.`, `That keeps ${dog} on a steady routine while you decide.`],
+    return offer("We can make it easier", [`We get it, and we'd rather keep ${dog} comfortable than lose you over price.`, `We can take $${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes, so they're $${50 - SAVE_OFFER_DOLLARS} each.`, `That keeps ${dog} on a steady routine while you decide.`],
       hasDiscount ? [] : [[`Yes, take $${SAVE_OFFER_DOLLARS} off my next ${SAVE_OFFER_MONTHS} boxes`, () => send("discount", { title: "Done", body: `$${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes. Nothing else changes.` }, R)]]);
   if (screen === "much")
     return offer("No need to cancel for that", ["If you've got extra on the shelf, you can skip a box.", "We can skip your next one, or switch you to a box every 8 weeks instead of every 4.", `${dog} stays covered and you stop paying for product you don't need yet.`],
       [["Skip my next box", () => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge.` }, R)], ["Ship every 8 weeks instead", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
   if (screen === "results")
-    return offer("That's worth a conversation first", ["Lasting itch relief builds over weeks, and it's easy to miss day to day. Skipped days can also set it back.", `You're covered by our 90 day guarantee. If ${dog} isn't doing better after a real try, we'll take care of you.`, "Want one of our care team to call you and go over how you're using the spray and chews?"],
+    return offer("Let's talk it through", ["Lasting itch relief builds over weeks, and it's easy to miss day to day. Skipped days can also set it back.", `You're covered by our 90 day guarantee. If ${dog} isn't doing better after a real try, we'll take care of you.`, "Want one of our care team to call you and go over how you're using the spray and chews?"],
       [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from our care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: "Thank you", body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")
-    return offer("That's the best reason to hear", [`We're glad ${dog} is feeling better.`, "One thing to know. Itch tends to come back when the routine stops, so most people keep a lighter one going.", `We can switch you to a box every 8 weeks to keep ${dog} comfortable at half the cost over time.`],
+    return offer("That's great to hear", [`We're glad ${dog} is feeling better.`, "One thing to know. Itch tends to come back when the routine stops, so most people keep a lighter one going.", `We can switch you to a box every 8 weeks to keep ${dog} comfortable at half the cost over time.`],
       [["Switch me to every 8 weeks", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
   if (screen === "eat")
     return offer("Let us help with that", ["Some dogs are picky at first, and a couple of easy tricks usually work.", "Mix the chew into a little wet food or crumble it over dinner.", "If that doesn't work, our team will personally help you find a fix."],
       [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", () => send("skip", { title: "Your next box is skipped", body: `${dog}'s next box won't ship or charge.` }, R)]]);
   if (screen === "other")
     return (
-      <Shell eyebrow="Before you go" title="Tell us what's going on" onBack={() => setScreen("why")}>
+      <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine onBack={() => setScreen("why")}>
         <p>A short note is plenty. A real person reads every one.</p>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="note">What's the reason?</label>
@@ -137,7 +137,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
     );
 
   return (
-    <Shell eyebrow="Last step" title="Confirm cancellation" onBack={() => setScreen("why")}>
+    <Shell eyebrow="Last step" title="Confirm cancellation" oneLine onBack={() => setScreen("why")}>
       <p>Your membership will end after your current box. You won't be charged again, and anything already paid for will still ship.</p>
       <div className={styles.stack}>
         <button type="button" className={styles.primary} onClick={() => setScreen("home")}>Never mind, keep it</button>
