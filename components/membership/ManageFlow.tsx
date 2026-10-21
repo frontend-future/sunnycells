@@ -138,7 +138,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
       <>
         <p>{lead(`We'd rather keep ${dog} comfortable than lose you over price.`)}</p>
         <Deal big={`$${SAVE_OFFER_DOLLARS} off`} line={`your next ${SAVE_OFFER_MONTHS} boxes`} small={`$${50 - SAVE_OFFER_DOLLARS} each instead of $50`} />
-        <Points items={["Same spray and chews", `Same routine for ${dog}`, `Back to $50 after ${SAVE_OFFER_MONTHS} boxes`]} />
+        <Points items={[`${Dog} keeps getting the daily chews`, "Relief keeps building over the first 90 days", `No gap in ${dog}'s routine`]} />
       </>
     ), hasDiscount ? [] : [[`Yes, take $${SAVE_OFFER_DOLLARS} off`, () => send("discount", { title: "Done", body: `$${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes. Nothing else changes.` }, R)]]);
   if (screen === "price2")
@@ -146,7 +146,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
       <>
         <p>{lead(`We'd still like to keep ${dog} on a steady routine, so here is our best offer.`)}</p>
         <Deal big={`$${SAVE_OFFER_2_DOLLARS} off`} line={`your next ${SAVE_OFFER_2_MONTHS} boxes`} small={`$${50 - SAVE_OFFER_2_DOLLARS} each, the same as your first order`} />
-        <Points items={["Same spray and chews", `Back to $50 after ${SAVE_OFFER_2_MONTHS} boxes`, "Cancel any time"]} />
+        <Points items={[`${Dog} keeps getting the daily chews`, `No gap in ${dog}'s routine`, "Cancel any time"]} />
       </>
     ), [[`Yes, take $${SAVE_OFFER_2_DOLLARS} off`, () => send("discount2", { title: "Done", body: `$${SAVE_OFFER_2_DOLLARS} off your next ${SAVE_OFFER_2_MONTHS} boxes. Nothing else changes.` }, { reason: "price, second offer" })]]);
   if (screen === "much")
@@ -162,7 +162,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
       <>
         <p>{lead("Itch relief builds over the first 90 days, so be patient with the process.")}</p>
         <Guarantee>If {dog} isn't doing better after a real try, we'll take care of you.</Guarantee>
-        <Points items={[["Days 1 to 90:", "daily chews build the relief."], ["Missed days", "can set progress back."], ["Care team call.", "We'll go over how you're using the spray and chews."]]} />
+        <Points items={[["Days 1 to 90:", "daily chews build the relief."], ["Missed days", "can set progress back."], ["Care team call.", `We'll go over how the daily routine is going for ${dog}.`]]} />
       </>
     ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from the Friday Zoomies care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: ty, body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")
