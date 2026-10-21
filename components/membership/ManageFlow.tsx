@@ -35,8 +35,8 @@ export default function ManageFlow({ token, dogName, nextBox, boxes, paused, can
     const data = res ? await res.json().catch(() => ({})) : {};
     setBusy(false);
     if (!res?.ok) return setError(data.error ?? "Something went wrong. Try again, or email support@fridayzoomies.com.");
-    // Real changes say "done". A request (or an action Stripe declined) says we have it and will confirm.
-    setResult(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "We've got your request", body: "A real person on our team will confirm by email shortly." });
+    // Real changes say "done". Anything the team still applies by hand says the request is processed.
+    setResult(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "Our team will update your membership and confirm by email shortly." });
     setScreen("done");
   }
   const cancelLink = <button className={styles.link} onClick={() => setScreen("confirm")}>No thanks, continue to cancel</button>;
