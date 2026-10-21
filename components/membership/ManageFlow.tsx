@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
 import { Deal, Guarantee, Points, Steps, Timeline } from "./Blocks";
+import Redirect from "./Redirect";
 import Shell from "./Shell";
 import styles from "./membership.module.css";
 
@@ -17,6 +18,7 @@ const REASONS: [Reason, string][] = [
   ["eat", "{dog} won't eat the chews"],
   ["other", "Something else"],
 ];
+const HOME = "https://fridayzoomies.com";
 const PORTAL = "https://billing.stripe.com/p/login/cNi14nfrC9k11jCcER0sU00";
 const when = (s: number | null) => (s ? new Date(s * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/Chicago" }) : null);
 
@@ -47,7 +49,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
   const next = when(nextBox);
 
   if (screen === "done")
-    return <Shell title={result.title} photo={result.cancelled ? "cancelled" : "kept"}><p>{result.body}</p></Shell>;
+    return <Shell title={result.title} photo={result.cancelled ? "cancelled" : "kept"}><p>{result.body}</p><Redirect to={HOME} /></Shell>;
 
   if (endedAt)
     return (
@@ -97,7 +99,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
         <p className={styles.callout}>Make sure {dog} has enough chews left to stay on track.</p>
         <div className={styles.stack}>
           <button type="button" className={styles.primary} disabled={busy} onClick={() => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge. Your plan picks back up the cycle after that.` }, { reason: skipFrom === "home" ? "" : skipFrom })}>{busy ? "One moment" : "Skip my next box"}</button>
-          <button type="button" className={styles.secondary} onClick={() => setScreen("home")}>Keep my next box</button>
+          <button type="button" className={styles.secondary} disabled={busy} onClick={() => send("keep", { title: "Thank you", body: `We'll keep ${dog}'s next box on schedule.` }, { reason: "kept next box instead of skipping" })}>Keep my next box</button>
         </div>
         {error && <p className={styles.error} role="alert">{error}</p>}
       </Shell>
@@ -184,7 +186,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
     <Shell eyebrow="Last step" title="Confirm cancellation" oneLine photo="confirm" onBack={() => setScreen("why")}>
       <Points items={["Your membership ends after your current box", "No more charges", "Anything already paid for still ships"]} />
       <div className={styles.stack}>
-        <button type="button" className={styles.primary} onClick={() => setScreen("home")}>Never mind, keep it</button>
+        <button type="button" className={styles.primary} disabled={busy} onClick={() => send("keep", { title: "Thank you", body: `We've kept ${dog}'s membership going.` }, { ...R, note, reason: "backed out at confirm cancellation" })}>Never mind, keep it</button>
         <button type="button" className={styles.danger} disabled={busy} onClick={() => send("cancel", { title: "Your membership is cancelled", body: `Thank you for trying Friday Zoomies with ${dog}. You can restart any time by emailing support@fridayzoomies.com.` }, { ...R, note })}>{busy ? "One moment" : "Cancel my membership"}</button>
       </div>
       {error && <p className={styles.error} role="alert">{error}</p>}

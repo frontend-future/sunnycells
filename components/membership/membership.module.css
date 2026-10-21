@@ -106,3 +106,6 @@ textarea.input { min-height: 128px; resize: vertical; line-height: 1.45; }
 .guarantee img { flex: none; width: 104px; height: 104px; margin: -6px -8px -6px -10px; object-fit: contain; }
 .guarantee div { display: flex; flex-direction: column; gap: 2px; font-size: 20px; line-height: 1.35; color: var(--ink-80); }
 .guarantee strong { font-family: var(--font-bricolage), sans-serif; font-weight: 800; font-size: 22px; color: var(--midnight); }
+
+.card .redirect { font-size: 18px; color: var(--ink-60); text-align: center; }
+.redirect a { color: var(--cobalt); font-weight: 600; white-space: nowrap; }
