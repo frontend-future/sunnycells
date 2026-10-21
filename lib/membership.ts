@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import type Stripe from "stripe";
+import { Resend } from "resend";
 import { stripe } from "@/lib/stripe/server";
 import { sendAlert } from "@/lib/alert";
 
@@ -7,6 +8,7 @@ import { sendAlert } from "@/lib/alert";
    and those only run when FZ_MEMBERSHIP_WRITES=on. With it off, a customer's choice is emailed to
    the owner as a request and nothing on any subscription changes. */
 
+export const MEMBERSHIP_ORIGIN = process.env.MEMBERSHIP_ORIGIN ?? "https://fridayzoomies.com";
 export const writesOn = () => process.env.FZ_MEMBERSHIP_WRITES === "on";
 
 /* The proposed "too expensive" offer: this much off each of the next two boxes. Change here. */
@@ -14,8 +16,7 @@ export const SAVE_OFFER = { dollars: 15, months: 2 } as const;
 const CYCLE_SECONDS = 28 * 86_400;
 const LIVE = ["active", "past_due", "trialing"];
 
-/* The page asks for an email and shows that plan straight away, so the email is NOT verified. The signed
-   token only ties the follow-up requests to the email that was looked up. HMAC, 30 minutes.
+/* A magic link proves the visitor owns the email. Signed with HMAC, 30 minutes, email inside.
    The secret falls back to the Stripe key so this works before a dedicated one is set. */
 const secret = () => process.env.FZ_MEMBERSHIP_SECRET ?? process.env.STRIPE_SECRET_KEY ?? "";
 const sign = (s: string) => createHmac("sha256", secret()).update(s).digest("base64url");
@@ -126,6 +127,21 @@ export async function applyAction(m: Membership, action: Action, meta: { reason?
   }
   await st.subscriptions.update(sub.id, { discounts: [{ coupon: couponId }] });
   return true;
+}
+
+export async function sendMagicLink(email: string, dogName: string | null) {
+  const key = process.env.RESEND_API_KEY;
+  const domain = process.env.RESEND_EMAIL_DOMAIN;
+  if (!key || !domain) throw new Error("Resend is not configured");
+  const link = `${MEMBERSHIP_ORIGIN}/membership?t=${makeToken(email)}`;
+  const who = dogName ? `${dogName}'s membership` : "your membership";
+  const { error } = await new Resend(key).emails.send({
+    from: `Friday Zoomies <notifications@${domain}>`,
+    to: email,
+    subject: `Manage ${who}`,
+    html: `<div style="font-family:sans-serif;font-size:16px;line-height:1.7;color:#14213D"><p>Hi, it's Jake from Friday Zoomies.</p><p>Here is your link to manage ${who}. It works for 30 minutes.</p><p><a href="${link}" style="color:#2F5FD0">Manage my membership</a></p><p>If you didn't ask for this, you can ignore it. Nothing changes.</p></div>`,
+  });
+  if (error) throw new Error(error.message);
 }
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

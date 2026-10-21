@@ -1,38 +1,37 @@
 "use client";
 import { useState } from "react";
-import ManageFlow, { type Found } from "./ManageFlow";
 import Shell from "./Shell";
 import styles from "./membership.module.css";
 
-export default function EmailForm() {
+export default function EmailForm({ expired }: { expired: boolean }) {
   const [email, setEmail] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  const [found, setFound] = useState<Found | null>(null);
+  const [state, setState] = useState<"idle" | "busy" | "sent" | "error">("idle");
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setBusy(true);
-    setError("");
+    setState("busy");
     const res = await fetch("/api/fz/membership/lookup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) }).catch(() => null);
-    const data = res ? await res.json().catch(() => ({})) : {};
-    setBusy(false);
-    if (!res?.ok) return setError(data.error ?? "Something went wrong. Try again, or email support@fridayzoomies.com.");
-    if (!data.found) return setError("We couldn't find a membership under that email. Try the one you used at checkout, or email support@fridayzoomies.com.");
-    setFound({ token: data.token, ...data.membership });
+    setState(res?.ok ? "sent" : "error");
   }
 
-  if (found) return <ManageFlow {...found} />;
+  if (state === "sent")
+    return (
+      <Shell title="Check your email" done>
+        <p>If there's a membership under <strong>{email}</strong>, we just sent a link to manage it.</p>
+        <p className={styles.fine}>The link works for 30 minutes. Nothing there? Check spam, or email support@fridayzoomies.com and we'll sort it out.</p>
+      </Shell>
+    );
   return (
     <Shell eyebrow="Your membership" title="Manage your membership" oneLine>
-      <p>Enter the email you ordered with and we'll pull up your plan.</p>
+      {expired && <p className={styles.callout}>That link has expired. Enter your email and we'll send a fresh one.</p>}
+      <p>Enter the email you ordered with and we'll send a login link to your plan.</p>
       <form className={styles.stack} onSubmit={submit}>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="email">Email</label>
           <input className={styles.input} id="email" type="email" required autoComplete="email" inputMode="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
-        <button className={styles.primary} disabled={busy}>{busy ? "Finding your plan" : "Continue"}</button>
-        {error && <p className={styles.error} role="alert">{error}</p>}
+        <button className={styles.primary} disabled={state === "busy"}>{state === "busy" ? "Sending your link" : "Send login link"}</button>
+        {state === "error" && <p className={styles.error} role="alert">Something went wrong. Try again, or email support@fridayzoomies.com.</p>}
       </form>
     </Shell>
   );

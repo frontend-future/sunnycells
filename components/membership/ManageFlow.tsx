@@ -4,7 +4,7 @@ import { SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
 import Shell from "./Shell";
 import styles from "./membership.module.css";
 
-export type Found = { token: string; dogName: string | null; nextBox: number | null; boxes: number; paused: boolean; cancelling: boolean; hasDiscount: boolean };
+type Props = { token: string; dogName: string | null; nextBox: number | null; boxes: number; paused: boolean; cancelling: boolean; hasDiscount: boolean };
 type Reason = "price" | "much" | "results" | "better" | "eat" | "other";
 type Screen = "home" | "why" | Reason | "confirm" | "done";
 
@@ -19,7 +19,7 @@ const REASONS: [Reason, string][] = [
 const PORTAL = "https://billing.stripe.com/p/login/cNi14nfrC9k11jCcER0sU00";
 const when = (s: number | null) => (s ? new Date(s * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/Chicago" }) : null);
 
-export default function ManageFlow({ token, dogName, nextBox, boxes, paused, cancelling, hasDiscount }: Found) {
+export default function ManageFlow({ token, dogName, nextBox, boxes, paused, cancelling, hasDiscount }: Props) {
   const dog = dogName ?? "your dog";
   const [screen, setScreen] = useState<Screen>("home");
   const [reason, setReason] = useState<Reason>("other");
