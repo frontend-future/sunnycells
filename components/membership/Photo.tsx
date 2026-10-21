@@ -11,6 +11,7 @@ const ALT: Record<string, string> = {
   better: "A veterinarian with a gentle German Shepherd",
   eat: "A veterinarian looking kindly at a sad little Shih Tzu mix",
   other: "A veterinarian listening to a sad Boxer's heartbeat",
+  skip: "A veterinarian showing a calendar card to an attentive Husky",
   confirm: "A veterinarian comforting a sad Bernese Mountain Dog",
   kept: "A veterinarian giving a happy dog a high five",
   cancelled: "A gentle veterinarian sitting beside a sad Dachshund in a blanket",

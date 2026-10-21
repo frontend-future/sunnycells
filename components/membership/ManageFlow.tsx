@@ -6,7 +6,7 @@ import styles from "./membership.module.css";
 
 type Props = { token: string; dogName: string | null; nextBox: number | null; paused: boolean; cancelling: boolean; hasDiscount: boolean; endedAt: number | null };
 type Reason = "price" | "much" | "results" | "better" | "eat" | "other";
-type Screen = "home" | "why" | Reason | "confirm" | "done";
+type Screen = "home" | "skip" | "why" | Reason | "confirm" | "done";
 
 const REASONS: [Reason, string][] = [
   ["price", "It's too expensive"],
@@ -25,6 +25,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
   const [screen, setScreen] = useState<Screen>("home");
   const [reason, setReason] = useState<Reason>("other");
   const [note, setNote] = useState("");
+  const [skipFrom, setSkipFrom] = useState<Screen>("home");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState({ title: "", body: "", cancelled: false });
@@ -75,7 +76,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
             </div>
             <p>Consistency is what helps {dog} stop itching for good, so we'd rather help you change things than lose you. Pick what you need.</p>
             <div className={styles.stack}>
-              {!paused && <button type="button" className={styles.primary} disabled={busy} onClick={() => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge. Your plan picks back up the cycle after that.` })}>{busy ? "One moment" : "Skip my next box"}</button>}
+              {!paused && <button type="button" className={styles.primary} onClick={() => { setSkipFrom("home"); setScreen("skip"); }}>Skip my next box</button>}
               <a className={styles.secondary} href={PORTAL}>Update address or payment method</a>
               <a className={styles.secondary} href="mailto:support@fridayzoomies.com">Contact support</a>
             </div>
@@ -83,6 +84,19 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
             <button type="button" className={styles.link} onClick={() => setScreen("why")}>I want to cancel my membership</button>
           </>
         )}
+      </Shell>
+    );
+
+  if (screen === "skip")
+    return (
+      <Shell eyebrow="Before you skip" title="Stay on track" oneLine photo="skip" onBack={() => setScreen(skipFrom)}>
+        <p>Check the product insert in your box. It's important that {dog} doesn't go a day without the daily chews, because missed days can reverse the progress they've made.</p>
+        <p className={styles.callout}>We can skip your next box. Make sure {dog} has enough chews left to stay on track until the one after.</p>
+        <div className={styles.stack}>
+          <button type="button" className={styles.primary} disabled={busy} onClick={() => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge. Your plan picks back up the cycle after that.` }, { reason: skipFrom === "home" ? "" : skipFrom })}>{busy ? "One moment" : "Skip my next box"}</button>
+          <button type="button" className={styles.secondary} onClick={() => setScreen("home")}>Keep my next box</button>
+        </div>
+        {error && <p className={styles.error} role="alert">{error}</p>}
       </Shell>
     );
 
@@ -113,7 +127,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
       hasDiscount ? [] : [[`Yes, take $${SAVE_OFFER_DOLLARS} off my next ${SAVE_OFFER_MONTHS} boxes`, () => send("discount", { title: "Done", body: `$${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes. Nothing else changes.` }, R)]]);
   if (screen === "much")
     return offer("No need to cancel for that", ["If you've got extra on the shelf, you can skip a box.", "We can skip your next one, or switch you to a box every 8 weeks instead of every 4.", `${Dog} stays covered and you stop paying for product you don't need yet.`],
-      [["Skip my next box", () => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge.` }, R)], ["Ship every 8 weeks instead", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
+      [["Skip my next box", () => { setSkipFrom(screen); setScreen("skip"); }], ["Ship every 8 weeks instead", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
   if (screen === "results")
     return offer("Let's talk it through", ["Lasting itch relief builds over weeks, and it's easy to miss day to day. Skipped days can also set it back.", `You're covered by our 90 day guarantee. If ${dog} isn't doing better after a real try, we'll take care of you.`, "Want one of our care team to call you and go over how you're using the spray and chews?"],
       [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from our care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: "Thank you", body: `We'll keep ${dog}'s membership going.` }, R)]]);
@@ -122,7 +136,7 @@ export default function ManageFlow({ token, dogName, nextBox, paused, cancelling
       [["Switch me to every 8 weeks", () => send("every8", { title: "Got it", body: "We'll switch you to every 8 weeks and confirm by email." }, R)]]);
   if (screen === "eat")
     return offer("Let us help with that", ["Some dogs are picky at first, and a couple of easy tricks usually work.", "Mix the chew into a little wet food or crumble it over dinner.", "If that doesn't work, our team will personally help you find a fix."],
-      [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", () => send("skip", { title: "Your next box is skipped", body: `${Dog}'s next box won't ship or charge.` }, R)]]);
+      [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from our team will email you shortly." }, R)], ["Skip my next box while I try", () => { setSkipFrom(screen); setScreen("skip"); }]]);
   if (screen === "other")
     return (
       <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine photo="other" onBack={() => setScreen("why")}>
