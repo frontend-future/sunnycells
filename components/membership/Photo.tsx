@@ -6,6 +6,7 @@ const ALT: Record<string, string> = {
   sent: "A friendly veterinarian with a content Beagle",
   home: "A smiling veterinarian petting a calm Border Collie",
   price: "A veterinarian in a white coat resting a hand on a sad yellow Labrador",
+  price2: "A veterinarian hugging a sad Basset Hound",
   much: "A veterinarian sitting on the floor beside a sad Golden Retriever",
   results: "A veterinarian holding the paw of a worried pit bull on an exam table",
   better: "A veterinarian with a gentle German Shepherd",

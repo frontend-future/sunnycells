@@ -4,7 +4,7 @@ import { applyAction, findMembership, notifyOwner, readToken, writesOn, type Act
 /* One endpoint for every button on the manage page. The email comes from the signed token, never
    from the request, and the subscription is looked up again here. skip, cancel and discount change
    Stripe only when FZ_MEMBERSHIP_WRITES=on; everything else is a request emailed to the owner. */
-const STRIPE_ACTIONS: Action[] = ["skip", "cancel", "discount"];
+const STRIPE_ACTIONS: Action[] = ["skip", "cancel", "discount", "discount2"];
 const REQUESTS: Record<string, string> = {
   every8: "Wants a box every 8 weeks instead of 4",
   call: "Wants a call from the care team",

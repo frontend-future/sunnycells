@@ -13,6 +13,8 @@ export const writesOn = () => process.env.FZ_MEMBERSHIP_WRITES === "on";
 
 /* The proposed "too expensive" offer: this much off each of the next two boxes. Change here. */
 export const SAVE_OFFER = { dollars: 15, months: 2 } as const;
+/* The second, stronger offer, shown only after the first is declined: $25 boxes, the first-order price. */
+export const SAVE_OFFER_2 = { dollars: 25, months: 2 } as const;
 const CYCLE_SECONDS = 28 * 86_400;
 const LIVE = ["active", "past_due", "trialing"];
 
@@ -114,7 +116,7 @@ export async function findMembership(emailIn: string): Promise<Membership | null
   return null;
 }
 
-export type Action = "skip" | "cancel" | "discount";
+export type Action = "skip" | "cancel" | "discount" | "discount2";
 
 /* The only code that changes a subscription. Each one touches one field and re-reads the
    subscription first, so a stale page cannot double-apply. Returns false when it declined. */
@@ -138,17 +140,18 @@ export async function applyAction(m: Membership, action: Action, meta: { reason?
     return true;
   }
   if (sub.discounts.length > 0) return false; // setting discounts replaces the list, so never overwrite one
-  const couponId = `FZ-SAVE-${SAVE_OFFER.dollars}-${SAVE_OFFER.months}MO`;
+  const offer = action === "discount2" ? SAVE_OFFER_2 : SAVE_OFFER;
+  const couponId = `FZ-SAVE-${offer.dollars}-${offer.months}MO`;
   try {
     await st.coupons.retrieve(couponId);
   } catch {
     await st.coupons.create({
       id: couponId,
-      name: `Membership save offer, $${SAVE_OFFER.dollars} off`,
-      amount_off: SAVE_OFFER.dollars * 100,
+      name: `Membership save offer, $${offer.dollars} off`,
+      amount_off: offer.dollars * 100,
       currency: "usd",
       duration: "repeating",
-      duration_in_months: SAVE_OFFER.months,
+      duration_in_months: offer.months,
     });
   }
   await st.subscriptions.update(sub.id, { discounts: [{ coupon: couponId }] });

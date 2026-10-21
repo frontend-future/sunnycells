@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
+import { SAVE_OFFER_2_DOLLARS, SAVE_OFFER_2_MONTHS, SAVE_OFFER_DOLLARS, SAVE_OFFER_MONTHS } from "./offer";
 import { Deal, Guarantee, Points, Steps, Timeline } from "./Blocks";
 import Redirect from "./Redirect";
 import Shell from "./Shell";
@@ -8,7 +8,7 @@ import styles from "./membership.module.css";
 
 type Props = { token: string; dogName: string | null; firstName: string | null; nextBox: number | null; paused: boolean; cancelling: boolean; hasDiscount: boolean; endedAt: number | null };
 type Reason = "price" | "much" | "results" | "better" | "eat" | "other";
-type Screen = "home" | "skip" | "why" | Reason | "confirm" | "done";
+type Screen = "home" | "skip" | "price2" | "why" | Reason | "confirm" | "done";
 
 const REASONS: [Reason, string][] = [
   ["price", "It's too expensive"],
@@ -48,7 +48,8 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
     setResult({ cancelled: action === "cancel", ...(data.applied || !["skip", "cancel", "discount"].includes(action) ? done : { title: "Subscription request processed", body: "The Friday Zoomies team will update your membership and confirm by email shortly." }) });
     setScreen("done");
   }
-  const cancelLink = <button type="button" className={styles.link} onClick={() => setScreen("confirm")}>No thanks, continue to cancel</button>;
+  /* Declining the first price offer shows a second, stronger one. Declining that goes to confirm. */
+  const cancelLink = <button type="button" className={styles.link} onClick={() => setScreen(screen === "price" && !hasDiscount ? "price2" : "confirm")}>No thanks, continue to cancel</button>;
   const next = when(nextBox);
 
   if (screen === "done")
@@ -120,7 +121,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
 
   const R = { reason };
   const offer = (title: string, body: React.ReactNode, buttons: [string, () => void][]) => (
-    <Shell eyebrow="Before you go" title={title} onBack={() => setScreen("why")} oneLine photo={screen}>
+    <Shell eyebrow="Before you go" title={title} onBack={() => setScreen(screen === "price2" ? "price" : "why")} oneLine photo={screen}>
       {body}
       <div className={styles.stack}>
         {buttons.map(([label, fn]) => <button type="button" key={label} className={styles.primary} disabled={busy} onClick={fn}>{busy ? "One moment" : label}</button>)}
@@ -140,6 +141,14 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
         <Points items={["Same spray and chews", `Same routine for ${dog}`, `Back to $50 after ${SAVE_OFFER_MONTHS} boxes`]} />
       </>
     ), hasDiscount ? [] : [[`Yes, take $${SAVE_OFFER_DOLLARS} off`, () => send("discount", { title: "Done", body: `$${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes. Nothing else changes.` }, R)]]);
+  if (screen === "price2")
+    return offer("Here's a better offer", (
+      <>
+        <p>{lead(`We'd still like to keep ${dog} on a steady routine, so here is our best offer.`)}</p>
+        <Deal big={`$${SAVE_OFFER_2_DOLLARS} off`} line={`your next ${SAVE_OFFER_2_MONTHS} boxes`} small={`$${50 - SAVE_OFFER_2_DOLLARS} each, the same as your first order`} />
+        <Points items={["Same spray and chews", `Back to $50 after ${SAVE_OFFER_2_MONTHS} boxes`, "Cancel any time"]} />
+      </>
+    ), [[`Yes, take $${SAVE_OFFER_2_DOLLARS} off`, () => send("discount2", { title: "Done", body: `$${SAVE_OFFER_2_DOLLARS} off your next ${SAVE_OFFER_2_MONTHS} boxes. Nothing else changes.` }, { reason: "price, second offer" })]]);
   if (screen === "much")
     return offer("No need to cancel for that", (
       <>
