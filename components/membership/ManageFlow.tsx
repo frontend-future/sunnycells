@@ -136,24 +136,24 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
   if (screen === "price")
     return offer("We can make it easier", (
       <>
-        <p>{lead(`We'd rather keep ${dog} comfortable than lose you over price.`)}</p>
+        <p>{lead("We'd hate to lose you over price, so here's something that helps.")}</p>
         <Deal big={`$${SAVE_OFFER_DOLLARS} off`} line={`your next ${SAVE_OFFER_MONTHS} boxes`} small={`$${50 - SAVE_OFFER_DOLLARS} each instead of $50`} />
-        <Points items={[`${Dog} keeps getting the daily chews`, "Relief keeps building over the first 90 days", `No gap in ${dog}'s routine`]} />
+        <Points items={[`${Dog} keeps getting the daily chews`, "Relief keeps building through the first 90 days", "No missed days in the routine"]} />
       </>
     ), hasDiscount ? [] : [[`Yes, take $${SAVE_OFFER_DOLLARS} off`, () => send("discount", { title: "Done", body: `$${SAVE_OFFER_DOLLARS} off your next ${SAVE_OFFER_MONTHS} boxes. Nothing else changes.` }, R)]]);
   if (screen === "price2")
     return offer("Here's a better offer", (
       <>
-        <p>{lead(`We'd still like to keep ${dog} on a steady routine, so here is our best offer.`)}</p>
+        <p>{lead("We really don't want price to be the reason, so this is the best offer we have.")}</p>
         <Deal big={`$${SAVE_OFFER_2_DOLLARS} off`} line={`your next ${SAVE_OFFER_2_MONTHS} boxes`} small={`$${50 - SAVE_OFFER_2_DOLLARS} each, the same as your first order`} />
-        <Points items={[`${Dog} keeps getting the daily chews`, `No gap in ${dog}'s routine`, "Cancel any time"]} />
+        <Points items={["The daily chews keep coming", "No missed days in the routine", "Cancel any time"]} />
       </>
     ), [[`Yes, take $${SAVE_OFFER_2_DOLLARS} off`, () => send("discount2", { title: "Done", body: `$${SAVE_OFFER_2_DOLLARS} off your next ${SAVE_OFFER_2_MONTHS} boxes. Nothing else changes.` }, { reason: "price, second offer" })]]);
   if (screen === "much")
     return offer("No need to cancel for that", (
       <>
         <p>{lead(`Chews piling up on the shelf? Two ways to keep ${dog} covered without wasting a box.`)}</p>
-        <Points items={[["Skip a box.", "We'll skip your next one."], ["Ship every 8 weeks.", "Instead of every 4."]]} />
+        <Points items={[["Skip a box.", "Your next one won't ship or charge."], ["Ship every 8 weeks.", "Your chews stretch further between boxes."]]} />
         <p>{Dog} stays covered, and you stop paying for product you don't need yet.</p>
       </>
     ), [skip, every8]);
@@ -162,16 +162,16 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
       <>
         <p>{lead("Itch relief builds over the first 90 days, so be patient with the process.")}</p>
         <Guarantee>If {dog} isn't doing better after a real try, we'll take care of you.</Guarantee>
-        <Points items={[["Days 1 to 90:", "daily chews build the relief."], ["Missed days", "can set progress back."], ["Care team call.", `We'll go over how the daily routine is going for ${dog}.`]]} />
+        <Points items={[["Days 1 to 90:", "daily chews build the relief."], ["Missed days", "can set progress back."], ["Care team call.", "We'll walk through how the routine is going."]]} />
       </>
     ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from the Friday Zoomies care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: ty, body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")
     return offer(`Don't undo ${dogName ? `${dogName}'s` : "your dog's"} progress`, (
       <>
-        <p>{lead(`Daily chews are why ${dog} is comfortable right now. Take them away and the itch gets a second chance.`)}</p>
-        <Risks title="If the chews stop, you could lose" items={["The quiet nights without scratching or 2am licking", `The comfort and relief ${dog} finally has`, "Everything the first 90 days built", "All of it, and you start over at day one"]} />
-        <Timeline items={[["First 90 days", "Daily chews built this relief"], ["From here", "Daily chews hold it in place and prevent flare ups"]]} />
-        <p className={styles.callout}>Right now {dog} isn't itching. Keep it that way.</p>
+        <p>{lead(`That's great news, and the daily chews are the reason. If ${dog} stops, the itch can start right back up.`)}</p>
+        <Risks title="What stopping could cost you" items={["Quiet nights, with no scratching or 2am licking", `The relief ${dog} finally has`, "Every day of progress so far", "Starting over from day one"]} />
+        <Timeline items={[["First 90 days", "The daily chews build the relief"], ["After that", "The daily chews keep it from coming back"]]} />
+        <p className={styles.callout}>{Dog} isn't itching right now. Let's keep it that way.</p>
       </>
     ), [[`Keep ${dog} comfortable`, () => send("keep", { title: ty, body: "" }, R)]]);
   if (screen === "eat")
@@ -183,10 +183,10 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
     ), [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from the Friday Zoomies team will email you shortly." }, R)], ["Skip my next box while I try", skip[1]]]);
   if (screen === "other")
     return (
-      <Shell eyebrow="Before you go" title="Tell us what's going on" oneLine photo="other" onBack={() => setScreen("why")}>
-        <p>{lead(`Tell us what's going on with ${dogName ? `${dogName}'s` : "your dog's"} plan. A real person on the Friday Zoomies team reads every note, and if there's something we can fix for ${dog}, we want to.`)}</p>
+      <Shell eyebrow="Before you go" title="Tell us what happened" oneLine photo="other" onBack={() => setScreen("why")}>
+        <p>{lead("A real person on the Friday Zoomies team reads every note, and if there's something we can fix, we want to.")}</p>
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="note">What happened?</label>
+          <label className={styles.label} htmlFor="note">Your note</label>
           <textarea id="note" className={styles.input} placeholder={`The price, the chews, the shipping, how ${dog} is doing. Anything helps.`} value={note} onChange={(e) => setNote(e.target.value)} maxLength={800} />
         </div>
         <button type="button" className={styles.primary} disabled={busy} onClick={() => send("feedback", { title: ty, body: "We'll keep your membership going and read your note." }, { ...R, note })}>{busy ? "One moment" : `Send and keep ${dogName ? `${dogName}'s` : "my"} membership`}</button>
