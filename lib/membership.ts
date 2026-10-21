@@ -8,7 +8,7 @@ import { sendAlert } from "@/lib/alert";
    and those only run when FZ_MEMBERSHIP_WRITES=on. With it off, a customer's choice is emailed to
    the owner as a request and nothing on any subscription changes. */
 
-export const MEMBERSHIP_ORIGIN = process.env.MEMBERSHIP_ORIGIN ?? "https://fridayzoomies.com";
+export const MEMBERSHIP_ORIGIN = "https://offers.fridayzoomies.com";
 export const writesOn = () => process.env.FZ_MEMBERSHIP_WRITES === "on";
 
 /* The proposed "too expensive" offer: this much off each of the next two boxes. Change here. */
