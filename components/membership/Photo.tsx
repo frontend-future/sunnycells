@@ -9,7 +9,7 @@ const ALT: Record<string, string> = {
   price2: "A veterinarian hugging a sad Basset Hound",
   much: "A veterinarian sitting on the floor beside a sad Golden Retriever",
   results: "A veterinarian holding the paw of a worried pit bull on an exam table",
-  better: "A veterinarian with a gentle German Shepherd",
+  better: "A worried veterinarian beside a German Shepherd scratching its ear",
   eat: "A veterinarian looking kindly at a sad little Shih Tzu mix",
   other: "A veterinarian listening to a sad Boxer's heartbeat",
   skip: "A veterinarian showing a calendar card to an attentive Husky",

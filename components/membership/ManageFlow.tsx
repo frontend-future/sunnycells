@@ -166,12 +166,12 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
       </>
     ), [["Yes, have someone call me", () => send("call", { title: "We'll be in touch", body: "Someone from the Friday Zoomies care team will call you soon." }, R)], ["Keep my membership, I'll give it more time", () => send("keep", { title: ty, body: `We'll keep ${dog}'s membership going.` }, R)]]);
   if (screen === "better")
-    return offer(`Protect ${dogName ? `${dogName}'s` : "your dog's"} progress`, (
+    return offer(`Don't undo ${dogName ? `${dogName}'s` : "your dog's"} progress`, (
       <>
-        <p>{lead(`We're glad ${dog} is feeling better. That's what the daily chews built.`)}</p>
-        <Risks title="If the chews stop, the itch can come back" items={[`The scratching and 2am licking can start again`, `${Dog} can lose the comfort and relief they've finally had`, "All the progress so far can be lost"]} />
-        <Timeline items={[["First 90 days", "Daily chews build the relief"], ["After that", "Daily chews maintain it and prevent a flare up"]]} />
-        <p className={styles.callout}>Keeping {dog} on the daily chews is what keeps the itch away.</p>
+        <p>{lead(`Daily chews are why ${dog} is comfortable right now. Take them away and the itch gets a second chance.`)}</p>
+        <Risks title="If the chews stop, you could lose" items={["The quiet nights without scratching or 2am licking", `The comfort and relief ${dog} finally has`, "Everything the first 90 days built", "All of it, and you start over at day one"]} />
+        <Timeline items={[["First 90 days", "Daily chews built this relief"], ["From here", "Daily chews hold it in place and prevent flare ups"]]} />
+        <p className={styles.callout}>Right now {dog} isn't itching. Keep it that way.</p>
       </>
     ), [[`Keep ${dog} comfortable`, () => send("keep", { title: ty, body: "" }, R)]]);
   if (screen === "eat")
