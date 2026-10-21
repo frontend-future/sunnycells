@@ -116,3 +116,6 @@ textarea.input { min-height: 128px; resize: vertical; line-height: 1.45; }
 .risks li { display: flex; align-items: flex-start; gap: 12px; font-size: 20px; line-height: 1.4; color: var(--midnight); }
 .risks li::before { content: ""; flex: none; width: 26px; height: 26px; margin-top: 1px; border-radius: 50%; background: var(--zest) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='m2 2 8 8M10 2l-8 8'/%3E%3C/svg%3E") center / 12px no-repeat; }
 .risks li span { padding-top: 1px; }
+
+.link:disabled { opacity: .5; cursor: not-allowed; text-decoration: none; }
+.card .hint { font-size: 17px; color: var(--ink-60); margin-top: -4px; }

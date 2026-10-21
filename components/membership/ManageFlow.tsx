@@ -33,6 +33,8 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
   const [error, setError] = useState("");
   const [result, setResult] = useState({ title: "", body: "", cancelled: false });
   /* "Jake, we'd rather..." when we know the first name; the sentence unchanged when we do not. */
+  const MIN_NOTE = 10;
+  const noteLeft = Math.max(0, MIN_NOTE - note.trim().length); // characters still needed before the note buttons unlock
   const lead = (t: string) => (firstName ? `${firstName}, ${t.charAt(0).toLowerCase()}${t.slice(1)}` : t);
   const ty = firstName ? `Thank you, ${firstName}` : "Thank you";
   const sub = (s: string) => s.replace("{dog}", dogName ?? "My dog");
@@ -188,10 +190,11 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
         <div className={styles.field}>
           <label className={styles.label} htmlFor="note">Your note</label>
           <textarea id="note" className={styles.input} placeholder={`The price, the chews, the shipping, how ${dog} is doing. Anything helps.`} value={note} onChange={(e) => setNote(e.target.value)} maxLength={800} />
+          <p className={styles.hint} aria-live="polite">{noteLeft > 0 ? `Write at least ${MIN_NOTE} characters to send (${noteLeft} more to go).` : "Thanks, that's enough to send."}</p>
         </div>
-        <button type="button" className={styles.primary} disabled={busy} onClick={() => send("feedback", { title: ty, body: "We'll keep your membership going and read your note." }, { ...R, note })}>{busy ? "One moment" : `Send and keep ${dogName ? `${dogName}'s` : "my"} membership`}</button>
+        <button type="button" className={styles.primary} disabled={busy || noteLeft > 0} onClick={() => send("feedback", { title: ty, body: "We'll keep your membership going and read your note." }, { ...R, note })}>{busy ? "One moment" : `Send and keep ${dogName ? `${dogName}'s` : "my"} membership`}</button>
         {error && <p className={styles.error} role="alert">{error}</p>}
-        <button type="button" className={styles.link} onClick={() => setScreen("confirm")}>Send and continue to cancel</button>
+        <button type="button" className={styles.link} disabled={noteLeft > 0} onClick={() => setScreen("confirm")}>Send and continue to cancel</button>
       </Shell>
     );
 
