@@ -168,7 +168,7 @@ export default function ManageFlow({ token, dogName, firstName, nextBox, paused,
     return offer("Let us help with that", (
       <>
         <p>{lead("Some dogs are picky at first. Two easy tricks usually work.")}</p>
-        <Steps items={["Mix the chew into a little wet food", "Or crumble it over dinner", "Still no luck? Our team will help you find a fix"]} />
+        <Steps items={["Mix the chew into a little wet food", "Or crumble it over dinner", "Still no luck? The Friday Zoomies team will help you find a fix"]} />
       </>
     ), [["Email me tips and help from the team", () => send("tips", { title: "We'll be in touch", body: "Someone from the Friday Zoomies team will email you shortly." }, R)], ["Skip my next box while I try", skip[1]]]);
   if (screen === "other")
