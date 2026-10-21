@@ -77,3 +77,27 @@ textarea.input { min-height: 128px; resize: vertical; line-height: 1.45; }
 .footer a { color: inherit; }
 
 .photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; background: var(--sky-tint); }
+
+/* Bite-sized blocks */
+.points, .steps, .timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.points li, .steps li { display: flex; align-items: flex-start; gap: 14px; font-size: 20px; line-height: 1.4; color: var(--ink-80); }
+.points li::before { content: ""; flex: none; width: 28px; height: 28px; margin-top: 1px; border-radius: 50%; background: var(--sky-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='11' fill='none' stroke='%232F5FD0' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1.5 5.5 3.7 3.7L12.5 1.8'/%3E%3C/svg%3E") center / 14px no-repeat; }
+.points strong { color: var(--midnight); font-weight: 600; }
+.steps { counter-reset: step; }
+.steps li { counter-increment: step; }
+.steps li::before { content: counter(step); flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--cobalt); color: #fff; font-weight: 700; font-size: 18px; display: grid; place-items: center; }
+.steps li span, .points li span { padding-top: 2px; }
+
+.deal { background: var(--sun-tint); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; }
+.dealBig { font-family: var(--font-bricolage), sans-serif; font-weight: 800; font-size: 44px; line-height: 1.05; color: var(--midnight); }
+.dealLine { font-size: 20px; font-weight: 600; color: var(--midnight); }
+.dealSmall { font-size: 17px; color: var(--ink-60); margin-top: 4px; }
+
+.timeline { gap: 0; }
+.timeline li { position: relative; display: flex; flex-direction: column; padding: 0 0 20px 36px; font-size: 20px; line-height: 1.35; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: 4px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--cobalt); }
+.timeline li::after { content: ""; position: absolute; left: 11px; top: 24px; bottom: 2px; width: 2px; background: var(--ink-20); }
+.timeline li:last-child::after { display: none; }
+.timeline strong { font-weight: 600; color: var(--midnight); }
+.timeline span { font-size: 18px; color: var(--ink-60); }
