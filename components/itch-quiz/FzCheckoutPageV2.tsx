@@ -360,9 +360,9 @@ function Checkout() {
                 onConfirm={() => pay(true)}
               />
               {wallets ? <div className={s.or}>or pay by card</div> : null}
-              <PaymentElement options={{ terms: { card: "never" }, fields: { billingDetails: { name: "never", email: "never", address: "never", phone: "auto" } }, layout: { type: "accordion", defaultCollapsed: false, radios: "always", spacedAccordionItems: true } }} />
+              <PaymentElement options={{ terms: { card: "never" }, fields: { billingDetails: { name: "never", email: "never", address: "never", phone: "auto" } }, wallets: { applePay: "never", googlePay: "never" }, layout: { type: "accordion", defaultCollapsed: false, radios: "always", spacedAccordionItems: true } }} />
 
-              <div style={{ marginTop: 20 }}>
+              <div style={{ marginTop: 12 }}>
                 <Button type="submit" size="lg" fullWidth variant="accent" disabled={!stripe || busy} iconLeft={busy ? undefined : "shield-check"} style={PAY_STYLE}>{busy ? "Processing…" : "Submit Secure Payment"}</Button>
                 {error ? <p role="alert" className={s.err}>{error}</p> : null}
               </div>
