@@ -8,7 +8,7 @@
 import { getToken } from "@vercel/connect";
 
 export const NOTIFY_TO_EMAIL = process.env.NOTIFY_TO_EMAIL ?? "jake@ripleads.com";
-export const FROM_NAME = "SUNNYCELLS";
+export const FROM_NAME = "Friday Zoomies";
 
 /** Slack is optional. With no connector configured the routes just skip it. */
 const SLACK_CONNECTOR = process.env.SLACK_CONNECTOR;
