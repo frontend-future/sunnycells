@@ -11,11 +11,14 @@ import { FIRST } from "@/lib/quiz/fzOrder";
 import { readAnswers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import posthog from "posthog-js";
+// import { useEffect, useState } from "react"; // checkout split test, see below
+// import posthog from "posthog-js"; // checkout split test, see below
 
-const DESTINATION = "/quiz/itch/checkout";
-const CHECKOUT_V2 = "/quiz/itch/v2/checkout";
+/* The two step checkout won the checkout split test and is now the checkout for everyone. It is a plain
+   constant, so nothing waits on PostHog before the buy button knows where to go. The old checkout
+   is still at /quiz/itch/checkout. */
+const DESTINATION = "/quiz/itch/v2/checkout";
+// const CONTROL_CHECKOUT = "/quiz/itch/checkout";
 
 /* Lifted off the page with a blue glow and a hard lower edge, and a bigger label that
    scales with the viewport so it stays on one line down to a 320px phone. */
@@ -38,19 +41,23 @@ const trackCheckout = () =>
 
 export function FridayZoomiesPlans() {
   const router = useRouter();
-  /* The checkout split test. PostHog flag "checkout-split": variant "two-step" goes to the v2 checkout,
-     everyone else (no flag, control, PostHog blocked or slow) stays on the current one. Reading the
-     flag here, when the plans page shows, is what PostHog counts as the person entering the test. */
-  const [destination, setDestination] = useState(DESTINATION);
+  const destination = DESTINATION;
+  /* The checkout split test, kept for the next one. PostHog flag "checkout-split": variant "two-step" went
+     to the v2 checkout, everyone else stayed on the control. Reading the flag when the plans page shows is
+     what PostHog counts as the person entering the test. To run a test again, restore the imports above,
+     make destination state starting at the control and uncomment this.
+
+  const [destination, setDestination] = useState(CONTROL_CHECKOUT);
   useEffect(() => {
     try {
       return posthog.onFeatureFlags(() => {
-        if (posthog.getFeatureFlag("checkout-split") === "two-step") setDestination(CHECKOUT_V2);
+        if (posthog.getFeatureFlag("checkout-split") === "two-step") setDestination(DESTINATION);
       });
     } catch {
-      /* PostHog is off here (no key): control checkout. */
+      // PostHog is off here (no key): control checkout.
     }
   }, []);
+  */
   const startCheckout = () => {
     trackCheckout();
     router.push(destination);
