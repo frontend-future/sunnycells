@@ -189,13 +189,6 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
           }}
         >
           <Image key={IMAGES[at].src} src={IMAGES[at].src} alt={IMAGES[at].alt} width={900} height={900} priority={at === 0} sizes="(min-width: 960px) 560px, 92vw" />
-          {at === 0 ? (
-            <div className={styles.save}>
-              <span className={styles.saveTop}>Save</span>
-              <span className={styles.saveBig}>50%</span>
-              <span className={styles.saveGift}>+ free shipping</span>
-            </div>
-          ) : null}
         </div>
         <button type="button" className={styles.label} onClick={() => setLabelOpen(true)}>
           View Nutrition Label
