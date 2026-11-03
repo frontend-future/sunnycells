@@ -23,9 +23,6 @@ const IMAGES = [
   { src: `${DIR}/pdp-v2/how-much.webp`, alt: "How much do they need: 1 pump daily up to 40 lbs, 2 pumps daily over 40 lbs" },
 ];
 
-const GIFTS = [
-  { src: `${DIR}/gift-shipping.webp`, name: "Free shipping" },
-];
 
 const TRUST = [
   { label: "Vet-formulated", src: `${DIR}/trust-vet.webp` },
@@ -245,24 +242,6 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
               </span>
             </div>
           ) : null}
-
-          <div className={styles.gifts}>
-            <div className={styles.giftsHead}>
-              <span className={styles.giftsHeadText}>Free with your first order</span>
-              <span className={styles.giftsCount}>1 gift</span>
-            </div>
-            <div className={styles.giftsGrid}>
-              {GIFTS.map((g) => (
-                <div key={g.name} className={styles.gift}>
-                  <div className={styles.giftImg}>
-                    <Image src={g.src} alt="" width={200} height={200} />
-                  </div>
-                  <span className={styles.free}>FREE</span>
-                  <span className={styles.giftName}>{g.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
 
           <div className={styles.cta}>
             <Button
