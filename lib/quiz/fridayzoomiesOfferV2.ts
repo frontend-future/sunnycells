@@ -97,7 +97,7 @@ export const FZ_PLANS_CONTENT_V2: PlansContent = {
   faqs: FZ_PLANS_CONTENT.faqs.map((f) => {
     const t = f.title;
     if (t.startsWith("How do I give"))
-      return { title: `How do I give ${FZ_OIL_NAME}?`, body: "Pump it over your dog's food once a day: 1 pump for dogs up to 40 lbs, 2 pumps for dogs over 40 lbs. Start with half the amount for the first week. Ask your vet before giving more than the labeled amount." };
+      return { title: `How do I give ${FZ_OIL_NAME}?`, body: "Pump it over their food once a day. Dogs up to 40 lbs get 1 pump, bigger dogs get 2. Give half for the first week, then the full amount. Check with your vet before giving more." };
     if (t.startsWith("Does it contain"))
       return { title: t, body: "It is 100% natural salmon oil with natural vitamin E, with no chicken, beef, corn, wheat or soy. It does contain fish, so check with your vet first if your dog has a known fish allergy." };
     if (t.startsWith("What is the formulation"))

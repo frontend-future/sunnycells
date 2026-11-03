@@ -118,12 +118,12 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
       title: "How to use",
       body: (
         <>
-          <p>Pump the oil over your dog's wet or dry food once a day:</p>
+          <p>Pump it over their food once a day:</p>
           <ul>
             <li>Up to 40 lbs: 1 pump (1 mL)</li>
             <li>Over 40 lbs: 2 pumps (2 mL)</li>
           </ul>
-          <p>Start with half the amount for the first week, then work up to the full amount.</p>
+          <p>Give half for the first week, then the full amount.</p>
           <p>Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily oil before you judge it.</p>
         </>
       ),

@@ -51,7 +51,7 @@ export function FridayZoomiesLabelDrawerV2({ onClose }: { onClose: () => void })
             </tbody>
           </table>
           <ul className={styles.notes}>
-            <li><strong>Daily amount by weight:</strong> Up to 40 lbs: 1 pump. Over 40 lbs: 2 pumps. Pump over food. Start with half the amount for the first week.</li>
+            <li><strong>Daily amount by weight:</strong> Up to 40 lbs: 1 pump. Over 40 lbs: 2 pumps. Pump over their food once a day. Give half for the first week.</li>
             <li>Contains fish.</li>
           </ul>
         </div>
