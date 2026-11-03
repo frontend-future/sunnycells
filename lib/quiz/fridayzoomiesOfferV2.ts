@@ -79,7 +79,7 @@ export const FZ_PLANS_CONTENT_V2: PlansContent = {
     },
     {
       ...FZ_PLANS_CONTENT.howItWorks[2],
-      body: "Most dogs scratch less by week two. As the oil keeps working, skin and coat keep improving and the itching stops for good, while the same omega-3s keep supporting stiff joints and a sharp mind.",
+      body: "Most dogs scratch less by week two, and skin and coat keep improving through the first 90 days. After that, daily oil is how you keep the itch from coming back, while the same omega-3s keep supporting stiff joints and a sharp mind.",
     },
   ],
   comparison: [
