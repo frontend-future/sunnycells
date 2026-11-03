@@ -76,8 +76,8 @@ export function FridayZoomiesPlansV2() {
       heroMedia={
         <div key="hero-photo" className={styles.heroMedia}>
           <Image
-            src="/quiz/fridayzoomies/hero-chew-spray.webp"
-            alt="A fluffy white Great Pyrenees lying in the grass next to Friday Zoomies daily chews and itch spray"
+            src="/quiz/fridayzoomies/hero-oil.webp"
+            alt="A fluffy white Great Pyrenees lying in the grass next to a bottle of Pure Omega Salmon Oil"
             width={1000}
             height={1000}
             priority

@@ -69,15 +69,17 @@ export const FZ_PLANS_CONTENT_V2: PlansContent = {
       ...FZ_PLANS_CONTENT.howItWorks[0],
       title: "1. Pump over their food",
       body: "Pump the oil over wet or dry food: 1 pump for dogs up to 40 lbs, 2 pumps for dogs over 40 lbs. Start with half the amount for the first week.",
+      illustration: `${PLANS_DIR}/how-pump.webp`,
     },
     {
       ...FZ_PLANS_CONTENT.howItWorks[1],
       title: "2. Give it daily for lasting relief",
-      body: "Give it once a day, every day. Omega-3s work on skin and coat from the inside, so it takes a few weeks to build.",
+      body: "Give it once a day, every day. The omega-3s work from the inside, so it takes a few weeks to build. Skin and coat come first, and stiff joints and a sharp mind get the same daily support.",
+      illustration: `${PLANS_DIR}/how-daily.webp`,
     },
     {
       ...FZ_PLANS_CONTENT.howItWorks[2],
-      body: "Most dogs scratch less by week two. As the oil keeps working, skin and coat keep improving, and the itching stops for good.",
+      body: "Most dogs scratch less by week two. As the oil keeps working, skin and coat keep improving and the itching stops for good, while the same omega-3s keep supporting stiff joints and a sharp mind.",
     },
   ],
   comparison: [
@@ -90,6 +92,7 @@ export const FZ_PLANS_CONTENT_V2: PlansContent = {
     "90 day money back guarantee",
     "Free shipping on your first order",
   ],
+  comparisonImage: `${PLANS_DIR}/comparison-oil.webp`,
   usaLabel: "Friday Zoomies is based in the USA",
   faqs: FZ_PLANS_CONTENT.faqs.map((f) => {
     const t = f.title;
