@@ -68,7 +68,7 @@ export const FZ_PLANS_CONTENT_V2: PlansContent = {
     {
       ...FZ_PLANS_CONTENT.howItWorks[0],
       title: "1. Pump over their food",
-      body: "Pump the oil over wet or dry food: 1 pump for dogs up to 40 lbs, 2 pumps for dogs over 40 lbs. Start with half the amount for the first week.",
+      body: "Pump it over their regular wet or dry food. Dogs love the taste of real salmon, even picky eaters, so it is the easiest part of their day. One pump for smaller dogs, two for bigger ones.",
       illustration: `${PLANS_DIR}/how-pump.webp`,
     },
     {
