@@ -51,6 +51,20 @@ const LEAD_PROPS: [string, string][] = [
   ["most afraid", "mainFear"],
 ];
 
+/** The plans page link carrying the params PlansParamHydrator reads, so the offer opens already
+    personalised. Built here, URL-encoded, rather than from merge tags in the email, because Loops
+    does not promise to encode a value like "Medium (20-50 lbs)" inside a URL. */
+function plansLink(c: { dogName?: string; dogWeight?: string; dogGender?: string }, campaign: string): string {
+  const q = new URLSearchParams();
+  if (c.dogName) q.set("dog-name", c.dogName);
+  if (c.dogWeight) q.set("dog-size", c.dogWeight);
+  if (c.dogGender) q.set("gender", c.dogGender);
+  q.set("utm_source", "loops");
+  q.set("utm_medium", "email");
+  q.set("utm_campaign", campaign);
+  return `https://offers.fridayzoomies.com/quiz/itch/results/plans?${q}`;
+}
+
 const titleCase = (s: string) => (s === s.toUpperCase() || s === s.toLowerCase() ? s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()) : s);
 
 /** Adds a quiz lead as a Loops contact, which starts the acquisition workflow. Someone already
@@ -65,7 +79,7 @@ export async function addLead(p: { email: string; quizId: string; answers: Recor
     const v = entries.find(([q]) => q.toLowerCase().includes(stem.toLowerCase()))?.[1]?.trim();
     if (v) props[key] = key === "dogName" ? titleCase(v) : v;
   }
-  const answers = { ...props, quizCompletedAt: new Date().toISOString() };
+  const answers = { ...props, quizLink: plansLink(props, "quiz"), quizCompletedAt: new Date().toISOString() };
   try {
     try {
       await loops("/contacts/create", { email, ...answers, isCustomer: false, userGroup: "lead", source: "quiz" });
@@ -93,14 +107,7 @@ export async function markCheckoutStarted(emailIn: string): Promise<void> {
       signal: AbortSignal.timeout(8_000),
     });
     const c = res.ok ? ((await res.json()) as { dogName?: string; dogWeight?: string; dogGender?: string }[])[0] : undefined;
-    const q = new URLSearchParams();
-    if (c?.dogName) q.set("dog-name", c.dogName);
-    if (c?.dogWeight) q.set("dog-size", c.dogWeight);
-    if (c?.dogGender) q.set("gender", c.dogGender);
-    q.set("utm_source", "loops");
-    q.set("utm_medium", "email");
-    q.set("utm_campaign", "cart");
-    const cartLink = `https://offers.fridayzoomies.com/quiz/itch/results/plans?${q}`;
+    const cartLink = plansLink(c ?? {}, "cart");
     try {
       await loops("/contacts/create", { email, cartLink, isCustomer: false, userGroup: "lead", source: "checkout" });
     } catch (e) {
