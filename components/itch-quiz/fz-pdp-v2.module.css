@@ -542,3 +542,8 @@
   background: var(--midnight);
   color: #fff;
 }
+
+/* One free perk (shipping), so the grid is a single centred tile. */
+.giftsGrid {
+  grid-template-columns: 1fr;
+}

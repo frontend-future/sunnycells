@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
-import { FridayZoomiesLabelDrawer } from "@/components/itch-quiz/FridayZoomiesLabelDrawer";
-import { CHEW_ACTIVES, CHEW_DOSING, CHEW_OTHER, CHEW_SERVING, RATING } from "@/lib/products/dog-itch";
-import { FZ_PLANS, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
+import { FridayZoomiesLabelDrawerV2 } from "@/components/itch-quiz/FridayZoomiesLabelDrawerV2";
+import { RATING } from "@/lib/products/dog-itch";
+import { FZ_PLANS } from "@/lib/quiz/fridayzoomiesOffer";
+import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
 import styles from "./fz-pdp-v2.module.css";
@@ -23,9 +24,6 @@ const IMAGES = [
 ];
 
 const GIFTS = [
-  { src: `${DIR}/gift-spray.webp`, name: "Itch spray" },
-  { src: `${DIR}/gift-bandana.webp`, name: "USA bandana" },
-  { src: `${DIR}/gift-mystery.webp`, name: "Mystery gift" },
   { src: `${DIR}/gift-shipping.webp`, name: "Free shipping" },
 ];
 
@@ -36,9 +34,9 @@ const TRUST = [
 ];
 
 const CHECKS = [
-  "Helps stop the scratching, licking and chewing",
-  "Supports healthy skin and a healthy coat",
-  "Calms irritation from allergies, naturally",
+  "Helps ease the scratching, licking and chewing",
+  "Supports healthy skin, coat and joints",
+  "100% natural salmon oil, nothing artificial",
 ];
 
 /* "Medium (20-50 lbs)" as the quiz stores it, with the en dash a numeric range wants. */
@@ -58,45 +56,17 @@ function todayLabel() {
   return `${d.toLocaleDateString("en-US", { month: "long" })} ${n}${suffix}`;
 }
 
-/** Chew ingredients first, with a toggle to the Itch Spray's. */
-function IngredientsTabs() {
-  const [tab, setTab] = useState<"chew" | "spray">("chew");
+/** One product, so no tabs: the two ingredients with what each does. */
+function Ingredients() {
   return (
     <>
-      <div className={styles.ingTabs} role="tablist" aria-label="Product">
-        {(["chew", "spray"] as const).map((k) => (
-          <button
-            key={k}
-            type="button"
-            role="tab"
-            aria-selected={tab === k}
-            className={`${styles.ingTab} ${tab === k ? styles.ingTabOn : ""}`}
-            onClick={() => setTab(k)}
-          >
-            {k === "chew" ? "Daily Chew" : "Itch Spray"}
-          </button>
-        ))}
-      </div>
-      {tab === "chew" ? (
-        <>
-          <p style={{ fontSize: "0.85em" }}>Per serving of {CHEW_SERVING}.</p>
-          {CHEW_ACTIVES.map((i) => (
-            <p key={i.name}>
-              <strong>{i.name} ({i.dose}).</strong> {i.copy}
-            </p>
-          ))}
-          <p style={{ fontSize: "0.85em" }}>Other ingredients: {CHEW_OTHER}.</p>
-        </>
-      ) : (
-        <>
-          <p><strong>Aloe barbadensis extract.</strong> Soothes and hydrates irritated, itchy skin and gives a mild cooling effect.</p>
-          <p><strong>Sodium bicarbonate.</strong> Neutralizes odor and calms itch by buffering skin pH.</p>
-          <p><strong>Hydrolyzed silk.</strong> Small silk proteins that bind to hair and skin, leaving the coat softer, shinier, and better moisturized.</p>
-          <p><strong>Chamomile extract.</strong> A botanical with calming, anti-redness properties that helps settle inflamed or sensitive skin.</p>
-          <p><strong>Peppermint oil.</strong> Provides a cooling sensation that distracts from itch, plus a fresh scent.</p>
-          <p style={{ fontSize: "0.85em" }}>Other ingredients: Water, Polysorbate 20, Glycerin, Fragrance, Sodium Benzoate, Disodium EDTA, Butanediol.</p>
-        </>
-      )}
+      <p style={{ fontSize: "0.85em" }}>Per pump (1 mL).</p>
+      <p>
+        <strong>Salmon oil (99.8%).</strong> A source of omega-3s (EPA and DHA, about 20% of the oil) that supports the skin barrier and a healthy inflammatory response, for less dry, itchy skin and a shinier coat. 100% natural, nothing artificial.
+      </p>
+      <p>
+        <strong>Mixed tocopherols (0.2%).</strong> Natural vitamin E that keeps the oil fresh.
+      </p>
     </>
   );
 }
@@ -134,8 +104,8 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
       title: "Why it works",
       body: (
         <>
-          <p>Itching has two problems: the flare-up on the skin right now, and what keeps causing it.</p>
-          <p>The Itch Spray calms irritated skin on contact. The daily chew calms the histamine response from the inside, which is what keeps the itch from coming back.</p>
+          <p>Itching has two problems: dry, irritated skin on the surface, and the inflammation underneath that keeps it going.</p>
+          <p>{FZ_OIL_NAME} gives your dog the omega-3s EPA and DHA from 100% natural salmon oil. They support the skin barrier and a healthy inflammatory response from the inside, which is what keeps the itch from coming back.</p>
         </>
       ),
     },
@@ -143,7 +113,7 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
       id: "ingredients",
       title: "Ingredients",
       body: (
-        <IngredientsTabs />
+        <Ingredients />
       ),
     },
     {
@@ -151,14 +121,13 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
       title: "How to use",
       body: (
         <>
-          <p>Give the daily chew amount for your dog's weight, with or without food:</p>
+          <p>Pump the oil over your dog's wet or dry food once a day:</p>
           <ul>
-            {CHEW_DOSING.map(([wt, n]) => (
-              <li key={wt}>{wt}: {n}</li>
-            ))}
+            <li>Up to 40 lbs: 1 pump (1 mL)</li>
+            <li>Over 40 lbs: 2 pumps (2 mL)</li>
           </ul>
-          <p>Itch Spray: spray your dog from the back of the ears to the tail, carefully avoiding the eyes. Massage into the coat. Repeat as necessary. Can be used on wet or dry fur. For external use only.</p>
-          <p>Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily chews before you judge it.</p>
+          <p>Start with half the amount for the first week, then work up to the full amount.</p>
+          <p>Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily oil before you judge it.</p>
         </>
       ),
     },
@@ -168,7 +137,7 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
       body: (
         <>
           <p>
-            Free shipping on your first order. Your bundle ships every 4 weeks, and you can skip or cancel anytime. Questions? Email{" "}
+            Free shipping on your first order. Your {FZ_OIL_NAME} ships every 4 weeks, and you can skip or cancel anytime. Questions? Email{" "}
             <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
           </p>
         </>
@@ -179,7 +148,7 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
       title: "Our 90-day Guarantee",
       body: (
         <p>
-          Try the bundle for 90 days. If your dog's itching hasn't improved, email{" "}
+          Try the oil for 90 days. If your dog's itching hasn't improved, email{" "}
           <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a> and we'll refund your order.
         </p>
       ),
@@ -224,7 +193,7 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
             <div className={styles.save}>
               <span className={styles.saveTop}>Save</span>
               <span className={styles.saveBig}>50%</span>
-              <span className={styles.saveGift}>+ 4 free gifts</span>
+              <span className={styles.saveGift}>+ free shipping</span>
             </div>
           ) : null}
         </div>
@@ -240,21 +209,21 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
                 <path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
                 <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
               </svg>
-              <span>Order by {todayLabel()} for 50% Off With Free Gifts!</span>
+              <span>Order by {todayLabel()} for 50% Off With Free Shipping!</span>
             </div>
           ) : null}
           <div className={styles.rating}>
             <span className={styles.stars} aria-hidden="true">★★★★★</span>
             <span className={styles.rate}>{RATING.score} · {RATING.count} reviews</span>
           </div>
-          <h2 className={styles.title}>{FZ_PRODUCT_NAME}</h2>
+          <h2 className={styles.title}>{FZ_OIL_NAME}</h2>
           <div className={styles.priceRow}>
             <span className={styles.price}>${plan.price}</span>
             <span className={styles.was}>${plan.compareAt}</span>
             <span className={styles.off}>50% OFF TODAY</span>
           </div>
           <p className={styles.lede}>
-            Stop the itching for good. Calms the histamine response behind the scratching, licking and skin irritation.
+            Stop the itching for good. Omega-3 rich salmon oil that calms the irritation behind the scratching, licking and dry skin.
           </p>
           <ul className={styles.checks}>
             {CHECKS.map((c) => (
@@ -277,9 +246,9 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
 
           {ready && name ? (
             <div className={styles.routine}>
-              <h3 className={styles.routineTitle}>{titleCase(name)}&apos;s Anti-Itch Routine</h3>
+              <h3 className={styles.routineTitle}>{titleCase(name)}&apos;s Salmon Oil Routine</h3>
               <span className={styles.routineSub}>
-                {size ? `${sizeLabel(size)} · ` : ""}less scratching in as little as 7 days
+                {size ? `${sizeLabel(size)} · ` : ""}daily omega-3 support
               </span>
             </div>
           ) : null}
@@ -287,7 +256,7 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
           <div className={styles.gifts}>
             <div className={styles.giftsHead}>
               <span className={styles.giftsHeadText}>Free with your first order</span>
-              <span className={styles.giftsCount}>4 gifts</span>
+              <span className={styles.giftsCount}>1 gift</span>
             </div>
             <div className={styles.giftsGrid}>
               {GIFTS.map((g) => (
@@ -358,7 +327,7 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
           </div>
         </div>
       </div>
-      {labelOpen ? <FridayZoomiesLabelDrawer onClose={closeLabel} /> : null}
+      {labelOpen ? <FridayZoomiesLabelDrawerV2 onClose={closeLabel} /> : null}
     </section>
   );
 }

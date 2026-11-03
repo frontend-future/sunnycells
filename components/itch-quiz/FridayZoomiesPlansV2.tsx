@@ -5,7 +5,8 @@ import Image from "next/image";
 import { RATING } from "@/lib/products/dog-itch";
 import styles from "@/app/quiz/itch/theme.module.css";
 import { FridayZoomiesPdpV2 } from "@/components/itch-quiz/FridayZoomiesPdpV2";
-import { FZ_PLANS_CONTENT, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
+import { FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
+import { FZ_PLANS_CONTENT_V2 } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { FIRST } from "@/lib/quiz/fzOrder";
 import { readAnswers } from "@/lib/quiz/store";
@@ -64,7 +65,7 @@ export function FridayZoomiesPlansV2() {
   };
   return (
     <PlansScreen
-      content={FZ_PLANS_CONTENT}
+      content={FZ_PLANS_CONTENT_V2}
       destinationHref={destination}
       planCtaLabel="Try now"
       heroTitleClassName={`${styles.sentence} ${styles.heroTitle}`}
