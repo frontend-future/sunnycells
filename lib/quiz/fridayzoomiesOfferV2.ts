@@ -1,5 +1,5 @@
 /**
- * The /quiz/itch/results/plans/v2 page's copy: the same page as the live one, with the
+ * The /quiz/itch/v2/results/plans page's copy: the same page as the live one, with the
  * product renamed to Pure Omega Salmon Oil. Everything not overridden here (images, plan
  * structure, offer, FDA footer) comes from the live FZ_PLANS_CONTENT unchanged.
  *
