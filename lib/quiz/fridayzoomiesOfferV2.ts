@@ -68,18 +68,18 @@ export const FZ_PLANS_CONTENT_V2: PlansContent = {
     {
       ...FZ_PLANS_CONTENT.howItWorks[0],
       title: "1. Pump over their food",
-      body: "Pump it over their regular wet or dry food. Dogs love the taste of real salmon, even picky eaters, so it is the easiest part of their day. One pump for smaller dogs, two for bigger ones.",
+      body: "Even the picky eaters love the taste.",
       illustration: `${PLANS_DIR}/how-pump.webp`,
     },
     {
       ...FZ_PLANS_CONTENT.howItWorks[1],
       title: "2. Give it daily for lasting relief",
-      body: "Give it once a day, every day. The omega-3s work from the inside, so it takes a few weeks to build. Skin and coat come first, and stiff joints and a sharp mind get the same daily support.",
+      body: "One easy pump a day works from the inside out.",
       illustration: `${PLANS_DIR}/how-daily.webp`,
     },
     {
       ...FZ_PLANS_CONTENT.howItWorks[2],
-      body: "Most dogs scratch less by week two, and skin and coat keep improving through the first 90 days. After that, daily oil is how you keep the itch from coming back, while the same omega-3s keep supporting stiff joints and a sharp mind.",
+      body: "Less scratching, a shinier coat, and daily support for joints and mind.",
     },
   ],
   comparison: [
