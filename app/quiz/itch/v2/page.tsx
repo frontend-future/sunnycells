@@ -59,8 +59,8 @@ export default function FridayZoomiesV2LandingPage() {
               product reads as the answer to the hook before a question is asked. */}
           <div style={{ maxWidth: "min(320px, calc(24.5dvh + max(0px, 100dvh - 740px) * 0.25))", margin: "var(--space-4) auto 0", paddingBottom: "var(--space-3)" }}>
             <Image
-              src="/quiz/fridayzoomies/hero-chew-spray.webp"
-              alt="A fluffy white Great Pyrenees lying in the grass next to Friday Zoomies daily chews and itch spray"
+              src="/quiz/fridayzoomies/hero-oil.webp"
+              alt="A fluffy white Great Pyrenees lying in the grass next to a bottle of Friday Zoomies salmon oil"
               width={1000}
               height={1000}
               priority
