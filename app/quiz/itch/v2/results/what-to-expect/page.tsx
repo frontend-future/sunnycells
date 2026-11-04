@@ -5,7 +5,7 @@ import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { ItchEducation } from "@/components/itch-quiz/ItchEducation";
 
 const MONTHS = (name: string) => [
-  { lead: "Month 1:", rest: ` omega-3s build up in ${name}'s skin and coat, and many dogs start scratching noticeably less.` },
+  { lead: "Month 1:", rest: ` omega-3s build up in ${name}'s skin and coat, and many dogs see noticeable improvement in the first week.` },
   { lead: "Month 2:", rest: " results keep improving as the skin barrier gets stronger, with less redness and a shinier coat." },
   { lead: "Month 3:", rest: ` skin and coat at their best. Daily use keeps the itch from coming back.` },
 ];
