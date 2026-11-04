@@ -13,17 +13,20 @@ type Body = {
   name?: string;
   phone?: string;
   promoCode?: string;
+  product?: string;
   shipping?: { line1?: string; line2?: string; city?: string; state?: string; postal_code?: string; country?: string };
 };
 
 const text = (v: unknown) => (typeof v === "string" ? v.trim() : "");
 
 export async function POST(req: Request) {
-  const priceId = process.env.STRIPE_FZ_PRICE_ID;
+  const b = (await req.json().catch(() => ({}))) as Body;
+  /* Only the product name comes from the page; the price is env. "oil" is Pure Omega Salmon Oil. */
+  const oil = b.product === "oil";
+  const priceId = oil ? process.env.STRIPE_FZ_OIL_PRICE_ID : process.env.STRIPE_FZ_PRICE_ID;
   const promoId = process.env.STRIPE_FZ_PROMO_ID;
   if (!priceId) return NextResponse.json({ error: "Checkout is not configured." }, { status: 500 });
 
-  const b = (await req.json().catch(() => ({}))) as Body;
   const email = text(b.email);
   const name = text(b.name);
   const s = b.shipping ?? {};
@@ -67,7 +70,7 @@ export async function POST(req: Request) {
       ...(promotion ? { discounts: [{ promotion_code: promotion }] } : {}),
       payment_behavior: "default_incomplete",
       payment_settings: { save_default_payment_method: "on_subscription" },
-      metadata: { funnel: "fridayzoomies", gifts: "itch-spray,usa-doggie-bandana,mystery-gift,fast-usa-shipping" },
+      metadata: oil ? { funnel: "fridayzoomies", product: "oil" } : { funnel: "fridayzoomies", gifts: "itch-spray,usa-doggie-bandana,mystery-gift,fast-usa-shipping" },
       expand: ["latest_invoice.confirmation_secret"],
     });
 

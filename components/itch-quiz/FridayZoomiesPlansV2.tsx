@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 /* The two step checkout won the checkout split test and is now the checkout for everyone. It is a plain
    constant, so nothing waits on PostHog before the buy button knows where to go. The old checkout
    is still at /quiz/itch/checkout. */
-const DESTINATION = "/quiz/itch/v2/checkout";
+const DESTINATION = "/quiz/itch/v2/checkout/oil";
 // const CONTROL_CHECKOUT = "/quiz/itch/checkout";
 
 /* Lifted off the page with a blue glow and a hard lower edge, and a bigger label that

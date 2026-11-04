@@ -8,7 +8,7 @@ import { Icon } from "@/components/core/Icon";
 import { RATING } from "@/lib/products/dog-itch";
 import { formatPrice } from "@/lib/price";
 import { FZ_BRAND, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
-import { FIRST, IMG, LINES, PRICE } from "@/lib/quiz/fzOrder";
+import { FIRST, IMG, LINES as BUNDLE_LINES, OIL_LINES, OIL_NAME, PRICE } from "@/lib/quiz/fzOrder";
 import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
@@ -135,7 +135,9 @@ function useHold() {
   return `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
 }
 
-function Checkout() {
+function Checkout({ oil }: { oil: boolean }) {
+  const LINES = oil ? OIL_LINES : BUNDLE_LINES;
+  const productName = oil ? OIL_NAME : FZ_PRODUCT_NAME;
   const hold = useHold();
   const stripe = useStripe();
   const elements = useElements();
@@ -201,10 +203,10 @@ function Checkout() {
           line1: field(fd, "ship-address"), line2: field(fd, "ship-address2"), city: field(fd, "ship-city"),
           state: field(fd, "ship-state"), zip: field(fd, "ship-zip"), phone: field(fd, "phone"),
         },
-        plan: `${FZ_PRODUCT_NAME}, every 4 weeks`,
+        plan: `${productName}, every 4 weeks`,
         total: first,
         stage: "payment",
-        product: FZ_PRODUCT_NAME,
+        product: productName,
       }),
     }).catch((err) => console.error("[fz-v2] notify-purchase failed", err));
   };
@@ -246,7 +248,7 @@ function Checkout() {
       const res = await fetch("/api/fz/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: who.email, name: who.name, phone: who.phone, shipping: who.shipping, promoCode: promo?.code }),
+        body: JSON.stringify({ email: who.email, name: who.name, phone: who.phone, shipping: who.shipping, promoCode: promo?.code, ...(oil ? { product: "oil" } : {}) }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "We could not start your order. Try again.");
@@ -266,7 +268,7 @@ function Checkout() {
         elements,
         clientSecret: data.clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/quiz/itch/thanks`,
+          return_url: `${window.location.origin}/quiz/itch/thanks${oil ? "?product=oil" : ""}`,
           payment_method_data: wallet ? undefined : { billing_details: { name: who.name, email: who.email, phone: who.phone, address: { ...who.billing, line2: who.billing.line2 ?? "" } } },
         },
       });
@@ -403,7 +405,7 @@ function Checkout() {
             <div className={s.guarantee}><img src={`${CHECKOUT}/icon-guarantee.webp`} alt="" />90 day guarantee</div>
 
             <div className={s.totals}>
-              <div><span>Subtotal · 5 items</span><span>{formatPrice(PRICE)}</span></div>
+              <div><span>Subtotal · {LINES.length} {LINES.length === 1 ? "item" : "items"}</span><span>{formatPrice(PRICE)}</span></div>
               <div><span>First order discount</span><span>−{formatPrice(off)}</span></div>
               <div><span>Shipping</span><span className={s.free}>FREE</span></div>
               <div className={s.grand}><span>Total</span><span>{formatPrice(first)}</span></div>
@@ -417,11 +419,12 @@ function Checkout() {
   );
 }
 
-export function FzCheckoutPageV2() {
+/* `oil` is the Pure Omega Salmon Oil order: its own price and Shopify variant on the server, no gifts. */
+export function FzCheckoutPageV2({ oil = false }: { oil?: boolean } = {}) {
   if (!stripePromise) return <p style={{ padding: 40 }}>Checkout is not available right now.</p>;
   return (
     <Elements stripe={stripePromise} options={{ mode: "subscription", amount: FIRST * 100, currency: "usd", appearance: APPEARANCE }}>
-      <Checkout />
+      <Checkout oil={oil} />
     </Elements>
   );
 }

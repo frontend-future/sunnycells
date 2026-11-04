@@ -81,6 +81,7 @@ export async function POST(req: Request) {
       discount,
       discountLabel: label,
       first: invoice.billing_reason === "subscription_create",
+      oil: meta.product === "oil",
       test: !event.livemode,
     });
 

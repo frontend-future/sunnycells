@@ -3,6 +3,8 @@ import { shopify } from "./admin";
 /* Variants already in the Friday Zoomies Shopify store. The bundle is the subscription
    product; the rest are $0 gifts that ship with the first order only. */
 export const BUNDLE = "gid://shopify/ProductVariant/50538190831686";
+/** Pure Omega Salmon Oil (1 Month Supply), $50 on its own subscription, no gifts. */
+export const OIL = "gid://shopify/ProductVariant/50933557198918";
 export const GIFTS = [
   "gid://shopify/ProductVariant/50538941612102", // Itch Spray
   "gid://shopify/ProductVariant/50538801856582", // USA Doggie Bandana
@@ -24,6 +26,7 @@ export type OrderInput = {
   discount: number;
   discountLabel: string;
   first: boolean;
+  oil?: boolean;
   test: boolean;
   /** The two customer emails Shopify can send. Off only in scripted tests. */
   notify?: boolean;
@@ -58,8 +61,8 @@ export async function createOrder(o: OrderInput): Promise<{ id: string; name: st
     shippingAddress: address,
     billingAddress: address,
     lineItems: [
-      { variantId: BUNDLE, quantity: 1, requiresShipping: true, priceSet: money(o.price) },
-      ...(o.first ? GIFTS.map((variantId) => ({ variantId, quantity: 1, requiresShipping: true, priceSet: money(0) })) : []),
+      { variantId: o.oil ? OIL : BUNDLE, quantity: 1, requiresShipping: true, priceSet: money(o.price) },
+      ...(o.first && !o.oil ? GIFTS.map((variantId) => ({ variantId, quantity: 1, requiresShipping: true, priceSet: money(0) })) : []),
     ],
     shippingLines: [{ title: "Standard shipping", code: "FREE", priceSet: money(0) }],
     ...(o.discount > 0 ? { discountCode: { itemFixedDiscountCode: { code: o.discountLabel, amountSet: money(o.discount) } } } : {}),

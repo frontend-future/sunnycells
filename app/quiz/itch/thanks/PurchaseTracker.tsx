@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
+import { OIL_NAME } from "@/lib/quiz/fzOrder";
 import { trackMetaEvent, type MetaUserData } from "@/lib/meta";
 
 /* Fires Meta's Purchase once, and only for a payment Stripe confirms went through.
@@ -13,7 +14,7 @@ import { trackMetaEvent, type MetaUserData } from "@/lib/meta";
    type that. Remembering the payment id keeps a refresh from reporting it twice. */
 const PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
-export function PurchaseTracker() {
+export function PurchaseTracker({ oil = false }: { oil?: boolean }) {
   useEffect(() => {
     const secret = new URLSearchParams(window.location.search).get("payment_intent_client_secret");
     if (!secret || !PK) return;
@@ -32,10 +33,10 @@ export function PurchaseTracker() {
       try { who = JSON.parse(sessionStorage.getItem("fz-buyer") || "{}"); } catch {}
       trackMetaEvent(
         "Purchase",
-        { currency: (pi.currency || "usd").toUpperCase(), value: pi.amount / 100, content_ids: ["inside-out-itch-bundle"], content_type: "product", content_name: FZ_PRODUCT_NAME },
+        { currency: (pi.currency || "usd").toUpperCase(), value: pi.amount / 100, content_ids: [oil ? "pure-omega-salmon-oil" : "inside-out-itch-bundle"], content_type: "product", content_name: oil ? OIL_NAME : FZ_PRODUCT_NAME },
         who,
       );
     })();
-  }, []);
+  }, [oil]);
   return null;
 }

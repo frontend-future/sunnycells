@@ -15,3 +15,10 @@ export const LINES: { name: string; sub?: string; image: string; price?: string;
   { name: "Mystery Gift", image: `${IMG}/gift-mystery.webp` },
   { name: "Fast USA Shipping", image: `${IMG}/gift-shipping.webp` },
 ];
+
+/* The Pure Omega Salmon Oil order: the oil alone on its subscription, no gifts for now.
+   Same FIRST50 on the first order. Shopify variant lives in lib/shopify/order.ts. */
+export const OIL_NAME = "Pure Omega Salmon Oil (1 Month Supply)";
+export const OIL_LINES: typeof LINES = [
+  { name: OIL_NAME, sub: "Deliver every 4 weeks", image: `${IMG}/oil-bottle.webp`, price: formatPrice(PRICE), now: formatPrice(FIRST) },
+];

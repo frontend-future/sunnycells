@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
-import { LINES } from "@/lib/quiz/fzOrder";
+import { LINES, OIL_LINES } from "@/lib/quiz/fzOrder";
 import { Confetti } from "./Confetti";
 import { PurchaseTracker } from "./PurchaseTracker";
 import s from "./thanks.module.css";
@@ -14,11 +14,17 @@ const STEPS = [
   { when: "Within 5 business days of shipping", title: "It arrives", body: "Free shipping to your door, with the Itch Spray, bandana and mystery gift in the box." },
 ];
 
-export default function ThanksPage() {
+/* ?product=oil comes from the Pure Omega Salmon Oil checkout: just the oil, no gifts. */
+export default async function ThanksPage({ searchParams }: { searchParams: Promise<{ product?: string }> }) {
+  const oil = (await searchParams).product === "oil";
+  const lines = oil ? OIL_LINES : LINES;
+  const steps = oil
+    ? STEPS.map((st, i) => i === 1 ? { ...st, body: "Your Pure Omega Salmon Oil leaves our warehouse." } : i === 2 ? { ...st, body: "Free shipping to your door." } : st)
+    : STEPS;
   return (
     <div className={s.page}>
       <Confetti />
-      <PurchaseTracker />
+      <PurchaseTracker oil={oil} />
       <header className={s.header}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className={s.logo} src={FZ_BRAND.logo?.src} alt="Friday Zoomies" />
@@ -29,7 +35,7 @@ export default function ThanksPage() {
         <p className={s.lead}>Here is what happens next.</p>
 
         <ol className={s.steps}>
-          {STEPS.map((st, i) => (
+          {steps.map((st, i) => (
             <li key={st.title} className={s.step}>
               <span className={s.num} aria-hidden="true">{i + 1}</span>
               <div>
@@ -43,7 +49,7 @@ export default function ThanksPage() {
 
         <section className={s.card} aria-label="Your order">
           <h2 className={s.h2}>What you are getting</h2>
-          {LINES.map((l) => (
+          {lines.map((l) => (
             <div className={s.line} key={l.name}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={l.image} alt="" />
