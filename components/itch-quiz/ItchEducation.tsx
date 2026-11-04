@@ -62,9 +62,9 @@ export function ItchEducation({
         }}
       />
 
-      <p style={{ margin: "var(--space-6) 0 0", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+      <div style={{ margin: "var(--space-6) 0 0", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
         {typeof children === "function" ? children({ name, tried }) : children}
-      </p>
+      </div>
 
       <StickyCta>
         <NextButton href={nextHref}>Continue</NextButton>
