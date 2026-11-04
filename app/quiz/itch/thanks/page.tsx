@@ -19,7 +19,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
   const oil = (await searchParams).product === "oil";
   const lines = oil ? OIL_LINES : LINES;
   const steps = oil
-    ? STEPS.map((st, i) => i === 1 ? { ...st, body: "Your Pure Omega Salmon Oil leaves our warehouse." } : i === 2 ? { ...st, body: "Free shipping to your door." } : st)
+    ? STEPS.map((st, i) => i === 0 ? { ...st, body: "Our team picks and packs your Pure Omega Salmon Oil." } : i === 1 ? { ...st, body: "Your Pure Omega Salmon Oil leaves our warehouse." } : i === 2 ? { ...st, body: "Free shipping to your door." } : st)
     : STEPS;
   return (
     <div className={s.page}>
