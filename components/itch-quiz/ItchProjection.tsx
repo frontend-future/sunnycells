@@ -141,7 +141,7 @@ export function ItchProjection({
       </div>
 
       <StickyCta>
-        <NextButton href={nextHref}>Continue</NextButton>
+        <NextButton href={nextHref}>{oil ? `See why ${name}'s itching keeps coming back` : "Continue"}</NextButton>
       </StickyCta>
     </ResultsShell>
   );
