@@ -170,3 +170,12 @@ test("funnelStepFor numbers the live itch quiz (the Friday Zoomies clone) like t
   assert.equal(checkout?.index, itchFridayZoomiesQuiz.steps.length + 8);
   assert.equal(itchFridayZoomiesQuiz.steps.length, itchQuiz.steps.length);
 });
+
+test("the itch funnel at /quiz/itch/v2 is numbered on its own and ends at the oil checkout", async () => {
+  const { itchFridayZoomiesV2Quiz } = await import("../quiz/itchFridayZoomiesV2.ts");
+  const n = itchFridayZoomiesV2Quiz.steps.length;
+  const first = await funnelStepFor(`/quiz/itch/v2/${itchFridayZoomiesV2Quiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "itch/v2", index: 1, slug: itchFridayZoomiesV2Quiz.steps[0].slug, stage: "question" });
+  assert.equal((await funnelStepFor("/quiz/itch/v2/results/plans"))?.index, n + 7);
+  assert.equal((await funnelStepFor("/quiz/itch/v2/checkout/oil"))?.index, n + 8);
+});
