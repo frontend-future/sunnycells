@@ -15,7 +15,7 @@ import styles from "./fz-pdp-v2.module.css";
 const DIR = "/quiz/fridayzoomies";
 
 const IMAGES = [
-  { src: `${DIR}/pdp-v2/guarantee.webp`, alt: "90-day money back guarantee on the Friday Zoomies salmon oil" },
+  { src: `${DIR}/pdp-v2/guarantee.webp`, alt: "Save 50% plus free shipping on the Friday Zoomies salmon oil, backed by a 90-day Friday Zoomies Guarantee" },
   { src: `${DIR}/pdp-v2/day-1-day-90.webp`, alt: "Day 1 raw and red paw next to a day 90 soft and shiny paw, with the salmon oil bottle between them" },
   { src: `${DIR}/pdp-v2/targeted-relief.webp`, alt: "Gentle, targeted relief in every pump: salmon oil, DHA and EPA, and mixed tocopherols" },
   { src: `${DIR}/pdp-v2/never-just-an-itch.webp`, alt: "It's never just an itch: obsessive paw licking, head shaking, 3AM scratching, raw red patches and stiff slow mornings" },
