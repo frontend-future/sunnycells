@@ -90,7 +90,7 @@ export function ItchProjection({
             </p>
             <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
               Breaking that cycle starts from the inside. The omega-3s in salmon oil help skin cells
-              settle their own inflammatory response, which is what keeps the itch from coming back.
+              calm their own inflammatory response, which is what keeps the itch from coming back.
               Given daily, the skin gets a chance to heal.
             </p>
             <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
