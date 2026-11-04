@@ -3,5 +3,5 @@ import { ItchStory } from "@/components/itch-quiz/ItchStory";
 
 
 export default function StoryPage() {
-  return <ItchStory quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/plans" />;
+  return <ItchStory quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/plans" oil />;
 }

@@ -27,11 +27,14 @@ export function ItchProjection({
   quizId = itchQuiz.id,
   nextHref = "/quiz/itch-old/results/comfort",
   greatlyReduced = false,
+  oil = false,
 }: {
   quizId?: string;
   nextHref?: string;
   /** Friday Zoomies copy: "greatly relieve" headline and a two-sided (spray + chew) explanation, in place of the High to Low framing. */
   greatlyReduced?: boolean;
+  /** Pure Omega Salmon Oil copy: the omega-3 explanation in place of the histamine, spray and chew one. */
+  oil?: boolean;
 } = {}) {
   const { answers, ready } = useAnswers(quizId);
   const { t } = useBrand();
@@ -68,7 +71,7 @@ export function ItchProjection({
             startLabel={monthYear(new Date())}
             endLabel={monthYear(addDays(56))}
             format={format}
-            planLabel={t("With SC-01 Daily Chews")}
+            planLabel={oil ? "With Pure Omega Salmon Oil" : t("With SC-01 Daily Chews")}
             compareLabel="Left untreated"
             compareColor="var(--status-error)"
             compare={untreated}
@@ -79,6 +82,25 @@ export function ItchProjection({
       ) : null}
 
       <div style={{ marginTop: "var(--space-8)", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
+        {oil ? (
+          <>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              When your dog&apos;s skin is irritated, it can get stuck in a nonstop scratch-lick-chew
+              cycle, often without any obvious trigger.
+            </p>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              Breaking that cycle starts from the inside. The omega-3s in salmon oil help skin cells
+              settle their own inflammatory response, which is what keeps the itch from coming back.
+              Given daily, the skin gets a chance to heal.
+            </p>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
+              When you start giving {name} Pure Omega Salmon Oil, <strong>we estimate their itching
+              will be greatly reduced within the first 2 weeks.</strong> We matched this against dogs
+              with a similar profile (size, age, and current scratching frequency).
+            </p>
+          </>
+        ) : (
+          <>
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
           When your dog&apos;s immune system overreacts to something harmless, like pollen,
           dust, or a new food, it releases histamine. That&apos;s what turns a normal itch
@@ -112,6 +134,8 @@ export function ItchProjection({
               from high to low within the first 2 weeks. We matched this against dogs with a
               similar profile (size, age, and current scratching frequency).
             </p>
+          </>
+        )}
           </>
         )}
       </div>

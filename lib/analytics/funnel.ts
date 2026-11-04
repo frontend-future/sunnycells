@@ -50,7 +50,7 @@ const RESULTS: Record<string, string[]> = {
   /* A deep clone of the original itch quiz at /quiz/itch (the Friday Zoomies funnel, now the live itch quiz). Same results flow. */
   itch: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
   /* The same Friday Zoomies itch funnel again at /quiz/itch/v2, ending at the salmon oil plans page and its checkout. */
-  "itch/v2": ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
+  "itch/v2": ["analyzing", "summary", "projection", "why-it-returns", "omega-3", "easy-daily", "what-to-expect", "more-than-relief", "story", "plans", "checkout"],
   joint: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
 };
 

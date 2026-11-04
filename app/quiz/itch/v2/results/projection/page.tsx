@@ -3,5 +3,5 @@ import { ItchProjection } from "@/components/itch-quiz/ItchProjection";
 
 
 export default function ProjectionPage() {
-  return <ItchProjection quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/comfort" greatlyReduced />;
+  return <ItchProjection quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/why-it-returns" greatlyReduced oil />;
 }

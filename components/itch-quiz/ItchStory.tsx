@@ -35,10 +35,17 @@ const POINTS = [
   { lead: "The hot spots and bald patches cleared up completely", rest: `. {owner} had tried three different vet-prescribed treatments before this, but nothing worked until they addressed the root cause.` },
 ];
 
+/* Shorter version for the oil funnel: two points, same placeholder footing as above. */
+const OIL_POINTS = [
+  { lead: `${STORY_DOG_NAME} sleeps through the night without scratching`, rest: "." },
+  { lead: "The hot spots cleared up", rest: `, and ${STORY_DOG_NAME} is excited for walks again.` },
+];
+
 export function ItchStory({
   quizId = itchQuiz.id,
   nextHref = "/quiz/itch-old/results/plans",
-}: { quizId?: string; nextHref?: string } = {}) {
+  oil = false,
+}: { quizId?: string; nextHref?: string; oil?: boolean } = {}) {
   const { answers } = useAnswers(quizId);
   const { t, storyImage = "/quiz/itch/story-sarah.webp", storyAlt, storyQuote = QUOTE, storyOwner = OWNER_NAME } = useBrand();
   /* Her own dog's name is read only so the CTA below can speak to her
@@ -60,12 +67,12 @@ export function ItchStory({
           lineHeight: "var(--leading-snug)",
         }}
       >
-        {t("SC-01 Daily Chews helped")} {STORY_DOG_NAME} stop scratching in {WEEKS} weeks.
+        {oil ? "Pure Omega Salmon Oil helped" : t("SC-01 Daily Chews helped")} {STORY_DOG_NAME} stop scratching in {WEEKS} weeks.
       </h1>
 
       <Image
         src={storyImage}
-        alt={storyAlt ?? `${OWNER_NAME} holding a jar of ${t("SC-01 Daily Chews")} next to ${STORY_DOG_NAME}, her happy, healthy-looking dog`}
+        alt={storyAlt ?? (oil ? `${OWNER_NAME} with ${STORY_DOG_NAME}, her happy, healthy-looking dog` : `${OWNER_NAME} holding a jar of ${t("SC-01 Daily Chews")} next to ${STORY_DOG_NAME}, her happy, healthy-looking dog`)}
         width={1080}
         height={1480}
         style={{
@@ -85,12 +92,12 @@ export function ItchStory({
       </p>
 
       <p style={{ margin: "var(--space-6) 0 var(--space-5)", fontSize: "var(--size-body)", fontWeight: 800, lineHeight: "var(--leading-body)" }}>
-        Over {WEEKS} weeks of giving {STORY_DOG_NAME} {t("SC-01 Daily Chews")}, {storyOwner} noticed
-        significant changes:
+        {oil ? "What changed:" : <>Over {WEEKS} weeks of giving {STORY_DOG_NAME} {t("SC-01 Daily Chews")}, {storyOwner} noticed
+        significant changes:</>}
       </p>
 
       <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-        {POINTS.map((p) => (
+        {(oil ? OIL_POINTS : POINTS).map((p) => (
           <li key={p.lead} style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start" }}>
             <span
               aria-hidden="true"

@@ -3,5 +3,5 @@ import { ItchSummary } from "@/components/itch-quiz/ItchSummary";
 
 
 export default function SummaryPage() {
-  return <ItchSummary quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/projection" lede="because of the following:" />;
+  return <ItchSummary quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/projection" lede="because of the following:" product="Pure Omega Salmon Oil" />;
 }

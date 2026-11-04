@@ -176,6 +176,6 @@ test("the itch funnel at /quiz/itch/v2 is numbered on its own and ends at the oi
   const n = itchFridayZoomiesV2Quiz.steps.length;
   const first = await funnelStepFor(`/quiz/itch/v2/${itchFridayZoomiesV2Quiz.steps[0].slug}`);
   assert.deepEqual(first, { quiz: "itch/v2", index: 1, slug: itchFridayZoomiesV2Quiz.steps[0].slug, stage: "question" });
-  assert.equal((await funnelStepFor("/quiz/itch/v2/results/plans"))?.index, n + 7);
-  assert.equal((await funnelStepFor("/quiz/itch/v2/checkout/oil"))?.index, n + 8);
+  assert.equal((await funnelStepFor("/quiz/itch/v2/results/plans"))?.index, n + 10);
+  assert.equal((await funnelStepFor("/quiz/itch/v2/checkout/oil"))?.index, n + 11);
 });
