@@ -12,7 +12,7 @@ const MONTHS = (name: string) => [
 
 export default function Page() {
   return (
-    <ItchEducation quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/more-than-relief" video="what-to-expect" title="What to expect">
+    <ItchEducation quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/more-than-relief" video="what-to-expect" title="What to expect" cta={(name) => `See what else it does for ${name}`}>
       {({ name }) => (
         <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
           {MONTHS(name).map((m) => (

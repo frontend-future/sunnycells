@@ -11,7 +11,7 @@ export default function Page() {
   const he = { Male: "he", Female: "she" }[answers.gender as string] ?? "they";
 
   return (
-    <ItchEducation quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/what-to-expect" video="easy-daily" title="The best part of their day">
+    <ItchEducation quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/what-to-expect" video="easy-daily" title="The best part of their day" cta={(name) => `See what to expect for ${name}`}>
       {({ name }) => (
         <>
           <p style={{ margin: 0 }}>Dogs love the taste, even the picky eaters.</p>

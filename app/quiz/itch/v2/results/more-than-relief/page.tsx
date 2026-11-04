@@ -5,7 +5,7 @@ import { ItchEducation } from "@/components/itch-quiz/ItchEducation";
 
 export default function Page() {
   return (
-    <ItchEducation quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/story" video="more-than-relief" title="More than just itch relief">
+    <ItchEducation quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/story" video="more-than-relief" title="More than just itch relief" cta={() => "See how it worked for another dog"}>
       {({ name }) => (
         <>
           The same omega-3s support <strong>joint health</strong> and a <strong>sharp mind</strong>, which helps {name} live a long and happy life.
