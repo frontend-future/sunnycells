@@ -13,6 +13,7 @@ export function ItchEducation({
   nextHref,
   video,
   title,
+  cta,
   children,
 }: {
   quizId: string;
@@ -20,6 +21,8 @@ export function ItchEducation({
   /** File name under /quiz/fridayzoomies/edu, without the extension. */
   video: string;
   title: string;
+  /** Button text, given the dog's name. Defaults to Continue. */
+  cta?: (name: string) => string;
   /** The copy. A function gets the dog's name and what she already tried. */
   children: ReactNode | ((c: { name: string; tried: string[] }) => ReactNode);
 }) {
@@ -67,7 +70,7 @@ export function ItchEducation({
       </div>
 
       <StickyCta>
-        <NextButton href={nextHref}>Continue</NextButton>
+        <NextButton href={nextHref}>{cta ? cta(name) : "Continue"}</NextButton>
       </StickyCta>
     </ResultsShell>
   );
