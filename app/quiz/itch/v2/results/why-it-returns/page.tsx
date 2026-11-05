@@ -21,7 +21,7 @@ export default function Page() {
 
   return (
     <ItchEducation quizId={itchFridayZoomiesQuiz.id} nextHref="/quiz/itch/v2/results/omega-3" video="why-it-returns" title="Why the itching keeps coming back" cta={(name) => `See what ${name}'s skin cells need`}>
-      {(lines.length ? lines : [GENERIC]).join(" ")} Healthy skin starts from the inside.
+      {(lines.length ? lines : [GENERIC]).join(" ")} Healthy skin starts by addressing the root cause from within.
     </ItchEducation>
   );
 }
