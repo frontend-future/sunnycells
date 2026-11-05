@@ -139,15 +139,15 @@ export function ageFromAnswers(answers: Record<string, string>): number | null {
     same quiz (a pet's name, say), or `fallback` if she has not reached that
     step yet. A quiz that never writes "{name}" into its own copy is untouched:
     replacing a substring that is not there is a no-op. */
-function personalize(text: string, name: string): string {
-  return text.includes("{name}") ? text.split("{name}").join(name) : text;
+function personalize(text: string, name: string, pumps: string): string {
+  return text.split("{name}").join(name).split("{pumps}").join(pumps);
 }
 
 /** Applies `personalize` to every string field a step can show, so a question
     written once with "{name}" in it reads correctly wherever the engine quotes
     it back to her, without every screen doing its own find-and-replace. */
-export function personalizeStep(step: Step, name: string): Step {
-  const p = (s: string) => personalize(s, name);
+export function personalizeStep(step: Step, name: string, pumps = ""): Step {
+  const p = (s: string) => personalize(s, name, pumps);
   switch (step.kind) {
     case "single":
     case "multi":
@@ -156,6 +156,7 @@ export function personalizeStep(step: Step, name: string): Step {
       return {
         ...step,
         question: p(step.question),
+        cta: p(step.cta),
         body: p(step.body),
         footnote: step.footnote ? p(step.footnote) : step.footnote,
         bullets: step.bullets?.map((b) => (typeof b === "string" ? p(b) : { strong: p(b.strong), rest: p(b.rest) })),

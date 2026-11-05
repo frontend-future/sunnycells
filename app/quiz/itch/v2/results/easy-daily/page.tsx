@@ -2,12 +2,12 @@
 
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { ItchEducation } from "@/components/itch-quiz/ItchEducation";
+import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
 import { useAnswers } from "@/lib/quiz/store";
 
 export default function Page() {
   const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
-  // Label dosing is 1 pump up to 40 lbs, 2 over. Medium (20-50 lbs) straddles that, so it gets 1.
-  const pumps = /^(Large|Extra large)/.test(answers["dog-size"] ?? "") ? 2 : 1;
+  const pumps = pumpsPerDay(answers);
   const he = { Male: "he", Female: "she" }[answers.gender as string] ?? "they";
 
   return (

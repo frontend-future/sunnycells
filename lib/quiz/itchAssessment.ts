@@ -12,6 +12,11 @@ export function dogName(a: Answers): string {
   return a["dog-name"]?.trim() || "your dog";
 }
 
+/** Label dosing is 1 pump up to 40 lbs, 2 over. Medium (20-50 lbs) straddles that, so it gets 1. */
+export function pumpsPerDay(a: Answers): 1 | 2 {
+  return /^(Large|Extra large)/.test(a["dog-size"] ?? "") ? 2 : 1;
+}
+
 const has = (a: Answers, slug: string, option: string) => (a[slug]?.split("|") ?? []).includes(option);
 const count = (a: Answers, slug: string, exclude: string) =>
   (a[slug]?.split("|") ?? []).filter((v) => v && v !== exclude).length;

@@ -11,6 +11,7 @@ import { Input } from "@/components/forms/Input";
 import { useAnswers, type Answers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import { rememberCompleted } from "@/lib/quiz/completed";
+import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
 import { buildAnswersPayload, nextHref, personalizeStep, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
@@ -35,6 +36,7 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
   const step = personalizeStep(
     config.steps[index],
     config.titleCaseName && answers["dog-name"]?.trim() ? rawName.replace(/(^|\s)(\S)/g, (_, sp, c) => sp + c.toUpperCase()) : rawName,
+    pumpsPerDay(answers) === 2 ? "Two pumps" : "One pump",
   );
   const router = useRouter();
   const go = () => router.push(nextHref(config, index));
