@@ -5,10 +5,9 @@ import Image from "next/image";
 import { RATING } from "@/lib/products/dog-itch";
 import styles from "@/app/quiz/itch/theme.module.css";
 import { FridayZoomiesPdpV2 } from "@/components/itch-quiz/FridayZoomiesPdpV2";
-import { FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
 import { FZ_PLANS_CONTENT_V2 } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
-import { FIRST } from "@/lib/quiz/fzOrder";
+import { FIRST, OIL_NAME } from "@/lib/quiz/fzOrder";
 import { readAnswers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import { useRouter } from "next/navigation";
@@ -36,7 +35,7 @@ const HERO_CTA: React.CSSProperties = {
 const trackCheckout = () =>
   trackMetaEvent(
     "InitiateCheckout",
-    { currency: "USD", value: FIRST, content_ids: ["inside-out-itch-bundle"], content_type: "product", content_name: FZ_PRODUCT_NAME },
+    { currency: "USD", value: FIRST, content_ids: ["pure-omega-salmon-oil"], content_type: "product", content_name: OIL_NAME },
     { email: readAnswers(itchFridayZoomiesQuiz.id).email },
   );
 
