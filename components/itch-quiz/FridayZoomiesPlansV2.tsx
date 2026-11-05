@@ -8,7 +8,8 @@ import { FridayZoomiesPdpV2 } from "@/components/itch-quiz/FridayZoomiesPdpV2";
 import { FZ_PLANS_CONTENT_V2 } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { FIRST, OIL_NAME } from "@/lib/quiz/fzOrder";
-import { readAnswers } from "@/lib/quiz/store";
+import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
+import { readAnswers, useAnswers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import { useRouter } from "next/navigation";
 // import { useEffect, useState } from "react"; // checkout split test, see below
@@ -42,6 +43,12 @@ const trackCheckout = () =>
 export function FridayZoomiesPlansV2() {
   const router = useRouter();
   const destination = DESTINATION;
+  const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
+  const pumps = pumpsPerDay(answers) === 2 ? "Two easy pumps per day target" : "One easy pump per day targets";
+  const content = {
+    ...FZ_PLANS_CONTENT_V2,
+    howItWorks: FZ_PLANS_CONTENT_V2.howItWorks.map((h) => ({ ...h, body: h.body.replace("{pumps}", pumps) })),
+  };
   /* The checkout split test, kept for the next one. PostHog flag "checkout-split": variant "two-step" went
      to the v2 checkout, everyone else stayed on the control. Reading the flag when the plans page shows is
      what PostHog counts as the person entering the test. To run a test again, restore the imports above,
@@ -64,7 +71,7 @@ export function FridayZoomiesPlansV2() {
   };
   return (
     <PlansScreen
-      content={FZ_PLANS_CONTENT_V2}
+      content={content}
       destinationHref={destination}
       planCtaLabel="Try now"
       heroTitleClassName={`${styles.sentence} ${styles.heroTitle}`}

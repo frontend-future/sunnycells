@@ -74,7 +74,7 @@ export const FZ_PLANS_CONTENT_V2: PlansContent = {
     {
       ...FZ_PLANS_CONTENT.howItWorks[1],
       title: "2. Give it daily for lasting relief",
-      body: "One easy pump a day works from the inside out.",
+      body: "{pumps} the root cause from within.", // {pumps} is filled in by FridayZoomiesPlansV2 from the dog size
       illustration: `${PLANS_DIR}/how-daily.webp`,
     },
     {
