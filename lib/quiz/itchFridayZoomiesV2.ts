@@ -18,7 +18,7 @@ export const itchFridayZoomiesV2Quiz: QuizConfig = {
           /* **bold** and __underline__ are drawn by StepScreen's info body. */
           body: `Pure Omega Salmon Oil gives {name} daily **omega-3 support** from the __inside__ so that {name} stops itching for good.
 
-**Works from the inside:** Salmon oil contains EPA and DHA, the omega-3s skin cells use to keep the skin barrier strong and calm their own inflammatory response. It's 100% natural with no steroids, and dogs love the taste.
+Salmon oil contains EPA and DHA, the omega-3s skin cells use to keep the skin barrier strong and calm their own inflammatory response. It's 100% natural with no steroids, and dogs love the taste.
 
 {pumps} with meal time will:`,
         }
