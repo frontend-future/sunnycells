@@ -86,8 +86,9 @@ export async function createOrder(o: OrderInput): Promise<{ id: string; name: st
       {
         order: ord,
         options: {
-          sendReceipt: o.notify ?? true,
-          sendFulfillmentReceipt: o.notify ?? true,
+          /* First orders only. A renewal is announced by the pre-billing email in Loops, so no order confirmation. */
+          sendReceipt: o.first && (o.notify ?? true),
+          sendFulfillmentReceipt: o.first && (o.notify ?? true),
           inventoryBehaviour: "DECREMENT_IGNORING_POLICY",
         },
       },
