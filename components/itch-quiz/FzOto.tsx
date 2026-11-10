@@ -17,12 +17,13 @@ export type OtoProps = {
   price: number;
   acceptHref: string;
   declineHref: string;
-  whatsNext: string[];
+  /** The last line of "What happens next", which differs between the offer and the downsell. */
+  nextLast: string;
 };
 
 const STEPS = ["Cart", "Payment", "Add-on", "Done"];
 
-export function FzOto({ step, headline, subhead, intro, price, acceptHref, declineHref, whatsNext }: OtoProps) {
+export function FzOto({ step, headline, subhead, intro, price, acceptHref, declineHref, nextLast }: OtoProps) {
   const save = PRICE - price;
   return (
     <div className={s.page}>
@@ -53,18 +54,18 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className={s.bottle} src={`${IMG}/oil-bottle.webp`} alt={FZ_OIL_NAME} />
           <div className={s.offerBody}>
-            <h2 className={s.h2}>Add on: a backup bottle</h2>
+            <h2 className={s.h2}>Add on: first month loading phase</h2>
             <p className={s.priceRow}>
               <del>{formatPrice(PRICE)}</del> <strong>{formatPrice(price)}</strong> <span className={s.save}>Save {formatPrice(save)}</span>
             </p>
             <p className={s.rating}>
               <span className={s.stars} aria-hidden="true">★★★★★</span> {RATING.score} · {RATING.count} reviews
             </p>
-            <p className={s.body}>A second bottle of {FZ_OIL_NAME}, added to this order. This is a one-time payment, not a subscription.</p>
+            <p className={s.body}>An additional bottle of {FZ_OIL_NAME} to cover your loading phase. Please note: this is a one-time payment.</p>
             <dl className={s.rows}>
               <div><dt>Shipping</dt><dd>Free</dd></div>
             </dl>
-            <Link className={s.cta} href={acceptHref}>Add a backup bottle for {formatPrice(price)}</Link>
+            <Link className={s.cta} href={acceptHref}>Get {formatPrice(save)} off your loading phase bottle · {formatPrice(price)}</Link>
             <Link className={s.decline} href={declineHref}>Decline this offer</Link>
           </div>
         </section>
@@ -72,26 +73,28 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
         <section className={s.block}>
           <h2 className={s.h2c}>Why this can help</h2>
           <p className={s.center}>
-            Salmon oil works best given every day, and relief builds over the first 90 days. A second bottle means a late
-            delivery or a weekend away never leaves a gap in the routine.
+            Omega-3s work best when they&apos;re given consistently over time. A short &quot;loading phase&quot; can help build up
+            EPA and DHA faster, which <strong>may lead to earlier improvements in skin comfort.</strong>
           </p>
         </section>
 
         <section className={s.block}>
           <h2 className={s.h2c}>Good to know</h2>
-          <p className={s.center}><strong>The dose does not change.</strong> Up to 40 lbs is 1 pump a day, over 40 lbs is 2 pumps. Give half for the first week.</p>
-          <p className={s.center}>Keep it somewhere cool and dark with the pump closed. Check with your vet before giving more than the label says.</p>
+          <p className={s.center}><strong>The loading phase lasts the first 30 days</strong>, then you return to the standard amount.</p>
+          <p className={s.center}>If your dog has a sensitive stomach, start with the half amount from the label for the first week before moving up. Check with your vet first if your dog has a health condition or takes medication.</p>
         </section>
 
         <section className={s.block}>
-          <h2 className={s.h2c}>The first 90 days</h2>
+          <h2 className={s.h2c}>Day 1 to Day 90</h2>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={s.hero} src="/quiz/fridayzoomies/pdp-v2/day-1-day-90.webp" alt="Day 1 and Day 90 of the first 90 days on Pure Omega Salmon Oil" />
+          <img className={s.hero} src="/quiz/fridayzoomies/pdp-v2/day-1-day-90.webp" alt="Day 1 and Day 90 on Pure Omega Salmon Oil" />
         </section>
 
         <section className={s.block}>
-          <h2 className={s.h2c}>What happens next</h2>
-          {whatsNext.map((t) => <p className={s.center} key={t}>{t}</p>)}
+          <h2 className={s.h2c}>What&apos;s next?</h2>
+          <p className={s.center}>Loading phase means giving twice your dog&apos;s usual daily amount for the first 30 days: 2 pumps a day up to 40 lbs, 4 pumps over 40 lbs.</p>
+          <p className={s.center}>To make sure you don&apos;t run out early, you&apos;ll need to add one additional bottle today.</p>
+          <p className={s.center}>{nextLast}</p>
         </section>
 
         <section className={s.promise}>
@@ -99,12 +102,12 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
           <img src="/quiz/fridayzoomies/checkout/badge-90.webp" alt="" />
           <h2 className={s.promiseH}>The 90-day promise</h2>
           <p>
-            Your backup bottle is covered by our 90-Day Itch-Free Guarantee. Email{" "}
+            Double servings are risk free and covered by our 90-Day Itch-Free Guarantee. Email{" "}
             <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a> and we&apos;ll take care of you.
           </p>
         </section>
 
-        <p className={s.confirm}>Your order is confirmed. Adding a bottle does not change your subscription.{step === 2 ? " This is the last offer." : ""}</p>
+        <p className={s.confirm}>Your order is confirmed. Adding a bottle does not change your subscription.</p>
       </main>
     </div>
   );

@@ -9,16 +9,13 @@ export default function Oto1Downsell() {
   return (
     <FzOto
       step={2}
-      headline="One last offer"
-      subhead="Add a backup bottle and save $25."
-      intro="Same bottle, a lower price. A second bottle means a late delivery or a trip never breaks the routine."
+      headline="One final offer!"
+      subhead="Add now and save $25."
+      intro="We genuinely recommend it: double up for the first 30 days to help your dog feel the benefits sooner, then go back to the regular daily amount."
       price={25}
       acceptHref="/quiz/itch/thanks?product=oil"
       declineHref="/quiz/itch/thanks?product=oil"
-      whatsNext={[
-        "Your backup bottle is a one-time purchase and ships with your first order, with the same free shipping.",
-        "Your subscription carries on as before, with a new bottle every 4 weeks.",
-      ]}
+      nextLast="Click the button above to unlock your one-time $25 off and add a single extra bottle to your order."
     />
   );
 }
