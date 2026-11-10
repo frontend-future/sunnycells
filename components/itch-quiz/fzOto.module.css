@@ -32,10 +32,11 @@
 .rating { margin: 0; font-size: 18px; font-weight: 600; color: var(--ink-80); }
 .stars { color: var(--sun-press); letter-spacing: 2px; }
 .body { margin: 0; font-size: 20px; font-weight: 500; line-height: 1.45; color: var(--ink-80); }
-.rows { margin: 4px 0 0; padding: 12px 0; border-top: 1px solid var(--ink-20); border-bottom: 1px solid var(--ink-20); }
+.actions { display: grid; gap: 10px; }
+.rows { margin: 0; padding: 12px 0; border-top: 1px solid var(--ink-20); border-bottom: 1px solid var(--ink-20); }
 .rows div { display: flex; justify-content: space-between; font-size: 18px; font-weight: 600; }
 .rows dt, .rows dd { margin: 0; }
-.cta { display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 12px 20px; border-radius: var(--radius-button); background: var(--action-accent-bg); color: var(--action-accent-fg); font-family: var(--font-display); font-weight: 800; font-size: 19px; text-align: center; text-decoration: none; }
+.cta { display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 12px 20px; border-radius: 12px; background: var(--action-accent-bg); color: var(--action-accent-fg); font-family: var(--font-display); font-weight: 800; font-size: 19px; text-align: center; text-decoration: none; }
 .cta:hover { background: var(--action-accent-bg-press); }
 .decline { display: flex; align-items: center; justify-content: center; min-height: 48px; font-size: 18px; font-weight: 600; color: var(--cobalt); }
 
@@ -54,4 +55,5 @@
 
 @media (min-width: 640px) {
   .offer { grid-template-columns: 200px 1fr; align-items: start; }
+  .actions { grid-column: 1 / -1; }
 }

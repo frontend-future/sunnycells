@@ -62,6 +62,8 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
               <span className={s.stars} aria-hidden="true">★★★★★</span> {RATING.score} · {RATING.count} reviews
             </p>
             <p className={s.body}>An additional bottle of {FZ_OIL_NAME} to cover your loading phase. Please note: this is a one-time payment.</p>
+          </div>
+          <div className={s.actions}>
             <dl className={s.rows}>
               <div><dt>Shipping</dt><dd>Free</dd></div>
             </dl>
