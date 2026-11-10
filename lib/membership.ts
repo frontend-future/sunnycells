@@ -181,5 +181,5 @@ export function notifyOwner(title: string, email: string, lines: Record<string, 
     .filter(([, v]) => v !== undefined && v !== null && v !== "")
     .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5C6675;vertical-align:top">${esc(k)}</td><td>${esc(String(v))}</td></tr>`)
     .join("");
-  return sendAlert(`Membership: ${title}: ${email}`, `<h2 style="margin:0 0 12px">${esc(title)}</h2><p><strong>Email:</strong> ${esc(email)}</p><table style="border-collapse:collapse;font-size:13px">${rows}</table>`, { ownerOnly: true });
+  return sendAlert(`Membership: ${title}: ${email}`, `<h2 style="margin:0 0 12px">${esc(title)}</h2><p><strong>Email:</strong> ${esc(email)}</p><table style="border-collapse:collapse;font-size:13px">${rows}</table>`, { ownerOnly: true, to: "jake@fridayzoomies.com" });
 }
