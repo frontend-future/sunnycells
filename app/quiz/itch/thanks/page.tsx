@@ -34,6 +34,17 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
         <h1 className={s.h1}>Thank you, your order is in</h1>
         <p className={s.lead}>Here is what happens next.</p>
 
+        {oil && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className={s.first90}
+            src="/quiz/fridayzoomies/thanks/first-90-days.webp"
+            width={1200}
+            height={2244}
+            alt="Your first 90 days. Day 1, start routine: pump the oil over their food, half the amount the first week, to start supporting the skin barrier. Day 30, calmer skin begins: EPA and DHA build up with daily use. Day 90, this is where it really shows: less scratching, less paw licking, calmer skin and a shinier coat. Every dog is different, some turn the corner sooner, others closer to day 90."
+          />
+        )}
+
         <ol className={s.steps}>
           {steps.map((st, i) => (
             <li key={st.title} className={s.step}>
