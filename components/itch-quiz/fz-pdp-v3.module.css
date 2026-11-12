@@ -443,6 +443,14 @@
   height: 10px;
   border-radius: 50%;
   background: var(--sun);
+  animation: dotPulse 1.8s ease-out infinite;
+}
+@keyframes dotPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 200, 69, 0.7); }
+  70%, 100% { box-shadow: 0 0 0 9px rgba(255, 200, 69, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avail::before { animation: none; }
 }
 .guar {
   position: relative;
