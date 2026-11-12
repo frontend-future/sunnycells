@@ -8,7 +8,6 @@ import { FridayZoomiesLabelDrawerV2 } from "@/components/itch-quiz/FridayZoomies
 import { RATING } from "@/lib/products/dog-itch";
 import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { FIRST, PRICE } from "@/lib/quiz/fzOrder";
-import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
 import styles from "./fz-pdp-v3.module.css";
@@ -90,11 +89,11 @@ function Ingredients() {
  * the gallery beside the buy column, then the weight buttons, the one plan card, the button
  * and the guarantee panel. The detail accordions follow.
  *
- * The weight buttons start on the quiz answer. Picking another only changes the dose line,
+ * The weight buttons start on the quiz answer. Picking another changes nothing else,
  * since every size is the same price and plan.
  */
 export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean> | void }) {
-  const { answers, ready } = useAnswers(itchFridayZoomiesQuiz.id);
+  const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
   const quizSize = WEIGHTS.find((w) => answers["dog-size"]?.replace(/[–]/g, "-") === w.value)?.value;
   const [picked, setPicked] = useState<string | null>(null);
   const weight = picked ?? quizSize ?? null;
@@ -277,9 +276,6 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                   </button>
                 ))}
               </div>
-              {ready && weight ? (
-                <p className={styles.dose}>{pumpsPerDay({ "dog-size": weight }) === 2 ? "2 pumps" : "1 pump"} a day over their food</p>
-              ) : null}
             </div>
 
             <div className={`${styles.step} ${styles.planStep}`}>
