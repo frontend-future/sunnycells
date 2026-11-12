@@ -43,6 +43,8 @@ const TRIAL = 29.99;
 /* The one time price, which is also what the struck-through prices are built from. */
 const ONCE = 57.99;
 const TRIAL_WAS = ONCE;
+/* What a one time buyer pays to ship, struck through next to FREE. */
+const SHIPPING = 8.65;
 const money = (n: number) => `$${n.toFixed(2)}`;
 /* The trial spread over its 28 days. */
 const PER_DAY = (TRIAL / 28).toFixed(2);
@@ -271,7 +273,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                         </li>
                         <li className={styles.li}>
                           <div className={styles.liLeft}><Check /><p className={styles.liLabel}>FREE Shipping</p></div>
-                          <p className={styles.liPrice}><b>FREE</b></p>
+                          <p className={styles.liPrice}><s>{money(SHIPPING)}</s><b>FREE</b></p>
                         </li>
                         <li className={styles.li}>
                           <div className={styles.liLeft}><Check /><p className={styles.liLabel}>90-Day Money Back Guarantee</p></div>
