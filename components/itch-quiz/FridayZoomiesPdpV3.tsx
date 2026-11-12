@@ -45,8 +45,8 @@ const money = (n: number) => `$${n.toFixed(2)}`;
 /* The trial spread over its 28 days. */
 const PER_DAY = (TRIAL / 28).toFixed(2);
 
-/* The 3 month plan: 3 bottles for $79.99 against 3 times the trial's $66.65 list price, spread over 84 days. */
-const PLAN3_PRICE = 79.99;
+/* The 3 month plan: 3 bottles for $74.99 against 3 times the trial's $66.65 list price, spread over 84 days. */
+const PLAN3_PRICE = 74.99;
 const PLAN3_WAS = Math.round(3 * TRIAL_WAS * 100) / 100;
 const PLAN3_PER_DAY = (PLAN3_PRICE / 84).toFixed(2);
 
