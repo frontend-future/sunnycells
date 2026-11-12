@@ -8,7 +8,6 @@ import { FridayZoomiesLabelDrawerV2 } from "@/components/itch-quiz/FridayZoomies
 import { RATING } from "@/lib/products/dog-itch";
 import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { formatPrice } from "@/lib/price";
-import { FIRST, PRICE } from "@/lib/quiz/fzOrder";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
 import styles from "./fz-pdp-v3.module.css";
@@ -40,13 +39,17 @@ const WEIGHTS = [
   { label: "90+ lbs", value: "Extra large (90+ lbs)" },
 ];
 
-/* The first order spread over its 28 days. */
-const PER_DAY = (FIRST / 28).toFixed(2);
+/* The 1 month trial's own prices, with cents. Not the v2 checkout's FIRST and PRICE, which are whole dollars. */
+const TRIAL = 29.99;
+const TRIAL_WAS = 66.65;
+const money = (n: number) => `$${n.toFixed(2)}`;
+/* The trial spread over its 28 days. */
+const PER_DAY = (TRIAL / 28).toFixed(2);
 
 /* The 3 month plan on the same ladder as the old chews funnel: $23 a month, so $69 for 3 bottles against
    $150 at full price. A placeholder until the plan exists in Shopify. */
 const PLAN3_PRICE = 3 * 23;
-const PLAN3_WAS = 3 * PRICE;
+const PLAN3_WAS = 150;
 const PLAN3_PER_DAY = (PLAN3_PRICE / 84).toFixed(2);
 
 /* Hours, minutes and seconds left in the shopper's own day, so it is always under 24 hours. Null until
@@ -126,7 +129,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
 
   const ctaLabel = (
     <>
-      TRY RISK FREE | {formatPrice(plan === 1 ? FIRST : PLAN3_PRICE)} <s style={{ marginLeft: 8, opacity: 0.7 }}>{formatPrice(plan === 1 ? PRICE : PLAN3_WAS)}</s>
+      TRY RISK FREE | {plan === 1 ? money(TRIAL) : formatPrice(PLAN3_PRICE)} <s style={{ marginLeft: 8, opacity: 0.7 }}>{plan === 1 ? money(TRIAL_WAS) : formatPrice(PLAN3_WAS)}</s>
     </>
   );
 
@@ -264,7 +267,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                       <ul className={styles.ledger}>
                         <li className={styles.li}>
                           <div className={styles.liLeft}><Check /><p className={styles.liLabel}>1 Month Supply of Pure Omega Salmon Oil</p></div>
-                          <p className={styles.liPrice}><s>${PRICE}</s><b>${FIRST}</b></p>
+                          <p className={styles.liPrice}><s>{money(TRIAL_WAS)}</s><b>{money(TRIAL)}</b></p>
                         </li>
                         <li className={styles.li}>
                           <div className={styles.liLeft}><Check /><p className={styles.liLabel}>FREE Shipping</p></div>
