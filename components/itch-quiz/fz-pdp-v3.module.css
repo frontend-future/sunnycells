@@ -1,0 +1,420 @@
+/* The Friday Zoomies product block on the v3 plans page, laid out like Wuffes' above the
+   fold. A phone stacks image, thumbnails, then the buy column; from 960px up the thumbnails
+   run down the left and the buy column sits beside the image. Colours and the display face
+   come from the funnel's theme variables. */
+.pdp {
+  background: var(--cloud);
+  padding: 0;
+  font-family: var(--font-text), "Figtree", sans-serif;
+  color: var(--midnight);
+}
+
+/* The offer banner across the top. */
+.banner {
+  background: var(--midnight);
+  padding: 12px 18px;
+}
+.bannerIn {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bannerHead {
+  font: 800 clamp(20px, 5.6vw, 28px)/1.05 var(--font-display);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--sun);
+}
+.bannerSub {
+  font: 700 14px/1.2 var(--font-text), "Figtree", sans-serif;
+  color: var(--cloud);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "main" "thumbs" "label" "buy";
+  gap: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 18px 18px 28px;
+}
+.thumbs {
+  display: flex;
+  gap: 8px;
+  grid-area: thumbs;
+}
+.thumb {
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #8EC5F2;
+  cursor: pointer;
+  line-height: 0;
+}
+.thumbOn {
+  border-color: var(--midnight);
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.main {
+  touch-action: pan-y;
+  grid-area: main;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #8EC5F2;
+}
+.main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--midnight);
+  background: #8EC5F2;
+  color: var(--midnight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.arrowL { left: 10px; }
+.arrowR { right: 10px; }
+.label {
+  grid-area: label;
+  margin-top: -6px;
+  border: 1.5px solid var(--midnight);
+  border-radius: 999px;
+  padding: 13px;
+  background: transparent;
+  color: var(--midnight);
+  font: 700 14px/1 var(--font-text), "Figtree", sans-serif;
+  cursor: pointer;
+}
+
+.buy {
+  grid-area: buy;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.title {
+  margin: 0;
+  text-wrap: balance;
+  font: 800 clamp(34px, 9.4vw, 44px)/0.95 var(--font-display);
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+.rating {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font: 500 14px/1.2 var(--font-text), "Figtree", sans-serif;
+}
+.stars {
+  color: #E8A33C;
+  letter-spacing: 2px;
+}
+.lede {
+  margin: 0;
+  font: 500 17px/1.4 var(--font-text), "Figtree", sans-serif;
+}
+.h {
+  margin: 6px 0 0;
+  font: 800 22px/1 var(--font-display);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.weights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.weight {
+  min-height: 48px;
+  padding: 10px 8px;
+  border: 1.5px solid var(--midnight);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--midnight);
+  font: 600 16px/1.1 var(--font-text), "Figtree", sans-serif;
+  cursor: pointer;
+}
+.weightOn {
+  background: var(--midnight);
+  color: #fff;
+}
+.dose {
+  margin: -4px 0 0;
+  font: 600 15px/1.3 var(--font-text), "Figtree", sans-serif;
+  color: var(--ink-80);
+}
+.ship {
+  margin: -4px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 15px/1.3 var(--font-text), "Figtree", sans-serif;
+}
+
+.plan {
+  border: 2px solid var(--cobalt);
+  border-radius: 4px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 0 3px #CFE4F8;
+}
+.planTag {
+  background: #D7DADF;
+  padding: 10px 14px;
+  text-align: center;
+  font: 800 15px/1 var(--font-text), "Figtree", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.planBody {
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.planTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 800 18px/1.15 var(--font-text), "Figtree", sans-serif;
+}
+.radio {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--midnight);
+  background: radial-gradient(circle, var(--midnight) 0 45%, transparent 48%);
+}
+.planName { flex: 1; }
+.planDay {
+  flex: none;
+  font-weight: 700;
+}
+.planSave {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.planSave::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--midnight);
+}
+.planSave span {
+  position: relative;
+  background: #8EC5F2;
+  border: 1.5px solid var(--midnight);
+  padding: 8px 16px;
+  font: 800 15px/1 var(--font-text), "Figtree", sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.incl {
+  margin: 0;
+  font: 700 15px/1 var(--font-text), "Figtree", sans-serif;
+}
+.inclList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font: 500 15px/1.3 var(--font-text), "Figtree", sans-serif;
+}
+.inclList li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.inclList li > span:nth-child(2) { flex: 1; }
+.tick {
+  color: var(--midnight);
+  font-weight: 800;
+}
+.inclPrice del {
+  color: var(--ink-60);
+  margin-right: 4px;
+}
+.inclPrice strong { font-weight: 800; }
+.planFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font: 500 13px/1.2 var(--font-text), "Figtree", sans-serif;
+}
+.planFoot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.guar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #E6E4DD;
+  border-radius: 4px;
+  padding: 18px 16px;
+}
+.guar p {
+  margin: 0;
+  font: 500 15px/1.4 var(--font-text), "Figtree", sans-serif;
+}
+.guarH {
+  margin: 0 0 10px;
+  font: 800 24px/0.98 var(--font-display);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.guarImg {
+  flex: none;
+  width: 34%;
+  height: auto;
+}
+
+.trust {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+  font: 600 12px/1.3 var(--font-text), "Figtree", sans-serif;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.trust li {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: center;
+}
+.trustDot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.acc {
+  border-top: 1px solid #DCD8CD;
+}
+.accBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #DCD8CD;
+  color: var(--midnight);
+  font: 800 16px/1 var(--font-text), "Figtree", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.accBody {
+  padding: 4px 0 18px;
+  border-bottom: 1px solid #DCD8CD;
+  font: 500 15px/1.5 var(--font-text), "Figtree", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.accBody p {
+  margin: 0;
+}
+.accBody a {
+  color: var(--cobalt);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@media (min-width: 960px) {
+  .banner {
+    padding: 16px 32px;
+  }
+  .bannerIn {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .bannerHead {
+    font-size: 32px;
+  }
+  .bannerSub {
+    font-size: 16px;
+  }
+  .grid {
+    max-width: 1200px;
+    grid-template-columns: 76px minmax(0, 1fr) minmax(400px, 480px);
+    grid-template-areas: "thumbs main buy" "thumbs label buy";
+    grid-template-rows: auto 1fr;
+    gap: 12px 24px;
+    padding: 32px;
+    align-items: start;
+  }
+  .thumbs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .thumb {
+    flex: none;
+    width: 76px;
+    height: 76px;
+  }
+  .label {
+    margin-top: 0;
+    padding: 14px;
+    align-self: start;
+  }
+  .buy {
+    gap: 16px;
+  }
+  .title {
+    font-size: 52px;
+  }
+  .weights {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .trust {
+    font-size: 13px;
+  }
+  .trustDot {
+    width: 46px;
+    height: 46px;
+  }
+  .accBtn {
+    padding: 18px 0;
+  }
+}

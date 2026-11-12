@@ -1,0 +1,742 @@
+"use client";
+
+import { Fragment } from "react";
+import Image from "next/image";
+import { Accordion } from "@/components/navigation/Accordion";
+import { Badge } from "@/components/core/Badge";
+import { BrandText } from "@/components/core/BrandText";
+import { Icon } from "@/components/core/Icon";
+import { StarRating } from "@/components/commerce/StarRating";
+import { Wordmark } from "@/components/core/Wordmark";
+import { useBrand } from "@/components/core/brand";
+import { useAnswers } from "@/lib/quiz/store";
+import { DIET_PLANS_CONTENT, type PlansContent } from "@/lib/quiz/plansContent";
+import { CardBrandMark } from "./CardBrandMark";
+import { UsaFlag } from "./UsaFlag";
+import { PlanCards } from "./PlanCards";
+import { PlansStickyBar } from "./PlansStickyBar";
+
+const PRESS = [
+  { name: "Business Insider", src: "/press/business-insider.webp", width: 256, height: 80 },
+  { name: "Women's Health", src: "/press/womens-health.webp", width: 256, height: 52 },
+  { name: "Healthline", src: "/press/healthline.webp", width: 256, height: 42 },
+  { name: "Sports Illustrated", src: "/press/sports-illustrated.webp", width: 256, height: 78 },
+];
+
+const TESTING = [
+  {
+    badge: "/badges/third-party-tested.webp",
+    title: "3rd party tested",
+    body: "SUNNYCELLS is tested at an independent scientific laboratory to guarantee quality and efficacy.",
+  },
+  {
+    badge: "/badges/heavy-metal-tested.webp",
+    title: "Heavy metal tested",
+    body: "Know with absolute confidence all ingredients have been examined for heavy metals using world class testing methods.",
+  },
+];
+
+const TRUST = [
+  { icon: "truck", label: "Free shipping" },
+  { icon: "flag", label: "SUNNYCELLS is made in the USA", flag: true },
+  { icon: "book-open", label: "Scientifically proven" },
+] as const;
+
+/* Card networks we accept. Rendered from the same marks the checkout field uses, so
+   there is one place to drop the official artwork into. No PayPal: we do not take it.
+   No processor badge either, since none is wired up yet. */
+const PAYMENT_BRANDS = ["visa", "mastercard", "amex", "discover"] as const;
+
+function Section({
+  eyebrow, title, sub, children, tone = "white", id, wide = false,
+}: {
+  /** Raises the container so four cards fit a row instead of three. */
+  wide?: boolean;
+  /** Small line above the heading. Sentence case in the label face, per the system. */
+  eyebrow?: string;
+  title?: string;
+  sub?: string;
+  children: React.ReactNode;
+  tone?: "white" | "shell";
+  id?: string;
+}) {
+  return (
+    <section
+      id={id}
+      style={{
+        background: tone === "shell" ? "var(--surface-sunk)" : "var(--surface-page)",
+        padding: "var(--space-16) var(--page-gutter-mobile)",
+      }}
+    >
+      <div style={{ maxWidth: wide ? 1180 : 960, margin: "0 auto" }}>
+        {eyebrow ? (
+          <div
+            style={{
+              marginBottom: "var(--space-2)",
+              textAlign: "center",
+              fontFamily: "var(--font-label)",
+              fontSize: "var(--size-meta)",
+              fontWeight: 600,
+              letterSpacing: "var(--tracking-mono)",
+              color: "var(--ink-60)",
+            }}
+          >
+            {eyebrow}
+          </div>
+        ) : null}
+        {title ? (
+          <h2
+            style={{
+              margin: "0 0 var(--space-3)",
+              textAlign: "center",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(var(--size-h4), 5.4vw, var(--size-h2))",
+              fontWeight: 900,
+              letterSpacing: "var(--tracking-heading)",
+              lineHeight: "var(--leading-snug)",
+            }}
+          >
+            {title}
+          </h2>
+        ) : null}
+        {sub ? (
+          <p style={{ margin: "0 auto var(--space-8)", maxWidth: 620, textAlign: "center", fontSize: "var(--size-body)", color: "var(--ink-80)" }}>
+            {sub}
+          </p>
+        ) : (
+          title && <div style={{ height: "var(--space-8)" }} />
+        )}
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function Tick() {
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        flex: "none",
+        width: 24,
+        height: 24,
+        borderRadius: "50%",
+        background: "var(--ink)",
+        color: "var(--sun)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Icon name="check" size={15} strokeWidth={3.5} />
+    </span>
+  );
+}
+
+export function PlansScreenV3({
+  destinationHref = "/quiz/diet/results/checkout",
+  planCtaLabel = "Try now",
+  heroCtaLabel = "Get it now",
+  onHeroCtaClick,
+  heroCtaStyle,
+  stickyBuyButton,
+  optimizedImages = false,
+  content = DIET_PLANS_CONTENT,
+  plansSlot,
+  plansSection,
+}: {
+  destinationHref?: string;
+  planCtaLabel?: string;
+  /** The button under the hero bullets, which scrolls to the plans. */
+  heroCtaLabel?: string;
+  /** Replaces the hero button's scroll to the plans, e.g. to go straight to checkout. */
+  onHeroCtaClick?: () => void;
+  heroCtaStyle?: React.CSSProperties;
+  /** The mobile sticky bar becomes the hero button, label and click included. */
+  stickyBuyButton?: boolean;
+  optimizedImages?: boolean;
+  /** Every word and picture on the page. The layout below is the same for both funnels. */
+  content?: PlansContent;
+  /** The plan cards. A funnel passes its own so the page does not need to know which
+      catalogue or cart it is selling out of. */
+  plansSlot?: React.ReactNode;
+  /** Replaces the whole plans section (title, note, cards, trust row) with the funnel's own block. It should carry id="plans" so the sticky bar can find it. */
+  plansSection?: React.ReactNode;
+}) {
+  const { name: brandName } = useBrand();
+  const { answers } = useAnswers(content.quizId);
+  const set = answers.gender === "Male" ? "male" : "female";
+  const productImage = optimizedImages
+    ? content.productImage.replace(/\.png$/, ".webp")
+    : content.productImage;
+
+  return (
+    <div
+      style={{
+        background: "var(--surface-page)",
+        ...(content.accent
+          ? {
+              ["--action-accent-bg" as string]: content.accent.bg,
+              ["--action-accent-bg-press" as string]: content.accent.press,
+              ["--action-accent-fg" as string]: "var(--ink)",
+            }
+          : {}),
+      }}
+    >
+      {/* Plans */}
+      {plansSection ?? (
+      <Section id="plans" title={content.plansTitle} tone="shell">
+        {/* Sits above the cards, where it is an argument for the longer supply rather
+            than a line of small print underneath one. */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "var(--space-4)",
+            maxWidth: 620,
+            margin: "0 auto var(--space-8)",
+          }}
+        >
+          <span
+            aria-hidden="true"
+            style={{
+              flex: "none",
+              width: 48,
+              height: 48,
+              borderRadius: "50%",
+              background: "var(--sun)",
+              color: "var(--ink)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontFamily: "var(--font-display)",
+              fontWeight: 900,
+              fontSize: "var(--size-body)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {content.plansNote.badge}
+          </span>
+          <span style={{ fontSize: "var(--size-body)", lineHeight: 1.35, textAlign: "left" }}>
+            <BrandText>{content.plansNote.body}</BrandText>
+          </span>
+        </div>
+
+        {plansSlot ?? (
+          <PlanCards
+            destinationHref={destinationHref}
+            ctaLabel={planCtaLabel}
+            optimizedImages={optimizedImages}
+          />
+        )}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "var(--space-6) var(--space-8)",
+            marginTop: "var(--space-10)",
+          }}
+        >
+          {TRUST.map((t) => (
+            <div key={t.label} style={{ width: 140, textAlign: "center" }}>
+              <span
+                aria-hidden="true"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 56,
+                  height: 56,
+                  borderRadius: "50%",
+                  border: "1px solid var(--border-hairline)",
+                  background: "var(--white)",
+                  color: "var(--ink)",
+                }}
+              >
+                {"flag" in t ? <UsaFlag size={26} /> : <Icon name={t.icon} size={24} />}
+              </span>
+              <span style={{ display: "block", marginTop: "var(--space-3)", fontSize: "var(--size-meta)", lineHeight: 1.3 }}>
+                <BrandText>{"flag" in t ? content.usaLabel ?? t.label : t.icon === "book-open" ? content.provenLabel ?? t.label : t.label}</BrandText>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "var(--space-3)",
+            marginTop: "var(--space-8)",
+            paddingTop: "var(--space-6)",
+            borderTop: "1px solid var(--border-hairline)",
+          }}
+        >
+          {PAYMENT_BRANDS.map((brand) => (
+            <CardBrandMark key={brand} brand={brand} height={30} />
+          ))}
+        </div>
+      </Section>
+      )}
+
+      {/* Quick benefits */}
+      <Section>
+        <div
+          style={{
+            background: "var(--surface-sunk)",
+            border: "1px solid var(--border-hairline)",
+            borderRadius: "var(--radius-xl)",
+            padding: "var(--space-8) var(--space-6)",
+          }}
+        >
+          <h2
+            style={{
+              margin: "0 0 var(--space-6)",
+              textAlign: "center",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(var(--size-h4), 5.4vw, var(--size-h2))",
+              fontWeight: 900,
+              letterSpacing: "var(--tracking-heading)",
+            }}
+          >
+            Benefits
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "var(--space-5)" }}>
+            {/* 190px, not 210: at 210 the fourth item dropped to a second row on a
+                1000px viewport, three across and one alone. */}
+            {content.quickBenefits.map((b) => (
+              <div key={b.strong} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}>
+                <Tick />
+                <span style={{ fontSize: "var(--size-meta)", lineHeight: 1.45 }}>
+                  {b.lead}
+                  <strong style={{ fontWeight: 800 }}>{b.strong}</strong>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pillars sit inside the same section, so the two blocks read as one band
+           rather than being pushed apart by two lots of section padding. */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "var(--space-5)", marginTop: "var(--space-5)" }}>
+          {content.pillars.map((p) => (
+            <div
+              key={p.slug}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                background: "var(--surface-sunk)",
+                border: "1px solid var(--border-hairline)",
+                borderRadius: "var(--radius-xl)",
+                padding: "var(--space-6)",
+              }}
+            >
+              <Image
+                src={p.illustration ?? `/illustrations/${p.slug}-${set}.png`}
+                alt=""
+                width={320}
+                height={320}
+                style={{
+                  width: p.illustration ? "100%" : 130,
+                  height: content.squareImages ? "auto" : p.illustration ? (p.illustrationFit === "contain" ? 220 : 150) : 130,
+                  aspectRatio: content.squareImages ? "1 / 1" : undefined,
+                  objectFit: p.illustration ? p.illustrationFit ?? "cover" : "contain",
+                  borderRadius: p.illustration ? "var(--radius-md)" : undefined,
+                  margin: "0 auto var(--space-6)",
+                }}
+              />
+              <h3
+                style={{
+                  margin: "0 0 var(--space-3)",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "var(--size-h4)",
+                  fontWeight: 900,
+                  letterSpacing: "var(--tracking-heading)",
+                  lineHeight: 1.2,
+                }}
+              >
+                {p.title}
+              </h3>
+              <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.55 }}>
+                {p.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Press */}
+      <Section eyebrow="Research backed ingredients" title="Featured in">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+            alignItems: "center",
+            justifyItems: "center",
+            gap: "var(--space-8)",
+            maxWidth: 760,
+            margin: "0 auto",
+          }}
+        >
+          {PRESS.map((p) => (
+            <Image
+              key={p.src}
+              src={p.src}
+              alt={p.name}
+              width={p.width}
+              height={p.height}
+              style={{ width: "100%", height: "auto", maxWidth: 150, maxHeight: 46, objectFit: "contain", filter: "grayscale(1)", opacity: 0.55 }}
+            />
+          ))}
+        </div>
+      </Section>
+
+      {/* Headline review. Skipped entirely by a funnel that has none: the fallback
+          photograph belongs to the diet funnel, so rendering an empty section here would
+          put another product's face on this page. */}
+      {content.headlineReview ? (
+      <Section tone="shell">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-8)", alignItems: "center" }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", marginBottom: "var(--space-3)" }}>
+              <span style={{ fontSize: "var(--size-meta)", fontWeight: 700 }}>{content.headlineReview.name}</span>
+              <Badge tone="success">Verified</Badge>
+            </div>
+            <StarRating value={5} size={18} />
+            <h3 style={{ margin: "var(--space-4) 0 var(--space-3)", fontFamily: "var(--font-display)", fontSize: "var(--size-h4)", fontWeight: 900, letterSpacing: "var(--tracking-heading)", lineHeight: 1.2 }}>
+              {content.headlineReview.title}
+            </h3>
+            <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--ink-80)" }}>
+              {content.headlineReview.body}
+            </p>
+          </div>
+          <Image
+            src={content.headlineReview.photo ?? `/photos/story-${set}.jpg`}
+            alt=""
+            width={1080}
+            height={1480}
+            style={{ width: "auto", maxWidth: "100%", maxHeight: 420, height: "auto", margin: "0 auto", display: "block", borderRadius: "var(--radius-card)" }}
+          />
+        </div>
+      </Section>
+      ) : null}
+
+      {/* Reviews */}
+      {content.reviews.length > 0 ? (
+      <Section wide title={content.reviewsTitle ?? "Thousands of happy clients"} sub={content.reviewsSub ?? "Read what customers around the world say."}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(250px, 100%), 1fr))", gap: "var(--space-5)" }}>
+          {content.reviews.map((r) => (
+            <div
+              key={r.name}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "var(--space-4)",
+                padding: "var(--space-5)",
+                background: "var(--surface-sunk)",
+                border: "1px solid var(--border-hairline)",
+                borderRadius: "var(--radius-xl)",
+              }}
+            >
+              {/* Headline block on the left, photo on the right, body full width
+                  beneath. Keeps the cards even when a headline runs to three lines. */}
+              <div style={{ display: "flex", gap: "var(--space-4)", alignItems: "flex-start" }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <StarRating value={5} size={16} />
+                  <h3
+                    style={{
+                      margin: "var(--space-3) 0 var(--space-3)",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "var(--size-body-lg)",
+                      fontWeight: 900,
+                      letterSpacing: "var(--tracking-heading)",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {r.title}
+                  </h3>
+                  <div style={{ fontSize: "var(--size-meta)", fontWeight: 700 }}>{r.name}</div>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      marginTop: "var(--space-2)",
+                      padding: "3px 10px 3px 6px",
+                      background: "var(--status-success-tint)",
+                      color: "var(--status-success)",
+                      borderRadius: "var(--radius-pill)",
+                      fontSize: "var(--size-meta)",
+                      fontWeight: 700,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <Icon name="check" size={14} strokeWidth={3} />
+                    Verified buyer
+                  </span>
+                </div>
+                <Image
+                  src={r.photo}
+                  alt=""
+                  width={600}
+                  height={600}
+                  style={{ flex: "none", width: 88, height: 88, objectFit: "cover", borderRadius: "var(--radius-md)" }}
+                />
+              </div>
+              <p style={{ margin: 0, fontSize: "var(--size-meta)", lineHeight: 1.55, color: "var(--ink-80)" }}>{r.body}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+      ) : null}
+
+      {/* Ingredients */}
+      <Section title={content.ingredientsTitle} tone="shell">
+        {/* 660, not 760: Accordion holds its body to a 620px reading measure, so a
+            wider container left the photo floating short of the panel edge. */}
+        <div style={{ maxWidth: 660, margin: "0 auto" }}>
+          <Accordion
+            items={content.ingredients.map((ing) => ({
+              title: ing.title,
+              body: (
+                <div>
+                  <Image
+                    src={ing.image ?? `/ingredients/${ing.slug}.jpg`}
+                    alt=""
+                    width={800}
+                    height={content.squareImages ? 800 : 450}
+                    style={{
+                      width: "100%",
+                      maxWidth: content.squareImages ? 360 : undefined,
+                      height: "auto",
+                      display: "block",
+                      marginInline: "auto",
+                      borderRadius: "var(--radius-md)",
+                      marginBottom: "var(--space-5)",
+                    }}
+                  />
+                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+                    {ing.points.map(([lead, body]) => (
+                      <div key={lead} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}>
+                        <Tick />
+                        <span>
+                          <span style={{ display: "block", fontSize: "var(--size-meta)", fontWeight: 800 }}>{lead}</span>
+                          <span style={{ display: "block", marginTop: 2, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.5 }}>
+                            {body}
+                          </span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ),
+            }))}
+          />
+        </div>
+      </Section>
+
+      {/* How it works */}
+      <Section title="How does it work?">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: content.howItWorks.length > 2 ? 1000 : 720, margin: "0 auto" }}>
+          {content.howItWorks.map((s) => (
+            <div key={s.img} style={{ textAlign: "center" }}>
+              <Image
+                src={s.illustration ?? `/illustrations/${s.img}.png`}
+                alt=""
+                width={320}
+                height={320}
+                style={{
+                  width: s.illustration ? "100%" : 130,
+                  height: content.squareImages ? "auto" : s.illustration ? (s.illustrationFit === "contain" ? 240 : 170) : 130,
+                  aspectRatio: content.squareImages ? "1 / 1" : undefined,
+                  objectFit: s.illustration ? s.illustrationFit ?? "cover" : "contain",
+                  borderRadius: s.illustration ? "var(--radius-md)" : undefined,
+                  margin: "0 auto",
+                }}
+              />
+              <h3 style={{ margin: "var(--space-3) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800 }}>{s.title}</h3>
+              <p style={{ margin: 0, fontSize: "var(--size-body)", color: "var(--ink-80)", lineHeight: "var(--leading-body)" }}>{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Comparison */}
+      <Section tone="shell">
+        <div
+          style={{
+            maxWidth: 860,
+            margin: "0 auto",
+            background: "var(--white)",
+            border: "1px solid var(--border-hairline)",
+            borderRadius: "var(--radius-xl)",
+            padding: "var(--space-8) var(--space-5) var(--space-6)",
+          }}
+        >
+          <div
+            style={{
+              display: "grid",
+              /* The two verdict columns shrink with the viewport so the row labels keep
+                 their measure on a phone. */
+              gridTemplateColumns: "minmax(0, 1fr) clamp(56px, 15vw, 110px) clamp(56px, 15vw, 110px)",
+              /* Stretch, not centre: centred items shrink to their content, which left
+                 the tint band with a white gap between the product cell and the first
+                 row. Each cell centres its own content instead. */
+              alignItems: "stretch",
+            }}
+          >
+            <div style={{ paddingRight: "var(--space-4)", paddingBottom: "var(--space-5)" }}>
+              <h2
+                style={{
+                  margin: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(var(--size-h4), 5.2vw, var(--size-h2))",
+                  fontWeight: 900,
+                  letterSpacing: "var(--tracking-heading)",
+                  lineHeight: "var(--leading-snug)",
+                }}
+              >
+                {content.productName}
+              </h2>
+              <p style={{ margin: "var(--space-2) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.4 }}>
+                {content.comparisonNote}
+              </p>
+            </div>
+
+            {/* Our column is a raised band running the height of the table, which is
+                what separates the two verdicts without needing a second colour. */}
+            <div
+              style={{
+                background: content.tint ?? "var(--sun-tint)",
+                borderRadius: "var(--radius-lg) var(--radius-lg) 0 0",
+                padding: "var(--space-4) var(--space-2) var(--space-3)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src={content.comparisonImage ?? productImage}
+                alt={content.productName}
+                width={2400}
+                height={1792}
+                style={
+                  content.comparisonImage
+                    ? { width: 80, maxWidth: "none", height: "auto", flexShrink: 0, mixBlendMode: "multiply" }
+                    : { width: "100%", height: "auto", maxHeight: 88, objectFit: "contain" }
+                }
+              />
+            </div>
+
+            <div style={{ padding: "var(--space-4) var(--space-2) var(--space-3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Image
+                src={content.competitorImage ?? "/product/generic-tub.png"}
+                alt="An unbranded competitor tub"
+                width={320}
+                height={320}
+                style={{ width: "100%", height: "auto", maxHeight: 88, objectFit: "contain", opacity: 0.65 }}
+              />
+            </div>
+
+            {content.comparison.map((row, i) => {
+              const last = i === content.comparison.length - 1;
+              return (
+                <Fragment key={row}>
+                  <div
+                    style={{
+                      paddingRight: "var(--space-4)",
+                      paddingTop: "var(--space-4)",
+                      paddingBottom: "var(--space-4)",
+                      borderTop: "1px solid var(--border-hairline)",
+                      fontSize: "var(--size-meta)",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {row}
+                  </div>
+                  <div
+                    style={{
+                      background: content.tint ?? "var(--sun-tint)",
+                      borderRadius: last ? "0 0 var(--radius-lg) var(--radius-lg)" : undefined,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignSelf: "stretch",
+                      alignItems: "center",
+                      color: "var(--status-success)",
+                    }}
+                  >
+                    <Icon name="check" size={22} strokeWidth={3} title="Yes" />
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", alignSelf: "stretch", color: "var(--ink-40)" }}>
+                    <Icon name="x" size={20} strokeWidth={2.5} title="No" />
+                  </div>
+                </Fragment>
+              );
+            })}
+          </div>
+        </div>
+      </Section>
+
+      {/* Testing */}
+      <Section title="Pioneering world leading quality standards and testing">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-8)", maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+          {TESTING.map((t, n) => (
+            <div key={t.title}>
+              <Image
+                src={content.testingBadges?.[n] ?? t.badge}
+                alt=""
+                width={256}
+                height={255}
+                style={{ width: 104, height: "auto", margin: "0 auto", display: "block", borderRadius: content.testingBadges ? "var(--radius-md)" : undefined }}
+              />
+              <h3 style={{ margin: "var(--space-4) 0 var(--space-2)", fontSize: "var(--size-body-lg)", fontWeight: 800 }}>{t.title}</h3>
+              <p style={{ margin: 0, fontSize: "var(--size-meta)", color: "var(--ink-80)", lineHeight: 1.5 }}>
+                {/* A themed brand has no wordmark to draw, so its name goes in as plain text. */}
+                {brandName === "SUNNYCELLS" ? <BrandText>{t.body}</BrandText> : t.body.replace("SUNNYCELLS", brandName)}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <PlansStickyBar
+        image={productImage}
+        offer={content.offer.badge}
+        buy={
+          stickyBuyButton
+            ? {
+                label: heroCtaLabel,
+                style: heroCtaStyle,
+                onClick: onHeroCtaClick ?? (() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })),
+              }
+            : undefined
+        }
+      />
+
+      {/* FAQ */}
+      <Section title={content.faqTitle ?? "Frequently asked questions by our customers"} tone="shell">
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+          <Accordion items={content.faqs} />
+        </div>
+      </Section>
+
+      <footer style={{ borderTop: "1px solid var(--border-hairline)", padding: "var(--space-12) var(--page-gutter-mobile)" }}>
+        <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
+          <Wordmark size={20} tone="ink" style={{ opacity: 0.35 }} />
+          <p style={{ margin: "var(--space-5) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)", lineHeight: 1.55 }}>
+            These statements have not been evaluated by the Food and Drug Administration.
+            This product is not intended to diagnose, treat, cure, or prevent any disease.
+            Results vary from person to person.
+          </p>
+          <p style={{ margin: "var(--space-4) 0 0", fontSize: "var(--size-meta)", color: "var(--ink-60)" }}>
+            Copyright © 2026 {brandName}. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
