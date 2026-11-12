@@ -250,7 +250,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
 
           <div className={styles.buy}>
             <div className={styles.titleBlock}>
-              <h1 className={styles.title}>Less itching and smoother skin</h1>
+              <h1 className={styles.title}>LESS ITCHING AND SMOOTHER SKIN</h1>
               <div className={styles.rating}>
                 <span className={styles.stars} aria-hidden="true">★★★★★</span>
                 <p className={styles.ratingLabel}>Excellent <strong>{RATING.score}</strong> | {RATING.count} Reviews</p>
@@ -330,7 +330,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                 disabled={busy}
                 style={{ fontSize: 20, fontWeight: 800, lineHeight: "24px", letterSpacing: "-0.02em", minHeight: 69, paddingBlock: 16, whiteSpace: "pre-wrap" }}
               >
-                Try risk free | ${FIRST} <s style={{ marginLeft: 8, opacity: 0.7 }}>${PRICE}</s>
+                TRY RISK FREE | ${FIRST} <s style={{ marginLeft: 8, opacity: 0.7 }}>${PRICE}</s>
               </Button>
               <p className={styles.avail}>In stock, ready to ship</p>
 
