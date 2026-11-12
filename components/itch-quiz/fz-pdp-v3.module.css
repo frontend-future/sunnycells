@@ -9,27 +9,67 @@
   color: var(--midnight);
 }
 
-/* The offer banner across the top. */
+/* The offer banner across the top: copy on the left, an end-of-day countdown pill on the right. */
 .banner {
   background: var(--midnight);
-  padding: 12px 18px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: center;
 }
 .bannerIn {
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: 1016px;
+}
+.bannerCopy {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-}
-.bannerHead {
-  font: 800 clamp(20px, 5.6vw, 28px)/1.05 var(--font-display);
-  letter-spacing: -0.01em;
+  align-items: flex-start;
+  min-width: 0;
   text-transform: uppercase;
+}
+.bannerLead {
+  margin: 0;
+  font: 800 16px/normal var(--font-text), "Figtree", sans-serif;
   color: var(--sun);
+  white-space: nowrap;
 }
 .bannerSub {
-  font: 700 14px/1.2 var(--font-text), "Figtree", sans-serif;
-  color: var(--cloud);
+  margin: 0;
+  font: 800 14px/normal var(--font-text), "Figtree", sans-serif;
+  color: #fff;
+}
+.pill {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 11px;
+  border-radius: 4px;
+  background: var(--sun);
+  color: var(--midnight);
+}
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  font-family: var(--font-text), "Figtree", sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+.num {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.lbl,
+.sep {
+  font: 800 9px/normal var(--font-text), "Figtree", sans-serif;
 }
 
 .grid {
@@ -361,19 +401,22 @@
 }
 
 @media (min-width: 960px) {
-  .banner {
-    padding: 16px 32px;
+  .bannerLead {
+    font-size: 22px;
   }
-  .bannerIn {
-    flex-direction: row;
-    align-items: baseline;
-    gap: 16px;
+  .pill {
+    gap: 6px;
+    padding: 8px 12px;
   }
-  .bannerHead {
-    font-size: 32px;
+  .unit {
+    width: 27px;
   }
-  .bannerSub {
+  .num {
     font-size: 16px;
+  }
+  .lbl,
+  .sep {
+    font-size: 10px;
   }
   .grid {
     max-width: 1200px;

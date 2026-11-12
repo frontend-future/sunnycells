@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { FridayZoomiesLabelDrawerV2 } from "@/components/itch-quiz/FridayZoomiesLabelDrawerV2";
@@ -43,6 +43,25 @@ const WEIGHTS = [
 /* The first order spread over its 28 days. */
 const PER_DAY = (FIRST / 28).toFixed(2);
 
+/* Hours, minutes and seconds left in the shopper's own day, so it is always under 24 hours. Null until
+   mounted, since the server's clock is not the shopper's. */
+function useEndOfDay() {
+  const [left, setLeft] = useState<[number, number, number] | null>(null);
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const end = new Date(now);
+      end.setHours(24, 0, 0, 0);
+      const s = Math.max(0, Math.floor((end.getTime() - now.getTime()) / 1000));
+      setLeft([Math.floor(s / 3600), Math.floor((s % 3600) / 60), s % 60]);
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return left;
+}
+
 /** One product, so no tabs: the two ingredients with what each does. */
 function Ingredients() {
   return (
@@ -77,6 +96,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
   const [busy, setBusy] = useState(false);
   const [labelOpen, setLabelOpen] = useState(false);
   const closeLabel = useCallback(() => setLabelOpen(false), []);
+  const left = useEndOfDay();
   const step = (d: number) => setAt((n) => (n + d + IMAGES.length) % IMAGES.length);
 
   const start = async () => {
@@ -145,10 +165,23 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
 
   return (
     <section id="plans" className={styles.pdp}>
-      <div className={styles.banner}>
+      <div className={styles.banner} role="region" aria-label="Offer countdown">
         <div className={styles.bannerIn}>
-          <span className={styles.bannerHead}>Save 50% + Free Shipping</span>
-          <span className={styles.bannerSub}>Try it risk free for 90 days</span>
+          <div className={styles.bannerCopy}>
+            <p className={styles.bannerLead}>Friday Zoomies Sale</p>
+            <p className={styles.bannerSub}>Save 50% + Free Shipping</p>
+          </div>
+          <div className={styles.pill} aria-live="off">
+            {(["HRS", "MIN", "SEC"] as const).map((unit, i) => (
+              <Fragment key={unit}>
+                {i > 0 ? <span className={styles.sep} aria-hidden="true">:</span> : null}
+                <span className={styles.unit}>
+                  <span className={styles.num}>{left ? String(left[i]).padStart(2, "0") : "--"}</span>
+                  <span className={styles.lbl}>{unit}</span>
+                </span>
+              </Fragment>
+            ))}
+          </div>
         </div>
       </div>
 
