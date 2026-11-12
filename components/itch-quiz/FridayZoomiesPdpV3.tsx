@@ -62,6 +62,14 @@ function useEndOfDay() {
   return left;
 }
 
+function Check() {
+  return (
+    <svg className={styles.icon} viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <path d="M15 4.5L6.75 12.75L3 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /** One product, so no tabs: the two ingredients with what each does. */
 function Ingredients() {
   return (
@@ -91,13 +99,29 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
   const [picked, setPicked] = useState<string | null>(null);
   const weight = picked ?? quizSize ?? null;
   const [at, setAt] = useState(0);
-  const touchX = useRef<number | null>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [labelOpen, setLabelOpen] = useState(false);
   const closeLabel = useCallback(() => setLabelOpen(false), []);
   const left = useEndOfDay();
-  const step = (d: number) => setAt((n) => (n + d + IMAGES.length) % IMAGES.length);
+  /* The track scrolls and snaps; the thumbs and arrows scroll it, and scrolling updates the highlighted thumb. */
+  const goTo = (i: number) => {
+    const t = trackRef.current;
+    const slide = t?.children[i] as HTMLElement | undefined;
+    if (t && slide) t.scrollTo({ left: slide.offsetLeft - t.offsetLeft, behavior: "smooth" });
+    setAt(i);
+  };
+  const onScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const t = e.currentTarget;
+    let best = 0;
+    let min = Infinity;
+    Array.from(t.children).forEach((c, i) => {
+      const d = Math.abs((c as HTMLElement).offsetLeft - t.offsetLeft - t.scrollLeft);
+      if (d < min) { min = d; best = i; }
+    });
+    setAt(best);
+  };
 
   const start = async () => {
     if (busy) return;
@@ -185,175 +209,182 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
         </div>
       </div>
 
-      <div className={styles.grid}>
-        <div className={styles.thumbs}>
-          {IMAGES.map((img, i) => (
-            <button
-              key={img.src}
-              type="button"
-              aria-label={`Show image ${i + 1}`}
-              aria-current={i === at}
-              className={`${styles.thumb} ${i === at ? styles.thumbOn : ""}`}
-              onClick={() => setAt(i)}
-            >
-              <Image src={img.src} alt="" width={160} height={160} />
-            </button>
-          ))}
-        </div>
-
-        <div
-          className={styles.main}
-          onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
-          onTouchEnd={(e) => {
-            if (touchX.current === null) return;
-            const dx = e.changedTouches[0].clientX - touchX.current;
-            touchX.current = null;
-            /* A horizontal drag of 40px or more steps one image; shorter ones are taps or scrolls. */
-            if (Math.abs(dx) >= 40) step(dx < 0 ? 1 : -1);
-          }}
-        >
-          <Image key={IMAGES[at].src} src={IMAGES[at].src} alt={IMAGES[at].alt} width={900} height={900} priority={at === 0} sizes="(min-width: 960px) 560px, 92vw" />
-          <button type="button" className={`${styles.arrow} ${styles.arrowL}`} aria-label="Previous image" onClick={() => step(-1)}>
-            <Icon name="chevron-left" size={22} strokeWidth={2.5} />
-          </button>
-          <button type="button" className={`${styles.arrow} ${styles.arrowR}`} aria-label="Next image" onClick={() => step(1)}>
-            <Icon name="chevron-right" size={22} strokeWidth={2.5} />
-          </button>
-        </div>
-        <button type="button" className={styles.label} onClick={() => setLabelOpen(true)}>
-          View Nutrition Label
-        </button>
-
-        <div className={styles.buy}>
-          <h1 className={styles.title}>Less itching and a shinier coat</h1>
-          <div className={styles.rating}>
-            <span className={styles.stars} aria-hidden="true">★★★★★</span>
-            <span>Excellent <strong>{RATING.score}</strong> | {RATING.count} Reviews</span>
-          </div>
-          <p className={styles.lede}>
-            Friday Zoomies Pure Omega Salmon Oil is 100% natural salmon oil with the omega-3s EPA and DHA. It supports your dog&apos;s skin barrier and a healthy inflammatory response, easing the scratch-itch cycle for dogs with dry, irritated skin.
-          </p>
-
-          <h2 className={styles.h}>Select your dog&apos;s weight</h2>
-          <div className={styles.weights} role="radiogroup" aria-label="Your dog's weight">
-            {WEIGHTS.map((w) => (
-              <button
-                key={w.value}
-                type="button"
-                role="radio"
-                aria-checked={weight === w.value}
-                className={`${styles.weight} ${weight === w.value ? styles.weightOn : ""}`}
-                onClick={() => setPicked(w.value)}
-              >
-                {w.label}
-              </button>
-            ))}
-          </div>
-          {ready && weight ? (
-            <p className={styles.dose}>
-              {pumpsPerDay({ "dog-size": weight }) === 2 ? "2 pumps" : "1 pump"} a day over their food
-            </p>
-          ) : null}
-
-          <h2 className={styles.h}>Choose your plan:</h2>
-          <p className={styles.ship}>
-            <Icon name="truck" size={18} />
-            Free shipping on your first order. Straight from our USA warehouse.
-          </p>
-
-          <div className={styles.plan}>
-            <div className={styles.planTag}>Vet-recommended ingredients</div>
-            <div className={styles.planBody}>
-              <div className={styles.planTop}>
-                <span className={styles.radio} aria-hidden="true" />
-                <span className={styles.planName}>1 Month Supply, Every 4 Weeks</span>
-                <span className={styles.planDay}>${PER_DAY} / day</span>
+      <div className={styles.wrap}>
+        <div className={styles.inner}>
+          <div className={styles.gallery} aria-roledescription="carousel" aria-label="Product images">
+            <div className={styles.stage}>
+              <div ref={trackRef} className={styles.track} onScroll={onScroll}>
+                {IMAGES.map((img, i) => (
+                  <div key={img.src} className={styles.slide} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${IMAGES.length}`}>
+                    <Image className={styles.slideImg} src={img.src} alt={img.alt} width={900} height={900} priority={i === 0} sizes="(min-width: 1024px) 433px, calc(100vw - 47px)" />
+                  </div>
+                ))}
               </div>
-              <div className={styles.planSave}>
-                <span>Save 50% + Free Shipping</span>
-              </div>
-              <p className={styles.incl}>Includes:</p>
-              <ul className={styles.inclList}>
-                <li>
-                  <span className={styles.tick} aria-hidden="true">✓</span>
-                  <span>1 month supply of {FZ_OIL_NAME}</span>
-                  <span className={styles.inclPrice}><del>${PRICE}</del> <strong>${FIRST}</strong></span>
-                </li>
-                <li>
-                  <span className={styles.tick} aria-hidden="true">✓</span>
-                  <span>Free shipping on your first order</span>
-                  <span className={styles.inclPrice}><strong>FREE</strong></span>
-                </li>
-                <li>
-                  <span className={styles.tick} aria-hidden="true">✓</span>
-                  <span>90-Day Friday Zoomies Guarantee</span>
-                </li>
-              </ul>
-              <div className={styles.planFoot}>
-                <span><Icon name="x" size={14} strokeWidth={2.5} /> <u>No commitment</u></span>
-                <span><Icon name="chevron-right" size={14} strokeWidth={2.5} /> <u>Skip or cancel anytime</u></span>
+              <div className={styles.arrows}>
+                <button type="button" className={styles.arrow} aria-label="Previous image" onClick={() => goTo((at + IMAGES.length - 1) % IMAGES.length)}>
+                  <Icon name="chevron-left" size={18} strokeWidth={2.5} />
+                </button>
+                <button type="button" className={styles.arrow} aria-label="Next image" onClick={() => goTo((at + 1) % IMAGES.length)}>
+                  <Icon name="chevron-right" size={18} strokeWidth={2.5} />
+                </button>
               </div>
             </div>
+            <ul className={styles.thumbs}>
+              {IMAGES.map((img, i) => (
+                <li key={img.src}>
+                  <button
+                    type="button"
+                    aria-label={`Show image ${i + 1}`}
+                    aria-current={i === at}
+                    className={`${styles.thumb} ${i === at ? styles.thumbOn : ""}`}
+                    onClick={() => goTo(i)}
+                  >
+                    <Image src={img.src} alt="" width={160} height={160} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <button type="button" className={styles.label} onClick={() => setLabelOpen(true)}>
+              View Nutrition Label
+            </button>
           </div>
 
-          <Button
-            size="lg"
-            fullWidth
-            onClick={start}
-            disabled={busy}
-            style={{
-              fontSize: "clamp(18px, 5.2vw, 22px)",
-              fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: "0.01em",
-              minHeight: 64,
-              paddingBlock: 12,
-              textTransform: "uppercase",
-              boxShadow: "0 10px 24px rgba(47, 95, 208, 0.4), 0 4px 0 var(--cobalt-press)",
-            }}
-          >
-            Try risk free | ${FIRST} <del style={{ opacity: 0.75, marginLeft: 8 }}>${PRICE}</del>
-          </Button>
-
-          <div className={styles.guar}>
-            <div>
-              <h2 className={styles.guarH}>90-day money back guarantee</h2>
-              <p>
-                Omega-3s work best when your dog gets them every day. <strong>Daily use for 90 days is why we back it with a 90-day money back guarantee.</strong> If the itching hasn&apos;t improved, email support@fridayzoomies.com and we&apos;ll refund your order.
+          <div className={styles.buy}>
+            <div className={styles.titleBlock}>
+              <h1 className={styles.title}>Less itching and smoother skin</h1>
+              <div className={styles.rating}>
+                <span className={styles.stars} aria-hidden="true">★★★★★</span>
+                <p className={styles.ratingLabel}>Excellent <strong>{RATING.score}</strong> | {RATING.count} Reviews</p>
+              </div>
+              <p className={styles.body}>
+                Friday Zoomies Pure Omega Salmon Oil is designed to support your dog&apos;s immune balance and skin comfort, easing the scratch-itch cycle and providing relief from seasonal and environmental triggers, especially for allergy-prone dogs.
               </p>
             </div>
-            <Image className={styles.guarImg} src={`${DIR}/oil-bottle.webp`} alt={FZ_OIL_NAME} width={240} height={240} />
-          </div>
 
-          <ul className={styles.trust}>
-            {TRUST.map((t) => (
-              <li key={t.label}>
-                <Image className={styles.trustDot} src={t.src} alt="" width={96} height={96} />
-                {t.label}
-              </li>
-            ))}
-          </ul>
-
-          <div className={styles.acc}>
-            {sections.map((s) => (
-              <div key={s.id}>
-                <button
-                  type="button"
-                  className={styles.accBtn}
-                  aria-expanded={open === s.id}
-                  aria-controls={`pdp-${s.id}`}
-                  onClick={() => setOpen(open === s.id ? null : s.id)}
-                >
-                  {s.title}
-                  <Icon name={open === s.id ? "minus" : "plus"} size={20} />
-                </button>
-                {open === s.id ? (
-                  <div id={`pdp-${s.id}`} className={styles.accBody}>
-                    {s.body}
-                  </div>
-                ) : null}
+            <div className={styles.step}>
+              <h2 className={styles.stepTitle}>Select Your Dog&apos;s Weight</h2>
+              <div className={styles.weights} role="radiogroup" aria-label="Select your dog's weight">
+                {WEIGHTS.map((w) => (
+                  <button
+                    key={w.value}
+                    type="button"
+                    role="radio"
+                    aria-checked={weight === w.value}
+                    className={`${styles.weight} ${weight === w.value ? styles.weightOn : ""}`}
+                    onClick={() => setPicked(w.value)}
+                  >
+                    {w.label}
+                  </button>
+                ))}
               </div>
-            ))}
+              {ready && weight ? (
+                <p className={styles.dose}>{pumpsPerDay({ "dog-size": weight }) === 2 ? "2 pumps" : "1 pump"} a day over their food</p>
+              ) : null}
+            </div>
+
+            <div className={`${styles.step} ${styles.planStep}`}>
+              <div className={styles.stepHead}>
+                <h2 className={`${styles.stepTitle} ${styles.planTitle}`}>Choose your plan:</h2>
+                <p className={styles.ship}>
+                  <span className={styles.shipIcon} aria-hidden="true"><Icon name="truck" size={14} /></span>
+                  Shipped in 24 hours. Straight from our USA warehouse.
+                </p>
+              </div>
+
+              <div className={styles.feat}>
+                <div className={styles.featHead}>Vet recommended</div>
+                <div className={styles.featBody}>
+                  <div className={styles.featTop}>
+                    <div className={styles.planLine}>
+                      <span className={styles.radio} aria-hidden="true" />
+                      <p className={styles.name}>28 Day Supply (1 Bottle)</p>
+                      <p className={styles.perDay}>${PER_DAY} / day</p>
+                    </div>
+                    <div className={styles.promo}><span>Save 50% + Free Shipping</span></div>
+                  </div>
+                  <div className={styles.includes}>
+                    <p className={styles.incTitle}>Includes:</p>
+                    <ul className={styles.ledger}>
+                      <li className={styles.li}>
+                        <div className={styles.liLeft}><Check /><p className={styles.liLabel}>28 Day Supply of Pure Omega Salmon Oil</p></div>
+                        <p className={styles.liPrice}><s>${PRICE}</s><b>${FIRST}</b></p>
+                      </li>
+                      <li className={styles.li}>
+                        <div className={styles.liLeft}><Check /><p className={styles.liLabel}>FREE Shipping</p></div>
+                        <p className={styles.liPrice}><b>FREE</b></p>
+                      </li>
+                      <li className={styles.li}>
+                        <div className={styles.liLeft}><Check /><p className={styles.liLabel}>90-Day Money Back Guarantee</p></div>
+                      </li>
+                    </ul>
+                  </div>
+                  <ul className={styles.fns}>
+                    <li className={styles.fn}><Icon name="x" size={16} strokeWidth={2} />No commitment</li>
+                    <li className={styles.fn}><Icon name="chevron-right" size={16} strokeWidth={2} />Skip or cancel anytime</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.checkout}>
+              <Button
+                size="lg"
+                fullWidth
+                onClick={start}
+                disabled={busy}
+                style={{ fontSize: 20, fontWeight: 800, lineHeight: "24px", letterSpacing: "-0.02em", minHeight: 69, paddingBlock: 16, whiteSpace: "pre-wrap" }}
+              >
+                Try risk free | ${FIRST} <s style={{ marginLeft: 8, opacity: 0.7 }}>${PRICE}</s>
+              </Button>
+              <p className={styles.avail}>In stock, ready to ship</p>
+
+              <div className={styles.guar}>
+                <div className={styles.guarText}>
+                  <p className={styles.guarTitle}>90-Day Money<br />Back Guarantee</p>
+                  <p className={styles.guarBody}>
+                    Each pump plays a vital role in supporting your dog&apos;s health. <strong>Consistent use for 90 days is crucial, which is why we offer a 90-Day Money-Back Guarantee.</strong>
+                  </p>
+                </div>
+                <span className={styles.jar} aria-hidden="true">
+                  <span className={styles.jarIn}>
+                    <Image src={`${DIR}/oil-bottle.webp`} alt="" width={308} height={340} />
+                  </span>
+                </span>
+              </div>
+
+              <p className={styles.update}><b>UPDATE: </b>Fall is a peak season for your dog&apos;s seasonal allergies.</p>
+            </div>
+
+            <ul className={styles.trust}>
+              {TRUST.map((t) => (
+                <li key={t.label}>
+                  <Image className={styles.trustDot} src={t.src} alt="" width={96} height={96} />
+                  {t.label}
+                </li>
+              ))}
+            </ul>
+
+            <div className={styles.acc}>
+              {sections.map((s) => (
+                <div key={s.id}>
+                  <button
+                    type="button"
+                    className={styles.accBtn}
+                    aria-expanded={open === s.id}
+                    aria-controls={`pdp-${s.id}`}
+                    onClick={() => setOpen(open === s.id ? null : s.id)}
+                  >
+                    {s.title}
+                    <Icon name={open === s.id ? "minus" : "plus"} size={20} />
+                  </button>
+                  {open === s.id ? (
+                    <div id={`pdp-${s.id}`} className={styles.accBody}>
+                      {s.body}
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
