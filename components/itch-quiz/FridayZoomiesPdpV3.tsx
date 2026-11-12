@@ -334,7 +334,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
               </div>
 
               {/* ponytail: no one time checkout exists yet, so this does nothing until it is wired. */}
-              <button type="button" className={styles.once}>One Time Purchase $58 + $8.65 Shipping</button>
+              <button type="button" className={styles.once}>Buy Once For $57.99 + Shipping</button>
 
               <p className={styles.update}><b>UPDATE: </b>Fall is a peak season for your dog&apos;s seasonal allergies.</p>
             </div>
