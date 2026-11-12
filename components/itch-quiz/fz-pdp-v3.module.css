@@ -533,18 +533,18 @@
 .guarBody strong { font-weight: 800; color: var(--midnight); }
 .jar {
   position: absolute;
-  right: -6px;
-  top: -7.4px;
-  width: 185.4px;
-  height: 196.7px;
+  right: 8px;
+  top: 0;
+  bottom: 0;
+  width: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .jarIn {
   display: block;
-  width: 70px;
-  height: 205px;
+  width: 50px;
+  height: 145px;
   transform: rotate(-15deg);
 }
 .jarIn img {
@@ -751,8 +751,8 @@
   .weight { flex: 1 1 0; height: 43px; padding: 0 4px; border-width: 1px; border-radius: 3.5px; font-size: 12.5px; }
   .guar { border-radius: 6.5px; }
   .guarText { width: 248px; padding: 18px 0 18px 18px; }
-  .jar { right: 5.3px; top: -14.4px; width: 191.7px; height: 203.4px; }
-  .jarIn { width: 74px; height: 215px; }
+  .jar { right: 16px; width: 120px; }
+  .jarIn { width: 54px; height: 155px; }
   .trustDot { width: 46px; height: 46px; }
   .trust { font-size: 13px; }
   .accBtn { padding: 18px 0; }
