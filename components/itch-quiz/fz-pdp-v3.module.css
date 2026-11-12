@@ -585,39 +585,6 @@
   border-radius: 50%;
   object-fit: cover;
 }
-.acc {
-  border-top: 1px solid #DCD8CD;
-}
-.accBtn {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 17px 0;
-  background: none;
-  border: 0;
-  border-bottom: 1px solid #DCD8CD;
-  color: var(--midnight);
-  font: 800 16px/1 var(--font-text), "Figtree", sans-serif;
-  text-align: left;
-  cursor: pointer;
-}
-.accBody {
-  padding: 4px 0 18px;
-  border-bottom: 1px solid #DCD8CD;
-  font: 500 15px/1.5 var(--font-text), "Figtree", sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.accBody p {
-  margin: 0;
-}
-.accBody a {
-  color: var(--cobalt);
-  font-weight: 700;
-  text-decoration: underline;
-}
 
 /* The phone's sticky buy bar: product and a full-width button, slid in once the main button has scrolled away. */
 .sticky {
@@ -755,5 +722,4 @@
   .jarIn { width: 54px; height: 155px; }
   .trustDot { width: 46px; height: 46px; }
   .trust { font-size: 13px; }
-  .accBtn { padding: 18px 0; }
-}
+  }

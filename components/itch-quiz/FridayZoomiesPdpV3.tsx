@@ -76,25 +76,10 @@ function Check() {
   );
 }
 
-/** One product, so no tabs: the two ingredients with what each does. */
-function Ingredients() {
-  return (
-    <>
-      <p style={{ fontSize: "0.85em" }}>Per pump (1 mL).</p>
-      <p>
-        <strong>Salmon oil (99.8%).</strong> A source of omega-3s (EPA and DHA, about 20% of the oil) that supports the skin barrier and a healthy inflammatory response, for less dry, itchy skin and a shinier coat. 100% natural, nothing artificial.
-      </p>
-      <p>
-        <strong>Mixed tocopherols (0.2%).</strong> Natural vitamin E that keeps the oil fresh.
-      </p>
-    </>
-  );
-}
-
 /**
  * The plans page's product block, laid out like Wuffes' above the fold: an offer banner,
  * the gallery beside the buy column, then the weight buttons, the one plan card, the button
- * and the guarantee panel. The detail accordions follow.
+ * and the guarantee panel.
  *
  * The weight buttons start on the quiz answer. Picking another changes nothing else,
  * since every size is the same price and plan.
@@ -107,7 +92,6 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
   const [at, setAt] = useState(0);
   const [plan, setPlan] = useState<1 | 3>(1);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [labelOpen, setLabelOpen] = useState(false);
   const closeLabel = useCallback(() => setLabelOpen(false), []);
@@ -154,61 +138,6 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
        a redirect already under way, so the button stays down. */
     if (ok === false) setBusy(false);
   };
-
-  const sections = [
-    {
-      id: "why",
-      title: "Why it works",
-      body: (
-        <>
-          <p>Itching has two problems: dry, irritated skin on the surface, and the inflammation underneath that keeps it going.</p>
-          <p>{FZ_OIL_NAME} gives your dog the omega-3s EPA and DHA from 100% natural salmon oil. They support the skin barrier and a healthy inflammatory response from the inside, which is what keeps the itch from coming back.</p>
-        </>
-      ),
-    },
-    {
-      id: "ingredients",
-      title: "Ingredients",
-      body: <Ingredients />,
-    },
-    {
-      id: "use",
-      title: "How to use",
-      body: (
-        <>
-          <p>Pump it over their food once a day:</p>
-          <ul>
-            <li>Up to 40 lbs: 1 pump (1 mL)</li>
-            <li>Over 40 lbs: 2 pumps (2 mL)</li>
-          </ul>
-          <p>Give half for the first week, then the full amount.</p>
-          <p>Most dogs scratch less by week two. Skin and coat take longer, so give it six to eight weeks of daily oil before you judge it.</p>
-        </>
-      ),
-    },
-    {
-      id: "shipping",
-      title: "Shipping & membership",
-      body: (
-        <>
-          <p>
-            Free shipping on your first order. Your {FZ_OIL_NAME} ships every 4 weeks, and you can skip or cancel anytime. Questions? Email{" "}
-            <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a>.
-          </p>
-        </>
-      ),
-    },
-    {
-      id: "guarantee",
-      title: "Our 90-day Guarantee",
-      body: (
-        <p>
-          Try the oil for 90 days. If your dog&apos;s itching hasn&apos;t improved, email{" "}
-          <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a> and we&apos;ll refund your order.
-        </p>
-      ),
-    },
-  ];
 
   return (
     <section id="plans" className={styles.pdp}>
@@ -412,28 +341,6 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                 </li>
               ))}
             </ul>
-
-            <div className={styles.acc}>
-              {sections.map((s) => (
-                <div key={s.id}>
-                  <button
-                    type="button"
-                    className={styles.accBtn}
-                    aria-expanded={open === s.id}
-                    aria-controls={`pdp-${s.id}`}
-                    onClick={() => setOpen(open === s.id ? null : s.id)}
-                  >
-                    {s.title}
-                    <Icon name={open === s.id ? "minus" : "plus"} size={20} />
-                  </button>
-                  {open === s.id ? (
-                    <div id={`pdp-${s.id}`} className={styles.accBody}>
-                      {s.body}
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
