@@ -40,12 +40,14 @@ const WEIGHTS = [
 
 /* The 1 month trial's own prices, with cents. Not the v2 checkout's FIRST and PRICE, which are whole dollars. */
 const TRIAL = 29.99;
-const TRIAL_WAS = 66.65;
+/* The one time price, which is also what the struck-through prices are built from. */
+const ONCE = 57.99;
+const TRIAL_WAS = ONCE;
 const money = (n: number) => `$${n.toFixed(2)}`;
 /* The trial spread over its 28 days. */
 const PER_DAY = (TRIAL / 28).toFixed(2);
 
-/* The 3 month plan: 3 bottles for $74.99 against 3 times the trial's $66.65 list price, spread over 84 days. */
+/* The 3 month plan: 3 bottles for $74.99 against 3 times the one time price, spread over 84 days. */
 const PLAN3_PRICE = 74.99;
 const PLAN3_WAS = Math.round(3 * TRIAL_WAS * 100) / 100;
 const PLAN3_PER_DAY = (PLAN3_PRICE / 84).toFixed(2);
@@ -332,7 +334,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
               </div>
 
               {/* ponytail: no one time checkout exists yet, so this does nothing until it is wired. */}
-              <button type="button" className={styles.once}>Buy Once For $57.99 + Shipping</button>
+              <button type="button" className={styles.once}>Buy Once For {money(ONCE)} + Shipping</button>
 
               <p className={styles.update}><b>UPDATE: </b>Fall is a peak season for your dog&apos;s seasonal allergies.</p>
             </div>
