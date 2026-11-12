@@ -553,6 +553,17 @@
   height: 100%;
   object-fit: contain;
 }
+.once {
+  align-self: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--midnight);
+  font: 500 14px/1.2 var(--font-text), "Figtree", sans-serif;
+  text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .update {
   margin: 0;
   padding: 20px 16px;
