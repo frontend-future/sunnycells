@@ -7,7 +7,6 @@ import { Icon } from "@/components/core/Icon";
 import { FridayZoomiesLabelDrawerV2 } from "@/components/itch-quiz/FridayZoomiesLabelDrawerV2";
 import { RATING } from "@/lib/products/dog-itch";
 import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
-import { formatPrice } from "@/lib/price";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
 import styles from "./fz-pdp-v3.module.css";
@@ -46,10 +45,9 @@ const money = (n: number) => `$${n.toFixed(2)}`;
 /* The trial spread over its 28 days. */
 const PER_DAY = (TRIAL / 28).toFixed(2);
 
-/* The 3 month plan on the same ladder as the old chews funnel: $23 a month, so $69 for 3 bottles against
-   $150 at full price. A placeholder until the plan exists in Shopify. */
-const PLAN3_PRICE = 3 * 23;
-const PLAN3_WAS = 150;
+/* The 3 month plan: 3 bottles for $79.99 against 3 times the trial's $66.65 list price, spread over 84 days. */
+const PLAN3_PRICE = 79.99;
+const PLAN3_WAS = Math.round(3 * TRIAL_WAS * 100) / 100;
 const PLAN3_PER_DAY = (PLAN3_PRICE / 84).toFixed(2);
 
 /* Hours, minutes and seconds left in the shopper's own day, so it is always under 24 hours. Null until
@@ -129,7 +127,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
 
   const ctaLabel = (
     <>
-      TRY RISK FREE | {plan === 1 ? money(TRIAL) : formatPrice(PLAN3_PRICE)} <s style={{ marginLeft: 8, opacity: 0.7 }}>{plan === 1 ? money(TRIAL_WAS) : formatPrice(PLAN3_WAS)}</s>
+      TRY RISK FREE | {plan === 1 ? money(TRIAL) : money(PLAN3_PRICE)} <s style={{ marginLeft: 8, opacity: 0.7 }}>{plan === 1 ? money(TRIAL_WAS) : money(PLAN3_WAS)}</s>
     </>
   );
 
@@ -300,7 +298,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                       <p className={styles.rowPer}>${PLAN3_PER_DAY} / day</p>
                     </div>
                   </div>
-                  <span className={styles.save}>Save {formatPrice(PLAN3_WAS - PLAN3_PRICE)}</span>
+                  <span className={styles.save}>Save {money(PLAN3_WAS - PLAN3_PRICE)}</span>
                 </div>
               </div>
             </div>
