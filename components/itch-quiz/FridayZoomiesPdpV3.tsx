@@ -7,6 +7,7 @@ import { Icon } from "@/components/core/Icon";
 import { FridayZoomiesLabelDrawerV2 } from "@/components/itch-quiz/FridayZoomiesLabelDrawerV2";
 import { RATING } from "@/lib/products/dog-itch";
 import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
+import { formatPrice } from "@/lib/price";
 import { FIRST, PRICE } from "@/lib/quiz/fzOrder";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
@@ -41,6 +42,12 @@ const WEIGHTS = [
 
 /* The first order spread over its 28 days. */
 const PER_DAY = (FIRST / 28).toFixed(2);
+
+/* The 3 month plan on the same ladder as the old chews funnel: $23 a month, so $69 for 3 bottles against
+   $150 at full price. A placeholder until the plan exists in Shopify. */
+const PLAN3_PRICE = 3 * 23;
+const PLAN3_WAS = 3 * PRICE;
+const PLAN3_PER_DAY = (PLAN3_PRICE / 84).toFixed(2);
 
 /* Hours, minutes and seconds left in the shopper's own day, so it is always under 24 hours. Null until
    mounted, since the server's clock is not the shopper's. */
@@ -98,6 +105,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
   const [picked, setPicked] = useState<string | null>(null);
   const weight = picked ?? quizSize ?? null;
   const [at, setAt] = useState(0);
+  const [plan, setPlan] = useState<1 | 3>(1);
   const trackRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -287,37 +295,64 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                 </p>
               </div>
 
-              <div className={styles.feat}>
-                <div className={styles.featHead}>Vet recommended</div>
-                <div className={styles.featBody}>
-                  <div className={styles.featTop}>
-                    <div className={styles.planLine}>
-                      <span className={styles.radio} aria-hidden="true" />
-                      <p className={styles.name}>28 Day Supply (1 Bottle)</p>
-                      <p className={styles.perDay}>${PER_DAY} / day</p>
+              <div className={styles.plans} role="radiogroup" aria-label="Choose your plan">
+                <div
+                  role="radio"
+                  aria-checked={plan === 1}
+                  tabIndex={0}
+                  className={`${styles.feat} ${plan === 1 ? styles.cardOn : ""}`}
+                  onClick={() => setPlan(1)}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPlan(1); } }}
+                >
+                  <div className={styles.featHead}>Vet recommended</div>
+                  <div className={styles.featBody}>
+                    <div className={styles.featTop}>
+                      <div className={styles.planLine}>
+                        <span className={styles.radio} aria-hidden="true" />
+                        <p className={styles.name}>1 Month Trial (1 Bottle)</p>
+                        <p className={styles.perDay}>${PER_DAY} / day</p>
+                      </div>
+                      <div className={styles.promo}><span>Save 50% + Free Shipping</span></div>
                     </div>
-                    <div className={styles.promo}><span>Save 50% + Free Shipping</span></div>
-                  </div>
-                  <div className={styles.includes}>
-                    <p className={styles.incTitle}>Includes:</p>
-                    <ul className={styles.ledger}>
-                      <li className={styles.li}>
-                        <div className={styles.liLeft}><Check /><p className={styles.liLabel}>28 Day Supply of Pure Omega Salmon Oil</p></div>
-                        <p className={styles.liPrice}><s>${PRICE}</s><b>${FIRST}</b></p>
-                      </li>
-                      <li className={styles.li}>
-                        <div className={styles.liLeft}><Check /><p className={styles.liLabel}>FREE Shipping</p></div>
-                        <p className={styles.liPrice}><b>FREE</b></p>
-                      </li>
-                      <li className={styles.li}>
-                        <div className={styles.liLeft}><Check /><p className={styles.liLabel}>90-Day Money Back Guarantee</p></div>
-                      </li>
+                    <div className={styles.includes}>
+                      <p className={styles.incTitle}>Includes:</p>
+                      <ul className={styles.ledger}>
+                        <li className={styles.li}>
+                          <div className={styles.liLeft}><Check /><p className={styles.liLabel}>1 Month Supply of Pure Omega Salmon Oil</p></div>
+                          <p className={styles.liPrice}><s>${PRICE}</s><b>${FIRST}</b></p>
+                        </li>
+                        <li className={styles.li}>
+                          <div className={styles.liLeft}><Check /><p className={styles.liLabel}>FREE Shipping</p></div>
+                          <p className={styles.liPrice}><b>FREE</b></p>
+                        </li>
+                        <li className={styles.li}>
+                          <div className={styles.liLeft}><Check /><p className={styles.liLabel}>90-Day Money Back Guarantee</p></div>
+                        </li>
+                      </ul>
+                    </div>
+                    <ul className={styles.fns}>
+                      <li className={styles.fn}><Icon name="x" size={16} strokeWidth={2} />No commitment</li>
+                      <li className={styles.fn}><Icon name="chevron-right" size={16} strokeWidth={2} />Skip or cancel anytime</li>
                     </ul>
                   </div>
-                  <ul className={styles.fns}>
-                    <li className={styles.fn}><Icon name="x" size={16} strokeWidth={2} />No commitment</li>
-                    <li className={styles.fn}><Icon name="chevron-right" size={16} strokeWidth={2} />Skip or cancel anytime</li>
-                  </ul>
+                </div>
+
+                <div
+                  role="radio"
+                  aria-checked={plan === 3}
+                  tabIndex={0}
+                  className={`${styles.row} ${plan === 3 ? styles.cardOn : ""}`}
+                  onClick={() => setPlan(3)}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPlan(3); } }}
+                >
+                  <div className={styles.rowId}>
+                    <span className={styles.radio} aria-hidden="true" />
+                    <div className={styles.rowText}>
+                      <p className={styles.rowName}>3 Month Supply (3 Bottles)</p>
+                      <p className={styles.rowPer}>${PLAN3_PER_DAY} / day</p>
+                    </div>
+                  </div>
+                  <span className={styles.save}>Save {formatPrice(PLAN3_WAS - PLAN3_PRICE)}</span>
                 </div>
               </div>
             </div>
@@ -330,7 +365,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                 disabled={busy}
                 style={{ fontSize: 20, fontWeight: 800, lineHeight: "24px", letterSpacing: "-0.02em", minHeight: 69, paddingBlock: 16, whiteSpace: "pre-wrap" }}
               >
-                TRY RISK FREE | ${FIRST} <s style={{ marginLeft: 8, opacity: 0.7 }}>${PRICE}</s>
+                TRY RISK FREE | {formatPrice(plan === 1 ? FIRST : PLAN3_PRICE)} <s style={{ marginLeft: 8, opacity: 0.7 }}>{formatPrice(plan === 1 ? PRICE : PLAN3_WAS)}</s>
               </Button>
               <p className={styles.avail}>In stock, ready to ship</p>
 
@@ -343,7 +378,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                 </div>
                 <span className={styles.jar} aria-hidden="true">
                   <span className={styles.jarIn}>
-                    <Image src={`${DIR}/oil-bottle.webp`} alt="" width={308} height={340} />
+                    <Image src={`${DIR}/oil-bottle-cutout.webp`} alt="" width={163} height={497} />
                   </span>
                 </span>
               </div>

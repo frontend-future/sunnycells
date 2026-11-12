@@ -264,9 +264,57 @@
 }
 .planStep { gap: 20px; }
 
+.plans {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.feat,
+.row {
+  cursor: pointer;
+  text-align: left;
+}
 .feat {
   border-radius: 12px;
+}
+.cardOn {
   box-shadow: 0 0 0 3px #8EC5F2;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid #C9CCD3;
+  border-radius: 5px;
+  background: #fff;
+}
+.row.cardOn { border-color: var(--midnight); }
+.rowId {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 4px;
+}
+.rowText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 800;
+}
+.rowText p { margin: 0; }
+.rowName { font: 800 14px/normal var(--font-text), "Figtree", sans-serif; }
+.rowPer { font: 800 12px/normal var(--font-text), "Figtree", sans-serif; }
+.save {
+  flex: none;
+  padding: 4px 12px;
+  border-radius: 5px;
+  background: var(--midnight);
+  color: #fff;
+  font: 800 14px/20px var(--font-text), "Figtree", sans-serif;
+  white-space: nowrap;
 }
 .featHead {
   display: flex;
@@ -319,9 +367,12 @@
   height: 20px;
   border-radius: 50%;
   border: 1.5px solid var(--midnight);
+  background: transparent;
+}
+.cardOn .radio {
   background: var(--midnight);
 }
-.radio::after {
+.cardOn .radio::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -482,7 +533,7 @@
 .guarBody strong { font-weight: 800; color: var(--midnight); }
 .jar {
   position: absolute;
-  right: -44.7px;
+  right: -6px;
   top: -7.4px;
   width: 185.4px;
   height: 196.7px;
@@ -492,11 +543,9 @@
 }
 .jarIn {
   display: block;
-  width: 148px;
-  height: 164px;
+  width: 70px;
+  height: 205px;
   transform: rotate(-15deg);
-  overflow: hidden;
-  border-radius: 5px 5px 0 0;
 }
 .jarIn img {
   display: block;
@@ -579,6 +628,7 @@
 }
 
 @media (min-width: 1024px) {
+  .plans { gap: 16px; }
   .wrap { padding: 40px 16px 80px; }
   .inner {
     display: grid;
@@ -647,7 +697,7 @@
   .guar { border-radius: 6.5px; }
   .guarText { width: 248px; padding: 18px 0 18px 18px; }
   .jar { right: 5.3px; top: -14.4px; width: 191.7px; height: 203.4px; }
-  .jarIn { width: 153px; height: 169.5px; border-radius: 6.5px 6.5px 0 0; }
+  .jarIn { width: 74px; height: 215px; }
   .trustDot { width: 46px; height: 46px; }
   .trust { font-size: 13px; }
   .accBtn { padding: 18px 0; }
