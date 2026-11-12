@@ -559,7 +559,7 @@
   border: 0;
   background: none;
   color: var(--midnight);
-  font: 500 14px/1.2 var(--font-text), "Figtree", sans-serif;
+  font: 500 12pt/1.2 var(--font-text), "Figtree", sans-serif;
   text-align: center;
   text-decoration: underline;
   cursor: pointer;
