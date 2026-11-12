@@ -14,7 +14,6 @@ import { DIET_PLANS_CONTENT, type PlansContent } from "@/lib/quiz/plansContent";
 import { CardBrandMark } from "./CardBrandMark";
 import { UsaFlag } from "./UsaFlag";
 import { PlanCards } from "./PlanCards";
-import { PlansStickyBar } from "./PlansStickyBar";
 
 const PRESS = [
   { name: "Business Insider", src: "/press/business-insider.webp", width: 256, height: 80 },
@@ -136,10 +135,6 @@ function Tick() {
 export function PlansScreenV3({
   destinationHref = "/quiz/diet/results/checkout",
   planCtaLabel = "Try now",
-  heroCtaLabel = "Get it now",
-  onHeroCtaClick,
-  heroCtaStyle,
-  stickyBuyButton,
   optimizedImages = false,
   content = DIET_PLANS_CONTENT,
   plansSlot,
@@ -147,13 +142,6 @@ export function PlansScreenV3({
 }: {
   destinationHref?: string;
   planCtaLabel?: string;
-  /** The button under the hero bullets, which scrolls to the plans. */
-  heroCtaLabel?: string;
-  /** Replaces the hero button's scroll to the plans, e.g. to go straight to checkout. */
-  onHeroCtaClick?: () => void;
-  heroCtaStyle?: React.CSSProperties;
-  /** The mobile sticky bar becomes the hero button, label and click included. */
-  stickyBuyButton?: boolean;
   optimizedImages?: boolean;
   /** Every word and picture on the page. The layout below is the same for both funnels. */
   content?: PlansContent;
@@ -702,20 +690,6 @@ export function PlansScreenV3({
           ))}
         </div>
       </Section>
-
-      <PlansStickyBar
-        image={productImage}
-        offer={content.offer.badge}
-        buy={
-          stickyBuyButton
-            ? {
-                label: heroCtaLabel,
-                style: heroCtaStyle,
-                onClick: onHeroCtaClick ?? (() => document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" })),
-              }
-            : undefined
-        }
-      />
 
       {/* FAQ */}
       <Section title={content.faqTitle ?? "Frequently asked questions by our customers"} tone="shell">

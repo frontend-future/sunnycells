@@ -112,6 +112,16 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
   const [labelOpen, setLabelOpen] = useState(false);
   const closeLabel = useCallback(() => setLabelOpen(false), []);
   const left = useEndOfDay();
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const [stuck, setStuck] = useState(false);
+  /* The mobile sticky buy bar shows once the main button has scrolled up out of view. */
+  useEffect(() => {
+    const el = ctaRef.current;
+    if (!el) return;
+    const watch = new IntersectionObserver(([e]) => setStuck(!e.isIntersecting && e.boundingClientRect.top < 0));
+    watch.observe(el);
+    return () => watch.disconnect();
+  }, []);
   /* The track scrolls and snaps; the thumbs and arrows scroll it, and scrolling updates the highlighted thumb. */
   const goTo = (i: number) => {
     const t = trackRef.current;
@@ -129,6 +139,12 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
     });
     setAt(best);
   };
+
+  const ctaLabel = (
+    <>
+      TRY RISK FREE | {formatPrice(plan === 1 ? FIRST : PLAN3_PRICE)} <s style={{ marginLeft: 8, opacity: 0.7 }}>{formatPrice(plan === 1 ? PRICE : PLAN3_WAS)}</s>
+    </>
+  );
 
   const start = async () => {
     if (busy) return;
@@ -358,15 +374,17 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
             </div>
 
             <div className={styles.checkout}>
-              <Button
-                size="lg"
-                fullWidth
-                onClick={start}
-                disabled={busy}
-                style={{ fontSize: 20, fontWeight: 800, lineHeight: "24px", letterSpacing: "-0.02em", minHeight: 69, paddingBlock: 16, whiteSpace: "pre-wrap" }}
-              >
-                TRY RISK FREE | {formatPrice(plan === 1 ? FIRST : PLAN3_PRICE)} <s style={{ marginLeft: 8, opacity: 0.7 }}>{formatPrice(plan === 1 ? PRICE : PLAN3_WAS)}</s>
-              </Button>
+              <div ref={ctaRef}>
+                <Button
+                  size="lg"
+                  fullWidth
+                  onClick={start}
+                  disabled={busy}
+                  style={{ fontSize: 20, fontWeight: 800, lineHeight: "24px", letterSpacing: "-0.02em", minHeight: 69, paddingBlock: 16, whiteSpace: "pre-wrap" }}
+                >
+                  {ctaLabel}
+                </Button>
+              </div>
               <p className={styles.avail}>In stock, ready to ship</p>
 
               <div className={styles.guar}>
@@ -418,6 +436,24 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
             </div>
           </div>
         </div>
+      </div>
+      <div className={`${styles.sticky} ${stuck ? styles.stickyOn : ""}`} aria-hidden={!stuck}>
+        <div className={styles.stickyId}>
+          <span className={styles.stickyTile}>
+            <Image src={`${DIR}/oil-bottle-cutout.webp`} alt="" width={163} height={497} />
+          </span>
+          <p className={styles.stickyTitle}>{FZ_OIL_NAME}</p>
+        </div>
+        <Button
+          size="lg"
+          fullWidth
+          onClick={start}
+          disabled={busy}
+          tabIndex={stuck ? 0 : -1}
+          style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.02em", minHeight: 48, paddingBlock: 8, whiteSpace: "pre-wrap" }}
+        >
+          {ctaLabel}
+        </Button>
       </div>
       {labelOpen ? <FridayZoomiesLabelDrawerV2 onClose={closeLabel} /> : null}
     </section>
