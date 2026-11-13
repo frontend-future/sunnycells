@@ -45,7 +45,7 @@ export function ItchStory({
   quizId = itchQuiz.id,
   nextHref = "/quiz/itch-old/results/plans",
   oil = false,
-}: { quizId?: string; nextHref?: string; oil?: boolean } = {}) {
+}: { quizId?: string; nextHref?: string | (() => string); oil?: boolean } = {}) {
   const { answers } = useAnswers(quizId);
   const { t, storyImage = "/quiz/itch/story-sarah.webp", storyAlt, storyQuote = QUOTE, storyOwner = OWNER_NAME } = useBrand();
   /* Her own dog's name is read only so the CTA below can speak to her
