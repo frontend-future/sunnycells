@@ -10,8 +10,8 @@ const PRICES = [
   { key: "fz_oil_recur_4w", cents: 4999, nickname: "Oil rebill, every 4 weeks", recurring: true },
   { key: "fz_oil_1m_entry", cents: 2999, nickname: "Oil 1 month trial, entry" },
   { key: "fz_oil_3m_entry", cents: 7499, nickname: "Oil 3 month supply, entry" },
-  { key: "fz_oil_once", cents: 6499, nickname: "Oil one time purchase" },
-  { key: "fz_oil_once_ship", cents: 865, nickname: "Oil one time shipping" },
+  { key: "fz_oil_once", cents: 5999, nickname: "Oil one time purchase" },
+  { key: "fz_oil_once_ship", cents: 500, nickname: "Oil one time shipping" },
 ];
 
 const call = async (path, body) => {

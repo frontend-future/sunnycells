@@ -8,13 +8,13 @@ export type OilPlan = "1" | "3" | "once";
 export const OIL_RECUR = 49.99;
 export const OIL_RECUR_KEY = "fz_oil_recur_4w";
 /** What a one time buyer pays to ship. Subscribers ship free. */
-export const OIL_SHIPPING = 8.65;
+export const OIL_SHIPPING = 5;
 export const OIL_SHIPPING_KEY = "fz_oil_once_ship";
 
 export const OIL_PLANS: Record<OilPlan, { label: string; bottles: number; entry: number; key: string; /** Days to the first rebill. */ days: number }> = {
   "1": { label: "1 Month Trial", bottles: 1, entry: 29.99, key: "fz_oil_1m_entry", days: 28 },
   "3": { label: "3 Month Supply", bottles: 3, entry: 74.99, key: "fz_oil_3m_entry", days: 84 },
-  once: { label: "One Time Purchase", bottles: 1, entry: 64.99, key: "fz_oil_once", days: 0 },
+  once: { label: "One Time Purchase", bottles: 1, entry: 59.99, key: "fz_oil_once", days: 0 },
 };
 
 export const isOilPlan = (v: unknown): v is OilPlan => v === "1" || v === "3" || v === "once";
