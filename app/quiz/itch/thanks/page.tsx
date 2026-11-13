@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { IMG, LINES, OIL_LINES } from "@/lib/quiz/fzOrder";
-import { OIL_PLANS, OIL_RECUR, OIL_SHIPPING, isOilPlan } from "@/lib/quiz/fzPlans";
+import { OIL_PLANS, OIL_SHIPPING, isOilPlan } from "@/lib/quiz/fzPlans";
 import { Confetti } from "./Confetti";
 import { First90 } from "./First90";
 import { PurchaseTracker } from "./PurchaseTracker";
@@ -78,11 +78,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
               <div className={s.price}>{l.now ? <>{l.price ? <del>{l.price}</del> : null} {l.now}</> : <span className={s.free}>FREE</span>}</div>
             </div>
           ))}
-          {P && plan !== "once" ? (
-            <p className={s.body}>
-              Then {money(OIL_RECUR)} every 4 weeks, starting {P.days} days from today. Skip or cancel anytime.
-            </p>
-          ) : null}
+
         </section>
 
         <section className={s.guarantee}>
