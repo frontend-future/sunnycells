@@ -34,7 +34,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
           image: `${IMG}/oil-bottle.webp`,
           ...(plan === "once" ? { now: money(P.entry) } : { price: money(P.bottles * was), now: money(P.entry) }),
         },
-        ...(plan === "once" ? [{ name: "Shipping", image: `${IMG}/gift-shipping.webp`, now: money(OIL_SHIPPING) }] : []),
+        ...(plan === "once" ? [{ name: "Shipping", image: `${IMG}/checkout/icon-shipping.webp`, now: money(OIL_SHIPPING) }] : []),
       ]
     : oil ? OIL_LINES : LINES;
   const steps = oil
