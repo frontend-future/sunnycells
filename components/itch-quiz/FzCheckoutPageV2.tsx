@@ -385,7 +385,7 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
         <aside className={s.aside} aria-label="Order summary">
           <button type="button" className={`${s.bar} ${open ? s.barOpen : ""}`} aria-expanded={open} onClick={() => setOpen(!open)}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>Order summary <Chevron /></span>
-            <span className={s.barTotal}>{formatPrice(first)}</span>
+            <span className={s.barTotal}>{P ? money(first) : formatPrice(first)}</span>
           </button>
           <div className={`${s.panel} ${open ? s.panelOpen : ""}`}>
             {LINES.map((l) => (
