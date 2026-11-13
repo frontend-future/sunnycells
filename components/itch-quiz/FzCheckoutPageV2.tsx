@@ -274,7 +274,7 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
         elements,
         clientSecret: data.clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/quiz/itch/thanks${oil ? "?product=oil" : ""}`,
+          return_url: `${window.location.origin}/quiz/itch/thanks${oil ? "?product=oil" : ""}${plan ? `&plan=${plan}` : ""}`,
           payment_method_data: wallet ? undefined : { billing_details: { name: who.name, email: who.email, phone: who.phone, address: { ...who.billing, line2: who.billing.line2 ?? "" } } },
         },
       });

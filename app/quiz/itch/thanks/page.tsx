@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
-import { LINES, OIL_LINES } from "@/lib/quiz/fzOrder";
+import { IMG, LINES, OIL_LINES } from "@/lib/quiz/fzOrder";
+import { OIL_PLANS, OIL_RECUR, OIL_SHIPPING, isOilPlan } from "@/lib/quiz/fzPlans";
 import { Confetti } from "./Confetti";
 import { First90 } from "./First90";
 import { PurchaseTracker } from "./PurchaseTracker";
@@ -16,11 +17,28 @@ const STEPS = [
 ];
 
 /* ?product=oil comes from the Pure Omega Salmon Oil checkout: just the oil, no gifts. */
-export default async function ThanksPage({ searchParams }: { searchParams: Promise<{ product?: string }> }) {
-  const oil = (await searchParams).product === "oil";
-  const lines = oil ? OIL_LINES : LINES;
+const money = (n: number) => `$${n.toFixed(2)}`;
+
+/* ?plan= comes from the v3 checkout: what they bought, at the price they paid, with the cents. The struck price is
+   the one time price, the same one the plans page strikes. */
+export default async function ThanksPage({ searchParams }: { searchParams: Promise<{ product?: string; plan?: string }> }) {
+  const sp = await searchParams;
+  const oil = sp.product === "oil";
+  const plan = oil && isOilPlan(sp.plan) ? sp.plan : null;
+  const P = plan ? OIL_PLANS[plan] : null;
+  const was = OIL_PLANS.once.entry;
+  const lines: typeof LINES = P
+    ? [
+        {
+          name: plan === "once" ? "Pure Omega Salmon Oil (1 Bottle)" : `Pure Omega Salmon Oil (${P.label}, ${P.bottles} ${P.bottles === 1 ? "Bottle" : "Bottles"})`,
+          image: `${IMG}/oil-bottle.webp`,
+          ...(plan === "once" ? { now: money(P.entry) } : { price: money(P.bottles * was), now: money(P.entry) }),
+        },
+        ...(plan === "once" ? [{ name: "Shipping", image: `${IMG}/gift-shipping.webp`, now: money(OIL_SHIPPING) }] : []),
+      ]
+    : oil ? OIL_LINES : LINES;
   const steps = oil
-    ? STEPS.map((st, i) => i === 0 ? { ...st, body: "Our team picks and packs your Pure Omega Salmon Oil." } : i === 1 ? { ...st, body: "Your Pure Omega Salmon Oil leaves our warehouse." } : i === 2 ? { ...st, body: "Free shipping to your door." } : st)
+    ? STEPS.map((st, i) => i === 0 ? { ...st, body: "Our team picks and packs your Pure Omega Salmon Oil." } : i === 1 ? { ...st, body: "Your Pure Omega Salmon Oil leaves our warehouse." } : i === 2 ? { ...st, body: plan === "once" ? "To your door." : "Free shipping to your door." } : st)
     : STEPS;
   return (
     <div className={s.page}>
@@ -57,9 +75,14 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={l.image} alt="" />
               <div className={s.lineName}>{l.name}</div>
-              <div className={s.price}>{l.now ? <><del>{l.price}</del> {l.now}</> : <span className={s.free}>FREE</span>}</div>
+              <div className={s.price}>{l.now ? <>{l.price ? <del>{l.price}</del> : null} {l.now}</> : <span className={s.free}>FREE</span>}</div>
             </div>
           ))}
+          {P && plan !== "once" ? (
+            <p className={s.body}>
+              Then {money(OIL_RECUR)} every 4 weeks, starting {P.days} days from today. Skip or cancel anytime.
+            </p>
+          ) : null}
         </section>
 
         <section className={s.guarantee}>
