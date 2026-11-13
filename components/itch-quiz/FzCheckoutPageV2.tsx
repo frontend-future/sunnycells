@@ -434,7 +434,15 @@ export function FzCheckoutPageV2({ oil = false, plan }: { oil?: boolean; plan?: 
   if (!stripePromise) return <p style={{ padding: 40 }}>Checkout is not available right now.</p>;
   const amount = plan ? Math.round((OIL_PLANS[plan].entry + (plan === "once" ? OIL_SHIPPING : 0)) * 100) : FIRST * 100;
   return (
-    <Elements stripe={stripePromise} options={{ mode: plan === "once" ? "payment" : "subscription", amount, currency: "usd", appearance: APPEARANCE }}>
+    <Elements stripe={stripePromise} options={{
+        mode: plan === "once" ? "payment" : "subscription",
+        amount,
+        currency: "usd",
+        appearance: APPEARANCE,
+        /* The one time buy is an invoice, whose payment is made for card only, so Elements has to ask for card
+           too. Subscriptions pick their methods automatically and are left alone. Apple and Google Pay are cards. */
+        ...(plan === "once" ? { paymentMethodTypes: ["card"] } : {}),
+      }}>
       <Checkout oil={oil} plan={plan} />
     </Elements>
   );
