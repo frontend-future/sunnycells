@@ -18,3 +18,10 @@ export const OIL_PLANS: Record<OilPlan, { label: string; bottles: number; entry:
 };
 
 export const isOilPlan = (v: unknown): v is OilPlan => v === "1" || v === "3" || v === "once";
+
+/* The only discount code the plans accept: it takes any plan's first charge down to $1, so a real order can be
+   run end to end through Stripe and Shopify. The server makes a one use coupon for it each time. */
+export const OIL_TEST_CODE = "TESTV3";
+export const isTestCode = (c: unknown) => typeof c === "string" && c.trim().toUpperCase() === OIL_TEST_CODE;
+/** Cents off that leave $1.00 to pay on the plan's first charge. */
+export const testOff = (plan: OilPlan) => Math.round((OIL_PLANS[plan].entry + (plan === "once" ? OIL_SHIPPING : 0)) * 100) - 100;

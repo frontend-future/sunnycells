@@ -165,7 +165,7 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
   useEffect(() => { if (quizEmail) setEmail((cur) => cur || quizEmail); }, [quizEmail]);
   const [promo, setPromo] = useState<{ code: string; total: number; discount: number } | null>(null);
   const [promoMsg, setPromoMsg] = useState<string | null>(null);
-  const first = P ? P.entry + ship : promo ? promo.total / 100 : FIRST;
+  const first = promo ? promo.total / 100 : P ? P.entry + ship : FIRST;
   const off = PRICE - first;
 
   /* The summary and the payment sheet follow the code, so what they see is what they pay. */
@@ -174,7 +174,7 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
   const applyCode = async () => {
     if (!code.trim()) return;
     setPromoMsg(null);
-    const res = await fetch("/api/fz/promo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code }) });
+    const res = await fetch("/api/fz/promo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code, ...(plan ? { plan } : {}) }) });
     const data = await res.json();
     if (!res.ok) { setPromoMsg(data.error || "That code is not valid."); return; }
     setPromo(data);
@@ -402,22 +402,22 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
               </div>
             ))}
 
-            {P ? null : <form className={s.coupon} onSubmit={(e) => { e.preventDefault(); applyCode(); }}>
+            <form className={s.coupon} onSubmit={(e) => { e.preventDefault(); applyCode(); }}>
               <input className={s.input} placeholder="Discount code" aria-label="Discount code" value={code} onChange={(e) => setCode(e.target.value)} />
               <Button type="submit" variant="outline" size="md">Apply</Button>
-            </form>}
+            </form>
             {promoMsg ? <p role="alert" className={s.err} style={{ margin: "0 0 12px" }}>{promoMsg}</p> : null}
-            {P ? null : <span className={s.applied}>{promo ? `${promo.code} applied` : "FIRST50 · 50% off your first order"}</span>}
+            {P && !promo ? null : <span className={s.applied}>{promo ? `${promo.code} applied` : "FIRST50 · 50% off your first order"}</span>}
             <div className={s.guarantee}><img src={`${CHECKOUT}/icon-guarantee.webp`} alt="" />90 day guarantee</div>
 
             <div className={s.totals}>
               <div><span>Subtotal · {P ? P.bottles : LINES.length} {(P ? P.bottles : LINES.length) === 1 ? "item" : "items"}</span><span>{P ? money(P.entry) : formatPrice(PRICE)}</span></div>
-              {P ? null : <div><span>First order discount</span><span>−{formatPrice(off)}</span></div>}
+              {P ? (promo ? <div><span>Discount</span><span>−{money(promo.discount / 100)}</span></div> : null) : <div><span>First order discount</span><span>−{formatPrice(off)}</span></div>}
               <div><span>Shipping</span>{ship ? <span>{money(ship)}</span> : <span className={s.free}>FREE</span>}</div>
               <div className={s.grand}><span>Total</span><span>{P ? money(first) : formatPrice(first)}</span></div>
               {plan === "once" ? null : (
                 <div className={s.recurring}>
-                  <span>{P ? `${money(P.entry)} today, then ${money(OIL_RECUR)} every 4 weeks starting in ${P.days} days` : `${formatPrice(first)} first month, then ${formatPrice(PRICE)} every 4 weeks`}</span>
+                  <span>{P ? `${money(first)} today, then ${money(OIL_RECUR)} every 4 weeks starting in ${P.days} days` : `${formatPrice(first)} first month, then ${formatPrice(PRICE)} every 4 weeks`}</span>
                 </div>
               )}
             </div>

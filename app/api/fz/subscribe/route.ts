@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
 import { quotePromo } from "@/lib/stripe/promo";
 import { markCheckoutStarted } from "@/lib/loops";
-import { OIL_PLANS, OIL_RECUR, OIL_RECUR_KEY, OIL_SHIPPING, OIL_SHIPPING_KEY, isOilPlan } from "@/lib/quiz/fzPlans";
+import { OIL_PLANS, OIL_RECUR, OIL_RECUR_KEY, OIL_SHIPPING, OIL_SHIPPING_KEY, isOilPlan, isTestCode, testOff } from "@/lib/quiz/fzPlans";
 
 /* Friday Zoomies checkout. Creates the customer and the Inside-Out Itch Bundle subscription
    (STRIPE_FZ_PRICE_ID, every 4 weeks) with the FIRST50 promotion code attached, left
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     const st = stripe();
     /* A typed code replaces the standing FIRST50; an unknown one stops the order. */
     let promotion = promoId;
-    if (text(b.promoCode)) {
+    if (text(b.promoCode) && !plan) {
       const q = await quotePromo(text(b.promoCode), 5000);
       if (!q) return NextResponse.json({ error: "That discount code is not valid." }, { status: 400 });
       promotion = q.id;
@@ -81,6 +81,9 @@ export async function POST(req: Request) {
         if (!p || p.unit_amount !== Math.round(dollars * 100)) throw new Error(`Stripe price ${key} is missing or not $${dollars}`);
         return p.id;
       };
+      /* The test code, and only it, is allowed on a plan. */
+      if (text(b.promoCode) && !isTestCode(b.promoCode)) return NextResponse.json({ error: "That discount code is not valid." }, { status: 400 });
+      const test = text(b.promoCode) ? (await st.coupons.create({ amount_off: testOff(plan), currency: "usd", duration: "once", max_redemptions: 1, name: "TESTV3 $1 test order" })).id : null;
       let secret: string | undefined;
       let ref: string;
       if (plan === "once") {
@@ -89,6 +92,7 @@ export async function POST(req: Request) {
           collection_method: "charge_automatically",
           auto_advance: false,
           pending_invoice_items_behavior: "exclude",
+          ...(test ? { discounts: [{ coupon: test }] } : {}),
           metadata: { funnel: "fridayzoomies", product: "oil", plan },
         });
         await st.invoiceItems.create({ customer: customer.id, invoice: inv.id, pricing: { price: get(P.key, P.entry) } });
@@ -100,7 +104,7 @@ export async function POST(req: Request) {
         const s = await st.subscriptions.create({
           customer: customer.id,
           items: [{ price: get(OIL_RECUR_KEY, OIL_RECUR) }],
-          add_invoice_items: [{ price: get(P.key, P.entry) }],
+          add_invoice_items: [{ price: get(P.key, P.entry), ...(test ? { discounts: [{ coupon: test }] } : {}) }],
           trial_end: Math.floor(Date.now() / 1000) + P.days * 86400,
           payment_behavior: "default_incomplete",
           payment_settings: { save_default_payment_method: "on_subscription" },
