@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
 import { quotePromo } from "@/lib/stripe/promo";
 import { markCheckoutStarted } from "@/lib/loops";
+import { OIL_PLANS, OIL_RECUR, OIL_RECUR_KEY, OIL_SHIPPING, OIL_SHIPPING_KEY, isOilPlan } from "@/lib/quiz/fzPlans";
 
 /* Friday Zoomies checkout. Creates the customer and the Inside-Out Itch Bundle subscription
    (STRIPE_FZ_PRICE_ID, every 4 weeks) with the FIRST50 promotion code attached, left
@@ -14,6 +15,7 @@ type Body = {
   phone?: string;
   promoCode?: string;
   product?: string;
+  plan?: string;
   shipping?: { line1?: string; line2?: string; city?: string; state?: string; postal_code?: string; country?: string };
 };
 
@@ -23,9 +25,10 @@ export async function POST(req: Request) {
   const b = (await req.json().catch(() => ({}))) as Body;
   /* Only the product name comes from the page; the price is env. "oil" is Pure Omega Salmon Oil. */
   const oil = b.product === "oil";
+  const plan = oil && isOilPlan(b.plan) ? b.plan : null;
   const priceId = oil ? process.env.STRIPE_FZ_OIL_PRICE_ID : process.env.STRIPE_FZ_PRICE_ID;
   const promoId = process.env.STRIPE_FZ_PROMO_ID;
-  if (!priceId) return NextResponse.json({ error: "Checkout is not configured." }, { status: 500 });
+  if (!priceId && !plan) return NextResponse.json({ error: "Checkout is not configured." }, { status: 500 });
 
   const email = text(b.email);
   const name = text(b.name);
@@ -64,9 +67,58 @@ export async function POST(req: Request) {
       ? await st.customers.update(existing.id, { name, phone, shipping: { name, phone, address } })
       : await st.customers.create({ email, name, phone, shipping: { name, phone, address } });
 
+    /* The v3 plans. Prices are looked up in Stripe by key and their amounts checked against fzPlans, so
+       the page cannot choose a price and a mistyped one in the dashboard stops the order. The entry
+       price is a one time charge on the first invoice, and a trial holds the first rebill back:
+       28 days for the trial, 84 for the 3 month supply. The one time buy is an invoice with no
+       subscription. No discount code applies: the plan prices are already the offer. */
+    if (plan) {
+      const P = OIL_PLANS[plan];
+      const keys = [P.key, ...(plan === "once" ? [OIL_SHIPPING_KEY] : [OIL_RECUR_KEY])];
+      const found = (await st.prices.list({ lookup_keys: keys, active: true, limit: 10 })).data;
+      const get = (key: string, dollars: number) => {
+        const p = found.find((x) => x.lookup_key === key);
+        if (!p || p.unit_amount !== Math.round(dollars * 100)) throw new Error(`Stripe price ${key} is missing or not $${dollars}`);
+        return p.id;
+      };
+      let secret: string | undefined;
+      let ref: string;
+      if (plan === "once") {
+        const inv = await st.invoices.create({
+          customer: customer.id,
+          collection_method: "charge_automatically",
+          auto_advance: false,
+          pending_invoice_items_behavior: "exclude",
+          metadata: { funnel: "fridayzoomies", product: "oil", plan },
+        });
+        await st.invoiceItems.create({ customer: customer.id, invoice: inv.id, pricing: { price: get(P.key, P.entry) } });
+        await st.invoiceItems.create({ customer: customer.id, invoice: inv.id, pricing: { price: get(OIL_SHIPPING_KEY, OIL_SHIPPING) } });
+        const done = await st.invoices.finalizeInvoice(inv.id!, { expand: ["confirmation_secret"] });
+        secret = done.confirmation_secret?.client_secret ?? undefined;
+        ref = inv.id!;
+      } else {
+        const s = await st.subscriptions.create({
+          customer: customer.id,
+          items: [{ price: get(OIL_RECUR_KEY, OIL_RECUR) }],
+          add_invoice_items: [{ price: get(P.key, P.entry) }],
+          trial_end: Math.floor(Date.now() / 1000) + P.days * 86400,
+          payment_behavior: "default_incomplete",
+          payment_settings: { save_default_payment_method: "on_subscription" },
+          metadata: { funnel: "fridayzoomies", product: "oil", plan },
+          expand: ["latest_invoice.confirmation_secret"],
+        });
+        const inv = s.latest_invoice;
+        secret = typeof inv === "object" && inv ? inv.confirmation_secret?.client_secret ?? undefined : undefined;
+        ref = s.id;
+      }
+      if (!secret) return NextResponse.json({ error: "Could not start the payment." }, { status: 502 });
+      await markCheckoutStarted(email);
+      return NextResponse.json({ clientSecret: secret, subscriptionId: ref });
+    }
+
     const sub = await st.subscriptions.create({
       customer: customer.id,
-      items: [{ price: priceId }],
+      items: [{ price: priceId! }],
       ...(promotion ? { discounts: [{ promotion_code: promotion }] } : {}),
       payment_behavior: "default_incomplete",
       payment_settings: { save_default_payment_method: "on_subscription" },

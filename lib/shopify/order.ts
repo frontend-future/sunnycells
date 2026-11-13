@@ -15,7 +15,8 @@ export const GIFTS = [
 export type OrderInput = {
   invoiceId: string;
   customerId: string;
-  subscriptionId: string;
+  /** Absent on a one time buy. */
+  subscriptionId?: string;
   email: string;
   name: string;
   phone?: string;
@@ -27,12 +28,25 @@ export type OrderInput = {
   discountLabel: string;
   first: boolean;
   oil?: boolean;
+  /** Bottles on the first line. The 3 month supply is 3. */
+  bottles?: number;
+  /** Dollars charged for shipping, 0 when free. */
+  shipping?: number;
   test: boolean;
   /** The two customer emails Shopify can send. Off only in scripted tests. */
   notify?: boolean;
 };
 
 const money = (n: number) => ({ shopMoney: { amount: n.toFixed(2), currencyCode: "USD" } });
+/* A total over several bottles, in whole cents that add up exactly: 3 bottles for $74.99 is one at $25.01 and two at $24.99. */
+function bottleLines(total: number, qty: number) {
+  const cents = Math.round(total * 100);
+  const base = Math.floor(cents / qty);
+  const extra = cents - base * qty;
+  return extra && qty > 1
+    ? [{ qty: 1, price: (base + extra) / 100 }, { qty: qty - 1, price: base / 100 }]
+    : [{ qty, price: base / 100 }];
+}
 const tagFor = (invoiceId: string) => `stripe-${invoiceId}`;
 
 /** The Shopify order already made for this invoice, if any, so a retried webhook never doubles it. */
@@ -61,19 +75,19 @@ export async function createOrder(o: OrderInput): Promise<{ id: string; name: st
     shippingAddress: address,
     billingAddress: address,
     lineItems: [
-      { variantId: o.oil ? OIL : BUNDLE, quantity: 1, requiresShipping: true, priceSet: money(o.price) },
+      ...bottleLines(o.price, o.bottles ?? 1).map((l) => ({ variantId: o.oil ? OIL : BUNDLE, quantity: l.qty, requiresShipping: true, priceSet: money(l.price) })),
       ...(o.first && !o.oil ? GIFTS.map((variantId) => ({ variantId, quantity: 1, requiresShipping: true, priceSet: money(0) })) : []),
     ],
-    shippingLines: [{ title: "Standard shipping", code: "FREE", priceSet: money(0) }],
+    shippingLines: [{ title: "Standard shipping", code: o.shipping ? "STANDARD" : "FREE", priceSet: money(o.shipping ?? 0) }],
     ...(o.discount > 0 ? { discountCode: { itemFixedDiscountCode: { code: o.discountLabel, amountSet: money(o.discount) } } } : {}),
     transactions: [{ kind: "SALE", status: "SUCCESS", gateway: "stripe", amountSet: money(o.paid), test: o.test }],
-    tags: ["stripe", "fridayzoomies", o.first ? "first-order" : "renewal", tagFor(o.invoiceId)],
+    tags: ["stripe", "fridayzoomies", o.first ? "first-order" : "renewal", ...(o.subscriptionId ? [] : ["one-time"]), tagFor(o.invoiceId)],
     sourceName: "stripe-checkout",
     sourceIdentifier: o.invoiceId,
-    note: `Stripe invoice ${o.invoiceId}, subscription ${o.subscriptionId}, customer ${o.customerId}`,
+    note: `Stripe invoice ${o.invoiceId}, ${o.subscriptionId ? `subscription ${o.subscriptionId}` : "one time purchase"}, customer ${o.customerId}`,
     customAttributes: [
       { key: "stripe_invoice", value: o.invoiceId },
-      { key: "stripe_subscription", value: o.subscriptionId },
+      ...(o.subscriptionId ? [{ key: "stripe_subscription", value: o.subscriptionId }] : []),
       { key: "stripe_customer", value: o.customerId },
     ],
   };

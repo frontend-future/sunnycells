@@ -9,6 +9,7 @@ import { RATING } from "@/lib/products/dog-itch";
 import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
 import { useAnswers } from "@/lib/quiz/store";
+import { OIL_PLANS, OIL_SHIPPING, type OilPlan } from "@/lib/quiz/fzPlans";
 import styles from "./fz-pdp-v3.module.css";
 
 const DIR = "/quiz/fridayzoomies";
@@ -39,18 +40,18 @@ const WEIGHTS = [
 ];
 
 /* The 1 month trial's own prices, with cents. Not the v2 checkout's FIRST and PRICE, which are whole dollars. */
-const TRIAL = 29.99;
+const TRIAL = OIL_PLANS["1"].entry;
 /* The one time price, which is also what the struck-through prices are built from. */
-const ONCE = 57.99;
+const ONCE = OIL_PLANS.once.entry;
 const TRIAL_WAS = ONCE;
 /* What a one time buyer pays to ship, struck through next to FREE. */
-const SHIPPING = 8.65;
+const SHIPPING = OIL_SHIPPING;
 const money = (n: number) => `$${n.toFixed(2)}`;
 /* The trial spread over its 28 days. */
 const PER_DAY = (TRIAL / 28).toFixed(2);
 
 /* The 3 month plan: 3 bottles for $74.99 against 3 times the one time price, spread over 84 days. */
-const PLAN3_PRICE = 74.99;
+const PLAN3_PRICE = OIL_PLANS["3"].entry;
 const PLAN3_WAS = Math.round(3 * TRIAL_WAS * 100) / 100;
 const PLAN3_PER_DAY = (PLAN3_PRICE / 84).toFixed(2);
 
@@ -89,7 +90,7 @@ function Check() {
  * The weight buttons start on the quiz answer. Picking another changes nothing else,
  * since every size is the same price and plan.
  */
-export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean> | void }) {
+export function FridayZoomiesPdpV3({ onStart }: { onStart: (plan: OilPlan) => Promise<boolean> | void }) {
   const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
   const quizSize = WEIGHTS.find((w) => answers["dog-size"]?.replace(/[–]/g, "-") === w.value)?.value;
   const [picked, setPicked] = useState<string | null>(null);
@@ -135,10 +136,10 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
     </>
   );
 
-  const start = async () => {
+  const start = async (buy: OilPlan = plan === 1 ? "1" : "3") => {
     if (busy) return;
     setBusy(true);
-    const ok = await onStart();
+    const ok = await onStart(buy);
     /* A resolved false is a failed checkout, so let them tap again. Anything else is
        a redirect already under way, so the button stays down. */
     if (ok === false) setBusy(false);
@@ -312,7 +313,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                 <Button
                   size="lg"
                   fullWidth
-                  onClick={start}
+                  onClick={() => start()}
                   disabled={busy}
                   style={{ fontSize: 20, fontWeight: 800, lineHeight: "24px", letterSpacing: "-0.02em", minHeight: 69, paddingBlock: 16, whiteSpace: "pre-wrap" }}
                 >
@@ -335,8 +336,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
                 </span>
               </div>
 
-              {/* ponytail: no one time checkout exists yet, so this does nothing until it is wired. */}
-              <button type="button" className={styles.once}>Buy Once For {money(ONCE)} + Shipping</button>
+              <button type="button" className={styles.once} disabled={busy} onClick={() => start("once")}>Buy Once For {money(ONCE)} + Shipping</button>
 
               <p className={styles.update}><b>UPDATE: </b>Fall is a peak season for your dog&apos;s seasonal allergies.</p>
             </div>
@@ -362,7 +362,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
         <Button
           size="lg"
           fullWidth
-          onClick={start}
+          onClick={() => start()}
           disabled={busy}
           tabIndex={stuck ? 0 : -1}
           style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.02em", minHeight: 48, paddingBlock: 8, whiteSpace: "pre-wrap" }}

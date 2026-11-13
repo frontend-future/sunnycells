@@ -8,6 +8,7 @@ import { Icon } from "@/components/core/Icon";
 import { RATING } from "@/lib/products/dog-itch";
 import { formatPrice } from "@/lib/price";
 import { FZ_BRAND, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
+import { OIL_PLANS, OIL_RECUR, OIL_SHIPPING, type OilPlan } from "@/lib/quiz/fzPlans";
 import { FIRST, IMG, LINES as BUNDLE_LINES, OIL_LINES, OIL_NAME, PRICE } from "@/lib/quiz/fzOrder";
 import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
@@ -21,6 +22,7 @@ import s from "./fzCheckoutV2.module.css";
    here yet. */
 
 const CHECKOUT = `${IMG}/checkout`;
+const money = (n: number) => `$${n.toFixed(2)}`;
 const TRUST = [
   { icon: "icon-guarantee", title: "90-Day Money Back Guarantee", body: "Itching not improved within 90 days? Full refund." },
   { icon: "icon-shipping", title: "Free shipping and returns", body: "Shipping is on us, and so is the return if you are not completely satisfied." },
@@ -60,10 +62,11 @@ function invalidFields(fd: FormData, billing: boolean): string[] {
 }
 const labelOf = (name: string) => (name.startsWith("bill-") ? "billing " : "") + LABEL[name.replace(/^(ship|bill)-/, "")];
 
-function TrustBlocks({ className }: { className: string }) {
+/* `paidShipping` drops the free shipping claim for the one time buy, which pays to ship. */
+function TrustBlocks({ className, paidShipping }: { className: string; paidShipping?: boolean }) {
   return (
     <div className={`${s.trust} ${className}`}>
-      {TRUST.map((t) => (
+      {TRUST.filter((t) => !(paidShipping && t.icon === "icon-shipping")).map((t) => (
         <div className={s.trustItem} key={t.title}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`${CHECKOUT}/${t.icon}.webp`} alt="" />
@@ -135,7 +138,10 @@ function useHold() {
   return `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
 }
 
-function Checkout({ oil }: { oil: boolean }) {
+function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
+  /* A v3 plan has its own price and bottle count; without one this is the v2 checkout, unchanged. */
+  const P = plan ? OIL_PLANS[plan] : null;
+  const ship = plan === "once" ? OIL_SHIPPING : 0;
   const LINES = oil ? OIL_LINES : BUNDLE_LINES;
   const productName = oil ? OIL_NAME : FZ_PRODUCT_NAME;
   const hold = useHold();
@@ -159,7 +165,7 @@ function Checkout({ oil }: { oil: boolean }) {
   useEffect(() => { if (quizEmail) setEmail((cur) => cur || quizEmail); }, [quizEmail]);
   const [promo, setPromo] = useState<{ code: string; total: number; discount: number } | null>(null);
   const [promoMsg, setPromoMsg] = useState<string | null>(null);
-  const first = promo ? promo.total / 100 : FIRST;
+  const first = P ? P.entry + ship : promo ? promo.total / 100 : FIRST;
   const off = PRICE - first;
 
   /* The summary and the payment sheet follow the code, so what they see is what they pay. */
@@ -203,7 +209,7 @@ function Checkout({ oil }: { oil: boolean }) {
           line1: field(fd, "ship-address"), line2: field(fd, "ship-address2"), city: field(fd, "ship-city"),
           state: field(fd, "ship-state"), zip: field(fd, "ship-zip"), phone: field(fd, "phone"),
         },
-        plan: `${productName}, every 4 weeks`,
+        plan: P ? `${productName}, ${P.label}` : `${productName}, every 4 weeks`,
         total: first,
         stage: "payment",
         product: productName,
@@ -248,7 +254,7 @@ function Checkout({ oil }: { oil: boolean }) {
       const res = await fetch("/api/fz/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: who.email, name: who.name, phone: who.phone, shipping: who.shipping, promoCode: promo?.code, ...(oil ? { product: "oil" } : {}) }),
+        body: JSON.stringify({ email: who.email, name: who.name, phone: who.phone, shipping: who.shipping, promoCode: promo?.code, ...(oil ? { product: "oil" } : {}), ...(plan ? { plan } : {}) }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "We could not start your order. Try again.");
@@ -288,7 +294,7 @@ function Checkout({ oil }: { oil: boolean }) {
         <span className={s.reviews}><span className={s.stars} aria-hidden="true">★★★★★</span>{RATING.score} stars · {RATING.count} reviews</span>
         <ul className={s.assure}>
           <li><img src={`${CHECKOUT}/icon-guarantee.webp`} alt="" />90-Day Guarantee</li>
-          <li><img src={`${CHECKOUT}/icon-shipping.webp`} alt="" />Free US shipping</li>
+          {plan === "once" ? null : <li><img src={`${CHECKOUT}/icon-shipping.webp`} alt="" />Free US shipping</li>}
           <li>
             <img src={`${CHECKOUT}/icon-secure.webp`} alt="" />
             Secure checkout
@@ -373,7 +379,7 @@ function Checkout({ oil }: { oil: boolean }) {
               </p>
             </>
           )}
-          <TrustBlocks className={s.trustBottom} />
+          <TrustBlocks className={s.trustBottom} paidShipping={plan === "once"} />
         </form>
 
         <aside className={s.aside} aria-label="Order summary">
@@ -387,32 +393,36 @@ function Checkout({ oil }: { oil: boolean }) {
                 <div className={s.thumb}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={l.image} alt="" />
-                  <span className={s.qty}>1</span>
+                  <span className={s.qty}>{P ? P.bottles : 1}</span>
                 </div>
-                <div className={s.lineName}>{l.name}{l.sub ? <span className={s.lineSub}>{l.sub}</span> : null}</div>
-                <div className={`${s.linePrice} ${l.price ? "" : s.free}`}>
-                  {l.now ? <><del className={s.was}>{l.price}</del> {formatPrice(first)}</> : l.price ?? "FREE"}
+                <div className={s.lineName}>{P ? `Pure Omega Salmon Oil (${P.label})` : l.name}{l.sub && !P ? <span className={s.lineSub}>{l.sub}</span> : null}</div>
+                <div className={`${s.linePrice} ${l.price || P ? "" : s.free}`}>
+                  {P ? money(P.entry) : l.now ? <><del className={s.was}>{l.price}</del> {formatPrice(first)}</> : l.price ?? "FREE"}
                 </div>
               </div>
             ))}
 
-            <form className={s.coupon} onSubmit={(e) => { e.preventDefault(); applyCode(); }}>
+            {P ? null : <form className={s.coupon} onSubmit={(e) => { e.preventDefault(); applyCode(); }}>
               <input className={s.input} placeholder="Discount code" aria-label="Discount code" value={code} onChange={(e) => setCode(e.target.value)} />
               <Button type="submit" variant="outline" size="md">Apply</Button>
-            </form>
+            </form>}
             {promoMsg ? <p role="alert" className={s.err} style={{ margin: "0 0 12px" }}>{promoMsg}</p> : null}
-            <span className={s.applied}>{promo ? `${promo.code} applied` : "FIRST50 · 50% off your first order"}</span>
+            {P ? null : <span className={s.applied}>{promo ? `${promo.code} applied` : "FIRST50 · 50% off your first order"}</span>}
             <div className={s.guarantee}><img src={`${CHECKOUT}/icon-guarantee.webp`} alt="" />90 day guarantee</div>
 
             <div className={s.totals}>
-              <div><span>Subtotal · {LINES.length} {LINES.length === 1 ? "item" : "items"}</span><span>{formatPrice(PRICE)}</span></div>
-              <div><span>First order discount</span><span>−{formatPrice(off)}</span></div>
-              <div><span>Shipping</span><span className={s.free}>FREE</span></div>
-              <div className={s.grand}><span>Total</span><span>{formatPrice(first)}</span></div>
-              <div className={s.recurring}><span>{formatPrice(first)} first month, then {formatPrice(PRICE)} every 4 weeks</span></div>
+              <div><span>Subtotal · {P ? P.bottles : LINES.length} {(P ? P.bottles : LINES.length) === 1 ? "item" : "items"}</span><span>{P ? money(P.entry) : formatPrice(PRICE)}</span></div>
+              {P ? null : <div><span>First order discount</span><span>−{formatPrice(off)}</span></div>}
+              <div><span>Shipping</span>{ship ? <span>{money(ship)}</span> : <span className={s.free}>FREE</span>}</div>
+              <div className={s.grand}><span>Total</span><span>{P ? money(first) : formatPrice(first)}</span></div>
+              {plan === "once" ? null : (
+                <div className={s.recurring}>
+                  <span>{P ? `${money(P.entry)} today, then ${money(OIL_RECUR)} every 4 weeks starting in ${P.days} days` : `${formatPrice(first)} first month, then ${formatPrice(PRICE)} every 4 weeks`}</span>
+                </div>
+              )}
             </div>
           </div>
-          <TrustBlocks className={s.trustSide} />
+          <TrustBlocks className={s.trustSide} paidShipping={plan === "once"} />
         </aside>
       </div>
     </div>
@@ -420,11 +430,12 @@ function Checkout({ oil }: { oil: boolean }) {
 }
 
 /* `oil` is the Pure Omega Salmon Oil order: its own price and Shopify variant on the server, no gifts. */
-export function FzCheckoutPageV2({ oil = false }: { oil?: boolean } = {}) {
+export function FzCheckoutPageV2({ oil = false, plan }: { oil?: boolean; plan?: OilPlan } = {}) {
   if (!stripePromise) return <p style={{ padding: 40 }}>Checkout is not available right now.</p>;
+  const amount = plan ? Math.round((OIL_PLANS[plan].entry + (plan === "once" ? OIL_SHIPPING : 0)) * 100) : FIRST * 100;
   return (
-    <Elements stripe={stripePromise} options={{ mode: "subscription", amount: FIRST * 100, currency: "usd", appearance: APPEARANCE }}>
-      <Checkout oil={oil} />
+    <Elements stripe={stripePromise} options={{ mode: plan === "once" ? "payment" : "subscription", amount, currency: "usd", appearance: APPEARANCE }}>
+      <Checkout oil={oil} plan={plan} />
     </Elements>
   );
 }

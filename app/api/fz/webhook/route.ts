@@ -5,6 +5,7 @@ import { createOrder, findOrder } from "@/lib/shopify/order";
 import { sendAlert } from "@/lib/alert";
 import { recordOrderInSheet, sheetDates } from "@/lib/leads-sheet";
 import { tagPurchaser, notifyUpcomingShipment } from "@/lib/loops";
+import { OIL_PLANS, OIL_SHIPPING } from "@/lib/quiz/fzPlans";
 
 export const maxDuration = 30;
 
@@ -44,8 +45,12 @@ export async function POST(req: Request) {
   try {
     const subId = invoice.parent?.subscription_details?.subscription;
     const subscriptionId = typeof subId === "string" ? subId : subId?.id;
-    const meta = invoice.parent?.subscription_details?.metadata ?? {};
-    if (!subscriptionId || meta.funnel !== "fridayzoomies") return NextResponse.json({ ignored: "not friday zoomies" });
+    /* The one time oil buy is an invoice with no subscription; its plan rides on the invoice itself. */
+    const once = !subscriptionId && invoice.metadata?.plan === "once";
+    const meta = once ? invoice.metadata ?? {} : invoice.parent?.subscription_details?.metadata ?? {};
+    if ((!subscriptionId && !once) || meta.funnel !== "fridayzoomies") return NextResponse.json({ ignored: "not friday zoomies" });
+    /* The first invoice of a subscription, or the whole of a one time buy. */
+    const isFirst = invoice.billing_reason === "subscription_create" || once;
 
     /* Retries replay the original event, so ask Stripe for the invoice as it is now. The order name
        we wrote back is the reliable duplicate check; Shopify's tag search can lag a few seconds. */
@@ -76,11 +81,14 @@ export async function POST(req: Request) {
       name: customer.shipping?.name || customer.name || customer.email,
       phone: customer.shipping?.phone || customer.phone || undefined,
       address: { line1: ship.line1 ?? "", line2: ship.line2 ?? undefined, city: ship.city ?? "", state: ship.state ?? "", postal_code: ship.postal_code ?? "", country: ship.country ?? "US" },
-      price: (invoice.subtotal ?? 0) / 100,
+      price: ((invoice.subtotal ?? 0) - (once ? Math.round(OIL_SHIPPING * 100) : 0)) / 100,
+      shipping: once ? OIL_SHIPPING : 0,
+      /* The 3 month supply ships 3 bottles on its first order; every rebill, and every other plan, is 1. */
+      bottles: isFirst && meta.plan === "3" ? OIL_PLANS["3"].bottles : 1,
       paid: invoice.amount_paid / 100,
       discount,
       discountLabel: label,
-      first: invoice.billing_reason === "subscription_create",
+      first: isFirst,
       oil: meta.product === "oil",
       test: !event.livemode,
     });
@@ -88,11 +96,11 @@ export async function POST(req: Request) {
     await st.invoices.update(invoice.id!, { metadata: { shopify_order: order.name } }).catch(() => {});
     await sendAlert(
       `New order ${order.name}: ${customer.email}, $${invoice.amount_paid / 100}`,
-      `<p><strong>${invoice.billing_reason === "subscription_create" ? "New order" : "Renewal"} ${esc(order.name)}</strong> was created in Shopify.</p>
+      `<p><strong>${isFirst ? "New order" : "Renewal"} ${esc(order.name)}</strong> was created in Shopify.</p>
        <p>${esc(customer.shipping?.name ?? "")} · ${esc(customer.email)}<br>${esc(ship.line1 ?? "")} ${esc(ship.line2 ?? "")}, ${esc(ship.city ?? "")}, ${esc(ship.state ?? "")} ${esc(ship.postal_code ?? "")}</p>`,
     );
     /* First orders only: renewals are the same customer, already in the sheet. */
-    if (invoice.billing_reason === "subscription_create" && event.livemode) {
+    if (isFirst && event.livemode) {
       await recordOrderInSheet({
         email: customer.email,
         name: customer.shipping?.name || customer.name || "",
@@ -105,7 +113,7 @@ export async function POST(req: Request) {
       });
     }
     /* Flag them in Loops so the quiz follow up emails stop. A miss emails the owner so it can be fixed by hand. */
-    if (invoice.billing_reason === "subscription_create" && event.livemode) {
+    if (isFirst && event.livemode) {
       const name = customer.shipping?.name || customer.name || "";
       const tagged = await tagPurchaser({ email: customer.email, firstName: name.trim().split(/\s+/)[0], invoiceId: invoice.id!, orderName: order.name });
       if (!tagged) {
