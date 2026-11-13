@@ -149,7 +149,7 @@ export function FridayZoomiesPdpV3({ onStart }: { onStart: () => Promise<boolean
       <div className={styles.banner} role="region" aria-label="Offer countdown">
         <div className={styles.bannerIn}>
           <div className={styles.bannerCopy}>
-            <p className={styles.bannerLead}>Friday Zoomies Sale</p>
+            <p className={styles.bannerLead}>BLACK FRIDAY SALE 🐶</p>
             <p className={styles.bannerSub}>Save 50% + Free Shipping</p>
           </div>
           <div className={styles.pill} aria-live="off">
