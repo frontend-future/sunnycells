@@ -439,9 +439,6 @@ export function FzCheckoutPageV2({ oil = false, plan }: { oil?: boolean; plan?: 
         amount,
         currency: "usd",
         appearance: APPEARANCE,
-        /* The one time buy is an invoice, whose payment is made for card only, so Elements has to ask for card
-           too. Subscriptions pick their methods automatically and are left alone. Apple and Google Pay are cards. */
-        ...(plan === "once" ? { paymentMethodTypes: ["card"] } : {}),
       }}>
       <Checkout oil={oil} plan={plan} />
     </Elements>

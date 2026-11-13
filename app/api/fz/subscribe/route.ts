@@ -83,23 +83,28 @@ export async function POST(req: Request) {
       };
       /* The test code, and only it, is allowed on a plan. */
       if (text(b.promoCode) && !isTestCode(b.promoCode)) return NextResponse.json({ error: "That discount code is not valid." }, { status: 400 });
-      const test = text(b.promoCode) ? (await st.coupons.create({ amount_off: testOff(plan), currency: "usd", duration: "once", max_redemptions: 1, name: "TESTV3 $1 test order" })).id : null;
+      const testing = !!text(b.promoCode);
+      const test = testing && plan !== "once" ? (await st.coupons.create({ amount_off: testOff(plan), currency: "usd", duration: "once", max_redemptions: 1, name: "TESTV3 $1 test order" })).id : null;
       let secret: string | undefined;
       let ref: string;
       if (plan === "once") {
-        const inv = await st.invoices.create({
+        /* Prices are checked, then the charge is a plain payment (card, Apple Pay and the rest, automatically), not an
+           invoice: Elements cannot confirm an invoice's card-only payment here. The webhook reads the plan and the
+           discount from its metadata. */
+        get(P.key, P.entry);
+        get(OIL_SHIPPING_KEY, OIL_SHIPPING);
+        const off = testing ? testOff(plan) : 0;
+        const pi = await st.paymentIntents.create({
+          amount: Math.round((P.entry + OIL_SHIPPING) * 100) - off,
+          currency: "usd",
           customer: customer.id,
-          collection_method: "charge_automatically",
-          auto_advance: false,
-          pending_invoice_items_behavior: "exclude",
-          ...(test ? { discounts: [{ coupon: test }] } : {}),
-          metadata: { funnel: "fridayzoomies", product: "oil", plan },
+          automatic_payment_methods: { enabled: true },
+          shipping: { name, phone, address },
+          description: "Pure Omega Salmon Oil, one time purchase",
+          metadata: { funnel: "fridayzoomies", product: "oil", plan, ...(off ? { discount_cents: String(off) } : {}) },
         });
-        await st.invoiceItems.create({ customer: customer.id, invoice: inv.id, pricing: { price: get(P.key, P.entry) } });
-        await st.invoiceItems.create({ customer: customer.id, invoice: inv.id, pricing: { price: get(OIL_SHIPPING_KEY, OIL_SHIPPING) } });
-        const done = await st.invoices.finalizeInvoice(inv.id!, { expand: ["confirmation_secret"] });
-        secret = done.confirmation_secret?.client_secret ?? undefined;
-        ref = inv.id!;
+        secret = pi.client_secret ?? undefined;
+        ref = pi.id;
       } else {
         const s = await st.subscriptions.create({
           customer: customer.id,
