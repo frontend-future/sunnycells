@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import { FridayZoomiesLabelDrawerV2 } from "@/components/itch-quiz/FridayZoomiesLabelDrawerV2";
 import { RATING } from "@/lib/products/dog-itch";
 import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
+import { completedKey } from "@/lib/quiz/completed";
 import { useAnswers } from "@/lib/quiz/store";
 import { OIL_PLANS, OIL_SHIPPING, type OilPlan } from "@/lib/quiz/fzPlans";
 import styles from "./fz-pdp-v3.module.css";
@@ -92,7 +93,17 @@ function Check() {
  */
 export function FridayZoomiesPdpV3({ onStart }: { onStart: (plan: OilPlan) => Promise<boolean> | void }) {
   const { answers } = useAnswers(itchFridayZoomiesQuiz.id);
-  const quizSize = WEIGHTS.find((w) => answers["dog-size"]?.replace(/[–]/g, "-") === w.value)?.value;
+  /* The quiz answer, from this tab's session, or failing that from the copy kept on the device once the quiz was
+     finished, so opening the page in a new tab or on a later day still has the dog's size. */
+  const saved = useSyncExternalStore(
+    () => () => {},
+    () => { try { return window.localStorage.getItem(completedKey(itchFridayZoomiesQuiz.id)) ?? ""; } catch { return ""; } },
+    () => "",
+  );
+  let savedSize: string | undefined;
+  try { savedSize = (JSON.parse(saved || "{}") as Record<string, string>)["dog-size"]; } catch {}
+  const size = answers["dog-size"] ?? savedSize;
+  const quizSize = WEIGHTS.find((w) => size?.replace(/[–]/g, "-") === w.value)?.value;
   const [picked, setPicked] = useState<string | null>(null);
   const weight = picked ?? quizSize ?? null;
   const [at, setAt] = useState(0);
