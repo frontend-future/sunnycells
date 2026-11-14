@@ -120,7 +120,6 @@ export function FzOto({ step, headline, subhead, timerLabel, intro, gets, offerT
           </p>
         </section>
 
-        <p className={s.confirm}>Your order is confirmed. Adding bottles does not change your subscription.</p>
       </main>
     </div>
   );

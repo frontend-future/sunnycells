@@ -51,7 +51,6 @@
 .promiseH { font-family: var(--font-display); font-size: 30px; font-weight: 800; text-transform: uppercase; margin: 0 0 10px; color: var(--cobalt); }
 .promise p { margin: 0; font-size: 20px; font-weight: 500; line-height: 1.45; }
 .promise a { color: var(--cobalt); font-weight: 700; }
-.confirm { background: var(--sun-tint); border-radius: 12px; padding: 16px; margin: 0; text-align: center; font-size: 18px; font-weight: 500; color: var(--ink-80); }
 
 @media (min-width: 640px) {
   .offer { grid-template-columns: 200px 1fr; align-items: start; }
