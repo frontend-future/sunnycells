@@ -4,6 +4,7 @@ import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { IMG } from "@/lib/quiz/fzOrder";
 import { formatPrice } from "@/lib/price";
 import { RATING } from "@/lib/products/dog-itch";
+import { FzOtoTimer } from "./FzOtoTimer";
 import s from "./fzOto.module.css";
 
 /* One page for both the OTO1 offer and its downsell: same structure, different price and
@@ -13,7 +14,11 @@ export type OtoProps = {
   step: 1 | 2;
   headline: string;
   subhead: string;
+  /** Shown above the headline: the held price and how long it lasts. */
+  timerLabel: string;
   intro: string;
+  /** What they get, as short benefit lines under the intro. */
+  gets: string[];
   /** The add-on card: its title, the regular price struck through, today's price, and the card copy. */
   offerTitle: string;
   was: number;
@@ -28,7 +33,7 @@ export type OtoProps = {
 
 const STEPS = ["Cart", "Payment", "Add-on", "Done"];
 
-export function FzOto({ headline, subhead, intro, offerTitle, was, price, offerBody, cta, next, acceptHref, declineHref }: OtoProps) {
+export function FzOto({ step, headline, subhead, timerLabel, intro, gets, offerTitle, was, price, offerBody, cta, next, acceptHref, declineHref }: OtoProps) {
   const save = was - price;
   return (
     <div className={s.page}>
@@ -51,9 +56,16 @@ export function FzOto({ headline, subhead, intro, offerTitle, was, price, offerB
           ))}
         </ol>
 
+        <FzOtoTimer id={`oto${step}`} seconds={180} expiredHref={declineHref} label={timerLabel} />
+
         <h1 className={s.h1}>{headline}</h1>
         <p className={s.sub}>{subhead}</p>
         <p className={s.intro}>{intro}</p>
+        <ul className={s.gets}>
+          {gets.map((g) => (
+            <li key={g}>{g}</li>
+          ))}
+        </ul>
 
         <section className={s.offer} aria-label="Add-on offer">
           {/* eslint-disable-next-line @next/next/no-img-element */}
