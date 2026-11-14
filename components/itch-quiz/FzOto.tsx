@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FZ_BRAND } from "@/lib/quiz/fridayzoomiesOffer";
 import { FZ_OIL_NAME } from "@/lib/quiz/fridayzoomiesOfferV2";
-import { IMG, PRICE } from "@/lib/quiz/fzOrder";
+import { IMG } from "@/lib/quiz/fzOrder";
 import { formatPrice } from "@/lib/price";
 import { RATING } from "@/lib/products/dog-itch";
 import s from "./fzOto.module.css";
@@ -14,17 +14,22 @@ export type OtoProps = {
   headline: string;
   subhead: string;
   intro: string;
+  /** The add-on card: its title, the regular price struck through, today's price, and the card copy. */
+  offerTitle: string;
+  was: number;
   price: number;
+  offerBody: string;
+  cta: string;
+  /** The "What's next" lines under the offer. */
+  next: string[];
   acceptHref: string;
   declineHref: string;
-  /** The last line of "What happens next", which differs between the offer and the downsell. */
-  nextLast: string;
 };
 
 const STEPS = ["Cart", "Payment", "Add-on", "Done"];
 
-export function FzOto({ step, headline, subhead, intro, price, acceptHref, declineHref, nextLast }: OtoProps) {
-  const save = PRICE - price;
+export function FzOto({ headline, subhead, intro, offerTitle, was, price, offerBody, cta, next, acceptHref, declineHref }: OtoProps) {
+  const save = was - price;
   return (
     <div className={s.page}>
       <header className={s.header}>
@@ -54,20 +59,20 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className={s.bottle} src={`${IMG}/oil-bottle.webp`} alt={FZ_OIL_NAME} />
           <div className={s.offerBody}>
-            <h2 className={s.h2}>Add on: first month loading phase</h2>
+            <h2 className={s.h2}>{offerTitle}</h2>
             <p className={s.priceRow}>
-              <del>{formatPrice(PRICE)}</del> <strong>{formatPrice(price)}</strong> <span className={s.save}>Save {formatPrice(save)}</span>
+              <del>{formatPrice(was)}</del> <strong>{formatPrice(price)}</strong> <span className={s.save}>Save {formatPrice(save)}</span>
             </p>
             <p className={s.rating}>
               <span className={s.stars} aria-hidden="true">★★★★★</span> {RATING.score} · {RATING.count} reviews
             </p>
-            <p className={s.body}>An additional bottle of {FZ_OIL_NAME} to cover your loading phase. Please note: this is a one-time payment.</p>
+            <p className={s.body}>{offerBody}</p>
           </div>
           <div className={s.actions}>
             <dl className={s.rows}>
               <div><dt>Shipping</dt><dd>Free</dd></div>
             </dl>
-            <Link className={s.cta} href={acceptHref}>Get {formatPrice(save)} off your loading phase bottle · {formatPrice(price)}</Link>
+            <Link className={s.cta} href={acceptHref}>{cta}</Link>
             <Link className={s.decline} href={declineHref}>Decline this offer</Link>
           </div>
         </section>
@@ -75,15 +80,9 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
         <section className={s.block}>
           <h2 className={s.h2c}>Why this can help</h2>
           <p className={s.center}>
-            Omega-3s work best when they&apos;re given consistently over time. A short &quot;loading phase&quot; can help build up
-            EPA and DHA faster, which <strong>may lead to earlier improvements in skin comfort.</strong>
+            Omega-3s work best when they&apos;re given every day over time. Relief builds over the first 90 days of steady
+            EPA and DHA, <strong>so the full 90 days matters more than any single week.</strong>
           </p>
-        </section>
-
-        <section className={s.block}>
-          <h2 className={s.h2c}>Good to know</h2>
-          <p className={s.center}><strong>The loading phase lasts the first 30 days</strong>, then you return to the standard amount.</p>
-          <p className={s.center}>If your dog has a sensitive stomach, start with the half amount from the label for the first week before moving up. Check with your vet first if your dog has a health condition or takes medication.</p>
         </section>
 
         <section className={s.block}>
@@ -94,9 +93,9 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
 
         <section className={s.block}>
           <h2 className={s.h2c}>What&apos;s next?</h2>
-          <p className={s.center}>Loading phase means giving twice your dog&apos;s usual daily amount for the first 30 days: 2 pumps a day up to 40 lbs, 4 pumps over 40 lbs.</p>
-          <p className={s.center}>To make sure you don&apos;t run out early, you&apos;ll need to add one additional bottle today.</p>
-          <p className={s.center}>{nextLast}</p>
+          {next.map((line) => (
+            <p key={line} className={s.center}>{line}</p>
+          ))}
         </section>
 
         <section className={s.promise}>
@@ -104,12 +103,12 @@ export function FzOto({ step, headline, subhead, intro, price, acceptHref, decli
           <img src="/quiz/fridayzoomies/checkout/badge-90.webp" alt="" />
           <h2 className={s.promiseH}>The 90-day promise</h2>
           <p>
-            Double servings are risk free and covered by our 90-Day Itch-Free Guarantee. Email{" "}
+            This add-on is risk free and covered by our 90-Day Itch-Free Guarantee. Email{" "}
             <a href="mailto:support@fridayzoomies.com">support@fridayzoomies.com</a> and we&apos;ll take care of you.
           </p>
         </section>
 
-        <p className={s.confirm}>Your order is confirmed. Adding a bottle does not change your subscription.</p>
+        <p className={s.confirm}>Your order is confirmed. Adding bottles does not change your subscription.</p>
       </main>
     </div>
   );
