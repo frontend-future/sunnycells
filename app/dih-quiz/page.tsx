@@ -1,9 +1,7 @@
 import Image from "next/image";
 import { Badge } from "@/components/core/Badge";
 import { Wordmark } from "@/components/core/Wordmark";
-import { RatingPill } from "@/components/quiz/RatingPill";
 import { StartButton } from "@/components/quiz/StartButton";
-import { RATING } from "@/lib/products/dog-itch";
 import { dihQuiz } from "@/lib/quiz/dih";
 import styles from "./landing.module.css";
 
@@ -48,7 +46,6 @@ export default function DihQuizLandingPage() {
           <p style={{ margin: 0, maxWidth: 480, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
             This short quiz helps you see how Pure Omega Salmon Oil could support your dog&apos;s skin and coat.
           </p>
-          <RatingPill value={RATING.score} count={RATING.count} />
           <StartButton config={dihQuiz}>Start now</StartButton>
         </div>
 
