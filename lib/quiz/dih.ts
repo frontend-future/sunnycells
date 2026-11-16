@@ -45,7 +45,7 @@ export const dihQuiz: QuizConfig = {
       kind: "info",
       question: "All-in-one benefits for *long-term health*",
       emphasize: true,
-      body: "**Friday Zoomies Pure Omega Salmon Oil** is made with only the **main ingredients**, salmon oil and mixed tocopherols, without any filler or harmful ingredients. The omega-3s in it help with all sorts of issues, from skin and coat to joints, heart, brain and more.",
+      body: "**Friday Zoomies Pure Omega Salmon Oil** is made with only the **main ingredients**, salmon oil and mixed tocopherols, without any filler or harmful ingredients. Its EPA and DHA support calmer skin, a shinier coat, easier movement, a healthy heart and a sharper mind.",
       image: { src: `${IMG}/edu/more-than-relief.webp`, video: `${IMG}/edu/more-than-relief.mp4`, alt: "A happy cartoon Golden Retriever with glowing joints", frame: "square" },
       cta: "Continue",
     },
