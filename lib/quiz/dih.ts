@@ -61,14 +61,9 @@ export const dihQuiz: QuizConfig = {
       slug: "not-all-the-same",
       kind: "info",
       showIf: { slug: "tried-before", oneOf: ["Yes"] },
-      question: "Not every salmon oil works the same way",
-      body: `If salmon oil or fish oil did not seem to do much, the idea is rarely the problem. There are usually two reasons.
-
-**Time.** Skin repairs slowly. Relief builds over the first 90 days of daily use, so a few weeks on a bottle can look like nothing.
-
-**The bottle.** Some fish oils come with a long ingredient list and a small amount of the two omega-3s the skin actually uses. Friday Zoomies has two ingredients, so what comes out of the pump is EPA and DHA and nothing else.
-
-That is why every order is backed by a **90-Day Money Back Guarantee**. Give it the 90 days, and if your dog is not better, you get your money back.`,
+      question: "Your dog deserves *premium* salmon oil",
+      emphasize: true,
+      body: "If salmon oil did not seem to help before, it was likely the bottle or the timing. **Friday Zoomies** has **just two ingredients**, EPA and DHA and nothing else, and relief builds over **90 days** of daily use. We back it with a **90-Day Money Back Guarantee**.",
       image: { src: `${IMG}/edu/what-to-expect.webp`, alt: "A cartoon dog scratching, with a month 1, month 2, month 3 timeline beneath it", frame: "square" },
       cta: "Continue",
     },
