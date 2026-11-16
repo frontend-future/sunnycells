@@ -113,7 +113,7 @@ export function RevealBody({ step, config }: { step: Extract<Step, { kind: "reve
             >
               {step.code}
             </div>
-            <p style={{ margin: "0 0 var(--space-6)", display: "flex", gap: "var(--space-2)", alignItems: "center", justifyContent: "center", fontSize: "var(--size-body)", fontWeight: 700, lineHeight: 1.35 }}>
+            <p style={{ margin: "0 0 var(--space-6)", display: "flex", gap: "var(--space-5)", alignItems: "center", justifyContent: "center", fontSize: "var(--size-body)", fontWeight: 700, lineHeight: 1.35 }}>
               <span aria-hidden="true" style={{ flex: "none", width: 26, height: 26, borderRadius: "50%", background: "var(--ink)", color: "var(--sun)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Icon name="check" size={16} strokeWidth={3.5} />
               </span>
