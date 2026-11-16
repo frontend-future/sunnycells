@@ -102,6 +102,16 @@ export function QuizChrome({
   );
 }
 
+/** `*word*` in a heading comes out italic: one accent word, the way the reference sets
+    "feeling its best". Plain text without asterisks is returned untouched. */
+export function withItalics(text: string): ReactNode {
+  return text.split(/(\*[^*]+\*)/).map((part, i) =>
+    part.startsWith("*") && part.endsWith("*") && part.length > 2
+      ? <em key={i} style={{ fontStyle: "italic", fontWeight: 600, whiteSpace: "nowrap" }}>{part.slice(1, -1)}</em>
+      : part,
+  );
+}
+
 /** Questions run long, so they are set sentence case in the display face rather than
     the all-caps reserved for hero headlines. Four lines of caps is unreadable. */
 export function QuizQuestion({ children }: { children: ReactNode }) {
@@ -116,7 +126,7 @@ export function QuizQuestion({ children }: { children: ReactNode }) {
         lineHeight: "var(--leading-heading)",
       }}
     >
-      {children}
+      {typeof children === "string" ? withItalics(children) : children}
     </h1>
   );
 }

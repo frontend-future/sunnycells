@@ -15,7 +15,7 @@ import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
 import { buildAnswersPayload, nextHref, personalizeStep, prevHref, visiblePosition, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
-import { QuizChrome, QuizQuestion } from "./QuizChrome";
+import { QuizChrome, QuizQuestion, withItalics } from "./QuizChrome";
 import { RevealBody } from "./RevealBody";
 
 /** **bold** and __underline__ markers in a copy string, for a body that needs emphasis. */
@@ -82,7 +82,7 @@ type BodyProps = {
 function Body({ step, config, answers, set, answer, go }: BodyProps) {
   if (step.kind === "single") {
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", ["--opt-n" as string]: step.options.length }}>
         {step.options.map((o) => (
           <OptionButton key={o} label={o} selected={answers[step.slug] === o} onClick={() => answer(o)} />
         ))}
@@ -299,7 +299,7 @@ function EmphasizedHeading({ children }: { children: string }) {
         lineHeight: "var(--leading-snug)",
       }}
     >
-      {children}
+      {withItalics(children)}
     </h1>
   );
 }
@@ -493,7 +493,7 @@ function MultiBody({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", ["--opt-n" as string]: step.options.length }}>
         {step.options.map((o) => (
           <OptionButton
             key={o}

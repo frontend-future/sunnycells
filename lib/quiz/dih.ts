@@ -25,7 +25,7 @@ export const dihQuiz: QuizConfig = {
     {
       slug: "from-within",
       kind: "info",
-      question: "A healthy skin and coat starts from within",
+      question: "A healthy skin and coat starts from *within*",
       body: "Skin and coat trouble often traces back to what the body gets every day. **Friday Zoomies Pure Omega Salmon Oil** gives your dog EPA and DHA, the omega-3s skin cells use to settle their inflammatory response, so the skin can calm down from the inside.",
       image: { src: `${IMG}/edu/omega-3.webp`, alt: "A cartoon Labrador licking a drop of salmon oil, with its digestive system shown through its body", frame: "square" },
       cta: "Continue",
@@ -41,10 +41,8 @@ export const dihQuiz: QuizConfig = {
     {
       slug: "benefits",
       kind: "info",
-      question: "Three benefits in every pump",
-      body: "Friday Zoomies Pure Omega Salmon Oil has just **two ingredients**, salmon oil and mixed tocopherols, and no chicken or beef. The EPA and DHA in it work on more than the skin:",
-      bullets: ["Calms itchy skin", "Eases stiff joints", "Supports a sharp mind"],
-      bulletIcon: "check",
+      question: "All-in-one benefits for *long-term health*",
+      body: "**Friday Zoomies Pure Omega Salmon Oil** is made with only the **main ingredients**, salmon oil and mixed tocopherols, without any filler or harmful ingredients. The omega-3s in it help with all sorts of issues, from skin and coat to joints, heart, brain and more.",
       image: { src: `${IMG}/edu/more-than-relief.webp`, alt: "A happy cartoon Golden Retriever with glowing joints", frame: "square" },
       cta: "Continue",
     },
