@@ -68,7 +68,8 @@ export function PostHogAnalytics() {
       (window as unknown as { posthog?: typeof posthog }).posthog = posthog;
     }
 
-    if (REPLAY_PATHS.includes(pathname)) posthog.startSessionRecording();
+    /* /dih-quiz and every step under it is recorded too: its landing page, questions and result. */
+    if (REPLAY_PATHS.includes(pathname) || pathname === "/dih-quiz" || pathname.startsWith("/dih-quiz/")) posthog.startSessionRecording();
     else posthog.stopSessionRecording();
 
     if (counted === pathname) return;

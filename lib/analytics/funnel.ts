@@ -95,6 +95,23 @@ async function order(): Promise<Record<string, string[]>> {
     than one built variant (a second plans page, a whole second question set)
     living under the same product, e.g. /quiz/brain/v3/results/plans. */
 export async function funnelStepFor(pathname: string): Promise<FunnelStep | null> {
+  /* /dih-quiz sits outside /quiz, so the pattern below never sees it. Step 0 is its landing page,
+     then one index per step in config order. The yes and no branches of "tried before" are two
+     steps in the list, so each keeps its own index and a person only ever hits one of them. */
+  const dih = /^\/dih-quiz(?:\/([a-z]+(?:-[a-z]+)*))?$/.exec(pathname.replace(/\/$/, ""));
+  if (dih) {
+    const { dihQuiz } = await import("../quiz/dih.ts");
+    const list = ["", ...dihQuiz.steps.map((s) => s.slug)];
+    const rest = dih[1] ?? "";
+    const index = list.indexOf(rest);
+    if (index < 0) return null;
+    return {
+      quiz: "dih-quiz",
+      index,
+      slug: rest || "landing",
+      stage: index === 0 ? "landing" : rest === "complete" ? "results" : "question",
+    };
+  }
   /* The two step checkout (checkout split test) is the same funnel step as the current checkout. Which one
      a person saw is told apart by the checkout-split flag PostHog adds to every event. */
   if (pathname.replace(/\/$/, "") === "/quiz/itch/v2/checkout") pathname = "/quiz/itch/checkout";

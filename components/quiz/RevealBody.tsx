@@ -1,9 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import posthog from "posthog-js";
 import { useEffect, useId, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
+import { trackMetaEvent } from "@/lib/meta";
 import type { QuizConfig, Step } from "@/lib/quiz/types";
 import { FitMedia } from "./FitMedia";
 import { StickyCta } from "./StickyCta";
@@ -23,6 +25,23 @@ export function RevealBody({ step, config }: { step: Extract<Step, { kind: "reve
   const [open, setOpen] = useState(false);
   const titleId = useId();
 
+  /* Reaching the result is the finish line of the quiz, so it is the Lead: once per visit, however
+     many times the screen remounts or they come back to it. */
+  useEffect(() => {
+    try {
+      const key = `${config.id}.lead`;
+      if (window.sessionStorage.getItem(key)) return;
+      window.sessionStorage.setItem(key, "1");
+    } catch {
+      /* No storage: send it anyway rather than lose the event. */
+    }
+    trackMetaEvent("Lead", { content_name: config.id });
+  }, [config.id]);
+
+  const track = (event: string) => {
+    try { if (posthog.__loaded) posthog.capture(event, { quiz: config.id }); } catch { /* analytics never blocks the quiz */ }
+  };
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
@@ -35,7 +54,7 @@ export function RevealBody({ step, config }: { step: Extract<Step, { kind: "reve
       {step.image ? <FitMedia src={step.image.src} alt={step.image.alt} size={step.image.size} /> : null}
       <p style={{ margin: 0, textAlign: "center", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>{bold(step.body)}</p>
       <StickyCta>
-        <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" onClick={() => setOpen(true)}>
+        <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" onClick={() => { track("quiz_code_revealed"); setOpen(true); }}>
           {step.cta}
         </Button>
       </StickyCta>
@@ -119,7 +138,7 @@ export function RevealBody({ step, config }: { step: Extract<Step, { kind: "reve
               </span>
               <span>{step.codeNote}</span>
             </p>
-            <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" autoFocus onClick={() => router.push(config.resultsPath)}>
+            <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" autoFocus onClick={() => { track("quiz_plan_clicked"); router.push(config.resultsPath); }}>
               {step.panelCta}
             </Button>
           </div>

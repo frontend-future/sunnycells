@@ -179,3 +179,13 @@ test("the itch funnel at /quiz/itch/v2 is numbered on its own and ends at the oi
   assert.equal((await funnelStepFor("/quiz/itch/v2/results/plans"))?.index, n + 10);
   assert.equal((await funnelStepFor("/quiz/itch/v2/checkout/oil"))?.index, n + 11);
 });
+
+test("the dih quiz is its own funnel: landing, each step in config order, the result last", async () => {
+  const { dihQuiz } = await import("../quiz/dih.ts");
+  assert.deepEqual(await funnelStepFor("/dih-quiz"), { quiz: "dih-quiz", index: 0, slug: "landing", stage: "landing" });
+  assert.deepEqual(await funnelStepFor("/dih-quiz/skin-coat"), { quiz: "dih-quiz", index: 1, slug: "skin-coat", stage: "question" });
+  const last = dihQuiz.steps.length;
+  assert.deepEqual(await funnelStepFor("/dih-quiz/complete"), { quiz: "dih-quiz", index: last, slug: "complete", stage: "results" });
+  assert.equal(await funnelStepFor("/dih-quiz/not-a-step"), null);
+  assert.deepEqual(await funnelStepFor("/dih-quiz/"), await funnelStepFor("/dih-quiz"));
+});

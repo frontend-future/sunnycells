@@ -29,7 +29,10 @@ const PATHS: [Funnel, string[]][] = [
      and the same pixel, so /quiz/joint reports into the "itch" dataset on purpose
      rather than getting a cold dataset of its own. Neither has a product page of
      its own yet. */
-  ["itch", ["/quiz/itch", "/quiz/itch-old", "/quiz/joint"]],
+  /* /dih-quiz is the product quiz for the salmon oil, an ad landing page that ends on the itch
+     funnel's plans page, so it reports to the same dog-supplement dataset as the rest of the
+     funnel. Left unrouted it would fall to "default", the diet and cortisol dataset. */
+  ["itch", ["/quiz/itch", "/quiz/itch-old", "/quiz/joint", "/dih-quiz"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {

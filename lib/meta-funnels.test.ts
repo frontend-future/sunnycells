@@ -80,6 +80,11 @@ test("the itch quiz reports to its own dataset", () => {
   assert.equal(funnelForPath("/quiz/itchy-something-else"), "default");
 });
 
+test("the dih quiz reports to the itch dataset, not the default one", () => {
+  for (const p of ["/dih-quiz", "/dih-quiz/skin-coat", "/dih-quiz/complete"]) assert.equal(funnelForPath(p), "itch", p);
+  assert.equal(funnelForPath("/dih-quizzes"), "default");
+});
+
 test("the joint quiz shares the itch quiz's dog-supplement dataset on purpose", () => {
   assert.equal(funnelForPath("/quiz/joint"), "itch");
   assert.equal(funnelForPath("/quiz/joint/goals"), "itch");
