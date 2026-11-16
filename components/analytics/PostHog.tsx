@@ -11,9 +11,13 @@ import { funnelStepFor } from "@/lib/analytics/funnel";
 let started = false;
 let counted: string | null = null;
 
-/* Session replay runs on these two screens only: the product page and the checkout, to see
+/* Session replay runs on the plans pages, the checkouts and the thank you page (v1, v2 and v3), to see
    where people stall. Everything else in the funnel stays unrecorded. */
-const REPLAY_PATHS = ["/quiz/itch/results/plans", "/quiz/itch/checkout", "/quiz/itch/v2/checkout", "/quiz/itch/thanks"];
+const REPLAY_PATHS = [
+  "/quiz/itch/results/plans", "/quiz/itch/checkout", "/quiz/itch/v2/checkout", "/quiz/itch/thanks",
+  "/quiz/itch/v2/results/plans", "/quiz/itch/v3/results/plans",
+  "/quiz/itch/v2/checkout/oil", "/quiz/itch/v3/checkout",
+];
 
 /**
  * PostHog, configured for one job: seeing where people fall out of the quiz.
