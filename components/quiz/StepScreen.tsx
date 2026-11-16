@@ -186,7 +186,29 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
   if (step.kind === "info") {
     return (
       <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
-        {step.image ? (
+        {step.image?.video ? (
+          <video
+            src={step.image.video}
+            poster={step.image.src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            aria-label={step.image.alt}
+            style={{
+              width: step.image.size ?? 420,
+              maxWidth: "80%",
+              height: "auto",
+              aspectRatio: "1 / 1",
+              borderRadius: "var(--radius-card)",
+              objectFit: "cover",
+              margin: "0 auto",
+              display: "block",
+              background: "var(--shell)",
+            }}
+          />
+        ) : step.image ? (
           <Image
             src={step.image.src}
             alt={step.image.alt}

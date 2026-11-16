@@ -29,7 +29,7 @@ export const dihQuiz: QuizConfig = {
       question: "A healthy skin and coat starts from *within*",
       emphasize: true,
       body: "Skin and coat trouble often traces back to what the body gets every day. **Friday Zoomies Pure Omega Salmon Oil** gives your dog EPA and DHA, the omega-3s skin cells use to settle their inflammatory response, so the skin can calm down from the inside.",
-      image: { src: `${IMG}/edu/omega-3.webp`, alt: "A cartoon Labrador licking a drop of salmon oil, with its digestive system shown through its body", frame: "square" },
+      image: { src: `${IMG}/edu/omega-3.webp`, video: `${IMG}/edu/omega-3.mp4`, alt: "A cartoon Labrador licking a drop of salmon oil, with its digestive system shown through its body", frame: "square" },
       cta: "Continue",
     },
     {
@@ -46,7 +46,7 @@ export const dihQuiz: QuizConfig = {
       question: "All-in-one benefits for *long-term health*",
       emphasize: true,
       body: "**Friday Zoomies Pure Omega Salmon Oil** is made with only the **main ingredients**, salmon oil and mixed tocopherols, without any filler or harmful ingredients. The omega-3s in it help with all sorts of issues, from skin and coat to joints, heart, brain and more.",
-      image: { src: `${IMG}/edu/more-than-relief.webp`, alt: "A happy cartoon Golden Retriever with glowing joints", frame: "square" },
+      image: { src: `${IMG}/edu/more-than-relief.webp`, video: `${IMG}/edu/more-than-relief.mp4`, alt: "A happy cartoon Golden Retriever with glowing joints", frame: "square" },
       cta: "Continue",
     },
     {
@@ -63,8 +63,8 @@ export const dihQuiz: QuizConfig = {
       showIf: { slug: "tried-before", oneOf: ["Yes"] },
       question: "Your dog deserves *premium* salmon oil",
       emphasize: true,
-      body: "If salmon oil did not seem to help before, it was likely the bottle or the timing. **Friday Zoomies** has **just two ingredients**, EPA and DHA and nothing else, and relief builds over **90 days** of daily use. We back it with a **90-Day Money Back Guarantee**.",
-      image: { src: `${IMG}/edu/what-to-expect.webp`, alt: "A cartoon dog scratching, with a month 1, month 2, month 3 timeline beneath it", frame: "square" },
+      body: "If salmon oil did not seem to help before, it was likely the bottle or the timing. **Friday Zoomies** has **just two ingredients**, EPA and DHA and nothing else, and relief builds over **90 days** of daily use.",
+      image: { src: `${IMG}/edu/what-to-expect.webp`, video: `${IMG}/edu/what-to-expect.mp4`, alt: "A cartoon dog scratching, with a month 1, month 2, month 3 timeline beneath it", frame: "square" },
       cta: "Continue",
     },
     {
@@ -73,7 +73,7 @@ export const dihQuiz: QuizConfig = {
       showIf: { slug: "tried-before", noneOf: ["Yes"] },
       question: "A simple step with a big difference",
       body: "Many dog parents do not realize that even a great diet can leave the skin short of the omega-3s it needs. **Friday Zoomies Pure Omega Salmon Oil** fills that gap with EPA and DHA. Just a pump or two a day at mealtime and you're good to go.",
-      image: { src: `${IMG}/edu/easy-daily.webp`, alt: "A cartoon puppy waiting beside a bowl as salmon oil is pumped onto its food", frame: "square" },
+      image: { src: `${IMG}/edu/easy-daily.webp`, video: `${IMG}/edu/easy-daily.mp4`, alt: "A cartoon puppy waiting beside a bowl as salmon oil is pumped onto its food", frame: "square" },
       cta: "Continue",
     },
     {

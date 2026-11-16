@@ -64,7 +64,9 @@ export type Step =
           renders uncropped rather than in the usual round frame, unless `frame`
           is "card": a slightly rotated, drop-shadowed rounded photo, for a UGC
           shot rather than a cut-out product render. */
-      image?: { src: string; alt: string; size?: number; frame?: "card" | "square" };
+      /* `video`, if set, plays in place of the still as a muted loop; `src` is then the poster
+         shown while it loads (and for anyone whose device will not autoplay). */
+      image?: { src: string; alt: string; size?: number; frame?: "card" | "square"; video?: string };
       cta: string;
       /** Skip this screen unless an earlier answer matches. */
       showIf?: ShowIf;
