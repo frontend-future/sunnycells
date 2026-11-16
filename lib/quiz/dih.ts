@@ -81,7 +81,7 @@ export const dihQuiz: QuizConfig = {
       kind: "reveal",
       question: "Your dog is one step closer to calm, comfortable skin",
       body: "Your quiz results show that **Friday Zoomies Pure Omega Salmon Oil** is a great fit for your dog. Calm itchy skin, ease stiff joints and support a sharp mind, now at **50% off**.",
-      image: { src: `${IMG}/hero-pyrenees.webp`, alt: "A fluffy white Great Pyrenees lying in the grass" },
+      image: { src: `${IMG}/hero-oil.webp`, alt: "A fluffy white Great Pyrenees lying in the grass next to a bottle of Friday Zoomies salmon oil" },
       cta: "Reveal my 50% off code",
       panelTitle: "Code for 50% off",
       code: "QUIZ50",
