@@ -43,7 +43,7 @@ export default function DihQuizLandingPage() {
             Scratching, paw licking, head shaking? See what your dog&apos;s <em style={{ fontWeight: 600 }}>skin</em> is telling you
           </h1>
           <p style={{ margin: 0, maxWidth: 480, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-            Take the 30-second quiz to see if Friday Zoomies Pure Omega Salmon Oil can calm your dog&apos;s itchy skin and ease what you&apos;re seeing. Finish it and get 50% off.
+            Take the 30-second quiz to see if Friday Zoomies Pure Omega Salmon Oil can calm your dog&apos;s itchy skin and ease what you&apos;re seeing.
           </p>
           <StartButton config={dihQuiz}>Start now</StartButton>
         </div>
