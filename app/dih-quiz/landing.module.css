@@ -1,0 +1,10 @@
+/* On a phone the photo leads, above the headline. From the width where two columns fit, it sits
+   beside the text instead. */
+.media {
+  order: -1;
+}
+@media (min-width: 760px) {
+  .media {
+    order: 0;
+  }
+}

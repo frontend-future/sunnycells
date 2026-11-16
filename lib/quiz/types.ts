@@ -4,6 +4,11 @@
  * To add a quiz, write a config and two thin route files. Do not fork the engine.
  */
 
+/** Shows a step only when an earlier answer matches. `oneOf`: the answer must be one of
+    these. `noneOf`: the answer must not be one of these (a missing answer passes). Used for
+    a branch, like an objection handler that only the people who tried something see. */
+export type ShowIf = { slug: string; oneOf?: string[]; noneOf?: string[] };
+
 export type Step =
   | {
       slug: string;
@@ -25,6 +30,9 @@ export type Step =
       options: string[];
       cta?: string;
       reason?: string;
+      /** An option that excludes the rest ("None of the above"): picking it clears the
+          others, and picking any other clears it. */
+      exclusive?: string;
     }
   | {
       slug: string;
@@ -56,8 +64,25 @@ export type Step =
           renders uncropped rather than in the usual round frame, unless `frame`
           is "card": a slightly rotated, drop-shadowed rounded photo, for a UGC
           shot rather than a cut-out product render. */
-      image?: { src: string; alt: string; size?: number; frame?: "card" };
+      image?: { src: string; alt: string; size?: number; frame?: "card" | "square" };
       cta: string;
+      /** Skip this screen unless an earlier answer matches. */
+      showIf?: ShowIf;
+    }
+  | {
+      slug: string;
+      kind: "reveal";
+      question: string;
+      body: string;
+      /** Button that opens the code panel. */
+      cta: string;
+      image?: { src: string; alt: string; size?: number };
+      /** The panel: a heading, the code itself, a line on what to do with it, and the
+          button that moves on to `resultsPath`. */
+      panelTitle: string;
+      code: string;
+      codeNote: string;
+      panelCta: string;
     }
   | { slug: string; kind: "height"; question: string }
   | {
@@ -174,14 +199,41 @@ export function stepIndex(config: QuizConfig, slug: string): number {
   return config.steps.findIndex((s) => s.slug === slug);
 }
 
-export function nextHref(config: QuizConfig, index: number): string {
-  const next = config.steps[index + 1];
-  return next ? `${config.basePath}/${next.slug}` : config.resultsPath;
+/** Whether a step shows for these answers. Steps with no `showIf` always show. */
+export function stepVisible(step: Step, answers?: Record<string, string>): boolean {
+  const c = "showIf" in step ? step.showIf : undefined;
+  if (!c) return true;
+  const v = answers?.[c.slug];
+  if (c.oneOf && !(v && c.oneOf.includes(v))) return false;
+  if (c.noneOf && v && c.noneOf.includes(v)) return false;
+  return true;
 }
 
-export function prevHref(config: QuizConfig, index: number): string {
-  const prev = config.steps[index - 1];
-  return prev ? `${config.basePath}/${prev.slug}` : config.basePath;
+/** Where the next button goes, skipping any step hidden by an earlier answer. */
+export function nextHref(config: QuizConfig, index: number, answers?: Record<string, string>): string {
+  for (let i = index + 1; i < config.steps.length; i++) {
+    if (stepVisible(config.steps[i], answers)) return `${config.basePath}/${config.steps[i].slug}`;
+  }
+  return config.resultsPath;
+}
+
+export function prevHref(config: QuizConfig, index: number, answers?: Record<string, string>): string {
+  for (let i = index - 1; i >= 0; i--) {
+    if (stepVisible(config.steps[i], answers)) return `${config.basePath}/${config.steps[i].slug}`;
+  }
+  return config.basePath;
+}
+
+/** "Step 4 of 7" for the progress rail, counting only the steps these answers will show. */
+export function visiblePosition(config: QuizConfig, index: number, answers?: Record<string, string>) {
+  let step = 0;
+  let total = 0;
+  config.steps.forEach((s, i) => {
+    if (!stepVisible(s, answers) && i !== index) return;
+    total += 1;
+    if (i <= index) step += 1;
+  });
+  return { step, total };
 }
 
 /**

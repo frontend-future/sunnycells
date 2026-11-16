@@ -12,10 +12,11 @@ import { useAnswers, type Answers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import { rememberCompleted } from "@/lib/quiz/completed";
 import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
-import { buildAnswersPayload, nextHref, personalizeStep, prevHref, type QuizConfig, type Step } from "@/lib/quiz/types";
+import { buildAnswersPayload, nextHref, personalizeStep, prevHref, visiblePosition, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
 import { QuizChrome, QuizQuestion } from "./QuizChrome";
+import { RevealBody } from "./RevealBody";
 
 /** **bold** and __underline__ markers in a copy string, for a body that needs emphasis. */
 function emphasis(text: string) {
@@ -39,20 +40,24 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
     pumpsPerDay(answers) === 2 ? "Two pumps" : "One pump",
   );
   const router = useRouter();
-  const go = () => router.push(nextHref(config, index));
+  /* `extra` is an answer given on this very screen: it is not in `answers` yet, and a branch
+     can depend on it, so it has to count when working out where Next goes. */
+  const go = (extra?: Answers) => router.push(nextHref(config, index, extra ? { ...answers, ...extra } : answers));
 
   const answer = (value: string) => {
     set(step.slug, value);
-    go();
+    go({ [step.slug]: value });
   };
 
   const invert = step.kind === "info" && step.invert;
+  /* Counts only the steps these answers will show, so a branch does not leave the bar short. */
+  const pos = visiblePosition(config, index, answers);
 
   return (
-    <QuizChrome step={index + 1} total={config.steps.length} backHref={prevHref(config, index)} invert={invert}>
+    <QuizChrome step={pos.step} total={pos.total} backHref={prevHref(config, index, answers)} invert={invert}>
       {invert ? null : step.kind === "info" && step.brandHeading ? (
         <BrandHeading>{step.question}</BrandHeading>
-      ) : step.kind === "info" && step.emphasize ? (
+      ) : (step.kind === "info" && step.emphasize) || step.kind === "reveal" ? (
         <EmphasizedHeading>{step.question}</EmphasizedHeading>
       ) : step.kind === "email" ? (
         <CentredHeading question={step.question} subhead={step.subhead} />
@@ -71,7 +76,7 @@ type BodyProps = {
   answers: Answers;
   set: Setter;
   answer: (value: string) => void;
-  go: () => void;
+  go: (extra?: Answers) => void;
 };
 
 function Body({ step, config, answers, set, answer, go }: BodyProps) {
@@ -168,7 +173,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
         <StickyCta>
           {/* Primary's fill is ink, invisible on this screen's own ink background,
               so this is the one CTA in the quiz that takes the accent fill instead. */}
-          <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" onClick={go}>
+          <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" onClick={() => go()}>
             {step.cta}
           </Button>
         </StickyCta>
@@ -185,7 +190,15 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
             alt={step.image.alt}
             width={600}
             height={600}
-            style={{ width: step.image.size ?? 420, maxWidth: "70%", height: "auto", aspectRatio: "1 / 1", borderRadius: "50%", objectFit: "cover", margin: "0 auto" }}
+            style={{
+              width: step.image.size ?? 420,
+              maxWidth: step.image.frame === "square" ? "80%" : "70%",
+              height: "auto",
+              aspectRatio: "1 / 1",
+              borderRadius: step.image.frame === "square" ? "var(--radius-card)" : "50%",
+              objectFit: "cover",
+              margin: "0 auto",
+            }}
           />
         ) : null}
         <p style={{ margin: 0, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", whiteSpace: "pre-line" }}>{emphasis(step.body)}</p>
@@ -233,7 +246,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
           </p>
         ) : null}
         <StickyCta>
-          <Button size="lg" fullWidth iconRight="arrow-right" onClick={go}>
+          <Button size="lg" fullWidth iconRight="arrow-right" onClick={() => go()}>
             {step.cta}
           </Button>
         </StickyCta>
@@ -245,6 +258,7 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
   if (step.kind === "height") return <HeightBody answers={answers} set={set} go={go} />;
   if (step.kind === "number") return <NumberBody step={step} answers={answers} set={set} go={go} />;
   if (step.kind === "dob") return <DobBody step={step} answers={answers} set={set} go={go} />;
+  if (step.kind === "reveal") return <RevealBody step={step} config={config} />;
   return <EmailBody step={step} config={config} answers={answers} set={set} go={go} />;
 }
 
@@ -460,17 +474,21 @@ function HeightBody({ answers, set, go }: { answers: Answers; set: Setter; go: (
     Continue rather than firing on the first tap. */
 function MultiBody({
   step, answers, set, go,
-}: { step: Extract<Step, { kind: "multi" }>; answers: Answers; set: Setter; go: () => void }) {
+}: { step: Extract<Step, { kind: "multi" }>; answers: Answers; set: Setter; go: (extra?: Answers) => void }) {
   const [selected, setSelected] = useState<string[]>(() =>
     answers[step.slug] ? answers[step.slug].split("|") : [],
   );
 
   const toggle = (o: string) =>
-    setSelected((cur) => (cur.includes(o) ? cur.filter((x) => x !== o) : [...cur, o]));
+    setSelected((cur) => {
+      if (cur.includes(o)) return cur.filter((x) => x !== o);
+      if (step.exclusive && o === step.exclusive) return [o];
+      return [...cur.filter((x) => x !== step.exclusive), o];
+    });
 
   const submit = () => {
     set(step.slug, selected.join("|"));
-    go();
+    go({ [step.slug]: selected.join("|") });
   };
 
   return (

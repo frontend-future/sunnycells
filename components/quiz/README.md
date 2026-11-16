@@ -30,6 +30,12 @@ a renderer.
 | `height` | Feet and inches, or centimetres, with a unit switch. |
 | `number` | One numeric field with an optional unit switch, prefix, and trailing word. |
 | `email` | Validates, stores, then hands off to `resultsPath`. |
+| `reveal` | The last screen of a quiz that ends on a discount: a result, then a button that opens a panel with the code and a button on to `resultsPath`. |
+
+Two options on existing kinds: a `multi` step can set `exclusive: "None of the above"` so that option clears
+the others, and an `info` step can set `showIf: { slug, oneOf | noneOf }` to appear only for some earlier
+answers (an objection handler for the people who tried something). Next, Back and the progress rail all skip
+a hidden step. `/dih-quiz` (`lib/quiz/dih.ts`) uses all three.
 
 Need a kind that does not exist? Add it to the `Step` union in `lib/quiz/types.ts` and a
 branch in `StepScreen`'s `Body`. Read colours and sizes from tokens, never a literal hex.
