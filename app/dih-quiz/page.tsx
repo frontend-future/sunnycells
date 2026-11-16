@@ -45,7 +45,7 @@ export default function DihQuizLandingPage() {
           <p style={{ margin: 0, maxWidth: 480, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
             Take the 30-second quiz to see if Friday Zoomies Pure Omega Salmon Oil can calm your dog&apos;s itchy skin and ease what you&apos;re seeing.
           </p>
-          <StartButton config={dihQuiz}>Start now</StartButton>
+          <StartButton config={dihQuiz}>Start My Quiz</StartButton>
         </div>
 
         <div>
