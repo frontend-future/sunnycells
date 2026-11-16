@@ -43,7 +43,7 @@ export default function DihQuizLandingPage() {
             Find out if Friday Zoomies salmon oil is <em style={{ fontWeight: 600 }}>right for your dog</em> and get 50% off
           </h1>
           <p style={{ margin: 0, maxWidth: 480, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
-            This short quiz helps you see how Pure Omega Salmon Oil could support your dog&apos;s skin and coat.
+            Take the 30-second quiz to see if Friday Zoomies Pure Omega Salmon Oil can calm your dog&apos;s itchy skin and ease what you&apos;re seeing.
           </p>
           <StartButton config={dihQuiz}>Start now</StartButton>
         </div>
