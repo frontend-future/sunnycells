@@ -74,7 +74,7 @@ That is why every order is backed by a **90-Day Money Back Guarantee**. Give it 
       kind: "info",
       showIf: { slug: "tried-before", noneOf: ["Yes"] },
       question: "A simple step with a big difference",
-      body: "Many dog parents do not realize that even a great diet can leave the skin short of the omega-3s it needs. **Friday Zoomies Pure Omega Salmon Oil** fills that gap with EPA and DHA: one pump a day on their food for dogs up to 40 lbs, two pumps for bigger dogs.",
+      body: "Many dog parents do not realize that even a great diet can leave the skin short of the omega-3s it needs. **Friday Zoomies Pure Omega Salmon Oil** fills that gap with EPA and DHA. Just a pump or two a day at mealtime and you're good to go.",
       image: { src: `${IMG}/edu/easy-daily.webp`, alt: "A cartoon puppy waiting beside a bowl as salmon oil is pumped onto its food", frame: "square" },
       cta: "Continue",
     },
