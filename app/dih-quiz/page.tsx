@@ -3,7 +3,6 @@ import { Badge } from "@/components/core/Badge";
 import { Wordmark } from "@/components/core/Wordmark";
 import { StartButton } from "@/components/quiz/StartButton";
 import { dihQuiz } from "@/lib/quiz/dih";
-import styles from "./landing.module.css";
 
 /* The quiz's front door: a product-first promise, the offer, and one button. The photo leads
    on a phone and sits beside the text from the width where there is room for two columns. */
@@ -46,9 +45,7 @@ export default function DihQuizLandingPage() {
           <p style={{ margin: 0, maxWidth: 480, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
             This short quiz helps you see how Pure Omega Salmon Oil could support your dog&apos;s skin and coat.
           </p>
-          <div className={styles.cta}>
-            <StartButton config={dihQuiz}>Start now</StartButton>
-          </div>
+          <StartButton config={dihQuiz}>Start now</StartButton>
         </div>
 
         <div>
