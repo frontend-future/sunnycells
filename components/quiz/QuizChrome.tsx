@@ -8,7 +8,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 /** Header and progress rail shared by every question screen. The progress rail is
     black on a hairline track: structure comes from ink, not from a colour bar. */
 export function QuizChrome({
-  step, total, backHref, invert, children,
+  step, total, backHref, invert, hideCount, children,
 }: {
   step: number;
   total: number;
@@ -16,6 +16,8 @@ export function QuizChrome({
   /** Dark full-bleed variant for a single reassurance screen. The header stays
       white either way, so back/progress/logo never need their own dark styling. */
   invert?: boolean;
+  /** Leave out the "3/7" in the header (the bar still shows progress). */
+  hideCount?: boolean;
   children: ReactNode;
 }) {
   const pct = Math.round((step / total) * 100);
@@ -60,8 +62,12 @@ export function QuizChrome({
               fontVariantNumeric: "tabular-nums",
             }}
           >
-            {step}
-            <span style={{ color: "var(--ink-60)" }}>/{total}</span>
+            {hideCount ? null : (
+              <>
+                {step}
+                <span style={{ color: "var(--ink-60)" }}>/{total}</span>
+              </>
+            )}
           </div>
         </div>
         <div
@@ -128,5 +134,26 @@ export function QuizQuestion({ children }: { children: ReactNode }) {
     >
       {typeof children === "string" ? withItalics(children) : children}
     </h1>
+  );
+}
+
+/** "Question 2" above a question's heading: a small tinted label, the way the reference marks
+    each question and leaves the reinforcement screens bare. */
+export function QuestionLabel({ n }: { n: number }) {
+  return (
+    <div
+      style={{
+        alignSelf: "flex-start",
+        margin: "0 0 var(--space-3)",
+        padding: "4px 12px",
+        background: "var(--sky-tint)",
+        borderRadius: "var(--radius-sm, 8px)",
+        fontSize: "var(--size-body)",
+        fontWeight: 700,
+        lineHeight: 1.3,
+      }}
+    >
+      Question {n}
+    </div>
   );
 }

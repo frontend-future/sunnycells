@@ -12,10 +12,10 @@ import { useAnswers, type Answers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
 import { rememberCompleted } from "@/lib/quiz/completed";
 import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
-import { buildAnswersPayload, nextHref, personalizeStep, prevHref, visiblePosition, type QuizConfig, type Step } from "@/lib/quiz/types";
+import { buildAnswersPayload, nextHref, personalizeStep, prevHref, questionNumber, visiblePosition, type QuizConfig, type Step } from "@/lib/quiz/types";
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
-import { QuizChrome, QuizQuestion, withItalics } from "./QuizChrome";
+import { QuestionLabel, QuizChrome, QuizQuestion, withItalics } from "./QuizChrome";
 import { RevealBody } from "./RevealBody";
 
 /** **bold** and __underline__ markers in a copy string, for a body that needs emphasis. */
@@ -52,9 +52,11 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
   const invert = step.kind === "info" && step.invert;
   /* Counts only the steps these answers will show, so a branch does not leave the bar short. */
   const pos = visiblePosition(config, index, answers);
+  const qn = questionNumber(config, index, answers);
 
   return (
-    <QuizChrome step={pos.step} total={pos.total} backHref={prevHref(config, index, answers)} invert={invert}>
+    <QuizChrome step={pos.step} total={pos.total} backHref={prevHref(config, index, answers)} invert={invert} hideCount={config.questionLabels}>
+      {config.questionLabels && qn ? <QuestionLabel n={qn} /> : null}
       {invert ? null : step.kind === "info" && step.brandHeading ? (
         <BrandHeading>{step.question}</BrandHeading>
       ) : (step.kind === "info" && step.emphasize) || step.kind === "reveal" ? (
@@ -297,6 +299,7 @@ function EmphasizedHeading({ children }: { children: string }) {
         fontWeight: 900,
         letterSpacing: "var(--tracking-heading)",
         lineHeight: "var(--leading-snug)",
+        textWrap: "balance",
       }}
     >
       {withItalics(children)}

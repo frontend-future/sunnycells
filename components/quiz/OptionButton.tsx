@@ -33,9 +33,9 @@ export function OptionButton({
         width: "100%",
         /* 76px when the screen has room. On a shorter one the cards shrink, down to 52px, so
            the whole list and the button stay in view without a scroll. The list sets
-           --opt-n to its option count; 360px stands for everything on the screen that is not
+           --opt-n to its option count; 410px stands for everything on the screen that is not
            an option (header, heading, button, padding). With no --opt-n it stays 76px. */
-        minHeight: "clamp(52px, calc((100dvh - 360px) / var(--opt-n, 1) - 12px), 76px)",
+        minHeight: "clamp(52px, calc((100dvh - 410px) / var(--opt-n, 1) - 12px), 76px)",
         padding: "var(--space-3) var(--space-5)",
         textAlign: "left",
         fontFamily: "var(--font-text)",

@@ -141,6 +141,10 @@ export type QuizConfig = {
   /** Where someone who already finished this quiz should land when they come back to the
       landing page. Setting it also makes the email step remember their answers on this device. */
   returnToResults?: string;
+  /** Instead of "3/7" in the header, a small "Question 2" label above each real question
+      (single, multi, text and so on) and nothing on the info and reveal screens. The progress
+      bar stays. Numbers count questions only. */
+  questionLabels?: boolean;
   steps: Step[];
 };
 
@@ -222,6 +226,19 @@ export function prevHref(config: QuizConfig, index: number, answers?: Record<str
     if (stepVisible(config.steps[i], answers)) return `${config.basePath}/${config.steps[i].slug}`;
   }
   return config.basePath;
+}
+
+/** Which question this is, counting only questions that will show (not info or reveal
+    screens), or null for a screen that is not a question. */
+export function questionNumber(config: QuizConfig, index: number, answers?: Record<string, string>): number | null {
+  const kind = config.steps[index].kind;
+  if (kind === "info" || kind === "reveal") return null;
+  let n = 0;
+  for (let i = 0; i <= index; i++) {
+    const k = config.steps[i].kind;
+    if (k !== "info" && k !== "reveal" && (stepVisible(config.steps[i], answers) || i === index)) n += 1;
+  }
+  return n;
 }
 
 /** "Step 4 of 7" for the progress rail, counting only the steps these answers will show. */
