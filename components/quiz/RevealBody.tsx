@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { Button } from "@/components/core/Button";
 import { Icon } from "@/components/core/Icon";
 import type { QuizConfig, Step } from "@/lib/quiz/types";
+import { FitMedia } from "./FitMedia";
 import { StickyCta } from "./StickyCta";
 
 /** `**bold**` markers in a copy string. */
@@ -32,15 +32,7 @@ export function RevealBody({ step, config }: { step: Extract<Step, { kind: "reve
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
-      {step.image ? (
-        <Image
-          src={step.image.src}
-          alt={step.image.alt}
-          width={600}
-          height={600}
-          style={{ width: step.image.size ?? 420, maxWidth: "80%", height: "auto", aspectRatio: "1 / 1", borderRadius: "var(--radius-card)", objectFit: "cover", margin: "0 auto" }}
-        />
-      ) : null}
+      {step.image ? <FitMedia src={step.image.src} alt={step.image.alt} size={step.image.size} /> : null}
       <p style={{ margin: 0, textAlign: "center", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>{bold(step.body)}</p>
       <StickyCta>
         <Button variant="accent" size="lg" fullWidth iconRight="arrow-right" onClick={() => setOpen(true)}>

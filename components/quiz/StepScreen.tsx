@@ -16,6 +16,7 @@ import { buildAnswersPayload, nextHref, personalizeStep, prevHref, questionNumbe
 import { OptionButton } from "./OptionButton";
 import { StickyCta } from "./StickyCta";
 import { QuestionLabel, QuizChrome, QuizQuestion, withItalics } from "./QuizChrome";
+import { FitMedia } from "./FitMedia";
 import { RevealBody } from "./RevealBody";
 
 /** **bold** and __underline__ markers in a copy string, for a body that needs emphasis. */
@@ -186,7 +187,10 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
   if (step.kind === "info") {
     return (
       <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
-        {step.image?.video ? (
+        {step.image?.frame === "square" ? (
+          /* Sized from the space left on the screen, so the copy and button never need a scroll. */
+          <FitMedia src={step.image.src} alt={step.image.alt} video={step.image.video} size={step.image.size} />
+        ) : step.image?.video ? (
           <video
             src={step.image.video}
             poster={step.image.src}
@@ -216,10 +220,10 @@ function Body({ step, config, answers, set, answer, go }: BodyProps) {
             height={600}
             style={{
               width: step.image.size ?? 420,
-              maxWidth: step.image.frame === "square" ? "80%" : "70%",
+              maxWidth: "70%",
               height: "auto",
               aspectRatio: "1 / 1",
-              borderRadius: step.image.frame === "square" ? "var(--radius-card)" : "50%",
+              borderRadius: "50%",
               objectFit: "cover",
               margin: "0 auto",
             }}
