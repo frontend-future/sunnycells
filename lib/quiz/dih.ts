@@ -63,7 +63,7 @@ export const dihQuiz: QuizConfig = {
       showIf: { slug: "tried-before", oneOf: ["Yes"] },
       question: "Your dog deserves *premium* salmon oil",
       emphasize: true,
-      body: "If salmon oil did not seem to help before, it was likely the bottle or the timing. **Friday Zoomies** has **just two ingredients**, EPA and DHA and nothing else, and relief builds over **90 days** of daily use.",
+      body: "If salmon oil did not seem to help before, it is often because many oils are diluted with cheaper filler. That keeps costs down for the company, but your dog never gets the DHA and EPA it needs. **Friday Zoomies** has **zero unnecessary fillers**, just salmon oil and mixed tocopherols, so every pump delivers the full dose.",
       image: { src: `${IMG}/edu/easy-daily.webp`, video: `${IMG}/edu/easy-daily.mp4`, alt: "A cartoon puppy waiting beside a bowl as salmon oil is pumped onto its food", frame: "square" },
       cta: "Continue",
     },
