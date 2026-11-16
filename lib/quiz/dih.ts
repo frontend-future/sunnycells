@@ -72,7 +72,7 @@ export const dihQuiz: QuizConfig = {
       kind: "info",
       showIf: { slug: "tried-before", noneOf: ["Yes"] },
       question: "A simple step with a big difference",
-      body: "Even a great diet can leave the skin short of the omega-3s it needs. **Friday Zoomies Pure Omega Salmon Oil** fills that gap with EPA and DHA, omega-3s that are clinically proven to improve itchy skin, scratching and paw licking. Just a pump or two a day at mealtime and you're good to go.",
+      body: "Even a great diet can leave the skin short of the omega-3s it needs. **Friday Zoomies Pure Omega Salmon Oil** fills that gap with EPA and DHA, omega-3s that are clinically proven to improve itchy skin, scratching and paw licking. Just a pump or two a day at mealtime and your dog is set.",
       image: { src: `${IMG}/edu/easy-daily.webp`, video: `${IMG}/edu/easy-daily.mp4`, alt: "A cartoon puppy waiting beside a bowl as salmon oil is pumped onto its food", frame: "square" },
       cta: "Continue",
     },
