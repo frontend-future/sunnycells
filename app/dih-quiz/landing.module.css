@@ -1,10 +1,17 @@
-/* On a phone the photo leads, above the headline. From the width where two columns fit, it sits
-   beside the text instead. */
-.media {
-  order: -1;
+/* On a phone the text leads and the button runs the full width, with the photo below, so the
+   first screen already holds the offer and the way in. From the width where two columns fit,
+   the button sits at its natural size beside the photo. */
+.cta {
+  align-self: stretch;
+}
+.cta button {
+  width: 100%;
 }
 @media (min-width: 760px) {
-  .media {
-    order: 0;
+  .cta {
+    align-self: flex-start;
+  }
+  .cta button {
+    width: auto;
   }
 }

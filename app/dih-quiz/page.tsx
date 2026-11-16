@@ -46,10 +46,12 @@ export default function DihQuizLandingPage() {
           <p style={{ margin: 0, maxWidth: 480, fontSize: "var(--size-body)", lineHeight: "var(--leading-body)" }}>
             This short quiz helps you see how Pure Omega Salmon Oil could support your dog&apos;s skin and coat.
           </p>
-          <StartButton config={dihQuiz}>Start now</StartButton>
+          <div className={styles.cta}>
+            <StartButton config={dihQuiz}>Start now</StartButton>
+          </div>
         </div>
 
-        <div className={styles.media}>
+        <div>
           <Image
             src="/quiz/fridayzoomies/hero-oil.webp"
             alt="A fluffy white Great Pyrenees lying in the grass next to a bottle of Friday Zoomies salmon oil"
