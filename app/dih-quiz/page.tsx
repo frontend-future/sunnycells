@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Badge } from "@/components/core/Badge";
 import { Wordmark } from "@/components/core/Wordmark";
 import { StartButton } from "@/components/quiz/StartButton";
 import { dihQuiz } from "@/lib/quiz/dih";
@@ -29,14 +28,15 @@ export default function DihQuizLandingPage() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "var(--space-5)" }}>
-          <Badge tone="sky">Quiz</Badge>
           <h1
             style={{
               margin: 0,
-              fontFamily: "var(--font-display)",
+              /* The body face, not the tight display face: wider letters and normal spacing read
+                 more easily at this size, especially for an older audience. */
+              fontFamily: "var(--font-text)",
               fontSize: "clamp(var(--size-h3), 7.6vw, var(--size-h1))",
-              letterSpacing: "var(--tracking-heading)",
-              lineHeight: "var(--leading-snug)",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.15,
               textWrap: "balance",
             }}
           >
