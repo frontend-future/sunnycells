@@ -8,7 +8,7 @@ import { Wordmark } from "@/components/core/Wordmark";
 /** Header and progress rail shared by every question screen. The progress rail is
     black on a hairline track: structure comes from ink, not from a colour bar. */
 export function QuizChrome({
-  step, total, backHref, invert, hideCount, children,
+  step, total, backHref, invert, hideCount, rightLabel, children,
 }: {
   step: number;
   total: number;
@@ -18,6 +18,8 @@ export function QuizChrome({
   invert?: boolean;
   /** Leave out the "3/7" in the header (the bar still shows progress). */
   hideCount?: boolean;
+  /** Shown top right in place of the count (a "Question 2" chip). Only with `hideCount`. */
+  rightLabel?: ReactNode;
   children: ReactNode;
 }) {
   const pct = Math.round((step / total) * 100);
@@ -29,9 +31,13 @@ export function QuizChrome({
             maxWidth: 720,
             margin: "0 auto",
             padding: "var(--space-2) var(--page-gutter-mobile)",
-            display: "flex",
             alignItems: "center",
             gap: "var(--space-4)",
+            /* With a label top right the three parts sit on equal side columns, so the logo
+               stays dead centre on every screen, with or without the label. */
+            ...(hideCount
+              ? { display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto minmax(0, 1fr)" }
+              : { display: "flex" }),
           }}
         >
           <Link
@@ -50,19 +56,23 @@ export function QuizChrome({
             <Icon name="arrow-left" size={26} />
           </Link>
           <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-            <Wordmark size={20} />
+            <Wordmark size={hideCount ? 17 : 20} />
           </div>
           <div
-            style={{
-              width: "var(--tap-min)",
-              textAlign: "right",
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "var(--size-body)",
-              fontVariantNumeric: "tabular-nums",
-            }}
+            style={
+              hideCount
+                ? { justifySelf: "end", marginRight: -6 }
+                : {
+                    width: "var(--tap-min)",
+                    textAlign: "right",
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: "var(--size-body)",
+                    fontVariantNumeric: "tabular-nums",
+                  }
+            }
           >
-            {hideCount ? null : (
+            {hideCount ? rightLabel : (
               <>
                 {step}
                 <span style={{ color: "var(--ink-60)" }}>/{total}</span>
@@ -137,20 +147,19 @@ export function QuizQuestion({ children }: { children: ReactNode }) {
   );
 }
 
-/** "Question 2" above a question's heading: a small tinted label, the way the reference marks
-    each question and leaves the reinforcement screens bare. */
+/** "Question 2", a small tinted chip for the top right of the header: the way the reference
+    marks each question and leaves the reinforcement screens bare. */
 export function QuestionLabel({ n }: { n: number }) {
   return (
     <div
       style={{
-        alignSelf: "flex-start",
-        margin: "0 0 var(--space-3)",
-        padding: "4px 12px",
+        padding: "3px 9px",
         background: "var(--sky-tint)",
         borderRadius: "var(--radius-sm, 8px)",
-        fontSize: "var(--size-body)",
+        fontSize: 17,
         fontWeight: 700,
         lineHeight: 1.3,
+        whiteSpace: "nowrap",
       }}
     >
       Question {n}

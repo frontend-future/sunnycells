@@ -56,8 +56,7 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
   const qn = questionNumber(config, index, answers);
 
   return (
-    <QuizChrome step={pos.step} total={pos.total} backHref={prevHref(config, index, answers)} invert={invert} hideCount={config.questionLabels}>
-      {config.questionLabels && qn ? <QuestionLabel n={qn} /> : null}
+    <QuizChrome step={pos.step} total={pos.total} backHref={prevHref(config, index, answers)} invert={invert} hideCount={config.questionLabels} rightLabel={config.questionLabels && qn ? <QuestionLabel n={qn} /> : null}>
       {invert ? null : step.kind === "info" && step.brandHeading ? (
         <BrandHeading>{step.question}</BrandHeading>
       ) : (step.kind === "info" && step.emphasize) || step.kind === "reveal" ? (
