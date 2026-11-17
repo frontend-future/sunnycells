@@ -23,6 +23,17 @@
   min-height: 160px;
   max-height: 520px;
 }
+/* Mid widths: the box takes the height that is left, and its width follows at 3:2, so the
+   photo keeps the whole bottle. On a tall screen that is the full width; on a short one it narrows. */
+@media (min-width: 600px) and (max-width: 899px) {
+  .media {
+    align-self: center;
+    aspect-ratio: 3 / 2;
+    max-width: 100%;
+    max-height: none;
+    min-height: 0;
+  }
+}
 @media (min-width: 900px) {
   .main {
     display: grid;

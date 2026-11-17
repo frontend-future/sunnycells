@@ -44,7 +44,7 @@ export default function PlcQuizLandingPage() {
             fill
             priority
             sizes="(min-width: 900px) 520px, 100vw"
-            style={{ objectFit: "cover", objectPosition: "30% 50%", borderRadius: "var(--radius-card)" }}
+            style={{ objectFit: "cover", objectPosition: "30% 58%", borderRadius: "var(--radius-card)" }}
           />
         </div>
       </main>
