@@ -47,7 +47,7 @@ export const plcQuiz: QuizConfig = {
       showIf: { slug: "routine", oneOf: ["Salmon oil"] },
       question: "Your dog deserves premium salmon oil",
       emphasize: true,
-      body: "Many salmon oils are watered down with filler, so dogs never get enough DHA and EPA. **Friday Zoomies** has **zero unnecessary fillers**, so every pump delivers the full dose. Relief builds over 90 days of daily use.",
+      body: "Most salmon oils are watered down with filler, so dogs never get enough DHA and EPA, the ingredients the skin needs to repair itself. **Friday Zoomies** has **zero unnecessary fillers**, so every pump delivers the full dose. Relief builds over 90 days of daily use.",
       image: { src: `${IMG}/edu/easy-daily.webp`, video: `${IMG}/edu/easy-daily.mp4`, alt: "A cartoon puppy waiting beside a bowl as salmon oil is pumped onto its food", frame: "square" },
       cta: "Continue",
     },
