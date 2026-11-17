@@ -28,7 +28,7 @@ export const plcQuiz: QuizConfig = {
       kind: "info",
       question: "Target the root cause of your dog's itch",
       emphasize: true,
-      body: "Scratching, licking and shaking are signals from the skin. Skin cells rely on the omega-3s EPA and DHA to settle their inflammatory response, and most diets fall short. **Friday Zoomies Pure Omega Salmon Oil** adds them back, clinically proven to improve itchy skin, so your dog can calm down from the inside out.",
+      body: "Scratching, licking and shaking are signals from the skin. Skin cells rely on the omega-3s EPA and DHA to settle their inflammatory response, and most diets fall short. **Friday Zoomies Pure Omega Salmon Oil** adds them back, clinically proven to improve itchy skin, so your dog's skin can calm down from the inside out.",
       image: { src: `${IMG}/edu/omega-3.webp`, video: `${IMG}/edu/omega-3.mp4`, alt: "A cartoon Labrador licking a drop of salmon oil, with its digestive system shown through its body", frame: "square" },
       cta: "Continue",
     },
