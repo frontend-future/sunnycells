@@ -278,7 +278,14 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
           payment_method_data: wallet ? undefined : { billing_details: { name: who.name, email: who.email, phone: who.phone, address: { ...who.billing, line2: who.billing.line2 ?? "" } } },
         },
       });
-      if (confirmError) throw new Error(confirmError.message);
+      if (confirmError) {
+        /* A bank decline gives a short, flat message and most people stop there. Say it is the bank, that nothing
+           was charged, and what to do next. Other errors (expired card, wrong number) keep Stripe's own wording. */
+        const declined = confirmError.type === "card_error" && (confirmError.code === "card_declined" || !!confirmError.decline_code);
+        throw new Error(declined
+          ? "Your bank declined this card. You have not been charged. Please try a different card, or call the number on the back of your card and try again."
+          : confirmError.message);
+      }
     } catch (e) {
       const m = e instanceof Error ? e.message : "";
       setError(m || "Something went wrong. Please try again.");
