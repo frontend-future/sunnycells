@@ -71,6 +71,24 @@ export function StepScreen({ config, index }: { config: QuizConfig; index: numbe
   );
 }
 
+/** A plain side-view dog silhouette, drawn at `scale` of a 56px-wide box so the size cards read small to large. */
+function DogIcon({ scale }: { scale: number }) {
+  const w = Math.round(64 * scale);
+  return (
+    <svg width={w} height={Math.round(w * 0.75)} viewBox="0 0 64 48" aria-hidden="true" fill="currentColor">
+      <rect x="14" y="16" width="34" height="15" rx="7" />
+      <circle cx="12" cy="13" r="8" />
+      <rect x="2" y="13" width="9" height="7" rx="3" />
+      <path d="M13 3l7 4-1 9-6-3z" />
+      <rect x="16" y="28" width="5" height="16" rx="2" />
+      <rect x="25" y="28" width="5" height="16" rx="2" />
+      <rect x="35" y="28" width="5" height="16" rx="2" />
+      <rect x="43" y="28" width="5" height="16" rx="2" />
+      <path d="M46 19c6-3 11-8 13-14l3 2c-2 8-8 14-15 18z" />
+    </svg>
+  );
+}
+
 type Setter = (field: string, value: string) => void;
 type BodyProps = {
   step: Step;
@@ -82,6 +100,50 @@ type BodyProps = {
 };
 
 function Body({ step, config, answers, set, answer, go }: BodyProps) {
+  if (step.kind === "single" && step.cards) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+        {step.options.map((o, i) => {
+          const [title, ...rest] = o.split(", ");
+          const selected = answers[step.slug] === o;
+          return (
+            <button
+              key={o}
+              type="button"
+              aria-pressed={selected}
+              onClick={() => answer(o)}
+              style={{
+                appearance: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "var(--space-5)",
+                width: "100%",
+                minHeight: 88,
+                padding: "var(--space-3) var(--space-5)",
+                fontFamily: "var(--font-text)",
+                fontSize: "var(--size-body)",
+                fontWeight: 600,
+                lineHeight: 1.25,
+                textAlign: "left",
+                color: "var(--ink)",
+                background: selected ? "var(--sun-tint)" : "var(--white)",
+                border: selected ? "2px solid var(--ink)" : "1px solid var(--border-hairline)",
+                borderRadius: "var(--radius-md)",
+                cursor: "pointer",
+              }}
+            >
+              <span style={{ flex: "none", width: 72, display: "flex", justifyContent: "center" }}><DogIcon scale={0.65 + i * 0.25} /></span>
+              <span style={{ display: "flex", flexDirection: "column" }}>
+                <span>{title}</span>
+                <span style={{ fontWeight: 800 }}>{rest.join(", ")}</span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
   if (step.kind === "single") {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", ["--opt-n" as string]: step.options.length }}>
@@ -521,7 +583,7 @@ function MultiBody({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: "var(--space-6)" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", ["--opt-n" as string]: step.options.length }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: step.options.length > 5 ? "var(--space-2)" : "var(--space-3)", ["--opt-n" as string]: step.options.length }}>
         {step.options.map((o) => (
           <OptionButton
             key={o}

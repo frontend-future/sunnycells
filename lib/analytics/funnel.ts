@@ -112,6 +112,15 @@ export async function funnelStepFor(pathname: string): Promise<FunnelStep | null
       stage: index === 0 ? "landing" : rest === "complete" ? "results" : "question",
     };
   }
+  const plc = /^\/plc-quiz(?:\/([a-z]+(?:-[a-z]+)*))?$/.exec(pathname.replace(/\/$/, ""));
+  if (plc) {
+    const { plcQuiz } = await import("../quiz/plc.ts");
+    const list = ["", ...plcQuiz.steps.map((s) => s.slug)];
+    const rest = plc[1] ?? "";
+    const index = list.indexOf(rest);
+    if (index < 0) return null;
+    return { quiz: "plc-quiz", index, slug: rest || "landing", stage: index === 0 ? "landing" : rest === "complete" ? "results" : "question" };
+  }
   /* The two step checkout (checkout split test) is the same funnel step as the current checkout. Which one
      a person saw is told apart by the checkout-split flag PostHog adds to every event. */
   if (pathname.replace(/\/$/, "") === "/quiz/itch/v2/checkout") pathname = "/quiz/itch/checkout";

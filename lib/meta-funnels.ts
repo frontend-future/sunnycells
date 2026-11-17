@@ -32,7 +32,7 @@ const PATHS: [Funnel, string[]][] = [
   /* /dih-quiz is the product quiz for the salmon oil, an ad landing page that ends on the itch
      funnel's plans page, so it reports to the same dog-supplement dataset as the rest of the
      funnel. Left unrouted it would fall to "default", the diet and cortisol dataset. */
-  ["itch", ["/quiz/itch", "/quiz/itch-old", "/quiz/joint", "/dih-quiz"]],
+  ["itch", ["/quiz/itch", "/quiz/itch-old", "/quiz/joint", "/dih-quiz", "/plc-quiz"]],
 ];
 
 export function funnelForPath(pathname: string): Funnel {

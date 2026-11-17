@@ -69,7 +69,7 @@ export function PostHogAnalytics() {
     }
 
     /* /dih-quiz and every step under it is recorded too: its landing page, questions and result. */
-    if (REPLAY_PATHS.includes(pathname) || pathname === "/dih-quiz" || pathname.startsWith("/dih-quiz/")) posthog.startSessionRecording();
+    if (REPLAY_PATHS.includes(pathname) || pathname === "/dih-quiz" || pathname.startsWith("/dih-quiz/") || pathname === "/plc-quiz" || pathname.startsWith("/plc-quiz/")) posthog.startSessionRecording();
     else posthog.stopSessionRecording();
 
     if (counted === pathname) return;

@@ -15,6 +15,9 @@ export type Step =
       kind: "single";
       question: string;
       options: string[];
+      /** Show the options as a row of picture cards (a dog silhouette that grows with the
+          option's position) instead of a list. Each option reads "Title, detail". */
+      cards?: boolean;
       /** Small compliance line under the options, the same idea as `dob`'s
           `reason`: an ask that feels invasive (spend, a fear) lands better with
           one sentence on why it's being asked. */
@@ -209,9 +212,10 @@ export function stepIndex(config: QuizConfig, slug: string): number {
 export function stepVisible(step: Step, answers?: Record<string, string>): boolean {
   const c = "showIf" in step ? step.showIf : undefined;
   if (!c) return true;
-  const v = answers?.[c.slug];
-  if (c.oneOf && !(v && c.oneOf.includes(v))) return false;
-  if (c.noneOf && v && c.noneOf.includes(v)) return false;
+  /* A multi answer is stored joined with "|", so test each chosen option. A single answer has no "|". */
+  const picked = answers?.[c.slug]?.split("|").filter(Boolean) ?? [];
+  if (c.oneOf && !picked.some((x) => c.oneOf!.includes(x))) return false;
+  if (c.noneOf && picked.some((x) => c.noneOf!.includes(x))) return false;
   return true;
 }
 

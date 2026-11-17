@@ -189,3 +189,11 @@ test("the dih quiz is its own funnel: landing, each step in config order, the re
   assert.equal(await funnelStepFor("/dih-quiz/not-a-step"), null);
   assert.deepEqual(await funnelStepFor("/dih-quiz/"), await funnelStepFor("/dih-quiz"));
 });
+
+test("the plc quiz is its own funnel: landing, each step in config order, the result last", async () => {
+  const { plcQuiz } = await import("../quiz/plc.ts");
+  assert.deepEqual(await funnelStepFor("/plc-quiz"), { quiz: "plc-quiz", index: 0, slug: "landing", stage: "landing" });
+  assert.deepEqual(await funnelStepFor("/plc-quiz/signs"), { quiz: "plc-quiz", index: 1, slug: "signs", stage: "question" });
+  assert.deepEqual(await funnelStepFor("/plc-quiz/complete"), { quiz: "plc-quiz", index: plcQuiz.steps.length, slug: "complete", stage: "results" });
+  assert.equal(await funnelStepFor("/plc-quiz/nope"), null);
+});

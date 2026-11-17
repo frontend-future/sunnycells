@@ -92,3 +92,7 @@ test("the joint quiz shares the itch quiz's dog-supplement dataset on purpose", 
   assert.equal(funnelForPath("/quiz/joint/results/checkout"), "itch");
   assert.equal(funnelForPath("/quiz/jointy-something-else"), "default");
 });
+
+test("the plc quiz reports to the itch dataset", () => {
+  for (const p of ["/plc-quiz", "/plc-quiz/signs", "/plc-quiz/complete"]) assert.equal(funnelForPath(p), "itch", p);
+});
