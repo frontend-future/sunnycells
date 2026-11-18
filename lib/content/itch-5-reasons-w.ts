@@ -76,7 +76,7 @@ export const REASONS = {
   },
   four: {
     title: "Relief That Builds Over 90 Days",
-    body: "Omega-3s work through the skin barrier, so relief builds rather than switching on overnight. Give it every day. Skipping days is the most common reason a supplement seems not to work.",
+    body: "Omega-3s start working right away and keep building through the skin barrier. Give it every day. Skipping days is the most common reason a supplement seems not to work.",
     photo: "/quiz/fridayzoomies/before-after-belly.webp",
     photoAlt: "A before and after photo of a white bulldog: on the left the skin on the chest and belly is blotchy and pink, on the right the coat is clear and evenly white",
     steps: [
