@@ -163,28 +163,26 @@ export function Itch5ReasonsW() {
       </section>
 
       <section className={styles.band} aria-labelledby="r3">
-        <div className={`${styles.wrap} ${styles.reason}`}>
+        <div className={`${styles.wrap} ${styles.reason} ${styles.stack}`}>
           <Heading id="r3" n={3}>{REASONS.three.title}</Heading>
-          <div className={styles.media}>
-            <div className={styles.ings}>
-              {FZ_PLANS_CONTENT_V2.ingredients.map((ing) => (
-                <details key={ing.slug} className={styles.ing} name="ingredients">
-                  <summary className={styles.ingSummary}>
-                    {ing.image ? <Image src={ing.image} alt="" width={84} height={84} className={styles.ingThumb} /> : null}
-                    <span className={styles.ingName}>{ing.title}</span>
-                    <Icon name="plus" size={18} strokeWidth={2.5} />
-                  </summary>
-                  <div className={styles.ingBody}>
-                    {ing.points.map(([lead, body]) => (
-                      <p key={lead}><strong>{lead}.</strong> {body}</p>
-                    ))}
-                  </div>
-                </details>
-              ))}
-            </div>
-          </div>
           <div className={styles.copy}>
             <p className={styles.body}>{REASONS.three.body}</p>
+          </div>
+          <div className={styles.ings}>
+            {FZ_PLANS_CONTENT_V2.ingredients.map((ing) => (
+              <details key={ing.slug} className={styles.ing} name="ingredients">
+                <summary className={styles.ingSummary}>
+                  {ing.image ? <Image src={ing.image} alt="" width={84} height={84} className={styles.ingThumb} /> : null}
+                  <span className={styles.ingName}>{ing.title}</span>
+                  <Icon name="plus" size={18} strokeWidth={2.5} />
+                </summary>
+                <div className={styles.ingBody}>
+                  {ing.points.map(([lead, body]) => (
+                    <p key={lead}><strong>{lead}.</strong> {body}</p>
+                  ))}
+                </div>
+              </details>
+            ))}
           </div>
         </div>
       </section>

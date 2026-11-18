@@ -145,6 +145,9 @@
   .reason > .copy { grid-column: 1; grid-row: 2; align-self: start; }
   .reason > .media { grid-column: 2; grid-row: 1 / span 2; }
   .mediaFirst > .media { grid-column: 1; }
+  /* One column: title, copy, then the ingredient list underneath. */
+  .stack { grid-template-columns: minmax(0, 44rem); }
+  .stack > * { grid-column: 1; grid-row: auto; }
   .mediaFirst > .h2, .mediaFirst > .copy { grid-column: 2; }
   .offerBody { grid-template-columns: 1fr 1fr; padding: 2rem; gap: 2.5rem; }
   .sticky { display: flex; align-items: center; justify-content: center; gap: 2.5rem; }
