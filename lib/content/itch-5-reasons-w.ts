@@ -105,6 +105,8 @@ export const OFFER = {
   /* The v3 plans page, where the oil is sold. */
   href: "/quiz/itch/v3/results/plans",
   stickyCta: "Apply discount and check availability",
+  stickyHead: "Get 50% off today",
+  stickySub: "90 day money back guarantee",
 };
 
 export const LEGAL =

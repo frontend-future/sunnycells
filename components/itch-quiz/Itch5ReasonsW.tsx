@@ -211,6 +211,10 @@ export function Itch5ReasonsW() {
       </footer>
 
       <div className={styles.sticky}>
+        <p className={styles.stickyCopy}>
+          <span className={styles.stickyHead}>{OFFER.stickyHead}</span>
+          <span className={styles.stickySub}>{OFFER.stickySub}</span>
+        </p>
         <Link href={OFFER.href} className={styles.stickyCta}>{OFFER.stickyCta}</Link>
       </div>
     </div>

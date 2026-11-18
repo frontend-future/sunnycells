@@ -116,12 +116,15 @@
 .topBig { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; }
 .topSmall { font-weight: 800; font-size: 0.85rem; }
 
-/* Sticky buy bar: one full-width button on a dark bar, always on screen. */
+/* Sticky buy bar (the offer line only shows on desktop, where there is room beside the button): one full-width button on a dark bar, always on screen. */
 .sticky {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
   padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom)); background: var(--midnight);
   border-radius: 20px 20px 0 0;
 }
+.stickyCopy { display: none; margin: 0; }
+.stickyHead { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.75rem; line-height: 1.05; }
+.stickySub { display: block; margin-top: 0.25rem; font-size: 1rem; font-weight: 500; }
 .stickyCta {
   display: grid; place-items: center; width: 100%; max-width: 64rem; margin: 0 auto; min-height: 3.5rem; padding: 0 1rem; text-align: center;
   border-radius: var(--radius-button); background: var(--sun); color: var(--midnight); font-weight: 800; font-size: 1.2rem; line-height: 1.15; text-decoration: none;
@@ -138,6 +141,9 @@
   .mediaFirst > .media { grid-column: 1; }
   .mediaFirst > .h2, .mediaFirst > .copy { grid-column: 2; }
   .offerBody { grid-template-columns: 1fr 1fr; padding: 2rem; gap: 2.5rem; }
+  .sticky { display: flex; align-items: center; justify-content: center; gap: 2.5rem; }
+  .stickyCopy { display: block; color: var(--white); }
+  .stickyCta { width: auto; max-width: none; margin: 0; padding: 0 2.5rem; }
   .topbar { padding-inline: max(2rem, calc((100% - 64rem) / 2 + 2rem)); }
   .foot .wrap { padding-bottom: 6rem; }
 }
