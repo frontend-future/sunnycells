@@ -155,6 +155,10 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
   const [shipTo, setShipTo] = useState("");
   const [wallets, setWallets] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  /* Bumped after a card is declined, so the card fields and wallet buttons mount fresh and empty: the next try is
+     a new card, not the same one resubmitted. Retrying one card over and over is also what makes Stripe's fraud
+     check block it as card testing. */
+  const [cardKey, setCardKey] = useState(0);
   const [open, setOpen] = useState(false);
   const [code, setCode] = useState("");
   /* The quiz already asked for an email, so start the field with it. They can still change it. */
@@ -279,11 +283,13 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
         },
       });
       if (confirmError) {
-        /* A bank decline gives a short, flat message and most people stop there. Say it is the bank, that nothing
-           was charged, and what to do next. Other errors (expired card, wrong number) keep Stripe's own wording. */
+        /* A decline gives a short, flat message and most people stop there, or try the same card again. Say nothing
+           was charged and what to do next, and clear the card fields. Other errors (expired card, wrong number)
+           keep Stripe's own wording and the form as it is. */
         const declined = confirmError.type === "card_error" && (confirmError.code === "card_declined" || !!confirmError.decline_code);
+        if (declined) setCardKey((k) => k + 1);
         throw new Error(declined
-          ? "Your bank declined this card. You have not been charged. Please try a different card, or call the number on the back of your card and try again."
+          ? "This card was declined, and you have not been charged. Please try a different card, not the same one again. A credit card usually works best."
           : confirmError.message);
       }
     } catch (e) {
@@ -370,12 +376,13 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
               </div>
               {wallets ? <p className={s.express}>Express checkout</p> : null}
               <ExpressCheckoutElement
+                key={`express-${cardKey}`}
                 onReady={(e) => setWallets(!!e.availablePaymentMethods)}
                 options={{ buttonHeight: 52 }}
                 onConfirm={() => pay(true)}
               />
               {wallets ? <div className={s.or}>or pay by card</div> : null}
-              <PaymentElement options={{ terms: { card: "never" }, fields: { billingDetails: { name: "never", email: "never", address: "never", phone: "auto" } }, wallets: { applePay: "never", googlePay: "never" }, layout: { type: "accordion", defaultCollapsed: false, radios: "always", spacedAccordionItems: true } }} />
+              <PaymentElement key={`card-${cardKey}`} options={{ terms: { card: "never" }, fields: { billingDetails: { name: "never", email: "never", address: "never", phone: "auto" } }, wallets: { applePay: "never", googlePay: "never" }, layout: { type: "accordion", defaultCollapsed: false, radios: "always", spacedAccordionItems: true } }} />
 
               <div style={{ marginTop: 12 }}>
                 <Button type="submit" size="lg" fullWidth variant="accent" disabled={!stripe || busy} iconLeft={busy ? undefined : "shield-check"} style={PAY_STYLE}>{busy ? "Processing…" : "Submit Secure Payment"}</Button>
