@@ -99,7 +99,8 @@ export const REASONS = {
   },
   five: {
     title: "No Fillers, No Artificial Additives",
-    body: "It is 100% natural salmon oil with natural vitamin E, with no chicken, beef, corn, wheat or soy. It does contain fish, so check with your vet first if your dog has a known fish allergy.",
+    /* **bold** markers are rendered by the page. */
+    body: "Unlike supermarket supplements that pad their formulas with cheap fillers, **Friday Zoomies contains only two ingredients: 100% natural salmon oil and natural vitamin E.** No artificial anything, and no chicken, beef, corn, wheat or soy. **Friday Zoomies is based in the USA.** It does contain fish, so check with your vet first if your dog has a known fish allergy.",
     image: "/quiz/fridayzoomies/oil-bottle.webp",
     alt: "A bottle of Friday Zoomies Pure Omega Salmon Oil",
     /* Every line is a claim the plans pages already make. */
@@ -114,7 +115,7 @@ export const REASONS = {
 };
 
 export const OFFER = {
-  tag: "SAVE 50% TODAY",
+  tag: "SAVE 50% TODAY (LIMITED TIME!)",
   title: "Pure Omega Salmon Oil",
   image: "/quiz/fridayzoomies/oil-bottle.webp",
   alt: "A bottle of Friday Zoomies Pure Omega Salmon Oil",

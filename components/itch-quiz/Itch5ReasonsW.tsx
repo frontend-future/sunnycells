@@ -38,6 +38,13 @@ function Loop({ src, poster, alt }: { src: string; poster: string; alt: string }
   );
 }
 
+/* `**bold**` markers in a copy string. */
+function bold(text: string) {
+  return text.split(/(\*\*.+?\*\*)/).map((part, i) =>
+    part.startsWith("**") ? <strong key={i} style={{ fontWeight: 800 }}>{part.slice(2, -2)}</strong> : part,
+  );
+}
+
 function Star() {
   return (
     <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
@@ -245,7 +252,7 @@ export function Itch5ReasonsW() {
             </div>
           </div>
           <div className={styles.copy}>
-            <p className={styles.body}>{REASONS.five.body}</p>
+            <p className={styles.body}>{bold(REASONS.five.body)}</p>
           </div>
         </div>
       </section>
