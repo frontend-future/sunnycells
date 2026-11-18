@@ -75,7 +75,7 @@ export const REASONS = {
     body: "Pure Omega Salmon Oil is salmon oil and mixed tocopherols, a natural vitamin E. That is the whole formula.",
   },
   four: {
-    title: "Relief That Builds Over 90 Days",
+    title: "Visible Itch Relief in Just a Few Weeks",
     body: "Omega-3s start working right away and keep building through the skin barrier. Give it every day. Skipping days is the most common reason a supplement seems not to work.",
     photo: "/quiz/fridayzoomies/before-after-belly.webp",
     photoAlt: "A before and after photo of a white bulldog: on the left the skin on the chest and belly is blotchy and pink, on the right the coat is clear and evenly white",
