@@ -88,11 +88,6 @@
 .step { display: grid; grid-template-columns: 1rem 1fr; gap: 0.875rem; align-items: start; }
 .dot { width: 0.875rem; height: 0.875rem; margin-top: 0.4rem; border-radius: 50%; background: var(--cobalt); }
 
-/* Trust badges */
-.badges { list-style: none; margin: 0.25rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1.25rem; }
-.badges li { display: flex; align-items: center; gap: 0.625rem; font-size: 1.1rem; font-weight: 700; }
-.badges img { width: 3.5rem; height: 3.5rem; }
-
 /* Offer */
 .offer { background: var(--white); color: var(--ink); border-radius: var(--radius-card); overflow: hidden; }
 .offerTag { margin: 0; padding: 0.875rem 1rem; background: var(--sun); text-align: center; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.02em; }

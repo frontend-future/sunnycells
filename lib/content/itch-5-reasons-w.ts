@@ -87,10 +87,6 @@ export const REASONS = {
     body: "It is 100% natural salmon oil with natural vitamin E, with no chicken, beef, corn, wheat or soy. It does contain fish, so check with your vet first if your dog has a known fish allergy.",
     image: "/quiz/fridayzoomies/oil-bottle.webp",
     alt: "A bottle of Friday Zoomies Pure Omega Salmon Oil",
-    badges: [
-      { src: "/quiz/fridayzoomies/trust-usa.webp", label: "Based in the USA" },
-      { src: "/quiz/fridayzoomies/trust-tested.webp", label: "Tested" },
-    ],
   },
 };
 

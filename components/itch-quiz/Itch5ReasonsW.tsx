@@ -174,11 +174,6 @@ export function Itch5ReasonsW() {
           </div>
           <div className={styles.copy}>
             <p className={styles.body}>{REASONS.five.body}</p>
-            <ul className={styles.badges}>
-              {REASONS.five.badges.map((b) => (
-                <li key={b.label}><Image src={b.src} alt="" width={56} height={56} /><span>{b.label}</span></li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
