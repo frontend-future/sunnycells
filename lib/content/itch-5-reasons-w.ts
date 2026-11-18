@@ -122,8 +122,8 @@ export const OFFER = {
     "Dosed to your dog's weight",
   ],
   rating: "Thousands of happy pups",
-  cta: "Try risk-free today with 50% off",
-  trust: ["Relief builds over 90 days. Comfort they deserve.", "Better skin and comfort in 90 days or your money back", "Free shipping on your first order"],
+  cta: "Try Risk-Free Today With 50% Off",
+  trust: ["Relief you can feel. Comfort they deserve.", "Better Skin & Comfort in 90 Days or Your Money Back", "FREE and FAST Shipping"],
   /* The v3 plans page, where the oil is sold. */
   href: "/quiz/itch/v3/results/plans",
   stickyCta: "Apply Discount And Check Availability",
