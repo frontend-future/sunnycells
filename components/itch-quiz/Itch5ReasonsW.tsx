@@ -38,6 +38,23 @@ function Loop({ src, poster, alt }: { src: string; poster: string; alt: string }
   );
 }
 
+function Star() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6L2.5 9.5l6.6-.8L12 2.5z" fill="var(--sun)" stroke="var(--midnight)" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function Verified() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="Verified customer">
+      <circle cx="12" cy="12" r="10" fill="var(--sun)" stroke="var(--midnight)" strokeWidth="1.5" />
+      <path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="var(--midnight)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function Heading({ n, children, id }: { n?: number; children: string; id: string }) {
   return (
     <h2 id={id} className={n ? `${styles.h2} ${styles.numbered}` : styles.h2}>
@@ -55,7 +72,7 @@ export function Itch5ReasonsW() {
 
   const slide = (dir: 1 | -1) => {
     const el = reviewsRef.current;
-    if (el) el.scrollBy({ left: dir * el.clientWidth, behavior: "smooth" });
+    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.84, behavior: "smooth" });
   };
 
   return (
@@ -122,19 +139,19 @@ export function Itch5ReasonsW() {
               <ul className={styles.slides} ref={reviewsRef} aria-label="What Friday Zoomies customers say" tabIndex={0}>
                 {reviews.map((r) => (
                   <li key={r.name} className={styles.slide}>
-                    <Image src={r.photo} alt="" width={136} height={136} className={styles.avatar} />
-                    <p className={styles.stars} role="img" aria-label="Rated 5 out of 5">★★★★★</p>
+                    <Image src={r.photo} alt="" width={208} height={208} className={styles.avatar} />
+                    <p className={styles.stars} role="img" aria-label="Rated 5 out of 5">{[0, 1, 2, 3, 4].map((i) => <Star key={i} />)}</p>
                     <p className={styles.quote}>{r.body}</p>
-                    <p className={styles.who}>{r.name}</p>
+                    <p className={styles.who}>{r.name}<Verified /></p>
                   </li>
                 ))}
               </ul>
               <div className={styles.nav}>
                 <button type="button" className={styles.arrow} aria-label="Previous review" onClick={() => slide(-1)}>
-                  <Icon name="chevron-left" size={22} strokeWidth={2.5} />
+                  <Icon name="arrow-left" size={26} strokeWidth={2.5} />
                 </button>
                 <button type="button" className={styles.arrow} aria-label="Next review" onClick={() => slide(1)}>
-                  <Icon name="chevron-right" size={22} strokeWidth={2.5} />
+                  <Icon name="arrow-right" size={26} strokeWidth={2.5} />
                 </button>
               </div>
             </div>

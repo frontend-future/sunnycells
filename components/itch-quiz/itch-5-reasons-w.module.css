@@ -51,25 +51,26 @@
   font-size: 1rem; font-weight: 700; line-height: 1.1;
 }
 
-/* Reviews carousel */
-.carousel { display: grid; gap: 0.875rem; }
+/* Reviews carousel: each card is narrower than the row so the next one peeks in, the photo straddles the card's top edge. */
+.carousel { display: grid; gap: 1rem; }
+/* Room above the cards for the half of each photo that sits outside them. overflow-x clips y too, hence the padding here. */
 .slides {
-  list-style: none; margin: 0; padding: 0; display: flex; gap: 0.875rem; overflow-x: auto;
+  list-style: none; margin: 0; padding: 3.5rem 0 0; display: flex; gap: 0.875rem; overflow-x: auto;
   scroll-snap-type: x mandatory; scrollbar-width: none;
 }
 .slides::-webkit-scrollbar { display: none; }
 .slide {
-  flex: 0 0 100%; scroll-snap-align: start; display: grid; justify-items: center; gap: 0.5rem; text-align: center;
-  padding: 1.25rem; border: 1.5px solid var(--ink-20); border-radius: var(--radius-card); background: var(--white);
+  position: relative; flex: 0 0 84%; scroll-snap-align: start; display: grid; justify-items: center; align-content: start; gap: 0.625rem; text-align: center;
+  padding: 3.75rem 1.25rem 1.25rem; border: 1.5px solid var(--midnight); border-radius: var(--radius-card); background: var(--white);
 }
-.avatar { width: 6rem; height: 6rem; border-radius: 50%; object-fit: cover; }
-.stars { margin: 0; color: var(--sun-press); font-size: 1.25rem; letter-spacing: 0.1em; }
+.avatar { position: absolute; top: -3.25rem; left: 50%; transform: translateX(-50%); width: 6.5rem; height: 6.5rem; border-radius: 50%; object-fit: cover; }
+.stars { margin: 0; display: flex; gap: 0.25rem; }
 .quote { margin: 0; font-size: 1.1rem; line-height: 1.45; font-weight: 500; }
-.who { margin: 0; font-weight: 800; }
+.who { margin: 0; display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.2rem; }
 .nav { display: flex; justify-content: center; gap: 0.75rem; }
 .arrow {
-  width: 3rem; height: 3rem; display: grid; place-items: center; cursor: pointer; padding: 0;
-  border: 2px solid var(--ink-20); border-radius: 50%; background: var(--white); color: var(--ink);
+  width: 3.25rem; height: 3.25rem; display: grid; place-items: center; cursor: pointer; padding: 0;
+  border: 2px solid var(--midnight); border-radius: 50%; background: var(--sun); color: var(--midnight);
 }
 
 /* Ingredients */
