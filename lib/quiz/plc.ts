@@ -2,7 +2,7 @@ import type { QuizConfig } from "./types.ts";
 
 /**
  * The /plc-quiz funnel: a symptom-led, four-step-then-result quiz (3 questions, 2 education
- * screens) that ends on a 50% off reveal and hands off to the v3 plans page. Its own id keeps
+ * screens) that ends on a 50% off reveal and hands off to the v2 plans page. Its own id keeps
  * its answers apart from the other quizzes.
  *
  * Offer wording: "50% off" only. The code is already applied at checkout.
@@ -12,7 +12,7 @@ const IMG = "/quiz/fridayzoomies";
 export const plcQuiz: QuizConfig = {
   id: "plc",
   basePath: "/plc-quiz",
-  resultsPath: "/quiz/itch/v3/results/plans",
+  resultsPath: "/quiz/itch/v2/results/plans",
   questionLabels: true,
   steps: [
     {

@@ -2,7 +2,7 @@ import type { QuizConfig } from "./types.ts";
 
 /**
  * The /dih-quiz funnel: a short, product-first quiz that ends on a 50% off reveal and then
- * hands off to the v3 plans page. Its own id keeps its answers apart from the itch quiz.
+ * hands off to the v2 plans page. Its own id keeps its answers apart from the itch quiz.
  *
  * Offer wording: "50% off" only. The code is already applied at checkout, so the reveal says
  * so and asks for nothing. Nothing here mentions billing, renewals or a later price.
@@ -12,7 +12,7 @@ const IMG = "/quiz/fridayzoomies";
 export const dihQuiz: QuizConfig = {
   id: "dih",
   basePath: "/dih-quiz",
-  resultsPath: "/quiz/itch/v3/results/plans",
+  resultsPath: "/quiz/itch/v2/results/plans",
   questionLabels: true,
   steps: [
     {
