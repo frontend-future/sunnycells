@@ -156,10 +156,8 @@ export function FridayZoomiesPdpV2({ onStart }: { onStart: () => Promise<boolean
 
   return (
     <section id="plans" className={styles.pdp}>
-      <h2 className={styles.birthday}>
-        <span>It’s Our Birthday!</span>
-        <span>We Lowered Our Prices to Celebrate.</span>
-      </h2>
+      {/* The "It’s Our Birthday! We Lowered Our Prices to Celebrate." banner is off for now. It was an h2 with
+          className={styles.birthday}, styled in fz-pdp-v2.module.css, if it comes back. */}
       <div className={styles.grid}>
         <div className={styles.thumbs}>
           {IMAGES.map((img, i) => (
