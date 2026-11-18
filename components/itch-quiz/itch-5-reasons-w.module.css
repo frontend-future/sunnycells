@@ -85,7 +85,7 @@
 .ingBody p { margin: 0; }
 
 /* Before and after photo under the section 4 body text */
-.beforeAfter { display: block; width: 100%; height: auto; border-radius: var(--radius-image); }
+.beforeAfter { display: block; width: 100%; max-width: 34rem; height: auto; border-radius: var(--radius-image); }
 
 /* Timeline: dots joined by a vertical line, each step with a title, copy and a callout. */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.75rem; }

@@ -196,26 +196,24 @@ export function Itch5ReasonsW() {
       </section>
 
       <section className={`${styles.band} ${styles.alt}`} aria-labelledby="r4">
-        <div className={`${styles.wrap} ${styles.reason}`}>
+        <div className={`${styles.wrap} ${styles.reason} ${styles.stack}`}>
           <Heading id="r4" n={4}>{REASONS.four.title}</Heading>
-          <div className={styles.media}>
-            <ol className={styles.steps}>
-              {REASONS.four.steps.map((s) => (
-                <li key={s.title} className={styles.step}>
-                  <span className={styles.dot} aria-hidden="true" />
-                  <div className={styles.stepBody}>
-                    <h3 className={styles.h3}>{s.title}</h3>
-                    <p className={styles.body}>{s.body}</p>
-                    <p className={styles.note}>{s.note}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
           <div className={styles.copy}>
             <p className={styles.body}>{REASONS.four.body}</p>
             <Image src={REASONS.four.photo} alt={REASONS.four.photoAlt} width={1080} height={1080} className={styles.beforeAfter} />
           </div>
+          <ol className={styles.steps}>
+            {REASONS.four.steps.map((s) => (
+              <li key={s.title} className={styles.step}>
+                <span className={styles.dot} aria-hidden="true" />
+                <div className={styles.stepBody}>
+                  <h3 className={styles.h3}>{s.title}</h3>
+                  <p className={styles.body}>{s.body}</p>
+                  <p className={styles.note}>{s.note}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
