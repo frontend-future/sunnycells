@@ -17,7 +17,6 @@ export const META = {
 export const BANNER = {
   headline: "Save 50% today",
   subline: "Free shipping on your first order",
-  badge: { big: "50%", small: "off" },
 };
 
 export const HERO = {

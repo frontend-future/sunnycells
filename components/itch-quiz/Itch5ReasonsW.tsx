@@ -2,11 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/core/Icon";
 import { FZ_PLANS_CONTENT_V2 } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { BANNER, HERO, LEGAL, OFFER, PILLS, REASONS, WHY } from "@/lib/content/itch-5-reasons-w";
 import styles from "./itch-5-reasons-w.module.css";
+
+/* Hours, minutes and seconds left until local midnight, ticking every second. Null until mounted, so the
+   server and the first client render match. */
+function useCountdown() {
+  const [left, setLeft] = useState<[string, string, string] | null>(null);
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const end = new Date(now);
+      end.setHours(24, 0, 0, 0);
+      const s = Math.max(0, Math.floor((end.getTime() - now.getTime()) / 1000));
+      const two = (n: number) => String(n).padStart(2, "0");
+      setLeft([two(Math.floor(s / 3600)), two(Math.floor((s % 3600) / 60)), two(s % 60)]);
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return left;
+}
 
 function Loop({ src, poster, alt }: { src: string; poster: string; alt: string }) {
   return (
@@ -28,6 +48,7 @@ function Heading({ n, children, id }: { n?: number; children: string; id: string
 }
 
 export function Itch5ReasonsW() {
+  const clock = useCountdown();
   const offerRef = useRef<HTMLElement | null>(null);
   const reviewsRef = useRef<HTMLUListElement | null>(null);
   const reviews = FZ_PLANS_CONTENT_V2.reviews;
@@ -44,9 +65,16 @@ export function Itch5ReasonsW() {
           <span className={styles.topHead}>{BANNER.headline}</span>
           <span className={styles.topSub}>{BANNER.subline}</span>
         </p>
-        <p className={styles.topBadge}>
-          <span className={styles.topBig}>{BANNER.badge.big}</span>
-          <span className={styles.topSmall}>{BANNER.badge.small}</span>
+        <p className={styles.clock} aria-live="off">
+          {(["HRS", "MIN", "SEC"] as const).map((label, i) => (
+            <span key={label} className={styles.clockGroup}>
+              {i > 0 ? <span className={styles.clockSep} aria-hidden="true">:</span> : null}
+              <span className={styles.clockUnit}>
+                <span className={styles.clockDigits}>{clock ? clock[i] : "--"}</span>
+                <span className={styles.clockLabel}>{label}</span>
+              </span>
+            </span>
+          ))}
         </p>
       </div>
 
