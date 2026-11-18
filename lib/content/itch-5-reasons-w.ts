@@ -121,8 +121,9 @@ export const OFFER = {
     "Omega-3s EPA and DHA from 100% natural salmon oil",
     "Dosed to your dog's weight",
   ],
-  cta: "Try it risk free",
-  trust: ["90 day money back guarantee", "Free shipping on your first order", "Skip or cancel anytime"],
+  rating: "Thousands of happy pups",
+  cta: "Try risk-free today with 50% off",
+  trust: ["Relief builds over 90 days. Comfort they deserve.", "Better skin and comfort in 90 days or your money back", "Free shipping on your first order"],
   /* The v3 plans page, where the oil is sold. */
   href: "/quiz/itch/v3/results/plans",
   stickyCta: "Apply Discount And Check Availability",

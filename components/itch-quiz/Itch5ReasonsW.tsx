@@ -46,6 +46,14 @@ function Star() {
   );
 }
 
+function OfferStar() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6L2.5 9.5l6.6-.8L12 2.5z" fill="var(--midnight)" />
+    </svg>
+  );
+}
+
 function Verified() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="Verified customer">
@@ -243,6 +251,10 @@ export function Itch5ReasonsW() {
             <div className={styles.offerBody}>
               <Image src={OFFER.image} alt={OFFER.alt} width={600} height={600} className={styles.offerImg} />
               <div className={styles.offerCopy}>
+                <p className={styles.rating}>
+                  <span className={styles.ratingStars} role="img" aria-label="Rated 5 out of 5">{[0, 1, 2, 3, 4].map((i) => <OfferStar key={i} />)}</span>
+                  <span>{OFFER.rating}</span>
+                </p>
                 <h2 id="offer-title" className={styles.offerTitle}>{OFFER.title}</h2>
                 <ul className={styles.bullets}>
                   {OFFER.bullets.map((b) => (
@@ -254,7 +266,9 @@ export function Itch5ReasonsW() {
                 </ul>
                 <Link href={OFFER.href} className={styles.cta}>{OFFER.cta}</Link>
                 <ul className={styles.trust}>
-                  {OFFER.trust.map((t) => <li key={t}>{t}</li>)}
+                  {OFFER.trust.map((t) => (
+                    <li key={t}><Icon name="check" size={18} strokeWidth={2.5} /><span>{t}</span></li>
+                  ))}
                 </ul>
               </div>
             </div>
