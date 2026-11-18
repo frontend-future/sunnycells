@@ -82,17 +82,17 @@ export const REASONS = {
     steps: [
       {
         title: "Day 7: First Signs",
-        body: "Start with half the usual amount over their food for the first week, then the full amount. The omega-3s EPA and DHA begin supporting the skin barrier.",
+        body: "The omega-3s EPA and DHA begin supporting a healthy inflammatory response and the skin's natural barrier.",
         note: "Most users noticed their dog scratching less and sleeping more soundly.",
       },
       {
         title: "Day 30: Visible Changes",
-        body: "Skin comfort starts to improve as the omega-3s keep building in the skin barrier. Coat condition begins to look better.",
+        body: "Skin comfort improves noticeably. The omega-3s keep building in the skin barrier and support a calmer inflammatory response. Coat condition starts to visibly improve.",
         note: "Most users noticed a reduction in redness, hot spots, and paw chewing.",
       },
       {
         title: "Day 90: Full Impact",
-        body: "Relief has built over the first 90 days. The skin barrier is better supported and your dog is more comfortable in their own skin. After that, daily use maintains it.",
+        body: "The omega-3s are working at full effect. The skin barrier is better supported, the inflammatory response is calmer, and your dog is more comfortable in their own skin, season after season.",
         note: "Most users reported their dog was noticeably more settled, comfortable, and back to themselves.",
       },
     ],
