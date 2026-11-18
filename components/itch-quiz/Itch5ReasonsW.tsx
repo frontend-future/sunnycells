@@ -193,11 +193,12 @@ export function Itch5ReasonsW() {
           <div className={styles.media}>
             <ol className={styles.steps}>
               {REASONS.four.steps.map((s) => (
-                <li key={s.when} className={styles.step}>
+                <li key={s.title} className={styles.step}>
                   <span className={styles.dot} aria-hidden="true" />
-                  <div>
-                    <h3 className={styles.h3}>{s.when}: {s.head}</h3>
+                  <div className={styles.stepBody}>
+                    <h3 className={styles.h3}>{s.title}</h3>
                     <p className={styles.body}>{s.body}</p>
+                    <p className={styles.note}>{s.note}</p>
                   </div>
                 </li>
               ))}

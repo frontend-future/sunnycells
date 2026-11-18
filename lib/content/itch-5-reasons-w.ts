@@ -78,9 +78,21 @@ export const REASONS = {
     photo: "/quiz/fridayzoomies/before-after-belly.webp",
     photoAlt: "A before and after photo of a white bulldog: on the left the skin on the chest and belly is blotchy and pink, on the right the coat is clear and evenly white",
     steps: [
-      { when: "Week 1", head: "Start easy", body: "Give half the usual amount over their food for the first week, then the full amount." },
-      { when: "Day 30", head: "Keep it daily", body: "The omega-3s keep building in the skin barrier and coat, so keep the pump a daily habit." },
-      { when: "Day 90", head: "Full impact", body: "Relief builds over the first 90 days. After that, daily use maintains it." },
+      {
+        title: "Day 7: First Signs",
+        body: "Start with half the usual amount over their food for the first week, then the full amount. The omega-3s EPA and DHA begin supporting the skin barrier.",
+        note: "What to look for: a little less scratching and more settled nights.",
+      },
+      {
+        title: "Day 30: Visible Changes",
+        body: "Skin comfort starts to improve as the omega-3s keep building in the skin barrier. Coat condition begins to look better.",
+        note: "What to look for: less redness, fewer hot spots and less paw chewing.",
+      },
+      {
+        title: "Day 90: Full Impact",
+        body: "Relief has built over the first 90 days. The skin barrier is better supported and your dog is more comfortable in their own skin. After that, daily use maintains it.",
+        note: "What to look for: a dog who is more settled, more comfortable and back to themselves.",
+      },
     ],
   },
   five: {

@@ -38,7 +38,6 @@
   flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%;
   background: var(--cobalt); color: var(--white); font-size: 1.5rem; line-height: 1;
 }
-.h3 { margin: 0 0 0.25rem; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; line-height: 1.2; }
 
 .media { position: relative; width: 100%; overflow: hidden; border-radius: var(--radius-image); }
 .tint { background: var(--sky-tint); aspect-ratio: 1; }
@@ -89,10 +88,20 @@
 /* Before and after photo under the section 4 body text */
 .beforeAfter { display: block; width: 100%; height: auto; border-radius: var(--radius-image); }
 
-/* Timeline */
-.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
-.step { display: grid; grid-template-columns: 1rem 1fr; gap: 0.875rem; align-items: start; }
-.dot { width: 0.875rem; height: 0.875rem; margin-top: 0.4rem; border-radius: 50%; background: var(--cobalt); }
+/* Timeline: dots joined by a vertical line, each step with a title, copy and a callout. */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.75rem; }
+.step { position: relative; display: grid; grid-template-columns: 2.25rem 1fr; column-gap: 0.75rem; align-items: start; }
+.dot { position: relative; z-index: 1; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--cobalt); }
+/* The line runs from this dot down to the next one. */
+.step:not(:last-child)::before {
+  content: ""; position: absolute; left: calc(0.875rem - 1px); top: 1.75rem; bottom: calc(-1.75rem); width: 2px; background: var(--ink-20);
+}
+.stepBody { display: grid; gap: 0.5rem; }
+.h3 { margin: 0; font-family: var(--font-display); font-weight: 800; letter-spacing: var(--tracking-heading); font-size: 1.5rem; line-height: 1.1; }
+.note {
+  margin: 0.25rem 0 0; padding: 0.875rem 1rem; border: 1px solid var(--ink-20); border-radius: 12px; background: var(--white);
+  font-size: 1.1rem; line-height: 1.45; font-style: italic; font-weight: 500;
+}
 
 /* Offer */
 .offer { background: var(--white); color: var(--ink); border-radius: var(--radius-card); overflow: hidden; }
