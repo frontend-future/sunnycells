@@ -126,8 +126,8 @@ export const OFFER = {
   rating: "Thousands of happy pups",
   cta: "Try Risk-Free Today With 50% Off",
   trust: ["Relief you can feel. Comfort they deserve.", "Better Skin & Comfort in 90 Days or Your Money Back", "FREE and FAST Shipping"],
-  /* The v3 plans page, where the oil is sold. */
-  href: "/quiz/itch/v3/results/plans",
+  /* The v2 plans page, for now. */
+  href: "/quiz/itch/v2/results/plans",
   stickyCta: "Apply Discount And Check Availability",
   stickyHead: "Get 50% off today",
   stickySub: "90 day money back guarantee",
