@@ -205,6 +205,7 @@ export function Itch5ReasonsW() {
           </div>
           <div className={styles.copy}>
             <p className={styles.body}>{REASONS.four.body}</p>
+            <Image src={REASONS.four.photo} alt={REASONS.four.photoAlt} width={1080} height={1080} className={styles.beforeAfter} />
           </div>
         </div>
       </section>
