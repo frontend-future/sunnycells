@@ -124,7 +124,7 @@ export const OFFER = {
     "Omega-3s EPA and DHA from 100% natural salmon oil",
     "Dosed to your dog's weight",
   ],
-  rating: "Thousands of happy pups",
+  rating: "Thousands Of Happy Pups",
   cta: "Try Risk-Free Today With 50% Off",
   trust: ["Relief you can feel. Comfort they deserve.", "Better Skin & Comfort in 90 Days or Your Money Back", "FREE and FAST Shipping"],
   /* The v2 plans page, for now. */

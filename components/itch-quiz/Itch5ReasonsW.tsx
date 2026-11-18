@@ -45,18 +45,10 @@ function bold(text: string) {
   );
 }
 
-function Star() {
+function Star({ size = 26 }: { size?: number }) {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
       <path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6L2.5 9.5l6.6-.8L12 2.5z" fill="var(--sun)" stroke="var(--midnight)" strokeWidth="1.5" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function OfferStar() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6L2.5 9.5l6.6-.8L12 2.5z" fill="var(--midnight)" />
     </svg>
   );
 }
@@ -265,7 +257,7 @@ export function Itch5ReasonsW() {
               <Image src={OFFER.image} alt={OFFER.alt} width={600} height={600} className={styles.offerImg} />
               <div className={styles.offerCopy}>
                 <p className={styles.rating}>
-                  <span className={styles.ratingStars} role="img" aria-label="Rated 5 out of 5">{[0, 1, 2, 3, 4].map((i) => <OfferStar key={i} />)}</span>
+                  <span className={styles.ratingStars} role="img" aria-label="Rated 5 out of 5">{[0, 1, 2, 3, 4].map((i) => <Star key={i} size={20} />)}</span>
                   <span>{OFFER.rating}</span>
                 </p>
                 <h2 id="offer-title" className={styles.offerTitle}>{OFFER.title}</h2>
