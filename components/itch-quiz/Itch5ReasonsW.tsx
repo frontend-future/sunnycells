@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Icon } from "@/components/core/Icon";
-import { AnnouncementMarquee } from "@/components/quiz/AnnouncementMarquee";
 import { FZ_PLANS_CONTENT_V2 } from "@/lib/quiz/fridayzoomiesOfferV2";
-import { HERO, LEGAL, OFFER, PILLS, REASONS, TERMS, WHY } from "@/lib/content/itch-5-reasons-w";
+import { BANNER, HERO, LEGAL, OFFER, PILLS, REASONS, WHY } from "@/lib/content/itch-5-reasons-w";
 import styles from "./itch-5-reasons-w.module.css";
 
 function Loop({ src, poster, alt }: { src: string; poster: string; alt: string }) {
@@ -29,23 +28,9 @@ function Heading({ n, children, id }: { n?: number; children: string; id: string
 }
 
 export function Itch5ReasonsW() {
-  const [showBar, setShowBar] = useState(false);
   const offerRef = useRef<HTMLElement | null>(null);
   const reviewsRef = useRef<HTMLUListElement | null>(null);
   const reviews = FZ_PLANS_CONTENT_V2.reviews;
-
-  /* The sticky bar shows once the hero has scrolled away, and steps aside while the real offer is on screen. */
-  useEffect(() => {
-    let past = false;
-    let atOffer = false;
-    const update = () => setShowBar(past && !atOffer);
-    const hero = new IntersectionObserver(([e]) => { past = !e.isIntersecting; update(); });
-    const offer = new IntersectionObserver(([e]) => { atOffer = e.isIntersecting; update(); });
-    const h = document.getElementById("hero-title");
-    if (h) hero.observe(h);
-    if (offerRef.current) offer.observe(offerRef.current);
-    return () => { hero.disconnect(); offer.disconnect(); };
-  }, []);
 
   const slide = (dir: 1 | -1) => {
     const el = reviewsRef.current;
@@ -54,7 +39,16 @@ export function Itch5ReasonsW() {
 
   return (
     <div className={styles.page}>
-      <AnnouncementMarquee terms={TERMS} />
+      <div className={styles.topbar} role="region" aria-label="Offer">
+        <p className={styles.topCopy}>
+          <span className={styles.topHead}>{BANNER.headline}</span>
+          <span className={styles.topSub}>{BANNER.subline}</span>
+        </p>
+        <p className={styles.topBadge}>
+          <span className={styles.topBig}>{BANNER.badge.big}</span>
+          <span className={styles.topSmall}>{BANNER.badge.small}</span>
+        </p>
+      </div>
 
       <section className={styles.band}>
         <div className={`${styles.wrap} ${styles.hero}`}>
@@ -221,9 +215,8 @@ export function Itch5ReasonsW() {
         </div>
       </footer>
 
-      <div className={`${styles.sticky} ${showBar ? styles.stickyOn : ""}`} aria-hidden={!showBar}>
-        <span className={styles.stickyMsg}>{OFFER.stickyMessage}</span>
-        <Link href={OFFER.href} className={styles.stickyCta} tabIndex={showBar ? 0 : -1}>{OFFER.cta}</Link>
+      <div className={styles.sticky}>
+        <Link href={OFFER.href} className={styles.stickyCta}>{OFFER.stickyCta}</Link>
       </div>
     </div>
   );

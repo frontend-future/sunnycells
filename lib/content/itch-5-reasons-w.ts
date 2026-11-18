@@ -14,11 +14,11 @@ export const META = {
     "Pure Omega Salmon Oil gives itchy dogs the omega-3s EPA and DHA. Two ingredients, one pump a day, backed by a 90 day money back guarantee.",
 };
 
-export const TERMS = [
-  { strong: "Save 50%", rest: "today" },
-  { strong: "Free shipping", rest: "on your first order" },
-  { strong: "90 day", rest: "money back guarantee" },
-];
+export const BANNER = {
+  headline: "Save 50% today",
+  subline: "Free shipping on your first order",
+  badge: { big: "50%", small: "off" },
+};
 
 export const HERO = {
   title: "5 Reasons Your Dog May Need This Salmon Oil for Itchy Skin",
@@ -108,7 +108,7 @@ export const OFFER = {
   trust: ["90 day money back guarantee", "Free shipping on your first order", "Skip or cancel anytime"],
   /* The v3 plans page, where the oil is sold. */
   href: "/quiz/itch/v3/results/plans",
-  stickyMessage: "Save 50% today",
+  stickyCta: "Apply discount and check availability",
 };
 
 export const LEGAL =

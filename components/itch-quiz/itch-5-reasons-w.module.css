@@ -112,17 +112,24 @@
 
 .legal { margin: 0; font-size: 1rem; line-height: 1.5; font-weight: 500; color: var(--ink-20); }
 
-/* Sticky bar */
+/* Top banner: the offer on the left, a badge on the right where a countdown would sit. */
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.25rem; background: var(--midnight); color: var(--white); }
+.topCopy { margin: 0; display: grid; gap: 0.125rem; }
+.topHead { color: var(--sun); font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; line-height: 1.05; }
+.topSub { font-weight: 700; font-size: 1rem; line-height: 1.2; }
+.topBadge { margin: 0; flex: none; display: grid; justify-items: center; padding: 0.5rem 1rem; border-radius: 12px; background: var(--sun); color: var(--midnight); line-height: 1; }
+.topBig { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; }
+.topSmall { font-weight: 800; font-size: 0.85rem; }
+
+/* Sticky buy bar: one full-width button on a dark bar, always on screen. */
 .sticky {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 0.875rem;
-  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom)); background: var(--midnight); color: var(--white);
-  opacity: 0; pointer-events: none; transform: translateY(100%); transition: opacity 200ms ease, transform 200ms ease;
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom)); background: var(--midnight);
+  border-radius: 20px 20px 0 0;
 }
-.stickyOn { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.stickyMsg { font-weight: 800; font-size: 1.1rem; }
 .stickyCta {
-  flex: none; display: grid; place-items: center; min-height: 3rem; padding: 0 1.25rem; border-radius: var(--radius-button);
-  background: var(--sun); color: var(--ink); font-weight: 800; font-size: 1.05rem; text-decoration: none;
+  display: grid; place-items: center; width: 100%; max-width: 64rem; margin: 0 auto; min-height: 3.5rem; padding: 0 1rem; text-align: center;
+  border-radius: var(--radius-button); background: var(--sun); color: var(--midnight); font-weight: 800; font-size: 1.2rem; line-height: 1.15; text-decoration: none;
 }
 
 @media (min-width: 768px) {
@@ -136,6 +143,6 @@
   .mediaFirst > .media { grid-column: 1; }
   .mediaFirst > .h2, .mediaFirst > .copy { grid-column: 2; }
   .offerBody { grid-template-columns: 1fr 1fr; padding: 2rem; gap: 2.5rem; }
-  .sticky { justify-content: center; gap: 1.5rem; }
+  .topbar { padding-inline: max(2rem, calc((100% - 64rem) / 2 + 2rem)); }
   .foot .wrap { padding-bottom: 6rem; }
 }
