@@ -26,6 +26,8 @@
 
 /* A reason: heading, media, copy. Media sits under the heading on a phone, beside the copy on a desktop. */
 .reason { display: grid; gap: 1.25rem; }
+/* On a phone the picture leads, then the title, then the copy. */
+.reason > .media { order: -1; }
 .copy { display: grid; gap: 1rem; align-content: start; }
 .h2 {
   margin: 0; font-family: var(--font-display); font-weight: 800; letter-spacing: var(--tracking-heading);

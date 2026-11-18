@@ -103,7 +103,7 @@ export const OFFER = {
   trust: ["90 day money back guarantee", "Free shipping on your first order", "Skip or cancel anytime"],
   /* The v3 plans page, where the oil is sold. */
   href: "/quiz/itch/v3/results/plans",
-  stickyCta: "Apply discount and check availability",
+  stickyCta: "Apply Discount And Check Availability",
   stickyHead: "Get 50% off today",
   stickySub: "90 day money back guarantee",
 };
