@@ -21,7 +21,9 @@ export const BANNER = {
 
 export const HERO = {
   title: "5 Reasons Your Dog May Need This Salmon Oil for Itchy Skin",
-  byline: "By the Friday Zoomies team",
+  /* The same vet who appears on the plans and product page carousel. */
+  author: "Dr. Marcus Reed, DVM",
+  authorImage: "/quiz/fridayzoomies/author-marcus-reed.webp",
   updated: "Updated 11/2026",
   intro:
     "Friday Zoomies Pure Omega Salmon Oil gives your dog the omega-3s EPA and DHA that itchy skin runs short on. One pump over their food each day supports the skin barrier and a calmer inflammatory response, from the inside out.",

@@ -110,7 +110,15 @@ export function Itch5ReasonsW() {
           </div>
           <div className={styles.heroCopy}>
             <h1 id="hero-title" className={styles.h1}>{HERO.title}</h1>
-            <p className={styles.byline}><strong>{HERO.byline}</strong> &middot; {HERO.updated}</p>
+            <div className={styles.byline}>
+              <span className={styles.authorRing}>
+                <Image src={HERO.authorImage} alt={HERO.author} width={86} height={86} className={styles.authorImg} />
+              </span>
+              <div className={styles.authorText}>
+                <p className={styles.authorName}>By <strong>{HERO.author}</strong></p>
+                <p className={styles.updated}>{HERO.updated}</p>
+              </div>
+            </div>
             <p className={styles.body}>{HERO.intro}</p>
           </div>
         </div>
