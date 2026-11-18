@@ -214,8 +214,21 @@ export function Itch5ReasonsW() {
       <section className={styles.band} aria-labelledby="r5">
         <div className={`${styles.wrap} ${styles.reason} ${styles.mediaFirst}`}>
           <Heading id="r5" n={5}>{REASONS.five.title}</Heading>
-          <div className={`${styles.media} ${styles.tint}`}>
-            <Image src={REASONS.five.image} alt={REASONS.five.alt} width={600} height={600} className={styles.mediaFill} style={{ objectFit: "contain" }} />
+          <div className={`${styles.media} ${styles.factPanel}`}>
+            <ul className={styles.facts}>
+              {REASONS.five.facts.map((f) => (
+                <li key={f.label} className={styles.fact}>
+                  <span className={styles.factBadge} aria-hidden="true">
+                    <Icon name={f.icon} size={26} strokeWidth={2} />
+                    <span className={styles.factCheck}><Icon name="check" size={12} strokeWidth={3.5} /></span>
+                  </span>
+                  <span className={styles.factLabel}>{f.label}</span>
+                </li>
+              ))}
+            </ul>
+            <div className={styles.bottle}>
+              <Image src={REASONS.five.image} alt={REASONS.five.alt} width={600} height={600} className={styles.bottleImg} />
+            </div>
           </div>
           <div className={styles.copy}>
             <p className={styles.body}>{REASONS.five.body}</p>
