@@ -4,10 +4,11 @@ import { PlansScreen } from "@/components/quiz/PlansScreen";
 import Image from "next/image";
 import { RATING } from "@/lib/products/dog-itch";
 import styles from "@/app/quiz/itch/theme.module.css";
-import { FridayZoomiesPdpV2 } from "@/components/itch-quiz/FridayZoomiesPdpV2";
+import { FridayZoomiesPdpV4 } from "@/components/itch-quiz/FridayZoomiesPdpV4";
 import { FZ_PLANS_CONTENT_V2 } from "@/lib/quiz/fridayzoomiesOfferV2";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
-import { FIRST, OIL_NAME } from "@/lib/quiz/fzOrder";
+import { OIL_NAME } from "@/lib/quiz/fzOrder";
+import { OIL_PLANS, type OilPlan } from "@/lib/quiz/fzPlans";
 import { pumpsPerDay } from "@/lib/quiz/itchAssessment";
 import { readAnswers, useAnswers } from "@/lib/quiz/store";
 import { trackMetaEvent } from "@/lib/meta";
@@ -33,10 +34,10 @@ const HERO_CTA: React.CSSProperties = {
 
 /* Fires on the real buy button, the one in the product block, never on the buttons that only
    scroll to it. The purchase itself is reported from the thank you page. */
-const trackCheckout = () =>
+const trackCheckout = (plan: OilPlan) =>
   trackMetaEvent(
     "InitiateCheckout",
-    { currency: "USD", value: FIRST, content_ids: ["pure-omega-salmon-oil"], content_type: "product", content_name: OIL_NAME },
+    { currency: "USD", value: OIL_PLANS[plan].entry, content_ids: ["pure-omega-salmon-oil"], content_type: "product", content_name: OIL_NAME },
     { email: readAnswers(itchFridayZoomiesQuiz.id).email },
   );
 
@@ -65,9 +66,9 @@ export function FridayZoomiesPlansV4() {
     }
   }, []);
   */
-  const startCheckout = () => {
-    trackCheckout();
-    router.push(destination);
+  const startCheckout = (plan: OilPlan) => {
+    trackCheckout(plan);
+    router.push(`${destination}?plan=${plan}`);
   };
   return (
     <PlansScreen
@@ -78,7 +79,7 @@ export function FridayZoomiesPlansV4() {
       heroCtaLabel="Save 50% + Free Shipping"
       heroCtaStyle={HERO_CTA}
       stickyBuyButton
-      plansSection={<FridayZoomiesPdpV2 key="pdp" onStart={startCheckout} />}
+      plansSection={<FridayZoomiesPdpV4 key="pdp" onStart={startCheckout} />}
       heroMedia={
         <div key="hero-photo" className={styles.heroMedia}>
           <Image

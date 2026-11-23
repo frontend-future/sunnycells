@@ -94,8 +94,10 @@ export async function POST(req: Request) {
       address: { line1: ship.line1 ?? "", line2: ship.line2 ?? undefined, city: ship.city ?? "", state: ship.state ?? "", postal_code: ship.postal_code ?? "", country: ship.country ?? "US" },
       price: once ? OIL_PLANS.once.entry : (invoice!.subtotal ?? 0) / 100,
       shipping: once ? OIL_SHIPPING : 0,
-      /* The 3 month supply ships 3 bottles on its first order; every rebill, and every other plan, is 1. */
+      /* The v3 3 month supply ships 3 bottles on its first order; every rebill, and every other v3 plan, is 1. */
       bottles: isFirst && meta.plan === "3" ? OIL_PLANS["3"].bottles : 1,
+      /* The v4 plans are the 1, 2 or 3 month supply variant, on the first order and every rebill alike. */
+      supply: meta.plan === "m1" || meta.plan === "m2" || meta.plan === "m3" ? OIL_PLANS[meta.plan].variant : undefined,
       paid: paidDollars,
       discount,
       discountLabel: label,

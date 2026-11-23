@@ -8,7 +8,7 @@ import { Icon } from "@/components/core/Icon";
 import { RATING } from "@/lib/products/dog-itch";
 import { formatPrice } from "@/lib/price";
 import { FZ_BRAND, FZ_PRODUCT_NAME } from "@/lib/quiz/fridayzoomiesOffer";
-import { OIL_PLANS, OIL_RECUR, OIL_SHIPPING, type OilPlan } from "@/lib/quiz/fzPlans";
+import { OIL_PLANS, OIL_SHIPPING, type OilPlan } from "@/lib/quiz/fzPlans";
 import { FIRST, IMG, LINES as BUNDLE_LINES, OIL_LINES, OIL_NAME, PRICE } from "@/lib/quiz/fzOrder";
 import { formatPhone, phoneOk } from "@/lib/quiz/phone";
 import { itchFridayZoomiesQuiz } from "@/lib/quiz/itchFridayZoomies";
@@ -22,7 +22,7 @@ import s from "./fzCheckoutV2.module.css";
    here yet. */
 
 const CHECKOUT = `${IMG}/checkout`;
-const money = (n: number) => `$${n.toFixed(2)}`;
+const money = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 const TRUST = [
   { icon: "icon-guarantee", title: "90-Day Money Back Guarantee", body: "Itching not improved within 90 days? Full refund." },
   { icon: "icon-shipping", title: "Free shipping and returns", body: "Shipping is on us, and so is the return if you are not completely satisfied." },
@@ -431,7 +431,7 @@ function Checkout({ oil, plan }: { oil: boolean; plan?: OilPlan }) {
               <div className={s.grand}><span>Total</span><span>{P ? money(first) : formatPrice(first)}</span></div>
               {plan === "once" ? null : (
                 <div className={s.recurring}>
-                  <span>{P ? `${money(first)} today, then ${money(OIL_RECUR)} every 4 weeks starting in ${P.days} days` : `${formatPrice(first)} first month, then ${formatPrice(PRICE)} every 4 weeks`}</span>
+                  <span>{P ? `${money(first)} today, then ${money(P.recur)} every ${P.weeks} weeks starting in ${P.days} days` : `${formatPrice(first)} first month, then ${formatPrice(PRICE)} every 4 weeks`}</span>
                 </div>
               )}
             </div>

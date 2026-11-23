@@ -5,6 +5,13 @@ import { shopify } from "./admin";
 export const BUNDLE = "gid://shopify/ProductVariant/50538190831686";
 /** Pure Omega Salmon Oil (1 Month Supply), $50 on its own subscription, no gifts. */
 export const OIL = "gid://shopify/ProductVariant/50933557198918";
+/** The 2 and 3 month supply variants on the same product. Their prices in Shopify are list prices; every order line
+    overrides the price with what Stripe charged. */
+export const OIL_VARIANTS = {
+  1: OIL,
+  2: "gid://shopify/ProductVariant/51101694820422",
+  3: "gid://shopify/ProductVariant/51101694853190",
+} as const;
 export const GIFTS = [
   "gid://shopify/ProductVariant/50538941612102", // Itch Spray
   "gid://shopify/ProductVariant/50538801856582", // USA Doggie Bandana
@@ -28,8 +35,10 @@ export type OrderInput = {
   discountLabel: string;
   first: boolean;
   oil?: boolean;
-  /** Bottles on the first line. The 3 month supply is 3. */
+  /** Bottles on the first line. The v3 3 month supply is 3. */
   bottles?: number;
+  /** Which supply variant the line is, for the v4 plans (1, 2 or 3 months, quantity 1). Wins over `bottles`. */
+  supply?: 1 | 2 | 3;
   /** Dollars charged for shipping, 0 when free. */
   shipping?: number;
   test: boolean;
@@ -75,7 +84,7 @@ export async function createOrder(o: OrderInput): Promise<{ id: string; name: st
     shippingAddress: address,
     billingAddress: address,
     lineItems: [
-      ...bottleLines(o.price, o.bottles ?? 1).map((l) => ({ variantId: o.oil ? OIL : BUNDLE, quantity: l.qty, requiresShipping: true, priceSet: money(l.price) })),
+      ...bottleLines(o.price, o.supply ? 1 : o.bottles ?? 1).map((l) => ({ variantId: o.oil ? OIL_VARIANTS[o.supply ?? 1] : BUNDLE, quantity: l.qty, requiresShipping: true, priceSet: money(l.price) })),
       ...(o.first && !o.oil ? GIFTS.map((variantId) => ({ variantId, quantity: 1, requiresShipping: true, priceSet: money(0) })) : []),
     ],
     shippingLines: [{ title: "Standard shipping", code: o.shipping ? "STANDARD" : "FREE", priceSet: money(o.shipping ?? 0) }],

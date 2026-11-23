@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
 import { quotePromo } from "@/lib/stripe/promo";
 import { markCheckoutStarted } from "@/lib/loops";
-import { OIL_PLANS, OIL_RECUR, OIL_RECUR_KEY, OIL_SHIPPING, OIL_SHIPPING_KEY, isOilPlan, isTestCode, testOff } from "@/lib/quiz/fzPlans";
+import { OIL_PLANS, OIL_SHIPPING, OIL_SHIPPING_KEY, isOilPlan, isTestCode, testOff } from "@/lib/quiz/fzPlans";
 
 /* Friday Zoomies checkout. Creates the customer and the Inside-Out Itch Bundle subscription
    (STRIPE_FZ_PRICE_ID, every 4 weeks) with the FIRST50 promotion code attached, left
@@ -70,11 +70,11 @@ export async function POST(req: Request) {
     /* The v3 plans. Prices are looked up in Stripe by key and their amounts checked against fzPlans, so
        the page cannot choose a price and a mistyped one in the dashboard stops the order. The entry
        price is a one time charge on the first invoice, and a trial holds the first rebill back:
-       28 days for the trial, 84 for the 3 month supply. The one time buy is an invoice with no
+       28 days for the trial, 84 for the v3 3 month supply, and the v4 plans wait their own cadence (28, 56 or 84). The one time buy is an invoice with no
        subscription. No discount code applies: the plan prices are already the offer. */
     if (plan) {
       const P = OIL_PLANS[plan];
-      const keys = [P.key, ...(plan === "once" ? [OIL_SHIPPING_KEY] : [OIL_RECUR_KEY])];
+      const keys = [P.key, ...(plan === "once" ? [OIL_SHIPPING_KEY] : [P.recurKey])];
       const found = (await st.prices.list({ lookup_keys: keys, active: true, limit: 10 })).data;
       const get = (key: string, dollars: number) => {
         const p = found.find((x) => x.lookup_key === key);
@@ -108,7 +108,7 @@ export async function POST(req: Request) {
       } else {
         const s = await st.subscriptions.create({
           customer: customer.id,
-          items: [{ price: get(OIL_RECUR_KEY, OIL_RECUR) }],
+          items: [{ price: get(P.recurKey, P.recur) }],
           add_invoice_items: [{ price: get(P.key, P.entry), ...(test ? { discounts: [{ coupon: test }] } : {}) }],
           trial_end: Math.floor(Date.now() / 1000) + P.days * 86400,
           payment_behavior: "default_incomplete",

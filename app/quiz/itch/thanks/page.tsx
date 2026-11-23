@@ -17,7 +17,7 @@ const STEPS = [
 ];
 
 /* ?product=oil comes from the Pure Omega Salmon Oil checkout: just the oil, no gifts. */
-const money = (n: number) => `$${n.toFixed(2)}`;
+const money = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 
 /* ?plan= comes from the v3 checkout: what they bought, at the price they paid, with the cents. The struck price is
    the one time price, the same one the plans page strikes. */
@@ -32,7 +32,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
         {
           name: plan === "once" ? "Pure Omega Salmon Oil (1 Bottle)" : `Pure Omega Salmon Oil (${P.label}, ${P.bottles} ${P.bottles === 1 ? "Bottle" : "Bottles"})`,
           image: `${IMG}/oil-bottle.webp`,
-          ...(plan === "once" ? { now: money(P.entry) } : { price: money(P.bottles * was), now: money(P.entry) }),
+          ...(plan === "once" ? { now: money(P.entry) } : { price: money(P.compare ?? P.bottles * was), now: money(P.entry) }),
         },
         ...(plan === "once" ? [{ name: "Shipping", image: `${IMG}/checkout/icon-shipping.webp`, now: money(OIL_SHIPPING) }] : []),
       ]
