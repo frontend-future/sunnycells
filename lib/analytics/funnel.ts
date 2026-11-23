@@ -51,6 +51,8 @@ const RESULTS: Record<string, string[]> = {
   itch: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
   /* The same Friday Zoomies itch funnel again at /quiz/itch/v2, ending at the salmon oil plans page and its checkout. */
   "itch/v2": ["analyzing", "summary", "projection", "why-it-returns", "omega-3", "easy-daily", "what-to-expect", "more-than-relief", "story", "plans", "checkout"],
+  /* A deep clone of the v2 itch funnel at /quiz/itch/v4: same steps, own plans page and checkout. */
+  "itch/v4": ["analyzing", "summary", "projection", "why-it-returns", "omega-3", "easy-daily", "what-to-expect", "more-than-relief", "story", "plans", "checkout"],
   joint: ["analyzing", "summary", "projection", "comfort", "benefits", "story", "plans", "checkout"],
 };
 
@@ -62,7 +64,7 @@ let ORDER: Record<string, string[]> | null = null;
 async function order(): Promise<Record<string, string[]>> {
   if (ORDER) return ORDER;
   const [
-    { dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }, { brainV2Quiz }, { brainV3Quiz }, { itchQuiz }, { itchV2Quiz }, { itchV3Quiz }, { itchFridayZoomiesQuiz }, { itchFridayZoomiesV2Quiz }, { jointQuiz },
+    { dietQuiz }, { agingQuiz }, { energyQuiz }, { cortisolQuiz }, { calmQuiz }, { brainQuiz }, { brainV2Quiz }, { brainV3Quiz }, { itchQuiz }, { itchV2Quiz }, { itchV3Quiz }, { itchFridayZoomiesQuiz }, { itchFridayZoomiesV2Quiz }, { itchFridayZoomiesV4Quiz }, { jointQuiz },
   ] = await Promise.all([
     import("../quiz/diet.ts"),
     import("../quiz/aging.ts"),
@@ -77,10 +79,11 @@ async function order(): Promise<Record<string, string[]>> {
     import("../quiz/itchV3.ts"),
     import("../quiz/itchFridayZoomies.ts"),
     import("../quiz/itchFridayZoomiesV2.ts"),
+    import("../quiz/itchFridayZoomiesV4.ts"),
     import("../quiz/joint.ts"),
   ]);
   ORDER = {};
-  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz, brainV2Quiz, brainV3Quiz, itchQuiz, itchV2Quiz, itchV3Quiz, itchFridayZoomiesQuiz, itchFridayZoomiesV2Quiz, jointQuiz]) {
+  for (const q of [dietQuiz, agingQuiz, energyQuiz, cortisolQuiz, calmQuiz, brainQuiz, brainV2Quiz, brainV3Quiz, itchQuiz, itchV2Quiz, itchV3Quiz, itchFridayZoomiesQuiz, itchFridayZoomiesV2Quiz, itchFridayZoomiesV4Quiz, jointQuiz]) {
     /* The URL, not the config's own id: brainV3Quiz.id is "brain-v3" for
        sessionStorage namespacing, but it lives at /quiz/brain/v3, and that path is
        what a pageview actually reports. */
@@ -126,6 +129,8 @@ export async function funnelStepFor(pathname: string): Promise<FunnelStep | null
   if (pathname.replace(/\/$/, "") === "/quiz/itch/v2/checkout") pathname = "/quiz/itch/checkout";
   /* The salmon oil checkout is the last step of the v2 itch funnel. */
   if (pathname.replace(/\/$/, "") === "/quiz/itch/v2/checkout/oil") pathname = "/quiz/itch/v2/results/checkout";
+  if (pathname.replace(/\/$/, "") === "/quiz/itch/v4/checkout") pathname = "/quiz/itch/checkout";
+  if (pathname.replace(/\/$/, "") === "/quiz/itch/v4/checkout/oil") pathname = "/quiz/itch/v4/results/checkout";
   const m = /^\/quiz\/([a-z]+(?:-[a-z]+)*(?:\/v\d+)?)(?:\/(.+))?$/.exec(pathname.replace(/\/$/, ""));
   if (!m) return null;
   const [, quiz, rest = ""] = m;

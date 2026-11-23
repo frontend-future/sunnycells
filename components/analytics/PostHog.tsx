@@ -17,6 +17,7 @@ const REPLAY_PATHS = [
   "/quiz/itch/results/plans", "/quiz/itch/checkout", "/quiz/itch/v2/checkout", "/quiz/itch/thanks",
   "/quiz/itch/v2/results/plans", "/quiz/itch/v3/results/plans",
   "/quiz/itch/v2/checkout/oil", "/quiz/itch/v3/checkout",
+  "/quiz/itch/v4/results/plans", "/quiz/itch/v4/checkout", "/quiz/itch/v4/checkout/oil",
 ];
 
 /**

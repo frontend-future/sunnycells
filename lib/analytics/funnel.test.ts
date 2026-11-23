@@ -197,3 +197,12 @@ test("the plc quiz is its own funnel: landing, each step in config order, the re
   assert.deepEqual(await funnelStepFor("/plc-quiz/complete"), { quiz: "plc-quiz", index: plcQuiz.steps.length, slug: "complete", stage: "results" });
   assert.equal(await funnelStepFor("/plc-quiz/nope"), null);
 });
+
+test("the itch funnel at /quiz/itch/v4 is a clone of v2 and ends at its own oil checkout", async () => {
+  const { itchFridayZoomiesV4Quiz } = await import("../quiz/itchFridayZoomiesV4.ts");
+  const n = itchFridayZoomiesV4Quiz.steps.length;
+  const first = await funnelStepFor(`/quiz/itch/v4/${itchFridayZoomiesV4Quiz.steps[0].slug}`);
+  assert.deepEqual(first, { quiz: "itch/v4", index: 1, slug: itchFridayZoomiesV4Quiz.steps[0].slug, stage: "question" });
+  assert.equal((await funnelStepFor("/quiz/itch/v4/results/plans"))?.index, n + 10);
+  assert.equal((await funnelStepFor("/quiz/itch/v4/checkout/oil"))?.index, n + 11);
+});
