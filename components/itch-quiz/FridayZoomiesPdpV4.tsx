@@ -87,7 +87,7 @@ const GIFTS = [
 ];
 
 /** The buy box from the product page on fridayzoomies.com: three supplies, the gifts each one unlocks, one button. */
-function BuyBox({ pick, setPick, start, busy, name }: { pick: SupplyId; setPick: (id: SupplyId) => void; start: () => void; busy: boolean; name: string | null }) {
+function BuyBox({ pick, setPick, start, busy }: { pick: SupplyId; setPick: (id: SupplyId) => void; start: () => void; busy: boolean }) {
   const P = OIL_PLANS[pick];
   const months = P.bottles;
   const unlocked = GIFTS.filter((g) => months >= g.at).length;
@@ -181,7 +181,7 @@ function BuyBox({ pick, setPick, start, busy, name }: { pick: SupplyId; setPick:
       </div>
 
       <button type="button" className={styles.a4Cta} onClick={start} disabled={busy}>
-        <span>{name ? `Start ${name}'s Routine` : "Get Started"}</span>
+        <span>Get Started</span>
         <span aria-hidden="true">|</span>
         <span className={styles.a4CtaPrice}>
           <span>${P.entry}</span>
@@ -365,7 +365,7 @@ export function FridayZoomiesPdpV4({ onStart }: { onStart: (plan: OilPlan) => Pr
             </div>
           ) : null}
 
-          <BuyBox pick={pick} setPick={setPick} start={start} busy={busy} name={ready && name ? titleCase(name) : null} />
+          <BuyBox pick={pick} setPick={setPick} start={start} busy={busy} />
 
           <ul className={styles.trust}>
             {TRUST.map((t) => (
