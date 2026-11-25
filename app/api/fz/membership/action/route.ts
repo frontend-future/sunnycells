@@ -42,8 +42,13 @@ function describe(m: Membership, b: Body): { title: string; lines: Record<string
     case "address": {
       const a = b.address ?? {};
       const line1 = clip(a.line1, 120);
-      if (!line1) return "Enter a street address.";
-      return { title: "change address", lines: { Request: "Change the shipping address", "Ship to name": clip(a.name, 80), Street: line1, Apt: clip(a.line2, 80), City: clip(a.city, 60), "State and ZIP": clip(a.region, 40), "Address on file": m.shipTo.join(", ") || "none" } };
+      const city = clip(a.city, 60);
+      const state = clip(a.state, 2).toUpperCase();
+      const zip = clip(a.zip, 10);
+      if (!line1 || !city) return "Enter a street address and city.";
+      if (!/^[A-Z]{2}$/.test(state)) return "Enter a two letter state, like TX.";
+      if (!/^\d{5}(-\d{4})?$/.test(zip)) return "Enter a five digit ZIP code.";
+      return { title: "change address", lines: { Request: "Change the shipping address", "Ship to name": clip(a.name, 80), Street: line1, Apt: clip(a.line2, 80), City: city, State: state, ZIP: zip, "Address on file": m.shipTo.join(", ") || "none" } };
     }
     case "cancel": {
       const reason = clip(b.reason, 80);

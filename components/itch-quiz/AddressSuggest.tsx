@@ -50,7 +50,11 @@ const part = (c: Component[], type: string, short = false) => {
   return hit ? (short ? hit.shortText : hit.longText) : "";
 };
 
-export function AddressSuggest({ prefix, className, id, placeholder = "Address *" }: { prefix: string; className: string; id?: string; placeholder?: string }) {
+type Skin = { input: string; wrap: string; list: string; on: string; by: string };
+
+/* `skin` lets another page draw the input and the list in its own style; the checkout passes nothing. */
+export function AddressSuggest({ prefix, className, id, placeholder = "Address *", skin }: { prefix: string; className: string; id?: string; placeholder?: string; skin?: Partial<Skin> }) {
+  const k: Skin = { input: s.input, wrap: s.suggestWrap, list: s.suggest, on: s.suggestOn, by: s.suggestBy, ...skin };
   const wrap = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
   const token = useRef<unknown>(null);
@@ -116,11 +120,11 @@ export function AddressSuggest({ prefix, className, id, placeholder = "Address *
   };
 
   return (
-    <div ref={wrap} className={`${className} ${s.suggestWrap}`}>
+    <div ref={wrap} className={`${className} ${k.wrap}`}>
       <input
         ref={input}
         id={id}
-        className={s.input}
+        className={k.input}
         name={`${prefix}address`}
         placeholder={placeholder}
         aria-label="Address"
@@ -135,20 +139,20 @@ export function AddressSuggest({ prefix, className, id, placeholder = "Address *
         onBlur={() => setTimeout(close, 150)}
       />
       {items.length > 0 ? (
-        <ul id={`${prefix}suggest`} role="listbox" className={`${s.suggest} ph-no-capture`}>
+        <ul id={`${prefix}suggest`} role="listbox" className={`${k.list} ph-no-capture`}>
           {items.map((p, i) => (
             <li
               key={p.text.text}
               role="option"
               aria-selected={i === active}
-              className={i === active ? s.suggestOn : undefined}
+              className={i === active ? k.on : undefined}
               onMouseDown={(e) => { e.preventDefault(); pick(p); }}
             >
               <strong>{p.mainText?.text ?? p.text.text}</strong>
               {p.secondaryText ? <span>{p.secondaryText.text}</span> : null}
             </li>
           ))}
-          <li className={s.suggestBy} aria-hidden="true">Powered by Google</li>
+          <li className={k.by} aria-hidden="true">Powered by Google</li>
         </ul>
       ) : null}
     </div>

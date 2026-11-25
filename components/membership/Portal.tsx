@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import type { Membership } from "@/lib/membership";
 import { STAGES, dayOf, dollars, stageIndex } from "@/lib/portal";
+import { AddressSuggest } from "@/components/itch-quiz/AddressSuggest";
 import "./portal.css";
 
 /* The subscription portal. Layout follows the Javvy portal: gift strip, one hero, a quiet way into a
@@ -209,18 +210,27 @@ export default function Portal({ token, m, nowSec, firstName, dog }: { token: st
     </>
   );
 
-  const [addr, setAddr] = useState({ name: m.shipTo[0] ?? "", line1: "", line2: "", city: "", region: "" });
+  /* uncontrolled on purpose: the Google suggestion fills the fields by name, so read them from the form on submit */
+  const submitAddress = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const get = (n: string) => String(f.get(n) ?? "").trim();
+    send({ action: "address", address: { name: get("name"), line1: get("address"), line2: get("address2"), city: get("city"), state: get("state"), zip: get("zip") } }, "change your shipping address");
+  };
   const account = (
     <>{head("Account", "Address and payment")}{requests}
       <section className="card">
         <h2 className="h-card">Shipping address</h2>
         {m.shipTo.length > 0 && <p className="muted" style={{ marginTop: 8 }}>On file: {m.shipTo.join(", ")}</p>}
-        <form className="form" onSubmit={(e) => { e.preventDefault(); send({ action: "address", address: addr }, "change your shipping address"); }}>
-          <div className="field full"><label htmlFor="a-name">Full name</label><input id="a-name" value={addr.name} onChange={(e) => setAddr({ ...addr, name: e.target.value })} autoComplete="name" /></div>
-          <div className="field full"><label htmlFor="a-1">Street address</label><input id="a-1" required value={addr.line1} onChange={(e) => setAddr({ ...addr, line1: e.target.value })} autoComplete="address-line1" /></div>
-          <div className="field full"><label htmlFor="a-2">Apartment, suite (optional)</label><input id="a-2" value={addr.line2} onChange={(e) => setAddr({ ...addr, line2: e.target.value })} autoComplete="address-line2" /></div>
-          <div className="field"><label htmlFor="a-3">City</label><input id="a-3" value={addr.city} onChange={(e) => setAddr({ ...addr, city: e.target.value })} autoComplete="address-level2" /></div>
-          <div className="field"><label htmlFor="a-4">State and ZIP</label><input id="a-4" value={addr.region} onChange={(e) => setAddr({ ...addr, region: e.target.value })} autoComplete="postal-code" /></div>
+        <form className="form" onSubmit={submitAddress}>
+          <div className="field full"><label htmlFor="a-name">Full name</label><input id="a-name" name="name" defaultValue={m.shipTo[0] ?? ""} autoComplete="name" /></div>
+          <div className="field full"><label htmlFor="a-1">Street address</label>
+            <AddressSuggest prefix="" id="a-1" className="sg" placeholder="Start typing your address" skin={{ input: "sg-input", wrap: "sg-wrap", list: "sg-list", on: "sg-on", by: "sg-by" }} />
+          </div>
+          <div className="field full"><label htmlFor="a-2">Apartment, suite (optional)</label><input id="a-2" name="address2" autoComplete="address-line2" /></div>
+          <div className="field full"><label htmlFor="a-3">City</label><input id="a-3" name="city" required autoComplete="address-level2" /></div>
+          <div className="field"><label htmlFor="a-4">State</label><input id="a-4" name="state" required maxLength={2} placeholder="TX" autoCapitalize="characters" autoComplete="address-level1" style={{ textTransform: "uppercase" }} /></div>
+          <div className="field"><label htmlFor="a-5">ZIP code</label><input id="a-5" name="zip" required inputMode="numeric" maxLength={10} placeholder="78704" autoComplete="postal-code" /></div>
           <div className="full"><button className="btn" type="submit" disabled={busy}>{busy ? "One moment" : "Request address change"}</button>{error && <p className="err" role="alert">{error}</p>}</div>
         </form>
       </section>
