@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { Resend } from "resend";
 import { stripe } from "@/lib/stripe/server";
 import { sendAlert } from "@/lib/alert";
+import { weeksOf } from "@/lib/portal";
 
 /* The /membership page. Everything here READS Stripe except the three actions in applyAction,
    and those only run when FZ_MEMBERSHIP_WRITES=on. With it off, a customer's choice is emailed to
@@ -48,6 +49,15 @@ export type Membership = {
   cancelling: boolean;
   hasDiscount: boolean;
   endedAt: number | null; // unix seconds, set when the membership is cancelled
+  /* What the portal shows. All read from Stripe, none of it assumes a particular product. */
+  product: { name: string; image: string | null };
+  quantity: number;
+  unitCents: number; // one unit, before any discount
+  weeks: number; // ships every N weeks
+  since: number; // unix seconds, first order
+  card: { brand: string; last4: string; exp: string } | null;
+  shipTo: string[]; // address lines, empty when none on file
+  orders: { at: number; cents: number }[]; // paid invoices, newest first
 };
 
 async function dogNameFor(email: string): Promise<string | null> {
@@ -81,6 +91,33 @@ export function pickSubscription(subs: Stripe.Subscription[]): Stripe.Subscripti
   return fz.find((s) => LIVE.includes(s.status)) ?? fz.sort((a, b) => ended(b) - ended(a))[0];
 }
 
+/* The product name and photo come from Stripe, so a salmon oil customer sees salmon oil. Never throws. */
+async function productOf(st: Stripe, ref: string | Stripe.Product | Stripe.DeletedProduct | undefined): Promise<Membership["product"]> {
+  try {
+    const p = typeof ref === "string" ? await st.products.retrieve(ref) : ref;
+    if (p && !("deleted" in p && p.deleted)) return { name: p.name, image: p.images?.[0] ?? null };
+  } catch {}
+  return { name: "Your order", image: null };
+}
+
+async function cardOf(st: Stripe, sub: Stripe.Subscription, cust: Stripe.Customer | undefined): Promise<Membership["card"]> {
+  try {
+    const ref = sub.default_payment_method ?? cust?.invoice_settings?.default_payment_method;
+    if (!ref) return null;
+    const pm = typeof ref === "string" ? await st.paymentMethods.retrieve(ref) : ref;
+    const c = pm.card;
+    return c ? { brand: c.brand, last4: c.last4, exp: `${String(c.exp_month).padStart(2, "0")}/${String(c.exp_year).slice(-2)}` } : null;
+  } catch {
+    return null;
+  }
+}
+
+function addressLines(cust: Stripe.Customer | undefined): string[] {
+  const a = cust?.shipping?.address ?? cust?.address;
+  if (!a) return [];
+  return [cust?.shipping?.name, a.line1, a.line2, [a.city, a.state, a.postal_code].filter(Boolean).join(", ")].filter((x): x is string => !!x);
+}
+
 /* READ ONLY. Finds the customer's Friday Zoomies subscription by email. Other funnels'
    subscriptions on the same Stripe account are ignored. */
 export async function findMembership(emailIn: string): Promise<Membership | null> {
@@ -100,6 +137,9 @@ export async function findMembership(emailIn: string): Promise<Membership | null
     const cust = owner.get(sub.id);
     const paid = await st.invoices.list({ subscription: sub.id, status: "paid", limit: 100 });
     const live = LIVE.includes(sub.status);
+    const item = sub.items.data[0];
+    const product = await productOf(st, item?.price?.product);
+    const card = await cardOf(st, sub, cust);
     return {
       id: sub.id,
       email: e.toLowerCase(),
@@ -111,6 +151,14 @@ export async function findMembership(emailIn: string): Promise<Membership | null
       cancelling: sub.cancel_at_period_end,
       hasDiscount: sub.discounts.length > 0,
       endedAt: live ? null : sub.ended_at ?? sub.canceled_at ?? sub.created,
+      product,
+      quantity: item?.quantity ?? 1,
+      unitCents: item?.price?.unit_amount ?? 0,
+      weeks: weeksOf(item?.price?.recurring?.interval, item?.price?.recurring?.interval_count),
+      since: sub.start_date ?? sub.created,
+      card,
+      shipTo: addressLines(cust),
+      orders: paid.data.map((i) => ({ at: i.status_transitions?.paid_at ?? i.created, cents: i.amount_paid })),
     };
   }
   return null;
