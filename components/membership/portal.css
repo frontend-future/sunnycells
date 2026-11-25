@@ -95,10 +95,6 @@
 .fzp .facts > div { padding: 0 10px; }
 .fzp .facts b { font-size: 19px; }
 }
-/* gift strip */
-.fzp .gift { display: flex; align-items: center; gap: 20px; padding: 16px 24px 16px 16px; border-radius: 20px; background: var(--sun); }
-.fzp .gift img { width: 64px; height: 64px; object-fit: contain; flex: none; }
-.fzp .gift h3 { font-size: 22px; }
 /* subscriber perks: one card, three columns */
 .fzp .perks3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .fzp .perk { border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 12px; }

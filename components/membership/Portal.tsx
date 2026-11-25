@@ -6,7 +6,7 @@ import { STAGES, dayOf, dollars, stageIndex } from "@/lib/portal";
 import { AddressSuggest } from "@/components/itch-quiz/AddressSuggest";
 import "./portal.css";
 
-/* The subscription portal. Layout follows the Javvy portal: gift strip, one hero, a quiet way into a
+/* The subscription portal. Layout follows the Javvy portal: one hero, a quiet way into a
    drawer, then a modal of actions. Every action is a REQUEST: it emails the team what the customer
    wants and nothing changes in Stripe. Nothing here names a product, a dog or a customer unless the
    data has one. */
@@ -15,10 +15,8 @@ const JAR = "/quiz/fridayzoomies/jar.webp";
 const PHOTO_HIGHFIVE = "/quiz/fridayzoomies/membership/vet-kept.jpg";
 const PHOTO_VET = "/quiz/fridayzoomies/membership/vet-home.jpg";
 const PHOTO_HAPPY = "/quiz/fridayzoomies/thanks/day-30.webp";
-const GIFT = "/quiz/fridayzoomies/gift-mystery.webp";
 const SUPPORT = "https://fridayzoomies.com/pages/support";
 const CARD_PORTAL = "https://billing.stripe.com/p/login/cNi14nfrC9k11jCcER0sU00";
-const GIFT_ON = true; // the free mystery gift callout, switch off if it stops being true
 const DAY = 86_400;
 
 type View = "dashboard" | "upcoming" | "previous" | "manage" | "account";
@@ -122,10 +120,6 @@ export default function Portal({ token, m, nowSec, firstName, dog }: { token: st
     <div className="asked">{asked.map((a, i) => <div className="notice ok" key={i}>{I.tick}<p>We got your request to {a}. We&apos;ll confirm by email.</p></div>)}</div>
   );
 
-  const gift = GIFT_ON && !ended && next && (
-    <section className="gift"><img src={GIFT} alt="" /><div><h3>Free mystery gift</h3><p>Comes with your <b>{fmt(next, { month: "short", day: "numeric" })}</b> order</p></div></section>
-  );
-
   const head = (eyebrow: string, title: string) => <div className="head"><span className="eyebrow">{eyebrow}</span><h1 className="h-page">{title}</h1></div>;
 
   const endedCard = (
@@ -186,9 +180,9 @@ export default function Portal({ token, m, nowSec, firstName, dog }: { token: st
     </section>
   );
 
-  const dashboard = <>{gift}{head(firstName ? `Welcome back, ${firstName}` : "Welcome back", dog ? `${dog}'s subscription` : "Your subscription")}{requests}{hero}{!ended && perks}{since}{faq}</>;
+  const dashboard = <>{head(firstName ? `Welcome back, ${firstName}` : "Welcome back", dog ? `${dog}'s subscription` : "Your subscription")}{requests}{hero}{!ended && perks}{since}{faq}</>;
 
-  const upcoming = <>{gift}{head("Your next order", "Upcoming order")}{requests}{hero}{!ended && <div><button className="btn ghost" onClick={() => setDrawer(true)}>Manage this subscription</button></div>}</>;
+  const upcoming = <>{head("Your next order", "Upcoming order")}{requests}{hero}{!ended && <div><button className="btn ghost" onClick={() => setDrawer(true)}>Manage this subscription</button></div>}</>;
 
   const previous = (
     <>{head("History", "Previous orders")}
